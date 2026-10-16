@@ -36,10 +36,6 @@ import {
   Layers,
   Phone,
   Building2,
-  AlertCircle,
-  Search,
-  Eye,
-  CheckSquare,
 } from "lucide-react";
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
@@ -119,7 +115,7 @@ export const Route = createFileRoute("/pv-associate")({
       ],
     };
   },
-  component: PVAssociateBrandedPage,
+  component: PVAssociateMinimalPage,
 });
 
 // ── Degree Options for Quick Callback ─────────────────────────────────────────
@@ -193,13 +189,12 @@ const FAQS = [
   },
 ];
 
-// ── Real B.Pharm / Pharm.D Student Reviews ────────────────────────────────────
+// ── Student Reviews ──────────────────────────────────────────────────────────
 const STUDENT_REVIEWS = [
   {
     name: "Anya Tiwari",
     role: "B.Pharm · JSS College of Pharmacy, Ooty",
     avatar: "/images/testimonials/anya-tiwari.png",
-    initials: "AT",
     rating: 5,
     quote:
       "Comparing Pharmacovigilance against retail pharmacy made my direction crystal clear. The ICSR case exercises and MedDRA coding gave me the exact vocabulary needed for MNC technical rounds.",
@@ -208,7 +203,6 @@ const STUDENT_REVIEWS = [
     name: "Arun Jain",
     role: "B.Pharm · Dayanand Sagar College of Pharmacy",
     avatar: "/images/testimonials/arun-jain.png",
-    initials: "AJ",
     rating: 5,
     quote:
       "The practical exposure to ADR reporting, Day-0 clock rules, and MedDRA hierarchy coding gave me immense confidence to tackle scenario-based questions at Tier-1 CROs.",
@@ -217,7 +211,6 @@ const STUDENT_REVIEWS = [
     name: "Sneha Rao",
     role: "B.Pharm · Osmania University, Hyderabad",
     avatar: "/images/testimonials/sneha-rao.jpg",
-    initials: "SR",
     rating: 5,
     quote:
       "Learning directly how information moves through a drug safety workflow—from case triage to narrative drafting—was completely different from textbook memorization.",
@@ -226,218 +219,204 @@ const STUDENT_REVIEWS = [
     name: "Pooja Patel",
     role: "Pharm.D · JSS College of Pharmacy, Ooty",
     avatar: "/images/testimonials/pooja-patel.jpg",
-    initials: "PP",
     rating: 5,
     quote:
       "Having verified case deliverables in my portfolio proved to recruiters that I understand case validity, seriousness criteria, and expedited reporting timelines.",
   },
 ];
 
-// ── Interactive 6-Stage Case Simulation Data ─────────────────────────────────
-const CASE_SIMULATOR_STAGES = [
+// ── Interactive Case Simulator Stages ────────────────────────────────────────
+const SIMULATOR_STAGES = [
   {
-    step: "01",
-    tabLabel: "01. Case Intake",
-    title: "Case Intake and Initial Review",
-    subtitle: "Capture, timestamp, and assign Day 0 clock to incoming safety data",
-    desc: "Safety information arrives from healthcare professionals, patients, clinical studies, literature or regulatory authorities. The primary task is recording receipt date (Day 0) and logging initial case source details.",
-    tag: "ICH E2D Standard",
-    badge: "Day 0 Timestamp Active",
-    mockFile: {
-      caseId: "ARZ-PV-2026-042",
-      source: "Spontaneous Report (Physician / Cardiology Dept)",
-      patient: "Female, 54 Yrs (Initials: M.K.)",
-      suspectDrug: "CardioVas® (Lisinopril 20mg Tablet)",
-      reportedEvent: "Sudden onset severe facial swelling and respiratory tightness after 3rd dose",
-      receivedDate: "Day 0 · 09:15 AM IST",
-    },
-    keyTakeaway: "Accurately establish the Day 0 date clock; every subsequent reporting timeline depends on this moment.",
-  },
-  {
-    step: "02",
-    tabLabel: "02. Validity & Triage",
-    title: "Case Validity and Triage Assessment",
-    subtitle: "Screen against the 4 Minimum Criteria and evaluate seriousness criteria",
-    desc: "Review the minimum criteria for a valid case and evaluate whether the adverse reaction meets regulatory seriousness criteria (death, life-threatening, hospitalization, disability, or congenital anomaly).",
-    tag: "ICH E2A Criteria",
-    badge: "4/4 Criteria Validated · Serious",
-    mockCriteria: [
-      { label: "1. Identifiable Patient", val: "Female, 54 Yrs (Initials M.K., DOB: 1972)", valid: true },
-      { label: "2. Identifiable Reporter", val: "Dr. S. Nair, MD (Cardiologist, City Care Hospital)", valid: true },
-      { label: "3. Suspect Medicinal Product", val: "CardioVas® (Lisinopril 20mg OD, Batch #CV992)", valid: true },
-      { label: "4. Suspected Adverse Reaction", val: "Angioedema with acute laryngeal edema", valid: true },
+    id: "01",
+    label: "01 Intake",
+    name: "Case Intake & Day 0",
+    summary: "Timestamping receipt and initiating regulatory reporting clock",
+    protocol: "ICH E2D",
+    statusBadge: "Day 0 Active",
+    desc: "Safety information arrives from physicians, clinical trials, or patient reports. The primary operational task is establishing the legally binding Day 0 receipt date.",
+    data: [
+      { label: "Case Tracking ID", value: "ARZ-PV-2026-042" },
+      { label: "Report Source", value: "Spontaneous (Cardiology Dept, Hospital)" },
+      { label: "Patient Profile", value: "Female, 54 Yrs (Initials: M.K.)" },
+      { label: "Suspect Drug", value: "CardioVas® (Lisinopril 20mg)" },
+      { label: "Reported Event", value: "Acute facial angioedema with throat tightness" },
     ],
-    seriousness: "SERIOUS: Required Hospitalization & Emergency Intervention (IV Epinephrine)",
-    keyTakeaway: "If all 4 criteria are present, the report is legally valid and triage proceeds immediately into coding and narrative drafting.",
+    takeaway: "Day 0 precision governs all subsequent international health authority deadlines.",
   },
   {
-    step: "03",
-    tabLabel: "03. MedDRA Coding",
-    title: "Medical Coding with MedDRA 27.0",
-    subtitle: "Map verbatim clinical descriptions into standardized regulatory terminology",
-    desc: "Convert verbatim reported terms into the 5-level MedDRA hierarchy. Ensure highest level of specificity without introducing unsupported clinical assumptions.",
-    tag: "MedDRA 27.0 MSSO",
-    badge: "Hierarchical Alignment Verified",
-    codingTree: [
-      { level: "Reported Verbatim", term: "Severe facial and lip swelling with throat tightness", code: "—" },
-      { level: "Lowest Level Term (LLT)", term: "Swelling of lips and face", code: "10024561" },
-      { level: "Preferred Term (PT)", term: "Angioedema", code: "10002424" },
-      { level: "High Level Term (HLT)", term: "Allergic conditions NEC", code: "10001718" },
-      { level: "High Level Group Term (HLGT)", term: "Allergic conditions", code: "10001717" },
-      { level: "System Organ Class (SOC)", term: "Immune system disorders", code: "10021428" },
+    id: "02",
+    label: "02 Triage",
+    name: "Case Validity & Triage",
+    summary: "Validating the 4 minimum criteria and assessing seriousness",
+    protocol: "ICH E2A",
+    statusBadge: "4/4 Validated · Serious",
+    desc: "Every report must meet 4 criteria to be deemed an Individual Case Safety Report (ICSR). Seriousness criteria determine whether expedited reporting applies.",
+    data: [
+      { label: "1. Identifiable Patient", value: "Female, 54 Yrs (DOB: 1972) — VALID" },
+      { label: "2. Identifiable Reporter", value: "Dr. S. Nair, MD (Cardiologist) — VALID" },
+      { label: "3. Suspect Medicinal Product", value: "CardioVas® (Lisinopril 20mg) — VALID" },
+      { label: "4. Suspected Adverse Reaction", value: "Angioedema & laryngeal edema — VALID" },
     ],
-    keyTakeaway: "Accurate PT mapping ensures signals are detectable across global regulatory safety databases (EudraVigilance / FAERS).",
+    takeaway: "Confirmed serious due to emergency hospitalization; routed to expedited timeline.",
   },
   {
-    step: "04",
-    tabLabel: "04. Narrative Drafting",
-    title: "Clinical Case Narrative Preparation",
-    subtitle: "Organize medical history, chronological event course, and outcome into CIOMS format",
-    desc: "Draft a clear, structured clinical narrative that tells the complete medical story without losing critical clinical chronology, laboratory values, or dechallenge details.",
-    tag: "CIOMS I Format",
-    badge: "Chronological Sequence Approved",
-    narrativePreview:
-      "A 54-year-old female patient (M.K.) with essential hypertension was initiated on Lisinopril 20mg orally once daily on 12-Oct-2026. Approximately 4 hours following the third dose on 14-Oct-2026, the patient developed acute facial swelling, lip edema, and laryngeal tightness. The patient presented to the emergency department, where acute angioedema was diagnosed. Lisinopril was permanently discontinued (positive dechallenge). The patient was treated with intravenous epinephrine and corticosteroids. Symptoms resolved within 18 hours. The reporting cardiologist assessed the event as probable causality related to Lisinopril.",
-    keyTakeaway: "A well-crafted narrative enables medical reviewers to assess causality in seconds without re-reading raw source hospital records.",
-  },
-  {
-    step: "05",
-    tabLabel: "05. Quality Review",
-    title: "Quality Review & Consistency Check",
-    subtitle: "Perform SOP checks, cross-field validation, and duplicate detection",
-    desc: "Check case data for completeness, internal consistency, accuracy of coding, and absence of conflicting dates before final medical review and gateway submission.",
-    tag: "GVP Module VI QA",
-    badge: "Quality Pass Score: 100%",
-    qaChecks: [
-      { check: "Patient demographics consistent across all forms", status: "PASS" },
-      { check: "Chronology check: Adverse event date occurred after drug initiation", status: "PASS" },
-      { check: "MedDRA PT 'Angioedema' matches reported clinical findings", status: "PASS" },
-      { check: "Dechallenge positive documented; no rechallenge attempted", status: "PASS" },
-      { check: "Expedited regulatory clock calculation confirmed", status: "PASS" },
+    id: "03",
+    label: "03 MedDRA",
+    name: "Medical Coding (MedDRA 27.0)",
+    summary: "Translating clinical verbatims into standardized hierarchy",
+    protocol: "MSSO PtC",
+    statusBadge: "Hierarchy Aligned",
+    desc: "Clinical terminology is classified through the 5-tier MedDRA hierarchy to ensure international database signal detection across FDA FAERS and EMA EudraVigilance.",
+    data: [
+      { label: "Verbatim Text", value: "Severe facial and lip swelling with throat tightness" },
+      { label: "Lowest Level Term (LLT)", value: "Swelling of lips and face [10024561]" },
+      { label: "Preferred Term (PT)", value: "Angioedema [10002424]" },
+      { label: "System Organ Class (SOC)", value: "Immune system disorders [10021428]" },
     ],
-    keyTakeaway: "Rigorous quality review prevents regulatory audit findings and costly submission rejections from authorities.",
+    takeaway: "Precise PT selection prevents signal distortion in global safety aggregations.",
   },
   {
-    step: "06",
-    tabLabel: "06. Regulatory Reporting",
-    title: "Regulatory Reporting & Transmission",
-    subtitle: "Determine reporting timelines and prepare electronic transmission gateway files",
-    desc: "Understand how applicable reporting timelines (15-day expedited vs periodic safety update reports), country-specific health authority rules, and ICH E2B(R3) standards guide electronic submission.",
-    tag: "FDA / EMA Gateway",
-    badge: "15-Day Expedited Clock Active",
-    clockSchedule: {
-      caseClassification: "Serious & Unexpected Adverse Drug Reaction (SUSAR / Serious ADR)",
-      regulatoryClock: "15 Calendar Days from Day 0",
-      day0Date: "14-Oct-2026",
-      submissionDeadline: "29-Oct-2026 (Day 15)",
-      status: "E2B(R3) XML File Generated & Validated for Electronic Gateway Transmission",
-    },
-    keyTakeaway: "Timely submission safeguards public health and maintains market compliance for global pharmaceutical sponsors.",
+    id: "04",
+    label: "04 Narrative",
+    name: "Narrative Preparation (CIOMS I)",
+    summary: "Structuring clinical chronology, dechallenge, and causality",
+    protocol: "CIOMS I",
+    statusBadge: "Chronology Verified",
+    desc: "Drafting an audit-ready medical narrative that preserves the chronological clinical course, lab findings, dechallenge outcomes, and reporter assessment.",
+    narrativeText:
+      "A 54-year-old female patient (M.K.) with essential hypertension was initiated on Lisinopril 20mg once daily on 12-Oct-2026. Approximately 4 hours following the third dose on 14-Oct-2026, the patient developed acute facial swelling, lip edema, and laryngeal tightness requiring emergency hospitalization. Lisinopril was permanently discontinued (positive dechallenge). Intravenous epinephrine was administered with symptom resolution within 18 hours. Causality assessed as probable.",
+    takeaway: "Allows medical reviewers to evaluate causality without parsing raw medical charts.",
+  },
+  {
+    id: "05",
+    label: "05 Quality Review",
+    name: "Quality Review & SOP Audit",
+    summary: "Zero-defect check across dates, coding specificity, and attachments",
+    protocol: "GVP Module VI",
+    statusBadge: "Pass: 100%",
+    desc: "Performing rigorous cross-field validation, duplicate searches, causality consistency checks, and source document reconciliation prior to transmission.",
+    data: [
+      { label: "Demographic Consistency", value: "Confirmed across hospital discharge records" },
+      { label: "Temporal Plausibility", value: "Reaction occurred after drug administration" },
+      { label: "Dechallenge Verification", value: "Positive dechallenge explicitly documented" },
+      { label: "Duplicate Search", value: "No match in global safety repository" },
+    ],
+    takeaway: "Prevents critical audit findings and regulatory submission rejections.",
+  },
+  {
+    id: "06",
+    label: "06 Regulatory",
+    name: "Regulatory Gateway Submission",
+    summary: "Calculating reporting clocks and generating E2B(R3) transmissions",
+    protocol: "FDA / EMA E2B",
+    statusBadge: "15-Day Expedited Clock",
+    desc: "Submitting electronic E2B XML payloads to health authorities within mandatory legal clocks (15 calendar days for serious unlisted ADRs).",
+    data: [
+      { label: "Case Classification", value: "Serious & Unexpected Adverse Reaction" },
+      { label: "Clock Timeline", value: "15 Calendar Days from Day 0" },
+      { label: "Submission Deadline", value: "29-Oct-2026, 23:59 GMT" },
+      { label: "Transmission Format", value: "ICH E2B(R3) XML Gateway Package" },
+    ],
+    takeaway: "Safeguards patient safety while upholding pharma sponsor regulatory licenses.",
   },
 ];
 
-// ── Interactive Proof-of-Work Deliverables Data ──────────────────────────────
-const PROOF_OF_WORK_ARTIFACTS = [
+// ── Interactive Artifact Gallery Data ────────────────────────────────────────
+const ARTIFACT_GALLERY = [
   {
-    id: "artifact-01",
-    tabTitle: "ICSR Triage Dossier",
-    badge: "ICH E2A / E2D",
+    id: "01",
+    name: "ICSR Triage Dossier",
+    standard: "ICH E2A / E2D",
     workSampleNum: "WORK SAMPLE 01",
     title: "ICSR Triage and Validity Review Dossier",
     desc: "Practise reviewing incoming adverse event reports against the 4 minimum criteria, documenting missing fields, and recording Day-0 timelines for corporate safety compliance.",
-    rubricPoints: [
-      "Validation of Patient, Reporter, Suspect Drug, and Adverse Event",
-      "Identification of missing critical data for follow-up queries",
-      "Seriousness criteria classification checklist",
+    records: [
+      { key: "Case Tracking ID", val: "ARZ-ICSR-2026-089" },
+      { key: "Reporter Credential", val: "Clinical Pharmacist, Oncology Center" },
+      { key: "Suspect Drug", val: "Immunox® (Monoclonal Antibody)" },
+      { key: "Reported Event", val: "Grade 3 Infusion-Related Reaction" },
+      { key: "Triage Verdict", val: "VALID ICSR · SERIOUS (Hospitalized)" },
     ],
-    mockDoc: {
-      type: "CLINICAL SAFETY TRIAGE RECORD",
-      caseNum: "ARZ-ICSR-2026-089",
-      reporter: "Clinical Pharmacist, Oncology Day Care",
-      drug: "Immunox® (Targeted Monoclonal Antibody)",
-      event: "Grade 3 Infusion-Related Reaction (Hypotension, Urticaria)",
-      validityVerdict: "VALID ICSR · SERIOUS (Medically Significant)",
-      actionRequired: "Priority 1 Triage; Dispatch Day-0 Notification to Global Safety Lead",
-    },
+    rubrics: [
+      "4 Minimum Criteria verification",
+      "Seriousness criteria assignment",
+      "Follow-up query generation",
+    ],
   },
   {
-    id: "artifact-02",
-    tabTitle: "MedDRA Coding Record",
-    badge: "MedDRA 27.0",
+    id: "02",
+    name: "MedDRA Coding Record",
+    standard: "MedDRA 27.0",
     workSampleNum: "WORK SAMPLE 02",
     title: "MedDRA Multi-Axial Hierarchy Assignment Record",
     desc: "Work through real-world case scenarios to map complex clinical narratives into standardized MedDRA terms following international Point to Consider (PtC) coding rules.",
-    rubricPoints: [
-      "Selection of most specific Lowest Level Term (LLT)",
-      "Understanding primary vs secondary System Organ Class (SOC) mapping",
-      "Avoiding split-coding errors and diagnostic assumptions",
+    records: [
+      { key: "Reported Verbatim", val: "Elevated liver enzymes and jaundice 2 weeks post therapy" },
+      { key: "Coded Term 01", val: "LLT: ALT increased ➔ PT: Alanine aminotransferase increased [10001551]" },
+      { key: "Coded Term 02", val: "LLT: Jaundice ➔ PT: Jaundice [10023126]" },
+      { key: "Primary SOC", val: "Hepatobiliary disorders & Investigations" },
+      { key: "Coding Sign-off", val: "Verified against MedDRA PtC v27.0" },
     ],
-    mockDoc: {
-      type: "MEDDRA CODING SPECIFICATION RECORD",
-      sourceVerbatim: "Elevated serum alanine aminotransferase and jaundice 2 weeks post treatment",
-      term1: "LLT: ALT increased [10001551] ➔ PT: Alanine aminotransferase increased [10001551] ➔ SOC: Investigations",
-      term2: "LLT: Jaundice [10023126] ➔ PT: Jaundice [10023126] ➔ SOC: Hepatobiliary disorders",
-      codingRuleApplied: "Separate coding of distinct clinical symptoms and laboratory investigations per MedDRA PtC Section 2.3",
-      coderSignoff: "Verified & Quality Audited",
-    },
+    rubrics: [
+      "Lowest Level Term specificity",
+      "Primary vs secondary SOC mapping",
+      "Avoiding diagnostic over-interpretation",
+    ],
   },
   {
-    id: "artifact-03",
-    tabTitle: "CIOMS I Narrative",
-    badge: "CIOMS I Standard",
+    id: "03",
+    name: "CIOMS I Narrative",
+    standard: "CIOMS I Standard",
     workSampleNum: "WORK SAMPLE 03",
     title: "CIOMS I Structured Clinical Case Narrative",
     desc: "Prepare structured, audit-ready clinical narratives from complex case scenario notes, organizing medical history, timeline of therapy, adverse event progression, and outcome.",
-    rubricPoints: [
-      "Standard chronological presentation format",
-      "Dechallenge and rechallenge documentation accuracy",
-      "Clear differentiation between facts and medical opinions",
+    records: [
+      { key: "Patient Context", val: "62-year-old male, Type 2 Diabetes, Hypertension" },
+      { key: "Concurrent Meds", val: "Metformin 1000mg BID, Atorvastatin 20mg OD" },
+      { key: "Clinical Incident", val: "Generalized pruritic maculopapular rash on Day 14 of therapy" },
+      { key: "Dechallenge", val: "Positive dechallenge; resolved 48h after drug withdrawal" },
+      { key: "Narrative Audit", val: "Score: 98/100 · Approved for Medical Review" },
     ],
-    mockDoc: {
-      type: "STRUCTURED CLINICAL NARRATIVE",
-      patientProfile: "62-year-old male, history of Type 2 Diabetes and Hypertension",
-      therapyHistory: "Metformin 1000mg BID (3 years), Atorvastatin 20mg OD (1 year)",
-      incidentSummary:
-        "On Day 14 of new antibiotic therapy, patient developed generalized pruritic maculopapular rash. Therapy discontinued; antihistamines administered with complete resolution within 48 hours.",
-      dechallengeVerdict: "Positive Dechallenge documented; drug withdrawal resulted in resolution of reaction.",
-      auditGrade: "Auditor Score: 98/100 · Ready for Medical Review",
-    },
+    rubrics: [
+      "Strict chronological organization",
+      "Dechallenge / rechallenge documentation",
+      "Objective medical fact preservation",
+    ],
   },
   {
-    id: "artifact-04",
-    tabTitle: "Expedited Clock Matrix",
-    badge: "GVP Module VI",
+    id: "04",
+    name: "Expedited Clock Matrix",
+    standard: "GVP Module VI",
     workSampleNum: "WORK SAMPLE 04",
     title: "Expedited Reporting Decision Matrix",
     desc: "Analyze safety reports to determine regulatory submission obligations, applying 7-day fatal/life-threatening vs 15-day serious clock logic across FDA, EMA, and CDSCO rules.",
-    rubricPoints: [
-      "Calculation of Day 0 across spontaneous vs clinical trial sources",
-      "Determination of expectedness using Reference Safety Information (RSI / SmPC)",
-      "Expedited vs Periodic Safety Update Report (PSUR / PBRER) routing",
+    records: [
+      { key: "Report Type", val: "Spontaneous Serious Unexpected Adverse Drug Reaction" },
+      { key: "Safety Reference (RSI)", val: "Summary of Product Characteristics (SmPC) Sec 4.8" },
+      { key: "Expectedness", val: "UNLISTED in current regulatory reference" },
+      { key: "Mandatory Clock", val: "15 Calendar Days from Day 0 receipt" },
+      { key: "Gateway Status", val: "Electronic transmission XML validated" },
     ],
-    mockDoc: {
-      type: "REGULATORY REPORTING PATHWAY MATRIX",
-      caseType: "Spontaneous Serious Unexpected Adverse Reaction",
-      referenceSafetyDoc: "Investigator's Brochure (IB) v4.0 / Package Insert",
-      listedness: "UNLISTED / UNEXPECTED in Section 4.8 of SmPC",
-      regulatoryAction: "15-Calendar Day Expedited Submission Required (US FDA MedWatch 3500A & EMA)",
-      calendarCountdown: "Day 0 = Oct 14 ➔ Electronic Gateway Deadline = Oct 29, 23:59 GMT",
-    },
+    rubrics: [
+      "Accurate Day 0 calculation",
+      "Expectedness determination against RSI",
+      "Expedited vs periodic routing logic",
+    ],
   },
 ];
 
 // ── Main Page Component ──────────────────────────────────────────────────────
-function PVAssociateBrandedPage() {
+function PVAssociateMinimalPage() {
   const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // Interactive Component State
-  const [activeSimulatorStage, setActiveSimulatorStage] = useState(0);
-  const [activeArtifactTab, setActiveArtifactTab] = useState(0);
-  const [activeMilestonePhase, setActiveMilestonePhase] = useState(0);
+  // Minimalist State
+  const [activeStageIdx, setActiveStageIdx] = useState(0);
+  const [activeArtifactIdx, setActiveArtifactIdx] = useState(0);
   const [selectedDegree, setSelectedDegree] = useState("B.Pharm");
 
-  // Counsellor Form State (Option B: Quick 3-field Callback)
+  // Counsellor Form State
   const [counsellorForm, setCounsellorForm] = useState({
     name: "",
     phone: "",
@@ -450,7 +429,7 @@ function PVAssociateBrandedPage() {
   useEffect(() => {
     trackEvent("pv_page_view", {
       path: "/pv-associate",
-      source: "branded_visual_master_copy_v2",
+      source: "minimal_apple_doctrine_v1",
     });
   }, []);
 
@@ -470,7 +449,6 @@ function PVAssociateBrandedPage() {
       year: counsellorForm.year,
     });
 
-    // Instant receipt & direct WhatsApp launch
     setTimeout(() => {
       setIsSubmitting(false);
       setFormSubmitted(true);
@@ -481,78 +459,70 @@ function PVAssociateBrandedPage() {
     }, 400);
   };
 
-  const currentStage = CASE_SIMULATOR_STAGES[activeSimulatorStage];
-  const currentArtifact = PROOF_OF_WORK_ARTIFACTS[activeArtifactTab];
+  const currentStage = SIMULATOR_STAGES[activeStageIdx];
+  const currentArtifact = ARTIFACT_GALLERY[activeArtifactIdx];
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#081F38] font-sans antialiased selection:bg-[#2563EB] selection:text-white">
-      {/* ── 01. HERO SECTION (MASTER COPY + INTERACTIVE BENTO CARD) ──────────── */}
-      <section className="relative overflow-hidden bg-white tone-light card-light border-b border-[#E2E8F0] pt-8 pb-14 sm:pt-14 sm:pb-20">
-        {/* Subtle Ambient Background Grid */}
-        <div className="absolute inset-0 bg-[radial-gradient(#E2E8F0_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          {/* Arzon Breadcrumbs & Authority Chip */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#E2E8F0]/80">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs font-semibold text-[#64748B]">
+      {/* ── 01. HERO (APPLE-GRADE EDITORIAL FOCUS) ──────────────────────────── */}
+      <section className="relative overflow-hidden bg-white tone-light card-light border-b border-slate-200/80 pt-10 pb-20 sm:pt-16 sm:pb-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          {/* Subtle Top Breadcrumb */}
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#64748B]">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 font-medium">
               <Link to="/" className="hover:text-[#081F38] transition-colors">Home</Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8]" />
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
               <Link to="/courses" className="hover:text-[#081F38] transition-colors">Programmes</Link>
-              <ChevronRight className="w-3.5 h-3.5 text-[#94A3B8]" />
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
               <span className="text-[#081F38] font-bold">Pharmacovigilance Associate</span>
             </nav>
-
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] font-mono font-bold text-[#081F38]">
-              <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-              Arzon Global Healthcare Careers · Role Readiness
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F8FAFC] border border-slate-200/80 text-[11px] font-bold text-[#081F38]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              Role Readiness Track · 12 Weeks
             </span>
           </div>
 
-          {/* Master Hero Grid: Left Copy & CTAs + Right Interactive Bento Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column (7 cols): Copy, CTAs, Indicators */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Eyebrow Pill */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E6F7F1] border border-[#10B981]/30 text-[#081F38] font-mono text-xs font-bold uppercase tracking-wider shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-[#10B981] motion-safe:animate-pulse" />
-                  PHARMACOVIGILANCE CAREER PATHWAY · 12-WEEK PROGRAM
-                </span>
-              </div>
+          {/* Master Hero Grid: Confident Headline + Clean Workstation Display */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Left Column (7 cols): Typography, Mentor Anchor & Actions */}
+            <div className="lg:col-span-7 space-y-7 text-left">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#E6F7F1] border border-[#10B981]/25 text-[#081F38] font-mono text-xs font-bold uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] motion-safe:animate-pulse" />
+                PHARMACOVIGILANCE CAREER PATHWAY · 12-WEEK PROGRAM
+              </span>
 
-              {/* Primary H1 Headline */}
               <div className="space-y-4">
-                <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-bold tracking-tight text-[#081F38] leading-[1.12]">
+                <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-[#081F38] leading-[1.08]">
                   Build the Skills to Start Your Career in Pharmacovigilance.
                 </h1>
-                <p className="text-base sm:text-lg text-[#64748B] leading-relaxed">
+                <p className="text-base sm:text-lg text-[#64748B] font-normal leading-relaxed max-w-2xl">
                   Understand how drug safety teams process adverse event reports, assess safety information and document cases. Develop practical skills aligned with entry-level pharmacovigilance work through structured training, case-based exercises and career preparation.
                 </p>
               </div>
 
-              {/* Faculty Trust Micro-Badge (Above-the-Fold Authority) */}
-              <div className="inline-flex items-center gap-3.5 p-2 pr-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] shadow-2xs">
+              {/* Minimalist Mentor Anchor Capsule */}
+              <div className="inline-flex items-center gap-3.5 p-2 pr-4 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 shadow-2xs">
                 <img
                   src={mentorKumailImg}
                   alt="Mohamed Kumail Abbas"
-                  className="w-12 h-12 rounded-xl object-cover object-top border border-[#E2E8F0] shadow-2xs shrink-0"
+                  className="w-11 h-11 rounded-xl object-cover object-top border border-slate-200 shrink-0"
                 />
-                <div className="text-left">
+                <div className="text-left leading-tight">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-[#081F38]">
-                      Mentored by Mohamed Kumail Abbas
+                      Mohamed Kumail Abbas
                     </span>
-                    <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold uppercase bg-[#E6F7F1] text-[#10B981] border border-[#10B981]/30">
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#10B981] bg-[#E6F7F1] px-1.5 py-0.2 rounded">
                       Lead Mentor
                     </span>
                   </div>
-                  <p className="text-[11px] text-[#64748B] font-mono">
+                  <p className="text-[11px] text-[#64748B] mt-0.5">
                     Manager, PV Operations · Ex-Cognizant, Quintiles, Accenture
                   </p>
                 </div>
               </div>
 
-              {/* Dual Call To Actions */}
+              {/* Decisive Touch Targets */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
                 <button
                   type="button"
@@ -569,58 +539,50 @@ function PVAssociateBrandedPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent("masterclass_click", { source: "hero_secondary" })}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white tone-light card-light border border-[#E2E8F0] hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer group"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white tone-light card-light border border-slate-200/80 hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <div className="w-5 h-5 rounded-full bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Play className="w-3 h-3 fill-current ml-0.5" />
-                  </div>
-                  <span>Watch the Free Masterclass</span>
+                  <Play className="w-3.5 h-3.5 fill-current text-[#2563EB]" />
+                  <span>Watch Free Masterclass</span>
                   <ExternalLink className="w-3.5 h-3.5 text-[#64748B]" />
                 </a>
               </div>
 
-              {/* Supporting Copy */}
-              <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
+              <p className="text-xs text-[#64748B] leading-relaxed">
                 Not sure whether pharmacovigilance is right for you? Speak with our career guidance team to understand the role, eligibility and training pathway before making a decision.
               </p>
             </div>
 
-            {/* Right Column (5 cols): Interactive Workstation Bento Card with Degree Selector */}
+            {/* Right Column (5 cols): Steve Jobs Product Stage */}
             <div className="lg:col-span-5">
-              <div className="rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-3.5 shadow-lg hover:shadow-xl transition-shadow relative overflow-hidden group space-y-3">
-                {/* Visual Workstation Media */}
-                <div className="relative rounded-2xl overflow-hidden aspect-4/3 bg-slate-900">
+              <div className="rounded-[28px] border border-slate-200/80 bg-white tone-light card-light p-3.5 shadow-xl hover:shadow-2xl transition-all space-y-3.5">
+                {/* Visual Glass Display */}
+                <div className="relative rounded-2xl overflow-hidden aspect-4/3 bg-slate-950">
                   <img
                     src="/images/pv-clinical-workstation.jpg"
                     alt="Clinical Pharmacovigilance Case Processing Workstation"
-                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover opacity-90 hover:scale-103 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/90 via-[#081F38]/30 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/90 via-[#081F38]/20 to-transparent pointer-events-none" />
 
-                  {/* Top Floating Badge */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
-                    <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md font-mono text-[10px] font-bold text-[#081F38] border border-white/50 shadow-xs flex items-center gap-1.5">
+                  <div className="absolute top-3 inset-x-3 flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md font-mono text-[10px] font-bold text-[#081F38] border border-white/60 flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                      CLINICAL SAFETY OPERATIONS
+                      CLINICAL OPERATIONS
                     </span>
                     <span className="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-[#2563EB] text-white">
                       12 WEEKS
                     </span>
                   </div>
 
-                  {/* Floating Frosted Dossier Pill */}
-                  <div className="absolute bottom-3 inset-x-3 rounded-xl backdrop-blur-md bg-white/95 border border-white/80 p-3 shadow-sm tone-light card-light">
+                  <div className="absolute bottom-3 inset-x-3 rounded-xl backdrop-blur-md bg-white/95 border border-white/80 p-3 shadow-xs tone-light card-light">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="h-8 w-8 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-mono font-bold text-xs shrink-0 shadow-2xs">
+                        <div className="h-8 w-8 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-mono font-bold text-xs shrink-0">
                           PV
                         </div>
-                        <div className="min-w-0">
-                          <div className="text-xs font-bold text-[#081F38] truncate flex items-center gap-1.5">
-                            <span>ICSR Triage &amp; Safety Cases</span>
-                            <span className="text-[9px] bg-[#E6F7F1] text-[#10B981] border border-[#10B981]/30 px-1 py-0.2 rounded font-mono font-bold">
-                              PRACTICAL
-                            </span>
+                        <div className="min-w-0 text-left">
+                          <div className="text-xs font-bold text-[#081F38] truncate">
+                            ICSR Triage &amp; Safety Cases
                           </div>
                           <div className="text-[10px] text-[#64748B] font-mono truncate">
                             Workflows: <span className="font-semibold text-[#081F38]">Oracle Argus Safety &amp; MedDRA</span>
@@ -631,15 +593,15 @@ function PVAssociateBrandedPage() {
                   </div>
                 </div>
 
-                {/* Interactive Degree Fitment Selector */}
-                <div className="p-3 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-2">
+                {/* Minimalist Degree Eligibility Selector Pill */}
+                <div className="p-3.5 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-2.5 text-left">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-[10px] font-bold text-[#64748B] uppercase tracking-wider">
-                      Check Your Eligibility
+                      Select Your Background
                     </span>
                     <span className="font-mono text-[10px] font-bold text-[#10B981] flex items-center gap-1">
                       <CheckCircle2 className="w-3 h-3 text-[#10B981]" />
-                      Eligible Track
+                      Eligible
                     </span>
                   </div>
 
@@ -652,15 +614,13 @@ function PVAssociateBrandedPage() {
                           setSelectedDegree(deg);
                           setCounsellorForm((prev) => ({
                             ...prev,
-                            degree: deg.includes("Pharm")
-                              ? `${deg} (Pharmacy Graduate)`
-                              : `${deg} (Healthcare Graduate)`,
+                            degree: `${deg} (Healthcare Graduate)`,
                           }));
                         }}
-                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold font-mono transition-all cursor-pointer ${
+                        className={`px-3 py-1 rounded-full text-xs font-semibold font-mono transition-all cursor-pointer ${
                           selectedDegree === deg
-                            ? "bg-[#2563EB] text-white shadow-2xs scale-102"
-                            : "bg-white tone-light card-light border border-[#E2E8F0] text-[#081F38] hover:bg-[#EEF6FF]"
+                            ? "bg-[#2563EB] text-white shadow-2xs"
+                            : "bg-white tone-light card-light border border-slate-200 text-[#081F38] hover:bg-slate-100"
                         }`}
                       >
                         {deg}
@@ -668,32 +628,32 @@ function PVAssociateBrandedPage() {
                     ))}
                   </div>
 
-                  <p className="text-[11px] text-[#64748B] pt-0.5">
-                    Selected: <strong className="text-[#081F38]">{selectedDegree}</strong> meets the academic prerequisites for entry-level drug safety roles.
+                  <p className="text-[11px] text-[#64748B]">
+                    <strong className="text-[#081F38]">{selectedDegree}</strong> meets the core requirements for entry-level drug safety roles.
                   </p>
                 </div>
 
-                {/* Micro Metric Ticker */}
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                {/* Micro Metric Triple */}
+                <div className="grid grid-cols-3 gap-2 text-center pt-0.5">
+                  <div className="p-2 rounded-xl bg-[#F8FAFC] border border-slate-200/80">
                     <span className="block font-bold text-[#081F38] text-xs">15+ Cases</span>
                     <span className="text-[10px] text-[#64748B] font-mono">ICSR Practice</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <div className="p-2 rounded-xl bg-[#F8FAFC] border border-slate-200/80">
                     <span className="block font-bold text-[#081F38] text-xs">MedDRA 27.0</span>
                     <span className="text-[10px] text-[#64748B] font-mono">LLT/PT Coding</span>
                   </div>
-                  <div className="p-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <div className="p-2 rounded-xl bg-[#F8FAFC] border border-slate-200/80">
                     <span className="block font-bold text-[#081F38] text-xs">1-on-1 Prep</span>
-                    <span className="text-[10px] text-[#64748B] font-mono">MNC Interviews</span>
+                    <span className="text-[10px] text-[#64748B] font-mono">Interview Prep</span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* 4 Trust Indicators Bar */}
-          <div className="pt-6 border-t border-[#E2E8F0]">
+          {/* Minimal 4-Pill Trust Bar */}
+          <div className="pt-8 border-t border-slate-200/80">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-semibold text-[#081F38]">
               {[
                 "12-week structured learning pathway",
@@ -710,25 +670,24 @@ function PVAssociateBrandedPage() {
               ))}
             </div>
 
-            {/* Audience Line */}
-            <p className="mt-4 text-xs font-mono text-[#64748B]">
+            <p className="mt-4 text-xs font-mono text-[#64748B] text-center sm:text-left">
               <span className="font-bold text-[#081F38]">Audience:</span> For eligible B.Pharm, M.Pharm, Pharm.D, MBBS, BDS and Life Sciences graduates.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── 02. UNDERSTAND THE CAREER (CAREER TRANSITION MATRIX + ROLES) ──────── */}
-      <section className="py-16 sm:py-20 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* ── 02. UNDERSTAND THE CAREER (APPLE-STYLE COMPARISON) ───────────────── */}
+      <section className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-4">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 02 · UNDERSTAND THE CAREER
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Your Pharmacy Degree Can Lead to More Than You Think.
             </h2>
-            <div className="space-y-3 text-sm sm:text-base text-[#64748B] leading-relaxed">
+            <div className="space-y-3 text-base text-[#64748B] font-normal leading-relaxed">
               <p>
                 Medicines save lives, but their safety must continue to be monitored after they enter clinical use.
               </p>
@@ -744,53 +703,55 @@ function PVAssociateBrandedPage() {
             </div>
           </div>
 
-          {/* VISUAL CAREER TRANSITION MATRIX: Traditional Retail vs Corporate Drug Safety */}
+          {/* Minimalist Apple-Grade Comparison Matrix */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left Column: Traditional Pharmacy Options */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-white tone-light card-light border border-[#E2E8F0] space-y-5 shadow-2xs">
+            <div className="p-8 rounded-[28px] bg-white tone-light card-light border border-slate-200/80 space-y-6 shadow-2xs">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#F1F5F9] text-[#64748B]">
-                  ACADEMIC DEFAULT ROUTE
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#64748B] px-3 py-1 rounded-full bg-slate-100">
+                  Academic Default
                 </span>
-                <span className="font-mono text-xs text-[#64748B]">Local Scope</span>
+                <span className="text-xs font-mono text-[#64748B]">Retail &amp; Sales</span>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-[#081F38]">
+                <h3 className="text-2xl font-bold text-[#081F38]">
                   Retail Pharmacy &amp; Field Sales
                 </h3>
                 <p className="text-xs text-[#64748B] mt-1">
-                  Common default jobs taken by fresh graduates without specialized operational training
+                  Common default paths taken without specialized operational training
                 </p>
               </div>
 
-              <div className="space-y-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
-                  <span className="text-[11px] font-mono text-[#64748B] block">Starting Compensation</span>
+              <div className="space-y-4 pt-2 border-t border-slate-100 text-xs">
+                <div>
+                  <span className="font-mono text-[#64748B] block">Starting Compensation</span>
                   <span className="text-base font-bold text-[#081F38]">₹1.80 – ₹2.50 LPA</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
-                  <span className="text-[11px] font-mono text-[#64748B] block">Daily Work Environment</span>
-                  <p className="text-xs text-[#64748B]">Standing counters, retail prescription billing, inventory stocking, 6-day rotational shifts.</p>
+                <div>
+                  <span className="font-mono text-[#64748B] block">Work Environment</span>
+                  <p className="text-[#64748B] mt-0.5 leading-relaxed">
+                    Standing counters, retail prescription billing, inventory stocking, 6-day rotational shifts.
+                  </p>
                 </div>
-                <div className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
-                  <span className="text-[11px] font-mono text-[#64748B] block">Career Trajectory</span>
-                  <p className="text-xs text-[#64748B]">Store manager or regional sales rep with severe growth plateau after 3-5 years.</p>
+                <div>
+                  <span className="font-mono text-[#64748B] block">Long-Term Trajectory</span>
+                  <p className="text-[#64748B] mt-0.5 leading-relaxed">
+                    Store manager or regional sales rep with severe growth plateau after 3-5 years.
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Corporate Drug Safety Associate (Featured) */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#EEF6FF] border-2 border-[#2563EB] space-y-5 shadow-md relative overflow-hidden">
+            <div className="p-8 rounded-[28px] bg-[#EEF6FF] border border-[#2563EB]/40 space-y-6 shadow-md relative">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#2563EB] text-white">
-                  HIGH-GROWTH GLOBAL TRACK
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-white px-3 py-1 rounded-full bg-[#2563EB]">
+                  Specialized Track
                 </span>
-                <span className="font-mono text-xs font-bold text-[#2563EB]">MNC Campus</span>
+                <span className="text-xs font-mono font-bold text-[#2563EB]">Corporate MNC</span>
               </div>
 
               <div>
-                <h3 className="text-xl font-bold text-[#081F38]">
+                <h3 className="text-2xl font-bold text-[#081F38]">
                   Corporate Drug Safety Associate (PV)
                 </h3>
                 <p className="text-xs text-[#64748B] mt-1">
@@ -798,28 +759,32 @@ function PVAssociateBrandedPage() {
                 </p>
               </div>
 
-              <div className="space-y-3 pt-2">
-                <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#BFDBFE] space-y-1">
-                  <span className="text-[11px] font-mono text-[#2563EB] font-bold block">Benchmark Starting Compensation</span>
+              <div className="space-y-4 pt-2 border-t border-[#BFDBFE]/60 text-xs">
+                <div>
+                  <span className="font-mono text-[#2563EB] font-bold block">Benchmark Compensation</span>
                   <span className="text-lg font-bold text-[#081F38]">₹4.20 – ₹6.00 LPA</span>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#BFDBFE] space-y-1">
-                  <span className="text-[11px] font-mono text-[#2563EB] font-bold block">Daily Work Environment</span>
-                  <p className="text-xs text-[#081F38] font-medium">Modern corporate technology campus (Cognizant, Quintiles, Accenture), Monday-to-Friday schedule, clinical data workstations.</p>
+                <div>
+                  <span className="font-mono text-[#2563EB] font-bold block">Work Environment</span>
+                  <p className="text-[#081F38] font-medium mt-0.5 leading-relaxed">
+                    Modern corporate technology campus (Cognizant, Quintiles, Accenture), Monday-to-Friday schedule, clinical data workstations.
+                  </p>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#BFDBFE] space-y-1">
-                  <span className="text-[11px] font-mono text-[#2563EB] font-bold block">Career Trajectory</span>
-                  <p className="text-xs text-[#081F38] font-medium">Clear progression: Safety Associate ➔ Senior Associate ➔ PV Lead ➔ Operations Manager ➔ Global Safety Director.</p>
+                <div>
+                  <span className="font-mono text-[#2563EB] font-bold block">Long-Term Trajectory</span>
+                  <p className="text-[#081F38] font-medium mt-0.5 leading-relaxed">
+                    Clear progression: Safety Associate ➔ Senior Associate ➔ PV Lead ➔ Operations Manager ➔ Global Safety Director.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* What does a Drug Safety Associate do? Visual Blueprint */}
-          <div className="rounded-3xl bg-white tone-light card-light border border-[#E2E8F0] p-6 sm:p-10 shadow-sm space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E8F0] pb-6">
+          {/* What does a Drug Safety Associate do? Refined 5 Responsibilities */}
+          <div className="rounded-[28px] bg-white tone-light card-light border border-slate-200/80 p-8 sm:p-12 shadow-sm space-y-10">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200/80 pb-6">
               <div>
-                <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
+                <h3 className="text-2xl font-bold text-[#081F38]">
                   What does a Drug Safety Associate do?
                 </h3>
                 <p className="text-xs sm:text-sm text-[#64748B] mt-1">
@@ -880,23 +845,23 @@ function PVAssociateBrandedPage() {
                 return (
                   <div
                     key={idx}
-                    className={`p-5 rounded-2xl border transition-all ${
+                    className={`p-6 rounded-2xl border transition-all ${
                       item.isMeta
-                        ? "bg-[#F8FAFC] border-[#E2E8F0] border-dashed text-[#64748B]"
-                        : "bg-white tone-light card-light border-[#E2E8F0] hover:border-[#2563EB]/40 shadow-2xs"
+                        ? "bg-[#F8FAFC] border-slate-200/80 border-dashed text-[#64748B]"
+                        : "bg-white tone-light card-light border-slate-200/80 hover:border-[#2563EB]/40 shadow-2xs"
                     }`}
                   >
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center justify-between mb-4">
                       <div className="w-10 h-10 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center">
                         <Icon className="w-5 h-5" />
                       </div>
                       {item.badge && (
-                        <span className="font-mono text-[10px] font-bold text-[#2563EB] bg-[#EEF6FF] px-2 py-0.5 rounded border border-[#D0E1FD]">
+                        <span className="font-mono text-[10px] font-bold text-[#2563EB] bg-[#EEF6FF] px-2.5 py-0.5 rounded-full">
                           {item.badge}
                         </span>
                       )}
                     </div>
-                    <h4 className="font-bold text-sm sm:text-base text-[#081F38] mb-1.5">
+                    <h4 className="font-bold text-base text-[#081F38] mb-1.5">
                       {item.title}
                     </h4>
                     <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
@@ -914,17 +879,17 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 03. THE CAREER GAP (THEORY VS OPERATIONS COMPETENCY SCANNER) ──────── */}
-      <section className="py-16 sm:py-20 bg-white tone-light card-light border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* ── 03. THE CAREER GAP (ACADEMIC VS OPERATIONAL REALITY) ─────────────── */}
+      <section className="py-20 sm:py-28 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-4">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 03 · THE CAREER GAP
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Knowing Pharmacology Is One Thing. Applying It to Drug Safety Work Is Another.
             </h2>
-            <div className="space-y-3 text-sm sm:text-base text-[#64748B] leading-relaxed">
+            <div className="space-y-3 text-base text-[#64748B] font-normal leading-relaxed">
               <p>
                 Your degree gives you a foundation in medicines, diseases, clinical concepts and patient safety.
               </p>
@@ -937,45 +902,45 @@ function PVAssociateBrandedPage() {
             </div>
           </div>
 
-          {/* Comparative Matrix: Academic Theory vs Applied Operations */}
+          {/* Minimal 2-Column Split: Theory vs Operations */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-6 rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-3">
+            <div className="p-8 rounded-[28px] bg-[#F8FAFC] border border-slate-200/80 space-y-4">
               <span className="font-mono text-xs font-bold text-[#64748B] uppercase tracking-wider block">
                 WHAT PHARMACY COLLEGE TEACHES
               </span>
-              <h4 className="font-bold text-base text-[#081F38]">
+              <h4 className="font-bold text-lg text-[#081F38]">
                 Foundational Sciences &amp; Theory
               </h4>
-              <ul className="space-y-2 text-xs sm:text-sm text-[#64748B]">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-[#64748B]">
                 {[
                   "Mechanism of action & receptor binding kinetics",
                   "Therapeutic classification of medicinal substances",
                   "Pathology, human anatomy and clinical diseases",
                   "Basic adverse drug reaction (ADR) terminology",
                 ].map((pt, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#64748B]">•</span>
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <span className="text-[#64748B] font-bold">•</span>
                     <span>{pt}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#EEF6FF] border border-[#BFDBFE] space-y-3">
+            <div className="p-8 rounded-[28px] bg-[#EEF6FF] border border-[#BFDBFE] space-y-4">
               <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
                 WHAT DRUG SAFETY TEAMS SCREEN FOR
               </span>
-              <h4 className="font-bold text-base text-[#081F38]">
+              <h4 className="font-bold text-lg text-[#081F38]">
                 Applied Operations &amp; Documentation
               </h4>
-              <ul className="space-y-2 text-xs sm:text-sm text-[#081F38]">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-[#081F38]">
                 {[
                   "Validating the 4 minimum ICSR criteria on Day 0",
                   "MedDRA hierarchy term mapping (LLT, PT, SOC)",
                   "Structured chronological narrative drafting (CIOMS I)",
                   "Expedited 15-day vs periodic safety reporting clock logic",
                 ].map((pt, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
+                  <li key={idx} className="flex items-start gap-2.5">
                     <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5 stroke-[2.5]" />
                     <span className="font-medium">{pt}</span>
                   </li>
@@ -984,9 +949,9 @@ function PVAssociateBrandedPage() {
             </div>
           </div>
 
-          {/* The Skills You Need to Understand: Visual Gauge Cards */}
-          <div className="space-y-4">
-            <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
+          {/* The Skills You Need to Understand */}
+          <div className="space-y-6">
+            <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
               The skills you need to understand
             </h3>
 
@@ -996,43 +961,37 @@ function PVAssociateBrandedPage() {
                   num: "01",
                   title: "Case processing",
                   desc: "Learn how safety information is collected, reviewed and organized into an Individual Case Safety Report (ICSR).",
-                  metric: "95% Recruiter Screening Weight",
-                  barPct: "w-[95%]",
+                  metric: "95% Screening Weight",
                 },
                 {
                   num: "02",
                   title: "Medical terminology coding",
                   desc: "Understand the MedDRA hierarchy and how medical concepts are mapped to standardized terminology.",
-                  metric: "90% Recruiter Screening Weight",
-                  barPct: "w-[90%]",
+                  metric: "90% Screening Weight",
                 },
                 {
                   num: "03",
                   title: "Clinical documentation",
                   desc: "Practise organizing case information and writing structured narratives without losing important medical details.",
-                  metric: "88% Recruiter Screening Weight",
-                  barPct: "w-[88%]",
+                  metric: "88% Screening Weight",
                 },
                 {
                   num: "04",
                   title: "Safety assessment",
                   desc: "Understand the concepts used to evaluate adverse events, seriousness, causality and reporting requirements.",
-                  metric: "86% Recruiter Screening Weight",
-                  barPct: "w-[86%]",
+                  metric: "86% Screening Weight",
                 },
                 {
                   num: "05",
                   title: "Quality and compliance",
                   desc: "Learn why accuracy, traceability, confidentiality and standard operating procedures matter in drug safety operations.",
-                  metric: "84% Recruiter Screening Weight",
-                  barPct: "w-[84%]",
+                  metric: "84% Screening Weight",
                 },
                 {
                   num: "->",
                   title: "Interview Readiness",
                   desc: "Connect these operational concepts together so you can articulate your decisions during technical hiring rounds.",
-                  metric: "Complete Capstone Portfolio",
-                  barPct: "w-[100%]",
+                  metric: "Role-Ready Portfolio",
                   isHighlight: true,
                 },
               ].map((skill, idx) => (
@@ -1041,7 +1000,7 @@ function PVAssociateBrandedPage() {
                   className={`p-6 rounded-2xl border transition-all flex flex-col justify-between ${
                     skill.isHighlight
                       ? "bg-[#EEF6FF] border-[#60A5FA]/40 text-[#081F38]"
-                      : "bg-[#F8FAFC] border-[#E2E8F0] hover:border-[#2563EB]/40"
+                      : "bg-[#F8FAFC] border-slate-200/80 hover:border-[#2563EB]/40"
                   }`}
                 >
                   <div className="space-y-2">
@@ -1049,8 +1008,8 @@ function PVAssociateBrandedPage() {
                       <span className="font-mono text-xs font-bold text-[#2563EB]">
                         {skill.num}
                       </span>
-                      <span className="font-mono text-[10px] font-bold text-[#10B981] bg-[#E6F7F1] px-2 py-0.5 rounded">
-                        PRACTICAL
+                      <span className="font-mono text-[10px] font-bold text-[#10B981] bg-[#E6F7F1] px-2 py-0.5 rounded-full">
+                        {skill.metric}
                       </span>
                     </div>
                     <h4 className="font-bold text-base text-[#081F38]">
@@ -1060,31 +1019,21 @@ function PVAssociateBrandedPage() {
                       {skill.desc}
                     </p>
                   </div>
-
-                  <div className="pt-4 mt-4 border-t border-[#E2E8F0] space-y-1.5">
-                    <div className="flex justify-between text-[10px] font-mono font-bold text-[#64748B]">
-                      <span>Screening Priority</span>
-                      <span className="text-[#2563EB]">{skill.metric}</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-[#E2E8F0] rounded-full overflow-hidden">
-                      <div className={`h-full bg-[#2563EB] rounded-full ${skill.barPct}`} />
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Closing Box & CTA */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <p className="text-sm sm:text-base text-[#081F38] leading-relaxed max-w-2xl font-medium">
+          {/* Action Box */}
+          <div className="p-8 rounded-[28px] bg-[#F8FAFC] border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <p className="text-base text-[#081F38] leading-relaxed max-w-2xl font-medium">
               The objective is not simply to finish a course. It is to develop a clearer understanding of the work, practise relevant tasks and prepare to discuss your knowledge in an interview.
             </p>
 
             <button
               type="button"
               onClick={() => openCounsellor("section_03_gap")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
             >
               <span>Discuss Your Career Goals</span>
               <ArrowRight className="w-4 h-4" />
@@ -1094,13 +1043,13 @@ function PVAssociateBrandedPage() {
       </section>
 
       {/* ── 04. LEARN FROM INDUSTRY EXPERIENCE (LEAD MENTOR DOSSIER) ─────────── */}
-      <section id="mentor" className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section id="mentor" className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 04 · LEARN FROM INDUSTRY EXPERIENCE
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Learn How Pharmacovigilance Works Beyond the Textbook.
             </h2>
             <p className="text-base text-[#64748B]">
@@ -1108,20 +1057,19 @@ function PVAssociateBrandedPage() {
             </p>
           </div>
 
-          {/* Master Faculty Dossier Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left: Mentor Portrait & Verified Identity (5 Cols) */}
+          {/* Steve Jobs Keynote Profile Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             <div className="lg:col-span-5 space-y-4">
-              <div className="rounded-3xl overflow-hidden bg-white tone-light card-light border border-[#E2E8F0] shadow-md">
+              <div className="rounded-[28px] overflow-hidden bg-white tone-light card-light border border-slate-200/80 shadow-md">
                 <img
                   src={mentorKumailImg}
                   alt="Mohamed Kumail Abbas - Manager, Pharmacovigilance Operations"
                   className="w-full h-auto aspect-4/5 object-cover object-top"
                 />
-                <div className="p-6 space-y-2 border-t border-[#E2E8F0]">
+                <div className="p-6 space-y-2 border-t border-slate-100 text-left">
                   <div className="flex items-center justify-between">
                     <span className="px-2.5 py-0.5 rounded-full bg-[#E6F7F1] border border-[#10B981]/30 font-mono text-[10px] font-bold text-[#10B981] uppercase">
-                      VERIFIED PRACTITIONER
+                      PRACTITIONER DOSSIER
                     </span>
                     <span className="text-xs font-mono font-bold text-[#2563EB]">
                       15+ Yrs Industry
@@ -1139,40 +1087,14 @@ function PVAssociateBrandedPage() {
                 </div>
               </div>
 
-              <p className="text-xs text-[#64748B] leading-relaxed p-4 rounded-xl bg-white tone-light card-light border border-[#E2E8F0]">
+              <p className="text-xs text-[#64748B] leading-relaxed p-4 rounded-2xl bg-white tone-light card-light border border-slate-200/80">
                 His experience provides the foundation for connecting pharmacovigilance concepts with the workflows, documentation standards and practical expectations associated with drug safety operations.
               </p>
-
-              {/* Functional Competency Tags */}
-              <div className="p-5 rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] space-y-3">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#64748B] block">
-                  Core Technical Competencies
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {[
-                    "ICSR Intake & Triage (ICH E2A / E2D)",
-                    "MedDRA 27.0 Hierarchy (LLT, PT, SOC)",
-                    "Safety Narratives & Case Structuring",
-                    "Oracle Argus Safety Concepts",
-                    "Regulatory Timelines (Day 0 & Expedited)",
-                    "Technical Interview Case Studies",
-                  ].map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="font-mono text-[11px] px-2.5 py-1 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[#081F38] font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
 
-            {/* Right: What You Learn + Mentor Quote + Career Progression (7 Cols) */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Mentor Direct Statement Quote */}
-              <blockquote className="p-6 sm:p-7 rounded-2xl bg-white tone-light card-light border-l-4 border-[#2563EB] border-y border-r border-[#E2E8F0] shadow-2xs space-y-3">
-                <p className="font-serif italic text-base sm:text-lg text-[#081F38] leading-relaxed">
+            <div className="lg:col-span-7 space-y-8 text-left">
+              <blockquote className="p-8 rounded-[28px] bg-white tone-light card-light border-l-4 border-[#2563EB] border-y border-r border-slate-200/80 shadow-sm space-y-3">
+                <p className="italic text-base sm:text-lg text-[#081F38] leading-relaxed font-serif">
                   "Understanding pharmacovigilance means more than knowing the terminology. You need to understand how information moves through a safety workflow, why each step matters and how accuracy affects the quality of the final case."
                 </p>
                 <footer className="font-mono text-xs font-semibold text-[#64748B]">
@@ -1180,9 +1102,8 @@ function PVAssociateBrandedPage() {
                 </footer>
               </blockquote>
 
-              {/* What You Should Learn From The Mentor-Led Experience */}
-              <div className="p-6 sm:p-7 rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] space-y-4">
-                <h4 className="font-bold text-base text-[#081F38]">
+              <div className="p-8 rounded-[28px] bg-white tone-light card-light border border-slate-200/80 space-y-5">
+                <h4 className="font-bold text-lg text-[#081F38]">
                   What you should learn from the mentor-led experience
                 </h4>
 
@@ -1203,11 +1124,11 @@ function PVAssociateBrandedPage() {
                   ))}
                 </ul>
 
-                <div className="pt-4 border-t border-[#E2E8F0]">
+                <div className="pt-4 border-t border-slate-100">
                   <button
                     type="button"
                     onClick={() => openCounsellor("section_04_mentor")}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#081F38] hover:bg-[#2563EB] text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#081F38] hover:bg-[#2563EB] text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                   >
                     <span>Talk to a Counsellor About the Program</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -1215,24 +1136,24 @@ function PVAssociateBrandedPage() {
                 </div>
               </div>
 
-              {/* Career Progression Timeline */}
-              <div className="p-6 rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] space-y-4">
+              {/* Minimalist Career Progression */}
+              <div className="p-6 rounded-2xl bg-white tone-light card-light border border-slate-200/80 space-y-3">
                 <span className="font-mono text-xs font-bold text-[#64748B] uppercase tracking-wider block">
                   Documented Career Track
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
                   {[
-                    { company: "Quintiles", role: "Triage Line (Post-M.Pharm)" },
+                    { company: "Quintiles", role: "Triage Line" },
                     { company: "Indegene", role: "Safety Case Processing" },
                     { company: "Cognizant / Accenture", role: "Lead Safety & Aggregate" },
                     { company: "Novaspire", role: "Manager, PV Operations" },
                   ].map((step, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+                    <div key={idx} className="p-3 rounded-xl bg-[#F8FAFC] border border-slate-200/80 space-y-1">
                       <span className="font-mono text-[10px] text-[#2563EB] font-bold block">
-                        Step 0{idx + 1}
+                        0{idx + 1}
                       </span>
                       <h5 className="font-bold text-xs text-[#081F38]">{step.company}</h5>
-                      <p className="text-[10px] text-[#64748B] leading-tight">{step.role}</p>
+                      <p className="text-[10px] text-[#64748B]">{step.role}</p>
                     </div>
                   ))}
                 </div>
@@ -1246,14 +1167,14 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 05. WATCH THE FREE MASTERCLASS (INTERACTIVE THEATRE STAGE) ───────── */}
-      <section className="py-16 sm:py-20 bg-white tone-light card-light border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* ── 05. WATCH THE FREE MASTERCLASS (APPLE THEATER CARD) ──────────────── */}
+      <section className="py-20 sm:py-28 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 05 · WATCH THE FREE MASTERCLASS
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               See the Work Before You Decide.
             </h2>
             <p className="text-base text-[#64748B] leading-relaxed">
@@ -1261,10 +1182,9 @@ function PVAssociateBrandedPage() {
             </p>
           </div>
 
-          {/* Masterclass Feature Card */}
-          <div className="rounded-3xl bg-[#081F38] text-white p-6 sm:p-10 shadow-xl overflow-hidden relative">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Direct Launch Video Thumbnail (6 Cols) */}
+          {/* Apple Theater Card */}
+          <div className="rounded-[32px] bg-[#081F38] text-white p-8 sm:p-14 shadow-2xl overflow-hidden relative">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-6">
                 <a
                   href={PV_MASTERCLASS_URL}
@@ -1272,7 +1192,6 @@ function PVAssociateBrandedPage() {
                   rel="noopener noreferrer"
                   onClick={() => trackEvent("masterclass_card_click", { section: "section_05" })}
                   className="group relative rounded-2xl overflow-hidden border border-white/10 shadow-lg cursor-pointer aspect-video w-full bg-black block"
-                  aria-label="Watch Mohamed Kumail Abbas pharmacovigilance masterclass on Google Drive (Starts at 11:30)"
                 >
                   <img
                     src="/images/pv-landing/video-workstation-hd.jpg?v=3"
@@ -1297,18 +1216,17 @@ function PVAssociateBrandedPage() {
                 </a>
               </div>
 
-              {/* Right Column: Topics Covered in Masterclass (6 Cols) */}
-              <div className="lg:col-span-6 space-y-6">
+              <div className="lg:col-span-6 space-y-6 text-left">
                 <div className="space-y-2">
                   <span className="font-mono text-xs font-bold text-[#60A5FA] uppercase tracking-wider block">
                     What to look for in the masterclass
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white">
+                  <h3 className="text-2xl font-bold text-white">
                     4 Operational Concepts Walked Through on Screen
                   </h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 text-xs sm:text-sm">
                   {[
                     {
                       title: "ICSR fundamentals",
@@ -1327,7 +1245,7 @@ function PVAssociateBrandedPage() {
                       desc: "See how pharmacovigilance concepts are applied to case-based work.",
                     },
                   ].map((topic, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm">
+                    <div key={idx} className="flex items-start gap-3">
                       <div className="w-5 h-5 rounded-full bg-white/10 text-[#60A5FA] flex items-center justify-center shrink-0 mt-0.5">
                         <Check className="w-3 h-3 stroke-[3]" />
                       </div>
@@ -1339,13 +1257,12 @@ function PVAssociateBrandedPage() {
                   ))}
                 </div>
 
-                {/* CTAs */}
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
                   <a
                     href={PV_MASTERCLASS_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                   >
                     <span>Watch the Free Masterclass</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -1354,7 +1271,7 @@ function PVAssociateBrandedPage() {
                   <button
                     type="button"
                     onClick={() => openCounsellor("section_05_modal")}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                   >
                     <span>Talk to a Counsellor</span>
                   </button>
@@ -1362,21 +1279,21 @@ function PVAssociateBrandedPage() {
               </div>
             </div>
 
-            <p className="text-[10px] font-mono text-slate-400 mt-6 pt-4 border-t border-white/10 italic">
+            <p className="text-[10px] font-mono text-slate-400 mt-8 pt-4 border-t border-white/10 italic text-left">
               *The masterclass link and the topics covered in the recording should be verified before this section goes live.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── 06. A DAY IN PHARMACOVIGILANCE (INTERACTIVE 6-STAGE CASE SIMULATOR) ─ */}
-      <section id="workflow" className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* ── 06. A DAY IN PHARMACOVIGILANCE (MACOS-STYLE CASE SIMULATOR) ──────── */}
+      <section id="workflow" className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 06 · A DAY IN PHARMACOVIGILANCE
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               What Does the Work Actually Involve?
             </h2>
             <p className="text-base text-[#64748B] leading-relaxed">
@@ -1384,224 +1301,128 @@ function PVAssociateBrandedPage() {
             </p>
           </div>
 
-          {/* Interactive 6-Stage Case Processing Simulator */}
-          <div className="rounded-3xl bg-white tone-light card-light border border-[#E2E8F0] shadow-md overflow-hidden">
-            {/* Top Interactive Stage Tab Selector Bar */}
-            <div className="border-b border-[#E2E8F0] bg-[#F8FAFC] p-2 sm:p-3 overflow-x-auto scrollbar-none">
-              <div className="flex items-center gap-1.5 min-w-max">
-                {CASE_SIMULATOR_STAGES.map((st, idx) => (
+          {/* Unified macOS-Style Segmented Case Terminal */}
+          <div className="rounded-[32px] bg-white tone-light card-light border border-slate-200/80 shadow-md overflow-hidden">
+            {/* Minimalist Segmented Pill Switcher */}
+            <div className="border-b border-slate-200/80 bg-[#F8FAFC] p-3 overflow-x-auto scrollbar-none">
+              <div className="flex items-center gap-1.5 min-w-max mx-auto">
+                {SIMULATOR_STAGES.map((st, idx) => (
                   <button
-                    key={st.step}
+                    key={st.id}
                     type="button"
                     onClick={() => {
-                      setActiveSimulatorStage(idx);
-                      trackEvent("simulator_stage_click", { stage: st.step });
+                      setActiveStageIdx(idx);
+                      trackEvent("simulator_stage_click", { stage: st.id });
                     }}
-                    className={`px-3.5 py-2.5 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-2 cursor-pointer ${
-                      activeSimulatorStage === idx
-                        ? "bg-[#2563EB] text-white shadow-xs"
-                        : "bg-white tone-light card-light border border-[#E2E8F0] text-[#64748B] hover:text-[#081F38] hover:bg-slate-50"
+                    className={`px-4 py-2 rounded-full text-xs font-bold font-mono transition-all cursor-pointer ${
+                      activeStageIdx === idx
+                        ? "bg-[#2563EB] text-white shadow-2xs"
+                        : "text-[#64748B] hover:text-[#081F38] hover:bg-slate-200/50"
                     }`}
                   >
-                    <span>{st.tabLabel}</span>
+                    {st.label}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Live Interactive Case Workstation Display */}
-            <div className="p-6 sm:p-10 space-y-8">
-              {/* Stage Header & Context */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
+            {/* Terminal Canvas */}
+            <div className="p-8 sm:p-12 space-y-8 text-left">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
                 <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-[#EEF6FF] text-[#2563EB] border border-[#BFDBFE]">
-                      STAGE {currentStage.step} OF 06
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="font-mono text-[10px] font-bold uppercase text-[#2563EB] bg-[#EEF6FF] px-2.5 py-0.5 rounded-full">
+                      STAGE {currentStage.id} OF 06
                     </span>
-                    <span className="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-[#E6F7F1] text-[#10B981] border border-[#10B981]/30">
-                      {currentStage.badge}
+                    <span className="font-mono text-[10px] font-bold text-[#10B981] bg-[#E6F7F1] px-2.5 py-0.5 rounded-full">
+                      {currentStage.statusBadge}
                     </span>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
-                    {currentStage.title}
+                  <h3 className="text-2xl font-bold text-[#081F38]">
+                    {currentStage.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#64748B] mt-1">
-                    {currentStage.subtitle}
+                  <p className="text-xs sm:text-sm text-[#64748B] mt-0.5">
+                    {currentStage.summary}
                   </p>
                 </div>
 
-                <div className="shrink-0 flex items-center gap-2">
-                  <span className="text-xs font-mono text-[#64748B]">Regulatory Protocol:</span>
-                  <span className="font-mono text-xs font-bold text-[#081F38] px-2.5 py-1 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
-                    {currentStage.tag}
-                  </span>
-                </div>
+                <span className="font-mono text-xs font-bold text-[#081F38] px-3 py-1 rounded-lg bg-[#F8FAFC] border border-slate-200/80 shrink-0">
+                  {currentStage.protocol}
+                </span>
               </div>
 
-              {/* Main Content: Stage Explanatory Copy + Real Clinical Data Artifact */}
+              {/* Split Content: Left Philosophy + Right File */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Left (5 cols): Operational Description */}
-                <div className="lg:col-span-5 space-y-4">
-                  <h4 className="font-bold text-sm text-[#081F38] uppercase tracking-wider font-mono">
-                    Operational Responsibility
+                <div className="lg:col-span-5 space-y-5">
+                  <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[#64748B]">
+                    Operational Directive
                   </h4>
                   <p className="text-sm text-[#64748B] leading-relaxed">
                     {currentStage.desc}
                   </p>
 
-                  <div className="p-4 rounded-2xl bg-[#EEF6FF] border border-[#BFDBFE] space-y-1.5">
+                  <div className="p-4 rounded-2xl bg-[#EEF6FF] border border-[#BFDBFE]/60 space-y-1">
                     <span className="font-mono text-[10px] font-bold text-[#2563EB] uppercase block">
-                      Core Quality Takeaway
+                      Core Quality Standard
                     </span>
                     <p className="text-xs text-[#081F38] font-medium leading-relaxed">
-                      {currentStage.keyTakeaway}
+                      {currentStage.takeaway}
                     </p>
                   </div>
                 </div>
 
-                {/* Right (7 cols): Interactive Live Simulated Clinical File */}
-                <div className="lg:col-span-7 rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] p-5 sm:p-6 space-y-4 shadow-2xs font-mono text-xs">
-                  <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
+                <div className="lg:col-span-7 rounded-2xl border border-slate-200/80 bg-[#F8FAFC] p-6 space-y-4 font-mono text-xs">
+                  <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
                     <span className="font-bold text-[#081F38] flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" />
-                      SIMULATED SAFETY WORKSTATION
+                      <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+                      SIMULATED CLINICAL SAFETY TERMINAL
                     </span>
-                    <span className="text-[11px] text-[#64748B]">
-                      File: ARZ-PV-2026-042
-                    </span>
+                    <span className="text-[11px] text-[#64748B]">Case: ARZ-PV-2026-042</span>
                   </div>
 
-                  {/* Dynamic Artifact Preview per Stage */}
-                  {activeSimulatorStage === 0 && (
-                    <div className="space-y-2.5 text-xs">
-                      <div className="flex justify-between py-1 border-b border-[#E2E8F0]">
-                        <span className="text-[#64748B]">Source Type:</span>
-                        <strong className="text-[#081F38]">{currentStage.mockFile?.source}</strong>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#E2E8F0]">
-                        <span className="text-[#64748B]">Patient Initials:</span>
-                        <strong className="text-[#081F38]">{currentStage.mockFile?.patient}</strong>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#E2E8F0]">
-                        <span className="text-[#64748B]">Suspect Medicinal Product:</span>
-                        <strong className="text-[#2563EB]">{currentStage.mockFile?.suspectDrug}</strong>
-                      </div>
-                      <div className="flex justify-between py-1 border-b border-[#E2E8F0]">
-                        <span className="text-[#64748B]">Reported Adverse Reaction:</span>
-                        <strong className="text-[#081F38]">{currentStage.mockFile?.reportedEvent}</strong>
-                      </div>
-                      <div className="p-2.5 rounded-lg bg-[#E6F7F1] text-[#10B981] font-bold text-center">
-                        ✓ {currentStage.mockFile?.receivedDate} Assigned
-                      </div>
-                    </div>
-                  )}
-
-                  {activeSimulatorStage === 1 && (
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-bold text-[#081F38] block">
-                        4 Minimum Criteria Checklist:
-                      </span>
-                      {currentStage.mockCriteria?.map((crit, cIdx) => (
-                        <div key={cIdx} className="p-2.5 rounded-lg bg-white tone-light card-light border border-[#E2E8F0] flex items-center justify-between">
-                          <span className="text-[#081F38] font-bold">{crit.label}:</span>
-                          <span className="text-[#64748B] text-[11px]">{crit.val}</span>
-                          <span className="text-[#10B981] font-bold">✓ PASS</span>
+                  {currentStage.data && (
+                    <div className="space-y-2">
+                      {currentStage.data.map((row, rIdx) => (
+                        <div key={rIdx} className="p-2.5 rounded-xl bg-white tone-light card-light border border-slate-200/80 flex items-center justify-between">
+                          <span className="text-[#64748B] text-[11px]">{row.label}:</span>
+                          <strong className="text-[#081F38] text-[11px] text-right">{row.value}</strong>
                         </div>
                       ))}
-                      <div className="p-2.5 rounded-lg bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] text-[11px] font-bold">
-                        {currentStage.seriousness}
-                      </div>
                     </div>
                   )}
 
-                  {activeSimulatorStage === 2 && (
-                    <div className="space-y-2 text-xs">
-                      <span className="text-[11px] font-bold text-[#081F38] block">
-                        MedDRA 27.0 Hierarchy Alignment:
-                      </span>
-                      <div className="space-y-1.5">
-                        {currentStage.codingTree?.map((node, nIdx) => (
-                          <div key={nIdx} className="p-2 rounded bg-white tone-light card-light border border-[#E2E8F0] flex items-center justify-between">
-                            <span className="text-[#64748B] text-[10px]">{node.level}:</span>
-                            <span className="text-[#081F38] font-bold">{node.term}</span>
-                            <span className="text-[10px] text-[#2563EB]">{node.code}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeSimulatorStage === 3 && (
+                  {currentStage.narrativeText && (
                     <div className="space-y-2">
                       <span className="text-[11px] font-bold text-[#081F38] block">
-                        CIOMS I Structured Narrative Draft:
+                        CIOMS I Structured Case Text:
                       </span>
-                      <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#E2E8F0] text-xs font-sans text-[#081F38] leading-relaxed">
-                        "{currentStage.narrativePreview}"
+                      <div className="p-4 rounded-xl bg-white tone-light card-light border border-slate-200/80 font-sans text-xs leading-relaxed text-[#081F38]">
+                        "{currentStage.narrativeText}"
                       </div>
                       <span className="text-[10px] text-[#10B981] font-bold block text-right">
-                        ✓ Medical Chronology &amp; Dechallenge Validated
+                        ✓ Dechallenge &amp; Causality Logic Formatted
                       </span>
-                    </div>
-                  )}
-
-                  {activeSimulatorStage === 4 && (
-                    <div className="space-y-2">
-                      <span className="text-[11px] font-bold text-[#081F38] block">
-                        Pre-Submission Quality Audit Checklist:
-                      </span>
-                      {currentStage.qaChecks?.map((qa, qIdx) => (
-                        <div key={qIdx} className="p-2 rounded bg-white tone-light card-light border border-[#E2E8F0] flex items-center justify-between text-[11px]">
-                          <span className="text-[#081F38]">{qa.check}</span>
-                          <span className="text-[#10B981] font-bold">✓ {qa.status}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {activeSimulatorStage === 5 && (
-                    <div className="space-y-2.5">
-                      <span className="text-[11px] font-bold text-[#081F38] block">
-                        Regulatory Gateway Transmission Clock:
-                      </span>
-                      <div className="p-3 rounded-lg bg-[#081F38] text-white space-y-1.5 text-xs">
-                        <div className="flex justify-between">
-                          <span className="text-slate-300">Case Classification:</span>
-                          <span className="text-[#FCD34D] font-bold">{currentStage.clockSchedule?.caseClassification}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-slate-300">Reporting Rule:</span>
-                          <span className="text-[#60A5FA] font-bold">{currentStage.clockSchedule?.regulatoryClock}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-slate-300">Gateway Deadline:</span>
-                          <span className="text-emerald-400 font-bold">{currentStage.clockSchedule?.submissionDeadline}</span>
-                        </div>
-                      </div>
-                      <p className="text-[10px] text-[#64748B]">
-                        ✓ {currentStage.clockSchedule?.status}
-                      </p>
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Bottom Quick Navigation & Important Note */}
-              <div className="pt-6 border-t border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              {/* Bottom Stepper Bar */}
+              <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    disabled={activeSimulatorStage === 0}
-                    onClick={() => setActiveSimulatorStage((prev) => Math.max(0, prev - 1))}
-                    className="px-4 py-2 rounded-lg border border-[#E2E8F0] bg-white tone-light text-xs font-bold font-mono text-[#081F38] hover:bg-[#F8FAFC] disabled:opacity-40 cursor-pointer"
+                    disabled={activeStageIdx === 0}
+                    onClick={() => setActiveStageIdx((prev) => Math.max(0, prev - 1))}
+                    className="px-4 py-2 rounded-full border border-slate-200 bg-white tone-light text-xs font-bold font-mono text-[#081F38] hover:bg-[#F8FAFC] disabled:opacity-30 cursor-pointer"
                   >
-                    ← Previous Stage
+                    ← Previous
                   </button>
                   <button
                     type="button"
-                    disabled={activeSimulatorStage === CASE_SIMULATOR_STAGES.length - 1}
-                    onClick={() => setActiveSimulatorStage((prev) => Math.min(CASE_SIMULATOR_STAGES.length - 1, prev + 1))}
-                    className="px-4 py-2 rounded-lg bg-[#2563EB] text-white text-xs font-bold font-mono hover:bg-[#1D4ED8] disabled:opacity-40 cursor-pointer"
+                    disabled={activeStageIdx === SIMULATOR_STAGES.length - 1}
+                    onClick={() => setActiveStageIdx((prev) => Math.min(SIMULATOR_STAGES.length - 1, prev + 1))}
+                    className="px-5 py-2 rounded-full bg-[#2563EB] text-white text-xs font-bold font-mono hover:bg-[#1D4ED8] disabled:opacity-30 cursor-pointer"
                   >
                     Next Stage →
                   </button>
@@ -1616,14 +1437,14 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 07. THE SKILLS EMPLOYERS LOOK FOR (RECRUITER SCREENING HEATMAP) ──── */}
-      <section className="py-16 sm:py-20 bg-white tone-light card-light border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* ── 07. THE SKILLS EMPLOYERS LOOK FOR (MINIMAL SCREENING HEATMAP) ────── */}
+      <section className="py-20 sm:py-28 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 07 · THE SKILLS EMPLOYERS LOOK FOR
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Prepare for the Work Behind the Job Description.
             </h2>
             <p className="text-base text-[#64748B] leading-relaxed">
@@ -1631,9 +1452,9 @@ function PVAssociateBrandedPage() {
             </p>
           </div>
 
-          {/* Employer Hiring Market Benchmark Strip */}
-          <div className="rounded-2xl p-5 bg-[#F8FAFC] border border-[#E2E8F0] flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+          {/* Minimal Benchmark Strip */}
+          <div className="rounded-[28px] p-6 bg-[#F8FAFC] border border-slate-200/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5">
               <div className="w-10 h-10 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center shrink-0">
                 <Building2 className="w-5 h-5" />
               </div>
@@ -1647,56 +1468,44 @@ function PVAssociateBrandedPage() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
-              <div className="px-3 py-1.5 rounded-lg bg-white tone-light card-light border border-[#E2E8F0]">
+            <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
+              <div className="px-3 py-1.5 rounded-lg bg-white tone-light card-light border border-slate-200/80">
                 <span className="text-[#64748B]">Benchmark CTC: </span>
                 <strong className="text-[#081F38]">₹4.20 – ₹6.00 LPA</strong>
               </div>
-              <div className="px-3 py-1.5 rounded-lg bg-white tone-light card-light border border-[#E2E8F0]">
-                <span className="text-[#64748B]">Data Source: </span>
+              <div className="px-3 py-1.5 rounded-lg bg-white tone-light card-light border border-slate-200/80">
+                <span className="text-[#64748B]">Source: </span>
                 <strong className="text-[#081F38]">120+ JDs Analysed</strong>
               </div>
             </div>
           </div>
 
-          {/* VISUAL RECRUITER SCREENING HEATMAP */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#E2E8F0] pb-4">
-              <div>
-                <h3 className="font-bold text-base text-[#081F38]">
-                  Recruiter Screening Priority &amp; Weightage
-                </h3>
-                <p className="text-xs text-[#64748B]">
-                  Weighted analysis based on technical screening questions across 120+ entry-level PV openings
-                </p>
-              </div>
-              <span className="font-mono text-xs font-bold text-[#2563EB]">
-                Technical Interview Focus
+          {/* Sleek Minimalist Heatmap Bars */}
+          <div className="p-8 rounded-[28px] bg-[#F8FAFC] border border-slate-200/80 space-y-5">
+            <div className="flex justify-between items-center border-b border-slate-200/80 pb-3">
+              <span className="font-mono text-xs font-bold text-[#081F38] uppercase tracking-wider">
+                Technical Screening Importance
               </span>
+              <span className="font-mono text-xs font-bold text-[#2563EB]">Weighted Priority</span>
             </div>
 
             <div className="space-y-4">
               {[
-                { label: "ICSR Case Intake & 4 Minimum Criteria Validation", weight: 95, tag: "ESSENTIAL" },
-                { label: "MedDRA 27.0 Hierarchy Term Mapping (LLT ➔ PT ➔ SOC)", weight: 90, tag: "ESSENTIAL" },
-                { label: "CIOMS I Structured Clinical Case Narrative Drafting", weight: 88, tag: "ESSENTIAL" },
-                { label: "Oracle Argus Safety Core Navigation & Tab Workflows", weight: 84, tag: "HIGH ADVANTAGE" },
-                { label: "Day-0 & 15-Day Expedited Regulatory Clock Calculations", weight: 82, tag: "HIGH ADVANTAGE" },
-              ].map((bar, bIdx) => (
-                <div key={bIdx} className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-[#081F38]">{bar.label}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-[10px] font-bold text-[#2563EB] bg-[#EEF6FF] px-2 py-0.5 rounded">
-                        {bar.tag}
-                      </span>
-                      <span className="font-mono font-bold text-[#081F38]">{bar.weight}%</span>
-                    </div>
+                { label: "ICSR Case Intake & 4 Minimum Criteria Validation", pct: 95 },
+                { label: "MedDRA 27.0 Hierarchy Term Mapping (LLT ➔ PT ➔ SOC)", pct: 90 },
+                { label: "CIOMS I Structured Clinical Case Narrative Drafting", pct: 88 },
+                { label: "Oracle Argus Safety Core Navigation & Tab Workflows", pct: 84 },
+                { label: "Day-0 & 15-Day Expedited Regulatory Clock Calculations", pct: 82 },
+              ].map((bar, idx) => (
+                <div key={idx} className="space-y-1.5 text-xs text-left">
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-[#081F38]">{bar.label}</span>
+                    <span className="font-mono font-bold text-[#2563EB]">{bar.pct}%</span>
                   </div>
-                  <div className="h-2 w-full bg-[#E2E8F0] rounded-full overflow-hidden">
+                  <div className="h-1.5 w-full bg-slate-200/80 rounded-full overflow-hidden">
                     <div
                       className="h-full bg-[#2563EB] rounded-full transition-all duration-700"
-                      style={{ width: `${bar.weight}%` }}
+                      style={{ width: `${bar.pct}%` }}
                     />
                   </div>
                 </div>
@@ -1704,8 +1513,8 @@ function PVAssociateBrandedPage() {
             </div>
           </div>
 
-          {/* 4 Skill Category Grids */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* 4 Skill Categories */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
             {[
               {
                 category: "Core knowledge",
@@ -1755,10 +1564,10 @@ function PVAssociateBrandedPage() {
               return (
                 <div
                   key={idx}
-                  className="p-6 sm:p-7 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-4"
+                  className="p-8 rounded-[28px] bg-[#F8FAFC] border border-slate-200/80 space-y-5"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center shrink-0">
                       <Icon className="w-5 h-5" />
                     </div>
                     <h3 className="font-bold text-lg text-[#081F38]">
@@ -1766,7 +1575,7 @@ function PVAssociateBrandedPage() {
                     </h3>
                   </div>
 
-                  <ul className="space-y-2.5 text-xs sm:text-sm text-[#64748B]">
+                  <ul className="space-y-3 text-xs sm:text-sm text-[#64748B]">
                     {group.items.map((skill, sIdx) => (
                       <li key={sIdx} className="flex items-start gap-2.5">
                         <Check className="w-4 h-4 text-[#10B981] shrink-0 mt-0.5 stroke-[2.5]" />
@@ -1779,16 +1588,15 @@ function PVAssociateBrandedPage() {
             })}
           </div>
 
-          {/* Supporting Callout & Action */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#EEF6FF] border border-[#60A5FA]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <p className="text-sm sm:text-base text-[#081F38] leading-relaxed max-w-2xl font-medium">
+          <div className="p-8 rounded-[28px] bg-[#EEF6FF] border border-[#60A5FA]/30 flex flex-col sm:flex-row sm:items-center justify-between gap-6 text-left">
+            <p className="text-base text-[#081F38] leading-relaxed max-w-2xl font-medium">
               You do not need to pretend that you already have industry experience. You need to understand the role, build relevant knowledge and demonstrate what you have learned through your work.
             </p>
 
             <button
               type="button"
               onClick={() => openCounsellor("section_07_skills")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
             >
               <span>Find Out Which Skills You Need</span>
               <ArrowRight className="w-4 h-4" />
@@ -1797,57 +1605,28 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 08. YOUR 12-WEEK LEARNING PATHWAY (INTERACTIVE 3-PHASE ROADMAP) ───── */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* ── 08. YOUR 12-WEEK LEARNING PATHWAY (MINIMAL 3-COLUMN ROADMAP) ────── */}
+      <section className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 08 · YOUR 12-WEEK LEARNING PATHWAY
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               From Foundations to Applied Pharmacovigilance Work.
             </h2>
             <p className="text-base text-[#64748B] leading-relaxed">
-              The program is organized into three learning phases, progressing from core concepts to case-processing practice and career preparation. Click each phase to inspect weekly milestones and portfolio unlock deliverables.
+              The program is organized into three learning phases, progressing from core concepts to case-processing practice and career preparation.
             </p>
           </div>
 
-          {/* Interactive Phase Selector Pills */}
-          <div className="flex flex-wrap gap-2.5">
-            {[
-              { phaseNum: 0, label: "Phase 1: Weeks 1–4", subtitle: "Drug Safety Foundations" },
-              { phaseNum: 1, label: "Phase 2: Weeks 5–8", subtitle: "Case-Processing Workflow" },
-              { phaseNum: 2, label: "Phase 3: Weeks 9–12", subtitle: "Applied Portfolio & Hiring" },
-            ].map((p) => (
-              <button
-                key={p.phaseNum}
-                type="button"
-                onClick={() => {
-                  setActiveMilestonePhase(p.phaseNum);
-                  trackEvent("pathway_phase_click", { phase: p.phaseNum });
-                }}
-                className={`px-5 py-3 rounded-2xl text-xs font-bold font-mono transition-all text-left cursor-pointer ${
-                  activeMilestonePhase === p.phaseNum
-                    ? "bg-[#2563EB] text-white shadow-sm scale-102"
-                    : "bg-white tone-light card-light border border-[#E2E8F0] text-[#081F38] hover:bg-[#EEF6FF]"
-                }`}
-              >
-                <span className="block text-[10px] opacity-80 uppercase tracking-wider">{p.label}</span>
-                <span className="text-sm font-bold">{p.subtitle}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* 3-Phase Structured Roadmap Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
             {[
               {
-                phaseNum: 0,
-                phase: "PHASE 01 · WEEKS 1-4",
+                num: "01",
+                phase: "WEEKS 1–4",
                 title: "Build Your Drug Safety Foundations",
                 desc: "Understand the principles behind pharmacovigilance and the purpose of safety reporting.",
-                badge: "Unlock: Triage Specialist",
-                caseCount: "5 Foundational Cases",
                 areas: [
                   "Introduction to pharmacovigilance",
                   "Adverse drug reactions and adverse events",
@@ -1860,12 +1639,10 @@ function PVAssociateBrandedPage() {
                   "Develop a foundation for understanding the information handled by drug safety teams and the purpose of each stage in case processing.",
               },
               {
-                phaseNum: 1,
-                phase: "PHASE 02 · WEEKS 5-8",
+                num: "02",
+                phase: "WEEKS 5–8",
                 title: "Learn the Case-Processing Workflow",
                 desc: "Apply your foundational knowledge to structured exercises and simulated case-processing tasks.",
-                badge: "Unlock: MedDRA Coder",
-                caseCount: "6 Workflow Cases",
                 areas: [
                   "MedDRA terminology and hierarchy",
                   "Medical concept coding exercises",
@@ -1878,12 +1655,10 @@ function PVAssociateBrandedPage() {
                   "Build familiarity with the structured tasks involved in processing and documenting safety information.",
               },
               {
-                phaseNum: 2,
-                phase: "PHASE 03 · WEEKS 9-12",
+                num: "03",
+                phase: "WEEKS 9–12",
                 title: "Apply Your Knowledge and Prepare for Interviews",
                 desc: "Bring your learning together through applied exercises, feedback and role-focused career preparation.",
-                badge: "Unlock: Role-Ready Associate",
-                caseCount: "4 Capstone Deliverables",
                 areas: [
                   "Clinical case narrative preparation",
                   "Integrated case-processing exercises",
@@ -1895,79 +1670,64 @@ function PVAssociateBrandedPage() {
                 objective:
                   "Complete the assigned learning activities and develop work samples that demonstrate your understanding of selected pharmacovigilance tasks.",
               },
-            ].map((p, idx) => {
-              const isSelected = activeMilestonePhase === p.phaseNum;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setActiveMilestonePhase(p.phaseNum)}
-                  className={`p-6 sm:p-7 rounded-3xl transition-all cursor-pointer flex flex-col justify-between space-y-6 ${
-                    isSelected
-                      ? "bg-white tone-light card-light border-2 border-[#2563EB] shadow-lg scale-102"
-                      : "bg-white tone-light card-light border border-[#E2E8F0] shadow-2xs hover:border-[#60A5FA]"
-                  }`}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold text-[#2563EB] tracking-wider">
-                        {p.phase}
-                      </span>
-                      <span className="font-mono text-[10px] font-bold text-[#10B981] bg-[#E6F7F1] px-2 py-0.5 rounded">
-                        {p.caseCount}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xl font-bold text-[#081F38] leading-snug">
-                      {p.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
-                      {p.desc}
-                    </p>
-
-                    <div className="pt-2 space-y-2 border-t border-[#E2E8F0]">
-                      <span className="font-mono text-[11px] font-bold text-[#081F38] uppercase block">
-                        Learning areas:
-                      </span>
-                      <ul className="space-y-1.5 text-xs text-[#64748B]">
-                        {p.areas.map((a, aIdx) => (
-                          <li key={aIdx} className="flex items-start gap-2">
-                            <span className="text-[#2563EB] font-bold">•</span>
-                            <span>{a}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            ].map((p, idx) => (
+              <div
+                key={idx}
+                className="p-8 rounded-[28px] bg-white tone-light card-light border border-slate-200/80 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between space-y-6"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-bold text-[#2563EB]">
+                      {p.phase}
+                    </span>
+                    <span className="font-mono text-2xl font-bold text-slate-300">
+                      {p.num}
+                    </span>
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs space-y-1">
-                      <span className="font-mono text-[10px] font-bold text-[#2563EB] uppercase block">
-                        Phase objective:
-                      </span>
-                      <p className="text-[#64748B] leading-relaxed">
-                        {p.objective}
-                      </p>
-                    </div>
+                  <h3 className="text-xl font-bold text-[#081F38] leading-snug">
+                    {p.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                    {p.desc}
+                  </p>
 
-                    <div className="text-center font-mono text-[10px] font-bold text-[#10B981] pt-1">
-                      ✓ {p.badge}
-                    </div>
+                  <div className="pt-3 space-y-2 border-t border-slate-100">
+                    <span className="font-mono text-[11px] font-bold text-[#081F38] uppercase block">
+                      Learning Areas:
+                    </span>
+                    <ul className="space-y-2 text-xs text-[#64748B]">
+                      {p.areas.map((a, aIdx) => (
+                        <li key={aIdx} className="flex items-start gap-2">
+                          <span className="text-[#2563EB] font-bold">•</span>
+                          <span>{a}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              );
-            })}
+
+                <div className="p-4 rounded-xl bg-[#F8FAFC] border border-slate-200/80 text-xs space-y-1">
+                  <span className="font-mono text-[10px] font-bold text-[#2563EB] uppercase block">
+                    Phase Objective:
+                  </span>
+                  <p className="text-[#64748B] leading-relaxed">
+                    {p.objective}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Closing & CTA */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <p className="text-sm sm:text-base text-[#081F38] leading-relaxed max-w-2xl font-medium">
+          <div className="p-8 rounded-[28px] bg-white tone-light card-light border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-6 text-left">
+            <p className="text-base text-[#081F38] leading-relaxed max-w-2xl font-medium">
               The aim is to move from understanding the concepts to applying them in structured exercises and explaining your work with confidence.
             </p>
 
             <button
               type="button"
               onClick={() => openCounsellor("section_08_pathway")}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
             >
               <span>Discuss the 12-Week Program</span>
               <ArrowRight className="w-4 h-4" />
@@ -1976,54 +1736,52 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 09. BUILD WORK YOU CAN EXPLAIN (INTERACTIVE PROOF-OF-WORK HUB) ────── */}
-      <section className="py-16 sm:py-20 bg-white tone-light card-light border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* ── 09. BUILD WORK YOU CAN EXPLAIN (MINIMAL ARTIFACT SPEC-SHEET) ─────── */}
+      <section className="py-20 sm:py-28 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 09 · BUILD WORK YOU CAN EXPLAIN
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Do Not Just List Skills on Your Resume. Practise Applying Them.
             </h2>
             <p className="text-base text-[#64748B] leading-relaxed">
-              A practical learning experience should give you opportunities to apply concepts, receive feedback and understand how your work is evaluated. Click each work sample tab below to inspect real mock deliverables you will build.
+              A practical learning experience should give you opportunities to apply concepts, receive feedback and understand how your work is evaluated. The program's proposed portfolio includes four work samples.
             </p>
           </div>
 
-          {/* Interactive Proof-of-Work Artifact Inspector */}
-          <div className="rounded-3xl border border-[#E2E8F0] bg-[#F8FAFC] overflow-hidden shadow-sm">
-            {/* Artifact Tab Bar */}
-            <div className="p-3 bg-white tone-light card-light border-b border-[#E2E8F0] overflow-x-auto scrollbar-none">
-              <div className="flex items-center gap-2 min-w-max">
-                {PROOF_OF_WORK_ARTIFACTS.map((art, idx) => (
+          {/* Minimalist Tabbed Spec Sheet */}
+          <div className="rounded-[32px] border border-slate-200/80 bg-[#F8FAFC] overflow-hidden shadow-sm">
+            <div className="p-3 bg-white tone-light card-light border-b border-slate-200/80 overflow-x-auto scrollbar-none">
+              <div className="flex items-center gap-2 min-w-max mx-auto">
+                {ARTIFACT_GALLERY.map((art, idx) => (
                   <button
                     key={art.id}
                     type="button"
                     onClick={() => {
-                      setActiveArtifactTab(idx);
-                      trackEvent("proof_of_work_tab_click", { artifact: art.tabTitle });
+                      setActiveArtifactIdx(idx);
+                      trackEvent("proof_of_work_tab_click", { artifact: art.name });
                     }}
-                    className={`px-4 py-2.5 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-2 cursor-pointer ${
-                      activeArtifactTab === idx
-                        ? "bg-[#2563EB] text-white shadow-xs"
-                        : "bg-[#F8FAFC] border border-[#E2E8F0] text-[#64748B] hover:text-[#081F38]"
+                    className={`px-4 py-2 rounded-full text-xs font-bold font-mono transition-all cursor-pointer ${
+                      activeArtifactIdx === idx
+                        ? "bg-[#2563EB] text-white shadow-2xs"
+                        : "text-[#64748B] hover:text-[#081F38] hover:bg-slate-100"
                     }`}
                   >
-                    <span>{art.tabTitle}</span>
+                    {art.name}
                   </button>
                 ))}
               </div>
             </div>
 
-            {/* Selected Artifact Inspection View */}
-            <div className="p-6 sm:p-10 space-y-8">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
+            <div className="p-8 sm:p-12 space-y-8 text-left">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
                 <div>
                   <span className="font-mono text-xs font-bold text-[#2563EB]">
                     {currentArtifact.workSampleNum}
                   </span>
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#081F38] mt-1">
+                  <h3 className="text-2xl font-bold text-[#081F38] mt-1">
                     {currentArtifact.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-[#64748B] mt-1">
@@ -2032,108 +1790,36 @@ function PVAssociateBrandedPage() {
                 </div>
 
                 <span className="font-mono text-xs font-bold text-[#10B981] bg-[#E6F7F1] px-3 py-1 rounded-full border border-[#10B981]/30 shrink-0">
-                  {currentArtifact.badge}
+                  {currentArtifact.standard}
                 </span>
               </div>
 
-              {/* Artifact Document Card Preview */}
-              <div className="rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-6 shadow-sm space-y-5">
-                <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3 text-xs font-mono">
+              {/* Document Spec Card */}
+              <div className="rounded-2xl border border-slate-200/80 bg-white tone-light card-light p-6 space-y-4 shadow-2xs">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-3 text-xs font-mono">
                   <span className="font-bold text-[#081F38] flex items-center gap-1.5">
                     <FileCheck className="w-4 h-4 text-[#2563EB]" />
-                    {currentArtifact.mockDoc.type}
+                    SIMULATED WORK SAMPLE OUTPUT
                   </span>
-                  <span className="text-[#10B981] font-bold">
-                    ✓ Verified Deliverable
-                  </span>
+                  <span className="text-[#10B981] font-bold">✓ Verified Deliverable</span>
                 </div>
 
-                {/* Body of Mock Document */}
-                <div className="space-y-3 text-xs font-mono text-[#081F38]">
-                  {activeArtifactTab === 0 && (
-                    <div className="space-y-2">
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex justify-between">
-                        <span className="text-[#64748B]">Case Tracking ID:</span>
-                        <strong>{currentArtifact.mockDoc.caseNum}</strong>
-                      </div>
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex justify-between">
-                        <span className="text-[#64748B]">Reporter Qualification:</span>
-                        <strong>{currentArtifact.mockDoc.reporter}</strong>
-                      </div>
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex justify-between">
-                        <span className="text-[#64748B]">Suspect Product:</span>
-                        <strong className="text-[#2563EB]">{currentArtifact.mockDoc.drug}</strong>
-                      </div>
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex justify-between">
-                        <span className="text-[#64748B]">Reported Reaction:</span>
-                        <strong>{currentArtifact.mockDoc.event}</strong>
-                      </div>
-                      <div className="p-3 rounded-lg bg-[#E6F7F1] text-[#10B981] font-bold">
-                        Status: {currentArtifact.mockDoc.validityVerdict}
-                      </div>
+                <div className="space-y-2 font-mono text-xs">
+                  {currentArtifact.records.map((r, rIdx) => (
+                    <div key={rIdx} className="p-3 rounded-xl bg-[#F8FAFC] border border-slate-200/80 flex items-center justify-between">
+                      <span className="text-[#64748B] text-[11px]">{r.key}:</span>
+                      <strong className="text-[#081F38] text-[11px] text-right">{r.val}</strong>
                     </div>
-                  )}
-
-                  {activeArtifactTab === 1 && (
-                    <div className="space-y-2">
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0]">
-                        <span className="text-[#64748B] block mb-1">Verbatim Complaint:</span>
-                        <strong>"{currentArtifact.mockDoc.sourceVerbatim}"</strong>
-                      </div>
-                      <div className="p-2.5 rounded bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB]">
-                        {currentArtifact.mockDoc.term1}
-                      </div>
-                      <div className="p-2.5 rounded bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB]">
-                        {currentArtifact.mockDoc.term2}
-                      </div>
-                      <p className="text-[11px] text-[#64748B] pt-1">
-                        Applied Standard: {currentArtifact.mockDoc.codingRuleApplied}
-                      </p>
-                    </div>
-                  )}
-
-                  {activeArtifactTab === 2 && (
-                    <div className="space-y-2">
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0]">
-                        <span className="text-[#64748B] block mb-1">Patient History:</span>
-                        <strong>{currentArtifact.mockDoc.patientProfile}</strong>
-                      </div>
-                      <div className="p-3.5 rounded bg-white tone-light card-light border border-[#E2E8F0] font-sans text-xs leading-relaxed text-[#081F38]">
-                        "{currentArtifact.mockDoc.incidentSummary}"
-                      </div>
-                      <div className="p-2.5 rounded bg-[#E6F7F1] text-[#10B981] font-bold">
-                        {currentArtifact.mockDoc.dechallengeVerdict}
-                      </div>
-                    </div>
-                  )}
-
-                  {activeArtifactTab === 3 && (
-                    <div className="space-y-2">
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex justify-between">
-                        <span className="text-[#64748B]">Classification:</span>
-                        <strong>{currentArtifact.mockDoc.caseType}</strong>
-                      </div>
-                      <div className="p-2.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex justify-between">
-                        <span className="text-[#64748B]">RSI Document:</span>
-                        <strong>{currentArtifact.mockDoc.referenceSafetyDoc}</strong>
-                      </div>
-                      <div className="p-3 rounded-lg bg-[#081F38] text-white">
-                        <span className="text-[#60A5FA] block mb-1">Transmission Directive:</span>
-                        <strong className="text-[#FCD34D]">{currentArtifact.mockDoc.regulatoryAction}</strong>
-                        <span className="block text-slate-300 text-[10px] mt-1">{currentArtifact.mockDoc.calendarCountdown}</span>
-                      </div>
-                    </div>
-                  )}
+                  ))}
                 </div>
 
-                {/* Deliverable Evaluation Rubric */}
-                <div className="pt-3 border-t border-[#E2E8F0] space-y-2">
+                <div className="pt-3 border-t border-slate-100 space-y-2">
                   <span className="text-[11px] font-mono font-bold text-[#64748B] uppercase block">
-                    What Mentors Evaluate In This Work Sample:
+                    What Mentors Evaluate:
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-[#081F38]">
-                    {currentArtifact.rubricPoints.map((rb, rIdx) => (
-                      <div key={rIdx} className="p-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] flex items-start gap-1.5">
+                    {currentArtifact.rubrics.map((rb, rbIdx) => (
+                      <div key={rbIdx} className="p-2.5 rounded-lg bg-[#F8FAFC] border border-slate-200/80 flex items-start gap-1.5">
                         <Check className="w-3.5 h-3.5 text-[#10B981] shrink-0 mt-0.5" />
                         <span>{rb}</span>
                       </div>
@@ -2142,8 +1828,8 @@ function PVAssociateBrandedPage() {
                 </div>
               </div>
 
-              {/* What These Exercises Are Designed to Demonstrate */}
-              <div className="p-6 rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] space-y-4">
+              {/* What These Exercises Demonstrate */}
+              <div className="p-6 rounded-2xl bg-white tone-light card-light border border-slate-200/80 space-y-4">
                 <h4 className="font-bold text-base text-[#081F38]">
                   What these exercises are designed to demonstrate:
                 </h4>
@@ -2162,7 +1848,7 @@ function PVAssociateBrandedPage() {
                   ))}
                 </div>
 
-                <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-[#E2E8F0]">
+                <div className="pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-100">
                   <button
                     type="button"
                     onClick={() => openCounsellor("section_09_projects")}
@@ -2182,14 +1868,14 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 10. YOUR CERTIFICATE AND LEARNING RECORD (HIGH-RES PREVIEW) ──────── */}
-      <section className="py-16 sm:py-20 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* ── 10. CERTIFICATE AND LEARNING RECORD ─────────────────────────────── */}
+      <section className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 10 · YOUR CERTIFICATE AND LEARNING RECORD
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Document What You Have Learned.
             </h2>
             <p className="text-base text-[#64748B] leading-relaxed">
@@ -2197,12 +1883,10 @@ function PVAssociateBrandedPage() {
             </p>
           </div>
 
-          {/* Certificate Terms & Preview Card */}
-          <div className="rounded-3xl bg-white tone-light card-light border border-[#E2E8F0] p-6 sm:p-10 shadow-sm space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column (7 cols): Certificate Details */}
-              <div className="lg:col-span-7 space-y-5">
-                <h3 className="text-xl font-bold text-[#081F38]">
+          <div className="rounded-[32px] bg-white tone-light card-light border border-slate-200/80 p-8 sm:p-12 shadow-sm space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center text-left">
+              <div className="lg:col-span-7 space-y-6">
+                <h3 className="text-2xl font-bold text-[#081F38]">
                   What to understand before enrolling
                 </h3>
 
@@ -2223,7 +1907,7 @@ function PVAssociateBrandedPage() {
                   ))}
                 </ul>
 
-                <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed pt-2">
+                <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">
                   A certificate documents your participation or achievement according to its stated terms. It does not replace employer assessments, professional experience or independent evidence of your skills.
                 </p>
 
@@ -2231,7 +1915,7 @@ function PVAssociateBrandedPage() {
                   <button
                     type="button"
                     onClick={() => openCounsellor("section_10_cert")}
-                    className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                   >
                     <span>Ask About Certification</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -2239,9 +1923,8 @@ function PVAssociateBrandedPage() {
                 </div>
               </div>
 
-              {/* Right Column (5 cols): High-Res Certificate Mockup */}
-              <div className="lg:col-span-5 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-4 text-center">
-                <div className="relative rounded-xl overflow-hidden border border-[#E2E8F0] shadow-sm bg-white tone-light card-light">
+              <div className="lg:col-span-5 p-4 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-4 text-center">
+                <div className="relative rounded-xl overflow-hidden border border-slate-200 shadow-sm bg-white tone-light card-light">
                   <img
                     src="/images/acri-certification-ai.webp"
                     alt="Official Arzon Global Certificate of Completion Preview"
@@ -2265,7 +1948,7 @@ function PVAssociateBrandedPage() {
                   </p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-white tone-light card-light border border-[#E2E8F0] text-[11px] font-mono text-[#64748B] space-y-1 text-left">
+                <div className="p-3 rounded-xl bg-white tone-light card-light border border-slate-200/80 text-[11px] font-mono text-[#64748B] space-y-1 text-left">
                   <div className="flex justify-between">
                     <span>Issuer:</span>
                     <strong className="text-[#081F38]">Arzon Global Careers</strong>
@@ -2282,24 +1965,24 @@ function PVAssociateBrandedPage() {
               </div>
             </div>
 
-            <p className="text-[11px] font-mono text-[#64748B] italic border-t border-[#E2E8F0] pt-4">
+            <p className="text-[11px] font-mono text-[#64748B] italic border-t border-slate-100 pt-4 text-left">
               *Display the certificate preview, QR verification and documented lab hours only if those features are operational and available to participants.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── 11. CAREER GUIDANCE & LEARNER FEEDBACK (3-STEP ADVISORY JOURNEY) ──── */}
-      <section className="py-16 sm:py-20 bg-white tone-light card-light border-b border-[#E2E8F0]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      {/* ── 11. CAREER GUIDANCE & LEARNER FEEDBACK ───────────────────────────── */}
+      <section className="py-20 sm:py-28 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="max-w-3xl space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 11 · CAREER GUIDANCE AND EMPLOYMENT PREPARATION
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Understand Your Next Step Before You Commit.
             </h2>
-            <div className="space-y-3 text-sm sm:text-base text-[#64748B] leading-relaxed">
+            <div className="space-y-3 text-base text-[#64748B] leading-relaxed">
               <p>
                 Choosing a career path is a significant decision. You should understand the role, the skills it requires and the work involved before deciding which training is appropriate for you.
               </p>
@@ -2310,9 +1993,9 @@ function PVAssociateBrandedPage() {
           </div>
 
           {/* Real Pharmacy & Healthcare Graduate Social Proof */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
+              <h3 className="text-xl font-bold text-[#081F38]">
                 Hear from pharmacy and healthcare graduates
               </h3>
               <span className="font-mono text-xs text-[#2563EB] font-bold">
@@ -2320,11 +2003,11 @@ function PVAssociateBrandedPage() {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-left">
               {STUDENT_REVIEWS.map((st, idx) => (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-3 flex flex-col justify-between"
+                  className="p-6 rounded-[24px] bg-[#F8FAFC] border border-slate-200/80 space-y-4 flex flex-col justify-between"
                 >
                   <div className="space-y-2.5">
                     <div className="flex items-center gap-1 text-[#F59E0B]">
@@ -2337,11 +2020,11 @@ function PVAssociateBrandedPage() {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-[#E2E8F0] flex items-center gap-2.5">
+                  <div className="pt-3 border-t border-slate-200/80 flex items-center gap-2.5">
                     <img
                       src={st.avatar}
                       alt={st.name}
-                      className="w-8 h-8 rounded-full object-cover border border-[#E2E8F0] shrink-0"
+                      className="w-8 h-8 rounded-full object-cover border border-slate-200 shrink-0"
                       onError={(e) => {
                         e.currentTarget.style.display = "none";
                       }}
@@ -2356,13 +2039,13 @@ function PVAssociateBrandedPage() {
             </div>
           </div>
 
-          {/* 3-STEP 1-ON-1 GUIDANCE JOURNEY */}
-          <div className="p-6 sm:p-10 rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-8">
+          {/* Minimal 3-Step Guidance Flow */}
+          <div className="p-8 sm:p-12 rounded-[32px] bg-[#F8FAFC] border border-slate-200/80 space-y-8 text-left">
             <div className="max-w-2xl space-y-2">
               <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
                 Counsellor Consultation Roadmap
               </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
+              <h3 className="text-2xl font-bold text-[#081F38]">
                 What Happens When You Speak With Our Guidance Team?
               </h3>
               <p className="text-xs sm:text-sm text-[#64748B]">
@@ -2373,58 +2056,30 @@ function PVAssociateBrandedPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  step: "STEP 01",
+                  step: "01",
                   title: "Profile & Degree Diagnostic",
                   desc: "Review your B.Pharm, Pharm.D, or science degree background to confirm technical eligibility and prerequisite coursework.",
-                  badge: "5 Minutes",
                 },
                 {
-                  step: "STEP 02",
+                  step: "02",
                   title: "Role & Skill Gap Analysis",
                   desc: "Compare your current understanding of pharmacology against corporate ICSR case-processing expectations.",
-                  badge: "10 Minutes",
                 },
                 {
-                  step: "STEP 03",
+                  step: "03",
                   title: "Personalized Career Plan",
                   desc: "Receive clear information on the 12-week schedule, capstone projects, payment terms, and interview preparation.",
-                  badge: "Next Steps",
                 },
               ].map((s, idx) => (
-                <div key={idx} className="p-6 rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#2563EB]">{s.step}</span>
-                    <span className="font-mono text-[10px] text-[#64748B] bg-[#F8FAFC] px-2 py-0.5 rounded border border-[#E2E8F0]">{s.badge}</span>
-                  </div>
+                <div key={idx} className="p-6 rounded-2xl bg-white tone-light card-light border border-slate-200/80 space-y-2.5">
+                  <span className="font-mono text-xs font-bold text-[#2563EB]">STEP {s.step}</span>
                   <h4 className="font-bold text-base text-[#081F38]">{s.title}</h4>
-                  <p className="text-xs sm:text-sm text-[#64748B] leading-relaxed">{s.desc}</p>
+                  <p className="text-xs text-[#64748B] leading-relaxed">{s.desc}</p>
                 </div>
               ))}
             </div>
 
-            {/* What You Can Discuss Callout */}
-            <div className="rounded-2xl bg-white tone-light card-light border border-[#E2E8F0] p-6 space-y-4">
-              <h4 className="font-bold text-sm text-[#081F38] uppercase font-mono tracking-wider">
-                Topics Covered During Consultation:
-              </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-[#64748B]">
-                {[
-                  "Your eligibility & degree fitment",
-                  "Entry-level drug safety roles",
-                  "Current technical skill gaps",
-                  "12-week schedule & format",
-                  "MNC interview preparation",
-                  "Available career guidance terms",
-                ].map((top, tIdx) => (
-                  <div key={tIdx} className="flex items-center gap-2">
-                    <Check className="w-3.5 h-3.5 text-[#10B981] shrink-0 stroke-[2.5]" />
-                    <span>{top}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[#E2E8F0]">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-slate-200/80">
               <button
                 type="button"
                 onClick={() => openCounsellor("section_11_cta")}
@@ -2447,14 +2102,14 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── 12. FREQUENTLY ASKED QUESTIONS ───────────────────────────────────── */}
-      <section id="faqs" className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-[#E2E8F0]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      {/* ── 12. FREQUENTLY ASKED QUESTIONS (CLEAN APPLE ACCORDION) ───────────── */}
+      <section id="faqs" className="py-20 sm:py-28 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3">
-            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-wider block">
+            <span className="font-mono text-xs font-bold text-[#2563EB] uppercase tracking-widest block">
               SECTION 12 · FREQUENTLY ASKED QUESTIONS
             </span>
-            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
               Have Questions About Pharmacovigilance?
             </h2>
             <p className="text-sm sm:text-base text-[#64748B]">
@@ -2462,13 +2117,13 @@ function PVAssociateBrandedPage() {
             </p>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 text-left">
             {FAQS.map((faq, idx) => {
               const isOpen = openFaqIndex === idx;
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light overflow-hidden shadow-2xs transition-all"
+                  className="rounded-2xl border border-slate-200/80 bg-white tone-light card-light overflow-hidden shadow-2xs transition-all"
                 >
                   <button
                     type="button"
@@ -2479,13 +2134,13 @@ function PVAssociateBrandedPage() {
                     <span className="font-bold text-sm sm:text-base text-[#081F38]">
                       {idx + 1}. {faq.q}
                     </span>
-                    <div className="w-7 h-7 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-center text-[#2563EB] shrink-0">
+                    <div className="w-7 h-7 rounded-full bg-[#F8FAFC] border border-slate-200 flex items-center justify-center text-[#2563EB] shrink-0">
                       {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                     </div>
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-[#64748B] leading-relaxed border-t border-[#E2E8F0] pt-4">
+                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-xs sm:text-sm text-[#64748B] leading-relaxed border-t border-slate-100 pt-4">
                       {faq.a}
                     </div>
                   )}
@@ -2496,11 +2151,11 @@ function PVAssociateBrandedPage() {
         </div>
       </section>
 
-      {/* ── FINAL HIGH-CONVERTING CLOSING CTA BANNER ─────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white tone-light card-light border-b border-[#E2E8F0]">
+      {/* ── FINAL CLOSING CTA BANNER ─────────────────────────────────────────── */}
+      <section className="py-24 sm:py-32 bg-white tone-light card-light border-b border-slate-200/80">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <div className="space-y-4">
-            <h2 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="text-3xl sm:text-6xl font-bold tracking-tight text-[#081F38] leading-tight">
               Your Next Career Decision Should Start With Clarity.
             </h2>
             <p className="text-base sm:text-lg text-[#64748B] leading-relaxed max-w-2xl mx-auto">
@@ -2524,11 +2179,9 @@ function PVAssociateBrandedPage() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("masterclass_click", { source: "final_cta_secondary" })}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white tone-light card-light border border-[#E2E8F0] hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white tone-light card-light border border-slate-200/80 hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer group"
             >
-              <div className="w-5 h-5 rounded-full bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Play className="w-3 h-3 fill-current ml-0.5" />
-              </div>
+              <Play className="w-3.5 h-3.5 fill-current text-[#2563EB]" />
               <span>Watch the Free Masterclass</span>
               <ExternalLink className="w-3.5 h-3.5 text-[#64748B]" />
             </a>
@@ -2546,7 +2199,7 @@ function PVAssociateBrandedPage() {
       </section>
 
       {/* ── INSTITUTIONAL COMPLIANCE & EDUCATIONAL DISCLAIMER ─────────────────── */}
-      <section className="py-10 bg-[#F8FAFC] border-t border-[#E2E8F0] text-xs text-[#64748B]">
+      <section className="py-10 bg-[#F8FAFC] border-t border-slate-200/80 text-xs text-[#64748B] text-left">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
           <div className="flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-[#10B981]" />
@@ -2561,11 +2214,11 @@ function PVAssociateBrandedPage() {
       </section>
 
       {/* ── MOBILE STICKY CTA DOCK ───────────────────────────────────────────── */}
-      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 tone-light card-light backdrop-blur-md border-t border-[#E2E8F0] p-3 shadow-lg">
+      <div className="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 tone-light card-light backdrop-blur-md border-t border-slate-200/80 p-3 shadow-lg">
         <div className="flex items-center justify-between gap-3">
           <div className="text-left">
             <span className="text-[11px] font-bold text-[#081F38] block leading-tight">
-              Exploring a Career in Drug Safety?
+              Exploring Drug Safety?
             </span>
             <a
               href={PV_MASTERCLASS_URL}
@@ -2573,7 +2226,7 @@ function PVAssociateBrandedPage() {
               rel="noopener noreferrer"
               className="text-[10px] font-mono font-bold text-[#2563EB] hover:underline inline-flex items-center gap-0.5"
             >
-              <span>Watch Free Masterclass</span>
+              <span>Free Masterclass</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
           </div>
@@ -2596,8 +2249,7 @@ function PVAssociateBrandedPage() {
             if (e.target === e.currentTarget) setIsCounsellorModalOpen(false);
           }}
         >
-          <div className="relative w-full max-w-lg rounded-3xl bg-white tone-light card-light p-6 sm:p-8 shadow-2xl border border-[#E2E8F0] space-y-6 my-auto">
-            {/* Close Button */}
+          <div className="relative w-full max-w-lg rounded-[28px] bg-white tone-light card-light p-8 sm:p-10 shadow-2xl border border-slate-200/80 space-y-6 my-auto text-left">
             <button
               type="button"
               onClick={() => setIsCounsellorModalOpen(false)}
@@ -2607,12 +2259,11 @@ function PVAssociateBrandedPage() {
               <X className="w-5 h-5" />
             </button>
 
-            {/* Modal Header */}
             <div className="space-y-1.5 pr-8">
               <span className="px-2.5 py-0.5 rounded-full bg-[#EEF6FF] border border-[#2563EB]/30 font-mono text-[10px] font-bold text-[#2563EB] uppercase tracking-wider">
                 ARZON CAREER ADVISORY · 1-ON-1 GUIDANCE
               </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
+              <h3 className="text-2xl font-bold text-[#081F38]">
                 Talk to a Career Counsellor
               </h3>
               <p className="text-xs sm:text-sm text-[#64748B]">
@@ -2647,7 +2298,6 @@ function PVAssociateBrandedPage() {
               </div>
             ) : (
               <form onSubmit={handleCounsellorSubmit} className="space-y-4">
-                {/* Field 1: Name */}
                 <div>
                   <label className="block text-xs font-bold text-[#081F38] mb-1 font-mono uppercase tracking-wider">
                     Full Name *
@@ -2658,11 +2308,10 @@ function PVAssociateBrandedPage() {
                     value={counsellorForm.name}
                     onChange={(e) => setCounsellorForm({ ...counsellorForm, name: e.target.value })}
                     placeholder="e.g. Rahul Bathula"
-                    className="w-full h-11 px-3.5 rounded-xl border border-[#E2E8F0] bg-white tone-light text-sm text-[#081F38] placeholder:text-[#64748B]/60 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all"
+                    className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white tone-light text-sm text-[#081F38] placeholder:text-[#64748B]/60 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all"
                   />
                 </div>
 
-                {/* Field 2: WhatsApp Number */}
                 <div>
                   <label className="block text-xs font-bold text-[#081F38] mb-1 font-mono uppercase tracking-wider">
                     WhatsApp Number *
@@ -2673,11 +2322,10 @@ function PVAssociateBrandedPage() {
                     value={counsellorForm.phone}
                     onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
                     placeholder="e.g. 98765 43210"
-                    className="w-full h-11 px-3.5 rounded-xl border border-[#E2E8F0] bg-white tone-light text-sm text-[#081F38] placeholder:text-[#64748B]/60 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all"
+                    className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white tone-light text-sm text-[#081F38] placeholder:text-[#64748B]/60 focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all"
                   />
                 </div>
 
-                {/* Field 3: Degree & Passing Year */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-[#081F38] mb-1 font-mono uppercase tracking-wider">
@@ -2686,7 +2334,7 @@ function PVAssociateBrandedPage() {
                     <select
                       value={counsellorForm.degree}
                       onChange={(e) => setCounsellorForm({ ...counsellorForm, degree: e.target.value })}
-                      className="w-full h-11 px-3 rounded-xl border border-[#E2E8F0] bg-white tone-light text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all cursor-pointer"
+                      className="w-full h-12 px-3.5 rounded-xl border border-slate-200 bg-white tone-light text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all cursor-pointer"
                     >
                       {DEGREES.map((deg) => (
                         <option key={deg} value={deg}>{deg}</option>
@@ -2701,7 +2349,7 @@ function PVAssociateBrandedPage() {
                     <select
                       value={counsellorForm.year}
                       onChange={(e) => setCounsellorForm({ ...counsellorForm, year: e.target.value })}
-                      className="w-full h-11 px-3 rounded-xl border border-[#E2E8F0] bg-white tone-light text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all cursor-pointer"
+                      className="w-full h-12 px-3.5 rounded-xl border border-slate-200 bg-white tone-light text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20 transition-all cursor-pointer"
                     >
                       {PASSING_YEARS.map((yr) => (
                         <option key={yr} value={yr}>{yr}</option>
@@ -2710,7 +2358,6 @@ function PVAssociateBrandedPage() {
                   </div>
                 </div>
 
-                {/* Submit Button */}
                 <div className="pt-2">
                   <button
                     type="submit"
@@ -2732,4 +2379,4 @@ function PVAssociateBrandedPage() {
     </div>
   );
 }
-export default PVAssociateBrandedPage;
+export default PVAssociateMinimalPage;

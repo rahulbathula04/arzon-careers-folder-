@@ -153,8 +153,8 @@ export function MasterclassMentor() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
               <div className="md:col-span-5 aspect-[16/10] overflow-hidden relative">
                 <img
-                  src="/images/pv-clinical-collaboration.jpg"
-                  alt="Clinical Safety Team Collaboration"
+                  src="/images/pv-masterclass-live-session.jpg"
+                  alt="Mohamed Kumail Abbas leading interactive case review masterclass"
                   className="w-full h-full object-cover object-center"
                   loading="lazy"
                 />

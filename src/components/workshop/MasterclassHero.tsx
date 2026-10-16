@@ -139,7 +139,7 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
         <div className="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl bg-white tone-light card-light relative group">
           <div className="relative aspect-[16/9] sm:aspect-[21/10] overflow-hidden">
             <img
-              src="/images/pv-clinical-workstation.jpg"
+              src="/images/pv-workstation-realistic.jpg"
               alt="Enterprise Pharmacovigilance Workstation - ICSR Processing"
               className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
               loading="eager"

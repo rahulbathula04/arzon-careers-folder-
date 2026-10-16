@@ -120,49 +120,66 @@ export function MasterclassWhyArzon() {
         <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-5 sm:p-7 shadow-2xs">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             
-            {/* Left: Certificate Real Image Preview */}
-            <div className="md:col-span-5 rounded-xl overflow-hidden border border-slate-200 shadow-xs bg-white tone-light card-light group">
-              <div className="relative aspect-[4/3] overflow-hidden">
+            {/* Left: Real Arzon Participation Certificate Preview */}
+            <div className="md:col-span-5 rounded-2xl overflow-hidden border border-slate-200/90 shadow-md bg-white tone-light card-light group">
+              <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
                 <img
-                  src="/proof/cert-internship.webp"
-                  alt="Verified Arzon Certificate of Participation Preview"
-                  className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                  src="/images/arzon-masterclass-certificate.jpg"
+                  alt="Official Arzon Global Certificate of Participation awarded to Divya Dharshini V, signed by Mohamed Kumail Abbas"
+                  className="w-full h-full object-contain p-1 group-hover:scale-[1.02] transition-transform duration-300"
                   loading="lazy"
                 />
               </div>
-              <div className="bg-slate-100 px-3 py-2 border-t border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-600">
+              <div className="bg-slate-100 px-3.5 py-2.5 border-t border-slate-200 flex items-center justify-between text-[11px] font-mono text-slate-700">
                 <span className="flex items-center gap-1.5 font-bold text-blue-700">
                   <QrCode className="w-3.5 h-3.5" />
-                  QR-Verifiable Credential
+                  QR-Verifiable at arzoncareers.in
                 </span>
-                <span>ISO &amp; MSME Recognized</span>
+                <span className="font-semibold text-slate-600">Executive Division</span>
               </div>
             </div>
 
             {/* Right: Certificate Value Proposition */}
-            <div className="md:col-span-7 space-y-3 text-left">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-100/70 text-blue-800 text-xs font-mono font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
-                <span>INCLUDED FOR ALL LIVE ATTENDEES</span>
+            <div className="md:col-span-7 space-y-3.5 text-left">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-bold">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                <span>OFFICIAL ARZON GLOBAL CREDENTIAL</span>
               </div>
 
-              <h3 className="text-lg sm:text-xl font-bold text-[#081F38]">
-                Receive a Verified Certificate of Participation
+              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
+                Official Certificate of Participation
               </h3>
 
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                Every attendee who participates in the live interactive masterclass receives a verified digital Certificate of Participation from Arzon Global, signed by industry faculty with online credential verification.
+                Every attendee who completes the live 90-minute masterclass receives an individual QR-verifiable credential signed directly by mentor <strong className="text-[#081F38]">Mohamed Kumail Abbas</strong>, certifying hands-on exposure to:
               </p>
 
-              <div className="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-600">
-                <span className="px-2 py-1 rounded-md bg-white border border-slate-200 tone-light">
-                  ✓ Signed by Mohamed Kumail Abbas
+              {/* Verified Competencies directly from the real certificate */}
+              <div className="grid grid-cols-2 gap-2 text-xs font-mono font-medium text-slate-700">
+                <div className="p-2 rounded-lg bg-white border border-slate-200 tone-light flex items-center gap-1.5">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>ICH-E2D Case Triage</span>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200 tone-light flex items-center gap-1.5">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>MedDRA 26.0 Coding</span>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200 tone-light flex items-center gap-1.5">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Oracle Argus 8.4 Simulation</span>
+                </div>
+                <div className="p-2 rounded-lg bg-white border border-slate-200 tone-light flex items-center gap-1.5">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>21 CFR Part 11 Audit Principles</span>
+                </div>
+              </div>
+
+              <div className="pt-1 flex flex-wrap items-center gap-2 text-[11px] font-mono text-slate-500">
+                <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-100 font-semibold">
+                  Signed by Mentor Mohamed Kumail Abbas
                 </span>
-                <span className="px-2 py-1 rounded-md bg-white border border-slate-200 tone-light">
-                  ✓ Shareable on LinkedIn Profile
-                </span>
-                <span className="px-2 py-1 rounded-md bg-white border border-slate-200 tone-light">
-                  ✓ 100% Free
+                <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium">
+                  Addable to LinkedIn Licenses &amp; Certifications
                 </span>
               </div>
             </div>

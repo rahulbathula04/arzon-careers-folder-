@@ -82,7 +82,7 @@ const ICSR_PIPELINE = [
     short: "Data Entry",
     name: "Argus Safety Database Capture",
     timeline: "Days 1 – 3",
-    image: "/images/pv-clinical-workstation.jpg",
+    image: "/images/pv-workstation-realistic.jpg",
     sop: "Structured electronic entry of patient demographics, medical history, concurrent medications, dose schedules, laboratory findings, and dechallenge/rechallenge.",
     lesson: "Navigating Oracle Argus Safety tabs and avoiding the top data entry errors made by fresher associates.",
     badge: "Safety DB Entry",

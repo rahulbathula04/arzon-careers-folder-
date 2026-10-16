@@ -1,100 +1,79 @@
 import { 
-  Activity, 
   GitBranch, 
   Briefcase, 
-  Cpu, 
   HelpCircle, 
   ArrowRight, 
   ShieldCheck, 
   Building2, 
   CheckCircle2, 
   Workflow, 
-  Layers,
   AlertTriangle,
   HeartHandshake,
   Scale,
+  Activity,
+  Layers,
   Sparkles
 } from "lucide-react";
 
-interface WalkawayCardData {
-  number: string;
+interface WalkawayOutcome {
+  num: string;
   title: string;
-  subtitle: string;
-  description: string;
-  chips: string[];
+  desc: string;
+  tag: string;
+  icon: typeof Activity;
 }
 
-const WALKAWAY_MODULES: WalkawayCardData[] = [
+const FIVE_OUTCOMES: WalkawayOutcome[] = [
   {
-    number: "01",
-    title: "What is Pharmacovigilance & Its Mandate",
-    subtitle: "Science of Patient Safety",
-    description:
-      "Understand WHO's definition of PV: the science relating to detection, assessment, understanding, and prevention of adverse effects across patient safety, regulatory compliance, and risk-benefit evaluation.",
-    chips: ["Patient Safety", "Regulatory Compliance", "Risk-Benefit Evaluation"],
+    num: "01",
+    title: "The role",
+    tag: "Patient Safety Mandate",
+    desc: "Understand what a Drug Safety Associate does and how pharmacovigilance teams contribute to patient safety across clinical trials and commercial medicines.",
+    icon: Activity,
   },
   {
-    number: "02",
-    title: "Drug Development & Where PV Fits",
-    subtitle: "Discovery to Post-Marketing",
-    description:
-      "Trace how medicines move through Discovery → Pre-clinical → Clinical Trials → Regulatory Approval → Post-Marketing Surveillance (PV), and why drug safety is an ongoing commercial mandate.",
-    chips: ["Clinical Phase I-IV", "Post-Marketing Surveillance", "Safety Lifecycle"],
+    num: "02",
+    title: "The workflow",
+    tag: "7-Stage ICSR Pipeline",
+    desc: "Follow the stages of an Individual Case Safety Report (ICSR), from case receipt and triage to medical coding, quality control, and expedited submission.",
+    icon: GitBranch,
   },
   {
-    number: "03",
-    title: "The 7-Stage ICSR Workflow",
-    subtitle: "End-to-End Case Lifecycle",
-    description:
-      "Follow an Individual Case Safety Report (ICSR) end-to-end: Case Receipt → Triage → Data Entry → Medical Coding → Narrative Drafting → Quality Control (QC) → Expedited Submission.",
-    chips: ["ICH E2B(R3)", "MedDRA Hierarchy", "Day 0 Clock Management"],
+    num: "03",
+    title: "The opportunities",
+    tag: "Entry-Level Career Paths",
+    desc: "Explore entry-level pharmacovigilance and drug safety roles, their day-to-day responsibilities, and the differences between them.",
+    icon: Briefcase,
   },
   {
-    number: "04",
-    title: "Why Pharmacovigilance Matters",
-    subtitle: "The 4 Core Healthcare Pillars",
-    description:
-      "Explore the 4 foundational reasons PV teams operate around the clock: detecting adverse reactions early, reducing medication errors, building patient confidence, and supporting regulatory decisions.",
-    chips: ["Signal Detection", "Error Mitigation", "Regulatory Authority Audits"],
+    num: "04",
+    title: "The skills",
+    tag: "Technical Capabilities",
+    desc: "Understand the knowledge and capabilities relevant to these roles, MedDRA hierarchy, Argus safety software, and what you may need to learn next.",
+    icon: Layers,
   },
   {
-    number: "05",
-    title: "Entry-Level Roles & Top Employers",
-    subtitle: "Where Pharmacy Graduates Work",
-    description:
-      "Explore entry-level roles including PV Associate, Drug Safety Associate, Case Processor, Medical Reviewer, and Signal Detection Specialist across IQVIA, Accenture, Cognizant, TCS, Pfizer, and Novartis.",
-    chips: ["PV Associate", "Case Processor", "Safety Specialist"],
-  },
-  {
-    number: "06",
-    title: "Your Questions, Answered Live",
-    subtitle: "Direct Mentor Perspective",
-    description:
-      "Ask Mohamed Kumail Abbas direct questions about industry expectations, technical screening tests, common fresher misconceptions, and realistic preparation steps.",
-    chips: ["Live Faculty Q&A", "Fresher Hiring Reality", "Technical Interview Prep"],
+    num: "05",
+    title: "Your questions, answered",
+    tag: "Live Faculty Q&A",
+    desc: "Get the opportunity to ask Mohamed Kumail Abbas direct questions about the field, hiring manager expectations, and practical transition steps.",
+    icon: HelpCircle,
   },
 ];
 
 // The 7-Stage ICSR Pipeline directly from the trainer's slides
-const ICSR_PIPELINE_STEPS = [
-  { step: "01", name: "Case Receipt", desc: "Spontaneous, trial, or literature intake" },
-  { step: "02", name: "Triage", desc: "4 validity criteria & Day 0 clock" },
-  { step: "03", name: "Data Entry", desc: "Argus/ArisG record entry" },
-  { step: "04", name: "Medical Coding", desc: "MedDRA LLT/PT & WHODrug" },
-  { step: "05", name: "Narrative", desc: "Chronological medical history" },
-  { step: "06", name: "QC Review", desc: "Quality check & causality score" },
-  { step: "07", name: "Submission", desc: "Expedited regulatory report" },
+const ICSR_PIPELINE = [
+  { step: "1", name: "Receipt" },
+  { step: "2", name: "Triage" },
+  { step: "3", name: "Data Entry" },
+  { step: "4", name: "Coding" },
+  { step: "5", name: "Narrative" },
+  { step: "6", name: "QC" },
+  { step: "7", name: "Submission" },
 ];
 
 // Top Hiring Employers directly from the trainer's slides
-const TOP_EMPLOYERS = [
-  { name: "IQVIA", type: "Global CRO & Safety Leader" },
-  { name: "Accenture", type: "Life Sciences Delivery Operations" },
-  { name: "Cognizant", type: "Enterprise PV Case Processing" },
-  { name: "TCS", type: "Healthcare & Life Sciences" },
-  { name: "Pfizer", type: "Global Sponsor Drug Safety" },
-  { name: "Novartis", type: "Innovative Medicines Surveillance" },
-];
+const TOP_EMPLOYERS = ["IQVIA", "Accenture", "Cognizant", "TCS", "Pfizer", "Novartis"];
 
 // Target Job Roles directly from the trainer's slides
 const TARGET_ROLES = [
@@ -107,215 +86,145 @@ const TARGET_ROLES = [
 
 // The 4 PV Pillars directly from the trainer's slides
 const FOUR_PILLARS = [
-  {
-    title: "Detect Adverse Reactions Early",
-    desc: "Identifying safety signals before they cause widespread patient harm.",
-    icon: AlertTriangle,
-  },
-  {
-    title: "Reduce Medication Errors",
-    desc: "Analyzing dispensing, dosing, and administration discrepancies.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Improve Patient Confidence",
-    desc: "Ensuring commercial medicines have continuous surveillance backing.",
-    icon: HeartHandshake,
-  },
-  {
-    title: "Support Regulatory Decisions",
-    desc: "Supplying objective safety dossiers to FDA, EMA, and CDSCO.",
-    icon: Scale,
-  },
+  { title: "Detect Early", desc: "Adverse reactions identified fast" },
+  { title: "Reduce Errors", desc: "Dosing & medication discrepancy" },
+  { title: "Patient Trust", desc: "Continuous post-market monitoring" },
+  { title: "Regulatory Fit", desc: "FDA, EMA & CDSCO compliance" },
 ];
 
 export function MasterclassWalkaway() {
   return (
-    <section id="outcomes" className="py-16 sm:py-24 border-b border-slate-200/80 bg-slate-50/50">
+    <section id="outcomes" className="py-12 sm:py-16 border-b border-slate-200/80 bg-slate-50/50">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="max-w-3xl mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
+        <div className="max-w-2xl mb-8 sm:mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-2.5">
             <Workflow className="w-3.5 h-3.5" />
-            <span>02 · Curriculum &amp; Outcomes</span>
+            <span>02 · What You'll Walk Away With</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight leading-snug mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#081F38] tracking-tight leading-snug">
             Understand the work before you choose the career.
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
-            A comprehensive curriculum connecting classroom pharmacology concepts with how enterprise drug safety teams actually operate.
+          <p className="text-xs sm:text-sm text-slate-600 mt-1 font-sans">
+            Connect what you learn in your pharmacy degree with how enterprise drug safety teams operate.
           </p>
         </div>
 
-        {/* Feature 1: The 7-Stage ICSR Workflow Pipeline */}
-        <div className="mb-14 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-700 mb-1">
-                <GitBranch className="w-3.5 h-3.5" />
-                <span>Core Masterclass Case Study</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38]">
-                The 7-Stage ICSR Workflow Pipeline
-              </h3>
-            </div>
-            <span className="text-xs text-slate-500 font-mono">
-              Individual Case Safety Report (ICH E2B)
-            </span>
-          </div>
-
-          {/* Stepper Pipeline Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-            {ICSR_PIPELINE_STEPS.map((item, index) => (
-              <div
-                key={item.step}
-                className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-200/80 flex flex-col justify-between hover:border-blue-400 hover:bg-blue-50/40 transition-all group"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-slate-400 mb-2">
-                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
-                      {item.step}
-                    </span>
-                    {index < 6 && (
-                      <ArrowRight className="w-3.5 h-3.5 text-slate-300 hidden lg:block -mr-1" />
-                    )}
+        {/* Compact 2-Column Balanced Architecture */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+          {/* Left Column (7 cols): The 5 Core Takeaway Cards */}
+          <div className="lg:col-span-7 space-y-3">
+            {FIVE_OUTCOMES.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.num}
+                  className="p-4 sm:p-4.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-blue-300 hover:shadow-xs transition-all tone-light card-light flex items-start gap-3.5 group"
+                >
+                  <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded-lg border border-blue-100 shrink-0 mt-0.5">
+                    {item.num}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <h3 className="text-sm sm:text-base font-bold text-[#081F38] group-hover:text-blue-700 transition-colors">
+                        {item.title}
+                      </h3>
+                      <span className="text-[10px] font-mono text-slate-400 font-semibold uppercase tracking-wider hidden sm:inline-block">
+                        {item.tag}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h4 className="font-bold text-xs sm:text-sm text-[#081F38] mb-1 leading-snug">
-                    {item.name}
-                  </h4>
-                  <p className="text-[11px] text-slate-500 leading-tight">
-                    {item.desc}
-                  </p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
-        </div>
 
-        {/* 6 Modular Curriculum Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-          {WALKAWAY_MODULES.map((item) => (
-            <div
-              key={item.number}
-              className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-blue-300 hover:shadow-sm transition-all flex flex-col justify-between tone-light card-light"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100">
-                    MODULE {item.number}
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-400 font-semibold uppercase tracking-wider">
-                    {item.subtitle}
-                  </span>
+          {/* Right Column (5 cols): Compact Technical Blueprints (from Trainer Slides) */}
+          <div className="lg:col-span-5 space-y-4">
+            {/* Box 1: The 7-Stage ICSR Pipeline */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
+              <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-slate-100">
+                <div className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-700">
+                  <GitBranch className="w-3.5 h-3.5" />
+                  <span>The 7-Stage ICSR Pipeline</span>
                 </div>
-
-                <h3 className="text-lg sm:text-xl font-bold text-[#081F38] mb-2.5">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                  {item.description}
-                </p>
+                <span className="text-[10px] font-mono text-slate-400">ICH E2B</span>
               </div>
 
-              {/* Micro Chips */}
-              <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-1.5">
-                {item.chips.map((chip) => (
-                  <span
-                    key={chip}
-                    className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200/70 text-slate-600 font-mono text-[10.5px] font-medium"
-                  >
-                    {chip}
-                  </span>
+              {/* Compact horizontal stepper chain */}
+              <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                {ICSR_PIPELINE.map((st, i) => (
+                  <div key={st.step} className="inline-flex items-center gap-1">
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-slate-50 border border-slate-200/80 text-[11px] font-medium text-slate-700">
+                      <span className="font-mono text-[10px] font-bold text-blue-600">{st.step}.</span>
+                      <span>{st.name}</span>
+                    </span>
+                    {i < 6 && <span className="text-slate-300 text-xs">→</span>}
+                  </div>
                 ))}
               </div>
+              <p className="text-[11px] text-slate-500 mt-2.5 leading-tight">
+                Case receipt and triage through MedDRA coding, QC, and regulatory submission.
+              </p>
             </div>
-          ))}
-        </div>
 
-        {/* Feature 2: 4 Pillars of PV & Top Employers Matrix */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          {/* Left Column (7 cols): The 4 Pillars */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-2xs tone-light card-light flex flex-col justify-between">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-700 mb-2">
+            {/* Box 2: 4 Core Pillars of Drug Safety */}
+            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
+              <div className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-700 mb-3 pb-2.5 border-b border-slate-100">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Why Pharmacovigilance Matters</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38] mb-6">
-                The 4 Core Pillars of Drug Safety
-              </h3>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {FOUR_PILLARS.map((p, i) => {
-                  const Icon = p.icon;
-                  return (
-                    <div
-                      key={i}
-                      className="p-4 rounded-xl bg-slate-50/70 border border-slate-200/80 space-y-1.5"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mb-2">
-                        <Icon className="w-4 h-4" />
-                      </div>
-                      <h4 className="font-bold text-sm text-[#081F38]">{p.title}</h4>
-                      <p className="text-xs text-slate-600 leading-relaxed">{p.desc}</p>
-                    </div>
-                  );
-                })}
+              <div className="grid grid-cols-2 gap-2 text-left">
+                {FOUR_PILLARS.map((p, idx) => (
+                  <div key={idx} className="p-2.5 rounded-xl bg-slate-50/80 border border-slate-100">
+                    <div className="font-bold text-xs text-[#081F38]">{p.title}</div>
+                    <div className="text-[10.5px] text-slate-500 leading-tight mt-0.5">{p.desc}</div>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Right Column (5 cols): Job Roles & Top Hiring Employers */}
-          <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-[#081F38] text-white flex flex-col justify-between shadow-sm">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-blue-300 mb-2">
-                <Building2 className="w-3.5 h-3.5" />
-                <span>Industry Hiring Landscape</span>
+            {/* Box 3: Roles & Top Employers */}
+            <div className="p-5 rounded-2xl bg-[#081F38] text-white shadow-xs">
+              <div className="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-white/10">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-300">
+                  Target Roles &amp; Top Employers
+                </span>
+                <Building2 className="w-3.5 h-3.5 text-blue-300" />
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-                Target Roles &amp; Top Employers
-              </h3>
 
-              {/* Roles Badges */}
-              <div className="mb-6">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 font-semibold">
-                  Featured Entry-Level Roles:
+              {/* Roles Chips */}
+              <div className="flex flex-wrap gap-1.5 mb-3">
+                {TARGET_ROLES.map((r) => (
+                  <span
+                    key={r}
+                    className="px-2 py-0.5 rounded-md bg-white/10 text-[11px] font-medium text-slate-200 border border-white/10"
+                  >
+                    {r}
+                  </span>
+                ))}
+              </div>
+
+              {/* Employers Bar */}
+              <div className="pt-2 border-t border-white/10">
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-1.5">
+                  Primary Hiring Employers:
                 </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {TARGET_ROLES.map((r) => (
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {TOP_EMPLOYERS.map((emp) => (
                     <span
-                      key={r}
-                      className="px-2.5 py-1 rounded-md bg-white/10 border border-white/15 text-white font-medium text-xs"
+                      key={emp}
+                      className="px-2 py-0.5 rounded-md bg-blue-900/60 border border-blue-500/30 font-mono text-[10.5px] font-bold text-blue-200"
                     >
-                      {r}
+                      {emp}
                     </span>
                   ))}
                 </div>
               </div>
-
-              {/* Employers List */}
-              <div>
-                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2 font-semibold">
-                  Primary Hiring Employers:
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {TOP_EMPLOYERS.map((emp) => (
-                    <div
-                      key={emp.name}
-                      className="p-2.5 rounded-xl bg-white/5 border border-white/10"
-                    >
-                      <div className="font-bold text-sm text-white">{emp.name}</div>
-                      <div className="text-[10px] text-slate-400 truncate">{emp.type}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-white/10 text-xs text-slate-400 flex items-center justify-between">
-              <span>Verified CRO &amp; Pharma Career Matrix</span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             </div>
           </div>
         </div>

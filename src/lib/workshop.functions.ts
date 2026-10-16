@@ -578,6 +578,8 @@ export interface UnifiedAdminResponse {
   notes?: string | null;
   whatsapp_link?: string | null;
   whatsapp_optin?: boolean;
+  result_payload?: Record<string, any> | null;
+  session_id?: string | null;
 }
 
 export interface AllAdminResponsesResult {
@@ -912,6 +914,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           program_slug: "career-engine",
           whatsapp_link,
           whatsapp_optin: Boolean(r.whatsapp_optin),
+          result_payload: r.result_payload || null,
+          session_id: r.session_id || null,
         });
       }
     }

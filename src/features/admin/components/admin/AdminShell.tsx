@@ -25,6 +25,7 @@ import {
   HardDrive,
   KeyRound,
   BadgeCheck,
+  Compass,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminCommandPalette } from "@/components/admin/AdminCommandPalette";
@@ -43,6 +44,7 @@ const NAV: NavItem[] = [
   { to: "/admin/retention", label: "Retention", icon: HeartHandshake, group: "Overview" },
   { to: "/admin/acri-invites", label: "ACRI candidate invites (100)", icon: KeyRound, group: "Pipeline" },
   { to: "/admin/acri", label: "ACRI Command Center", icon: ShieldCheck, group: "Pipeline" },
+  { to: "/admin/results", label: "Assessment results", icon: Compass, group: "Pipeline" },
   { to: "/admin/applications", label: "Applications", icon: FileText, group: "Pipeline" },
   { to: "/admin/leads", label: "Leads", icon: Users, group: "Pipeline" },
   { to: "/admin/placements", label: "Placements ledger", icon: BadgeCheck, group: "Pipeline" },

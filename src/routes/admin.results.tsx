@@ -6,10 +6,11 @@ import { Loader2, Download, Eye, MessageCircle, Mail, Phone, X, EyeOff } from "l
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
-import { listResults, getResultDetail } from "@/lib/leads.functions";
+import { listResults } from "@/lib/leads.functions";
 import { recordAdminExport } from "@/lib/admin-export.functions";
 import { exportCsvAudited, dateStampedFilename, type CsvColumn } from "@/lib/csv";
 import { useAdminGate } from "@/hooks/useAdminGate";
+import { AdminAssessmentDossier } from "@/components/admin/AdminAssessmentDossier";
 
 export const Route = createFileRoute("/admin/results")({
   head: () => ({
@@ -76,7 +77,6 @@ function Sparkline({ payload }: { payload: unknown }) {
 function AdminResults() {
   const navigate = useNavigate();
   const list = useServerFn(listResults);
-  const detail = useServerFn(getResultDetail);
   const recordExport = useServerFn(recordAdminExport);
   const { status: gate } = useAdminGate(["admin", "analyst", "exporter", "viewer"]);
 
@@ -99,8 +99,6 @@ function AdminResults() {
   const [query, setQuery] = useState("");
 
   const [openId, setOpenId] = useState<string | null>(null);
-  const [detailData, setDetailData] = useState<unknown>(null);
-  const [detailLoading, setDetailLoading] = useState(false);
 
   useEffect(() => {
     if (gate !== "ready") return;
@@ -207,19 +205,8 @@ function AdminResults() {
     }
   };
 
-  const openDetail = async (id: string) => {
+  const openDetail = (id: string) => {
     setOpenId(id);
-    setDetailData(null);
-    setDetailLoading(true);
-    try {
-      const res = await detail({ data: { id } });
-      setDetailData(res);
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Failed to load detail");
-      setOpenId(null);
-    } finally {
-      setDetailLoading(false);
-    }
   };
 
   if (gate === "loading")
@@ -451,12 +438,18 @@ function AdminResults() {
       </div>
 
       {openId && (
-        <DetailDrawer
-          loading={detailLoading}
-          data={detailData}
+        <AdminAssessmentDossier
+          leadId={openId}
+          initialLead={visible.find((r) => r.id === openId)}
           onClose={() => {
             setOpenId(null);
-            setDetailData(null);
+          }}
+          onContactedChange={(id, isContacted) => {
+            setRows((prev) =>
+              prev.map((r) =>
+                r.id === id ? { ...r, contacted_at: isContacted ? new Date().toISOString() : null } : r,
+              ),
+            );
           }}
         />
       )}
@@ -547,173 +540,3 @@ function SelectBare({
   );
 }
 
-type DetailShape = {
-  lead: Result;
-  session: {
-    stream: string | null;
-    device: string | null;
-    utm_source: string | null;
-    user_agent: string | null;
-    started_at: string | null;
-    completed_at: string | null;
-  } | null;
-  trace: Array<{
-    at: string;
-    source: string;
-    event: string;
-    question_id: string | null;
-    answer: string | null;
-  }>;
-};
-
-function DetailDrawer({
-  loading,
-  data,
-  onClose,
-}: {
-  loading: boolean;
-  data: unknown;
-  onClose: () => void;
-}) {
-  const d = data as DetailShape | null;
-  const payload = (d?.lead?.result_payload ?? {}) as {
-    breakdown?: Record<string, number>;
-    ranking?: Array<{ id: string; fit: number }>;
-    confidence?: number;
-    confidenceBand?: string;
-    risks?: Array<{ level: string; text: string }>;
-  };
-  const breakdown = payload.breakdown ?? {};
-  const ranking = payload.ranking ?? [];
-  const answers = (d?.trace ?? []).filter((t) => t.source === "answer");
-  return (
-    <div className="fixed inset-0 z-50 flex">
-      <button aria-label="Close" onClick={onClose} className="flex-1 bg-[#0a0c10]/60" />
-      <aside className="w-full max-w-lg overflow-y-auto bg-[#0b1020] border-l border-border p-6">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <h2 className="text-lg font-semibold text-foreground">{d?.lead?.name ?? "Student"}</h2>
-            <p className="text-xs text-muted-foreground">
-              {d?.lead?.email} · {d?.lead?.phone}
-            </p>
-          </div>
-          <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-        {loading && (
-          <div className="mt-6">
-            <AiThinkingLoader label="Thinking…" size="sm" />
-          </div>
-        )}
-        {!loading && d && (
-          <div className="mt-5 space-y-5">
-            <div className="rounded-xl border border-border p-4">
-              <div className="text-micro uppercase tracking-wider text-muted-foreground">
-                Archetype
-              </div>
-              <div className="mt-1 text-foreground">{d.lead.archetype ?? "-"}</div>
-              <div className="mt-3 text-micro uppercase tracking-wider text-muted-foreground">
-                Fit score · Confidence
-              </div>
-              <div className="mt-1 text-foreground">
-                {d.lead.fit_score ?? "-"} · {payload.confidence ?? "-"} (
-                {payload.confidenceBand ?? "-"})
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-border p-4">
-              <div className="text-micro uppercase tracking-wider text-muted-foreground mb-2">
-                Breakdown
-              </div>
-              <div className="space-y-1.5">
-                {Object.entries(breakdown).map(([k, v]) => (
-                  <div key={k} className="flex items-center gap-2 text-meta">
-                    <span className="w-24 text-muted-foreground capitalize">{k}</span>
-                    <div className="flex-1 h-1.5 rounded-full bg-accent overflow-hidden">
-                      <div
-                        className="h-full bg-primary-glow"
-                        style={{ width: `${Math.max(0, Math.min(100, Number(v)))}%` }}
-                      />
-                    </div>
-                    <span className="w-8 text-right text-foreground font-mono">{v}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-border p-4">
-              <div className="text-micro uppercase tracking-wider text-muted-foreground mb-2">
-                Path ranking
-              </div>
-              <ol className="space-y-1 text-meta text-foreground">
-                {ranking.map((r, i) => (
-                  <li key={r.id} className="flex justify-between">
-                    <span>
-                      {i + 1}. {r.id}
-                    </span>
-                    <span className="font-mono text-muted-foreground">{r.fit}</span>
-                  </li>
-                ))}
-                {ranking.length === 0 && <li className="text-muted-foreground">-</li>}
-              </ol>
-            </div>
-
-            {payload.risks && payload.risks.length > 0 && (
-              <div className="rounded-xl border border-amber-400/30 bg-amber-400/5 p-4">
-                <div className="text-micro uppercase tracking-wider text-amber-200 mb-2">Risks</div>
-                <ul className="space-y-1 text-meta text-amber-100">
-                  {payload.risks.map((r, i) => (
-                    <li key={i}>
-                      • [{r.level}] {r.text}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            <div className="rounded-xl border border-border p-4">
-              <div className="text-micro uppercase tracking-wider text-muted-foreground mb-2">
-                Session
-              </div>
-              <div className="text-meta text-foreground space-y-0.5">
-                <div>Stream: {d.session?.stream ?? "-"}</div>
-                <div>Device: {d.session?.device ?? "-"}</div>
-                <div>UTM: {d.session?.utm_source ?? "-"}</div>
-                <div>
-                  Started:{" "}
-                  {d.session?.started_at ? new Date(d.session.started_at).toLocaleString() : "-"}
-                </div>
-                <div>
-                  Completed:{" "}
-                  {d.session?.completed_at
-                    ? new Date(d.session.completed_at).toLocaleString()
-                    : "-"}
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-border p-4">
-              <div className="text-micro uppercase tracking-wider text-muted-foreground mb-2">
-                Answers ({answers.length})
-              </div>
-              <ul className="space-y-1 text-meta text-foreground max-h-72 overflow-y-auto">
-                {answers.map((a, i) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="w-28 shrink-0 text-muted-foreground font-mono">
-                      {a.question_id}
-                    </span>
-                    <span>{a.answer}</span>
-                  </li>
-                ))}
-                {answers.length === 0 && (
-                  <li className="text-muted-foreground">No answers recorded.</li>
-                )}
-              </ul>
-            </div>
-          </div>
-        )}
-      </aside>
-    </div>
-  );
-}

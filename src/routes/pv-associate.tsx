@@ -462,8 +462,8 @@ function PVAssociateRebuildPage() {
                     <Play className="h-7 w-7 fill-current ml-1 text-[#1557D6]" />
                   </div>
                   <div className="mt-4 font-semibold text-xs sm:text-sm text-slate-50">
-                    See what a PV Associate actually does{" "}
-                    <span className="text-[#27B9B3] font-mono">(2 min)</span>
+                    Watch PV Associate Intro Class &amp; Workflow{" "}
+                    <span className="text-[#27B9B3] font-mono">(Video)</span>
                   </div>
                 </div>
               </div>
@@ -2076,10 +2076,10 @@ function PVAssociateRebuildPage() {
         </div>
       )}
 
-      {/* ── INTERACTIVE MODAL 5: 2-MINUTE PV ROLE WALKTHROUGH ───────────────── */}
+      {/* ── INTERACTIVE MODAL 5: PV ROLE INTRO CLASS VIDEO & WALKTHROUGH ───── */}
       {isVideoModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 overflow-y-auto">
-          <div className="relative w-full max-w-2xl rounded-2xl bg-white tone-light p-6 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
+          <div className="relative w-full max-w-3xl rounded-2xl bg-white tone-light p-5 sm:p-7 shadow-2xl border border-[#E4EAF2] space-y-4 my-8">
             <button
               type="button"
               onClick={() => setIsVideoModalOpen(false)}
@@ -2089,52 +2089,84 @@ function PVAssociateRebuildPage() {
             </button>
 
             <div className="flex items-center gap-2.5">
-              <div className="h-8 w-8 rounded-lg bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center">
+              <div className="h-9 w-9 rounded-xl bg-[#EEF6FF] text-[#1557D6] flex items-center justify-center shrink-0">
                 <Play className="h-4 w-4 fill-current text-[#1557D6]" />
               </div>
               <div>
                 <h3 className="font-extrabold text-lg sm:text-xl text-[#071A4A]">
-                  Day in the Life of a PV Associate (2 Min Walkthrough)
+                  Pharmacovigilance Associate — Free Introduction Class
                 </h3>
                 <p className="text-xs text-[#69758A]">
-                  Operational step-by-step breakdown of drug safety workflows
+                  Watch the live faculty masterclass covering daily drug safety operations, ICSR intake, and career expectations.
                 </p>
               </div>
             </div>
 
-            <div className="space-y-3 pt-2">
-              {[
-                {
-                  time: "09:00 AM",
-                  title: "Global Intake & Triage",
-                  desc: "Scan spontaneous reports, clinical trials, and literature for 4 criteria of a valid ICSR: identifiable patient, identifiable reporter, suspect drug, and adverse event.",
-                },
-                {
-                  time: "11:30 AM",
-                  title: "Seriousness & Expedited Clock Triage",
-                  desc: "Determine if the event is serious (death, life-threatening, hospitalization, disability, congenital anomaly) and establish 7-day or 15-day regulatory submission deadline.",
-                },
-                {
-                  time: "02:00 PM",
-                  title: "MedDRA Coding (SOC / HLGT / HLT / PT / LLT)",
-                  desc: "Translate verbatim patient complaints into standardized Lowest Level Terms (LLTs) using the MedDRA dictionary hierarchy without misrepresenting clinical meaning.",
-                },
-                {
-                  time: "04:30 PM",
-                  title: "Clinical Narrative Drafting & Regulatory Dispatch",
-                  desc: "Author concise chronological narratives detailing patient background, drug dosing, event onset, dechallenge, rechallenge, and causality determination under WHO-UMC scale.",
-                },
-              ].map((step) => (
-                <div key={step.time} className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3.5 flex items-start gap-3">
-                  <span className="font-mono text-[11px] font-bold text-[#1557D6] bg-white tone-light px-2 py-1 rounded border border-[#E4EAF2] shrink-0">
-                    {step.time}
-                  </span>
-                  <div>
-                    <h4 className="font-bold text-xs text-[#071A4A]">{step.title}</h4>
-                    <p className="text-xs text-[#69758A] mt-0.5 leading-relaxed">{step.desc}</p>
+            {/* Embedded Google Drive Video Player */}
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-[#E4EAF2] shadow-sm">
+              <iframe
+                src="https://drive.google.com/file/d/1MZVnxdlyC2JBMfFqjs5jt_8KLrLJ91tb/preview"
+                title="Pharmacovigilance Associate Introduction Class Video"
+                className="w-full h-full border-0"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+              />
+            </div>
+
+            {/* External Google Drive Direct Link Button */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 pb-1">
+              <a
+                href="https://drive.google.com/file/d/1MZVnxdlyC2JBMfFqjs5jt_8KLrLJ91tb/view?usp=sharing&t=690.918"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1557D6] hover:underline cursor-pointer"
+              >
+                <span>Watch full class directly on Google Drive (Timestamp 11:30)</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+              <span className="text-[11px] font-mono text-[#69758A]">
+                Faculty Workstation Walkthrough
+              </span>
+            </div>
+
+            <div className="space-y-2.5 pt-2 border-t border-[#E4EAF2]">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1557D6] block">
+                Key Daily Workflow Milestones Covered in the Course:
+              </span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                {[
+                  {
+                    time: "09:00 AM",
+                    title: "Global Intake & Triage",
+                    desc: "Scan spontaneous reports, clinical trials, and literature for 4 minimum criteria of a valid ICSR.",
+                  },
+                  {
+                    time: "11:30 AM",
+                    title: "Seriousness & Clock Triage",
+                    desc: "Assess 6 seriousness criteria and initiate the 7-day or 15-day regulatory submission clock.",
+                  },
+                  {
+                    time: "02:00 PM",
+                    title: "MedDRA v27.0 Dictionary Coding",
+                    desc: "Standardize verbatim adverse reaction descriptions into exact LLTs and Preferred Terms.",
+                  },
+                  {
+                    time: "04:30 PM",
+                    title: "ICH E2D Clinical Narrative Drafting",
+                    desc: "Author concise case narratives, establish WHO-UMC causality, and prepare audit files.",
+                  },
+                ].map((step) => (
+                  <div key={step.time} className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3 space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] font-bold text-[#1557D6] bg-white tone-light px-1.5 py-0.5 rounded border border-[#E4EAF2]">
+                        {step.time}
+                      </span>
+                      <h4 className="font-bold text-xs text-[#071A4A]">{step.title}</h4>
+                    </div>
+                    <p className="text-[11px] text-[#69758A] leading-relaxed">{step.desc}</p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <div className="pt-2 flex justify-end">

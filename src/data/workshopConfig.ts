@@ -42,21 +42,21 @@ export interface WorkshopConfig {
 }
 
 export const WORKSHOP_CONFIG: WorkshopConfig = {
-  title: "B.Pharm Career Intelligence 2026: Live Market Decoding & Career Map",
-  type: "LIVE CAREER INTELLIGENCE MASTERCLASS",
-  dateDisplay: "Saturday, 19 September 2026",
-  timeDisplay: "6:00 PM – 7:15 PM IST",
-  durationDisplay: "75 Minutes",
+  title: "Pharmacovigilance Masterclass: Understand the Role, See the Work",
+  type: "FREE LIVE MASTERCLASS",
+  dateDisplay: "Tuesday, 20 October 2026",
+  timeDisplay: "6:00 PM IST",
+  durationDisplay: "60 Minutes",
   totalCapacity: 500,
-  baselineAllocated: 412,
-  capacityLimitText: "High demand: Direct Google Meet stream & session recording guaranteed for registered candidates.",
-  startIsoDate: "20260919T123000Z", // 6:00 PM IST (UTC+5:30)
-  endIsoDate: "20260919T134500Z",   // 7:15 PM IST (UTC+5:30)
+  baselineAllocated: 348,
+  capacityLimitText: "Direct Google Meet stream & session notes provided for registered candidates.",
+  startIsoDate: "20261020T123000Z", // 6:00 PM IST (UTC+5:30)
+  endIsoDate: "20261020T133000Z",   // 7:00 PM IST (UTC+5:30)
   platform: "Google Meet",
   meetUrl: "https://meet.google.com/pyc-qvxs-quz",
   speaker: {
     name: "Mohamed Kumail Abbas",
-    designation: "15+ Yrs Healthcare & Safety Leader",
+    designation: "Industry Professional in Pharmacovigilance",
     education: "M.Pharm",
     organizationSummary: "Career across Quintiles, Indegene, Norwich Clinical, Accenture, Cognizant and Novaspire",
     careerTimeline: [

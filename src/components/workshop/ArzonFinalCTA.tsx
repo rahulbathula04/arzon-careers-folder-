@@ -1,4 +1,4 @@
-import { GraduationCap, ArrowRight, ShieldCheck } from "lucide-react";
+import { Calendar, Clock, Video, ArrowRight } from "lucide-react";
 
 interface ArzonFinalCTAProps {
   onReserveClick: () => void;
@@ -6,45 +6,65 @@ interface ArzonFinalCTAProps {
 
 export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
   return (
-    <section className="w-full bg-[var(--color-medical-navy)] tone-dark text-white py-16 sm:py-24 relative overflow-hidden">
-      {/* Background Teal Blur */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-teal-500/15 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-16 sm:py-24 bg-[var(--color-warm-paper)] border-b border-slate-200/80">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="p-8 sm:p-14 rounded-3xl bg-[#081F38] text-white text-center relative overflow-hidden tone-dark shadow-xl border border-slate-800">
+          {/* Subtle glow */}
+          <div 
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-blue-600/15 blur-3xl pointer-events-none -z-10" 
+            aria-hidden="true" 
+          />
 
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-        
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-slate-800/90 border border-slate-700 text-teal-300 shadow-xl mx-auto mb-2">
-          <GraduationCap className="w-8 h-8" />
-        </div>
-
-        <h2 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-          DON'T SPEND THE NEXT SIX MONTHS
-          <br />
-          <span className="text-teal-400">
-            PREPARING FOR A CAREER YOU HAVEN'T CHOSEN.
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-blue-400 block mb-4">
+            08 · Final Step
           </span>
-        </h2>
 
-        <p className="font-sans text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-normal">
-          Understand the market. Explore the roles. Identify the skills. Choose your direction.
-        </p>
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-4 font-serif">
+            Understand the work. Then decide your next step.
+          </h2>
 
-        <div className="pt-4 flex flex-col items-center gap-3">
-          <button
-            type="button"
-            id="final-cta-get-map-btn"
-            onClick={onReserveClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-4 sm:py-5 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-sans text-sm font-extrabold uppercase tracking-wider shadow-2xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
-          >
-            <span>GET MY FREE CAREER MAP + RESERVE SEAT</span>
-            <ArrowRight className="w-5 h-5 text-slate-950" />
-          </button>
+          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-2 leading-relaxed">
+            Pharmacovigilance may be the career you are looking for. Start by understanding what it involves.
+          </p>
 
-          <p className="font-sans text-xs text-white/80 flex items-center gap-1.5 font-medium">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <span>100% Free 75-minute live career intelligence masterclass.</span>
+          <p className="text-sm sm:text-base font-semibold text-blue-200 mb-8">
+            Join the free Arzon Careers Pharmacovigilance Masterclass.
+          </p>
+
+          {/* Primary CTA */}
+          <div className="flex flex-col items-center gap-4 mb-8">
+            <button
+              type="button"
+              onClick={onReserveClick}
+              className="inline-flex items-center justify-center gap-2 px-8 sm:px-10 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
+            >
+              <span>RESERVE MY FREE SEAT</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Metadata pill */}
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm text-slate-300 font-medium mb-6">
+            <div className="inline-flex items-center gap-1.5">
+              <Calendar className="w-4 h-4 text-blue-400" />
+              <span>Tuesday, October 20th</span>
+            </div>
+            <span>·</span>
+            <div className="inline-flex items-center gap-1.5">
+              <Clock className="w-4 h-4 text-blue-400" />
+              <span>6:00 PM IST</span>
+            </div>
+            <span>·</span>
+            <div className="inline-flex items-center gap-1.5">
+              <Video className="w-4 h-4 text-blue-400" />
+              <span>Google Meet</span>
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-400 italic">
+            * Introductory educational session. No employment or placement guarantee.
           </p>
         </div>
-
       </div>
     </section>
   );

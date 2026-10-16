@@ -25,10 +25,10 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
               />
               <div className="hidden sm:flex flex-col border-l border-slate-700/80 pl-3">
                 <span className="font-mono text-[10.5px] text-sky-400 font-bold tracking-wide uppercase leading-none">
-                  B.Pharm Career Intelligence
+                  Pharmacovigilance Masterclass
                 </span>
                 <span className="font-sans text-[9px] text-slate-400 font-medium mt-0.5">
-                  2026 Live Market Decoding
+                  Free Live Industry Session
                 </span>
               </div>
             </Link>
@@ -36,17 +36,17 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
 
           {/* Navigation Center (Clean Campaign Anchors) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-sm font-sans font-medium text-stone-300 shrink-0">
-            <a href="#career-paths" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Career Map
+            <a href="#outcomes" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
+              Outcomes
             </a>
-            <a href="#reviews" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Reviews
+            <a href="#mentor" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
+              Mentor
             </a>
-            <a href="#career-diagnostic" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              Career Selector
+            <a href="#eligibility" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
+              Eligibility
             </a>
-            <a href="#what-you-learn" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
-              What You'll Learn
+            <a href="#why-arzon" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
+              Why Arzon
             </a>
             <a href="#faq" className="hover:text-sky-300 transition-colors text-stone-200 whitespace-nowrap">
               FAQ
@@ -81,32 +81,32 @@ export function ArzonEventHeader({ onReserveClick }: ArzonEventHeaderProps) {
         {menuOpen && (
           <div className="lg:hidden py-4 border-t border-stone-800 flex flex-col gap-3 font-sans text-sm text-stone-200 tone-dark bg-[#0B1325]">
             <a
-              href="#career-paths"
+              href="#outcomes"
               onClick={() => setMenuOpen(false)}
               className="px-2 py-1.5 hover:text-sky-300"
             >
-              Career Map
+              Outcomes
             </a>
             <a
-              href="#reviews"
+              href="#mentor"
               onClick={() => setMenuOpen(false)}
               className="px-2 py-1.5 hover:text-sky-300"
             >
-              Reviews
+              Mentor
             </a>
             <a
-              href="#career-diagnostic"
+              href="#eligibility"
               onClick={() => setMenuOpen(false)}
               className="px-2 py-1.5 hover:text-sky-300"
             >
-              Career Selector
+              Eligibility
             </a>
             <a
-              href="#what-you-learn"
+              href="#why-arzon"
               onClick={() => setMenuOpen(false)}
               className="px-2 py-1.5 hover:text-sky-300"
             >
-              What You'll Learn
+              Why Arzon
             </a>
             <a
               href="#faq"

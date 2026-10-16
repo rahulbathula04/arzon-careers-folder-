@@ -1,32 +1,23 @@
-import { useState, useRef, useEffect, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { pageSeo } from "@/lib/seo";
-import { submitWorkshopLead, getWorkshopSeatStats } from "@/lib/workshop.functions";
+import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
-import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
-import { ExtremePremiumOnboardingView } from "@/components/workshop/ExtremePremiumOnboardingView";
-
-// Rebuilt Arzon Global B.Pharm Career Intelligence Components
-import { ArzonEventHeader } from "@/components/workshop/ArzonEventHeader";
-import { ArzonEventHero } from "@/components/workshop/ArzonEventHero";
-import { HeroFeatureCards } from "@/components/workshop/HeroFeatureCards";
-import { EmployerLogoStrip } from "@/components/workshop/EmployerLogoStrip";
-import { ResearchStatsBar } from "@/components/workshop/ResearchStatsBar";
-import { ArzonProblemSection } from "@/components/workshop/ArzonProblemSection";
-import { CareerDirectionsGrid } from "@/components/workshop/CareerDirectionsGrid";
-import { CareerDecisionMatrix } from "@/components/workshop/CareerDecisionMatrix";
-import { HiringMarketDiagram } from "@/components/workshop/HiringMarketDiagram";
-import { EmployerSkillsSection } from "@/components/workshop/EmployerSkillsSection";
-import { CertificationRealitySection } from "@/components/workshop/CertificationRealitySection";
-import { GoogleReviewsSection } from "@/components/workshop/GoogleReviewsSection";
-import { InteractiveCareerSelector } from "@/components/workshop/InteractiveCareerSelector";
-import { WhoShouldAttendSection } from "@/components/workshop/WhoShouldAttendSection";
-import { ArzonEventFaq } from "@/components/workshop/ArzonEventFaq";
-import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
-import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
-import { QuickRegisterModal } from "@/components/workshop/QuickRegisterModal";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
+
+// Apple-Grade Minimalist Masterclass Components
+import { ArzonEventHeader } from "@/components/workshop/ArzonEventHeader";
+import { MasterclassHero } from "@/components/workshop/MasterclassHero";
+import { MasterclassWalkaway } from "@/components/workshop/MasterclassWalkaway";
+import { MasterclassMentor } from "@/components/workshop/MasterclassMentor";
+import { MasterclassAudience } from "@/components/workshop/MasterclassAudience";
+import { MasterclassWhyArzon } from "@/components/workshop/MasterclassWhyArzon";
+import { MasterclassRegisterDesk } from "@/components/workshop/MasterclassRegisterDesk";
+import { MasterclassFaq } from "@/components/workshop/MasterclassFaq";
+import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
+import { MasterclassPassView } from "@/components/workshop/MasterclassPassView";
+import { ArzonEventFooter } from "@/components/workshop/ArzonEventFooter";
 
 const searchSchema = z
   .object({
@@ -50,9 +41,9 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
     }
   },
   head: () => {
-    const title = "B.Pharm Career Intelligence 2026 · Live Session | Arzon Global";
+    const title = "Pharmacovigilance Masterclass | Arzon Careers";
     const description =
-      "Join a live career intelligence session for B.Pharm, M.Pharm & Pharm.D candidates. Discover roles, companies, skills, technologies, certifications, and salary bands across Indian healthcare.";
+      "Join the free live Pharmacovigilance Masterclass. Understand drug safety roles, ICSR workflows, and entry-level career requirements before deciding.";
 
     const ps = pageSeo({
       title,
@@ -69,11 +60,11 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
         {
           name: "keywords",
           content:
-            "b.pharm career intelligence, b pharm fresher jobs, healthcare career map, pharmacovigilance freshers, medical coding jobs, clinical data management, regulatory affairs freshers, arzon global",
+            "pharmacovigilance masterclass, drug safety associate, icsr case processing, b.pharm pharmacovigilance, m.pharm drug safety, pharm.d pharmacovigilance, arzon careers",
         },
         {
           name: "author",
-          content: "Arzon Global Intelligence Unit",
+          content: "Arzon Careers",
         },
         {
           name: "robots",
@@ -103,7 +94,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
               {
                 "@type": "ListItem",
                 position: 3,
-                name: "B.Pharm Career Intelligence 2026",
+                name: "Pharmacovigilance Masterclass",
                 item: "https://arzoncareers.in/healthcare-career-workshop",
               },
             ],
@@ -114,13 +105,13 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "EducationEvent",
-            name: "B.Pharm Career Intelligence 2026: Live Market Decoding & Career Map",
+            name: "Pharmacovigilance Masterclass: Understand the Role, See the Work",
             description,
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
-            startDate: "2026-09-19T18:00:00+05:30",
-            endDate: "2026-09-19T19:15:00+05:30",
-            duration: "PT1H15M",
+            startDate: "2026-10-20T18:00:00+05:30",
+            endDate: "2026-10-20T19:00:00+05:30",
+            duration: "PT1H",
             isAccessibleForFree: true,
             inLanguage: "en-IN",
             maximumAttendeeCapacity: 500,
@@ -135,9 +126,14 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
             },
             organizer: {
               "@type": "EducationalOrganization",
-              name: "Arzon Global",
+              name: "Arzon Careers",
               url: "https://arzoncareers.in",
               logo: "https://arzoncareers.in/og/og-inauguration.jpg",
+            },
+            performer: {
+              "@type": "Person",
+              name: "Mohamed Kumail Abbas",
+              jobTitle: "Industry Professional in Pharmacovigilance",
             },
           }),
         },
@@ -149,53 +145,26 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
 
 function HealthcareCareerWorkshopComponent() {
   const search = Route.useSearch();
-  const isVariantB = search.v === "b";
-  const cfg = WORKSHOP_CONFIG;
 
   const funnel = useFunnelTracking({
     pageName: "healthcare-career-workshop",
-    category: "live-session",
+    category: "pv-masterclass",
   });
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [college, setCollege] = useState("");
-  const [branch, setBranch] = useState("Pharmacology");
-  const [degree, setDegree] = useState("B.Pharm");
-  const [email, setEmail] = useState("");
-  const [graduationYear, setGraduationYear] = useState("2026");
+  const [qualificationStatus, setQualificationStatus] = useState("B.Pharm graduate");
+  const [pvStage, setPvStage] = useState("Exploring it as a career");
+  const [learningGoal, setLearningGoal] = useState("What a drug safety professional does");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isQuickModalOpen, setIsQuickModalOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-
-  const [copiedMeet, setCopiedMeet] = useState(false);
-  const [postRegProblem, setPostRegProblem] = useState<string | null>(null);
-
-  const [seatStats, setSeatStats] = useState(() => ({
-    allocatedSeats: cfg.baselineAllocated,
-    totalCapacity: cfg.totalCapacity,
-    percentReserved: Math.min(100, Math.round((cfg.baselineAllocated / cfg.totalCapacity) * 100)),
-  }));
-
-  useEffect(() => {
-    getWorkshopSeatStats().then((res) => {
-      if (res && typeof res.allocatedSeats === "number") {
-        setSeatStats({
-          allocatedSeats: res.allocatedSeats,
-          totalCapacity: res.totalCapacity || cfg.totalCapacity,
-          percentReserved: res.percentReserved || 86,
-        });
-      }
-    });
-  }, [cfg.totalCapacity]);
 
   useEffect(() => {
     track("page_view", {
       props: {
-        page: "bpharm_career_intelligence_2026",
+        page: "pharmacovigilance_masterclass",
         utm_source: search.utm_source,
         utm_medium: search.utm_medium,
         utm_campaign: search.utm_campaign,
@@ -205,53 +174,36 @@ function HealthcareCareerWorkshopComponent() {
 
   const scrollToForm = () => {
     funnel.trackHeroCtaClick("registration_flow", "reserve_seat");
-    if (typeof window !== "undefined" && window.innerWidth < 1024) {
-      // Open instant modal directly on mobile & tablet for frictionless conversion
-      setIsQuickModalOpen(true);
-    } else {
-      const desk = document.getElementById("registration-desk");
-      if (desk) {
-        desk.scrollIntoView({ behavior: "smooth", block: "center" });
-        const firstInput = desk.querySelector("input") as HTMLInputElement | null;
-        if (firstInput) firstInput.focus();
-      } else {
-        setIsQuickModalOpen(true);
+    const desk = document.getElementById("reserve-seat");
+    if (desk) {
+      desk.scrollIntoView({ behavior: "smooth", block: "start" });
+      const firstInput = desk.querySelector("input") as HTMLInputElement | null;
+      if (firstInput) {
+        setTimeout(() => firstInput.focus(), 400);
       }
     }
-  };
-
-  const handleCopyMeet = () => {
-    navigator.clipboard.writeText(cfg.meetUrl);
-    setCopiedMeet(true);
-    setTimeout(() => setCopiedMeet(false), 2500);
-    track("meet_link_copy", { props: { source: "onboarding_card" } });
-  };
-
-  const handleInputFocus = (fieldName?: string) => {
-    funnel.trackLeadFormStart(fieldName || "input");
-    track("form_start", { props: { field: fieldName || "input" } });
-  };
-
-  const handleFieldBlur = (fieldName: string) => {
-    track("form_field_complete", { props: { field: fieldName } });
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg(null);
-    setFieldErrors({});
+
+    const cleanPhone = phone.replace(/\D/g, "");
+    if (cleanPhone.length < 10) {
+      setErrorMsg("Please enter a valid 10-digit WhatsApp number.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const result = await submitWorkshopLead({
         data: {
           name,
-          phone,
-          college,
-          branch,
-          degree,
-          email,
-          graduationYear,
+          phone: cleanPhone,
+          qualificationStatus,
+          pvStage,
+          learningGoal,
           utmSource: search.utm_source,
           utmMedium: search.utm_medium,
           utmCampaign: search.utm_campaign,
@@ -262,24 +214,18 @@ function HealthcareCareerWorkshopComponent() {
 
       if (result && result.ok) {
         setIsSuccess(true);
-        setIsQuickModalOpen(false);
-        funnel.trackLeadFormComplete({ degree, graduationYear, college });
+        funnel.trackLeadFormComplete({ qualificationStatus, pvStage, learningGoal });
         track("registration_success", {
-          props: { degree, graduationYear, college },
+          props: { qualificationStatus, pvStage, learningGoal },
         });
       } else {
-        setErrorMsg("Registration failed. Please verify your details.");
+        setErrorMsg("Registration could not be completed. Please verify your details.");
       }
     } catch (err: any) {
       const msg = String(err?.message || "");
       if (msg.toLowerCase().includes("already registered")) {
-        // Candidate is already registered: smoothly confirm their access and display their admission pass
         setIsSuccess(true);
-        setIsQuickModalOpen(false);
-        funnel.trackLeadFormComplete({ degree, graduationYear, college, status: "returning" });
-        track("registration_returning_access", {
-          props: { degree, graduationYear, college },
-        });
+        funnel.trackLeadFormComplete({ qualificationStatus, pvStage, learningGoal, status: "returning" });
       } else {
         setErrorMsg(msg || "Unable to process registration. Please check your internet connection.");
       }
@@ -293,131 +239,60 @@ function HealthcareCareerWorkshopComponent() {
       {/* 1. Header */}
       <ArzonEventHeader onReserveClick={scrollToForm} isRegistered={isSuccess} />
 
-      <main className={`flex-1 w-full${!isSuccess ? " pb-20 lg:pb-0" : ""}`}>
+      <main className="flex-1 w-full">
         {isSuccess ? (
-          /* Post-Registration Success & Onboarding */
-          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-            <ExtremePremiumOnboardingView
-              candidateName={name}
-              candidateDegree={degree}
-              candidateCollege={college}
-              candidateBranch={branch}
-              candidatePhone={phone}
-              candidateEmail={email}
-              cfg={cfg}
-              isVariantB={isVariantB}
-              copiedMeet={copiedMeet}
-              onCopyMeet={handleCopyMeet}
-              postRegProblem={postRegProblem}
-              onSelectProblem={setPostRegProblem}
-            />
-          </div>
+          /* Post-Registration Success View */
+          <MasterclassPassView
+            name={name}
+            phone={phone}
+            qualificationStatus={qualificationStatus}
+          />
         ) : (
-          /* Pre-Registration High-Intent Conversion Flow */
+          /* 8-Section Masterclass Journey */
           <div className="w-full">
-            {/* Section 2: Hero Section */}
-            <div className="relative w-full">
-              <ArzonEventHero onReserveClick={scrollToForm} isVariantB={isVariantB} />
-            </div>
+            {/* 01. HERO */}
+            <MasterclassHero onReserveClick={scrollToForm} />
 
-            {/* Section 3: Hero Feature Cards */}
-            <HeroFeatureCards />
+            {/* 02. WHAT YOU'LL WALK AWAY WITH */}
+            <MasterclassWalkaway />
 
-            {/* Section 4: Trusted Employer Logo Strip */}
-            <EmployerLogoStrip />
+            {/* 03. YOUR MENTOR */}
+            <MasterclassMentor />
 
-            {/* Section 5: Research Dataset Metrics Bar */}
-            <ResearchStatsBar />
+            {/* 04. IS THIS MASTERCLASS FOR YOU? */}
+            <MasterclassAudience />
 
-            {/* Section 4: Problem Section */}
-            <ArzonProblemSection onReserveClick={scrollToForm} />
+            {/* 05. WHY ARZON CAREERS */}
+            <MasterclassWhyArzon />
 
-            {/* Section 5: 15+ Healthcare Career Directions Grid */}
-            <CareerDirectionsGrid onReserveClick={scrollToForm} />
-
-            {/* Section 6: Interactive 60-Second Career Diagnostic */}
-            <InteractiveCareerSelector onReserveClick={scrollToForm} />
-
-            {/* Section 7: Career Decision Matrix & Registration Desk */}
-            <CareerDecisionMatrix
+            {/* 06. RESERVE YOUR SEAT */}
+            <MasterclassRegisterDesk
               name={name}
               phone={phone}
-              college={college}
-              branch={branch}
-              degree={degree}
-              email={email}
-              graduationYear={graduationYear}
-              eligibleDegrees={cfg.eligibleDegrees}
+              qualificationStatus={qualificationStatus}
+              pvStage={pvStage}
+              learningGoal={learningGoal}
               isSubmitting={isSubmitting}
               errorMsg={errorMsg}
-              fieldErrors={fieldErrors}
               onNameChange={setName}
               onPhoneChange={setPhone}
-              onCollegeChange={setCollege}
-              onBranchChange={setBranch}
-              onDegreeChange={setDegree}
-              onEmailChange={setEmail}
-              onGraduationYearChange={setGraduationYear}
-              onInputFocus={handleInputFocus}
-              onFieldBlur={handleFieldBlur}
+              onQualificationChange={setQualificationStatus}
+              onPvStageChange={setPvStage}
+              onLearningGoalChange={setLearningGoal}
               onSubmit={handleSubmit}
-              allocatedSeats={seatStats.allocatedSeats}
-              totalCapacity={seatStats.totalCapacity}
-              percentReserved={seatStats.percentReserved}
-              onReserveClick={scrollToForm}
             />
 
-            {/* Section 8: Core Session Discoveries & 6-Step Reverse Hiring Flow */}
-            <HiringMarketDiagram onReserveClick={scrollToForm} />
+            {/* 07. FREQUENTLY ASKED QUESTIONS */}
+            <MasterclassFaq />
 
-            {/* Section 9: Employer Skills Percentage Section */}
-            <EmployerSkillsSection />
-
-            {/* Section 9.5: Certification Reality Section */}
-            <CertificationRealitySection onReserveClick={scrollToForm} />
-
-            {/* Section 9.8: 440+ Verified Google Candidate Reviews */}
-            <GoogleReviewsSection onReserveClick={scrollToForm} />
-
-            {/* Section 10: Who Should Attend vs Who Should NOT Attend */}
-            <WhoShouldAttendSection onReserveClick={scrollToForm} />
-
-            {/* Section 11: 11-Item FAQ Section */}
-            <ArzonEventFaq />
-
-            {/* Section 12: Pre-Footer Deep Navy Final CTA */}
+            {/* 08. FINAL CTA */}
             <ArzonFinalCTA onReserveClick={scrollToForm} />
           </div>
         )}
       </main>
 
-      {/* Section 14: Footer */}
+      {/* Footer */}
       <ArzonEventFooter />
-
-
-
-      {/* Section 16: Mobile-First Quick Registration Modal */}
-      <QuickRegisterModal
-        isOpen={isQuickModalOpen}
-        onClose={() => setIsQuickModalOpen(false)}
-        name={name}
-        phone={phone}
-        college={college}
-        degree={degree}
-        graduationYear={graduationYear}
-        isSubmitting={isSubmitting}
-        errorMsg={errorMsg}
-        onNameChange={setName}
-        onPhoneChange={setPhone}
-        onCollegeChange={setCollege}
-        onDegreeChange={setDegree}
-        onGraduationYearChange={setGraduationYear}
-        onInputFocus={handleInputFocus}
-        onSubmit={handleSubmit}
-        allocatedSeats={seatStats.allocatedSeats}
-        totalCapacity={seatStats.totalCapacity}
-        percentReserved={seatStats.percentReserved}
-      />
     </div>
   );
 }

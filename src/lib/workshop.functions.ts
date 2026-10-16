@@ -16,15 +16,16 @@ function admin() {
 const WorkshopLeadSchema = z.object({
   name: z.string().min(2).max(80).trim(),
   phone: z.string().min(10).max(20).trim(),
-  college: z.string().min(2, "College name is required").max(180).trim(),
-  branch: z.string().min(2, "Branch / stream is required").max(100).trim(),
-  degree: z.string().max(255),
+  college: z.string().max(180).trim().optional().default(""),
+  branch: z.string().max(100).trim().optional().default(""),
+  degree: z.string().max(255).optional().default(""),
   email: z
-    .string({ required_error: "Email address is required" })
+    .string()
     .trim()
-    .min(5, "Email address is required")
     .email("Enter a valid email address")
-    .max(120),
+    .max(120)
+    .optional()
+    .or(z.literal("")),
   source: z.string().max(64).optional().default("workshop-landing-page"),
   utmSource: z.string().max(64).optional().nullable(),
   utmMedium: z.string().max(64).optional().nullable(),
@@ -36,6 +37,9 @@ const WorkshopLeadSchema = z.object({
   currentStatus: z.string().max(64).optional().nullable(),
   interestTrack: z.string().max(64).optional().nullable(),
   appliedBefore: z.string().max(64).optional().nullable(),
+  qualificationStatus: z.string().max(120).optional().nullable(),
+  pvStage: z.string().max(120).optional().nullable(),
+  learningGoal: z.string().max(120).optional().nullable(),
 });
 
 export type WorkshopLeadInput = z.infer<typeof WorkshopLeadSchema>;
@@ -53,8 +57,12 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
 
     const sb = admin();
     const cleanPhone = data.phone.replace(/\D/g, "");
+    const effectiveEmail = data.email && data.email.trim() !== "" 
+      ? data.email.trim() 
+      : `${cleanPhone}@pv-masterclass.arzoncareers.in`;
+    const effectiveDegree = data.qualificationStatus || data.degree || "Pharmacy Graduate";
 
-    // 1. Idempotency Check: if already registered, update notes with latest college/academic details
+    // 1. Idempotency Check: if already registered, update notes with latest details
     const { data: existingApp } = await (sb as any)
       .from("applications")
       .select("id")
@@ -73,13 +81,13 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
       // Upsert into applications table using the existing submit_application RPC
       const { data: newId, error } = await (sb as any).rpc("submit_application", {
         p_name: data.name,
-        p_email: data.email,
+        p_email: effectiveEmail,
         p_phone: cleanPhone,
         p_program_slug: "workshop-intelligence-session",
-        p_program_name: "Pharmacovigilance Industry Connect",
+        p_program_name: "Pharmacovigilance Masterclass",
         p_whatsapp_optin: true,
         p_lead_id: null,
-        p_utm_source: data.utmSource ?? data.source ?? "pv-workshop",
+        p_utm_source: data.utmSource ?? data.source ?? "pv-masterclass",
         p_user_agent: null,
       });
 
@@ -90,17 +98,18 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
       id = newId;
     }
 
-    // 2. Persist degree, college, branch, A/B variant, and all UTM attribution in structured notes
+    // 2. Persist degree, college, branch, answers, and UTM attribution in structured notes
     if (id) {
       try {
         const attributionNotes = JSON.stringify({
-          degree: data.degree,
-          college: data.college,
-          branch: data.branch,
+          degree: effectiveDegree,
+          college: data.college || null,
+          branch: data.branch || null,
           graduation_year: data.graduationYear ?? null,
           current_status: data.currentStatus ?? null,
-          interest_track: data.interestTrack ?? null,
-          applied_before: data.appliedBefore ?? null,
+          qualification_status: data.qualificationStatus ?? null,
+          pv_stage: data.pvStage ?? null,
+          learning_goal: data.learningGoal ?? null,
           variant: data.variant ?? "a",
           utm_source: data.utmSource ?? null,
           utm_medium: data.utmMedium ?? null,
@@ -115,7 +124,7 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
           .from("applications")
           .update({
             notes: attributionNotes,
-            program_name: "Pharmacovigilance Industry Connect",
+            program_name: "Pharmacovigilance Masterclass",
           })
           .eq("id", id);
       } catch (updateErr) {

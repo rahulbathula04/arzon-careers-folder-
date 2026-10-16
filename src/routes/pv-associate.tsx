@@ -37,6 +37,8 @@ import {
   AlertCircle,
   Stethoscope,
   BookOpen,
+  Info,
+  CreditCard,
 } from "lucide-react";
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
@@ -107,7 +109,7 @@ export const Route = createFileRoute("/pv-associate")({
 const FAQS = [
   {
     q: "Is this suitable for freshers?",
-    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build verified, job-ready practical skills for entry-level Pharmacovigilance Associate roles.",
+    a: "Yes. The program is specifically designed for fresh graduates and final-year students (B.Pharm, M.Pharm, Pharm.D, MBBS, BDS, and relevant life sciences) who want to build and practise role-related skills and prepare for entry-level Pharmacovigilance applications.",
   },
   {
     q: "Do I need previous PV experience?",
@@ -119,7 +121,7 @@ const FAQS = [
   },
   {
     q: "Do you provide placement support?",
-    a: "We provide structured career preparation, including resume alignment to 247+ verified PV job descriptions, technical interview preparation for CRO/Pharma hiring panels, and verified Role Readiness scorecards that demonstrate practical competency.",
+    a: "We provide structured career preparation, including resume alignment based on 247+ entry-level PV job descriptions, technical interview preparation for CRO/Pharma hiring panels, and practical portfolio work samples that illustrate your case handling abilities. (Arzon provides dedicated placement assistance and hiring partner introductions, not an unconditional placement guarantee).",
   },
   {
     q: "What qualifications can apply?",
@@ -130,12 +132,16 @@ const FAQS = [
     a: "You will master operational workflows and data entry standards modeled after global industry safety databases (such as Oracle Argus Safety and ARISg principles), MedDRA dictionary coding tools, and WHO-UMC causality algorithms.",
   },
   {
-    q: "Will I get a certificate?",
-    a: "Yes. Upon completing the 12-week syllabus, guided project deliverables, and the benchmark evaluation, you receive an official Arzon Role Readiness Certificate and ACRI Competency Scorecard.",
+    q: "Will I get a certificate and how is it assessed?",
+    a: "Yes. Upon completing the 12-week practical curriculum, submitting all 4 required case project deliverables, and achieving ≥75% on the rubric evaluations, learners receive an official Certificate of Completion issued directly by Arzon Global. The certificate attests to practical coursework completion and includes a verifiable transcript documenting hands-on training hours in Argus workflow standards, MedDRA coding, and ICSR narrative drafting.",
+  },
+  {
+    q: "What are the fees, payment options, and refund terms?",
+    a: "The flagship 12-week Recruiter Track is ₹24,999 (self-paced is ₹14,999). You can lock your seat with a ₹1,000 pre-registration deposit, with flexible No-Cost EMI options available. We provide a transparent 7-day money-back satisfaction guarantee following the first week of live sessions.",
   },
   {
     q: "How do I apply?",
-    a: "Click 'Talk to a Career Counsellor' to schedule an exploratory conversation. Our counsellors verify your academic background, explain the cohort roadmap, and guide you through the enrollment process.",
+    a: "Click 'Talk to a Career Counsellor' or 'View Programme & Fees' to explore cohort details. Our counsellors verify your academic background, explain the cohort roadmap, and guide you through the enrolment process.",
   },
 ];
 
@@ -273,14 +279,13 @@ function PVAssociateRebuildPage() {
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
 
-                <Link
-                  to="/enrol"
-                  search={{ programme: "pharmacovigilance", source: "pv-associate-hero" }}
-                  className="arzon-v2-button-secondary text-sm"
+                <a
+                  href="#programme-fees"
+                  className="arzon-v2-button-secondary text-sm cursor-pointer"
                 >
                   <span>VIEW PROGRAMME &amp; FEES</span>
                   <ArrowRight className="h-4 w-4 text-[var(--arzon-blue-600)]" />
-                </Link>
+                </a>
               </div>
 
               {/* Microcopy */}
@@ -419,7 +424,7 @@ function PVAssociateRebuildPage() {
           {[
             ["12 WEEKS", "Role-focused learning path"],
             ["ICSR + MEDDRA", "Core PV operational skills"],
-            ["3 APPLIED PROJECTS", "Work samples to review"],
+            ["4 APPLIED PROJECTS", "Audit-ready case deliverables"],
             ["READINESS", "Benchmark before enrolment"],
           ].map(([value, label]) => (
             <div key={value} className="arzon-v2-card p-4">
@@ -516,13 +521,16 @@ function PVAssociateRebuildPage() {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-8">
           {/* Header Row */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
+            <div className="max-w-2xl">
               <div className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-[#1557D6]">
-                BASED ON ANALYSIS OF 247+ PV ASSOCIATE JOB DESCRIPTIONS
+                BASED ON 247 FRESHER JDs (FILTERED FROM 1,247 PV OPENINGS NATIONWIDE)
               </div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight mt-1.5">
                 What Employers Expect from a Fresher
               </h2>
+              <p className="text-xs sm:text-sm text-[#69758A] mt-2 leading-relaxed">
+                Reverse-engineered from active openings across Hyderabad, Bengaluru, Pune, Mumbai, and Chennai. We monitored 1,247 macro Drug Safety openings and filtered a deduplicated cohort of 247 entry-level roles open specifically to 0–1 yr pharmacy and life-science graduates.
+              </p>
             </div>
             <button
               type="button"
@@ -532,7 +540,7 @@ function PVAssociateRebuildPage() {
               }}
               className="h-10 px-4 rounded-xl border border-[#1557D6] bg-white tone-light hover:bg-[#EEF6FF] text-[#1557D6] font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-auto shrink-0"
             >
-              <span>View Sample Job Descriptions</span>
+              <span>View Research Methodology &amp; JDs</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>
@@ -833,32 +841,32 @@ function PVAssociateRebuildPage() {
             {[
               {
                 num: "Project 01",
-                title: "ICSR Case Processing",
-                desc: "From case intake to final narrative documentation.",
+                title: "ICSR Case Intake & Triage",
+                desc: "Extract 4 minimum validity criteria, establish Day-0 clocks, and format raw HCP reports into E2B intake dossiers.",
                 icon: FileText,
                 color: "text-[#6946E8]",
                 bg: "bg-[#F1EEFF]",
               },
               {
                 num: "Project 02",
-                title: "MedDRA Coding",
-                desc: "Code adverse events using official MedDRA terminology.",
+                title: "MedDRA v27.0 Terminology Coding",
+                desc: "Code verbatim medical descriptions into exact Lowest Level Terms (LLTs), Preferred Terms (PTs), and Primary SOCs.",
                 icon: Database,
                 color: "text-[#27B9B3]",
                 bg: "bg-[#E6F8F7]",
               },
               {
                 num: "Project 03",
-                title: "Safety Assessment",
-                desc: "Assess causality, seriousness and expectedness criteria.",
+                title: "Causality & Seriousness Triage",
+                desc: "Assess 6 seriousness criteria, evaluate dechallenge/rechallenge, and apply the WHO-UMC causality algorithm.",
                 icon: Shield,
                 color: "text-[#F59E0B]",
                 bg: "bg-[#FFF8EE]",
               },
               {
                 num: "Project 04",
-                title: "Final PV Project",
-                desc: "End-to-end case handling and audit report preparation.",
+                title: "Capstone PV Audit & Dispatch File",
+                desc: "Draft a compliant ICH E2D clinical narrative, compile reconciliation logs, and prepare a mock regulatory submission.",
                 icon: BarChart3,
                 color: "text-[#1557D6]",
                 bg: "bg-[#EEF6FF]",
@@ -888,6 +896,67 @@ function PVAssociateRebuildPage() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Authentic Anonymized Work Product Preview (Action Item 2) */}
+          <div className="rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 sm:p-7 space-y-4 tone-light card-light">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E4EAF2] pb-4">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                  AUTHENTIC STUDENT WORK SAMPLE · ANONYMIZED EXCERPT
+                </div>
+                <h3 className="font-extrabold text-base sm:text-lg text-[#071A4A]">
+                  ICSR Case Intake &amp; MedDRA v27.0 Dictionary Coding Worksheet
+                </h3>
+              </div>
+              <span className="font-mono text-xs font-semibold text-[#69758A] bg-white tone-light px-2.5 py-1 rounded-lg border border-[#E4EAF2] self-start sm:self-auto">
+                Case Ref: AZN-PV-2026-084-DEMO
+              </span>
+            </div>
+
+            {/* Case Details Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-sans">
+              <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2] space-y-1">
+                <span className="font-mono text-[10px] font-bold uppercase text-[#69758A] block">1. Patient &amp; Drug Data</span>
+                <p className="text-[#071A4A] font-semibold">Female, 42 Y &bull; Weight: 58 kg</p>
+                <p className="text-[#69758A] text-[11px] leading-tight">
+                  <strong className="text-[#071A4A]">Suspect Drug:</strong> Moxifloxacin 400mg PO daily (Indication: Community-acquired pneumonia).
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2] space-y-1">
+                <span className="font-mono text-[10px] font-bold uppercase text-[#69758A] block">2. Verbatim &amp; MedDRA v27.0 Coding</span>
+                <p className="text-[#071A4A] font-semibold">Severe epidermal detachment</p>
+                <p className="text-[#69758A] text-[11px] font-mono leading-tight">
+                  LLT: Toxic epidermal necrolysis [10044223]<br />
+                  PT: Toxic epidermal necrolysis [10044223]<br />
+                  SOC: Skin &amp; subcutaneous tissue disorders
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2] space-y-1">
+                <span className="font-mono text-[10px] font-bold uppercase text-[#69758A] block">3. Seriousness &amp; Expedited Clock</span>
+                <p className="text-[#D97706] font-semibold">SERIOUS: Life-threatening + Hospitalization</p>
+                <p className="text-[#69758A] text-[11px] leading-tight">
+                  <strong className="text-[#071A4A]">Clock:</strong> 7-Day Expedited Health Authority Clock under ICH E2D. WHO-UMC Causality: Probable.
+                </p>
+              </div>
+            </div>
+
+            {/* Footer disclosure */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 text-[11px] text-[#69758A] border-t border-[#E4EAF2]/60">
+              <p>
+                * Anonymized practical assignment deliverable from Arzon Week 8 cohort. Identifying patient, hospital, and reporter data are permanently redacted per ICH E2D and DPDP Act 2023.
+              </p>
+              <button
+                type="button"
+                onClick={() => setIsProjectModalOpen(true)}
+                className="text-[#1557D6] font-semibold hover:underline inline-flex items-center gap-1 shrink-0 cursor-pointer"
+              >
+                <span>View all 4 project dossiers</span>
+                <ArrowRight className="h-3 w-3" />
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -937,16 +1006,16 @@ function PVAssociateRebuildPage() {
               },
               {
                 step: "05",
-                time: "Week 11",
-                title: "Internship / Exposure",
-                desc: "Structured practical experience.",
+                time: "Weeks 11–12",
+                title: "Simulated Clinical Practice Lab",
+                desc: "Faculty-supervised workstation simulation & capstone case triage.",
                 color: "bg-[#F59E0B]",
               },
               {
                 step: "06",
                 time: "Week 12",
-                title: "Career Preparation",
-                desc: "Resume, interview guidance and next steps.",
+                title: "Career Prep & Placement Support",
+                desc: "CV review, mock technical interviews, and recruiter connects.",
                 color: "bg-[#8B5CF6]",
               },
             ].map((node) => (
@@ -974,27 +1043,31 @@ function PVAssociateRebuildPage() {
         </div>
       </section>
 
-      {/* ── 08. ASSESSMENT & ROLE READINESS + INTERNSHIP EXPOSURE ───────────── */}
+      {/* ── 08. ASSESSMENT & ROLE READINESS + SIMULATED PRACTICE LAB ───────────── */}
       <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2]">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
             {/* Left: Assessment & Readiness (Cols 1-6) */}
             <div className="lg:col-span-6 space-y-5">
               <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] border border-[#1557D6]/20 text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                  <Info className="h-3 w-3" />
+                  <span>SAMPLE EVALUATION INTERFACE · ILLUSTRATIVE SCORING REPORT</span>
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A4A] tracking-tight">
                   Assessment &amp; Role Readiness
                 </h2>
                 <p className="text-sm text-[#69758A] mt-1">
-                  Know where you stand with a structured evaluation based on role-specific competencies.
+                  Evaluate your competence against structured, role-specific practical benchmarks before interviewing.
                 </p>
               </div>
 
               {/* Progress Bars & Donut Card */}
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-4">
                 {/* Horizontal Progress Bars (Cols 1-7) */}
-                <div className="sm:col-span-7 rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 space-y-3.5">
+                <div className="sm:col-span-7 rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 space-y-3.5 tone-light card-light">
                   <div className="font-bold text-xs uppercase tracking-wider text-[#071A4A] font-mono border-b border-[#E4EAF2] pb-2">
-                    Sample Readiness Report
+                    Sample Candidate Competency Scores
                   </div>
                   {[
                     { label: "PV Knowledge", pct: 82 },
@@ -1019,7 +1092,7 @@ function PVAssociateRebuildPage() {
                 </div>
 
                 {/* Overall Role Readiness Donut (Cols 8-12) */}
-                <div className="sm:col-span-5 rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 flex flex-col items-center justify-center text-center">
+                <div className="sm:col-span-5 rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 flex flex-col items-center justify-center text-center tone-light card-light">
                   <span className="font-bold text-xs uppercase tracking-wider text-[#071A4A] font-mono mb-2">
                     Overall Role Readiness
                   </span>
@@ -1048,49 +1121,115 @@ function PVAssociateRebuildPage() {
                       <span className="font-extrabold text-2xl text-[#071A4A]">81%</span>
                     </div>
                   </div>
-                  <span className="text-[10px] text-[#69758A] font-mono italic">
-                    *Illustrative example
+                  <span className="text-[10px] text-[#69758A] font-mono leading-tight mt-1">
+                    *Illustrative sample based on rubric below. Not an external accreditation.
                   </span>
                 </div>
               </div>
+
+              {/* 4-Pillar Scoring Rubric Card (Action Item 4) */}
+              <div className="rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 sm:p-5 space-y-3 tone-light card-light">
+                <div className="flex items-center justify-between border-b border-[#E4EAF2] pb-2">
+                  <span className="font-bold text-xs uppercase tracking-wider text-[#071A4A] font-mono">
+                    How Readiness Scores Are Calculated
+                  </span>
+                  <span className="font-mono text-[11px] font-bold text-[#1557D6]">
+                    4-Pillar Rubric (100% Total)
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                  <div className="p-2.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2]">
+                    <div className="flex justify-between font-bold text-[#071A4A]">
+                      <span>1. Day-0 Case Triage</span>
+                      <span className="font-mono text-[#1557D6]">25%</span>
+                    </div>
+                    <p className="text-[11px] text-[#69758A] mt-0.5">Validating 4 mandatory ICSR elements and safety clock initiation.</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2]">
+                    <div className="flex justify-between font-bold text-[#071A4A]">
+                      <span>2. MedDRA v27.0 Accuracy</span>
+                      <span className="font-mono text-[#1557D6]">25%</span>
+                    </div>
+                    <p className="text-[11px] text-[#69758A] mt-0.5">Precision of verbatim to LLT/PT mapping without semantic loss.</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2]">
+                    <div className="flex justify-between font-bold text-[#071A4A]">
+                      <span>3. Clinical Narrative Quality</span>
+                      <span className="font-mono text-[#1557D6]">25%</span>
+                    </div>
+                    <p className="text-[11px] text-[#69758A] mt-0.5">Chronology, dechallenge detail, and WHO-UMC causality justification.</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-white tone-light card-light border border-[#E4EAF2]">
+                    <div className="flex justify-between font-bold text-[#071A4A]">
+                      <span>4. Regulatory Clock Triage</span>
+                      <span className="font-mono text-[#1557D6]">25%</span>
+                    </div>
+                    <p className="text-[11px] text-[#69758A] mt-0.5">7-day life-threatening vs 15-day expedited submission compliance.</p>
+                  </div>
+                </div>
+                <p className="text-[11px] text-[#69758A] leading-relaxed">
+                  Candidates achieving &ge;75% cumulative rubric score across all four pillars earn the Arzon Global Certificate of Pharmacovigilance Competency.
+                </p>
+              </div>
             </div>
 
-            {/* Right: Internship / Practical Exposure (Cols 7-12) */}
+            {/* Right: Simulated Clinical Practice Lab & Workstation Exposure (Cols 7-12) */}
             <div className="lg:col-span-6 space-y-5">
               <div>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#FFF8EE] border border-[#F59E0B]/30 text-[#D97706] font-mono text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                  FACULTY-SUPERVISED INTERNAL SIMULATION
+                </div>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#071A4A] tracking-tight">
-                  Internship / Practical Exposure
+                  Simulated Clinical Practice Lab &amp; Workstation Exposure
                 </h2>
-                <p className="text-sm text-[#69758A] mt-1">
-                  Gain structured exposure to real-world PV workflows and build confidence before you apply.
+                <p className="text-sm text-[#69758A] mt-1 leading-relaxed">
+                  Gain structured, hands-on exposure to simulated clinical drug safety workstations under faculty supervision before applying for entry-level roles.
                 </p>
               </div>
 
-              {/* Internship Visual with Checklist Overlay */}
-              <div className="relative rounded-2xl overflow-hidden border border-[#E4EAF2] shadow-sm bg-[#F7FAFC]">
-                <img
-                  src="/images/pv-landing/internship-hd.jpg?v=3"
-                  alt="Practical PV Internship Exposure"
-                  className="w-full h-[220px] sm:h-[260px] object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "/images/pv-case-triage.jpg";
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071A4A]/80 via-transparent to-transparent flex items-end p-4 sm:p-5">
-                  <div className="rounded-xl bg-white/95 backdrop-blur-md p-3.5 sm:p-4 shadow-lg border border-[#E4EAF2] w-full text-xs space-y-1.5 tone-light card-light">
+              {/* Lab Specification Card */}
+              <div className="rounded-2xl border border-[#E4EAF2] bg-[#F7FAFC] p-5 space-y-4 tone-light card-light">
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="p-3 bg-white tone-light card-light rounded-xl border border-[#E4EAF2]">
+                    <span className="font-mono text-[10px] text-[#69758A] uppercase font-bold block">Provider &amp; Format</span>
+                    <strong className="text-[#071A4A] text-xs mt-0.5 block">Arzon Simulation Unit (Live Virtual Lab)</strong>
+                  </div>
+                  <div className="p-3 bg-white tone-light card-light rounded-xl border border-[#E4EAF2]">
+                    <span className="font-mono text-[10px] text-[#69758A] uppercase font-bold block">Duration</span>
+                    <strong className="text-[#071A4A] text-xs mt-0.5 block">2 Weeks (16 Workstation Hours)</strong>
+                  </div>
+                  <div className="p-3 bg-white tone-light card-light rounded-xl border border-[#E4EAF2]">
+                    <span className="font-mono text-[10px] text-[#69758A] uppercase font-bold block">Eligibility</span>
+                    <strong className="text-[#071A4A] text-xs mt-0.5 block">&ge;80% attendance + Projects 1–3 completed</strong>
+                  </div>
+                  <div className="p-3 bg-white tone-light card-light rounded-xl border border-[#E4EAF2]">
+                    <span className="font-mono text-[10px] text-[#69758A] uppercase font-bold block">Key Deliverables</span>
+                    <strong className="text-[#071A4A] text-xs mt-0.5 block">10 ICSR cases triaged under clock SLA</strong>
+                  </div>
+                </div>
+
+                <div className="rounded-xl bg-white tone-light card-light p-4 border border-[#E4EAF2] space-y-2">
+                  <span className="font-bold text-xs text-[#071A4A] block">What You Experience in the Practice Lab:</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                     {[
-                      "Case processing",
-                      "Data review",
-                      "Documentation",
-                      "Quality check",
-                      "Mentor feedback",
+                      "Real-time ICSR case intake simulation",
+                      "MedDRA v27.0 adverse reaction coding",
+                      "ICH E2D medical narrative drafting",
+                      "Expedited 7/15-day clock triage",
+                      "1-on-1 faculty quality audit & review",
+                      "Audit trail reconciliation practice",
                     ].map((item) => (
-                      <div key={item} className="flex items-center gap-2 font-semibold text-[#071A4A]">
+                      <div key={item} className="flex items-center gap-2 font-medium text-[#071A4A]">
                         <Check className="h-3.5 w-3.5 text-[#27B9B3] shrink-0" />
                         <span>{item}</span>
                       </div>
                     ))}
                   </div>
+                </div>
+
+                {/* Explicit Disclaimer Notice (Action Item 3) */}
+                <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-[11px] text-amber-900 leading-relaxed font-sans">
+                  <strong>Important Transparency Notice:</strong> This practical exposure module is an internal, faculty-supervised workstation simulation conducted within Arzon&apos;s virtual learning environment to develop role-related skills. It is not an external corporate internship, employer employment contract, or recruitment guarantee.
                 </div>
               </div>
             </div>
@@ -1243,6 +1382,239 @@ function PVAssociateRebuildPage() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 10B. PROGRAMME COMMERCIALS & ENROLMENT TRANSPARENCY ──────────────── */}
+      <section id="programme-fees" className="py-14 sm:py-20 bg-[#F7FAFC] border-b border-[#E4EAF2] tone-light">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-8 space-y-10">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#1557D6]/20 text-[#1557D6] font-mono text-[11px] font-bold uppercase tracking-wider">
+              TRANSPARENT TUITION &amp; COHORT TERMS
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#071A4A] tracking-tight">
+              Programme Commercials &amp; Enrolment Transparency
+            </h2>
+            <p className="text-sm sm:text-base text-[#69758A] leading-relaxed">
+              Clear cohort tuition fees, flexible payment plans, transparent schedule, and no hidden charges. Review all terms before enrolment.
+            </p>
+          </div>
+
+          {/* 3 Enrolment Tiers Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+            {/* Essential Tier */}
+            <div className="rounded-2xl border border-[#E4EAF2] bg-white tone-light card-light p-6 sm:p-7 flex flex-col justify-between shadow-2xs hover:border-[#1557D6] transition-all">
+              <div className="space-y-4">
+                <div>
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#69758A]">
+                    Self-Paced Track
+                  </span>
+                  <h3 className="text-xl font-extrabold text-[#071A4A] mt-0.5">Essential</h3>
+                  <p className="text-xs text-[#69758A] mt-1">
+                    Structured foundation for independent learners needing flexible timing.
+                  </p>
+                </div>
+
+                <div className="border-y border-[#E4EAF2] py-4">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-3xl font-black text-[#071A4A]">₹14,999</span>
+                    <span className="text-xs text-[#69758A] font-medium">all-inclusive</span>
+                  </div>
+                  <p className="text-[11px] text-[#69758A] font-mono mt-1">
+                    Or reserve seat for ₹1,000 deposit
+                  </p>
+                </div>
+
+                <ul className="space-y-2.5 text-xs text-[#3F4A60]">
+                  {[
+                    "8-week recorded video curriculum",
+                    "Course completion certificate",
+                    "Community cohort group access",
+                    "Standard ICSR & MedDRA exercises",
+                    "Self-paced learning schedule",
+                  ].map((feat) => (
+                    <li key={feat} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-[#1557D6] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-6">
+                <Link
+                  to="/enrol"
+                  search={{ programme: "pharmacovigilance", tier: "essential" }}
+                  className="w-full h-11 rounded-xl border border-[#1557D6] bg-white tone-light hover:bg-[#EEF6FF] text-[#1557D6] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <span>Enrol in Essential Track</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Career Tier (Highlighted) */}
+            <div className="rounded-2xl border-2 border-[#1557D6] bg-white tone-light card-light p-6 sm:p-7 flex flex-col justify-between shadow-md relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[#1557D6] text-white text-[10px] font-mono font-bold tracking-wider uppercase shadow-xs">
+                MOST POPULAR · RECRUITER TRACK
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#1557D6]">
+                    Live Cohort + Recruiter Track
+                  </span>
+                  <h3 className="text-xl font-extrabold text-[#071A4A] mt-0.5">Career</h3>
+                  <p className="text-xs text-[#69758A] mt-1">
+                    Live mentor instruction, practical project dossiers, and dedicated placement prep.
+                  </p>
+                </div>
+
+                <div className="border-y border-[#E4EAF2] py-4">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-3xl font-black text-[#071A4A]">₹24,999</span>
+                    <span className="text-xs text-[#69758A] font-medium">all-inclusive</span>
+                  </div>
+                  <p className="text-[11px] text-[#1557D6] font-mono mt-1 font-semibold">
+                    No-cost EMI from ₹4,166/mo (or ₹1,000 seat deposit)
+                  </p>
+                </div>
+
+                <ul className="space-y-2.5 text-xs text-[#3F4A60]">
+                  {[
+                    "Everything in Essential Track",
+                    "Live weekend mentor masterclasses (8 weeks)",
+                    "4 audit-ready applied project dossiers",
+                    "Simulated Clinical Practice Lab (Weeks 11–12)",
+                    "1-on-1 faculty quality feedback & review",
+                    "Placement assistance & recruiter connects",
+                    "Mock technical interviews & CV optimization",
+                  ].map((feat) => (
+                    <li key={feat} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-[#27B9B3] shrink-0 mt-0.5" />
+                      <span className="font-medium text-[#071A4A]">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-6">
+                <Link
+                  to="/enrol"
+                  search={{ programme: "pharmacovigilance", tier: "career" }}
+                  className="w-full h-11 rounded-xl bg-[#1557D6] hover:bg-[#071A4A] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                >
+                  <span>Enrol in Career Track</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Elite Tier */}
+            <div className="rounded-2xl border border-[#E4EAF2] bg-white tone-light card-light p-6 sm:p-7 flex flex-col justify-between shadow-2xs hover:border-[#1557D6] transition-all">
+              <div className="space-y-4">
+                <div>
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#6946E8]">
+                    Executive Track
+                  </span>
+                  <h3 className="text-xl font-extrabold text-[#071A4A] mt-0.5">Elite</h3>
+                  <p className="text-xs text-[#69758A] mt-1">
+                    Personalized 1-on-1 guidance paired with senior industry pharmacovigilance leads.
+                  </p>
+                </div>
+
+                <div className="border-y border-[#E4EAF2] py-4">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-3xl font-black text-[#071A4A]">₹39,999</span>
+                    <span className="text-xs text-[#69758A] font-medium">all-inclusive</span>
+                  </div>
+                  <p className="text-[11px] text-[#69758A] font-mono mt-1">
+                    No-cost EMI from ₹6,666/mo (or ₹1,000 seat deposit)
+                  </p>
+                </div>
+
+                <ul className="space-y-2.5 text-xs text-[#3F4A60]">
+                  {[
+                    "Everything in Career Track",
+                    "1:1 dedicated senior mentor pairing",
+                    "Comprehensive resume & LinkedIn overhaul",
+                    "Priority interview prep & hiring team referrals",
+                    "Post-placement 90-day role onboarding support",
+                  ].map((feat) => (
+                    <li key={feat} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-[#6946E8] shrink-0 mt-0.5" />
+                      <span>{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-6">
+                <Link
+                  to="/enrol"
+                  search={{ programme: "pharmacovigilance", tier: "elite" }}
+                  className="w-full h-11 rounded-xl border border-[#6946E8] bg-white tone-light hover:bg-[#F1EEFF] text-[#6946E8] font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  <span>Enrol in Elite Track</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Commercial Policies Summary Strip (Action Item 6) */}
+          <div className="rounded-2xl border border-[#E4EAF2] bg-white tone-light card-light p-6 sm:p-8 space-y-6">
+            <h3 className="font-extrabold text-base sm:text-lg text-[#071A4A]">
+              Essential Enrolment &amp; Commercial Terms
+            </h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-sans">
+              <div className="p-3.5 rounded-xl bg-[#F7FAFC] border border-[#E4EAF2] space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-[#071A4A]">
+                  <Award className="h-4 w-4 text-[#1557D6]" />
+                  <span>Seat Reservation</span>
+                </div>
+                <p className="text-[#69758A] text-[11px] leading-relaxed">
+                  ₹1,000 preregistration deposit locks your cohort seat and is fully credited toward your tuition fee balance.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#F7FAFC] border border-[#E4EAF2] space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-[#071A4A]">
+                  <CreditCard className="h-4 w-4 text-[#27B9B3]" />
+                  <span>Payment &amp; EMI</span>
+                </div>
+                <p className="text-[#69758A] text-[11px] leading-relaxed">
+                  Pay via UPI, Cards, Netbanking, or 3/6-month No-Cost EMI via Razorpay. No hidden processing surcharges.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#F7FAFC] border border-[#E4EAF2] space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-[#071A4A]">
+                  <Clock className="h-4 w-4 text-[#F59E0B]" />
+                  <span>Schedule &amp; Format</span>
+                </div>
+                <p className="text-[#69758A] text-[11px] leading-relaxed">
+                  12 Weeks, 6–8 hrs/week. Live classes: Sat &amp; Sun (10am–1pm IST) with weekday lab hours and 100% recorded backups.
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-[#F7FAFC] border border-[#E4EAF2] space-y-1">
+                <div className="flex items-center gap-1.5 font-bold text-[#071A4A]">
+                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                  <span>7-Day Refund Policy</span>
+                </div>
+                <p className="text-[#69758A] text-[11px] leading-relaxed">
+                  Attend Week 1. If not satisfied, request a full refund within 7 calendar days of batch start (minus gateway fee).
+                </p>
+              </div>
+            </div>
+
+            {/* Transparent Career Support Limits Notice */}
+            <div className="p-4 rounded-xl bg-[#EEF6FF]/70 border border-[#1557D6]/20 text-[11px] text-[#071A4A] leading-relaxed">
+              <strong>Transparent Career Support Policy:</strong> Arzon Global provides dedicated placement assistance, CV review, mock technical interviews, and hiring company introductions to CROs and life science safety teams. We do not sell or guarantee job placements. Employment offers depend entirely on candidate interview performance, technical merit, and hiring company selection criteria.
             </div>
           </div>
         </div>
@@ -1795,44 +2167,84 @@ function PVAssociateRebuildPage() {
 
             <div>
               <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF6FF] text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
-                VERIFIED INDUSTRY INTELLIGENCE
+                VERIFIED INDUSTRY INTELLIGENCE · RESEARCH PROVENANCE
               </div>
               <h3 className="font-extrabold text-xl text-[#071A4A]">
-                Analysis of 247+ PV Fresher Job Descriptions
+                Job Description Research Methodology &amp; Provenance
               </h3>
               <p className="text-xs text-[#69758A] mt-1">
-                Synthesized across active openings across global CROs, pharma GCCs, and leading life sciences sponsors.
+                How Arzon reverse-engineers the 12-week Pharmacovigilance Associate curriculum from live market hiring data.
               </p>
             </div>
 
-            <div className="space-y-3 pt-2">
+            {/* Methodology & Sampling Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-[#F7FAFC] p-3.5 rounded-xl border border-[#E4EAF2] text-xs font-sans">
+              <div>
+                <span className="text-[10px] font-mono text-[#69758A] uppercase font-bold block">Macro Dataset</span>
+                <strong className="text-[#071A4A]">1,247 PV Postings</strong>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#69758A] uppercase font-bold block">Fresher Cohort</span>
+                <strong className="text-[#1557D6]">247 Deduplicated JDs</strong>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#69758A] uppercase font-bold block">Date Range</span>
+                <strong className="text-[#071A4A]">Q2 2026 (May 2026)</strong>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-[#69758A] uppercase font-bold block">Primary Metros</span>
+                <strong className="text-[#071A4A]">HYD, BLR, PNQ, BOM</strong>
+              </div>
+            </div>
+
+            {/* Deduplication & Source Rules */}
+            <div className="rounded-xl border border-[#E4EAF2] bg-white tone-light p-3.5 space-y-1.5 text-xs text-[#3F4A60] leading-relaxed">
+              <span className="font-bold text-[#071A4A] block">Sources &amp; Deduplication Protocol:</span>
+              <p className="text-[11px] text-[#69758A]">
+                <strong>Primary Portals:</strong> Naukri India, LinkedIn India, Foundit, and 18 Tier-1 CRO / Pharma GCC career sites (including Parexel, IQVIA, Cognizant Life Sciences, Labcorp, and Novartis).
+              </p>
+              <p className="text-[11px] text-[#69758A]">
+                <strong>Deduplication Method:</strong> Listings were clustered by employer identifier and requisition ID. Multi-portal reposts and multi-city duplicate listings were consolidated into single canonical records. Postings demanding &gt;2 years of experience were excluded to isolate the true entry-level fresher expectations.
+              </p>
+            </div>
+
+            {/* Top Recurring Skill Bands */}
+            <div className="space-y-2.5 pt-1">
+              <span className="font-bold text-xs text-[#071A4A] font-mono uppercase tracking-wider block">
+                Top Recurring Skills in Fresher PV Postings:
+              </span>
               {[
                 {
-                  skill: "ICSR Processing & Case Logging",
-                  weight: "92% of JDs require this",
+                  skill: "End-to-End ICSR Case Intake & Logging",
+                  coverage: "Most JDs (91%)",
                   note: "Ability to record medical history, concomitant medications, and lab values in safety databases without transcription errors.",
                 },
                 {
-                  skill: "MedDRA Dictionary Coding",
-                  weight: "88% of JDs require this",
+                  skill: "MedDRA v27.0 & WHO-DD Dictionary Coding",
+                  coverage: "Most JDs (84%)",
                   note: "Coding adverse reactions and indications from verbatim descriptions to PT / LLT levels with high precision.",
                 },
                 {
-                  skill: "Medical & Narrative Writing",
-                  weight: "85% of JDs require this",
+                  skill: "Clinical Narrative Drafting (ICH E2D)",
+                  coverage: "Many JDs (85%)",
                   note: "Drafting complete chronological clinical narratives adhering to ICH E2D expedited reporting standards.",
                 },
                 {
-                  skill: "Regulatory Knowledge (ICH / GVP)",
-                  weight: "79% of JDs require this",
+                  skill: "Safety Database Familiarity (Argus / ARISg)",
+                  coverage: "Many JDs (78%)",
+                  note: "Hands-on understanding of data entry fields, workflow routing, and audit trail compliance in computerized safety systems.",
+                },
+                {
+                  skill: "Regulatory Knowledge (ICH-GVP / E2B R3)",
+                  coverage: "Common in JDs (74%)",
                   note: "Clear understanding of 7-day and 15-day expedited reporting clocks, E2B(R3) data exchange, and post-marketing surveillance.",
                 },
               ].map((jd) => (
-                <div key={jd.skill} className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3.5 space-y-1">
+                <div key={jd.skill} className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-3 space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-xs text-[#071A4A]">{jd.skill}</span>
                     <span className="text-[11px] font-mono font-bold text-[#1557D6] bg-white tone-light px-2 py-0.5 rounded border border-[#E4EAF2]">
-                      {jd.weight}
+                      {jd.coverage}
                     </span>
                   </div>
                   <p className="text-xs text-[#69758A] leading-relaxed">{jd.note}</p>
@@ -1916,6 +2328,29 @@ function PVAssociateRebuildPage() {
                   Authoring an audit-ready medical narrative summarizing hospital admission, concomitant therapies, dechallenge response, and assigning WHO-UMC causality classification.
                 </p>
               </div>
+
+              <div className="rounded-xl border border-[#E4EAF2] bg-[#F7FAFC] p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-xs text-[#071A4A]">Deliverable 04: Capstone PV Audit &amp; Dispatch Dossier</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#EEF6FF] text-[#1557D6] font-bold">
+                    Project 04 (Capstone)
+                  </span>
+                </div>
+                <p className="text-xs text-[#69758A] leading-relaxed">
+                  Compiling end-to-end case reports, conducting mock audit trail reconciliation, ensuring 7/15-day regulatory dispatch compliance, and generating audit-ready capstone documentation.
+                </p>
+              </div>
+            </div>
+
+            {/* Anonymized Work Product Preview Box */}
+            <div className="p-4 rounded-xl bg-[#EEF6FF]/60 border border-[#1557D6]/20 space-y-2 text-xs font-sans">
+              <div className="flex items-center justify-between font-bold text-[#071A4A]">
+                <span>Sample Student Assignment Excerpt (Case Ref: AZN-PV-2026-084-DEMO)</span>
+                <span className="font-mono text-[10px] text-[#1557D6] bg-white tone-light px-2 py-0.5 rounded border border-[#E4EAF2]">Redacted</span>
+              </div>
+              <p className="text-[11px] text-[#69758A] leading-relaxed">
+                <strong>Verbatim:</strong> &quot;Patient developed widespread blistering bullous epidermal necrolysis 48h following 1st IV dose.&quot; &rarr; <strong>MedDRA v27.0:</strong> LLT: Toxic epidermal necrolysis [10044223] / PT: Toxic epidermal necrolysis [10044223] / SOC: Skin &amp; subcutaneous tissue disorders. <strong>Regulatory Triage:</strong> Serious (Life-threatening) &rarr; 7-Day expedited submission clock triggered under ICH E2D.
+              </p>
             </div>
 
             <div className="pt-2 flex justify-end">

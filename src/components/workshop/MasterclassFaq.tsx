@@ -34,7 +34,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: "Will I receive a certificate?",
     answer:
-      "Certificate availability has not been confirmed. We will communicate the details if a certificate is included in the session.",
+      "Yes. A verified Certificate of Participation is issued to attendees who participate in the live masterclass session.",
   },
 ];
 

@@ -146,14 +146,44 @@ const FOUR_PILLARS = [
   },
 ];
 
-// Top Hiring Employers from trainer slides
+// Top Hiring Employers from trainer slides with distinctive brand styling
 const TOP_EMPLOYERS = [
-  { name: "IQVIA", tag: "Global Leader CRO" },
-  { name: "Accenture", tag: "Healthcare GCC" },
-  { name: "Cognizant", tag: "Life Sciences Delivery" },
-  { name: "TCS", tag: "Enterprise Pharma" },
-  { name: "Pfizer", tag: "Global Sponsor Hub" },
-  { name: "Novartis", tag: "Commercial Safety" },
+  { 
+    name: "IQVIA", 
+    tag: "Global Leader CRO", 
+    monogram: "IQ",
+    monoBg: "bg-blue-600 text-white"
+  },
+  { 
+    name: "Accenture", 
+    tag: "Healthcare GCC", 
+    monogram: ">", 
+    monoBg: "bg-purple-600 text-white font-black"
+  },
+  { 
+    name: "Cognizant", 
+    tag: "Life Sciences Delivery", 
+    monogram: "CTS", 
+    monoBg: "bg-sky-700 text-white"
+  },
+  { 
+    name: "TCS", 
+    tag: "Enterprise Pharma", 
+    monogram: "TCS", 
+    monoBg: "bg-slate-800 text-white"
+  },
+  { 
+    name: "Pfizer", 
+    tag: "Global Sponsor Hub", 
+    monogram: "PFE", 
+    monoBg: "bg-blue-700 text-white"
+  },
+  { 
+    name: "Novartis", 
+    tag: "Commercial Safety", 
+    monogram: "NVS", 
+    monoBg: "bg-indigo-700 text-white"
+  },
 ];
 
 // Target Job Roles from trainer slides
@@ -190,38 +220,75 @@ export function MasterclassWalkaway() {
           </p>
         </div>
 
-        {/* Part 1: The 5 Core Masterclass Takeaways (Compact Apple Cards) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 mb-10">
-          {FIVE_OUTCOMES.map((item) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.num}
-                className="p-4.5 rounded-2xl bg-white border border-[#E4EAF2] shadow-2xs hover:shadow-md hover:border-blue-300 transition-all duration-200 tone-light card-light flex flex-col justify-between group"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
-                      {item.num}
-                    </span>
-                    <div className="w-8 h-8 rounded-xl bg-blue-50/80 text-blue-600 flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                      <Icon className="w-4 h-4" />
+        {/* Part 1: The 5 Core Masterclass Takeaways (Apple 3+2 Bento Layout with High-Contrast Icons) */}
+        <div className="space-y-4 mb-10">
+          {/* Top Row: 3 Core Foundations */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {FIVE_OUTCOMES.slice(0, 3).map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.num}
+                  className="p-5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs hover:shadow-md hover:border-blue-400 transition-all duration-200 tone-light card-light flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3.5">
+                      <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                        {item.num}
+                      </span>
+                      <div className="w-9 h-9 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-blue-700 flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-2xs">
+                        <Icon className="w-4.5 h-4.5 stroke-[2.2]" />
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="text-[10px] font-mono font-semibold uppercase tracking-wider text-blue-600 mb-0.5">
-                    {item.tag}
+                    <div className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-blue-700 mb-1">
+                      {item.tag}
+                    </div>
+                    <h3 className="text-base font-bold text-[#081F38] group-hover:text-blue-700 transition-colors leading-snug mb-1.5">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h3 className="text-sm font-bold text-[#081F38] group-hover:text-blue-700 transition-colors leading-snug mb-1.5">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed font-sans">
-                    {item.desc}
-                  </p>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+
+          {/* Bottom Row: 2 Wide Action Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {FIVE_OUTCOMES.slice(3, 5).map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.num}
+                  className="p-5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs hover:shadow-md hover:border-blue-400 transition-all duration-200 tone-light card-light flex flex-col justify-between group"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3.5">
+                      <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">
+                        {item.num}
+                      </span>
+                      <div className="w-9 h-9 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-blue-700 flex items-center justify-center group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-2xs">
+                        <Icon className="w-4.5 h-4.5 stroke-[2.2]" />
+                      </div>
+                    </div>
+
+                    <div className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-blue-700 mb-1">
+                      {item.tag}
+                    </div>
+                    <h3 className="text-base font-bold text-[#081F38] group-hover:text-blue-700 transition-colors leading-snug mb-1.5">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Part 2: The Core Hero Feature — 7-Stage ICSR Pipeline (Clean Interactive Apple Stepper) */}
@@ -401,15 +468,20 @@ export function MasterclassWalkaway() {
                 </span>
               </div>
 
-              {/* Employer Tiles */}
-              <div className="grid grid-cols-3 gap-2 mb-4">
+              {/* Employer Tiles with Brand Monograms */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mb-4">
                 {TOP_EMPLOYERS.map((emp) => (
                   <div
                     key={emp.name}
-                    className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 transition-colors"
+                    className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 hover:border-blue-300 transition-colors flex items-center gap-2.5"
                   >
-                    <div className="font-bold text-xs text-[#081F38]">{emp.name}</div>
-                    <div className="text-[10px] text-slate-500 font-mono mt-0.5 leading-tight">{emp.tag}</div>
+                    <div className={`w-7 h-7 rounded-lg ${emp.monoBg} flex items-center justify-center font-mono text-[10px] font-bold shrink-0 shadow-2xs`}>
+                      {emp.monogram}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-bold text-xs text-[#081F38] truncate">{emp.name}</div>
+                      <div className="text-[10px] text-slate-500 font-mono truncate">{emp.tag}</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -433,8 +505,8 @@ export function MasterclassWalkaway() {
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500 font-mono">
-              12,000+ entry-level openings across Indian Global Capability Centers (GCCs).
+            <div className="mt-4 pt-3 border-t border-slate-100 text-[10.5px] text-slate-500 font-sans leading-relaxed">
+              <strong className="font-semibold text-slate-600">Market Reference:</strong> 12,000+ entry openings across Indian GCCs. Company names and trademarks are property of their respective holders and referenced strictly under nominative fair use for public hiring intelligence; no direct affiliation or endorsement implied.
             </div>
           </div>
 

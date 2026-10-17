@@ -55,10 +55,10 @@ export function MasterclassRegisterDesk({
   onSubmit,
 }: MasterclassRegisterDeskProps) {
   return (
-    <section id="register" className="py-16 sm:py-24 border-b border-[#E4EAF2] bg-white tone-light card-light">
+    <section id="register" className="py-12 sm:py-24 border-b border-[#E4EAF2] bg-white tone-light card-light">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-10 sm:mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 text-[#1D4ED8] text-xs font-mono font-bold uppercase tracking-wider mb-3 shadow-2xs">
             <span>06 · Reserve Your Seat</span>
           </div>
@@ -74,18 +74,18 @@ export function MasterclassRegisterDesk({
         </div>
 
         {/* Apple-Grade Registration Bezel with Homepage Accents */}
-        <div className="relative overflow-hidden p-6 sm:p-10 rounded-3xl bg-white tone-light card-light border border-[#E2E8F0] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.06)]">
+        <div id="reserve-seat" className="relative overflow-hidden p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-white tone-light card-light border border-[#E2E8F0] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.06)]">
           {/* Top Micro Accent Line */}
           <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED]" />
 
           {/* Live Seat Allocation Header Gauge */}
-          <div className="mb-8 p-4 rounded-2xl bg-slate-50/70 border border-slate-200/70">
+          <div className="mb-6 sm:mb-8 p-3.5 sm:p-4 rounded-2xl bg-slate-50/70 border border-slate-200/70">
             <div className="flex items-center justify-between text-xs font-medium text-slate-700 mb-2">
-              <span className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-[#2563EB] font-bold">
+              <span className="flex items-center gap-1.5 font-mono text-[10.5px] sm:text-[11px] uppercase tracking-wider text-[#2563EB] font-bold">
                 <Users className="w-3.5 h-3.5 text-[#2563EB]" />
                 Live Allocation
               </span>
-              <span className="font-mono text-[#081F38] font-bold px-2.5 py-0.5 rounded-full bg-[#EEF6FF] border border-[#BFDBFE]">
+              <span className="font-mono text-[#081F38] text-[11px] sm:text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EEF6FF] border border-[#BFDBFE]">
                 348 / 500 Seats Allocated (70%)
               </span>
             </div>
@@ -125,7 +125,7 @@ export function MasterclassRegisterDesk({
                       value={name}
                       onChange={(e) => onNameChange(e.target.value)}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-xs sm:text-sm transition-all focus:outline-none focus:ring-4 focus:ring-[#2563EB]/10 focus:border-[#2563EB]"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-base sm:text-sm min-h-[48px] transition-all focus:outline-none focus:ring-4 focus:ring-[#2563EB]/10 focus:border-[#2563EB]"
                     />
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export function MasterclassRegisterDesk({
                     WhatsApp Number <span className="text-rose-500">*</span>
                   </label>
                   <div className="relative flex">
-                    <span className="inline-flex items-center px-3.5 rounded-l-xl border border-r-0 border-slate-200 bg-slate-50 text-slate-600 text-xs font-mono font-medium">
+                    <span className="inline-flex items-center px-3.5 rounded-l-xl border border-r-0 border-slate-200 bg-slate-50 text-slate-600 text-sm font-mono font-medium min-h-[48px]">
                       +91
                     </span>
                     <input
@@ -147,7 +147,7 @@ export function MasterclassRegisterDesk({
                       onChange={(e) => onPhoneChange(e.target.value)}
                       placeholder="10-digit number"
                       maxLength={10}
-                      className="w-full px-4 py-2.5 sm:py-3 rounded-r-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-xs sm:text-sm transition-all focus:outline-none focus:ring-4 focus:ring-[#2563EB]/10 focus:border-[#2563EB]"
+                      className="w-full px-4 py-3 rounded-r-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-slate-900 text-base sm:text-sm min-h-[48px] transition-all focus:outline-none focus:ring-4 focus:ring-[#2563EB]/10 focus:border-[#2563EB]"
                     />
                   </div>
                 </div>
@@ -167,13 +167,13 @@ export function MasterclassRegisterDesk({
                       key={opt}
                       type="button"
                       onClick={() => onQualificationChange(opt)}
-                      className={`text-left p-3 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer ${
+                      className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer min-h-[48px] gap-2 ${
                         isSelected
                           ? "border-[#2563EB] bg-[#EEF6FF]/60 ring-1 ring-[#2563EB] shadow-2xs font-semibold text-[#081F38]"
                           : "border-slate-200 bg-slate-50/40 hover:bg-[#EEF6FF]/30 hover:border-[#BFDBFE] text-slate-700 font-medium"
                       }`}
                     >
-                      <span className="truncate pr-2">{opt}</span>
+                      <span className="leading-snug pr-2 text-left">{opt}</span>
                       <span
                         className={`w-4 h-4 rounded-full border shrink-0 flex items-center justify-center transition-colors ${
                           isSelected
@@ -202,13 +202,13 @@ export function MasterclassRegisterDesk({
                       key={opt}
                       type="button"
                       onClick={() => onPvStageChange(opt)}
-                      className={`text-left p-3 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer ${
+                      className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer min-h-[48px] gap-2 ${
                         isSelected
                           ? "border-[#2563EB] bg-[#EEF6FF]/60 ring-1 ring-[#2563EB] shadow-2xs font-semibold text-[#081F38]"
                           : "border-slate-200 bg-slate-50/40 hover:bg-[#EEF6FF]/30 hover:border-[#BFDBFE] text-slate-700 font-medium"
                       }`}
                     >
-                      <span className="truncate pr-2">{opt}</span>
+                      <span className="leading-snug pr-2 text-left">{opt}</span>
                       <span
                         className={`w-4 h-4 rounded-full border shrink-0 flex items-center justify-center transition-colors ${
                           isSelected
@@ -237,13 +237,13 @@ export function MasterclassRegisterDesk({
                       key={opt}
                       type="button"
                       onClick={() => onLearningGoalChange(opt)}
-                      className={`text-left p-3 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer ${
+                      className={`text-left p-3.5 rounded-xl border text-xs sm:text-sm transition-all flex items-center justify-between cursor-pointer min-h-[48px] gap-2 ${
                         isSelected
                           ? "border-[#2563EB] bg-[#EEF6FF]/60 ring-1 ring-[#2563EB] shadow-2xs font-semibold text-[#081F38]"
                           : "border-slate-200 bg-slate-50/40 hover:bg-[#EEF6FF]/30 hover:border-[#BFDBFE] text-slate-700 font-medium"
                       }`}
                     >
-                      <span className="truncate pr-2">{opt}</span>
+                      <span className="leading-snug pr-2 text-left">{opt}</span>
                       <span
                         className={`w-4 h-4 rounded-full border shrink-0 flex items-center justify-center transition-colors ${
                           isSelected

@@ -17,6 +17,7 @@ import { MasterclassReviews } from "@/components/workshop/MasterclassReviews";
 import { MasterclassRegisterDesk } from "@/components/workshop/MasterclassRegisterDesk";
 import { MasterclassFaq } from "@/components/workshop/MasterclassFaq";
 import { ArzonFinalCTA } from "@/components/workshop/ArzonFinalCTA";
+import { MasterclassMobileBar } from "@/components/workshop/MasterclassMobileBar";
 import { MasterclassPassView } from "@/components/workshop/MasterclassPassView";
 
 const searchSchema = z
@@ -174,7 +175,7 @@ function HealthcareCareerWorkshopComponent() {
 
   const scrollToForm = () => {
     funnel.trackHeroCtaClick("registration_flow", "reserve_seat");
-    const desk = document.getElementById("reserve-seat");
+    const desk = document.getElementById("register") || document.getElementById("reserve-seat");
     if (desk) {
       desk.scrollIntoView({ behavior: "smooth", block: "start" });
       const firstInput = desk.querySelector("input") as HTMLInputElement | null;
@@ -235,7 +236,7 @@ function HealthcareCareerWorkshopComponent() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-warm-paper)] text-[var(--color-arzon-ink)] font-sans selection:bg-[var(--color-medical-navy)] selection:text-[var(--color-warm-white)] flex flex-col">
+    <div className="min-h-screen bg-[var(--color-warm-paper)] text-[var(--color-arzon-ink)] font-sans selection:bg-[var(--color-medical-navy)] selection:text-[var(--color-warm-white)] flex flex-col pb-16 md:pb-0">
       {/* 1. Header */}
       <ArzonEventHeader onReserveClick={scrollToForm} isRegistered={isSuccess} />
 
@@ -290,6 +291,9 @@ function HealthcareCareerWorkshopComponent() {
 
             {/* 08. FINAL CTA */}
             <ArzonFinalCTA onReserveClick={scrollToForm} />
+
+            {/* Mobile Sticky Action Bar */}
+            <MasterclassMobileBar onReserveClick={scrollToForm} />
           </div>
         )}
       </main>

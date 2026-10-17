@@ -14,7 +14,7 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
       />
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative">
-        <div className="p-8 sm:p-14 lg:p-16 rounded-[32px] bg-white text-center relative overflow-hidden tone-light card-light shadow-[0_20px_60px_-15px_rgba(37,99,235,0.08),0_1px_3px_rgba(0,0,0,0.04)] border border-[#E2E8F0]">
+        <div className="p-5 sm:p-14 lg:p-16 rounded-2xl sm:rounded-[32px] bg-white text-center relative overflow-hidden tone-light card-light shadow-[0_20px_60px_-15px_rgba(37,99,235,0.08),0_1px_3px_rgba(0,0,0,0.04)] border border-[#E2E8F0]">
           {/* Apple top micro-accent gradient line */}
           <div aria-hidden="true" className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED]" />
 
@@ -43,11 +43,11 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
           </p>
 
           {/* Primary CTA Button */}
-          <div className="flex flex-col items-center mb-6">
+          <div className="flex flex-col items-center mb-6 w-full max-w-sm mx-auto">
             <button
               type="button"
               onClick={onReserveClick}
-              className="inline-flex items-center justify-center gap-2.5 px-9 sm:px-12 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-[0_10px_25px_-5px_rgba(37,99,235,0.35)] hover:shadow-[0_15px_30px_-5px_rgba(37,99,235,0.45)] transition-all transform hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 sm:px-12 py-3.5 sm:py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-sans text-sm sm:text-base font-bold shadow-[0_10px_25px_-5px_rgba(37,99,235,0.35)] hover:shadow-[0_15px_30px_-5px_rgba(37,99,235,0.45)] transition-all transform hover:-translate-y-0.5 active:scale-[0.98] cursor-pointer group"
             >
               <span>Reserve My Free Seat</span>
               <ArrowRight className="w-4 h-4 stroke-[2.5] group-hover:translate-x-1 transition-transform" />

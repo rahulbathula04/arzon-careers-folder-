@@ -112,19 +112,19 @@ export function MasterclassMentor() {
             </div>
           </div>
 
-          {/* Key Stat Tiles with Homepage Metric Colors */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 py-6 border-b border-slate-200/80">
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] text-center tone-light card-light shadow-2xs hover:border-[#2563EB]/40 transition-colors">
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#2563EB] tracking-tight">15+</div>
-              <div className="text-xs text-slate-500 font-medium mt-0.5">Years PV Leadership</div>
+          {/* Key Stat Tiles with Homepage Metric Colors — Compact Mobile 3-Column Strip */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3.5 py-4 sm:py-6 border-b border-slate-200/80">
+            <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-[#E2E8F0] text-center tone-light card-light shadow-2xs hover:border-[#2563EB]/40 transition-colors">
+              <div className="font-mono text-xl sm:text-3xl font-bold text-[#2563EB] tracking-tight">15+</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 font-medium mt-0.5 leading-tight">Years PV Lead</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] text-center tone-light card-light shadow-2xs hover:border-[#0284C7]/40 transition-colors">
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#0284C7] tracking-tight">6</div>
-              <div className="text-xs text-slate-500 font-medium mt-0.5">Global CRO &amp; Tech Orgs</div>
+            <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-[#E2E8F0] text-center tone-light card-light shadow-2xs hover:border-[#0284C7]/40 transition-colors">
+              <div className="font-mono text-xl sm:text-3xl font-bold text-[#0284C7] tracking-tight">6</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 font-medium mt-0.5 leading-tight">Global CROs</div>
             </div>
-            <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] text-center tone-light card-light shadow-2xs hover:border-[#10B981]/40 transition-colors">
-              <div className="font-mono text-2xl sm:text-3xl font-bold text-[#10B981] tracking-tight">1,000+</div>
-              <div className="text-xs text-slate-500 font-medium mt-0.5">Graduates Mentored</div>
+            <div className="p-2.5 sm:p-4 rounded-xl sm:rounded-2xl bg-white border border-[#E2E8F0] text-center tone-light card-light shadow-2xs hover:border-[#10B981]/40 transition-colors">
+              <div className="font-mono text-xl sm:text-3xl font-bold text-[#10B981] tracking-tight">1,000+</div>
+              <div className="text-[10px] sm:text-xs text-slate-500 font-medium mt-0.5 leading-tight">Grads Mentored</div>
             </div>
           </div>
 

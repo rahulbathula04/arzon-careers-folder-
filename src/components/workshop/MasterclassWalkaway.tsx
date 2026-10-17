@@ -358,10 +358,10 @@ export function MasterclassWalkaway() {
         </div>
 
         {/* Part 2: The Core Hero Feature — 7-Stage ICSR Pipeline (Minimal Apple Stepper & Peak Detailing) */}
-        <div className="rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light p-6 sm:p-9 mb-8">
+        <div className="rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light p-4 sm:p-9 mb-8">
           
           {/* Stepper Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 sm:pb-6 mb-5 sm:mb-6 border-b border-slate-100">
             <div>
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-[#10B981] motion-safe:animate-pulse" />
@@ -383,8 +383,8 @@ export function MasterclassWalkaway() {
             </div>
           </div>
 
-          {/* Apple Segmented Control (Smooth Clickable Capsule Bar with Homepage Blue Active State) */}
-          <div className="bg-slate-100/90 p-1.5 rounded-2xl flex items-center gap-1 overflow-x-auto no-scrollbar mb-6">
+          {/* Apple Segmented Control (Smooth Clickable Capsule Bar with Mobile Touch Carousel) */}
+          <div className="bg-slate-100/90 p-1 sm:p-1.5 rounded-2xl flex items-center gap-1.5 overflow-x-auto no-scrollbar mb-5 sm:mb-6 -mx-2 px-2 sm:mx-0 sm:px-1.5 snap-x">
             {ICSR_PIPELINE.map((st, idx) => {
               const isActive = idx === activeStep;
               return (
@@ -392,7 +392,7 @@ export function MasterclassWalkaway() {
                   key={st.step}
                   type="button"
                   onClick={() => setActiveStep(idx)}
-                  className={`flex-1 min-w-[96px] py-2 px-2.5 rounded-xl text-left transition-all cursor-pointer flex items-center justify-between gap-1.5 ${
+                  className={`flex-1 min-w-[96px] sm:min-w-[104px] py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-xl text-left transition-all cursor-pointer flex items-center justify-between gap-1.5 snap-start shrink-0 min-h-[44px] ${
                     isActive
                       ? "bg-[#2563EB] text-white shadow-sm ring-1 ring-[#2563EB]"
                       : "text-slate-600 hover:text-[#2563EB] hover:bg-white"
@@ -412,7 +412,7 @@ export function MasterclassWalkaway() {
           </div>
 
           {/* Active Stage Deep-Dive Card (Peak Apple Detailing with Top Accent Gradient) */}
-          <div className="relative overflow-hidden p-5 sm:p-7 rounded-3xl bg-slate-50/70 border border-slate-200/70 text-left">
+          <div className="relative overflow-hidden p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-slate-50/70 border border-slate-200/70 text-left">
             <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED]" />
 
             <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
@@ -427,29 +427,29 @@ export function MasterclassWalkaway() {
               </div>
             </div>
 
-            <h4 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#081F38] mb-5">
+            <h4 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#081F38] mb-4 sm:mb-5">
               {currentStep.name}
             </h4>
 
             {/* Apple 2-Column Spec Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch mb-2">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch mb-2">
               {/* Left: Stage Visual View */}
-              <div className="lg:col-span-5 rounded-2xl overflow-hidden border border-black/[0.08] shadow-sm relative aspect-[16/10] lg:aspect-auto min-h-[220px]">
+              <div className="lg:col-span-5 rounded-2xl overflow-hidden border border-black/[0.08] shadow-sm relative aspect-[16/10] lg:aspect-auto min-h-[190px] sm:min-h-[220px]">
                 <img
                   src={currentStep.image}
                   alt={currentStep.name}
                   className="w-full h-full object-cover object-center"
                   loading="lazy"
                 />
-                <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-center justify-between text-white backdrop-blur-[1px]">
+                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-3.5 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-center justify-between text-white backdrop-blur-[1px]">
                   <span className="text-xs font-medium">Stage 0{currentStep.step} Operational View</span>
                   <span className="text-[10px] font-mono text-white/70">Case Walkthrough</span>
                 </div>
               </div>
 
               {/* Right: Enterprise SOP Standard & Mohamed Kumail Takeaway */}
-              <div className="lg:col-span-7 flex flex-col justify-between gap-3.5">
-                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#E2E8F0] tone-light card-light flex-1 shadow-2xs">
+              <div className="lg:col-span-7 flex flex-col justify-between gap-3 sm:gap-3.5">
+                <div className="p-3.5 sm:p-5 rounded-2xl bg-white border border-[#E2E8F0] tone-light card-light flex-1 shadow-2xs">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
                     Enterprise SOP Standard:
                   </div>
@@ -458,7 +458,7 @@ export function MasterclassWalkaway() {
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#EEF6FF]/70 border border-[#BFDBFE]/80 flex-1 shadow-2xs">
+                <div className="p-3.5 sm:p-5 rounded-2xl bg-[#EEF6FF]/70 border border-[#BFDBFE]/80 flex-1 shadow-2xs">
                   <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-[#2563EB] font-bold mb-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-[#2563EB]" />
                     <span>What Mohamed Kumail Abbas Teaches You:</span>
@@ -471,11 +471,11 @@ export function MasterclassWalkaway() {
             </div>
 
             {/* Apple Minimalist Prev / Next Navigation Controls */}
-            <div className="flex items-center justify-between pt-5 mt-5 border-t border-slate-200/70">
+            <div className="flex items-center justify-between pt-4 sm:pt-5 mt-4 sm:mt-5 border-t border-slate-200/70">
               <button
                 type="button"
                 onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : ICSR_PIPELINE.length - 1))}
-                className="w-8 h-8 rounded-full border border-slate-200 bg-white card-light hover:bg-[#EEF6FF] hover:border-[#BFDBFE] flex items-center justify-center text-slate-600 hover:text-[#2563EB] transition-colors cursor-pointer shadow-2xs"
+                className="w-10 h-10 sm:w-9 sm:h-9 rounded-full border border-slate-200 bg-white card-light hover:bg-[#EEF6FF] hover:border-[#BFDBFE] flex items-center justify-center text-slate-600 hover:text-[#2563EB] transition-colors cursor-pointer shadow-2xs"
                 aria-label="Previous Stage"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -498,7 +498,7 @@ export function MasterclassWalkaway() {
               <button
                 type="button"
                 onClick={() => setActiveStep((prev) => (prev < ICSR_PIPELINE.length - 1 ? prev + 1 : 0))}
-                className="w-8 h-8 rounded-full border border-slate-200 bg-white card-light hover:bg-[#EEF6FF] hover:border-[#BFDBFE] flex items-center justify-center text-slate-600 hover:text-[#2563EB] transition-colors cursor-pointer shadow-2xs"
+                className="w-10 h-10 sm:w-9 sm:h-9 rounded-full border border-slate-200 bg-white card-light hover:bg-[#EEF6FF] hover:border-[#BFDBFE] flex items-center justify-center text-slate-600 hover:text-[#2563EB] transition-colors cursor-pointer shadow-2xs"
                 aria-label="Next Stage"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -511,7 +511,7 @@ export function MasterclassWalkaway() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
           
           {/* Card A: 4 Core Pharmacovigilance Pillars */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light flex flex-col justify-between relative overflow-hidden">
+          <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light flex flex-col justify-between relative overflow-hidden">
             {/* Apple top micro-accent line */}
             <div aria-hidden="true" className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#2563EB] to-[#60A5FA]" />
 
@@ -543,7 +543,7 @@ export function MasterclassWalkaway() {
                   return (
                     <div 
                       key={idx} 
-                      className="p-4 rounded-2xl bg-[#F8FAFC]/90 border border-[#E2E8F0] hover:bg-white hover:border-[#BFDBFE] hover:shadow-xs transition-all duration-200 group flex flex-col justify-between tone-light card-light"
+                      className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC]/90 border border-[#E2E8F0] hover:bg-white hover:border-[#BFDBFE] hover:shadow-xs transition-all duration-200 group flex flex-col justify-between tone-light card-light"
                     >
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-2.5">
@@ -575,7 +575,7 @@ export function MasterclassWalkaway() {
           </div>
 
           {/* Card B: Target Roles & Top Hiring Employers */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light flex flex-col justify-between relative overflow-hidden">
+          <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light flex flex-col justify-between relative overflow-hidden">
             {/* Apple top micro-accent line */}
             <div aria-hidden="true" className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#0284C7] via-[#2563EB] to-[#7C3AED]" />
 

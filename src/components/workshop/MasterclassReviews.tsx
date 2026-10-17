@@ -104,7 +104,7 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
   const isGoogle = review.platform === "google";
 
   return (
-    <article className="w-[300px] sm:w-[360px] rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-6 shadow-xs hover:shadow-lg hover:border-[#2563EB]/40 transition-all flex flex-col justify-between shrink-0 select-none">
+    <article className="w-[280px] sm:w-[360px] rounded-2xl sm:rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-5 sm:p-6 shadow-xs hover:shadow-lg hover:border-[#2563EB]/40 transition-all flex flex-col justify-between shrink-0 select-none">
       <div>
         {/* Header: Platform Badge + Verification */}
         <div className="flex items-center justify-between gap-2 mb-3.5">

@@ -76,17 +76,18 @@ export const getRouter = () => {
     // with our internal scroller and can leave a fresh page landing at the
     // bottom of the previous page's position. Disable it here.
     scrollRestoration: false,
-    // Preload route chunks + loaders on hover/touch intent. Combined with the
-    // Speculation Rules block in __root.tsx (full prerender on high intent),
-    // this gives a "pre-loaded" feel even on cold cache: by the time the user
-    // clicks, the chunk is parsed and the loader has resolved.
-    defaultPreload: "intent",
-    defaultPreloadDelay: 50,
-    // Reuse loader data for 30s after a preload, so hover-prerender (Speculation
-    // Rules + TanStack preload) doesn't refetch on every cursor-over. Cuts
-    // Worker + Postgres load on content nav by 3-5x without hurting freshness
-    // for pages that don't change every second.
-    defaultPreloadStaleTime: 30_000,
+    // Preload route chunks + loaders as soon as links enter the viewport,
+    // plus instant preloading on cursor proximity & touch.
+    // By the time the user clicks any link, its JavaScript bundle and loader
+    // data are already pre-loaded into memory for instantaneous navigation.
+    defaultPreload: "viewport",
+    defaultPreloadDelay: 0,
+    defaultPreloadIntentProximity: 25,
+    // Reuse loader data for 60s after a preload, so preloading
+    // doesn't refetch repeatedly, cutting network overhead while ensuring
+    // 0ms instant page loads across the site.
+    defaultPreloadStaleTime: 60_000,
+    defaultPreloadGcTime: 10 * 60_000,
     defaultErrorComponent: DefaultErrorComponent,
   });
 

@@ -4,6 +4,8 @@ import { Link } from "@tanstack/react-router";
 import { Sparkles, ArrowRight, GraduationCap, ClipboardCheck, X } from "lucide-react";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 
+import { hasStudentAlreadyConverted } from "@/lib/lead-capture-rules";
+
 const STORAGE_KEY = "az_exit_quiz_seen_v1";
 const SCROLL_TRIGGER_PCT = 65;
 
@@ -22,6 +24,7 @@ export function ExitIntentQuiz() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     try {
+      if (hasStudentAlreadyConverted()) return;
       if (localStorage.getItem(STORAGE_KEY)) return;
     } catch {
       // ignore storage errors

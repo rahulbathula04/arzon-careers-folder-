@@ -135,55 +135,6 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
           </div>
         </div>
 
-        {/* Hero Clinical Workstation Visual Preview — Apple Hardware/Software Display Frame */}
-        <div className="mt-12 max-w-4xl mx-auto rounded-3xl overflow-hidden border border-slate-200/80 shadow-2xl bg-white tone-light card-light relative group">
-          {/* Apple Window Chrome Header */}
-          <div className="px-4 py-2.5 bg-slate-100/90 border-b border-slate-200/80 flex items-center justify-between text-xs font-mono text-slate-500">
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
-              </div>
-              <span className="text-[11px] font-semibold text-slate-600 ml-2 hidden sm:inline-block">
-                Enterprise Safety Database · Dual-Screen ICSR Processing Desk
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10.5px] font-bold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-                Live Production Environment
-              </span>
-              <span className="text-[10px] text-slate-400 hidden sm:inline-block">
-                ICH E2B(R3) Protocol
-              </span>
-            </div>
-          </div>
-
-          <div className="relative aspect-[16/9] sm:aspect-[21/10] overflow-hidden bg-slate-900">
-            <img
-              src="/images/pv-workstation-realistic.jpg"
-              alt="Enterprise Pharmacovigilance Workstation - ICSR Processing"
-              className="w-full h-full object-cover object-center group-hover:scale-[1.01] transition-transform duration-700"
-              loading="eager"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/90 via-[#081F38]/25 to-transparent flex flex-col justify-end p-5 sm:p-7 text-left" />
-            <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-7 sm:right-7 flex flex-wrap items-end justify-between gap-3 text-white">
-              <div>
-                <div className="text-[11px] font-mono uppercase tracking-wider text-blue-300 font-bold mb-1">
-                  Interactive Case Walkthrough
-                </div>
-                <div className="text-sm sm:text-lg font-bold text-white tracking-tight">
-                  Dual-Monitor Triage &amp; Electronic Safety Database Capture
-                </div>
-              </div>
-              <div className="text-right hidden sm:block">
-                <div className="text-xs font-mono text-slate-300">Hyderabad Biopharma GCC</div>
-                <div className="text-[11px] text-slate-400">Day-0 to Day-15 Regulatory Window</div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

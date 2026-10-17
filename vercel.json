@@ -21,7 +21,7 @@
       ]
     },
     {
-      "source": "/(images|brand|og|favicon.ico)(.*)",
+      "source": "/(images|brand|og|proof|videos|favicon.ico)(.*)",
       "headers": [
         {
           "key": "Cache-Control",

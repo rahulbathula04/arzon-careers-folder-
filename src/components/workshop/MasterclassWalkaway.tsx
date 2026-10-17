@@ -298,31 +298,34 @@ export function MasterclassWalkaway() {
           </div>
         </div>
 
-        {/* Part 2: The Core Hero Feature — 7-Stage ICSR Pipeline (Clean Interactive Apple Stepper) */}
-        <div className="rounded-3xl bg-white border border-[#E4EAF2] shadow-sm tone-light card-light p-6 sm:p-9 mb-8">
+        {/* Part 2: The Core Hero Feature — 7-Stage ICSR Pipeline (Minimal Apple Stepper & Peak Detailing) */}
+        <div className="rounded-3xl bg-white border border-slate-200/80 shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light p-6 sm:p-9 mb-8">
           
           {/* Stepper Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 mb-6 border-b border-slate-100">
             <div>
               <div className="flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-700">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 font-sans">
                   The 7-Stage ICSR Enterprise Pipeline
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+              <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-slate-900 mt-1">
+                Adverse Event Lifecycle
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 mt-0.5 font-sans">
                 Follow an adverse drug reaction from initial hospital intake to global health authority transmission.
               </p>
             </div>
             
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600 shrink-0 self-start sm:self-auto shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600 shrink-0 self-start sm:self-auto">
               <Clock className="w-3.5 h-3.5 text-blue-600" />
-              <span>Step {currentStep.step} of 7</span>
+              <span>Step 0{currentStep.step} of 07</span>
             </div>
           </div>
 
-          {/* Stepper Button Chain (Clickable Apple Segmented Bar) */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 mb-6">
+          {/* Apple Segmented Control (Smooth Clickable Capsule Bar) */}
+          <div className="bg-slate-100/90 p-1.5 rounded-2xl flex items-center gap-1 overflow-x-auto no-scrollbar mb-6">
             {ICSR_PIPELINE.map((st, idx) => {
               const isActive = idx === activeStep;
               return (
@@ -330,59 +333,63 @@ export function MasterclassWalkaway() {
                   key={st.step}
                   type="button"
                   onClick={() => setActiveStep(idx)}
-                  className={`p-3 rounded-2xl text-left transition-all cursor-pointer border ${
+                  className={`flex-1 min-w-[96px] py-2 px-2.5 rounded-xl text-left transition-all cursor-pointer flex items-center justify-between gap-1.5 ${
                     isActive
-                      ? "bg-[#2563EB] border-[#2563EB] text-white shadow-md ring-2 ring-blue-500/20"
-                      : "bg-slate-50/80 border-slate-200/80 hover:bg-slate-100 text-slate-700"
+                      ? "bg-white text-slate-900 shadow-xs ring-1 ring-black/[0.04]"
+                      : "text-slate-500 hover:text-slate-900 hover:bg-white/50"
                   }`}
                 >
-                  <div className={`text-[10px] font-mono font-bold ${isActive ? "text-blue-100" : "text-blue-600"}`}>
-                    STAGE 0{st.step}
-                  </div>
-                  <div className="text-xs font-bold truncate mt-1">
+                  <span className={`text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-md ${
+                    isActive ? "bg-slate-900 text-white" : "bg-slate-200/70 text-slate-600"
+                  }`}>
+                    0{st.step}
+                  </span>
+                  <span className="text-xs font-semibold truncate flex-1 text-center">
                     {st.short}
-                  </div>
+                  </span>
                 </button>
               );
             })}
           </div>
 
-          {/* Active Stage Deep-Dive Card */}
-          <div className="p-5 sm:p-7 rounded-3xl bg-[#F8FAFC] border border-slate-200/90 text-left">
-            <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blue-100/70 text-blue-800 text-xs font-mono font-bold">
-                <span>{currentStep.badge.toUpperCase()}</span>
+          {/* Active Stage Deep-Dive Card (Peak Apple Detailing) */}
+          <div className="p-5 sm:p-7 rounded-3xl bg-slate-50/70 border border-slate-200/70 text-left">
+            <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-mono text-[11px] font-semibold border border-blue-200/60">
+                  {currentStep.badge}
+                </span>
+                <span className="text-slate-300">·</span>
+                <span className="text-xs font-mono text-slate-500">
+                  Regulatory Clock: <strong className="text-slate-800 font-semibold">{currentStep.timeline}</strong>
+                </span>
               </div>
-              <span className="text-xs font-mono text-slate-600">
-                Regulatory Clock: <strong className="text-[#081F38]">{currentStep.timeline}</strong>
-              </span>
             </div>
 
-            <h4 className="text-lg sm:text-xl font-bold text-[#081F38] mb-3">
+            <h4 className="text-xl sm:text-2xl font-semibold tracking-tight text-slate-900 mb-5">
               {currentStep.name}
             </h4>
 
-            {/* Visual Split: Left = Real Workstation Image, Right = Enterprise SOP + Lesson */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch mt-4 mb-2">
-              {/* Left: Stage Real Clinical Photo */}
-              <div className="lg:col-span-5 rounded-2xl overflow-hidden border border-slate-200/90 shadow-xs relative aspect-[16/10] lg:aspect-auto min-h-[220px]">
+            {/* Apple 2-Column Spec Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch mb-2">
+              {/* Left: Stage Visual View */}
+              <div className="lg:col-span-5 rounded-2xl overflow-hidden border border-black/[0.08] shadow-sm relative aspect-[16/10] lg:aspect-auto min-h-[220px]">
                 <img
                   src={currentStep.image}
                   alt={currentStep.name}
                   className="w-full h-full object-cover object-center"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081F38]/85 via-transparent to-transparent flex items-end p-4">
-                  <span className="text-[11px] font-mono font-bold text-white bg-[#081F38]/85 px-3 py-1 rounded-lg border border-white/20 backdrop-blur-xs">
-                    Stage 0{currentStep.step} · Operational View
-                  </span>
+                <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-center justify-between text-white backdrop-blur-[1px]">
+                  <span className="text-xs font-medium">Stage 0{currentStep.step} Operational View</span>
+                  <span className="text-[10px] font-mono text-white/70">Case Walkthrough</span>
                 </div>
               </div>
 
               {/* Right: Enterprise SOP Standard & Mohamed Kumail Takeaway */}
               <div className="lg:col-span-7 flex flex-col justify-between gap-3.5">
-                <div className="p-5 rounded-2xl bg-white border border-slate-200/80 tone-light card-light flex-1 shadow-2xs">
-                  <div className="text-[10.5px] font-mono uppercase tracking-wider text-slate-500 font-bold mb-1.5">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 tone-light card-light flex-1 shadow-2xs">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-1.5">
                     Enterprise SOP Standard:
                   </div>
                   <p className="text-xs sm:text-[13.5px] text-slate-700 leading-relaxed font-sans">
@@ -390,8 +397,8 @@ export function MasterclassWalkaway() {
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-blue-50/80 border border-blue-100 flex-1 shadow-2xs">
-                  <div className="flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-wider text-blue-700 font-bold mb-1.5">
+                <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/50 border border-blue-100/80 flex-1 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-blue-700 font-semibold mb-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-blue-600" />
                     <span>What Mohamed Kumail Abbas Teaches You:</span>
                   </div>
@@ -402,15 +409,15 @@ export function MasterclassWalkaway() {
               </div>
             </div>
 
-            {/* Prev / Next Stage Controls */}
-            <div className="flex items-center justify-between pt-5 mt-5 border-t border-slate-200/80">
+            {/* Apple Minimalist Prev / Next Navigation Controls */}
+            <div className="flex items-center justify-between pt-5 mt-5 border-t border-slate-200/70">
               <button
                 type="button"
                 onClick={() => setActiveStep((prev) => (prev > 0 ? prev - 1 : ICSR_PIPELINE.length - 1))}
-                className="inline-flex items-center gap-1 text-xs font-mono text-slate-600 hover:text-blue-700 transition-colors cursor-pointer py-1.5 px-3 rounded-lg hover:bg-slate-200/60"
+                className="w-8 h-8 rounded-full border border-slate-200 bg-white card-light hover:bg-slate-100 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors cursor-pointer shadow-2xs"
+                aria-label="Previous Stage"
               >
                 <ChevronLeft className="w-4 h-4" />
-                <span>Previous Stage</span>
               </button>
 
               <div className="flex items-center gap-1.5">
@@ -420,8 +427,8 @@ export function MasterclassWalkaway() {
                     type="button"
                     onClick={() => setActiveStep(i)}
                     aria-label={`Jump to stage ${i + 1}`}
-                    className={`h-2 rounded-full transition-all cursor-pointer ${
-                      i === activeStep ? "w-7 bg-blue-600" : "w-2 bg-slate-300 hover:bg-slate-400"
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      i === activeStep ? "w-6 bg-slate-900" : "w-1.5 bg-slate-300 hover:bg-slate-400"
                     }`}
                   />
                 ))}
@@ -430,9 +437,9 @@ export function MasterclassWalkaway() {
               <button
                 type="button"
                 onClick={() => setActiveStep((prev) => (prev < ICSR_PIPELINE.length - 1 ? prev + 1 : 0))}
-                className="inline-flex items-center gap-1 text-xs font-mono text-blue-700 hover:text-blue-800 transition-colors cursor-pointer py-1.5 px-3 rounded-lg hover:bg-blue-100/60 font-bold"
+                className="w-8 h-8 rounded-full border border-slate-200 bg-white card-light hover:bg-slate-100 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors cursor-pointer shadow-2xs"
+                aria-label="Next Stage"
               >
-                <span>Next Stage</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

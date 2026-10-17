@@ -3021,7 +3021,21 @@ button[class*="bg-[#0B1325]"] * {
   .bg-neutral-950,
   .bg-gray-900,
   .bg-gray-950
-):not(.tone-dark *, [class*="bg-[#0"] *, [class*="bg-[#1"] *) {
+):not(
+  button,
+  button *,
+  a,
+  a *,
+  [role="button"],
+  [role="button"] *,
+  [data-arzon-dark="true"],
+  [data-arzon-dark="true"] *,
+  .arzon-dark-surface,
+  .arzon-dark-surface *,
+  .tone-dark *,
+  [class*="bg-[#0"] *,
+  [class*="bg-[#1"] *
+) {
   background-color: #ffffff !important;
   color: var(--ink) !important;
 }
@@ -4233,14 +4247,20 @@ a { color: inherit; }
 .tone-light .arzon-button-primary,.tone-light .arzon-button-primary *,
 .tone-light .arzon-v2-button-primary,.tone-light .arzon-v2-button-primary *,
 .tone-light .btn-primary,.tone-light .btn-primary *,
+.tone-light a[class*="bg-slate-900"],.tone-light a[class*="bg-slate-900"] *,
+.tone-light button[class*="bg-slate-900"],.tone-light button[class*="bg-slate-900"] *,
 .tone-light a[class*="bg-slate-950"],.tone-light a[class*="bg-slate-950"] *,
 .tone-light button[class*="bg-slate-950"],.tone-light button[class*="bg-slate-950"] *,
 .tone-light a[class*="bg-blue-"],.tone-light a[class*="bg-blue-"] *,
 .tone-light button[class*="bg-blue-"],.tone-light button[class*="bg-blue-"] *,
 .tone-light a[class*="bg-primary"],.tone-light a[class*="bg-primary"] *,
-.tone-light button[class*="bg-primary"],.tone-light button[class*="bg-primary"] * {
+.tone-light button[class*="bg-primary"],.tone-light button[class*="bg-primary"] *,
+[data-arzon-dark="true"], [data-arzon-dark="true"] * {
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
+}
+[data-arzon-dark="true"] {
+  background-color: #0f172a !important;
 }
 .tone-light .arzon-button-secondary,.tone-light .arzon-button-secondary *,
 .tone-light .arzon-v2-button-secondary,.tone-light .arzon-v2-button-secondary *,

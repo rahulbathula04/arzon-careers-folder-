@@ -65,35 +65,33 @@ export function getRootHead() {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "dns-prefetch", href: "https://fonts.googleapis.com" },
+      { rel: "dns-prefetch", href: "https://fonts.gstatic.com" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+      } as any,
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
       },
-      {
-        rel: "preload",
-        as: "style",
-        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
-      } as any,
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap",
-        media: "print",
-      } as any,
       { rel: "dns-prefetch", href: "https://pcikfmhjskbffcnvxmoe.supabase.co" },
       {
         rel: "preconnect",
         href: "https://pcikfmhjskbffcnvxmoe.supabase.co",
         crossOrigin: "anonymous",
       } as any,
+      { rel: "dns-prefetch", href: "https://checkout.razorpay.com" },
+      { rel: "dns-prefetch", href: "https://api.razorpay.com" },
+      { rel: "dns-prefetch", href: "https://www.googletagmanager.com" },
+      { rel: "dns-prefetch", href: "https://www.google-analytics.com" },
       { rel: "icon", type: "image/jpeg", href: "/favicon.ico" },
       { rel: "apple-touch-icon", href: "/favicon.ico" },
     ],
     scripts: [
-      {
-        children: `(function(){try{var ls=document.querySelectorAll('link[rel="stylesheet"][media="print"]');ls.forEach(function(l){if(l.sheet){l.media="all";}else{l.addEventListener("load",function(){l.media="all";},{once:true});}});}catch(e){}})();`,
-      },
       {
         type: "application/ld+json",
         children: JSON.stringify({
@@ -160,6 +158,20 @@ export function getRootHead() {
       {
         type: "application/speculationrules",
         children: JSON.stringify({
+          prefetch: [
+            {
+              source: "document",
+              where: {
+                and: [
+                  { href_matches: "/*" },
+                  { not: { href_matches: "/api/*" } },
+                  { not: { href_matches: "/admin*" } },
+                  { not: { href_matches: "/_authenticated*" } },
+                ],
+              },
+              eagerness: "moderate",
+            },
+          ],
           prerender: [
             {
               source: "document",
@@ -168,10 +180,12 @@ export function getRootHead() {
                   { href_matches: "/*" },
                   { not: { href_matches: "/api/*" } },
                   { not: { href_matches: "/admin*" } },
+                  { not: { href_matches: "/_authenticated*" } },
                   { not: { href_matches: "/*?*" } },
+                  { not: { href_matches: "/*.pdf" } },
                 ],
               },
-              eagerness: "conservative",
+              eagerness: "moderate",
             },
           ],
         }),

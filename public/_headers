@@ -3,6 +3,16 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Static public images, brand marks, and proof documents
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/brand/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/proof/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # OG / share images rarely change. Cache for a week, allow stale revalidation.
 /og/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400

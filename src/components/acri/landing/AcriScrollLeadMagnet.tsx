@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import {
   X,
-  CheckCircle2,
   Download,
   ArrowRight,
   FileText,
@@ -10,10 +9,8 @@ import {
   Phone,
   User,
   Check,
-  Gift,
   Sparkles,
   Laptop,
-  BookOpen,
 } from "lucide-react";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { useServerFn } from "@tanstack/react-start";
@@ -21,6 +18,12 @@ import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
 import { submitApplication } from "@/lib/applications.functions";
 import { submitCareerStarterKitLead } from "@/lib/careerStarterKit.functions";
+import {
+  isEligibleForLeadCapture,
+  markLeadAsConverted,
+  markLeadAsDismissed,
+  hasStudentAlreadyConverted,
+} from "@/lib/lead-capture-rules";
 import { toast } from "sonner";
 
 const QUALIFICATIONS = [
@@ -34,9 +37,6 @@ const QUALIFICATIONS = [
   "Other Healthcare / Science Degree",
 ];
 
-const DISMISSED_KEY = "arzon_acri_lead_magnet_dismissed";
-const SUBMITTED_KEY = "arzon_acri_lead_magnet_submitted";
-
 export function AcriScrollLeadMagnet() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ export function AcriScrollLeadMagnet() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"form" | "success">("form");
 
-  // Form State - Clear, minimal, 4 essential fields
+  // Form State
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
@@ -56,32 +56,35 @@ export function AcriScrollLeadMagnet() {
   const [consentCommunications, setConsentCommunications] = useState(true);
 
   const hasTriggeredRef = useRef(false);
+  const autoDismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Trigger lead magnet after the second section — at the starting of the 3rd section
+  // Clean up auto-dismiss timer on unmount
+  useEffect(() => {
+    return () => {
+      if (autoDismissTimerRef.current) {
+        clearTimeout(autoDismissTimerRef.current);
+      }
+    };
+  }, []);
+
+  // Rules-based non-intrusive acquisition trigger
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Do not show on test or admin workstation
-    if (
-      pathname.startsWith("/admin") ||
-      pathname.startsWith("/career-engine/test") ||
-      pathname.startsWith("/acri/assessment") ||
-      pathname.startsWith("/acri/test")
-    ) {
+    // Rule 1 & 2: Check global student conversion status & route quiet zones
+    if (!isEligibleForLeadCapture(pathname)) {
       return;
     }
 
-    // Check if dismissed in this session or already submitted
-    try {
-      const isDismissed = sessionStorage.getItem(DISMISSED_KEY);
-      const isSubmitted = localStorage.getItem(SUBMITTED_KEY);
-      if (isDismissed || isSubmitted) return;
-    } catch {}
-
+    const pageMountTime = Date.now();
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
     let observer: IntersectionObserver | null = null;
 
-    const triggerModal = (reason: string) => {
+    const triggerCard = (reason: string) => {
       if (hasTriggeredRef.current) return;
+      // Re-verify eligibility right before showing
+      if (!isEligibleForLeadCapture(pathname)) return;
+
       hasTriggeredRef.current = true;
       setIsOpen(true);
       logAcriFunnelEvent("lead_magnet_triggered_by_scroll", {
@@ -91,103 +94,74 @@ export function AcriScrollLeadMagnet() {
       cleanup();
     };
 
-    const checkScroll = () => {
+    const evaluateEngagement = () => {
       if (hasTriggeredRef.current) return;
 
-      // Query visible sections inside main or the scroll root
-      const sections = Array.from(
-        document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
-      ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
+      const elapsedMs = Date.now() - pageMountTime;
+      const scrollRoot = document.getElementById("app-scroll-root");
+      const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
 
-      if (sections.length >= 3) {
-        // Section 3 is the 3rd section (index 2: Section 1 = Hero, Section 2 = Middle, Section 3 = 3rd Section)
-        const section3 = sections[2];
-        const rect = section3.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-
-        // "start lead magnet after second section like starting of 3rd section":
-        // Trigger the instant the 3rd section starts entering the viewport
-        const reachedStartOfSection3 = rect.top <= viewportHeight * 0.85;
-
-        if (reachedStartOfSection3) {
-          triggerModal("reached_start_of_section_3");
-          return;
-        }
-      } else if (sections.length === 2) {
-        // If page has only 2 sections: trigger after section 2 has been scrolled
-        const section2 = sections[1];
-        const rect = section2.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const scrolledPastSection2 = rect.bottom <= viewportHeight * 0.85 || rect.top <= -40;
-
-        if (scrolledPastSection2) {
-          triggerModal("scrolled_past_section_2");
-          return;
-        }
-      } else if (sections.length === 1) {
-        // Fallback for single section page: user scrolled down 1.4 viewports
-        const scrollRoot = document.getElementById("app-scroll-root");
-        const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
-        if (scrollY >= Math.max(1100, window.innerHeight * 1.4)) {
-          triggerModal("fallback_single_section_scroll");
-          return;
+      // Student Acquisition Rule 5: Minimum 6s dwell time + 500px scroll depth
+      // Ensures the student is genuinely reading the curriculum, not bouncing or accidentally touching
+      if (scrollY >= 500) {
+        if (elapsedMs >= 6000) {
+          triggerCard("deep_scroll_after_dwell");
+        } else {
+          const remainingMs = Math.max(1000, 6000 - elapsedMs);
+          if (scrollTimeout) clearTimeout(scrollTimeout);
+          scrollTimeout = setTimeout(() => {
+            if (!hasTriggeredRef.current) {
+              triggerCard("deep_scroll_delayed_dwell");
+            }
+          }, remainingMs);
         }
       }
     };
 
-    // Attach listeners to both #app-scroll-root and window
     const scrollRoot = document.getElementById("app-scroll-root");
-    scrollRoot?.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("scroll", checkScroll, { passive: true });
+    scrollRoot?.addEventListener("scroll", evaluateEngagement, { passive: true });
+    window.addEventListener("scroll", evaluateEngagement, { passive: true });
 
-    // Also attach IntersectionObserver directly to the 3rd section for frame-perfect trigger
+    // Passive observer on section 2 with 6s dwell gate
     const setupObserver = () => {
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
-      ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
+      ).filter((s) => s.offsetHeight > 100 && s.offsetParent !== null);
 
-      if (sections.length >= 3 && typeof IntersectionObserver !== "undefined") {
-        const section3 = sections[2];
-        observer = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              // Trigger right at the starting of 3rd section
-              if (entry.isIntersecting && entry.boundingClientRect.top <= window.innerHeight * 0.9) {
-                triggerModal("observer_entered_section_3");
-                return;
-              }
-            }
-          },
-          { threshold: [0, 0.1, 0.25] }
-        );
-        observer.observe(section3);
-      } else if (sections.length === 2 && typeof IntersectionObserver !== "undefined") {
+      if (sections.length >= 2 && typeof IntersectionObserver !== "undefined") {
         const section2 = sections[1];
         observer = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
-              if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-                triggerModal("observer_exited_section_2");
+              if (entry.isIntersecting && !hasTriggeredRef.current) {
+                const elapsedMs = Date.now() - pageMountTime;
+                const remainingMs = Math.max(1200, 6500 - elapsedMs);
+                if (scrollTimeout) clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                  if (!hasTriggeredRef.current) {
+                    triggerCard("observer_section2_reading");
+                  }
+                }, remainingMs);
                 return;
               }
             }
           },
-          { threshold: [0, 0.25] }
+          { threshold: 0.2 }
         );
         observer.observe(section2);
       }
     };
 
-    // Initial check after paint
-    const timer = setTimeout(() => {
+    const initialTimer = setTimeout(() => {
       setupObserver();
-      checkScroll();
-    }, 350);
+      evaluateEngagement();
+    }, 1500);
 
     const cleanup = () => {
-      clearTimeout(timer);
-      scrollRoot?.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("scroll", checkScroll);
+      clearTimeout(initialTimer);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollRoot?.removeEventListener("scroll", evaluateEngagement);
+      window.removeEventListener("scroll", evaluateEngagement);
       if (observer) {
         observer.disconnect();
         observer = null;
@@ -197,11 +171,21 @@ export function AcriScrollLeadMagnet() {
     return cleanup;
   }, [pathname]);
 
-  const handleClose = () => {
+  // Handle ESC key to dismiss effortlessly
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleDismiss();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  const handleDismiss = () => {
     setIsOpen(false);
-    try {
-      sessionStorage.setItem(DISMISSED_KEY, "1");
-    } catch {}
+    markLeadAsDismissed();
     logAcriFunnelEvent("lead_magnet_dismissed", { pathname });
   };
 
@@ -231,7 +215,7 @@ export function AcriScrollLeadMagnet() {
             degree: highestQualification,
             notes: JSON.stringify({
               source: "scroll_lead_magnet",
-              trigger: "start_of_section_3",
+              trigger: "section_2_reading",
               qualification: highestQualification,
               submittedAt: new Date().toISOString(),
             }),
@@ -276,32 +260,24 @@ export function AcriScrollLeadMagnet() {
         console.warn("[AcriScrollLeadMagnet] Career engine leads sync notice:", err);
       }
 
-      // 4. Save session context
-      if (typeof window !== "undefined") {
-        const profilePayload = {
-          fullName: fullName.trim(),
-          email: email.trim(),
-          mobile: cleanPhone,
-          qualification: highestQualification,
-          college: "Lead Magnet Applicant",
-          code: "",
-          consentedAt: new Date().toISOString(),
-          legalConsentAccepted: true,
-        };
-        sessionStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(profilePayload));
-        localStorage.setItem("arzon_acri_candidate_profile", JSON.stringify(profilePayload));
-        localStorage.setItem(SUBMITTED_KEY, "1");
-        // Immediately deliver free value gift: auto-download PDF
-        try {
-          const downloadAnchor = document.createElement("a");
-          downloadAnchor.href = "/Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
-          downloadAnchor.download = "Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
-          document.body.appendChild(downloadAnchor);
-          downloadAnchor.click();
-          document.body.removeChild(downloadAnchor);
-        } catch (dlErr) {
-          console.warn("[AcriScrollLeadMagnet] Auto-download triggered via manual fallback:", dlErr);
-        }
+      // Rule 1: Mark lead as permanently converted so it NEVER appears again
+      markLeadAsConverted({
+        fullName: fullName.trim(),
+        email: email.trim(),
+        mobile: cleanPhone,
+        qualification: highestQualification,
+      });
+
+      // Auto-trigger browser download
+      try {
+        const downloadAnchor = document.createElement("a");
+        downloadAnchor.href = "/Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
+        downloadAnchor.download = "Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        document.body.removeChild(downloadAnchor);
+      } catch (dlErr) {
+        console.warn("[AcriScrollLeadMagnet] Auto-download triggered via manual fallback:", dlErr);
       }
 
       setStep("success");
@@ -309,7 +285,12 @@ export function AcriScrollLeadMagnet() {
         email: email.trim(),
         qualification: highestQualification,
       });
-      toast.success("Free Value Gift unlocked! Your download has started.");
+      toast.success("Free Guide unlocked! Your download has started.");
+
+      // Student Acquisition Rule 4: Auto-dismiss success card after 6s so it doesn't linger
+      autoDismissTimerRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 6000);
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit. Please try again.");
     } finally {
@@ -317,106 +298,114 @@ export function AcriScrollLeadMagnet() {
     }
   };
 
-  if (!isOpen) return null;
+  // If student has already converted or modal is not open, do not render anything
+  if (!isOpen || hasStudentAlreadyConverted()) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md motion-safe:animate-in motion-safe:fade-in duration-200"
-      role="dialog"
-      aria-modal="true"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px] pointer-events-auto"
+      role="region"
+      aria-label="Career Field Guide Offer"
     >
-      <div className="relative w-full max-w-[480px] rounded-3xl bg-white card-light tone-light border border-black/[0.08] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] overflow-hidden font-sans text-slate-900">
-        {/* Apple-style circular close control */}
+      {/* Floating Apple Card: Non-blocking, shadow-rich, elegant */}
+      <div
+        className="relative rounded-2xl bg-white card-light tone-light border border-slate-200/90 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.22),0_0_0_1px_rgba(0,0,0,0.04)] overflow-hidden font-sans text-slate-900 motion-safe:animate-in motion-safe:slide-in-from-bottom-5 duration-300"
+      >
+        {/* Subtle top indicator bar */}
+        <div className="h-1 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500" />
+
+        {/* Circular Apple close control */}
         <button
           type="button"
-          onClick={handleClose}
-          className="absolute top-4 right-4 h-7 w-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors z-10 flex items-center justify-center cursor-pointer"
-          aria-label="Close dialog"
+          onClick={handleDismiss}
+          className="absolute top-3.5 right-3.5 h-7 w-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors z-10 flex items-center justify-center cursor-pointer shadow-2xs"
+          aria-label="Dismiss offer for 7 days"
+          title="Not now"
         >
-          <X className="h-3.5 w-3.5 stroke-[2.5]" />
+          <X className="h-3.5 w-3.5 stroke-[2.2]" />
         </button>
 
-        {/* Modal Body */}
-        <div className="p-6 sm:p-7">
+        {/* Card Body */}
+        <div className="p-5 sm:p-6">
           {step === "form" ? (
             <div>
-              {/* Apple Minimal Header */}
-              <div className="text-left mb-5">
-                <span className="text-[11px] font-semibold text-blue-600 tracking-wider uppercase">
-                  Career Intelligence Pack
+              {/* Header */}
+              <div className="text-left mb-4 pr-6">
+                <span className="text-[10px] font-semibold text-blue-600 tracking-wider uppercase">
+                  Free Career Intelligence
                 </span>
-                <h2 className="mt-1 text-xl sm:text-2xl font-semibold tracking-tight text-slate-900 leading-snug">
-                  Get the 2026 Pharmacovigilance Guide
-                </h2>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-500 leading-relaxed">
-                  Direct access to 40+ hiring companies, salary benchmarks, and your complimentary clinical case assessment pass.
+                <h3 className="mt-0.5 text-lg font-semibold tracking-tight text-slate-900 leading-snug">
+                  2026 Pharmacovigilance Field Guide
+                </h3>
+                <p className="mt-1 text-xs text-slate-500 leading-relaxed">
+                  Salary benchmarks, 40+ hiring CROs directory, and complimentary clinical simulation pass.
                 </p>
               </div>
 
-              {/* Apple-Style Refined Form */}
-              <form onSubmit={handleSubmit} className="space-y-3.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {/* Minimal Form */}
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
                       Full Name
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                       <input
                         type="text"
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="e.g. Rahul Bathula"
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-400"
+                        className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all placeholder:text-slate-400"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
                       Email Address
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                       <input
                         type="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="e.g. rahul@example.com"
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-400"
+                        className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all placeholder:text-slate-400"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
                       WhatsApp Number
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <Phone className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
                       <input
                         type="tel"
                         required
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         placeholder="e.g. 93473 79041"
-                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-400"
+                        className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all placeholder:text-slate-400"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
                       Degree
                     </label>
                     <select
                       value={highestQualification}
                       onChange={(e) => setHighestQualification(e.target.value)}
-                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all cursor-pointer"
+                      className="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all cursor-pointer"
                     >
                       {QUALIFICATIONS.map((q) => (
                         <option key={q} value={q}>
@@ -427,88 +416,102 @@ export function AcriScrollLeadMagnet() {
                   </div>
                 </div>
 
-                <label className="flex items-start gap-2 pt-0.5 text-xs text-slate-500 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={consentCommunications}
-                    onChange={(e) => setConsentCommunications(e.target.checked)}
-                    className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-slate-900 focus:ring-blue-500"
-                  />
-                  <span className="leading-tight">
-                    Send me the 2026 Field Guide and career updates via WhatsApp &amp; Email.
-                  </span>
-                </label>
-
-                <div className="pt-2">
+                <div className="pt-1.5">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white font-medium text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    data-arzon-dark="true"
+                    style={{
+                      backgroundColor: "#0f172a",
+                      color: "#ffffff",
+                      WebkitTextFillColor: "#ffffff",
+                    }}
+                    className="w-full py-2.5 rounded-xl bg-slate-900 !bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white !text-white font-medium text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
-                      <span>Preparing your guide…</span>
+                      <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
+                        Preparing guide…
+                      </span>
                     ) : (
                       <>
-                        <span>Get the Free Guide</span>
-                        <ArrowRight className="h-4 w-4" />
+                        <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
+                          Get Free Field Guide (PDF)
+                        </span>
+                        <ArrowRight className="h-3.5 w-3.5 stroke-[2.2]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
                       </>
                     )}
                   </button>
-                  <p className="text-center text-[11px] text-slate-400 mt-2.5">
-                    Instant PDF download · Assessment pass included · Zero spam
-                  </p>
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 mt-2 px-1">
+                    <span>Instant PDF download · Zero spam</span>
+                    <button
+                      type="button"
+                      onClick={handleDismiss}
+                      className="text-slate-400 hover:text-slate-600 underline cursor-pointer"
+                    >
+                      Not now
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>
           ) : (
             /* Apple Minimalist Delivery View */
-            <div className="text-center space-y-4">
-              {/* Apple Success Badge & Header */}
-              <div className="space-y-1.5">
-                <div className="mx-auto w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3">
-                  <Check className="w-6 h-6 stroke-[2.5]" />
+            <div className="text-center space-y-3.5">
+              <div className="space-y-1">
+                <div className="mx-auto w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2">
+                  <Check className="w-5 h-5 stroke-[2.5]" />
                 </div>
 
-                <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-slate-900">
+                <h3 className="text-lg font-semibold tracking-tight text-slate-900">
                   Your Field Guide is Ready
-                </h2>
+                </h3>
 
-                <p className="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
-                  We've started your download and sent a backup copy to{" "}
+                <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
+                  Download started. Backup copy sent to{" "}
                   <span className="font-medium text-slate-800">{email}</span>.
                 </p>
               </div>
 
-              {/* Primary Asset Card: Clean Apple File Tile */}
-              <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 text-left space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
-                    <FileText className="w-5 h-5 stroke-[1.75]" />
+              {/* Primary Asset Card: High-contrast Apple File Tile */}
+              <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 text-left space-y-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div
+                    data-arzon-dark="true"
+                    style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
+                    className="w-9 h-9 rounded-lg bg-slate-900 !bg-slate-900 text-white !text-white flex items-center justify-center shrink-0 shadow-xs"
+                  >
+                    <FileText className="w-4 h-4 stroke-[1.75]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-sm text-slate-900 truncate">
-                        2026 Pharmacovigilance Career Field Guide
-                      </h3>
-                      <span className="text-[10px] font-medium text-slate-500 bg-slate-200/60 px-1.5 py-0.5 rounded shrink-0">
+                    <div className="flex items-center gap-1.5">
+                      <h4 className="font-semibold text-xs text-slate-900 truncate">
+                        2026 Pharmacovigilance Field Guide
+                      </h4>
+                      <span className="text-[9px] font-medium text-slate-500 bg-slate-200/60 px-1 py-0.2 rounded shrink-0">
                         PDF
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 truncate mt-0.5">
+                    <p className="text-[11px] text-slate-500 truncate mt-0.5">
                       40+ CRO directory · Salary benchmarks · Interview Q&amp;A
                     </p>
                   </div>
                 </div>
 
-                {/* Apple Buttons: Primary Download + Personalized */}
+                {/* Indestructible High-Contrast Action Buttons */}
                 <div className="flex items-center gap-2 pt-0.5">
                   <a
                     href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
                     download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99]"
+                    data-arzon-dark="true"
+                    style={{
+                      backgroundColor: "#0f172a",
+                      color: "#ffffff",
+                      WebkitTextFillColor: "#ffffff",
+                    }}
+                    className="flex-1 py-2 px-3 rounded-lg bg-slate-900 !bg-slate-900 hover:bg-slate-800 text-white !text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
                   >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download PDF</span>
+                    <Download className="w-3.5 h-3.5 stroke-[2.2]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
+                    <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>Download PDF</span>
                   </a>
 
                   <button
@@ -516,66 +519,62 @@ export function AcriScrollLeadMagnet() {
                     onClick={() => {
                       try {
                         generateStarterKitPDF({ candidateName: fullName, degree: highestQualification });
-                        toast.success("Personalized PDF stamped with your profile generated!");
+                        toast.success("Personalized PDF generated!");
                       } catch (e) {
                         console.error("Personalized PDF failed", e);
                       }
                     }}
-                    className="py-2.5 px-3 rounded-xl border border-slate-200/80 hover:border-slate-300 hover:bg-white text-slate-700 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                    title="Generate a custom PDF stamped with your name"
+                    className="py-2 px-2.5 rounded-lg border border-slate-200 bg-white card-light hover:bg-slate-50 text-slate-700 font-medium text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs shrink-0"
+                    title="Generate custom PDF stamped with your profile"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Personalized Edition</span>
+                    <span>Personalized</span>
                   </button>
                 </div>
               </div>
 
-              {/* Secondary Asset Card: Apple Companion Banner */}
-              <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 flex items-center justify-between gap-3 text-left">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                    <Laptop className="w-4 h-4" />
+              {/* Complimentary Simulation Pass Banner */}
+              <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-2.5 flex items-center justify-between gap-2 text-left">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Laptop className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="font-semibold text-xs text-slate-900 truncate">
-                      ACRI Clinical Simulation Pass
-                    </h4>
-                    <p className="text-[11px] text-slate-500 truncate">
-                      Complimentary access to case triage &amp; standardized coding
+                    <h5 className="font-semibold text-xs text-slate-900 truncate">
+                      Clinical Simulation Pass
+                    </h5>
+                    <p className="text-[10px] text-slate-500 truncate">
+                      Case triage &amp; standardized coding pass
                     </p>
                   </div>
                 </div>
 
                 <button
                   type="button"
+                  data-arzon-dark="true"
+                  style={{
+                    backgroundColor: "#2563eb",
+                    color: "#ffffff",
+                    WebkitTextFillColor: "#ffffff",
+                  }}
                   onClick={() => {
-                    handleClose();
+                    setIsOpen(false);
                     navigate({ to: "/career-assessment" });
                   }}
-                  className="shrink-0 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
+                  className="shrink-0 px-2.5 py-1 rounded-md bg-blue-600 !bg-blue-600 hover:bg-blue-700 text-white !text-white font-medium text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                 >
-                  <span>Launch</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>Launch</span>
+                  <ArrowRight className="w-3 h-3 stroke-[2.2]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
                 </button>
               </div>
 
-              {/* Minimal Apple Sheet Footer */}
+              {/* Footer Dismiss Control */}
               <div className="flex items-center justify-between pt-1 text-xs">
+                <span className="text-[11px] text-slate-400">Auto-closing in a moment</span>
                 <button
                   type="button"
-                  onClick={() => {
-                    handleClose();
-                    navigate({ to: "/starter-kit" });
-                  }}
-                  className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1.5 transition-colors cursor-pointer"
-                >
-                  <BookOpen className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Read 20 Q&amp;As Online</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="text-xs font-medium text-slate-400 hover:text-slate-700 transition-colors cursor-pointer py-1 px-2.5 rounded-lg hover:bg-slate-100"
+                  onClick={() => setIsOpen(false)}
+                  className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors cursor-pointer py-1 px-2.5 rounded-md hover:bg-slate-100"
                 >
                   Done
                 </button>

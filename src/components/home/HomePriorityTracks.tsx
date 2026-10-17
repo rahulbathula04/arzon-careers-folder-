@@ -38,7 +38,7 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     image: thumbPV,
     srcSet: `${thumbPV400} 400w, ${thumbPV600} 600w, ${thumbPV} 800w`,
     summary: "Learn end-to-end drug safety processes with real-world case practice.",
-    tools: ["ARGUS", "MEDDRA", "WHO-UMC"],
+    tools: ["SAFETY DB", "CLINICAL CODING", "WHO-UMC"],
     link: "/pv-associate",
   },
   {
@@ -74,7 +74,7 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     image: thumbSAS,
     srcSet: `${thumbSAS400} 400w, ${thumbSAS600} 600w, ${thumbSAS} 800w`,
     summary: "Learn SAS programming with clinical data and generate TLFs.",
-    tools: ["SAS", "SDTM", "ADAM"],
+    tools: ["STAT COMPUTING", "SDTM", "ADaM"],
     link: "/courses/sas-clinical",
   },
 ];

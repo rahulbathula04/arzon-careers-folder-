@@ -6,7 +6,7 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
       title: "Drug Safety Associate (PV)",
       ctc: "₹3.8L – ₹6.5L CTC",
       monthly: "~₹32,000 – ₹54,000 /mo",
-      tools: "Oracle Argus 8.4, MedDRA 27.0, ICSR Case Triage",
+      tools: "Safety Database, Medical Coding, ICSR Case Triage",
       growth: "Progresses to Senior Safety Specialist (₹8L–₹12L) in 3 yrs",
       badge: "HIGHEST DEMAND",
       badgeColor: "bg-blue-50 text-[#1B3F8B] border-blue-200",
@@ -15,7 +15,7 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
       title: "Clinical Data Coordinator (CDM)",
       ctc: "₹3.5L – ₹5.8L CTC",
       monthly: "~₹29,000 – ₹48,000 /mo",
-      tools: "Medidata RAVE, CDASH, eCRF Query Management",
+      tools: "Clinical EDC, CDASH, eCRF Query Management",
       growth: "Progresses to Lead Clinical Data Manager (₹9L–₹14L) in 4 yrs",
       badge: "HIGH GROWTH",
       badgeColor: "bg-emerald-50 text-emerald-800 border-emerald-200",
@@ -133,7 +133,7 @@ export function WorkshopSalaryRolesMatrix({ onSelectRole }: { onSelectRole: (rol
                 Global CRO / Drug Safety Specialist: ₹32K – ₹54K/mo
               </h4>
               <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-                Candidates with practical software workflow skills (Oracle Argus, MedDRA, RAVE) enter Tier-1 MNCs with structured career progression and 5-day corporate workweeks.
+                Candidates with practical software workflow skills (Safety DB, Medical Coding, EDC) enter Tier-1 MNCs with structured career progression and 5-day corporate workweeks.
               </p>
             </div>
           </div>

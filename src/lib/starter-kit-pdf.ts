@@ -2,7 +2,7 @@ import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
 import {
   STARTER_KIT_QUESTIONS,
-  ARGUS_WORKFLOW_STEPS,
+  SAFETY_WORKFLOW_STEPS,
   RAVE_WORKFLOW_STEPS,
   ATS_KEYWORDS_DATA,
   CITY_SALARY_BENCHMARKS,
@@ -181,12 +181,12 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
     body: [
       [
         "Module 1:\nTop 20 Global CRO\nInterview Questions",
-        "Exact technical questions asked at Novartis, IQVIA, and Parexel regarding ICH-E2D, SAE criteria, 7/15-day timelines, and MedDRA coding with model answers.",
+        "Exact technical questions asked at Novartis, IQVIA, and Parexel regarding ICH-E2D, SAE criteria, 7/15-day timelines, and Standardized Medical Coding with model answers.",
         "Crucial for\nTech Rounds",
       ],
       [
         "Module 2:\nEnterprise Software\nWorkflow Blueprint",
-        "End-to-end case processing lifecycle in Oracle Argus Safety 8.4 vs. query management in Medidata RAVE EDC and regulatory 21 CFR Part 11 audit trails.",
+        "End-to-end case processing lifecycle in Enterprise Safety Database vs. query management in Electronic Data Capture (EDC) and regulatory 21 CFR Part 11 audit trails.",
         "System\nFamiliarity",
       ],
       [
@@ -300,17 +300,17 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
   doc.text("Understanding how cases flow through real enterprise platforms prevents you from sounding like a textbook-only fresher.", margin, p4Y);
   p4Y += 14;
 
-  // Sub-heading: Oracle Argus Safety
+  // Sub-heading: Enterprise Safety Database
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10.5);
   doc.setTextColor(ROYAL_BLUE[0], ROYAL_BLUE[1], ROYAL_BLUE[2]);
-  doc.text("1. Oracle Argus Safety 8.4 — End-to-End Case Processing Lifecycle", margin, p4Y);
+  doc.text("1. Enterprise Safety Database — End-to-End Case Processing Lifecycle", margin, p4Y);
   p4Y += 6;
 
   autoTable(doc, {
     startY: p4Y,
     head: [["Step", "Workflow Phase", "Responsible Role", "SLA", "Enterprise Tool & Compliance Rule"]],
-    body: ARGUS_WORKFLOW_STEPS.map((s) => [
+    body: SAFETY_WORKFLOW_STEPS.map((s) => [
       `Step ${s.stepNumber}`,
       `${s.title}\n${s.description}`,
       s.role,
@@ -341,11 +341,11 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
 
   p4Y = (doc as any).lastAutoTable.finalY + 16;
 
-  // Sub-heading: Medidata RAVE EDC
+  // Sub-heading: Electronic Data Capture (EDC)
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10.5);
   doc.setTextColor(ROYAL_BLUE[0], ROYAL_BLUE[1], ROYAL_BLUE[2]);
-  doc.text("2. Medidata RAVE EDC — Clinical Data Management Lifecycle", margin, p4Y);
+  doc.text("2. Electronic Data Capture (EDC) — Clinical Data Management Lifecycle", margin, p4Y);
   p4Y += 6;
 
   autoTable(doc, {
@@ -412,8 +412,8 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
   doc.setFontSize(7.5);
   doc.setTextColor(51, 65, 85);
   doc.text("1. Always write the full expansion AND acronym: e.g., 'Individual Case Safety Report (ICSR)' so keyword parsers match both.", margin + 12, p5Y + 28);
-  doc.text("2. Never list skills as empty tags. Embed them inside action bullet points: 'Assessed adverse events in Oracle Argus Safety 8.4...'", margin + 12, p5Y + 39);
-  doc.text("3. Highlight software versions: 'Oracle Argus 8.4', 'MedDRA 26.0', and 'Medidata RAVE' prove contemporary readiness.", margin + 12, p5Y + 49);
+  doc.text("2. Never list skills as empty tags. Embed them inside action bullet points: 'Assessed adverse events in Enterprise Safety Database...'", margin + 12, p5Y + 39);
+  doc.text("3. Highlight software versions: 'Enterprise Safety Database', 'Standardized Medical Coding', and 'Electronic Data Capture (EDC)' prove contemporary readiness.", margin + 12, p5Y + 49);
 
   p5Y += 64;
 
@@ -531,7 +531,7 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
         "Global Clinical CROs",
         "IQVIA, Parexel, Syneos Health, Fortrea, ICON plc",
         "Rs 3.8L – 5.0L LPA",
-        "Fast case turnaround, MedDRA coding speed, Argus/Rave simulation, willingness to learn.",
+        "Fast case turnaround, Standardized Medical Coding speed, Enterprise Safety Database/Rave simulation, willingness to learn.",
       ],
       [
         "IT Services Healthcare BUs",
@@ -626,7 +626,7 @@ export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
   doc.setFontSize(8.5);
   doc.setTextColor(51, 65, 85);
   doc.text("Reading this PDF gives you the knowledge — the live working session with Mohamed Kumail Abbas gives you the execution.", margin + 16, p7Y + 38);
-  doc.text("In 90 minutes on Google Meet, Kumail sir opens a live Oracle Argus simulation on screen and processes a real adverse event.", margin + 16, p7Y + 50);
+  doc.text("In 90 minutes on Google Meet, Kumail sir opens a live Enterprise Safety Database simulation on screen and processes a real adverse event.", margin + 16, p7Y + 50);
 
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);

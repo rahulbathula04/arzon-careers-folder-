@@ -36,12 +36,12 @@ const ROADMAPS: Record<string, Roadmap> = {
   },
   pharmacovigilance: {
     title: "Drug Safety / PV Associate",
-    skills: ["Case processing", "MedDRA", "Causality", "Seriousness / expectedness", "Safety writing"],
+    skills: ["Case processing", "Standardized coding", "Causality", "Seriousness / expectedness", "Safety writing"],
     weeks: [
       { week: 1, focus: "PV foundations", output: "Safety terminology map" },
       { week: 2, focus: "ICSR workflow", output: "Case intake checklist" },
       { week: 3, focus: "Case processing", output: "5 processed sample cases" },
-      { week: 4, focus: "MedDRA", output: "Coding exercise set" },
+      { week: 4, focus: "Medical Coding", output: "Coding exercise set" },
       { week: 5, focus: "Seriousness & expectedness", output: "Assessment decision log" },
       { week: 6, focus: "Causality assessment", output: "WHO-UMC / Naranjo cases" },
       { week: 7, focus: "Narrative writing", output: "Safety narratives" },

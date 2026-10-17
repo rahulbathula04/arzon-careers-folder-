@@ -18,7 +18,7 @@ export interface CandidateSubmission {
 }
 
 export type AcriDimensionKey =
-  | "pharmacovigilanceArgus"
+  | "pharmacovigilanceSafety"
   | "medicalCodingCpc"
   | "clinicalDataManagement"
   | "clinicalSasCdisc"
@@ -55,9 +55,9 @@ export interface AiAssessmentResult {
 }
 
 export const DIMENSION_METADATA: Record<AcriDimensionKey, { label: string; weight: number }> = {
-  pharmacovigilanceArgus: { label: "Pharmacovigilance (Oracle Argus & MedDRA)", weight: 0.25 },
+  pharmacovigilanceSafety: { label: "Pharmacovigilance & Safety Data Operations", weight: 0.25 },
   medicalCodingCpc: { label: "Medical Coding (ICD-10-CM & CPT-4 CPC)", weight: 0.25 },
-  clinicalDataManagement: { label: "Clinical Data Management (Medidata RAVE & GCP)", weight: 0.20 },
+  clinicalDataManagement: { label: "Clinical Data Management (EDC Systems & GCP)", weight: 0.20 },
   clinicalSasCdisc: { label: "Clinical SAS & Statistical CDISC (SDTM/ADaM)", weight: 0.15 },
   regulatoryMedicalWriting: { label: "Regulatory Affairs & Medical Writing (eCTD/CSR)", weight: 0.15 },
 };
@@ -80,7 +80,7 @@ export function evaluateHealthcareAssessment(
   const regScore = Math.min(100, Math.round((q1 + q3) * 2));
 
   const weightedTotal =
-    pvScore * DIMENSION_METADATA.pharmacovigilanceArgus.weight +
+    pvScore * DIMENSION_METADATA.pharmacovigilanceSafety.weight +
     codingScore * DIMENSION_METADATA.medicalCodingCpc.weight +
     cdmScore * DIMENSION_METADATA.clinicalDataManagement.weight +
     sasScore * DIMENSION_METADATA.clinicalSasCdisc.weight +
@@ -93,7 +93,7 @@ export function evaluateHealthcareAssessment(
   if (codingScore > pvScore && codingScore >= cdmScore) {
     topTrack = "Medical Coding & Revenue Cycle Management (CPC)";
   } else if (cdmScore > pvScore && cdmScore > codingScore) {
-    topTrack = "Clinical Data Management (eCRF / RAVE Specialist)";
+    topTrack = "Clinical Data Management (eCRF / EDC Specialist)";
   } else if (sasScore > 85) {
     topTrack = "Clinical SAS Programmer (CDISC SDTM/ADaM)";
   }
@@ -122,15 +122,15 @@ export function evaluateHealthcareAssessment(
   }
 
   const dimensions: Record<AcriDimensionKey, DimensionScore> = {
-    pharmacovigilanceArgus: {
-      key: "pharmacovigilanceArgus",
-      label: "Pharmacovigilance (Oracle Argus & MedDRA)",
+    pharmacovigilanceSafety: {
+      key: "pharmacovigilanceSafety",
+      label: "Pharmacovigilance & Safety Data Operations",
       score: pvScore,
       weight: 0.25,
       benchmarkPercentile: Math.min(99, pvScore + 3),
       feedback:
         pvScore >= 80
-          ? "Demonstrates advanced comprehension of ICSR 7/15-day expedited reporting, MedDRA coding hierarchy, and Oracle Argus data triage."
+          ? "Demonstrates advanced comprehension of ICSR 7/15-day expedited reporting, standardized coding hierarchy, and enterprise safety database triage."
           : "Needs practical reinforcement in ICSR seriousness criteria and regulatory narrative construction.",
     },
     medicalCodingCpc: {
@@ -146,7 +146,7 @@ export function evaluateHealthcareAssessment(
     },
     clinicalDataManagement: {
       key: "clinicalDataManagement",
-      label: "Clinical Data Management (Medidata RAVE & GCP)",
+      label: "Clinical Data Management (EDC Systems & GCP)",
       score: cdmScore,
       weight: 0.2,
       benchmarkPercentile: Math.min(99, cdmScore + 4),
@@ -192,8 +192,8 @@ export function evaluateHealthcareAssessment(
     dimensions,
     topStrengths: [
       "Rigorous adherence to ICH-GCP and international regulatory safety protocols",
-      "High clinical accuracy in terminology coding (MedDRA 27.0 & ICD-10-CM)",
-      "Strong aptitude for enterprise database tools (Oracle Argus & Medidata RAVE)",
+      "High clinical accuracy in terminology coding (Standardized Medical Dictionaries & ICD-10-CM)",
+      "Strong aptitude for enterprise database tools (Enterprise Safety & EDC Systems)",
     ],
     improvementFlags:
       overallAcriScore < 80

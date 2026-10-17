@@ -41,10 +41,10 @@ const PV: SevenDayPlan = {
     },
     {
       day: 3,
-      title: "Skim the MedDRA primer",
+      title: "Skim the Standardized Medical Coding primer",
       detail:
-        "MedDRA's free introductory guide is 18 pages. Recruiters will assume you've read it.",
-      link: { label: "MedDRA intro", href: "https://www.meddra.org/how-to-use/basics" },
+        "Standardized Medical Coding's free introductory guide is 18 pages. Recruiters will assume you've read it.",
+      link: { label: "Standardized Medical Coding intro", href: "https://www.standardized medical coding.org/how-to-use/basics" },
     },
     {
       day: 4,
@@ -97,7 +97,7 @@ const CODER: SevenDayPlan = {
       day: 4,
       title: "Read 5 coder JDs",
       detail:
-        "Cognizant, Optum, AGS Health. Note recurring tools (3M, EncoderPro) - your training spec.",
+        "Cognizant, Optum, AGS Health. Note recurring tools (3M, Clinical Encoders) - your training spec.",
     },
     {
       day: 5,
@@ -136,14 +136,14 @@ const DATA: SevenDayPlan = {
     },
     {
       day: 3,
-      title: "Try a Medidata demo video",
+      title: "Try a Enterprise EDC demo video",
       detail:
-        "Search YouTube for 'Rave EDC demo'. You're learning the UI recruiters expect you to know.",
+        "Search YouTube for 'Electronic Data Capture (EDC) demo'. You're learning the UI recruiters expect you to know.",
     },
     {
       day: 4,
       title: "Read 5 CDM JDs",
-      detail: "ICON, Syneos, IQVIA. Track recurring tools (Rave, Veeva, Inform).",
+      detail: "ICON, Syneos, IQVIA. Track recurring tools (Rave, Enterprise Life Sciences Cloud, Inform).",
     },
     {
       day: 5,
@@ -192,7 +192,7 @@ const REG: SevenDayPlan = {
       day: 4,
       title: "Read 5 RA JDs",
       detail:
-        "Dr Reddy's, Aurobindo, Sun Pharma. Track recurring tools (Veeva Vault, MasterControl).",
+        "Dr Reddy's, Aurobindo, Sun Pharma. Track recurring tools (Life Sciences Cloud Platforms, MasterControl).",
     },
     {
       day: 5,
@@ -219,7 +219,7 @@ const OPERATOR: SevenDayPlan = {
   steps: [
     {
       day: 1,
-      title: "Read about a Veeva product",
+      title: "Read about a Enterprise Life Sciences Cloud product",
       detail: "Pick one Vault module. Watch the 5-min product page demo.",
     },
     {

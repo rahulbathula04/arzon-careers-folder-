@@ -641,7 +641,7 @@ function AdminAcriCommandCenterPage() {
                   <option value="icsrProcessing">ICSR Processing</option>
                   <option value="caseAssessment">Case Assessment</option>
                   <option value="medicalInterpretation">Medical Interpretation</option>
-                  <option value="meddraCoding">MedDRA / Coding</option>
+                  <option value="clinicalCoding">Standardized Medical Coding / Coding</option>
                   <option value="documentation">Documentation</option>
                   <option value="qualityCompliance">Quality & Compliance</option>
                   <option value="analyticalReasoning">Analytical Reasoning</option>

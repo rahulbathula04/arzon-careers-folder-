@@ -93,7 +93,7 @@ export const WORKSHOP_CONFIG: WorkshopConfig = {
     {
       timeRange: "04 · 15 min",
       title: "Skills, Tools & Certification Reality",
-      description: "Separating high-value technical tools (Argus, MedDRA, Advanced Excel, SAS) from paid generic certificates.",
+      description: "Separating high-value technical tools (Enterprise Safety Database, Standardized Medical Coding, Advanced Excel, SAS) from paid generic certificates.",
     },
     {
       timeRange: "05 · 10 min",
@@ -124,7 +124,7 @@ export function buildGoogleCalendarUrl(config: WorkshopConfig = WORKSHOP_CONFIG)
   const title = encodeURIComponent(config.title);
   const dates = `${config.startIsoDate}/${config.endIsoDate}`;
   const details = encodeURIComponent(
-    `Join Google Meet:\n${config.meetUrl}\n\nSession: ${config.title}\nFaculty: ${config.speaker.name} (${config.speaker.designation})\nLive working walkthrough of adverse drug event triage, MedDRA coding, and safety operational workflows.`
+    `Join Google Meet:\n${config.meetUrl}\n\nSession: ${config.title}\nFaculty: ${config.speaker.name} (${config.speaker.designation})\nLive working walkthrough of adverse drug event triage, Standardized Medical Coding, and safety operational workflows.`
   );
   const location = encodeURIComponent(config.meetUrl);
   return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}&ctz=Asia/Kolkata`;

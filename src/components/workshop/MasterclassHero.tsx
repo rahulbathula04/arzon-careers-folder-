@@ -8,8 +8,8 @@ interface MasterclassHeroProps {
 const TOPICS = [
   "ICSR Case Processing",
   "Adverse Event Triage",
-  "MedDRA & WHODrug Coding",
-  "Argus Safety Workflows",
+  "Standardized Medical Coding",
+  "Safety Database Architecture",
   "Medical Narrative Writing",
   "Expedited Regulatory Reporting",
 ];
@@ -146,7 +146,7 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
                 <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
               </div>
               <span className="text-[11px] font-semibold text-slate-600 ml-2 hidden sm:inline-block">
-                Oracle Argus Safety 8.4 · Enterprise ICSR Processing Desk
+                Enterprise Safety Database · Dual-Screen ICSR Processing Desk
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -174,7 +174,7 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
                   Interactive Case Walkthrough
                 </div>
                 <div className="text-sm sm:text-lg font-bold text-white tracking-tight">
-                  Dual-Monitor Triage &amp; Argus Electronic Case Capture
+                  Dual-Monitor Triage &amp; Electronic Safety Database Capture
                 </div>
               </div>
               <div className="text-right hidden sm:block">

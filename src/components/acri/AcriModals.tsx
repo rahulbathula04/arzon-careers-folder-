@@ -27,7 +27,7 @@ export function SampleReportModal({
     { name: "Documentation", score: 78, desc: "Structuring MedWatch 3500A and CIOMS I narrative drafts" },
     { name: "Situational Judgment", score: 80, desc: "Handling expedited timeline trade-offs and escalation protocols" },
     { name: "Regulatory Awareness", score: 85, desc: "ICH E2B(R3), FDA 21 CFR 314.80, and EMA GVP Module VI comprehension" },
-    { name: "Applied PV Skills", score: 82, desc: "Simulated safety database navigation and MedDRA LLT coding" },
+    { name: "Applied PV Skills", score: 82, desc: "Simulated safety database navigation and Standardized Medical Coding LLT coding" },
   ];
 
   return (
@@ -163,7 +163,7 @@ export function SampleReportModal({
               </li>
               <li className="flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 text-rose-500 shrink-0" />
-                Argus Simulator Interface (82%)
+                Enterprise Safety Database Simulator Interface (82%)
               </li>
             </ul>
           </div>

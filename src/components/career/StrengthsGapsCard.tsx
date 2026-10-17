@@ -12,7 +12,7 @@ const CLOSE_GAP: Record<AcriDimensionId, string> = {
   documentation:
     "Write one long-form note per week (incident report, SOP draft, narrative). Get a senior to red-pen it.",
   workflow:
-    "Pick one tool the role uses (Argus / Rave / Salesforce / Tableau) and complete its free certification track.",
+    "Pick one core enterprise system the role uses (Safety Database / EDC / CRM / Analytics) and master its hands-on workflow.",
   domain:
     "Read one industry primer cover-to-cover (ICH-GCP / CDISC / NASSCOM sector report) and summarise it in 1 page.",
 };

@@ -27,7 +27,7 @@ export function WorkshopLiveCaseTeaser({ onRegisterClick }: { onRegisterClick: (
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 inline-block shrink-0" />
               <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 inline-block shrink-0" />
               <span className="font-mono text-[10px] sm:text-xs text-stone-400 ml-1 sm:ml-2 truncate">
-                ARZON-VIRTUAL-LAB · ORACLE_ARGUS_ICSR_TRIAGE.LOG
+                ARZON-VIRTUAL-LAB · CLINICAL_SAFETY_ICSR_TRIAGE.LOG
               </span>
             </div>
             <span className="font-mono text-[9px] sm:text-[10px] text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/30 shrink-0">

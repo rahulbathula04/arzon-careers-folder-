@@ -17,9 +17,9 @@ const FAQ_ITEMS: FaqItem[] = [
       "The session helps you understand pharmacovigilance and its career requirements. It does not guarantee employment. Hiring depends on your qualifications, skills, experience, and employer selection.",
   },
   {
-    question: "Will I use Oracle Argus Safety?",
+    question: "Do I need licensed software to attend?",
     answer:
-      "Access to licensed Oracle Argus Safety software is not included unless explicitly confirmed. Any demonstration or simulated exercise will be described accurately before registration.",
+      "No. The masterclass is an educational session demonstrating the operational workflows and regulatory standards used across global CROs. You do not need to purchase or install any proprietary software.",
   },
   {
     question: "Do I need prior pharmacovigilance knowledge?",

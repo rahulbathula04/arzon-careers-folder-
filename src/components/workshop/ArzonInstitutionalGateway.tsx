@@ -103,7 +103,7 @@ export function ArzonInstitutionalGateway() {
                 {
                   icon: ShieldCheck,
                   title: "Zero Commercial Pressure",
-                  body: "No pay-wall, no up-sell during the session. A pure technical masterclass on ICH-E2D and MedDRA 27.0 adverse event triage.",
+                  body: "No pay-wall, no up-sell during the session. A pure technical masterclass on ICH-E2D and standardized adverse event triage.",
                   color: "text-amber-700",
                   bg: "bg-amber-50",
                 },

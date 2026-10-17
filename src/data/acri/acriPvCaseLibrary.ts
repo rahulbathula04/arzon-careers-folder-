@@ -9,7 +9,7 @@ export type SimulationType =
   | "field_extraction"
   | "who_causality"
   | "confounder_update"
-  | "meddra_coding"
+  | "clinical_coding"
   | "narrative_writing"
   | "case_triage";
 
@@ -215,22 +215,22 @@ export const ACRI_PV_WORK_SIMULATION_ITEMS: AcriAssessmentItem[] = [
     ],
   },
 
-  // ── WORKFLOW SIMULATION 5: STAGE 5 — MedDRA CODING WORKFLOW ──
+  // ── WORKFLOW SIMULATION 5: STAGE 5 — Standardized Medical Coding WORKFLOW ──
   {
-    id: "sim_meddra_05",
+    id: "sim_standardized medical coding_05",
     itemNumber: 5,
-    stageName: "MedDRA CLINICAL CODING WORKFLOW",
+    stageName: "Standardized Medical Coding CLINICAL CODING WORKFLOW",
     stageCategory: "Coding",
-    simulationType: "meddra_coding",
-    competencyId: "meddraCoding",
+    simulationType: "clinical_coding",
+    competencyId: "clinicalCoding",
     difficulty: "intermediate",
     clinicalScenario: {
       narrativeSnippet:
         "Reporter verbatim text: 'Patient developed a very red, severely itchy skin rash spreading across both arms and chest.'",
     },
     prompt:
-      "Select the most appropriate MedDRA Lowest Level Term (LLT) that represents this verbatim reported term without diagnostic distortion.",
-    evidenceRef: "MedDRA MSSO • Term Selection: Points to Consider",
+      "Select the most appropriate Standardized Medical Coding Lowest Level Term (LLT) that represents this verbatim reported term without diagnostic distortion.",
+    evidenceRef: "Standardized Medical Coding MSSO • Term Selection: Points to Consider",
     options: [
       {
         key: "A",
@@ -242,7 +242,7 @@ export const ACRI_PV_WORK_SIMULATION_ITEMS: AcriAssessmentItem[] = [
         key: "B",
         text: "Rash pruritic (LLT: Rash pruritic / PT: Rash pruritic)",
         isCorrect: true,
-        rationale: "Correct. 'Rash pruritic' captures both critical components of the verbatim ('itchy' and 'rash') at the exact level of clinical specificity mandated by MedDRA MSSO PTC guidelines.",
+        rationale: "Correct. 'Rash pruritic' captures both critical components of the verbatim ('itchy' and 'rash') at the exact level of clinical specificity mandated by Standardized Medical Coding MSSO PTC guidelines.",
       },
       {
         key: "C",
@@ -388,7 +388,7 @@ export const ACRI_PV_WORK_SIMULATION_ITEMS: AcriAssessmentItem[] = [
     options: [
       { key: "A", text: "The day the medical safety officer completes medical review", isCorrect: false, rationale: "Incorrect. Regulatory clocks start upon initial company receipt, not internal review completion." },
       { key: "B", text: "The first day that any personnel of the marketing authorization holder or their agent becomes aware of the 4 minimum ICSR criteria", isCorrect: true, rationale: "Correct. Day 0 is universally defined as the calendar day any employee or designated vendor of the MAH receives the 4 minimum ICSR elements." },
-      { key: "C", text: "The day the case is fully entered into the Argus Safety database", isCorrect: false, rationale: "Incorrect. Entry delay cannot extend regulatory submission deadlines." },
+      { key: "C", text: "The day the case is fully entered into the Enterprise Safety Database database", isCorrect: false, rationale: "Incorrect. Entry delay cannot extend regulatory submission deadlines." },
       { key: "D", text: "The day the adverse event resolves", isCorrect: false, rationale: "Incorrect. Regulatory clocks are tied to notification, not event resolution." },
     ],
   },

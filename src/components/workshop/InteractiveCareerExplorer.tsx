@@ -20,7 +20,7 @@ export const DOMAINS = [
       { year: "Lead (Y4)", pay: "₹12.5L" },
       { year: "Manager (Y6)", pay: "₹16.5L" }
     ],
-    tools: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway", "Empirica Signal"],
+    tools: ["Clinical Safety DB", "Standardized Coding", "Safety Gateways", "Signal Detection"],
     hiringCompanies: ["IQVIA", "Parexel", "Novartis", "Cognizant", "TCS Life Sciences"],
     desc: "Monitor adverse drug reactions, write ICSR case evaluations, and ensure ICH-GCP regulatory compliance for global biopharma safety signal detection."
   },
@@ -38,7 +38,7 @@ export const DOMAINS = [
       { year: "Lead (Y4)", pay: "₹10.8L" },
       { year: "Manager (Y6)", pay: "₹14.0L" }
     ],
-    tools: ["Medidata Rave", "Oracle Clinical", "Veeva Vault CDMS", "EDC Validation"],
+    tools: ["Electronic Data Capture (EDC)", "Trial Databases", "Clinical Data Systems", "EDC Validation"],
     hiringCompanies: ["Syneos Health", "Labcorp", "Accenture", "Icon PLC"],
     desc: "Design electronic case report forms (eCRF), execute data validation checks, and manage clinical trial databases for global Phase I-IV trials."
   },
@@ -56,7 +56,7 @@ export const DOMAINS = [
       { year: "Lead (Y4)", pay: "₹13.5L" },
       { year: "Manager (Y6)", pay: "₹18.0L" }
     ],
-    tools: ["eCTDexpress", "Lorenz docuBridge", "ESG Portal", "RIM Smart"],
+    tools: ["eCTD Publishing Platforms", "XML Backbone Validators", "ESG Gateway", "RIM Platforms"],
     hiringCompanies: ["Dr. Reddy's", "Sun Pharma", "Cipla", "Lupin", "Pfizer India"],
     desc: "Compile eCTD dossiers (Modules 1-5), handle NDA/IND regulatory submissions to USFDA, EMA, and DCGI, and oversee product lifecycle management."
   },

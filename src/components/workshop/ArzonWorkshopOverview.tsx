@@ -16,7 +16,7 @@ export function ArzonWorkshopOverview() {
             What this session is really about
           </h2>
           <p className="font-sans text-sm sm:text-base text-stone-700 leading-relaxed max-w-2xl">
-            The gap between pharmacy college textbooks and daily clinical safety operations is why thousands of healthcare graduates struggle to crack technical interview rounds. In this free 75-minute working session by Mohamed Kumail Abbas (Manager, Pharmacovigilance), you will see what entry-level PV associates actually do on Day 1: triage safety cases, navigate MedDRA coding, and meet regulatory reporting clocks.
+            The gap between pharmacy college textbooks and daily clinical safety operations is why thousands of healthcare graduates struggle to crack technical interview rounds. In this free 75-minute working session by Mohamed Kumail Abbas (Manager, Pharmacovigilance), you will see what entry-level PV associates actually do on Day 1: triage safety cases, navigate standardized medical coding, and meet regulatory reporting clocks.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export function ArzonWorkshopOverview() {
               Employer Expectations
             </h3>
             <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed">
-              See what operational terms and skills appear in real job descriptions (ICSR, MedDRA coding,
+              See what operational terms and skills appear in real job descriptions (ICSR, standardized clinical coding,
               Day 0 reporting clocks, safety databases) and why recruiters test for them.
             </p>
           </div>

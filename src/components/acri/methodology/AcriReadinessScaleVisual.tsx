@@ -40,7 +40,7 @@ const READINESS_TIERS: ReadinessTier[] = [
     borderTone: "border-emerald-300",
     tagline: "Autonomous Day-1 Execution in Pharmacovigilance & Clinical Data",
     operationalProfile:
-      "Demonstrates high precision in ICSR intake, flawless 4-criteria triage, zero-error regulatory calendar tracking (7-day / 15-day expedited submissions), and accurate MedDRA coding without over-interpretation.",
+      "Demonstrates high precision in ICSR intake, flawless 4-criteria triage, zero-error regulatory calendar tracking (7-day / 15-day expedited submissions), and accurate Standardized Medical Coding without over-interpretation.",
     employerDecision:
       "Direct fast-track recruitment recommendation. Bypasses standard entry-level screening tests; eligible for immediate client project onboarding.",
     recommendedPathway:
@@ -68,7 +68,7 @@ const READINESS_TIERS: ReadinessTier[] = [
     employerDecision:
       "Qualified for internship or junior trainee positions subject to a targeted 2-to-4 week intensive bridge simulation.",
     recommendedPathway:
-      "Enrolled in targeted 14-day ICSR & MedDRA narrative sprint drills, followed by one re-test attempt to breach the 80% operational benchmark.",
+      "Enrolled in targeted 14-day ICSR & Standardized Medical Coding narrative sprint drills, followed by one re-test attempt to breach the 80% operational benchmark.",
     auditPassCriteria: [
       "Composite ACRI Score 60.0 – 79.9",
       "Needs strengthening in narrative synthesis or dechallenge logic",
@@ -91,7 +91,7 @@ const READINESS_TIERS: ReadinessTier[] = [
     employerDecision:
       "Not recommended for immediate production deployment without completing a foundational apprenticeship.",
     recommendedPathway:
-      "Comprehensive 12-week clinical data and pharmacovigilance cohort with live case processing, Argus database simulations, and mentor review.",
+      "Comprehensive 12-week clinical data and pharmacovigilance cohort with live case processing, safety database simulations, and mentor review.",
     auditPassCriteria: [
       "Composite ACRI Score < 60.0",
       "Gaps across regulatory guidelines and medical narrative writing",

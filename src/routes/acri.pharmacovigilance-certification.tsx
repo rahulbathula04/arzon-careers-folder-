@@ -68,7 +68,7 @@ export const Route = createFileRoute("/acri/pharmacovigilance-certification")({
           "@type": "Course",
           name: "ACRI Pharmacovigilance Certification",
           description:
-            "A standardized 25-minute competency assessment measuring real-world Pharmacovigilance readiness across ICSR, MedDRA coding, case triage, and regulatory reporting.",
+            "A standardized 25-minute competency assessment measuring real-world Pharmacovigilance readiness across ICSR, Standardized Medical Coding, case triage, and regulatory reporting.",
           provider: {
             "@type": "Organization",
             name: "Arzon Global",

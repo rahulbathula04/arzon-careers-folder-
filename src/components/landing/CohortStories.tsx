@@ -13,7 +13,7 @@ import { SectionHeader } from "./SectionHeader";
 const STORIES = [
   {
     profile: "B.Pharm graduate · Hyderabad",
-    before: "No internships, no Argus exposure, 0 interview calls",
+    before: "No internships, no safety database exposure, 0 interview calls",
     after: "Completed PV track · 4 interviews · joined a drug-safety team",
     track: "Pharmacovigilance",
   },

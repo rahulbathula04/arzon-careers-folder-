@@ -46,27 +46,27 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
   pharmacovigilance: {
     roleSlug: "pharmacovigilance",
     roleTitle: "Drug Safety & Pharmacovigilance Associate",
-    shortDesc: "Triage adverse event reports (ICSRs), execute case entries in Oracle Argus, perform MedDRA coding, and draft safety summaries for regulatory submissions.",
+    shortDesc: "Triage adverse event reports (ICSRs), execute case entries in Enterprise Safety Database, perform Standardized Medical Coding, and draft safety summaries for regulatory submissions.",
     targetDegrees: ["bpharm", "pharmd", "msc", "bsc"],
     primaryDomains: ["pv", "safety", "clinical-research"],
     
     employerRequirements: {
       responsibilities: [
         "ICSR case processing and data entry from spontaneously reported adverse events.",
-        "Medical coding of reported adverse events and medical history using MedDRA dictionary hierarchies.",
+        "Medical coding of reported adverse events and medical history using Standardized Medical Coding dictionary hierarchies.",
         "Causality assessment, triage, and seriousness evaluation per FDA/EMA regulatory guidelines.",
         "Drafting narrative summaries for PSUR (Periodic Safety Update Reports) and PBRER."
       ],
       demandedSkills: [
         "Adverse Event Narrative Writing",
-        "MedDRA Terminology Hierarchy (SOC, HLGT, HLT, PT, LLT)",
+        "standardized medical coding terminology Hierarchy (SOC, HLGT, HLT, PT, LLT)",
         "FDA 21 CFR Part 314 & E2B(R3) Electronic Transmission Rules",
         "Case Seriousness & Expectedness Evaluation"
       ],
       industryTools: [
-        "Oracle Argus Safety 8.4+",
-        "MedDRA Dictionary 27.0",
-        "ARISg Safety Suite",
+        "Enterprise Safety Database+",
+        "Standardized Medical Coding Dictionary 27.0",
+        "Multi-Sponsor Safety Systems Safety Suite",
         "E2B Gateway Parsers"
       ],
       commonDesignations: [
@@ -85,21 +85,21 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
       keyModules: [
         "Module 1: Global Regulatory Frameworks (FDA, EMA, CDSCO)",
         "Module 2: ICSR Case Intake & Triage Protocol",
-        "Module 3: Hands-On Oracle Argus Safety Case Management",
-        "Module 4: MedDRA Medical Coding & Auto-Encoding Rules",
+        "Module 3: Hands-On Enterprise Safety Database Case Management",
+        "Module 4: Standardized Medical Coding Medical Coding & Auto-Encoding Rules",
         "Module 5: Narrative Writing & Aggregate Safety Reporting"
       ],
-      softwareTaught: ["Oracle Argus Safety 8.4", "MedDRA 27.0 Browser", "Arzon ICSR Simulator"]
+      softwareTaught: ["Enterprise Safety Database", "Standardized Medical Coding Browser", "Arzon ICSR Simulator"]
     },
 
     appliedInternship: {
-      internshipTitle: "4-Week Oracle Argus ICSR Case Safety Internship",
+      internshipTitle: "4-Week Enterprise Safety Database ICSR Case Safety Internship",
       deliverables: [
         "Processed 25+ real-world ICSR cases through intake, coding, and narrative drafting",
-        "MedDRA medical coding audit sheet with 100% dictionary term validation",
+        "Standardized Medical Coding medical coding audit sheet with 100% dictionary term validation",
         "E2B XML export validation file for regulatory submission practice"
       ],
-      toolsUsed: ["Oracle Argus Safety 8.4", "MedDRA Browser", "Arzon ICSR Sandbox"],
+      toolsUsed: ["Enterprise Safety Database", "Clinical Coding Browser", "Arzon ICSR Sandbox"],
       credentialType: "ISO 9001:2015 Verifiable Applied Internship Credential",
       isoVerified: true
     }
@@ -116,20 +116,20 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
       responsibilities: [
         "Review eCRF data entries for completeness, logic consistency, and protocol compliance.",
         "Generate and resolve data clarification forms (DCFs / queries) with clinical trial sites.",
-        "Perform medical coding for concomitant medications using WHO Drug Global.",
+        "Perform medical coding for concomitant medications using Global Medicinal Product Dictionaries Global.",
         "Assist in Data Management Plan (DMP) execution and database lock verification."
       ],
       demandedSkills: [
         "eCRF Design & Edit Check Specification",
         "Clinical Query Lifecycle Management",
         "GCDMP (Good Clinical Data Management Practice) Compliance",
-        "WHO Drug Global & MedDRA Coding"
+        "Global Medicinal Product Dictionaries Global & Standardized Medical Coding"
       ],
       industryTools: [
-        "Medidata RAVE EDC",
+        "Electronic Data Capture (EDC)",
         "Oracle Clinical / Inform",
         "REDCap Clinical",
-        "Veeva Vault EDC"
+        "Life Sciences Cloud Platforms EDC"
       ],
       commonDesignations: [
         "Clinical Data Associate (CDA)",
@@ -147,11 +147,11 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
       keyModules: [
         "Module 1: Clinical Trial Data Architecture & Protocol Parsing",
         "Module 2: eCRF Design Standards & CDASH Implementation",
-        "Module 3: Medidata RAVE & EDC Data Entry Validation",
+        "Module 3: Electronic Data Capture (EDC) & EDC Data Entry Validation",
         "Module 4: Query Generation, Site Communication & Resolution",
         "Module 5: Database Locking Protocols & Reconciliation"
       ],
-      softwareTaught: ["Medidata RAVE EDC Sandbox", "CDASH Standards", "Arzon EDC Query Workbench"]
+      softwareTaught: ["Electronic Data Capture (EDC) Sandbox", "CDASH Standards", "Arzon EDC Query Workbench"]
     },
 
     appliedInternship: {
@@ -161,7 +161,7 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
         "Issued and resolved 40+ clinical queries across simulated site data entries",
         "Completed 1 full clinical study database lock readiness audit"
       ],
-      toolsUsed: ["Medidata RAVE Sandbox", "CDASH Guidelines", "Arzon Query Log Studio"],
+      toolsUsed: ["Electronic Data Capture (EDC) Sandbox", "CDASH Guidelines", "Arzon Query Log Studio"],
       credentialType: "ISO 9001:2015 Verifiable Applied Internship Credential",
       isoVerified: true
     }
@@ -188,7 +188,7 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
         "NCCI Edit Checks & Claim Denial Resolution"
       ],
       industryTools: [
-        "Optum EncoderPro",
+        "Optum Clinical Encoders",
         "3M HIS Coding Suite",
         "AAPC Coder",
         "Epic Systems EHR"
@@ -213,7 +213,7 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
         "Module 4: HCPCS Level II & Modifier Rules",
         "Module 5: Chart Auditing, NCCI Edits & AAPC CPC Exam Practice"
       ],
-      softwareTaught: ["EncoderPro Sandbox", "ICD-10-CM Codebook 2026", "Arzon Chart Auditor"]
+      softwareTaught: ["Clinical Encoders Sandbox", "ICD-10-CM Codebook 2026", "Arzon Chart Auditor"]
     },
 
     appliedInternship: {
@@ -223,7 +223,7 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
         "Generated 1 full NCCI claim edit correction report",
         "Passed Arzon Simulated AAPC CPC Audit Benchmark with >85% score"
       ],
-      toolsUsed: ["EncoderPro Suite", "ICD-10-CM 2026", "Arzon Chart Audit Engine"],
+      toolsUsed: ["Clinical Encoders Suite", "ICD-10-CM 2026", "Arzon Chart Audit Engine"],
       credentialType: "ISO 9001:2015 Verifiable Applied Internship Credential",
       isoVerified: true
     }

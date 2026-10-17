@@ -226,7 +226,7 @@ function LegalHubPage() {
                 3. Third-Party Trademarks & Nominative Fair Use Notice
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                All third-party trademarks, service marks, software names, and corporate identities cited on this website—including MedDRA® (IFPMA), Oracle Argus® (Oracle Corporation), SAS® (SAS Institute Inc.), Veeva Vault® (Veeva Systems), ICD-10® (WHO), and company names (IQVIA, Parexel, Novartis, Pfizer, TCS, Cognizant, etc.)—remain the property of their respective trademark holders. Nominative references on this site are made strictly pursuant to Section 30 of the Indian Trade Marks Act, 1999, for purposes of identification and curriculum context, and do not imply any affiliation, sponsorship, endorsement, or commercial association.
+                All third-party trademarks, service marks, software names, and corporate identities cited on this website—including Standardized Medical Coding® (IFPMA), Enterprise Safety Database® (Oracle Corporation), SAS® (SAS Institute Inc.), Life Sciences Cloud Platforms® (Enterprise Life Sciences Cloud Providers), ICD-10® (WHO), and company names (IQVIA, Parexel, Novartis, Pfizer, TCS, Cognizant, etc.)—remain the property of their respective trademark holders. Nominative references on this site are made strictly pursuant to Section 30 of the Indian Trade Marks Act, 1999, for purposes of identification and curriculum context, and do not imply any affiliation, sponsorship, endorsement, or commercial association.
               </p>
             </div>
 

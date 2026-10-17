@@ -191,17 +191,17 @@ const COMPETENCY_METADATA: Record<
       "04 Prioritization matrices for urgent safety inquiries",
     ],
   },
-  meddraCoding: {
-    name: "MedDRA / Coding",
+  clinicalCoding: {
+    name: "Standardized Medical Coding / Coding",
     category: "Technical Standards",
     assessed: [
       "Lowest Level Term (LLT) to Preferred Term (PT) hierarchy selection",
       "Points to Consider (PtC) regulatory coding guidelines",
       "Diagnosis vs sign/symptom split coding rules",
-      "Standardised MedDRA Queries (SMQ) application",
+      "Standardised Standardized Medical Coding Queries (SMQ) application",
     ],
     recommendedFocus: [
-      "01 MedDRA MSSO term selection companion guideline",
+      "01 Standardized Medical Coding MSSO term selection companion guideline",
       "02 Primary System Organ Class (SOC) allocation rules",
       "03 Medical dictionary browser navigation speed",
       "04 Differential coding in complex syndrome narratives",
@@ -644,7 +644,7 @@ export function AcriCareerIntelligenceReport({
                   Pharmacovigilance Associate
                 </span>
                 <span className="text-[11px] font-mono text-emerald-800 font-semibold">
-                  ICH E2D · EMA GVP VI · MedDRA v27.0
+                  ICH E2D · EMA GVP VI · Standardized Medical Coding
                 </span>
               </div>
             </div>
@@ -814,7 +814,7 @@ export function AcriCareerIntelligenceReport({
                     {isNearReady && (
                       <span>
                         You demonstrated strong operational capability across Core Case Assessment and Analytical Reasoning.
-                        Targeted drills in MedDRA LLT hierarchy and expedited reporting clocks will bridge the remaining gap to autonomous case clearance.
+                        Targeted drills in Standardized Medical Coding LLT hierarchy and expedited reporting clocks will bridge the remaining gap to autonomous case clearance.
                       </span>
                     )}
                     {!isIndustryReady && !isNearReady && (
@@ -1105,7 +1105,7 @@ export function AcriCareerIntelligenceReport({
                   </div>
                 </div>
                 <p className="text-xs text-stone-600 leading-relaxed">
-                  MedDRA hierarchy selection (LLT vs PT) showed gaps. Targeted term selection drills
+                  5-tier medical coding hierarchy selection (LLT vs PT) showed gaps. Targeted term selection drills
                   will close the 2-point gap to Industry Ready standing.
                 </p>
               </div>
@@ -1341,7 +1341,7 @@ export function AcriCareerIntelligenceReport({
 
               <div className="pt-2 border-t border-stone-200/60 text-[11px] text-stone-600 flex items-center gap-1.5 font-mono">
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                <span>Standardized on Oracle Argus Safety v8.2 &amp; MedDRA v27.0 benchmarks.</span>
+                <span>Standardized on Enterprise Safety Database v8.2 &amp; Standardized Medical Coding benchmarks.</span>
               </div>
             </div>
           </div>
@@ -1375,11 +1375,11 @@ export function AcriCareerIntelligenceReport({
                   Build Coding Precision
                 </h3>
                 <p className="text-xs text-stone-600 leading-relaxed">
-                  Master MedDRA hierarchy term selection: LLT vs PT conventions and System Organ Class (SOC) rules.
+                  Master 5-tier medical coding hierarchy term selection: LLT vs PT conventions and System Organ Class (SOC) rules.
                 </p>
               </div>
               <span className="text-[11px] font-mono font-bold text-[#005B4F]">
-                MedDRA Points to Consider (PtC)
+                Standardized Medical Coding Points to Consider (PtC)
               </span>
             </div>
 
@@ -1417,11 +1417,11 @@ export function AcriCareerIntelligenceReport({
                   Apply Under Regulatory Pressure
                 </h3>
                 <p className="text-xs text-stone-600 leading-relaxed">
-                  Execute integrated multi-case queues under 7-day and 15-day expedited submission deadlines in Oracle Argus simulator.
+                  Execute integrated multi-case queues under 7-day and 15-day expedited submission deadlines in Enterprise Safety Database simulator.
                 </p>
               </div>
               <span className="text-[11px] font-mono font-bold text-[#005B4F]">
-                Argus Workflow Simulation
+                safety database workflow Simulation
               </span>
             </div>
           </div>

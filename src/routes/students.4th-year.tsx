@@ -37,7 +37,7 @@ function FourthYearStudentComponent() {
           </h1>
 
           <p className="text-base sm:text-lg text-stone-700 max-w-3xl leading-relaxed">
-            Final year is your strategic transition window. Master practical clinical database workflows in Oracle Argus, MedDRA, Medidata RAVE, or Clinical SAS alongside your university coursework so you enter hiring drives ready on day one.
+            Final year is your strategic transition window. Master practical clinical database workflows in Enterprise Safety Database, Standardized Medical Coding, Electronic Data Capture (EDC), or Clinical SAS alongside your university coursework so you enter hiring drives ready on day one.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs text-stone-600">
@@ -87,7 +87,7 @@ function FourthYearStudentComponent() {
               {
                 step: "02",
                 title: "Master Industry Software",
-                desc: "Learn Oracle Argus 8.2, MedDRA, ICD-10-CM, or PROC SAS with hands-on case files and clinical datasets.",
+                desc: "Learn Enterprise Safety Database 8.2, Standardized Medical Coding, ICD-10-CM, or PROC SAS with hands-on case files and clinical datasets.",
                 link: "/courses",
                 linkText: "View 12-Week Tracks",
               },

@@ -22,7 +22,7 @@ export function ArzonMentorDossier() {
       role: "Senior Drug Safety Associate",
       company: "Indegene / Norwich Clinical",
       description:
-        "Handled thousands of spontaneous and clinical trial ICSRs, MedDRA hierarchy coding, and Day 0 regulatory clock management.",
+        "Handled thousands of spontaneous and clinical trial ICSRs, standardized hierarchy coding, and Day 0 regulatory clock management.",
     },
     {
       period: "2014 – 2016",
@@ -35,7 +35,7 @@ export function ArzonMentorDossier() {
 
   const expertise = [
     "ICSR Intake & Triage (ICH E2A / E2D)",
-    "MedDRA Standardization (LLT, PT, SOC)",
+    "Clinical Terminology Standardization (LLT, PT, SOC)",
     "Aggregate Safety Reports (PSUR / PBRER)",
     "Regulatory Compliance (FDA 21 CFR 314.80)",
     "Audit Readiness & Inspection CAPA",

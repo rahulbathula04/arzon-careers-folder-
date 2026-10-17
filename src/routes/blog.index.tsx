@@ -66,7 +66,7 @@ function BlogHubComponent() {
             Healthcare Career Intelligence & Operational Research
           </h1>
           <p className="mt-4 text-base sm:text-lg text-stone-700 max-w-3xl leading-relaxed">
-            Empirical job description breakdowns, enterprise software tool specifications (Oracle Argus, ICD-10-CM, Medidata Rave, eCTD, SAS PROC SQL), and salary benchmarks for life science graduates.
+            Empirical job description breakdowns, enterprise software tool specifications (Enterprise Safety Database, ICD-10-CM, Electronic Data Capture (EDC), eCTD, SAS PROC SQL), and salary benchmarks for life science graduates.
           </p>
 
           {/* Search & Category Filter Control Bar */}
@@ -75,7 +75,7 @@ function BlogHubComponent() {
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400" />
               <input
                 type="text"
-                placeholder="Search articles, keywords, or tools (Argus, MedDRA, CPC...)..."
+                placeholder="Search articles, keywords, or tools (Enterprise Safety Database, Standardized Medical Coding, CPC...)..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-2.5 bg-[#FAF9F6] border border-stone-300 rounded-none text-xs font-sans text-stone-900 placeholder:text-stone-500 focus:outline-none focus:border-[#1B3F8B]"

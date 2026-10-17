@@ -12,14 +12,14 @@ export const ROLES: RoleProfile[] = [
     shortName: "PV",
     tagline: "The drug-safety job that India quietly runs for the world.",
     whatIsIt:
-      "PV is how the pharma world catches side-effects after a drug is on the market. Your day looks like this: a hospital nurse in Germany files an adverse-event form, it lands in your safety database (Argus, ARISg), you read it, you code the symptoms in MedDRA, you classify seriousness, and you file an ICSR to the regulator inside the legal clock (24 hours for fatal, 15 days for serious). Repeat 8-12 cases a day.",
+      "PV is how the pharma world catches side-effects after a drug is on the market. Your day looks like this: a hospital nurse in Germany files an adverse-event form, it lands in your safety database (Enterprise Safety Database, Multi-Sponsor Safety Systems), you read it, you code the symptoms in Standardized Medical Coding, you classify seriousness, and you file an ICSR to the regulator inside the legal clock (24 hours for fatal, 15 days for serious). Repeat 8-12 cases a day.",
     whyHiring:
       "Every drug that reaches a patient must be monitored for life. India runs PV for ~70% of global pharma because regulators accept work done from India and labour cost is 1/5th of the US. Demand is structural, not cyclical.",
     who: "B.Pharm, M.Pharm, Pharm.D, B.Sc Life Sciences, BDS, BAMS, BHMS, BPT. MBBS welcome. Strong written English non-negotiable.",
     demand: "Very High",
     aiRisk: "augmented",
     aiNote:
-      "AI now drafts the ICSR narrative and pre-codes MedDRA terms. What stays human: medical judgement on causality, seriousness assessment, regulator submission, and PV audit. The job moves up the value chain, it does not vanish.",
+      "AI now drafts the ICSR narrative and pre-codes standardized medical coding terms. What stays human: medical judgement on causality, seriousness assessment, regulator submission, and PV audit. The job moves up the value chain, it does not vanish.",
     englishNeeded: "Strong written",
     workMode: "Hybrid",
     industrySize:
@@ -33,19 +33,19 @@ export const ROLES: RoleProfile[] = [
       "PV Audit Specialist",
     ],
     skills: [
-      "Argus Safety",
-      "ARISg",
-      "Veeva Vault Safety",
-      "MedDRA",
-      "WHO-DD",
+      "Enterprise Safety Database",
+      "Multi-Sponsor Safety Systems",
+      "Cloud Safety Management Systems",
+      "Standardized Medical Coding",
+      "Global Medicinal Product Dictionaries",
       "ICH E2B(R3)",
       "CIOMS I",
       "GVP modules",
     ],
     certs: [
-      { name: "MedDRA proficiency (MSSO)", pays: "+₹40-60k at offer" },
+      { name: "Standardized Medical Coding proficiency (MSSO)", pays: "+₹40-60k at offer" },
       { name: "ISoP / DIA PV certificate", pays: "Promotion to QC at Y2" },
-      { name: "Argus / ARISg system cert", pays: "+₹50k or shifts to L2" },
+      { name: "Enterprise Safety Databases system cert", pays: "+₹50k or shifts to L2" },
     ],
     pay: [
       {
@@ -99,7 +99,7 @@ export const ROLES: RoleProfile[] = [
         yrs: "Y2",
         role: "Senior DSA / QC Reviewer",
         payInr: "₹6 – 9 LPA",
-        unlocks: "QC certification + 1 system tool (Argus or ARISg)",
+        unlocks: "QC certification + 1 system tool (Enterprise Safety Databases)",
       },
       {
         yrs: "Y5",
@@ -173,7 +173,7 @@ export const ROLES: RoleProfile[] = [
     faqs: [
       {
         q: "Can a fresher get a PV job without a course?",
-        a: "Sometimes, at Tier-3 BPOs at ₹2.4-3 LPA. With a structured PV course (Argus + MedDRA + 50 cases on resume), L1 offers come from MNC CROs at ₹3.8-6 LPA. The course pays for itself in 4 months.",
+        a: "Sometimes, at Tier-3 BPOs at ₹2.4-3 LPA. With a structured PV course (Safety Database + Standardized Coding + 50 cases on resume), L1 offers come from MNC CROs at ₹3.8-6 LPA. The course pays for itself in 4 months.",
       },
       {
         q: "Is PV being killed by AI?",
@@ -227,8 +227,8 @@ export const ROLES: RoleProfile[] = [
       "CPT",
       "HCPCS",
       "DRG / APC",
-      "3M Encoder",
-      "EncoderPro",
+      "Enterprise CAC Encoders",
+      "Clinical Encoders",
       "EPIC chart navigation",
       "HIPAA basics",
     ],
@@ -381,7 +381,7 @@ export const ROLES: RoleProfile[] = [
     shortName: "CDM",
     tagline: "The data backbone of every clinical trial. Pays better than PV.",
     whatIsIt:
-      "A pharma company runs a Phase-3 trial in 200 hospitals across 30 countries. Each hospital enters patient data into an EDC system (Medidata Rave, Veeva CDMS, Oracle InForm). You design the form, write the edit checks, query the bad data, lock the database when the trial ends, and hand a clean dataset to biostatistics. Without CDM, the trial cannot file with FDA.",
+      "A pharma company runs a Phase-3 trial in 200 hospitals across 30 countries. Each hospital enters patient data into an EDC system (Electronic Data Capture (EDC), Cloud Data Management Systems, Oracle InForm). You design the form, write the edit checks, query the bad data, lock the database when the trial ends, and hand a clean dataset to biostatistics. Without CDM, the trial cannot file with FDA.",
     whyHiring:
       "Trial volume keeps growing (2,000+ Phase-3 trials globally per year). India runs CDM for 65% of MNC pharma trials because labour cost is 1/4 and FDA accepts the work.",
     who: "B.Pharm, M.Pharm, B.Sc Life Sciences, B.Tech Biotech. Tech-leaning candidates do well (CDM is half-data, half-coding).",
@@ -399,11 +399,11 @@ export const ROLES: RoleProfile[] = [
       "EDC Build Programmer",
       "Data Validation Specialist",
       "Database Lock Lead",
-      "Veeva Vault CDMS Administrator",
+      "Cloud Data Management Systems Administrator",
     ],
     skills: [
-      "Medidata Rave",
-      "Veeva Vault CDMS",
+      "Electronic Data Capture (EDC)",
+      "Cloud Data Management Systems",
       "Oracle InForm / Clinical One",
       "SQL basics",
       "CDISC SDTM",
@@ -415,10 +415,10 @@ export const ROLES: RoleProfile[] = [
         name: "SCDM CCDM (Certified Clinical Data Manager)",
         pays: "Required for L3+ promotion; +₹1.5L typically",
       },
-      { name: "Medidata Rave Study Builder cert", pays: "+₹80k-1.2L; gates EDC build roles" },
+      { name: "Electronic Data Capture (EDC) Study Builder cert", pays: "+₹80k-1.2L; gates EDC build roles" },
       {
-        name: "Veeva Vault CDMS Administrator",
-        pays: "+₹1L-1.5L; high demand at Veeva-shop pharma",
+        name: "Cloud Data Management Systems Administrator",
+        pays: "+₹1L-1.5L; high demand at enterprise cloud pharma",
       },
     ],
     pay: [
@@ -452,7 +452,7 @@ export const ROLES: RoleProfile[] = [
         midY3: [6.5, 10],
         seniorY5: [10, 15],
         leadY8: [16, 24],
-        note: "Veeva, IQVIA, Medidata run remote-first CDM teams.",
+        note: "Enterprise Life Sciences Cloud, IQVIA, Enterprise EDC run remote-first CDM teams.",
       },
     ],
     ladder: [
@@ -460,7 +460,7 @@ export const ROLES: RoleProfile[] = [
         yrs: "Y0",
         role: "Clinical Data Associate (L1)",
         payInr: "₹4.5 – 7 LPA",
-        unlocks: "On-the-job EDC training (typically Rave or Veeva)",
+        unlocks: "On-the-job EDC training (typically Rave or Enterprise Life Sciences Cloud)",
       },
       {
         yrs: "Y2",
@@ -518,8 +518,8 @@ export const ROLES: RoleProfile[] = [
       "Labcorp Drug Development",
       "Fortrea",
       "PPD (Thermo Fisher)",
-      "Veeva Systems",
-      "Medidata (Dassault)",
+      "Enterprise Life Sciences Cloud Providers",
+      "Enterprise EDC (Dassault)",
       "Oracle Health Sciences",
       "TCS Life Sciences",
       "Cognizant Life Sciences",
@@ -536,8 +536,8 @@ export const ROLES: RoleProfile[] = [
         a: "Smaller talent pool (more tech-leaning), higher cost of training each new hire (system access, GCP cert), and FDA exposure on database lock raises the floor.",
       },
       {
-        q: "Veeva or Medidata: which to learn first?",
-        a: "Medidata Rave still owns ~55% of trials, Veeva is gaining fast (~25%). Learn Rave first; Veeva is easier to pick up second.",
+        q: "Enterprise Life Sciences Cloud or Enterprise EDC: which to learn first?",
+        a: "Electronic Data Capture (EDC) still owns ~55% of trials, Enterprise Life Sciences Cloud is gaining fast (~25%). Learn Rave first; Enterprise Life Sciences Cloud is easier to pick up second.",
       },
       {
         q: "Travel to sponsor sites?",
@@ -581,7 +581,7 @@ export const ROLES: RoleProfile[] = [
     ],
     skills: [
       "eCTD",
-      "Veeva Vault RIM",
+      "Enterprise RIM Platforms",
       "ICH M4 / Q / S / E",
       "CDSCO SUGAM",
       "FDA ESG",
@@ -599,7 +599,7 @@ export const ROLES: RoleProfile[] = [
         name: "TOPRA MSc Regulatory Affairs",
         pays: "Promotion to Strategist by Y4; UK/EU mobility",
       },
-      { name: "Veeva Vault RIM Administrator", pays: "+₹1L; gates publishing-team roles" },
+      { name: "Enterprise RIM Platforms Administrator", pays: "+₹1L; gates publishing-team roles" },
     ],
     pay: [
       {
@@ -648,7 +648,7 @@ export const ROLES: RoleProfile[] = [
         yrs: "Y2",
         role: "RA Executive (CMC or Labelling)",
         payInr: "₹6.5 – 11 LPA",
-        unlocks: "Owns 1 product end-to-end + Veeva Vault RIM cert",
+        unlocks: "Owns 1 product end-to-end + Enterprise RIM Platforms cert",
       },
       {
         yrs: "Y5",
@@ -972,8 +972,8 @@ export const ROLES: RoleProfile[] = [
       "ICH E6(R3) GCP",
       "Schedule Y / NDCT 2019",
       "21 CFR Part 50/54/56/312",
-      "Medidata Rave (CRA view)",
-      "Veeva Vault CTMS",
+      "Electronic Data Capture (EDC) (CRA view)",
+      "Cloud CTMS Systems",
       "Florence eBinders / eISF",
       "Risk-Based Monitoring (RBM)",
       "SDV / SDR",
@@ -1185,7 +1185,7 @@ export const ROLES: RoleProfile[] = [
       "AMA Manual of Style",
       "GPP3 (Good Publication Practice)",
       "EndNote / Reference Manager",
-      "Veeva Vault PromoMats",
+      "Regulatory Promotional Review Systems",
       "MS Word advanced + track-changes",
       "Plain-language summaries (EU CTR)",
     ],

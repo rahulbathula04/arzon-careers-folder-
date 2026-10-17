@@ -15,19 +15,19 @@ export function InteractiveIndustryMap() {
       roles: [
         {
           title: "Safety Data Processor / Specialist",
-          tools: "Oracle Argus Safety, MedDRA",
+          tools: "Clinical Safety DB, Medical Coding",
           description: "Triages & processes global individual case safety reports (ICSRs) received from hospitals & clinical trials.",
           salary: "₹3.8 - ₹6.5 LPA"
         },
         {
           title: "PV Aggregate Reporting Scientist",
-          tools: "Argus, Empirica Signal, PSUR templates",
+          tools: "Safety DB, Signal Analysis, PSUR templates",
           description: "Compiles periodic safety update reports (PSUR/PBRER) submitted to global regulators annually.",
           salary: "₹6.5 - ₹12.0 LPA"
         },
         {
           title: "Signal Detection Manager",
-          tools: "Empirica, RWE datasets",
+          tools: "Signal Detection Systems, RWE datasets",
           description: "Identifies early safety statistical signals across millions of global patient reports.",
           salary: "₹12.0 - ₹18.5+ LPA"
         }
@@ -41,13 +41,13 @@ export function InteractiveIndustryMap() {
       roles: [
         {
           title: "eCTD Publishing Associate",
-          tools: "eCTDexpress, Lorenz docuBridge",
+          tools: "eCTD Publishing Platforms, Validator Suites",
           description: "Formats Module 1-5 electronic drug submission packages for USFDA, EMA, and CDSCO.",
           salary: "₹4.2 - ₹7.0 LPA"
         },
         {
           title: "Global Regulatory Strategy Lead",
-          tools: "Veeva Vault RIM, ESG Portal",
+          tools: "Regulatory Information Management, Submission Gateways",
           description: "Designs multi-country clinical trial authorization & marketing clearance strategy.",
           salary: "₹10.5 - ₹20.0+ LPA"
         }
@@ -61,7 +61,7 @@ export function InteractiveIndustryMap() {
       roles: [
         {
           title: "Clinical Data Lead / EDC Manager",
-          tools: "Medidata Rave, Oracle InForm",
+          tools: "Clinical EDC Platforms, Query Systems",
           description: "Builds electronic data capture (EDC) screens and manages discrepancy cleaning.",
           salary: "₹3.6 - ₹8.0 LPA"
         },

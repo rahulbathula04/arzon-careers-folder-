@@ -7,9 +7,9 @@ interface AcriHeroProps {
 }
 
 const CLINICAL_TRACKS = [
-  { name: "Pharmacovigilance GCCs", subtitle: "ICSR Triage & Argus Safety" },
+  { name: "Pharmacovigilance GCCs", subtitle: "ICSR Triage & Enterprise Safety Database" },
   { name: "Contract Research Orgs", subtitle: "Phase I–IV Clinical Operations" },
-  { name: "Clinical Data Management", subtitle: "eCRF & Medidata Rave EDC" },
+  { name: "Clinical Data Management", subtitle: "eCRF & Electronic Data Capture (EDC)" },
   { name: "Biostatistical Programming", subtitle: "CDISC SDTM & ADaM TLFs" },
   { name: "Medical Coding & RCM", subtitle: "ICD-10-CM & Inpatient CDI" },
   { name: "Regulatory Affairs", subtitle: "eCTD Module 1–5 Operations" },

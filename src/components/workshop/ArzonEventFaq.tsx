@@ -40,7 +40,7 @@ export function ArzonEventFaq() {
     },
     {
       q: "Will you explain skills and technologies?",
-      a: "Yes. We break down the exact software platforms (Oracle Argus, Medidata Rave, ICD-10-CM, eCTD) and clinical/technical skills employers screen during interviews.",
+      a: "Yes. We break down the exact software platforms (Safety Databases, Clinical EDC, ICD-10-CM, eCTD) and clinical/technical skills employers screen during interviews.",
     },
     {
       q: "Will you discuss salary ranges?",

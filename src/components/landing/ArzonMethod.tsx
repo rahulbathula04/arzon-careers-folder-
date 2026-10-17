@@ -32,7 +32,7 @@ const STAGES = [
     icon: FlaskConical,
     label: "PRACTICE",
     title: "Apply it to real data",
-    desc: "Work on de-identified ICSR case narratives, ICD-10 patient charts, eCRF datasets, and MedDRA coding exercises — the exact files you'd handle on day one of a PV or CDM role.",
+    desc: "Work on de-identified ICSR case narratives, ICD-10 patient charts, eCRF datasets, and standardized clinical coding exercises — the exact files you'd handle on day one of a PV or CDM role.",
     deliverable: "Graded practice sets reviewed by mentors",
     color: "text-teal-700",
     bg: "bg-teal-50 border-teal-200",

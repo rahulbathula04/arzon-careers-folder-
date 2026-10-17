@@ -58,8 +58,8 @@ export interface BlogPost {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "pharmacovigilance-career-guide-2026",
-    title: "The 2026 Pharmacovigilance Career Guide: Argus Safety, MedDRA & Fresher Salaries",
-    metaDescription: "Master Pharmacovigilance careers in 2026. Detailed guide on ICSR case processing, Oracle Argus Safety, MedDRA coding, aggregate reporting & fresher salary bands in India.",
+    title: "The 2026 Pharmacovigilance Career Guide: Enterprise Safety Database, Standardized Medical Coding & Fresher Salaries",
+    metaDescription: "Master Pharmacovigilance careers in 2026. Detailed guide on ICSR case processing, Enterprise Safety Database, Standardized Medical Coding, aggregate reporting & fresher salary bands in India.",
     h1: "The 2026 Pharmacovigilance Career & Operational Field Guide",
     category: "pharmacovigilance",
     categoryLabel: "Pharmacovigilance",
@@ -71,26 +71,26 @@ export const BLOG_POSTS: BlogPost[] = [
       role: "Lead Healthcare Career Strategist (Ex-Cognizant)",
     },
     heroImage: "/assets/thumbs/pharmacovigilance.webp",
-    heroImageAlt: "Pharmacovigilance Drug Safety Analysis & Argus Safety Terminal",
+    heroImageAlt: "Pharmacovigilance Drug Safety Analysis & Enterprise Safety Database Terminal",
     keywords: [
       "pharmacovigilance course in hyderabad",
-      "argus safety training",
+      "Enterprise Safety Database training",
       "icsr case processing course",
       "pharmacovigilance salary in india",
       "drug safety associate jobs",
-      "meddra coding training",
+      "Standardized Medical Coding training",
     ],
     excerpt: "An authoritative operational breakdown for Pharmacy, Medical, and Life Science graduates breaking into Drug Safety and Pharmacovigilance at Tier-1 GCCs and CROs.",
     keyTakeaways: [
       "Pharmacovigilance (PV) processes 8.5M+ Individual Case Safety Reports (ICSRs) annually across global pharmaceutical enterprises.",
-      "Hands-on operational proficiency in Oracle Argus Safety v8.2+ and MedDRA v27.0 dictionary hierarchy is required for 92% of fresher PV roles.",
+      "Hands-on operational proficiency in Enterprise Safety Database v8.2+ and Standardized Medical Coding dictionary hierarchy is required for 92% of fresher PV roles.",
       "Fresher Drug Safety Associate salaries in India range between ₹3.8 LPA to ₹6.5 LPA across Tier-1 GCC hubs (Hyderabad, Bangalore, Pune, Mumbai).",
       "Cryptographic certificate verification and real-world case file auditing increase interview callback rates by 3.4x over generic certificate holders.",
     ],
     tableOfContents: [
       { id: "overview", title: "1. Executive Overview: PV in 2026" },
       { id: "icsr-workflow", title: "2. The ICSR Triage & Processing Lifecycle" },
-      { id: "tools-software", title: "3. Industry Tools: Oracle Argus Safety & MedDRA" },
+      { id: "tools-software", title: "3. Industry Tools: Enterprise Safety Database & Standardized Medical Coding" },
       { id: "salary-benchmarks", title: "4. 2026 Salary Benchmarks & Employer Matrix" },
       { id: "career-roadmap", title: "5. Operational Action Plan for Freshers" },
     ],
@@ -113,24 +113,24 @@ In 2026, regulatory authorities including the US FDA, EMA, and India's CDSCO str
         content: `Every adverse event report submitted by healthcare professionals or consumers transitions through a structured Individual Case Safety Report (ICSR) lifecycle:
 
 1. **Receipt & Triage**: Confirming the four mandatory validity criteria (An identifiable reporter, an identifiable patient, an adverse event, and a suspect medicinal product).
-2. **Data Entry & Coding**: Extracting medical history, concomitant medications, and adverse reaction narratives into safety databases. Assigning MedDRA Low Level Terms (LLT) and Preferred Terms (PT).
+2. **Data Entry & Coding**: Extracting medical history, concomitant medications, and adverse reaction narratives into safety databases. Assigning Standardized Medical Coding Low Level Terms (LLT) and Preferred Terms (PT).
 3. **Causality Assessment**: Evaluating temporal relationships using Naranjo or WHO-UMC causality algorithms.
 4. **Quality Review & Medical Assessment**: Senior Drug Safety Physicians review serious unexpected adverse reactions (SUSARs).
 5. **Regulatory Reporting**: Generating E2B(R3) XML files for automated submission to regulatory gateways (FDA FAERS, EudraVigilance).`,
       },
       {
         id: "tools-software",
-        title: "3. Industry Software: Oracle Argus Safety & MedDRA",
+        title: "3. Industry Software: Enterprise Safety Database & Standardized Medical Coding",
         content: `Recruiters at Tier-1 employers like Cognizant, TCS Life Sciences, Accenture, IQVIA, and Parexel evaluate candidates based on software fluency rather than theoretical textbook knowledge.
 
-### Oracle Argus Safety Architecture
-Argus Safety is the market-leading enterprise drug safety management system. Key operational modules include:
+### Enterprise Safety Database Architecture
+Enterprise Safety Database is the market-leading enterprise drug safety management system. Key operational modules include:
 - **Case Form Intake**: Capturing patient demographics, reporter details, and dose regimens.
-- **Event Coding Window**: Interfacing directly with MedDRA dictionary releases.
+- **Event Coding Window**: Interfacing directly with Standardized Medical Coding dictionary releases.
 - **Regulatory Reports Engine**: Auto-scheduling PBRER (Periodic Benefit-Risk Evaluation Report) and PSUR (Periodic Safety Update Report) deliverables.
 
-### MedDRA Dictionary Hierarchy
-MedDRA (Medical Dictionary for Regulatory Activities) operates on a 5-tier structural hierarchy:
+### Standardized Medical Coding Dictionary Hierarchy
+Standardized Medical Coding (ICH-mandated clinical terminology) operates on a 5-tier structural hierarchy:
 - **SOC** (System Organ Class)
 - **HLGT** (High Level Group Term)
 - **HLT** (High Level Term)
@@ -139,7 +139,7 @@ MedDRA (Medical Dictionary for Regulatory Activities) operates on a 5-tier struc
         callout: {
           type: "tip",
           title: "Practical Tip for Interviews",
-          text: "When asked about MedDRA in an interview, specify that adverse events are coded at the LLT level, which maps automatically to a unique 8-digit code and a single PT.",
+          text: "When asked about Standardized Medical Coding in an interview, specify that adverse events are coded at the LLT level, which maps automatically to a unique 8-digit code and a single PT.",
         },
       },
       {
@@ -159,7 +159,7 @@ MedDRA (Medical Dictionary for Regulatory Activities) operates on a 5-tier struc
         content: `To secure a high-growth Pharmacovigilance role in 2026, candidates should avoid generic certificate resume fillers and build verifiable proof-of-work:
 
 1. **Complete Live ICSR Case Audits**: Work on real anonymized trial cases covering serious vs. non-serious event determination.
-2. **Execute MedDRA Coding Simulations**: Practice mapping complex medical narratives to standard MedDRA PT terms.
+2. **Execute Standardized Medical Coding Simulations**: Practice mapping complex medical narratives to standard Standardized Medical Coding PT terms.
 3. **Verify Skill Credentials**: Use Arzon's public cryptographic verification ledger (\`/verify\`) so recruiters can instantly audit your case processing scores.
 4. **Diagnose Role Fit**: Take the Arzon Career Engine diagnostic (\`/career-engine/start\`) to measure your score against 300+ live job descriptions.`,
       },
@@ -261,8 +261,8 @@ With US healthcare expenditure exceeding $4.5 Trillion, healthcare providers dep
   },
   {
     slug: "clinical-data-management-cdm-guide-2026",
-    title: "Clinical Data Management (CDM) Careers 2026: Medidata Rave, Veeva & CDISC SDTM",
-    metaDescription: "Complete guide to Clinical Data Management (CDM) careers in 2026. Learn Electronic Data Capture (EDC), Medidata Rave, Veeva Vault, CDASH, CDISC SDTM & salary paths.",
+    title: "Clinical Data Management (CDM) Careers 2026: Electronic Data Capture (EDC), Enterprise Life Sciences Cloud & CDISC SDTM",
+    metaDescription: "Complete guide to Clinical Data Management (CDM) careers in 2026. Learn Electronic Data Capture (EDC), Electronic Data Capture (EDC), Life Sciences Cloud Platforms, CDASH, CDISC SDTM & salary paths.",
     h1: "Clinical Data Management (CDM) Career & Technology Guide 2026",
     category: "clinical-data-management",
     categoryLabel: "Clinical Data Management",
@@ -277,23 +277,23 @@ With US healthcare expenditure exceeding $4.5 Trillion, healthcare providers dep
     heroImageAlt: "Clinical Data Management EDC System & Protocol Validation",
     keywords: [
       "clinical data management course",
-      "medidata rave training",
+      "Electronic Data Capture (EDC) training",
       "cdisc sdtm training india",
       "clinical research jobs for freshers",
       "clinical data management internship",
-      "veeva clinical data course",
+      "Enterprise Life Sciences Cloud clinical data course",
     ],
     excerpt: "Discover how Clinical Data Managers build electronic case report forms (eCRFs), manage query resolutions, and structure clinical trial data for global regulatory approval.",
     keyTakeaways: [
       "Clinical Data Management ensures the accuracy, completeness, and consistency of clinical trial data prior to biostatistical analysis.",
-      "Modern CDM relies heavily on cloud Electronic Data Capture (EDC) platforms like Medidata Rave, Veeva Vault Clinical Data, and Oracle InForm.",
+      "Modern CDM relies heavily on cloud Electronic Data Capture (EDC) platforms like Electronic Data Capture (EDC), Clinical Trial Cloud Systems Data, and Oracle InForm.",
       "Understanding CDISC standards (CDASH for data collection and SDTM for regulatory data tabulation) is a critical differentiator for freshers.",
       "Salary growth in CDM is amongst the fastest in clinical research, reaching ₹14+ LPA within 5 years for specialized Data Managers.",
     ],
     tableOfContents: [
       { id: "intro-cdm", title: "1. Understanding Clinical Data Management" },
       { id: "cdm-lifecycle", title: "2. The Clinical Data Lifecycle" },
-      { id: "edc-platforms", title: "3. Enterprise EDC Platforms: Rave & Veeva" },
+      { id: "edc-platforms", title: "3. Enterprise EDC Platforms: Rave & Enterprise Life Sciences Cloud" },
       { id: "cdisc-standards", title: "4. CDISC Standards: CDASH vs SDTM" },
       { id: "career-outlook", title: "5. Career Outlook & Next Steps" },
     ],
@@ -313,10 +313,10 @@ With US healthcare expenditure exceeding $4.5 Trillion, healthcare providers dep
       },
       {
         id: "edc-platforms",
-        title: "3. Enterprise EDC Platforms: Medidata Rave & Veeva Vault",
+        title: "3. Enterprise EDC Platforms: Electronic Data Capture (EDC) & Life Sciences Cloud Platforms",
         content: `Top CROs build study protocols using cloud-native architectures:
-- **Medidata Rave EDC**: Industry standard for global Phase II-IV oncology and rare disease trials.
-- **Veeva Vault EDC**: Fast-growing modular platform integrating eCOA, eConsent, and CTMS into a unified clinical suite.`,
+- **Electronic Data Capture (EDC)**: Industry standard for global Phase II-IV oncology and rare disease trials.
+- **Life Sciences Cloud Platforms EDC**: Fast-growing modular platform integrating eCOA, eConsent, and CTMS into a unified clinical suite.`,
       },
       {
         id: "cdisc-standards",
@@ -620,9 +620,9 @@ With US healthcare expenditure exceeding $4.5 Trillion, healthcare providers dep
     ],
     excerpt: "An in-depth operational analysis of how Artificial Intelligence and Large Language Models (LLMs) are transforming drug safety case processing and clinical trial SaaS.",
     keyTakeaways: [
-      "AI models automate initial literature screening, adverse event extraction, and preliminary MedDRA code suggestions.",
+      "AI models automate initial literature screening, adverse event extraction, and preliminary Standardized Medical Coding code suggestions.",
       "Human-in-the-loop validation remains mandatory under FDA and EMA GVP regulations for final ICSR submission and causality sign-off.",
-      "Clinical SaaS platforms like Veeva Vault and Oracle Safety are embedding native GenAI agents to speed up study setup by 40%.",
+      "Clinical SaaS platforms like Life Sciences Cloud Platforms and Oracle Safety are embedding native GenAI agents to speed up study setup by 40%.",
       "Professionals who combine PV domain knowledge with AI tool fluency command top-tier compensation in Global Capability Centers.",
     ],
     tableOfContents: [
@@ -650,7 +650,7 @@ With US healthcare expenditure exceeding $4.5 Trillion, healthcare providers dep
       {
         id: "career-ai-saas",
         title: "4. Career Opportunities in Clinical SaaS",
-        content: `Life science and technology freshers who understand clinical SaaS workflows are heavily recruited by firms like Innovaccer, Indegene, Veeva, and IQVIA.`,
+        content: `Life science and technology freshers who understand clinical SaaS workflows are heavily recruited by firms like Innovaccer, Indegene, Enterprise Life Sciences Cloud, and IQVIA.`,
       },
     ],
     relatedCourseSlug: "pharmacovigilance",

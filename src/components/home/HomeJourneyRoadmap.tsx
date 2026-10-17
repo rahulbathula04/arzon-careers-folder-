@@ -21,7 +21,7 @@ export function HomeJourneyRoadmap() {
       number: 3,
       icon: BookOpen,
       title: "Build Practical Skills",
-      desc: "Hands-on training with industry tools like Argus Safety, MedDRA, and EDC systems.",
+      desc: "Hands-on training with industry platforms like enterprise safety databases, standardized clinical coding, and EDC systems.",
     },
     {
       number: 4,

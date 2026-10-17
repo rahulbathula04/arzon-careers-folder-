@@ -33,7 +33,7 @@ const TRAITS_DATA: TraitMeta[] = [
     id: "screen",
     label: "Screen / Digital Comfort",
     category: "Operational",
-    clinicalRationale: "Fluency in complex safety database interfaces (Argus, ArisG) under multi-window loads.",
+    clinicalRationale: "Fluency in complex safety database interfaces (Enterprise Safety Database, Multi-Sponsor Safety Systems) under multi-window loads.",
   },
   {
     id: "patient",

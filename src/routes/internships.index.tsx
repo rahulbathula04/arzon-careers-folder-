@@ -25,12 +25,12 @@ export const INTERNSHIP_TRACKS: InternshipTrack[] = [
     format: "Applied Remote / Hybrid Lab",
     supervision: "Practitioner Safety Lead Reviewed",
     deliverables: [
-      "Process 50+ de-identified ICSR case safety reports in Oracle Argus",
-      "Perform MedDRA medical dictionary coding & seriousness criteria evaluation",
+      "Process 50+ de-identified ICSR case safety reports in Enterprise Safety Database",
+      "Perform Standardized Medical Coding medical dictionary coding & seriousness criteria evaluation",
       "Draft MedWatch 3500A & CIOMS-I narrative summaries for global compliance"
     ],
     eligibleDegrees: ["B.Pharm", "Pharm.D", "M.Pharm", "B.Sc/M.Sc Life Sciences"],
-    keyTools: ["Oracle Argus Safety 8.2", "MedDRA 26.0", "E2B(R3) XML", "WHO-ART"],
+    keyTools: ["Enterprise Safety Database", "Standardized Medical Coding", "E2B(R3) XML", "WHO-ART"],
     certificateType: "ISO 9001 Verifiable Applied Internship Credential",
     courseRoute: "/courses/pharmacovigilance"
   },
@@ -47,7 +47,7 @@ export const INTERNSHIP_TRACKS: InternshipTrack[] = [
       "Resolve claim query rejections and denial management scenarios"
     ],
     eligibleDegrees: ["B.Pharm", "Pharm.D", "B.Sc Life Sciences", "Biotechnology"],
-    keyTools: ["ICD-10-CM 2026", "CPT 2026", "HCPCS Level II", "EncoderPro"],
+    keyTools: ["ICD-10-CM 2026", "CPT 2026", "HCPCS Level II", "Clinical Encoders"],
     certificateType: "ISO 9001 Verifiable Medical Coding Internship Credential",
     courseRoute: "/courses/medical-coding"
   },
@@ -59,12 +59,12 @@ export const INTERNSHIP_TRACKS: InternshipTrack[] = [
     format: "Applied Remote / Hybrid Lab",
     supervision: "Lead Data Manager Reviewed",
     deliverables: [
-      "Build eCRF data collection schemas in Medidata RAVE environment",
+      "Build eCRF data collection schemas in Electronic Data Capture (EDC) environment",
       "Perform data validation, discrepancy generation, and query resolution",
       "Execute database lock procedures and final clinical trial data audit"
     ],
     eligibleDegrees: ["B.Pharm", "M.Pharm", "B.Sc/M.Sc Life Sciences", "Biostatistics"],
-    keyTools: ["Medidata RAVE", "Oracle InForm", "CDISC ODM", "Data Validation Rules"],
+    keyTools: ["Electronic Data Capture (EDC)", "Oracle InForm", "CDISC ODM", "Data Validation Rules"],
     certificateType: "ISO 9001 Verifiable CDM Internship Credential",
     courseRoute: "/courses/clinical-data-management"
   },
@@ -91,7 +91,7 @@ export const Route = createFileRoute("/internships/")({
   head: () => {
     const title = "Arzon Global Labs Internship · Applied Clinical Lab";
     const desc =
-      "Explore Arzon Global Labs Internship: hands-on ICSR case processing, MedDRA coding, Oracle Argus 8.2 & Medidata RAVE exposure with verified QR credential.";
+      "Explore Arzon Global Labs Internship: hands-on ICSR case processing, Standardized Medical Coding, Enterprise Safety Database 8.2 & Electronic Data Capture (EDC) exposure with verified QR credential.";
     const seo = pageSeo({
       path: "/internships",
       title,
@@ -120,12 +120,12 @@ export const Route = createFileRoute("/internships/")({
               {
                 "@type": "Course",
                 name: "Pharmacovigilance Applied Capstone Internship",
-                description: "Process 50+ ICSR case safety reports in Oracle Argus 8.2 and MedDRA 26.0.",
+                description: "Process 50+ ICSR case safety reports in Enterprise Safety Database 8.2 and Standardized Medical Coding.",
               },
               {
                 "@type": "Course",
                 name: "Clinical Data Management Capstone Internship",
-                description: "Build eCRF data collection schemas and perform data validation in Medidata RAVE.",
+                description: "Build eCRF data collection schemas and perform data validation in Electronic Data Capture (EDC).",
               },
               {
                 "@type": "Course",

@@ -6,7 +6,7 @@
  * - Section B: ICSR Case Processing & 4 Criteria Intake (6 items)
  * - Section C: Case Assessment & Seriousness Triage (6 items)
  * - Section D: Medical Interpretation & WHO-UMC Causality (4 items)
- * - Section E: MedDRA Coding & E2B Data Mapping (5 items)
+ * - Section E: Standardized Medical Coding & E2B Data Mapping (5 items)
  * - Section F: Documentation & Clinical Narrative Review (4 items)
  * - Section G: Quality, Compliance & Audit Readiness (4 items)
  * - Section H: Analytical Reasoning & Signal Detection (4 items)
@@ -17,7 +17,7 @@
  * - EMA GVP Module VI & IX
  * - CDSCO 2024 Guidance for MAHs (India)
  * - US FDA 21 CFR 314.80
- * - MedDRA PtC v27.0 & WHO-UMC Table
+ * - Standardized Medical Coding PtC v27.0 & WHO-UMC Table
  */
 
 import type {
@@ -134,7 +134,7 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
       },
       {
         key: "B",
-        text: "Day 0 begins only after the central pharmacovigilance department enters the report into the Argus or ARISg database.",
+        text: "Day 0 begins only after the central pharmacovigilance department enters the report into the Enterprise Safety Databases database.",
         isCorrect: false,
         rationale: "Incorrect. Internal processing delays do not alter the statutory Day 0 receipt date.",
       },
@@ -1083,7 +1083,7 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
   },
 
   // ───────────────────────────────────────────────────────────────────────────
-  // SECTION E: MEDDRA CODING & E2B DATA MAPPING (5 Items)
+  // SECTION E: Standardized Medical Coding & E2B DATA MAPPING (5 Items)
   // ───────────────────────────────────────────────────────────────────────────
   {
     itemId: "ACRI-PV-SEC-E-21",
@@ -1091,16 +1091,16 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
     itemNumber: 21,
     section: "E",
     sectionTitle: "Section E: Coding & Data Mapping",
-    competencyId: "meddraCoding",
+    competencyId: "clinicalCoding",
     domain: "Cardiovascular",
     difficulty: "foundational",
     questionType: "coding_mapping",
     jurisdiction: "Global (ICH)",
     prompt:
-      "What is the hierarchical structure of the Medical Dictionary for Regulatory Activities (MedDRA) from the most granular level to the highest grouping level?",
-    regulatoryRefId: "ICH-MEDDRA-PTC",
-    sourceReference: "MedDRA Term Selection: Points to Consider • Section 1 Hierarchy",
-    sourceVersion: "MedDRA PtC Release 27.0",
+      "What is the 5-tier hierarchical structure of standardized clinical safety terminology from the most granular level to the highest grouping level?",
+    regulatoryRefId: "ICH-CODING-PTC",
+    sourceReference: "Standardized Coding Term Selection: Points to Consider • Section 1 Hierarchy",
+    sourceVersion: "Standardized Medical Coding PtC Release 27.0",
     effectiveFrom: "2024-03-01",
     reviewStatus: "ACTIVE",
     approvedBy: "Medical Safety Review Board",
@@ -1110,19 +1110,19 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
         text: "Lowest Level Term (LLT) → Preferred Term (PT) → High Level Term (HLT) → High Level Group Term (HLGT) → System Organ Class (SOC)",
         isCorrect: true,
         rationale:
-          "Correct. MedDRA possesses a 5-tier hierarchical structure: LLT (lowest/most specific) to SOC (broadest anatomical/physiological grouping).",
+          "Correct. Standardized Medical Coding possesses a 5-tier hierarchical structure: LLT (lowest/most specific) to SOC (broadest anatomical/physiological grouping).",
       },
       {
         key: "B",
         text: "System Organ Class (SOC) → Preferred Term (PT) → Sub-Term (ST) → ICD-10 Code",
         isCorrect: false,
-        rationale: "Incorrect. ICD-10 is a separate classification system; MedDRA uses LLT, PT, HLT, HLGT, SOC.",
+        rationale: "Incorrect. ICD-10 is a separate classification system; Standardized Medical Coding uses LLT, PT, HLT, HLGT, SOC.",
       },
       {
         key: "C",
         text: "Verbatim Code → Intermediate Code → Final Category Code",
         isCorrect: false,
-        rationale: "Incorrect. Fictitious terminology not used in MedDRA.",
+        rationale: "Incorrect. Fictitious terminology not used in Standardized Medical Coding.",
       },
       {
         key: "D",
@@ -1139,16 +1139,16 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
     itemNumber: 22,
     section: "E",
     sectionTitle: "Section E: Coding & Data Mapping",
-    competencyId: "meddraCoding",
+    competencyId: "clinicalCoding",
     domain: "Gastroenterology & Analgesics",
     difficulty: "intermediate",
     questionType: "coding_mapping",
     jurisdiction: "Global (ICH)",
     prompt:
-      "In an adverse event narrative, the reporter writes: 'Patient experienced severe belly pain and threw up green liquid.' According to MedDRA Term Selection: Points to Consider (PtC) guidelines, what is the correct medical coding practice?",
-    regulatoryRefId: "ICH-MEDDRA-PTC",
-    sourceReference: "MedDRA Term Selection: Points to Consider • Section 3.2 Specificity",
-    sourceVersion: "MedDRA PtC Release 27.0",
+      "In an adverse event narrative, the reporter writes: 'Patient experienced severe belly pain and threw up green liquid.' According to Standardized Coding Term Selection: Points to Consider (PtC) guidelines, what is the correct medical coding practice?",
+    regulatoryRefId: "ICH-CODING-PTC",
+    sourceReference: "Standardized Coding Term Selection: Points to Consider • Section 3.2 Specificity",
+    sourceVersion: "Standardized Medical Coding PtC Release 27.0",
     effectiveFrom: "2024-03-01",
     reviewStatus: "ACTIVE",
     approvedBy: "Medical Safety Review Board",
@@ -1158,7 +1158,7 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
         text: "Code each distinct clinical concept separately to its most specific LLT: LLT Abdominal pain (PT Abdominal pain) and LLT Vomiting bile (PT Vomiting).",
         isCorrect: true,
         rationale:
-          "Correct. MedDRA PtC mandates coding all reported signs and symptoms to their respective specific Lowest Level Terms without omitting clinical details.",
+          "Correct. Standardized Medical Coding PtC mandates coding all reported signs and symptoms to their respective specific Lowest Level Terms without omitting clinical details.",
       },
       {
         key: "B",
@@ -1187,16 +1187,16 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
     itemNumber: 23,
     section: "E",
     sectionTitle: "Section E: Coding & Data Mapping",
-    competencyId: "meddraCoding",
+    competencyId: "clinicalCoding",
     domain: "Infectious Diseases",
     difficulty: "intermediate",
     questionType: "coding_mapping",
     jurisdiction: "Global (ICH)",
     prompt:
-      "A clinical report verbatim states: 'Suspected bacterial pneumonia; rule out COVID-19.' The discharge summary confirms COVID-19 PCR was negative, and the final confirmed diagnosis by the attending physician was Streptococcus pneumoniae lobar pneumonia. Under MedDRA PtC, what is the definitive PT?",
-    regulatoryRefId: "ICH-MEDDRA-PTC",
-    sourceReference: "MedDRA Term Selection: Points to Consider • Section 3.5 Provisional vs Confirmed Diagnoses",
-    sourceVersion: "MedDRA PtC Release 27.0",
+      "A clinical report verbatim states: 'Suspected bacterial pneumonia; rule out COVID-19.' The discharge summary confirms COVID-19 PCR was negative, and the final confirmed diagnosis by the attending physician was Streptococcus pneumoniae lobar pneumonia. Under Standardized Medical Coding PtC, what is the definitive PT?",
+    regulatoryRefId: "ICH-CODING-PTC",
+    sourceReference: "Standardized Coding Term Selection: Points to Consider • Section 3.5 Provisional vs Confirmed Diagnoses",
+    sourceVersion: "Standardized Medical Coding PtC Release 27.0",
     effectiveFrom: "2024-03-01",
     reviewStatus: "ACTIVE",
     approvedBy: "Medical Safety Review Board",
@@ -1235,16 +1235,16 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
     itemNumber: 24,
     section: "E",
     sectionTitle: "Section E: Coding & Data Mapping",
-    competencyId: "meddraCoding",
+    competencyId: "clinicalCoding",
     domain: "Immunology & Rheumatology",
     difficulty: "advanced",
     questionType: "coding_mapping",
     jurisdiction: "Global (ICH)",
     prompt:
       "A patient on a biological DMARD presents with jaundice, right upper quadrant pain, ALT 850 U/L, AST 720 U/L, and liver biopsy demonstrating drug-induced centrilobular necrosis. What is the primary System Organ Class (SOC) for PT: Drug-induced liver injury?",
-    regulatoryRefId: "ICH-MEDDRA-PTC",
-    sourceReference: "MedDRA Term Selection: Points to Consider • Multiaxiality & Primary SOC",
-    sourceVersion: "MedDRA PtC Release 27.0",
+    regulatoryRefId: "ICH-CODING-PTC",
+    sourceReference: "Standardized Coding Term Selection: Points to Consider • Multiaxiality & Primary SOC",
+    sourceVersion: "Standardized Medical Coding PtC Release 27.0",
     effectiveFrom: "2024-03-01",
     reviewStatus: "ACTIVE",
     approvedBy: "Medical Safety Review Board",
@@ -1253,7 +1253,7 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
         key: "A",
         text: "Hepatobiliary disorders",
         isCorrect: true,
-        rationale: "Correct. In MedDRA, the primary SOC for PT Drug-induced liver injury is Hepatobiliary disorders.",
+        rationale: "Correct. In Standardized Medical Coding, the primary SOC for PT Drug-induced liver injury is Hepatobiliary disorders.",
       },
       {
         key: "B",
@@ -1282,15 +1282,15 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
     itemNumber: 25,
     section: "E",
     sectionTitle: "Section E: Coding & Data Mapping",
-    competencyId: "meddraCoding",
+    competencyId: "clinicalCoding",
     domain: "Cardiovascular",
     difficulty: "intermediate",
     questionType: "coding_mapping",
     jurisdiction: "Global (ICH)",
     prompt:
-      "Under WHO Drug Global (WHODD) coding conventions, what is the essential distinction between the Medicinal Product Name (Trade Name) and the Active Ingredient (Preferred Base Name)?",
+      "Under Global Medicinal Product Dictionaries Global (WHODD) coding conventions, what is the essential distinction between the Medicinal Product Name (Trade Name) and the Active Ingredient (Preferred Base Name)?",
     regulatoryRefId: "ICH-E2D-R1",
-    sourceReference: "WHO Drug Dictionary Guidelines • Product versus Substance Hierarchy",
+    sourceReference: "Global Medicinal Product Dictionaries Guidelines • Product versus Substance Hierarchy",
     sourceVersion: "WHODD Standard",
     effectiveFrom: "2024-01-01",
     reviewStatus: "ACTIVE",
@@ -2061,9 +2061,9 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
         "Refer to Case 0174 Dossier: Positive dechallenge (symptoms resolved when drug stopped and steroids started); negative microbiological cultures; plausible 12-day onset latency.",
     },
     prompt:
-      "INTEGRATED SIMULATION (STAGE 3 OF 3): Complete the medical safety evaluation for Case 0174: Assign the MedDRA Preferred Term (PT) and the WHO-UMC causality classification.",
-    regulatoryRefId: "ICH-MEDDRA-PTC",
-    sourceReference: "WHO-UMC & MedDRA PtC • Comprehensive Case Assessment",
+      "INTEGRATED SIMULATION (STAGE 3 OF 3): Complete the medical safety evaluation for Case 0174: Assign the Standardized Medical Coding Preferred Term (PT) and the WHO-UMC causality classification.",
+    regulatoryRefId: "ICH-CODING-PTC",
+    sourceReference: "WHO-UMC & Standardized Medical Coding PtC • Comprehensive Case Assessment",
     sourceVersion: "WHO-UMC Standard",
     effectiveFrom: "2024-01-01",
     reviewStatus: "ACTIVE",
@@ -2071,26 +2071,26 @@ export const AUTHORED_ACRI_ITEM_BANK: AcriAssessmentItemRecord[] = [
     options: [
       {
         key: "A",
-        text: "MedDRA PT: Colitis (Primary SOC: Gastrointestinal disorders) · WHO-UMC Causality: Probable / Likely (Plausible temporal onset, positive dechallenge, negative infectious etiology, no rechallenge attempted).",
+        text: "Standardized Medical Coding PT: Colitis (Primary SOC: Gastrointestinal disorders) · WHO-UMC Causality: Probable / Likely (Plausible temporal onset, positive dechallenge, negative infectious etiology, no rechallenge attempted).",
         isCorrect: true,
         rationale:
           "Correct. PT Colitis captures the confirmed biopsy/colonoscopy diagnosis under Gastrointestinal disorders. WHO-UMC 'Probable/Likely' is exact because temporal sequence and dechallenge are positive, infectious causes are ruled out, and rechallenge was not attempted.",
       },
       {
         key: "B",
-        text: "MedDRA PT: Diarrhoea · WHO-UMC Causality: Unlikely (Chemotherapy carboplatin is the only possible cause of diarrhea).",
+        text: "Standardized Medical Coding PT: Diarrhoea · WHO-UMC Causality: Unlikely (Chemotherapy carboplatin is the only possible cause of diarrhea).",
         isCorrect: false,
         rationale: "Incorrect. Colitis is the confirmed endoscopic pathology; causality cannot be dismissed as Unlikely.",
       },
       {
         key: "C",
-        text: "MedDRA PT: Food poisoning · WHO-UMC Causality: Certain (Hospital food caused the infection).",
+        text: "Standardized Medical Coding PT: Food poisoning · WHO-UMC Causality: Certain (Hospital food caused the infection).",
         isCorrect: false,
         rationale: "Incorrect. Stool cultures were negative; diagnosis is autoimmune colitis.",
       },
       {
         key: "D",
-        text: "MedDRA PT: Malaise · WHO-UMC Causality: Unassessable.",
+        text: "Standardized Medical Coding PT: Malaise · WHO-UMC Causality: Unassessable.",
         isCorrect: false,
         rationale: "Incorrect. Comprehensive clinical data exists; unassessable is invalid.",
       },
@@ -2183,7 +2183,7 @@ export function generateCandidateQuestionBattery(
             ? "Case Assessment"
             : r.competencyId === "medicalInterpretation"
               ? "Causality"
-              : r.competencyId === "meddraCoding"
+              : r.competencyId === "clinicalCoding"
                 ? "Coding"
                 : r.competencyId === "documentation"
                   ? "Documentation"
@@ -2194,7 +2194,7 @@ export function generateCandidateQuestionBattery(
       r.questionType === "intake_validation"
         ? "intake_validation"
         : r.questionType === "coding_mapping"
-          ? "meddra_coding"
+          ? "clinical_coding"
           : r.questionType === "causality_determination"
             ? "who_causality"
             : "mcq",

@@ -46,12 +46,12 @@ const CAREER_TRACKS: CareerTrack[] = [
     description:
       "Triage adverse event reports from clinical trials and post-marketing surveillance. Process individual case safety reports (ICSRs) compliant with US FDA 21 CFR Part 11 and ICH E2B(R3) standards.",
     dayOneTasks: [
-      "Process 4–6 spontaneous ICSR cases daily using Oracle Argus Safety.",
-      "Assign precise MedDRA Lowest Level Terms (LLT) and Preferred Terms (PT).",
+      "Process 4–6 spontaneous ICSR cases daily using enterprise safety databases.",
+      "Assign precise standardized Lowest Level Terms (LLT) and Preferred Terms (PT).",
       "Perform duplicate search and medical narrative authoring for expedited 7/15-day cases.",
       "Evaluate causality and dechallenge/rechallenge outcomes under senior physician review.",
     ],
-    primaryTools: ["Oracle Argus Safety 8.4", "MedDRA 27.0", "ARISg", "CIOMS-I", "ICH E2B(R3)"],
+    primaryTools: ["Enterprise Safety DB", "Standardized Medical Coding", "ICSR Gateways", "CIOMS-I", "ICH E2B(R3)"],
     topEmployers: ["Novartis", "IQVIA", "Parexel", "Pfizer", "Dr. Reddy's", "Cognizant Life Sciences"],
     eligibility: "Pharm.D, B.Pharm, M.Pharm, MBBS, BDS, BAMS, B.Sc/M.Sc Life Sciences",
     salary: {
@@ -59,7 +59,7 @@ const CAREER_TRACKS: CareerTrack[] = [
       y3: "₹7.5L – ₹10.0L",
       y5: "₹14.0L – ₹22.0L",
     },
-    atsKeywords: ["Oracle Argus", "ICSR", "MedDRA", "MedWatch 3500A", "PBRER", "ICH-GCP"],
+    atsKeywords: ["Safety Database", "ICSR", "Medical Coding", "MedWatch 3500A", "PBRER", "ICH-GCP"],
     courseRoute: "/pv-associate",
   },
   {
@@ -75,7 +75,7 @@ const CAREER_TRACKS: CareerTrack[] = [
       "Resolve coding edits and modifier discrepancies (e.g. Modifiers 25, 59) to prevent claim denials.",
       "Prepare for CPC / CCS certification benchmarks required by US revenue cycle management teams.",
     ],
-    primaryTools: ["ICD-10-CM", "CPT-4", "HCPCS Level II", "3M Encoder", "Optum CAC"],
+    primaryTools: ["ICD-10-CM", "CPT-4", "HCPCS Level II", "Clinical Encoders", "CAC Software"],
     topEmployers: ["Optum (UnitedHealth)", "Omega Healthcare", "GeBBS", "Episource", "CorroHealth"],
     eligibility: "B.Pharm, B.Sc Life Sciences, Biotechnology, Nursing, Allied Health",
     salary: {
@@ -90,7 +90,7 @@ const CAREER_TRACKS: CareerTrack[] = [
     id: "cdm",
     name: "Clinical Research & CDM",
     shortCode: "CLIN-CDM",
-    tagline: "ICH-GCP Trial Coordination & Medidata RAVE eCRF Data Management",
+    tagline: "ICH-GCP Trial Coordination & Electronic Data Capture (EDC) Systems",
     description:
       "Manage end-to-end clinical trial data pipelines from site initiation through database lock. Validate electronic Case Report Forms (eCRFs) and issue clinical queries.",
     dayOneTasks: [
@@ -99,7 +99,7 @@ const CAREER_TRACKS: CareerTrack[] = [
       "Execute Data Validation Specifications (DVS) and manual discrepancy checks.",
       "Assist in serious adverse event (SAE) reconciliation between clinical and safety databases.",
     ],
-    primaryTools: ["Medidata RAVE", "Oracle InForm", "Oracle Clinical", "ICH-GCP E6(R2)", "CDISC CDASH"],
+    primaryTools: ["Electronic Data Capture (EDC)", "eCRF Platforms", "ICH-GCP E6(R2)", "CDISC CDASH", "Discrepancy Mgmt"],
     topEmployers: ["IQVIA", "Syneos Health", "ICON plc", "Labcorp Drug Development", "TCS Life Sciences"],
     eligibility: "B.Pharm, Pharm.D, M.Sc Biotechnology, Microbiology, Biochemistry, B.Sc Nursing",
     salary: {
@@ -107,7 +107,7 @@ const CAREER_TRACKS: CareerTrack[] = [
       y3: "₹7.0L – ₹9.5L",
       y5: "₹13.0L – ₹20.0L",
     },
-    atsKeywords: ["Medidata RAVE", "eCRF Validation", "ICH-GCP E6", "Query Management", "SAE Reconciliation"],
+    atsKeywords: ["EDC Platforms", "eCRF Validation", "ICH-GCP E6", "Query Management", "SAE Reconciliation"],
     courseRoute: "/courses/clinical-research",
   },
   {
@@ -123,7 +123,7 @@ const CAREER_TRACKS: CareerTrack[] = [
       "Compile patient safety narratives for serious adverse events and treatment discontinuations.",
       "Perform quality control (QC) fact-checking against Statistical Analysis Plans (SAP) and TLFs.",
     ],
-    primaryTools: ["ICH E3 Guidelines", "Veeva Vault", "EndNote", "Documentum", "eCTD Module 2/5"],
+    primaryTools: ["ICH E3 Guidelines", "Clinical Document Management", "Reference Managers", "eCTD Module 2/5", "CSR Workflows"],
     topEmployers: ["Novartis", "AstraZeneca", "Sanofi", "Parexel", "Cactus Communications", "Indegene"],
     eligibility: "Pharm.D, M.Pharm (Pharmacology), MBBS, BDS, M.Sc Life Sciences with strong writing skills",
     salary: {
@@ -147,7 +147,7 @@ const CAREER_TRACKS: CareerTrack[] = [
       "Coordinate regulatory query responses and submission deficiency letters from health authorities.",
       "Track product licenses and post-approval variation submissions across global markets.",
     ],
-    primaryTools: ["eCTD Lorenz DocuBridge", "Extedo", "US FDA ESG", "EU CESP", "DMF Guidelines"],
+    primaryTools: ["eCTD Publishing Platforms", "XML Backbone Validators", "US FDA ESG", "EU CESP", "DMF Guidelines"],
     topEmployers: ["Sun Pharma", "Dr. Reddy's", "Cipla", "Lupin", "Aurobindo", "Mylan (Viatris)"],
     eligibility: "B.Pharm, M.Pharm (Pharmaceutics/DRA/Chemistry), M.Sc Chemistry, Life Sciences",
     salary: {

@@ -346,17 +346,17 @@ const PV: PathDossier = {
       category: "Case processing",
       items: [
         {
-          name: "Oracle Argus Safety",
+          name: "Enterprise Safety Database",
           why: "Industry-standard safety database - 70% of CROs run on it.",
           frequency: "daily",
         },
         {
-          name: "ARISg (ArisGlobal)",
+          name: "Multi-Sponsor Safety Systems (Multi-Sponsor Safety Systemslobal)",
           why: "The other 25% - same shape, different vendor.",
           frequency: "daily",
         },
         {
-          name: "MedDRA browser",
+          name: "Clinical Coding Browser",
           why: "You code every adverse event term against it.",
           frequency: "daily",
         },
@@ -386,7 +386,7 @@ const PV: PathDossier = {
           frequency: "daily",
         },
         {
-          name: "Veeva Vault / SharePoint",
+          name: "Life Sciences Cloud Platforms / SharePoint",
           why: "Regulatory-grade document control.",
           frequency: "weekly",
         },
@@ -398,7 +398,7 @@ const PV: PathDossier = {
       window: "30",
       title: "Case triage fluency",
       outcomes: [
-        "Complete Argus + MedDRA + GVP onboarding.",
+        "Complete Safety Database + Standardized Coding + GVP onboarding.",
         "Triage 20+ shadowed cases with a senior.",
         "Know seriousness, expectedness, causality cold.",
       ],
@@ -439,7 +439,7 @@ const PV: PathDossier = {
     {
       time: "09:45",
       activity: "Case processing block",
-      detail: "3–4 non-serious ICSRs entered into Argus, MedDRA-coded, narrative drafted.",
+      detail: "3–4 non-serious ICSRs entered into Enterprise Safety Database, Standardized Medical Coding-coded, narrative drafted.",
     },
     {
       time: "12:30",
@@ -483,7 +483,7 @@ const PV: PathDossier = {
         aiTouch: "assisted",
       },
       {
-        label: "MedDRA coding (routine AEs)",
+        label: "Standardized Medical Coding (routine AEs)",
         today: "Manual lookup",
         in2030: "LLM-suggested + human accept",
         aiTouch: "assisted",
@@ -523,14 +523,14 @@ const PV: PathDossier = {
         "You process 40+ real anonymised ICSRs in the PV Track - muscle memory, not flashcards.",
     },
     {
-      bucket: "MedDRA + tools",
+      bucket: "Standardized Medical Coding + tools",
       weight: 25,
       examples: [
         "Show me how you'd code 'severe headache after 3rd dose'.",
-        "Screenshot of an Argus case you processed?",
+        "Screenshot of an Enterprise Safety Database case you processed?",
       ],
-      commonFail: "Named Argus, never opened it.",
-      arzonCounter: "Sandbox Argus + MedDRA browser access from Week 2.",
+      commonFail: "Named Enterprise Safety Database, never opened it.",
+      arzonCounter: "Sandbox Safety Database + Standardized Coding browser access from Week 2.",
     },
     {
       bucket: "Regulatory awareness",
@@ -688,11 +688,11 @@ const CDM: PathDossier = {
       category: "EDC platforms",
       items: [
         {
-          name: "Medidata Rave",
+          name: "Electronic Data Capture (EDC)",
           why: "The largest EDC - 60% of trials globally.",
           frequency: "daily",
         },
-        { name: "Veeva Vault EDC", why: "Fastest-growing modern EDC.", frequency: "daily" },
+        { name: "Life Sciences Cloud Platforms EDC", why: "Fastest-growing modern EDC.", frequency: "daily" },
         {
           name: "Oracle Clinical / Inform",
           why: "Legacy but still widespread at big pharma.",

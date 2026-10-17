@@ -33,8 +33,8 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
     ],
     employerRequirements: [
       "Life-sciences degree (B.Pharm / M.Pharm / Pharm.D / B.Sc Life-Sci)",
-      "Hands-on with Argus, ARISg or Veeva Vault Safety (any one)",
-      "MedDRA + WHO-DD coding accuracy demonstrated on a sample case",
+      "Hands-on with Enterprise Safety Database, Multi-Sponsor Safety Systems or Cloud Safety Management Systems (any one)",
+      "Standardized Medical Coding + Global Medicinal Product Dictionaries coding accuracy demonstrated on a sample case",
       "ICH-GVP / 21 CFR 314.80 awareness in interview",
       "English writing - narratives must read like the reviewer wrote them",
     ],
@@ -56,8 +56,8 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       },
     ],
     firstNinetyDays: [
-      "Clear Argus / ARISg system test in week 1",
-      "Hit 95%+ MedDRA coding accuracy on training cases by week 4",
+      "Clear Enterprise Safety Databases system test in week 1",
+      "Hit 95%+ Standardized Medical Coding accuracy on training cases by week 4",
       "Own end-to-end ICSR processing for 1 product by month 3",
     ],
   },
@@ -104,7 +104,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
     ],
     employerRequirements: [
       "Life-sciences degree + SCDM awareness",
-      "Hands-on with Medidata Rave, Veeva CDB or Oracle Inform",
+      "Hands-on with Electronic Data Capture (EDC), Enterprise Life Sciences Cloud CDB or Oracle Inform",
       "SQL basics + ability to write edit checks",
       "ICH-GCP working knowledge",
       "Detail discipline visible in trial / project sample work",
@@ -118,7 +118,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       {
         label: "Tech-led CDM",
         note: "₹5.0–7.0 LPA · EDC product + services",
-        companies: ["Veeva Systems", "Medidata", "Oracle Health Sciences", "eClinicalWorks"],
+        companies: ["Enterprise Life Sciences Cloud Providers", "Enterprise EDC", "Oracle Health Sciences", "eClinicalWorks"],
       },
       {
         label: "Mid-tier CRO",
@@ -140,7 +140,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       "eCTD structure (Modules 1–5) understanding",
       "Working knowledge of US FDA + EMA + CDSCO guidelines",
       "Long-form scientific writing with clean references",
-      "Tools: DocuBridge, eCTDXPress, Veeva Vault RIM (any one)",
+      "Tools: eCTD Publishing Platforms, eCTDXPress, Enterprise RIM Platforms (any one)",
     ],
     tiers: [
       {
@@ -227,7 +227,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       {
         label: "Clinical SaaS",
         note: "₹8–14 LPA · embedded AI teams",
-        companies: ["Veeva AI", "Medidata AI", "IQVIA Tech", "Doceree"],
+        companies: ["Enterprise Life Sciences Cloud AI", "Enterprise EDC AI", "IQVIA Tech", "Doceree"],
       },
     ],
     firstNinetyDays: [
@@ -255,7 +255,7 @@ export const PATH_BRIEFINGS: Record<string, PathBriefingData> = {
       {
         label: "Tier-1 clinical SaaS",
         note: "₹6–9 LPA · global accounts",
-        companies: ["Veeva Systems", "Medidata", "IQVIA Tech", "Saama"],
+        companies: ["Enterprise Life Sciences Cloud Providers", "Enterprise EDC", "IQVIA Tech", "Saama"],
       },
       {
         label: "Indian healthtech",

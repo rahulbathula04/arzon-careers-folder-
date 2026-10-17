@@ -39,9 +39,9 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { city: "Chennai", areas: "OMR, Guindy DLF SEZ" },
     ],
     tools: [
-      { name: "Oracle Argus Safety 8.x", category: "Safety Database" },
-      { name: "MedDRA 27.x Coding", category: "Medical Terminology" },
-      { name: "WHO Drug Dictionary", category: "Concomitant Meds" },
+      { name: "Enterprise Safety Databases", category: "Safety Database" },
+      { name: "Standardized Medical Coding", category: "Medical Terminology" },
+      { name: "Global Drug Coding Dictionaries", category: "Concomitant Meds" },
       { name: "ICH E2B(R3) Standards", category: "Regulatory Transmission" },
       { name: "Clinical Safety Narratives", category: "Technical Writing" },
       { name: "CIOMS / FDA Form 3500A", category: "Expedited Reporting" },
@@ -57,15 +57,15 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       "Post-Marketing Surveillance Hubs",
     ],
     dayInLife:
-      "Triage incoming spontaneous, clinical trial, and literature adverse event cases. Code medical events to MedDRA Lowest Level Terms (LLTs), verify suspect drug formulation and causality, formulate structured safety narratives, and ensure compliance with strict 7-day and 15-day global regulatory submission deadlines.",
+      "Triage incoming spontaneous, clinical trial, and literature adverse event cases. Code medical events to standardized clinical dictionary terms, verify suspect drug formulation and causality, formulate structured safety narratives, and ensure compliance with strict 7-day and 15-day global regulatory submission deadlines.",
     dailyKpis: [
       "4–6 ICSR adverse event cases processed per 8-hour shift",
-      "≥98.5% Quality Audit Score on MedDRA coding & listedness",
+      "≥98.5% Quality Audit Score on medical coding & listedness",
       "Zero Day-15 regulatory timeline breaches",
     ],
     technicalInterviewTells: [
       "Explain the exact difference between Serious Adverse Event (SAE) vs Serious Adverse Reaction (SAR).",
-      "Walk through MedDRA hierarchy (LLT -> PT -> HLT -> HLGT -> SOC) with a clinical case example.",
+      "Walk through 5-tier medical coding hierarchy (LLT -> PT -> HLT -> HLGT -> SOC) with a clinical case example.",
       "How to assess causality using the WHO-UMC scale versus Naranjo algorithm.",
     ],
     marketOutlook:
@@ -89,7 +89,7 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
     tools: [
       { name: "ICD-10-CM 2026", category: "Diagnosis Coding" },
       { name: "CPT-4 / HCPCS Level II", category: "Procedure Coding" },
-      { name: "3M CAC Encoder", category: "Computer-Assisted Coding" },
+      { name: "Enterprise CAC Encoders", category: "Computer-Assisted Coding" },
       { name: "Optum 360", category: "Revenue Cycle Suite" },
       { name: "AAPC / AHIMA Guidelines", category: "Compliance Benchmarks" },
       { name: "HIPAA / HITECH Rules", category: "Data Confidentiality" },
@@ -135,8 +135,8 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { city: "Mumbai", areas: "Powai, Vikhroli" },
     ],
     tools: [
-      { name: "Medidata Rave EDC", category: "Electronic Data Capture" },
-      { name: "Oracle Clinical / InForm", category: "Trial Database" },
+      { name: "Electronic Data Capture (EDC)", category: "Trial Data Systems" },
+      { name: "Clinical Trial Databases", category: "Trial Database" },
       { name: "CDISC CDASH & SDTM", category: "Global Data Standards" },
       { name: "Data Validation Specs (DVS)", category: "Edit Checks" },
       { name: "SAE Reconciliation Logs", category: "Cross-Functional Safety" },
@@ -156,11 +156,11 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       "Design and test electronic Case Report Forms (eCRFs) according to clinical study protocols. Program and execute automated edit checks, generate and resolve queries with investigator trial sites, reconcile serious adverse event data against safety databases, and prepare study databases for interim/final lock.",
     dailyKpis: [
       "25–40 site query cycles resolved within protocol SLAs",
-      "100% SAE reconciliation agreement across EDC and Argus",
+      "100% SAE reconciliation agreement across EDC and Safety Databases",
       "Zero critical audit findings during trial database lock",
     ],
     technicalInterviewTells: [
-      "Explain the lifecycle of a query from initiation to closed state in Medidata Rave.",
+      "Explain the lifecycle of a query from initiation to closed state in enterprise EDC systems.",
       "What is the difference between CDISC CDASH standards and SDTM domains?",
       "How to conduct Discrepancy Management and Database Soft vs Hard Lock.",
     ],
@@ -184,7 +184,7 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
     ],
     tools: [
       { name: "eCTD Submissions (Module 1-5)", category: "Dossier Formatting" },
-      { name: "Veeva Vault RIM", category: "Regulatory Information Mgmt" },
+      { name: "Enterprise RIM Platforms", category: "Regulatory Information Mgmt" },
       { name: "CDSCO SUGAM Portal", category: "Indian Filings" },
       { name: "US FDA ESG / CDER Direct", category: "US Submissions" },
       { name: "SmPC & PIL Artwork Review", category: "Labeling Governance" },
@@ -230,7 +230,7 @@ const MARKET_METRICS: Record<string, MarketProfile> = {
       { city: "Gurugram", areas: "DLF Cyber City, Golf Course Road" },
     ],
     tools: [
-      { name: "Veeva Vault Clinical & Quality", category: "Life Sciences Cloud" },
+      { name: "Life Sciences Cloud Platforms", category: "Life Sciences Cloud" },
       { name: "Salesforce Health Cloud", category: "Patient Management" },
       { name: "HL7 / FHIR Standards", category: "Interoperability" },
       { name: "Workflow Journey Mapping", category: "Clinical Operations" },

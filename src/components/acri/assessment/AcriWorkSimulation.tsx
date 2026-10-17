@@ -176,7 +176,7 @@ export function AcriWorkSimulation({
                   />
                 )}
 
-                {item.simulationType === "meddra_coding" && (
+                {item.simulationType === "clinical_coding" && (
                   <McqSimulation
                     item={item}
                     answer={currentAnswer || ""}

@@ -73,8 +73,8 @@ const FIVE_DIMENSIONS: DimensionModel[] = [
     weightPct: 20,
     icon: Search,
     coreQuestion: "Does the candidate spot discrepancies between raw medical notes and standardized databases?",
-    regulatoryStandard: "MedDRA v27.0 & ICH E2B(R3)",
-    occupationalFocus: "MedDRA hierarchy assignment (LLT to PT), dosage discrepancies, duplicate case identification.",
+    regulatoryStandard: "Standardized Medical Coding & ICH E2B(R3)",
+    occupationalFocus: "5-tier medical coding hierarchy assignment (LLT to PT), dosage discrepancies, duplicate case identification.",
     workSimulationExcerpt:
       "A discharge summary mentions 'mild myocardial infarction rule-out' under admission notes, but the final diagnosis confirms 'Gastroesophageal Reflux Disease'. The candidate must select GERD as the confirmed adverse event rather than erroneously coding MI.",
     keySignals: [

@@ -296,11 +296,11 @@ export function AcriLandingPage() {
                     <span className="text-xs font-semibold text-[#071A4A]">ICSR Processing</span>
                   </div>
                   <div
-                    onClick={() => setSelectedSkillModal("meddra")}
+                    onClick={() => setSelectedSkillModal("standardized medical coding")}
                     className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-[#EEF6FF] cursor-pointer transition-colors"
                   >
                     <Layers className="h-3.5 w-3.5 text-[#6946E8]" />
-                    <span className="text-xs font-semibold text-[#071A4A]">MedDRA Coding</span>
+                    <span className="text-xs font-semibold text-[#071A4A]">Standardized Medical Coding</span>
                   </div>
                   <div
                     onClick={() => setSelectedSkillModal("safety")}
@@ -389,7 +389,7 @@ export function AcriLandingPage() {
                 <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#6946E8] uppercase">
                   <span>Step 02</span>
                   <span>&bull;</span>
-                  <span>MedDRA 27.0 Coding</span>
+                  <span>Standardized Medical Coding Coding</span>
                 </div>
                 <h4 className="text-sm font-bold text-[#071A4A] mt-1">Medical Terminology Mapping</h4>
                 <p className="text-xs text-[#69758A] mt-0.5">
@@ -460,7 +460,7 @@ export function AcriLandingPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-500 font-bold">&times;</span>
-                  <span>No hands-on MedDRA browser coding or ICH E2B(R3) case processing</span>
+                  <span>No hands-on Clinical Coding Browser coding or ICH E2B(R3) case processing</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-red-500 font-bold">&times;</span>
@@ -482,7 +482,7 @@ export function AcriLandingPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0 mt-0.5" />
-                  <span>Interactive MedDRA 27.0 coding exercises with hierarchy validation</span>
+                  <span>Interactive Standardized Medical Coding coding exercises with hierarchy validation</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0 mt-0.5" />
@@ -531,7 +531,7 @@ export function AcriLandingPage() {
             {/* Phase 2 */}
             <div className="p-6 rounded-3xl bg-white border border-[#E4EAF2] shadow-sm space-y-3 tone-light card-light">
               <span className="font-mono text-xs font-bold text-[#6946E8] uppercase">Weeks 04 &ndash; 06</span>
-              <h3 className="font-serif text-lg font-bold text-[#071A4A]">MedDRA 27.0 Hierarchy</h3>
+              <h3 className="font-serif text-lg font-bold text-[#071A4A]">Standardized Medical Coding Hierarchy</h3>
               <p className="text-xs text-[#69758A] leading-relaxed">
                 SOC, HLGT, HLT, PT, and LLT coding rules. Selection points (PT vs LLT) and ambiguous verbatim term resolution.
               </p>
@@ -603,15 +603,15 @@ export function AcriLandingPage() {
                 </div>
 
                 <div
-                  onMouseEnter={() => setActiveLaptopPill("meddra")}
+                  onMouseEnter={() => setActiveLaptopPill("standardized medical coding")}
                   className={`p-3.5 rounded-2xl border transition-all cursor-pointer ${
-                    activeLaptopPill === "meddra"
+                    activeLaptopPill === "standardized medical coding"
                       ? "border-[#6946E8] bg-purple-50/60 shadow-sm"
                       : "border-[#E4EAF2] bg-white tone-light card-light"
                   }`}
                 >
                   <div className="flex items-center justify-between text-xs font-bold text-[#071A4A]">
-                    <span>MedDRA Medical Coding</span>
+                    <span>Standardized Medical Coding Medical Coding</span>
                     <span className="text-[#6946E8]">94% of JDs require</span>
                   </div>
                   <p className="text-xs text-[#69758A] mt-1">
@@ -807,7 +807,7 @@ export function AcriLandingPage() {
               <div className="h-10 w-10 rounded-2xl bg-purple-50 flex items-center justify-center text-[#6946E8]">
                 <Layers className="h-5 w-5" />
               </div>
-              <h3 className="font-serif text-lg font-bold text-[#071A4A]">MedDRA Coding Audit Record</h3>
+              <h3 className="font-serif text-lg font-bold text-[#071A4A]">Standardized Medical Coding Audit Record</h3>
               <p className="text-xs text-[#69758A] leading-relaxed">
                 Documented term mapping demonstrating precise distinction between Preferred Terms (PT) and Lowest Level Terms (LLT).
               </p>
@@ -914,16 +914,16 @@ export function AcriLandingPage() {
                 a: "Yes. In fact, final-year students benefit the most because they complete their role readiness deliverables before campus and off-campus recruitment drives commence, giving them a significant advantage over peers.",
               },
               {
-                q: "Do I need coding or software experience to learn MedDRA and ICSR processing?",
+                q: "Do I need coding or software experience to learn Standardized Medical Coding and ICSR processing?",
                 a: "No software coding is required. Pharmacovigilance is a medical and clinical data discipline, not computer programming. You will work with medical dictionaries, case narrative templates, and safety tracking systems.",
               },
               {
                 q: "How much time per week is required for the 12-week program?",
-                a: "The program is designed for students and working professionals, requiring approximately 6 to 8 hours per week, including guided case study reviews, MedDRA assignments, and live mentor Q&A sessions.",
+                a: "The program is designed for students and working professionals, requiring approximately 6 to 8 hours per week, including guided case study reviews, Standardized Medical Coding assignments, and live mentor Q&A sessions.",
               },
               {
                 q: "What is the difference between this program and generic video courses?",
-                a: "Generic courses offer passive video watching. Arzon trains you through hands-on ICSR case files, MedDRA 27.0 term mapping, and safety narrative authoring under regulatory clocks, culminating in verified proof of work.",
+                a: "Generic courses offer passive video watching. Arzon trains you through hands-on ICSR case files, Standardized Medical Coding term mapping, and safety narrative authoring under regulatory clocks, culminating in verified proof of work.",
               },
               {
                 q: "How does the 1-on-1 Career Counsellor discussion work?",
@@ -1036,7 +1036,7 @@ export function AcriLandingPage() {
                   <span className="font-bold text-[#071A4A]">Amoxicillin 500mg TID</span>
                 </div>
                 <div>
-                  <span className="text-[#69758A] block mb-1">MedDRA 27.0 PT:</span>
+                  <span className="text-[#69758A] block mb-1">Standardized Medical Coding PT:</span>
                   <span className="font-bold text-[#6946E8]">Rash maculo-papular (10037868)</span>
                 </div>
                 <div>
@@ -1134,7 +1134,7 @@ export function AcriLandingPage() {
                   {[
                     "Check the safety mailbox for CIOMS-I and MedWatch source reports.",
                     "Run duplicate checks against the safety database before case processing.",
-                    "Query the MedDRA browser and select the appropriate medical terminology.",
+                    "Query the Clinical Coding Browser and select the appropriate medical terminology.",
                     "Draft the chronological safety narrative and flag the regulatory submission date.",
                   ].map((step, index) => (
                     <div key={step} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
@@ -1185,7 +1185,7 @@ export function AcriLandingPage() {
             <span className="text-xs font-mono font-bold uppercase text-[#1557D6]">COMPETENCY BENCHMARK</span>
             <h3 className="font-serif text-2xl font-bold text-[#071A4A]">
               {selectedSkillModal === "icsr" && "ICSR Case Processing"}
-              {selectedSkillModal === "meddra" && "MedDRA 27.0 Hierarchy"}
+              {selectedSkillModal === "standardized medical coding" && "Standardized Medical Coding Hierarchy"}
               {selectedSkillModal === "safety" && "Safety Assessment & Triage"}
               {selectedSkillModal === "narrative" && "Clinical Safety Narratives"}
             </h3>
@@ -1193,7 +1193,7 @@ export function AcriLandingPage() {
             <p className="text-sm text-[#3F4A60] leading-relaxed">
               {selectedSkillModal === "icsr" &&
                 "Learn the end-to-end receipt, validation, prioritization, and triage of spontaneous, clinical trial, and literature adverse event cases under ICH E2B(R3) global standards."}
-              {selectedSkillModal === "meddra" &&
+              {selectedSkillModal === "standardized medical coding" &&
                 "Master the hierarchical assignment of medical concepts across SOC, HLGT, HLT, PT, and LLT with precision, adhering to Points to Consider (PtC) regulatory guidelines."}
               {selectedSkillModal === "safety" &&
                 "Understand seriousness criteria (death, life-threatening, hospitalization, disability, congenital anomaly) and WHO-UMC causality evaluation algorithms."}

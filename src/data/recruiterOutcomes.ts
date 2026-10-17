@@ -12,13 +12,13 @@ export type RecruiterOutcome = {
 
 export const RECRUITER_OUTCOMES: RecruiterOutcome[] = [
   {
-    pain: "6-week ramp on Argus Safety",
-    delivers: "Pre-trained on Argus 8.x case-entry workflow",
+    pain: "6-week ramp on Enterprise Safety Database",
+    delivers: "Pre-trained on Enterprise Safety Database 8.x case-entry workflow",
     artifact: "50-case processing log (PDF)",
   },
   {
-    pain: "MedDRA coding errors in first month",
-    delivers: "Hands-on MedDRA / WHO-DD coding practice",
+    pain: "Standardized Medical Coding errors in first month",
+    delivers: "Hands-on Standardized Medical Coding / Global Medicinal Product Dictionaries coding practice",
     artifact: "Coded ICSR portfolio (20 cases)",
   },
   {

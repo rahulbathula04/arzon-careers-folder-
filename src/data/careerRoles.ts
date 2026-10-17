@@ -150,7 +150,7 @@ const AI_COS = [
   "Niramai",
   "Qure.ai",
 ];
-const SAAS_COS = ["Innovaccer", "ZS Associates", "Veeva", "IQVIA Tech", "Indegene", "CitiusTech"];
+const SAAS_COS = ["Innovaccer", "ZS Associates", "Enterprise Life Sciences Cloud", "IQVIA Tech", "Indegene", "CitiusTech"];
 
 // ──────────────────────────────────────────────────────────────────
 // Roles (~50)
@@ -176,10 +176,10 @@ export const CAREER_ROLES: CareerRole[] = [
     aiRiskNote: "Triage & intake extraction automate incrementally; clinical coherence, causality review, and regulatory sign-off remain strictly human.",
     skills: [
       "ICSR intake & 4 minimum criteria",
-      "MedDRA & WHO Drug coding",
+      "Standardized Medical Coding & Global Medicinal Product Dictionaries coding",
       "Seriousness & listedness triage",
       "Chronological narrative authoring",
-      "E2B(R3) field mapping & Argus navigation",
+      "E2B(R3) field mapping & Enterprise Safety Database navigation",
       "ICH E2D(R1) & GVP compliance",
     ],
     certifications: ["ICH E2D(R1) & E2B(R3)", "EMA GVP Module VI", "Arzon ACRI-PV Role Readiness"],
@@ -190,7 +190,7 @@ export const CAREER_ROLES: CareerRole[] = [
     slug: "drug-safety.icsr-case-processor",
     familyId: "drug-safety",
     name: "ICSR Case Processor",
-    blurb: "High-throughput operational specialist who extracts source documents, executes MedDRA term coding, verifies Day-0 compliance, and maintains zero-defect audit standards.",
+    blurb: "High-throughput operational specialist who extracts source documents, executes standardized medical coding term coding, verifies Day-0 compliance, and maintains zero-defect audit standards.",
     seniority: "entry",
     ladderPosition: 2,
     pathSlug: "pharmacovigilance",
@@ -202,16 +202,16 @@ export const CAREER_ROLES: CareerRole[] = [
     demandGlobal: "High",
     topCompanies: PV_COS,
     aiRisk: "Moderate",
-    aiRiskNote: "OCR intake tools pre-populate structured fields, but human processors verify MedDRA hierarchy, duplicate matching, and narrative chronology.",
+    aiRiskNote: "OCR intake tools pre-populate structured fields, but human processors verify 5-tier medical coding hierarchy, duplicate matching, and narrative chronology.",
     skills: [
       "End-to-end ICSR data entry",
-      "MedDRA LLT/PT path selection",
-      "WHO-DD product & trade name mapping",
+      "Standardized Medical Coding LLT/PT path selection",
+      "Global Medicinal Product Dictionaries product & trade name mapping",
       "Duplicate search & query resolution",
       "Defect classification & self-QC",
       "15-day expedited clock adherence",
     ],
-    certifications: ["MedDRA MTS:PTC Standard", "ICH E2B(R3) Data Entry", "Arzon ACRI-PV Work Simulation"],
+    certifications: ["Standardized Medical Coding MTS:PTC Standard", "ICH E2B(R3) Data Entry", "Arzon ACRI-PV Work Simulation"],
     learningPathSlug: "pharmacovigilance",
   },
 
@@ -234,9 +234,9 @@ export const CAREER_ROLES: CareerRole[] = [
     aiRiskNote: "Narrative authorship and medical plausibility review remain strictly within human medical/scientific oversight.",
     skills: [
       "Chronological regulatory narratives",
-      "MedDRA coding & rationale logs",
+      "Standardized Medical Coding & rationale logs",
       "WHO-UMC & Naranjo causality scoring",
-      "Argus / ARISg routing workflows",
+      "Enterprise Safety Databases routing workflows",
       "Targeted follow-up design",
       "QC defect tracking & CAPA logs",
     ],
@@ -408,7 +408,7 @@ export const CAREER_ROLES: CareerRole[] = [
     demandGlobal: "High",
     topCompanies: CDM_COS,
     aiRisk: "Moderate",
-    skills: ["Medidata Rave / Veeva", "Query writing", "Edit checks"],
+    skills: ["Electronic Data Capture (EDC) / Enterprise Life Sciences Cloud", "Query writing", "Edit checks"],
     certifications: ["SCDM (CCDM)"],
     learningPathSlug: "clinical-data-management",
   },
@@ -507,8 +507,8 @@ export const CAREER_ROLES: CareerRole[] = [
     demandGlobal: "Moderate",
     topCompanies: CDM_COS,
     aiRisk: "Moderate",
-    skills: ["Rave / Veeva config", "Custom functions", "eCRF design"],
-    certifications: ["Medidata certification"],
+    skills: ["Rave / Enterprise Life Sciences Cloud config", "Custom functions", "eCRF design"],
+    certifications: ["Enterprise EDC certification"],
     learningPathSlug: "clinical-data-management",
   },
 
@@ -963,7 +963,7 @@ export const CAREER_ROLES: CareerRole[] = [
     salary: AI_SAL,
     demandIndia: "High",
     demandGlobal: "High",
-    topCompanies: ["Innovaccer", "Veeva", "Sigtuple", "CitiusTech"],
+    topCompanies: ["Innovaccer", "Enterprise Life Sciences Cloud", "Sigtuple", "CitiusTech"],
     aiRisk: "Low",
     skills: ["SQL + Python", "Airflow / dbt", "FHIR / HL7"],
     certifications: ["DBT certification", "AWS DA"],

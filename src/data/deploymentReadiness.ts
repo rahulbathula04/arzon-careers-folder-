@@ -81,7 +81,7 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
   pharmacovigilance: {
     roleTitle: "Drug Safety / PV Associate",
     promise:
-      "A Deployment-Ready PV Associate who can book in an ICSR, code it in MedDRA, write a narrative and walk a recruiter through the lifecycle - on day one.",
+      "A Deployment-Ready PV Associate who can book in an ICSR, code it in Standardized Medical Coding, write a narrative and walk a recruiter through the lifecycle - on day one.",
     pillars: [
       pillar("domain", [
         "Pharmacovigilance & global drug-safety frameworks (ICH-GVP, E2)",
@@ -97,9 +97,9 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
         "Escalation paths and SOP-driven decision-making",
       ]),
       pillar("tools", [
-        "Argus Safety - case book-in, narrative, E2B(R3) submission screens",
-        "MedDRA Browser - LLT → SOC navigation and coding conventions",
-        "WHO Drug Dictionary concepts and lookup workflow",
+        "Enterprise Safety Database - case book-in, narrative, E2B(R3) submission screens",
+        "Clinical Coding Browser - LLT → SOC navigation and coding conventions",
+        "Global Medicinal Product Dictionaries concepts and lookup workflow",
         "EVDAS / VigiBase - signal-screening surfaces",
       ]),
       pillar("workplace", [
@@ -121,13 +121,13 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
         "PSUR / aggregate report structure",
       ],
       practiced: [
-        "25 ICSR cases in an Argus-style simulation",
-        "100-term MedDRA coding test",
+        "25 ICSR cases in an Enterprise Safety Database-style simulation",
+        "100-term Standardized Medical Coding test",
         "Mini-PSUR draft for a sample drug",
       ],
       exposureTo: [
-        "Argus Safety screens",
-        "MedDRA Browser & WHO-DD",
+        "Enterprise Safety Database screens",
+        "Clinical Coding Browser & Global Medicinal Product Dictionaries",
         "Signal-detection surfaces (EVDAS, VigiBase)",
       ],
     },
@@ -154,7 +154,7 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
       pillar("tools", [
         "ICD-10-CM / ICD-10-PCS - codebook navigation and sequencing rules",
         "CPT® and HCPCS Level II - section navigation and modifier application",
-        "3M Encoder / EncoderPro - encoder workflow concepts",
+        "Enterprise CAC Encoders / Clinical Encoders - encoder workflow concepts",
         "EHR coder views - chart-pull and abstraction flow",
       ]),
       pillar("workplace", [
@@ -181,7 +181,7 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
         "50-chart end-to-end audit",
       ],
       exposureTo: [
-        "Encoder workflow (3M / EncoderPro)",
+        "Encoder workflow (3M / Clinical Encoders)",
         "EHR coder views",
         "Denial-management case studies",
       ],
@@ -207,9 +207,9 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
         "Database lock checklist and audit-trail review",
       ]),
       pillar("tools", [
-        "Medidata Rave - study build and edit-check screens",
+        "Electronic Data Capture (EDC) - study build and edit-check screens",
         "Oracle Clinical / RDC - concepts and navigation",
-        "Veeva CDMS - workflow and user-management views",
+        "Cloud Data Management Systems - workflow and user-management views",
         "CDISC SDTM mapping basics and Define-XML",
       ]),
       pillar("workplace", [
@@ -236,8 +236,8 @@ export const DEPLOYMENT_BY_SLUG: Record<string, DeploymentReadiness> = {
         "Full study lock package",
       ],
       exposureTo: [
-        "Medidata Rave screens",
-        "Oracle Clinical / Veeva CDMS workflow",
+        "Electronic Data Capture (EDC) screens",
+        "Oracle Clinical / Cloud Data Management Systems workflow",
         "SDTM mapping & Define-XML",
       ],
     },

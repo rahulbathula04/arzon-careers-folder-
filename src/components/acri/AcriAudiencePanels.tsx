@@ -54,7 +54,7 @@ export function AcriAudiencePanels({ onOpenRecruiterModal }: AcriAudiencePanelsP
                   <span>Real Case Performance</span>
                 </div>
                 <p className="text-[11px] text-stone-500 leading-relaxed">
-                  Proven hands-on capability on Argus Safety, MedDRA coding, and WHO-UMC causality.
+                  Proven hands-on capability on Enterprise Safety Database, Standardized Medical Coding, and WHO-UMC causality.
                 </p>
               </div>
 
@@ -130,7 +130,7 @@ export function AcriAudiencePanels({ onOpenRecruiterModal }: AcriAudiencePanelsP
                   <span className="font-bold text-emerald-700">100% (Passed Gate 1)</span>
                 </div>
                 <div className="flex justify-between items-center text-stone-700">
-                  <span className="font-medium">MedDRA LLT → PT Precision:</span>
+                  <span className="font-medium">Standardized Medical Coding LLT → PT Precision:</span>
                   <span className="font-bold text-stone-900">92%</span>
                 </div>
                 <div className="flex justify-between items-center text-stone-700">

@@ -270,7 +270,7 @@ export function AcriOfficialCertificate({
                 <Lock className="h-2.5 w-2.5 text-emerald-400" /> OFFICIAL OCCUPATIONAL CREDENTIAL
               </span>
               <span>ISO 9001:2015 &amp; MSME UDYAM REGISTERED</span>
-              <span>STANDARDS: ICH E2A · E2B(R3) · MedDRA v27.0</span>
+              <span>STANDARDS: ICH E2A · E2B(R3) · Standardized Medical Coding</span>
             </div>
 
             {/* Arzon Global Insignia & Crest */}
@@ -366,7 +366,7 @@ export function AcriOfficialCertificate({
               <span className="text-[#C5A572] font-bold">VERIFIED COMPETENCIES:</span>
               <span>ICSR Case Triage</span>
               <span className="text-stone-600">•</span>
-              <span>MedDRA v27.0 Coding</span>
+              <span>Standardized Medical Coding Coding</span>
               <span className="text-stone-600">•</span>
               <span>Seriousness Gates</span>
               <span className="text-stone-600">•</span>

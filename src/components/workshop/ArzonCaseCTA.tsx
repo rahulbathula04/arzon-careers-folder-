@@ -16,7 +16,7 @@ export function ArzonCaseCTA({ onReserveClick, isRegistered = false }: ArzonCase
           Want to see how this case is triaged live?
         </h3>
         <p className="font-sans text-xs sm:text-sm text-[var(--color-warm-paper)]/70 leading-relaxed">
-          Mohamed Kumail Abbas will demonstrate the full casualty review, MedDRA auto-encoding, and Day 0 regulatory clock calculation on screen.
+          Mohamed Kumail Abbas will demonstrate the full causality review, standardized medical coding, and Day 0 regulatory clock calculation on screen.
         </p>
       </div>
 

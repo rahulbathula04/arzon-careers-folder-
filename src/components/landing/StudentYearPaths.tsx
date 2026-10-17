@@ -57,10 +57,10 @@ export const YEAR_PATHWAYS: YearPathway[] = [
     badgeLabel: "3rd Year Students",
     title: "Practical Skill Acquisition & Tool Fluency",
     headline: "Build Real Software Capability Alongside University Theory",
-    subtitle: "Third year is the strategic acquisition window. Start practicing on industry databases like Oracle Argus Safety, MedDRA coding, and Medidata RAVE.",
+    subtitle: "Third year is the strategic acquisition window. Start practicing on industry databases like enterprise safety systems, standardized clinical coding, and EDC platforms.",
     primaryFocus: "Technical Tool Mastery & Practice Assignments",
     keyMilestones: [
-      "Hands-on case processing in Oracle Argus & MedDRA coding rules",
+      "Hands-on case processing in enterprise safety databases & standardized coding rules",
       "ICD-10-CM chart auditing & eCRF data management workflows",
       "Complete industry case assignments to build a verified portfolio"
     ],
@@ -73,10 +73,10 @@ export const YEAR_PATHWAYS: YearPathway[] = [
     candidateProfile: {
       name: "Priya Sharma",
       college: "Sultan-ul-Uloom College of Pharmacy",
-      role: "Clinical Data Management & MedDRA",
+      role: "Clinical Data Management & Coding",
       photo: "/images/pharmacy-student-avatar.jpg",
       badge: "3rd Year B.Pharm",
-      quote: "Practicing on live de-identified eCRFs and MedDRA dictionary coding during 3rd year gave me total clarity ahead of campus placements."
+      quote: "Practicing on live de-identified eCRFs and standardized dictionary coding during 3rd year gave me total clarity ahead of campus placements."
     }
   },
   {
@@ -87,7 +87,7 @@ export const YEAR_PATHWAYS: YearPathway[] = [
     subtitle: "Don't wait until degree completion to start job search prep. Combine focused 12-week role training with applied capstone internships in your final semester.",
     primaryFocus: "12-Week Role Training & Capstone Internship",
     keyMilestones: [
-      "12-week intensive role training (Argus Safety, ICD-10, CDISC SAS, RAVE)",
+      "12-week intensive role training (Safety Databases, ICD-10, CDISC SAS, EDC)",
       "Applied capstone internship with ISO-verifiable credential",
       "Technical interview preparation on 300+ real job description interview questions"
     ],
@@ -100,10 +100,10 @@ export const YEAR_PATHWAYS: YearPathway[] = [
     candidateProfile: {
       name: "Aryan Sharma",
       college: "Telangana Pharmacy College, Hyderabad",
-      role: "Pharmacovigilance Associate (Argus Safety)",
+      role: "Pharmacovigilance Associate (Safety Operations)",
       photo: "/images/bpharm-male-graduate.jpg",
       badge: "4th Year B.Pharm",
-      quote: "Instead of settling for generic medical sales rep calls, the 12-week Argus training helped me secure shortlist rounds at global life science GCCs."
+      quote: "Instead of settling for generic medical sales rep calls, the 12-week safety database training helped me secure shortlist rounds at global life science GCCs."
     }
   },
   {

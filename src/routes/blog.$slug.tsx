@@ -227,7 +227,7 @@ function BlogPostComponent() {
                 Master {post.relatedCourseName} at Arzon Global
               </h3>
               <p className="font-sans text-xs sm:text-sm text-stone-700 leading-relaxed">
-                Build audit-ready proof-of-work in software tools (Oracle Argus, ICD-10-CM, Medidata Rave, eCTD, SAS) with 12 weeks of structured cohort training and cryptographic certificate verification.
+                Build audit-ready proof-of-work in software tools (Enterprise Safety Database, ICD-10-CM, Electronic Data Capture (EDC), eCTD, SAS) with 12 weeks of structured cohort training and cryptographic certificate verification.
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link

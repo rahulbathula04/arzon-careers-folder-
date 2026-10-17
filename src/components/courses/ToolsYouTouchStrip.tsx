@@ -12,13 +12,13 @@ const INDUSTRY_DOMAINS: Record<string, string> = {
  * grouped by track. No Apply CTA in this block.
  */
 const TRACKS: { name: string; tools: string[] }[] = [
-  { name: "Pharmacovigilance", tools: ["Argus Safety", "ARISg", "MedDRA", "WHO-DD", "E2B(R3)"] },
-  { name: "Medical Coding", tools: ["ICD-10-CM", "CPT", "HCPCS", "3M Encoder", "EncoderPro"] },
+  { name: "Pharmacovigilance", tools: ["Enterprise Safety DB", "ICSR Gateways", "Standardized Medical Coding", "Drug Product Dictionaries", "E2B(R3) Transmission"] },
+  { name: "Medical Coding", tools: ["ICD-10-CM", "CPT", "HCPCS", "Clinical Encoders", "CAC Software"] },
   {
     name: "Clinical Research",
-    tools: ["Medidata Rave", "Veeva Vault", "Oracle InForm", "eCRF", "ICH-GCP"],
+    tools: ["Electronic Data Capture (EDC)", "eTMF Platforms", "eCRF Workflows", "Query Management", "ICH-GCP"],
   },
-  { name: "SAS Clinical", tools: ["SAS 9.4", "SDTM", "ADaM", "Define-XML", "OpenCDISC"] },
+  { name: "SAS Clinical", tools: ["Clinical Statistical Programming", "SDTM", "ADaM", "Define-XML", "CDISC Validation"] },
 ];
 
 export function ToolsYouTouchStrip() {

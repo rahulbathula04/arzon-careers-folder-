@@ -40,16 +40,16 @@ export function CareerDecisionEngine({ onOpenRegister }: CareerDecisionEnginePro
       return {
         matchScore: "96% Best-Fit Match",
         domain: "Pharmacovigilance & Drug Safety",
-        softwareFocus: "Oracle Argus Safety & MedDRA 26.0",
+        softwareFocus: "Clinical Safety Databases & Medical Coding",
         whyFit: "Your background in pharmaceutical sciences combined with data logic maps directly to corporate safety triage & aggregate reporting roles.",
         avgSalary: "₹3.8 LPA – ₹16.5 LPA",
-        recommendedSession: "Session 2: Oracle Argus Safety & PV Workflow Diagnostic"
+        recommendedSession: "Session 2: Safety Database & PV Workflow Diagnostic"
       };
     } else if (workStyle.includes("Regulatory")) {
       return {
         matchScore: "94% Best-Fit Match",
         domain: "Global Regulatory Affairs",
-        softwareFocus: "eCTD Submissions & Veeva Vault RIM",
+        softwareFocus: "eCTD Submissions & Regulatory Document Systems",
         whyFit: "Your preference for compliance and structured filings makes you ideal for Module 1-5 drug dossier publishing for USFDA & EMA.",
         avgSalary: "₹4.2 LPA – ₹18.0 LPA",
         recommendedSession: "Session 3: eCTD Publishing & Dossier Structuring"
@@ -58,7 +58,7 @@ export function CareerDecisionEngine({ onOpenRegister }: CareerDecisionEnginePro
       return {
         matchScore: "92% Best-Fit Match",
         domain: "Clinical Data Management (CDM)",
-        softwareFocus: "Medidata Rave EDC & InForm",
+        softwareFocus: "Clinical EDC & Data Capture Platforms",
         whyFit: "Clinical background aligns cleanly with EDC database locks, discrepancy management, and trial data validation.",
         avgSalary: "₹3.6 LPA – ₹15.0 LPA",
         recommendedSession: "Session 1: Clinical Trial EDC Data Architecture"

@@ -50,7 +50,7 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     projectTypes: [
       "Serious ICSR narratives for oncology portfolios",
       "Literature signal detection",
-      "Rave EDC build and study conduct",
+      "Electronic Data Capture (EDC) build and study conduct",
     ],
     wfhPolicy: "hybrid",
     seasonalNote: "Rolling hiring; large Hyderabad campus wave every Q1.",
@@ -225,8 +225,8 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     wfhPolicy: "office",
     sourceIds: ["naukri_medical_coding"],
   },
-  "Veeva Systems": {
-    name: "Veeva Systems",
+  "Enterprise Life Sciences Cloud Providers": {
+    name: "Enterprise Life Sciences Cloud Providers",
     jdCount90d: 42,
     hiringSignal: 4,
     commonTitles: ["Consultant - Vault EDC", "Data Manager"],
@@ -234,12 +234,12 @@ export const EMPLOYER_DRILLDOWN: Record<string, EmployerDrilldown> = {
     wfhPolicy: "hybrid",
     sourceIds: ["naukri_cdm", "arzon_employer_desk"],
   },
-  "Medidata (Dassault)": {
-    name: "Medidata (Dassault)",
+  "Enterprise EDC (Dassault)": {
+    name: "Enterprise EDC (Dassault)",
     jdCount90d: 36,
     hiringSignal: 4,
     commonTitles: ["Data Manager", "Rave Study Builder"],
-    projectTypes: ["Rave EDC configuration", "Study-conduct data management"],
+    projectTypes: ["Electronic Data Capture (EDC) configuration", "Study-conduct data management"],
     wfhPolicy: "hybrid",
     sourceIds: ["naukri_cdm"],
   },

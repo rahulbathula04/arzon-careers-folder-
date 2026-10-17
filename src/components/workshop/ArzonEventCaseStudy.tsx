@@ -49,7 +49,7 @@ export function ArzonEventCaseStudy({ onReserveClick, isRegistered = false }: Ar
       id: "code",
       stepNum: "04",
       title: "CODE",
-      subtitle: "MedDRA Hierarchy",
+      subtitle: "Clinical Hierarchy",
       tag: "PT & SOC MAPPING",
     },
     {
@@ -341,19 +341,19 @@ export function ArzonEventCaseStudy({ onReserveClick, isRegistered = false }: Ar
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/10">
                   <div>
                     <span className="font-mono text-xs font-bold uppercase tracking-widest text-[var(--color-clinical-teal)] block mb-1">
-                      STAGE 04 · MedDRA CODING & HIERARCHY MAPPING
+                      STAGE 04 · STANDARDIZED CODING & HIERARCHY MAPPING
                     </span>
                     <h3 className="font-serif text-2xl font-bold text-white">
                       Translating Clinical Verbatim into Standardized Terms
                     </h3>
                   </div>
                   <span className="font-mono text-xs px-3 py-1 rounded bg-[var(--color-clinical-teal)]/20 border border-[var(--color-clinical-teal)]/40 text-[var(--color-clinical-teal)] font-bold self-start sm:self-auto">
-                    MedDRA v27.0 Compliant
+                    5-Tier Hierarchy Compliant
                   </span>
                 </div>
 
                 <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed">
-                  Safety databases like Oracle Argus and ARISg require standardized Medical Dictionary for Regulatory Activities (MedDRA) coding.
+                  Enterprise clinical safety databases require standardized medical dictionary terminology coding.
                   Candidates are frequently tested on this exact mapping:
                 </p>
 
@@ -361,7 +361,7 @@ export function ArzonEventCaseStudy({ onReserveClick, isRegistered = false }: Ar
                   <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 pb-3 border-b border-white/10 text-stone-400 uppercase text-[10px] font-bold">
                     <span>Hierarchy Level</span>
                     <span className="sm:col-span-2">Coded Medical Term</span>
-                    <span>MedDRA Code</span>
+                    <span>Dictionary Code</span>
                     <span>Status</span>
                   </div>
 

@@ -24,8 +24,8 @@ const tracks = [
     weeks: [
       "Drug safety foundations · ICH-GVP",
       "ICSR processing E2B(R3)",
-      "MedDRA coding workshop",
-      "Argus / ARISg simulation",
+      "Standardized medical coding workshop",
+      "Enterprise safety database simulation",
       "Aggregate reports. PSUR/PBRER",
       "Signal detection & risk minimisation",
       "Audit & regulator inspections",
@@ -37,7 +37,7 @@ const tracks = [
     label: "Clinical Data Management",
     weeks: [
       "GCP, CDISC SDTM intro",
-      "EDC build (Medidata-style)",
+      "EDC build & clinical trial workflows",
       "CRF design & annotation",
       "Edit checks, query lifecycle",
       "Data validation, reconciliation",

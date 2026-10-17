@@ -32,9 +32,9 @@ const TRACK_CATALOGUE: Record<string, TrackDef> = {
     slug: "pharmacovigilance",
     title: "Pharmacovigilance",
     leans: ["documentation", "communication"],
-    doing: "Process ICSRs, code adverse events in MedDRA, own aggregate safety reports.",
+    doing: "Process ICSRs, code adverse events in standardized medical dictionaries, own aggregate safety reports.",
     reason: (top) =>
-      `Your ${top} signal maps to ICSR write-ups, MedDRA coding and the narrative discipline PV teams hire on.`,
+      `Your ${top} signal maps to ICSR write-ups, standardized medical coding and the narrative discipline PV teams hire on.`,
   },
   "clinical-data-management": {
     slug: "clinical-data-management",

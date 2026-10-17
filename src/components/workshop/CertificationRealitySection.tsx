@@ -28,7 +28,7 @@ export function CertificationRealitySection({ onReserveClick }: CertificationRea
       verdict: "Domain Skill Over Certificate",
       verdictBg: "bg-blue-100 text-blue-900 border-blue-300",
       details:
-        "MNC safety teams screen for ICSR triage, MedDRA coding, and Argus software familiarity during technical rounds—not paper diplomas.",
+        "MNC safety teams screen for ICSR triage, standardized medical coding, and safety database familiarity during technical rounds—not paper diplomas.",
     },
     {
       domain: "Clinical Data Mgmt",
@@ -36,7 +36,7 @@ export function CertificationRealitySection({ onReserveClick }: CertificationRea
       verdict: "Relevant Later in Career",
       verdictBg: "bg-slate-100 text-slate-900 border-slate-300",
       details:
-        "Specialized credentials become valuable after 2-3 years of hands-on Rave/Inform experience, not as an entry requirement for freshers.",
+        "Specialized credentials become valuable after 2-3 years of hands-on EDC database experience, not as an entry requirement for freshers.",
     },
     {
       domain: "Hospital Pharmacy",

@@ -12,7 +12,7 @@ export function AcriAssessmentSteps() {
     {
       num: "02",
       title: "Take the ACRI Assessment",
-      desc: "25-minute calibrated evaluation with real ICSR cases, MedDRA coding, and safety triage.",
+      desc: "25-minute calibrated evaluation with real ICSR cases, Standardized Medical Coding, and safety triage.",
       icon: ClipboardList,
     },
     {

@@ -264,8 +264,8 @@ const SOURCE_ENRICHMENT: Record<string, Pick<Source, "verifiedAt" | "rationale" 
     rationale:
       "Largest India-native JD board; scraped monthly with n≥400 postings per role. Titles + tools + cities are pulled verbatim from live employer requisitions.",
     snippets: [
-      "Drug Safety Associate - MedDRA coding, ICSR triage, Argus / ARISg. B.Pharm or M.Pharm. Bengaluru / Hyderabad.",
-      "PV Associate I - process case reports within SLA, narrative writing, MedDRA v27. IQVIA, Parexel, Cognizant most active in Nov 2025 window.",
+      "Drug Safety Associate - Standardized Medical Coding, ICSR triage, Enterprise Safety Databases. B.Pharm or M.Pharm. Bengaluru / Hyderabad.",
+      "PV Associate I - process case reports within SLA, narrative writing, Standardized Medical Coding v27. IQVIA, Parexel, Cognizant most active in Nov 2025 window.",
     ],
   },
   ambitionbox_pv: {

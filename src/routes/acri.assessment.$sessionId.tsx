@@ -261,7 +261,7 @@ function AcriAssessmentSessionPage() {
                   <span className="font-mono text-xs font-bold uppercase">Assessment Areas</span>
                 </div>
                 <div className="font-serif font-bold text-lg text-stone-900">9 competencies</div>
-                <div className="text-[11px] text-stone-500">ICH E2B(R3) &amp; MedDRA</div>
+                <div className="text-[11px] text-stone-500">ICH E2B(R3) &amp; Standardized Medical Coding</div>
               </div>
             </div>
 

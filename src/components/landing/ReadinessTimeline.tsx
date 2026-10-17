@@ -9,7 +9,7 @@ const PHASES = [
     label: "Foundations",
     tone: "blue" as RichCardTone,
     window: "Weeks 1–2",
-    body: "ICSR, MedDRA, drug safety workflows, terminology, regulatory awareness.",
+    body: "ICSR, clinical coding, drug safety workflows, terminology, regulatory awareness.",
     deliverables: ["Vocabulary fluency", "Regulatory map", "Workflow briefing"],
   },
   {

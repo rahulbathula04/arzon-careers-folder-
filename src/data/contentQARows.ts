@@ -64,7 +64,7 @@ export const CONTENT_QA_ROWS: QARow[] = [
   {
     page: "/courses",
     sectionId: "tools-you-touch",
-    label: "Tools-you-touch strip (added) - Argus, MedDRA, etc.",
+    label: "Tools-you-touch strip (added) - Enterprise Safety Database, Standardized Medical Coding, etc.",
     bucket: "desire",
     action: "added",
   },

@@ -76,10 +76,10 @@ export function StudentProblemSolverWizard() {
   ];
 
   const INTERESTS = [
-    { id: "pv", label: "Drug Safety & Pharmacovigilance", desc: "ICSR processing, Argus Safety, MedDRA coding" },
-    { id: "cdm", label: "Clinical Data Management", desc: "Medidata RAVE, eCRFs, query management" },
-    { id: "coding", label: "Medical Coding & Chart Auditing", desc: "ICD-10-CM 2026, CPT, EncoderPro, RCM" },
-    { id: "analytics", label: "Clinical SAS & Data Analytics", desc: "SAS Studio, PROC SQL, CDISC SDTM mapping" },
+    { id: "pv", label: "Drug Safety & Pharmacovigilance", desc: "ICSR processing, safety databases, standardized coding" },
+    { id: "cdm", label: "Clinical Data Management", desc: "EDC platforms, eCRFs, query management" },
+    { id: "coding", label: "Medical Coding & Chart Auditing", desc: "ICD-10-CM 2026, CPT, Clinical Encoders, RCM" },
+    { id: "analytics", label: "Clinical SAS & Data Analytics", desc: "Statistical Programming, PROC SQL, CDISC SDTM mapping" },
     { id: "auto", label: "Help Me Choose (Based on Market Demand)", desc: "Diagnose best fit based on my background" }
   ];
 

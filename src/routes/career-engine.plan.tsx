@@ -189,8 +189,8 @@ function buildDays(ctx: PlanContext): Day[] {
   const WORKFLOW_BY_TRACK: Record<string, WorkflowMap> = {
     Pharmacovigilance: {
       workflow: "Walk through one ICSR case study end-to-end. Note where you got stuck.",
-      tool: "Argus, Veeva, Excel macros",
-      toolAction: "Watch the Argus tour video and complete the free interactive demo.",
+      tool: "Enterprise Safety Database, Enterprise Life Sciences Cloud, Excel macros",
+      toolAction: "Watch the Enterprise Safety Database tour video and complete the free interactive demo.",
     },
     "Medical Coding": {
       workflow:
@@ -201,12 +201,12 @@ function buildDays(ctx: PlanContext): Day[] {
     },
     "Clinical Data Management": {
       workflow: "Review a sample Case Report Form (CRF) and identify 5 data discrepancies.",
-      tool: "Medidata Rave, Oracle InForm, OpenClinica",
+      tool: "Electronic Data Capture (EDC), Oracle InForm, OpenClinica",
       toolAction: "Create a free OpenClinica account and navigate through a sample study database.",
     },
     "Regulatory Affairs": {
       workflow: "Read a real CDSCO submission checklist and map it to an eCTD module structure.",
-      tool: "Veeva Vault, eCTD Builder, eRegulatory",
+      tool: "Life Sciences Cloud Platforms, eCTD Builder, eRegulatory",
       toolAction:
         "Download and review a public FDA drug approval document from Drugs@FDA. Map the sections to eCTD modules.",
     },

@@ -33,7 +33,7 @@ const PATHS: Record<PathSlug, PathData> = {
       { week: "Wk 7–10", what: "Internship, work alongside mentors on client cases" },
       { week: "Wk 11–12", what: "Interview prep, mock assessments, placement push" },
     ],
-    skills: ["ICD-10 / CPT", "MedDRA", "ICSR / CIOMS", "Pharma SOPs", "Audit trails"],
+    skills: ["ICD-10 / CPT", "Standardized Medical Coding", "ICSR / CIOMS", "Pharma SOPs", "Audit trails"],
   },
   tech: {
     title: "Healthcare Tech & AI Path",

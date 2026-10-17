@@ -17,7 +17,7 @@ const SKILL_ITEMS = [
   },
   {
     id: "s4",
-    label: "MedDRA Medical Dictionary Hierarchy & Coding",
+    label: "Standardized Medical Dictionary Hierarchy & Coding",
     points: 20,
     category: "Pharmacovigilance",
   },
@@ -152,7 +152,7 @@ export function SkillGapDiagnostic() {
               <p className="text-xs text-stone-700 font-sans leading-relaxed font-medium">
                 {matchPercentage >= 70
                   ? "You have strong baseline competencies! A 12-week track will refine your portfolio deliverables for top-tier healthcare hiring desks."
-                  : "You need targeted hands-on case work in MedDRA, ICSR, or ICD-10 coding to reach the 80+ ACRI threshold expected by hiring managers."}
+                  : "You need targeted hands-on case work in clinical coding, ICSR, or ICD-10 coding to reach the 80+ ACRI threshold expected by hiring managers."}
               </p>
             </div>
 

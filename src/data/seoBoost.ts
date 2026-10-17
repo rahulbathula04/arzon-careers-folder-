@@ -24,14 +24,14 @@ export const COURSE_SEO_BOOST: Record<string, CourseSeoBoost> = {
   pharmacovigilance: {
     title: "Pharmacovigilance Course in Hyderabad · Arzon Global",
     description:
-      "Pharmacovigilance internship & course with Argus, MedDRA, ICSR cases and an ISO-aligned verifiable certificate. 12-week cohort. Hyderabad + online.",
+      "Pharmacovigilance internship & course with Enterprise Safety Database, Standardized Medical Coding, ICSR cases and an ISO-aligned verifiable certificate. 12-week cohort. Hyderabad + online.",
     h1: "Pharmacovigilance Course & Internship in Hyderabad",
     keywords: [
       "pharmacovigilance internship",
       "pharmacovigilance course in Hyderabad",
       "best pharmacovigilance training institute in India",
       "pharmacovigilance jobs in Hyderabad",
-      "Argus Safety training",
+      "Enterprise Safety Database training",
       "ICSR case processing course",
     ],
   },
@@ -50,16 +50,16 @@ export const COURSE_SEO_BOOST: Record<string, CourseSeoBoost> = {
     ],
   },
   "clinical-data-management": {
-    title: "Clinical Data Management Course · Rave / Veeva · Arzon",
+    title: "Clinical Data Management Course · Rave / Enterprise Life Sciences Cloud · Arzon",
     description:
-      "Clinical data management internship with Medidata Rave, Veeva, CDASH and SDTM exposure. 12-week cohort, real study build, verifiable certificate.",
-    h1: "Clinical Data Management Course & Internship (Rave / Veeva)",
+      "Clinical data management internship with Electronic Data Capture (EDC), Enterprise Life Sciences Cloud, CDASH and SDTM exposure. 12-week cohort, real study build, verifiable certificate.",
+    h1: "Clinical Data Management Course & Internship (Rave / Enterprise Life Sciences Cloud)",
     keywords: [
       "clinical data management internship",
       "clinical data management course",
       "clinical data management jobs in Bangalore",
-      "Medidata Rave training",
-      "Veeva clinical data course",
+      "Electronic Data Capture (EDC) training",
+      "Enterprise Life Sciences Cloud clinical data course",
       "CDISC SDTM training India",
     ],
   },

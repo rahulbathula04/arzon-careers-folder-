@@ -63,7 +63,7 @@ export const Route = createFileRoute("/pv-associate")({
         {
           name: "keywords",
           content:
-            "pharmacovigilance associate, drug safety associate, pv training, bpharm pharmacovigilance, pharmd drug safety, mpharm pv jobs, icsr case processing, meddra coding, mohamed kumail abbas, oracle argus safety",
+            "pharmacovigilance associate, drug safety associate, pv training, bpharm pharmacovigilance, pharmd drug safety, mpharm pv jobs, icsr case processing, Standardized Medical Coding, mohamed kumail abbas, Enterprise Safety Database",
         },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
@@ -155,9 +155,9 @@ const WORK_SAMPLES = [
     ],
   },
   {
-    id: "meddra-coding",
-    tabLabel: "MedDRA Coding Record",
-    tag: "MedDRA v27.0",
+    id: "standardized medical coding-coding",
+    tabLabel: "Standardized Medical Coding Record",
+    tag: "Standardized Medical Coding",
     caseId: "ARZ-MED-2026-014",
     reporter: "Hospital Inpatient Emergency Ward",
     suspectDrug: "CardioVas® (Lisinopril 20mg)",
@@ -217,15 +217,15 @@ const BLUEPRINT_FAQS = [
   },
   {
     q: "Do I need prior experience?",
-    a: "No. The 12-week curriculum is organized progressively from foundational drug safety concepts through hands-on case triage, MedDRA coding, and narrative synthesis.",
+    a: "No. The 12-week curriculum is organized progressively from foundational drug safety concepts through hands-on case triage, Standardized Medical Coding, and narrative synthesis.",
   },
   {
     q: "How is the assessment conducted?",
-    a: "Assessments are practical and case-based. You will review simulated adverse reaction reports, code diagnoses using MedDRA terminology, and draft structured narratives reviewed by industry mentors.",
+    a: "Assessments are practical and case-based. You will review simulated adverse reaction reports, code diagnoses using standardized medical coding terminology, and draft structured narratives reviewed by industry mentors.",
   },
   {
     q: "What tools will I learn?",
-    a: "You will master the architecture of commercial safety databases (Oracle Argus concepts), the 5-tier MedDRA dictionary hierarchy, CIOMS I case report formats, and regulatory clock tracking.",
+    a: "You will master the architecture of commercial safety databases (Enterprise Safety Database concepts), the 5-tier Standardized Medical Coding dictionary hierarchy, CIOMS I case report formats, and regulatory clock tracking.",
   },
   {
     q: "What if I am from a non-pharmacy background?",
@@ -461,7 +461,7 @@ function PVAssociateBlueprintPage() {
                 {
                   icon: Database,
                   title: "Use Standardized Terminology",
-                  desc: "Apply MedDRA, WHO-UMC, CIOMS and other international standards.",
+                  desc: "Apply Standardized Medical Coding, WHO-UMC, CIOMS and other international standards.",
                 },
                 {
                   icon: ShieldCheck,
@@ -627,7 +627,7 @@ function PVAssociateBlueprintPage() {
               },
               {
                 num: "03",
-                title: "MedDRA Coding",
+                title: "Standardized Medical Coding",
                 desc: "Apply standardized medical terminology.",
                 icon: Tag,
               },
@@ -703,9 +703,9 @@ function PVAssociateBlueprintPage() {
               <div className="space-y-4">
                 {[
                   { label: "ICSR Case Intake & Minimum Criteria", pct: 95 },
-                  { label: "MedDRA Terminology (LLT, PT, SOC)", pct: 90 },
+                  { label: "standardized medical coding terminology (LLT, PT, SOC)", pct: 90 },
                   { label: "Clinical Case Narrative Drafting (CIOMS)", pct: 88 },
-                  { label: "Oracle Argus / Safety Systems", pct: 84 },
+                  { label: "Enterprise Safety Database / Safety Systems", pct: 84 },
                   { label: "Day-0 & 15-Day Regulatory Timelines", pct: 82 },
                 ].map((row, idx) => (
                   <div key={idx} className="space-y-1.5">
@@ -752,7 +752,7 @@ function PVAssociateBlueprintPage() {
                   <h4 className="font-bold text-sm text-[#081F38]">Practical skills</h4>
                   <ul className="text-xs text-[#64748B] space-y-1">
                     <li>• Case processing</li>
-                    <li>• MedDRA coding</li>
+                    <li>• Standardized Medical Coding</li>
                     <li>• Case narratives</li>
                   </ul>
                 </div>
@@ -763,7 +763,7 @@ function PVAssociateBlueprintPage() {
                   </div>
                   <h4 className="font-bold text-sm text-[#081F38]">Tools and systems</h4>
                   <ul className="text-xs text-[#64748B] space-y-1">
-                    <li>• Oracle Argus (basics)</li>
+                    <li>• Enterprise Safety Database (basics)</li>
                     <li>• Safety databases</li>
                     <li>• Documentation workflows</li>
                   </ul>
@@ -828,14 +828,14 @@ function PVAssociateBlueprintPage() {
                 <span className="font-mono text-xs font-bold text-[#2563EB]">WEEKS 5–8</span>
                 <h3 className="text-lg font-bold text-[#081F38]">Learn the Case-Processing Workflow</h3>
                 <ul className="text-xs text-[#64748B] space-y-2">
-                  <li className="flex items-start gap-1.5">• MedDRA terminology</li>
+                  <li className="flex items-start gap-1.5">• standardized medical coding terminology</li>
                   <li className="flex items-start gap-1.5">• Concept coding exercises</li>
                   <li className="flex items-start gap-1.5">• Case narrative writing</li>
                   <li className="flex items-start gap-1.5">• Documentation &amp; quality checks</li>
                 </ul>
               </div>
               <div className="p-3 rounded-xl bg-[#F8FAFC] border border-slate-200/60 text-xs font-mono text-[#081F38]">
-                Milestone: MedDRA Coding Record
+                Milestone: Standardized Medical Coding Record
               </div>
             </div>
 

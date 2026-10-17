@@ -9,10 +9,10 @@ const COLLEGE_GIVES = [
 ];
 
 const EMPLOYERS_EXPECT = [
-  "Process real ICSR cases in Argus Safety software",
-  "Code clinical data in MedDRA classification hierarchy",
+  "Process real ICSR cases in enterprise safety databases",
+  "Code clinical data in standardized medical classification hierarchies",
   "Execute eCRF queries and data cleaning workflows",
-  "Navigate actual EDC tools (Medidata Rave, Oracle Clinical)",
+  "Navigate actual clinical EDC and data cleaning tools",
   "Prepare career documentation reviewed by global hiring desks",
 ];
 

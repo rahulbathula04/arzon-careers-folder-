@@ -7,7 +7,7 @@ export function EmployerSkillsSection() {
     { percent: "56%", skill: "Clinical Chart Review & Documentation", domain: "Clinical Operations" },
     { percent: "75%", skill: "Advanced Excel (Pivot, VLOOKUP, Formulas)", domain: "Data & Operations" },
     { percent: "36%", skill: "ICH-GCP Principles & Guidelines", domain: "Clinical Research & CDM" },
-    { percent: "18%", skill: "Pharmacovigilance / GVP Concepts & Argus", domain: "Drug Safety Operations" },
+    { percent: "18%", skill: "Pharmacovigilance / GVP Concepts & Safety DB", domain: "Drug Safety Operations" },
   ];
 
   return (

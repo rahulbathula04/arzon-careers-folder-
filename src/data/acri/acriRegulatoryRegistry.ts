@@ -155,18 +155,18 @@ export const REGULATORY_REGISTRY: Record<string, RegulatoryFramework> = {
     ],
   },
 
-  "ICH-MEDDRA-PTC": {
-    id: "ICH-MEDDRA-PTC",
-    shortName: "MedDRA PtC v27.0",
-    fullName: "MedDRA Term Selection: Points to Consider – ICH-Endorsed Guide for MedDRA Users",
-    governingBody: "ICH MedDRA Management Committee (MSSO)",
+  "ICH-CODING-PTC": {
+    id: "ICH-CODING-PTC",
+    shortName: "Standardized Medical Coding PtC",
+    fullName: "Standardized Coding Term Selection: Points to Consider – ICH-Endorsed Guide for Clinical Coding",
+    governingBody: "ICH Clinical Terminology Management Committee",
     jurisdiction: "Global (ICH)",
     activeVersion: "Release 27.0",
     effectiveFrom: "2024-03-01",
     scopeSummary: "Standardized rules for coding verbatim terms to Lowest Level Terms (LLT) and Preferred Terms (PT) without introducing diagnostic bias.",
     keyMandates: [
       {
-        ruleId: "MEDDRA-PTC-VERBATIM",
+        ruleId: "CODING-PTC-VERBATIM",
         description: "Select the LLT that most accurately reflects the reporter's verbatim words. Do not assign a provisional diagnosis code when only symptoms are documented.",
         statutoryTimeline: "Coding workflow",
       },

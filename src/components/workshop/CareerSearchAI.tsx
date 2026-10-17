@@ -20,7 +20,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
   const faqs = [
     {
       q: "Which healthcare career offers the highest entry salary for my degree?",
-      a: "Salary trajectories vary significantly by domain. Pharmacovigilance starts around ₹3.8L – ₹5.5L for freshers and reaches ₹16L+ at Senior Lead levels. Clinical Data Management and Medical Writing follow closely, especially when paired with enterprise tools like Argus or Medidata Rave.",
+      a: "Salary trajectories vary significantly by domain. Pharmacovigilance starts around ₹3.8L – ₹5.5L for freshers and reaches ₹16L+ at Senior Lead levels. Clinical Data Management and Medical Writing follow closely, especially when paired with enterprise tools like safety databases or clinical EDC platforms.",
       data: "Source: 14,280 Sourced JDs (IQVIA, Parexel, Cognizant)"
     },
     {
@@ -30,7 +30,7 @@ export function CareerSearchAI({ onOpenRegister }: CareerSearchAIProps) {
     },
     {
       q: "Do top MNCs hire freshers without prior corporate experience?",
-      a: "Yes. MNCs regularly hire freshers who demonstrate direct tool competency (e.g. Argus Safety narrative writing or MedDRA coding) during technical interview rounds, skipping generic orientation phases.",
+      a: "Yes. MNCs regularly hire freshers who demonstrate direct workflow competency (e.g. safety database narrative writing or standardized medical coding) during technical interview rounds, skipping generic orientation phases.",
       data: "Hiring Rate: 84% Technical Interview Conversion"
     },
     {

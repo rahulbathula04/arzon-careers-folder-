@@ -55,7 +55,7 @@ export function ArzonFieldGuideSection({
     {
       label: "TOOLS",
       title: "Enterprise Safety Platforms",
-      desc: "Hands-on workflow expectations for Oracle Argus Safety, MedDRA v27.0, ARISg, and Medidata Rave.",
+      desc: "Hands-on workflow expectations for enterprise safety databases, standardized coding dictionaries, and clinical EDC.",
     },
     {
       label: "SKILLS",

@@ -26,7 +26,7 @@ const STAGES = [
     title: "Operational Case Work",
     icon: Laptop,
     timeframe: "Weeks 1–8",
-    description: "Work directly on live enterprise databases (Oracle Argus, MedDRA, Medidata RAVE, ICD-10) with de-identified clinical trial and safety cases.",
+    description: "Work directly on industry safety databases, clinical coding dictionaries, EDC platforms, and ICD-10 with de-identified clinical trial and safety cases.",
     deliverable: "50+ Processed ICSR Cases / Validated eCRFs / Coded Records",
   },
   {

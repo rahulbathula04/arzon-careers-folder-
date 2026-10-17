@@ -332,7 +332,7 @@ export function AcriLaunchLandingPage() {
                   9 Competency Areas
                 </h3>
                 <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
-                  Measures core PV capabilities including MedDRA coding, regulatory timelines, quality review, and documentation.
+                  Measures core PV capabilities including Standardized Medical Coding, regulatory timelines, quality review, and documentation.
                 </p>
               </div>
 
@@ -545,7 +545,7 @@ export function AcriLaunchLandingPage() {
                     <div>
                       <h4 className="text-base font-semibold text-stone-900">Understand your skill gaps</h4>
                       <p className="text-xs sm:text-sm text-stone-600 mt-0.5">
-                        Pinpoint your exact proficiency across MedDRA, ICSR, narrative writing, and adverse event triage.
+                        Pinpoint your exact proficiency across Standardized Medical Coding, ICSR, narrative writing, and adverse event triage.
                       </p>
                     </div>
                   </div>

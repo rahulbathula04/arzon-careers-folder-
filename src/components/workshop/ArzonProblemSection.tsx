@@ -10,7 +10,7 @@ export function ArzonProblemSection({ onReserveClick }: ArzonProblemSectionProps
     "Which healthcare roles are actually open to B.Pharm vs M.Pharm?",
     "What does each job involve on a day-to-day operational level?",
     "Which technical & clinical skills are screened during interviews?",
-    "Which software tools and platforms (Argus, EDC, ICD-10) matter?",
+    "Which software tools and platforms (Safety DB, EDC, ICD-10) matter?",
     "Which certifications are valued vs unnecessary cash grabs?",
     "What starting salary (LPA) should freshers realistically expect?",
     "Which careers require postgraduate degrees vs on-job growth?",

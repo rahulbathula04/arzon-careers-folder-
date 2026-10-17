@@ -44,7 +44,7 @@ function formatRefresh(iso: string) {
 
 /**
  * Split a JD-style title like
- *   "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder"
+ *   "Fresher Medical Coder Track - ICD-10-CM + CPT + Clinical Encoders"
  * into a clean H1 headline + a mono-caps supporting spec line, so the
  * em-dash never breaks the headline mid-word on narrow screens.
  */

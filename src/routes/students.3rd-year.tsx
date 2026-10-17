@@ -8,7 +8,7 @@ export const Route = createFileRoute("/students/3rd-year")({
       path: "/students/3rd-year",
       title: "3rd-Year Student Preparation Hub · Arzon Global",
       description:
-        "Turn your 3rd year into a 12-month advance advantage. Master Oracle Argus, MedDRA, ICD-10-CM, and Medidata RAVE before final-year placement pressure begins.",
+        "Turn your 3rd year into a 12-month advance advantage. Master Enterprise Safety Database, Standardized Medical Coding, ICD-10-CM, and Electronic Data Capture (EDC) before final-year placement pressure begins.",
       image: "/og/about.jpg",
     });
     return {
@@ -37,7 +37,7 @@ function ThirdYearStudentComponent() {
           </h1>
 
           <p className="text-base sm:text-lg text-stone-700 max-w-3xl leading-relaxed font-sans">
-            Third year provides the optimal low-stress preparation runway. Master industry software suites like Oracle Argus, MedDRA, Medidata RAVE, and Clinical SAS before final-year campus drives and thesis deadlines commence.
+            Third year provides the optimal low-stress preparation runway. Master industry software suites like Enterprise Safety Database, Standardized Medical Coding, Electronic Data Capture (EDC), and Clinical SAS before final-year campus drives and thesis deadlines commence.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs text-stone-600">
@@ -79,7 +79,7 @@ function ThirdYearStudentComponent() {
             {[
               {
                 title: "1. Software Tool Mastery",
-                desc: "Gain hands-on practice on Oracle Argus Safety 8.4, MedDRA 27.0, and Medidata RAVE EDC with authentic clinical case files.",
+                desc: "Gain hands-on practice on Enterprise Safety Database, Standardized Medical Coding, and Electronic Data Capture (EDC) with authentic clinical case files.",
                 linkText: "Explore 12-Week Tracks",
                 linkTo: "/courses",
               },

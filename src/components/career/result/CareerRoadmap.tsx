@@ -21,7 +21,7 @@ const ROADMAP_PHASES: Record<
         focus: "Clinical Safety Vocabulary & Regulatory Frameworks",
         deliverables: [
           "ICH-E2A, E2B(R3), and GVP Module VI mastery",
-          "MedDRA 5-level hierarchy drills (SOC down to LLT)",
+          "Standardized medical coding 5-tier hierarchy drills (SOC down to LLT)",
           "Anatomy of an Individual Case Safety Report (ICSR)",
         ],
       },
@@ -29,7 +29,7 @@ const ROADMAP_PHASES: Record<
         month: "Month 2 · Production Tooling",
         focus: "Simulated Adverse Event Intake & Narrative Drafting",
         deliverables: [
-          "Hands-on Oracle Argus safety workflow simulation",
+          "Hands-on enterprise safety database workflow simulation",
           "Causality assessment via WHO-UMC & Naranjo algorithms",
           "Writing medically precise, audit-defensible safety narratives",
         ],

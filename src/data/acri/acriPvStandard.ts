@@ -61,14 +61,14 @@ export const ACRI_PV_COMPETENCIES: Record<string, CompetencyDimension> = {
     description: "Clinical laboratory value interpretation, differential diagnosis, and drug-drug interaction mechanisms.",
     occupationalBehavior: "Interprets lab trajectories (e.g. ALT/AST elevations) and assesses competing clinical etiologies.",
   },
-  meddraCoding: {
-    id: "meddraCoding",
-    name: "MedDRA / Coding",
-    code: "MEDDRA-COD",
+  clinicalCoding: {
+    id: "clinicalCoding",
+    name: "Standardized Clinical Coding",
+    code: "CLIN-COD",
     weight: 0.1,
     minThreshold: 75,
     isCriticalGate: false,
-    description: "MedDRA hierarchy navigation, verbatim term capture, Lowest Level Term (LLT) to Preferred Term (PT) assignment.",
+    description: "5-tier medical coding hierarchy navigation, verbatim term capture, Lowest Level Term (LLT) to Preferred Term (PT) assignment.",
     occupationalBehavior: "Selects precise LLT without over-interpretation or loss of clinical specificity.",
   },
   documentation: {

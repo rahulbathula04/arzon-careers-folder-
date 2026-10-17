@@ -11,7 +11,7 @@ export interface WorkshopBrochureOptions {
 /**
  * Minimal, content-first Pharmacovigilance Field Guide.
  * Pure knowledge — no marketing. Clean typography. Dense tables.
- * 7 pages: ICSR validity · MedDRA coding · Seriousness ·
+ * 7 pages: ICSR validity · Standardized Medical Coding · Seriousness ·
  * CRO work anatomy · Interview Q&A · Mentor notes.
  */
 export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) {
@@ -117,9 +117,9 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
 
   const chs = [
     "01  \u00B7  ICSR Validity Fundamentals \u2014 The 4 Criteria, Day-0 Clock & Reporting Timelines",
-    "02  \u00B7  MedDRA Coding Workflow \u2014 Hierarchy, PT Selection & Common Mistakes",
+    "02  \u00B7  Standardized Medical Coding Workflow \u2014 Hierarchy, PT Selection & Common Mistakes",
     "03  \u00B7  Seriousness & Case Processing Decisions \u2014 6 Criteria, Expectedness, Causality",
-    "04  \u00B7  What PV Work Actually Looks Like Inside a CRO \u2014 Argus Workflow & Tools",
+    "04  \u00B7  What PV Work Actually Looks Like Inside a CRO \u2014 safety database workflow & Tools",
     "05  \u00B7  What Technical Interviews Expect From Freshers \u2014 Q&A With Real Answers",
     "06  \u00B7  Mentor Notes \u2014 Unfiltered Answers From a Drug Safety Operations Manager",
   ];
@@ -197,20 +197,20 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     margin: { left: m, right: m },
   });
 
-  // ── PAGE 3: MEDDRA CODING ─────────────────────────────────────
-  doc.addPage(); y = phdr("CHAPTER 02", "MedDRA Coding Workflow");
+  // ── PAGE 3: Standardized Medical Coding ─────────────────────────────────────
+  doc.addPage(); y = phdr("CHAPTER 02", "Standardized Medical Coding Workflow");
 
   lbl("The 5-Level Hierarchy", y); y += 16;
-  y = btext("MedDRA (Medical Dictionary for Regulatory Activities) is the ICH-mandated medical terminology for classifying adverse events across all regulatory submissions worldwide. Every adverse event you process must be mapped to a Preferred Term (PT). You never code above or below the PT level.", y) + 10;
+  y = btext("Standardized Medical Coding (ICH-mandated clinical terminology) is the ICH-mandated medical terminology for classifying adverse events across all regulatory submissions worldwide. Every adverse event you process must be mapped to a Preferred Term (PT). You never code above or below the PT level.", y) + 10;
 
   autoTable(doc, {
     startY: y,
     head: [["LEVEL","ABBR","DESCRIPTION","EXAMPLE"]],
     body: [
-      ["System Organ Class","SOC","Highest level. 27 broad body systems or disease etiologies. Fixed by MedDRA — cannot be overridden by the associate.","Cardiac disorders  |  Infections and infestations  |  Hepatobiliary disorders"],
+      ["System Organ Class","SOC","Highest level. 27 broad body systems or disease etiologies. Fixed by Standardized Medical Coding — cannot be overridden by the associate.","Cardiac disorders  |  Infections and infestations  |  Hepatobiliary disorders"],
       ["High Level Group Term","HLGT","Groups related HLTs. Primarily used in aggregate safety analysis.","Cardiac arrhythmias (under Cardiac disorders)"],
       ["High Level Term","HLT","Groups related PTs for signal detection and aggregate review.","Supraventricular arrhythmias (under Cardiac arrhythmias)"],
-      ["Preferred Term","PT","THE level you code to. Each PT = one distinct medical concept. Approximately 25,000 PTs in MedDRA 27.0.","Atrial fibrillation"],
+      ["Preferred Term","PT","THE level you code to. Each PT = one distinct medical concept. Approximately 25,000 PTs in Standardized Medical Coding.","Atrial fibrillation"],
       ["Lowest Level Term","LLT","Synonyms and near-synonyms that map UP to a PT. Used as your search entry point only — never the coding target.","'AF', 'Auricular fibrillation', 'Atrial flutter' — all map to PT: Atrial fibrillation"],
     ],
     theme: "grid",
@@ -225,10 +225,10 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
 
   const steps = [
     ["STEP 1", "Capture the Verbatim Exactly", "The reporter's own words describing the event. Example: 'patient developed racing heartbeat and dizziness after the dose'. Never change or interpret the verbatim — record it exactly as stated."],
-    ["STEP 2", "Search the LLT Browser", "Open the MedDRA browser (in Argus or standalone). Enter the verbatim or closest synonym. 'Racing heartbeat' as an LLT maps to PT: Palpitations. 'Dizziness' maps to PT: Dizziness directly."],
+    ["STEP 2", "Search the LLT Browser", "Open the Clinical Coding Browser (in Enterprise Safety Database or standalone). Enter the verbatim or closest synonym. 'Racing heartbeat' as an LLT maps to PT: Palpitations. 'Dizziness' maps to PT: Dizziness directly."],
     ["STEP 3", "Confirm PT Definition Matches", "Read the PT definition in the browser. Confirm it matches the clinical picture. If choosing between Palpitations vs. Tachycardia, prefer the PT that most precisely reflects the reporter's language — not your clinical interpretation."],
-    ["STEP 4", "Accept the Primary SOC", "Each PT has one Primary SOC assigned by MedDRA. You cannot override it. For 'Palpitations': Primary SOC = Cardiac disorders. Secondary SOCs exist but are not used for expedited reporting line items."],
-    ["STEP 5", "Code Each Event Separately", "Three events = three separate PT lines. Each gets its own MedDRA coding entry in the case. They may belong to different SOCs. All three are documented and QC-reviewed independently."],
+    ["STEP 4", "Accept the Primary SOC", "Each PT has one Primary SOC assigned by Standardized Medical Coding. You cannot override it. For 'Palpitations': Primary SOC = Cardiac disorders. Secondary SOCs exist but are not used for expedited reporting line items."],
+    ["STEP 5", "Code Each Event Separately", "Three events = three separate PT lines. Each gets its own Standardized Medical Coding entry in the case. They may belong to different SOCs. All three are documented and QC-reviewed independently."],
   ];
 
   steps.forEach(([n, t, d]) => {
@@ -252,7 +252,7 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     body: [
       ["Coding to LLT instead of PT","LLTs are search synonyms, not coding targets. Regulatory submissions require PT level only.","Always code to Preferred Term. The LLT is only the path you search through."],
       ["Using 'Death' as standalone primary PT","'Death' should be accompanied by the cause of death if known. 'Sudden cardiac death' or 'Cardiorespiratory arrest' should be the primary event PT.","Code the medical cause of death as primary PT. Add 'Death' as a secondary event if SOC requires."],
-      ["Overriding the Primary SOC","Each PT has ONE Primary SOC fixed by MedDRA. You cannot reassign it based on clinical opinion.","Always check the Primary SOC flag in the MedDRA browser. Never assume based on the word alone."],
+      ["Overriding the Primary SOC","Each PT has ONE Primary SOC fixed by Standardized Medical Coding. You cannot reassign it based on clinical opinion.","Always check the Primary SOC flag in the Clinical Coding Browser. Never assume based on the word alone."],
       ["Adding clinical interpretation to verbatim","Reporter says 'difficulty breathing'. Do not code 'Respiratory distress' or 'Anaphylaxis' unless the reporter explicitly stated that.","Code 'Dyspnoea' \u2014 closest valid PT to the reporter's words. Raise a follow-up query for clinical detail."],
       ["Over-coding vague descriptions","Reporter says 'felt unwell'. Coding this as 'Multi-organ failure' is clinical interpretation, not coding.","Code 'Malaise' or 'Condition aggravated' \u2014 closest valid PT. Generate a query for specific symptoms."],
     ],
@@ -263,7 +263,7 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     margin: { left: m, right: m },
   });
   y = (doc as any).lastAutoTable.finalY + 14;
-  y = callout(y, "MedDRA 27.0 (March 2026): ~25,000 PTs. When a version upgrade is released, all cases coded with deprecated or changed terms must be reviewed and potentially re-coded before submission. MedDRA version management is a real interview and production operations topic.", SOFT, TEAL, 40);
+  y = callout(y, "Standardized Medical Coding (March 2026): ~25,000 PTs. When a version upgrade is released, all cases coded with deprecated or changed terms must be reviewed and potentially re-coded before submission. Standardized Medical Coding version management is a real interview and production operations topic.", SOFT, TEAL, 40);
 
   // ── PAGE 4: SERIOUSNESS & CASE PROCESSING ────────────────────
   doc.addPage(); y = phdr("CHAPTER 03", "Seriousness & Case Processing Decisions");
@@ -341,8 +341,8 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     startY: y,
     head: [["TIME BLOCK","TASK","WHAT ACTUALLY HAPPENS"]],
     body: [
-      ["08:00\u201308:30","Triage Inbox & Workflow Review","Log into Oracle Argus or ARISg. Review overnight case queue. Flag any Day-0 cases received after previous COB. Prioritise 7-day SUSARs above all other work."],
-      ["08:30\u201311:30","Case Data Entry & MedDRA Coding","Process assigned cases: patient demographics, drug details (dose, route, dates, batch), event verbatim, PT coding, seriousness assessment, timeline documentation. Average CRO output: 8\u201315 cases per associate per shift for simple spontaneous reports."],
+      ["08:00\u201308:30","Triage Inbox & Workflow Review","Log into Enterprise Safety Database or Multi-Sponsor Safety Systems. Review overnight case queue. Flag any Day-0 cases received after previous COB. Prioritise 7-day SUSARs above all other work."],
+      ["08:30\u201311:30","Case Data Entry & Standardized Medical Coding","Process assigned cases: patient demographics, drug details (dose, route, dates, batch), event verbatim, PT coding, seriousness assessment, timeline documentation. Average CRO output: 8\u201315 cases per associate per shift for simple spontaneous reports."],
       ["11:30\u201312:00","Medical Narrative Drafting","Write the structured case narrative: 150\u2013250 words covering the patient, drug, event, clinical course, lab data, and outcome. This is read by regulators during inspections. Errors in narratives are GCP findings."],
       ["12:00\u201313:00","Quality Control (QC) Review","Peer review of another associate's cases \u2014 checking all fields, coding logic, seriousness rationale, and narrative consistency against a 40\u201360-item checklist. Formal sign-off required."],
       ["14:00\u201316:00","Follow-Up Queries","Draft queries to reporters for missing data: patient DOB, concomitant medications, lab values, outcome updates. Every follow-up attempt must be timestamped and documented in the case audit trail."],
@@ -357,11 +357,11 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
   });
   y = (doc as any).lastAutoTable.finalY + 18;
 
-  lbl("Oracle Argus Workflow \u2014 8-Stage Case Lifecycle", y); y += 16;
-  const argus: [string,string][] = [
+  lbl("Enterprise Safety Database Workflow \u2014 8-Stage Case Lifecycle", y); y += 16;
+  const safetyLifecycleSteps: [string,string][] = [
     ["INTAKE","Case received via email, fax, or authority. Unique Case ID assigned. Source type and Day-0 logged immediately. A 'stub case' is created if fewer than 4 criteria are met \u2014 held pending follow-up data."],
     ["DATA ENTRY","Associate enters all demographics, drug details (batch, dose, route, start/stop dates), event verbatim, and reporter details. All fields must conform to E2B R3 data standards for electronic submission."],
-    ["CODING","MedDRA PT assigned to each adverse event. Drug names are coded to WHO Drug Dictionary (WHO-DD). Both steps are audit-trailed and version-controlled."],
+    ["CODING","Standardized Medical Coding PT assigned to each adverse event. Drug names are coded to Global Medicinal Product Dictionaries (Global Medicinal Product Dictionaries). Both steps are audit-trailed and version-controlled."],
     ["MEDICAL REVIEW","A medical monitor or pharmacovigilance physician reviews seriousness, causality, and clinical accuracy. Their decision overrides the associate's initial assessment where relevant."],
     ["NARRATIVE","Medical narrative written and reviewed. Format: patient profile \u2192 drug and dosing \u2192 event description \u2192 laboratory data \u2192 clinical course \u2192 current outcome \u2192 reporter's assessment."],
     ["QC","Second-eye review of 40\u201360 checklist line items. Any discrepancy returns the case to the associate for correction before QC sign-off. QC metrics are monitored by team leads."],
@@ -369,7 +369,7 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     ["FOLLOW-UP","New information post-submission creates a new case version (FU1, FU2, etc.). May trigger re-submission if new data changes seriousness, expectedness, or narrative accuracy."],
   ];
 
-  argus.forEach(([step, desc]) => {
+  safetyLifecycleSteps.forEach(([step, desc]) => {
     const lines = doc.splitTextToSize(desc, cw - 100);
     const boxH = Math.max(30, lines.length * 11 + 14);
     doc.setFillColor(...SOFT); doc.setDrawColor(...BORDER); doc.setLineWidth(0.5);
@@ -390,10 +390,10 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     startY: y,
     head: [["TOOL","USED FOR","DEPLOYED AT"]],
     body: [
-      ["Oracle Argus Safety","Primary case management, MedDRA coding, narrative drafting, QC, E2B submission","Cognizant, Accenture, TCS, IQVIA, Novartis, Pfizer, Roche"],
-      ["ARISg (Relsys)","Alternative safety database with similar workflow to Argus","PPD, Syneos Health, some Labcorp divisions"],
-      ["Veeva Vault Safety","Cloud-native case management — increasingly adopted post-2022","Emerging CROs and biotech clients"],
-      ["WHO-Drug Dictionary","Coding drug names to standardised WHO entries. Runs alongside MedDRA.","All MAHs and CROs globally"],
+      ["Enterprise Safety Database","Primary case management, Standardized Medical Coding, narrative drafting, QC, E2B submission","Cognizant, Accenture, TCS, IQVIA, Novartis, Pfizer, Roche"],
+      ["Multi-Sponsor Safety Systems","Alternative safety database with similar workflow to Enterprise Safety Database","PPD, Syneos Health, some Labcorp divisions"],
+      ["Cloud Safety Management Systems","Cloud-native case management — increasingly adopted post-2022","Emerging CROs and biotech clients"],
+      ["Global Medicinal Product Dictionaries","Coding drug names to standardised WHO entries. Runs alongside Standardized Medical Coding.","All MAHs and CROs globally"],
       ["EudraVigilance (EV Web)","EU submission portal for all EMA-regulated products","All EU market access holders and their CROs"],
       ["FAERS (FDA)","US adverse event reporting. Submissions via MedWatch E2B.","All FDA-regulated product sponsors"],
       ["VigiBase (WHO)","Global ICSR database across 135+ WHO member countries. Used for signal detection.","WHO Programme for International Drug Monitoring"],
@@ -419,10 +419,10 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
       ["What is Day-0 in pharmacovigilance?","'Day-0 is when the patient started having the reaction.'","Day-0 is the date the company or CRO first received awareness of a valid ICSR \u2014 not the event date, not the processing start. The regulatory reporting deadline runs from Day-0 including weekends."],
       ["What is seriousness? How is it different from severity?","'Seriousness means the reaction was very bad for the patient.'","Seriousness is a regulatory classification based on 6 ICH-E2A criteria: death, life-threatening, hospitalisation, disability, congenital anomaly, medically significant. Severity describes clinical intensity. A severe headache may be non-serious. A mild event causing hospitalisation IS serious."],
       ["What is a SUSAR?","'It's a serious adverse event in a clinical trial.'","SUSAR = Suspected Unexpected Serious Adverse Reaction. A clinical trial case that is both serious AND unexpected (not in the Investigator's Brochure at that severity). Fatal/life-threatening = 7-day reporting. Other serious SUSARs = 15-day."],
-      ["What level do you code to in MedDRA?","'I code to the Lowest Level Term as it's the most specific.'","Always to the Preferred Term (PT). LLTs are search synonyms \u2014 the path to reach a PT. Regulatory submissions require PT. Primary SOC is assigned by MedDRA and cannot be overridden by the associate."],
+      ["What level do you code to in Standardized Medical Coding?","'I code to the Lowest Level Term as it's the most specific.'","Always to the Preferred Term (PT). LLTs are search synonyms \u2014 the path to reach a PT. Regulatory submissions require PT. Primary SOC is assigned by Standardized Medical Coding and cannot be overridden by the associate."],
       ["Reporter says patient had 'stomach problems'. What PT?","'I would code it as gastrointestinal disorder.'","'Abdominal discomfort' or 'Gastrointestinal disorder NOS' \u2014 closest PT that matches without clinical interpretation. I would simultaneously raise a follow-up query to the reporter for the exact symptom."],
       ["What is expectedness and why does it matter?","'Whether the reaction is expected based on common side effects.'","Expectedness = whether the reaction appears in the current approved SmPC or IB at the observed severity. Unexpected + Serious triggers expedited reporting. Expected + Serious = PSUR aggregate. Expectedness directly determines your SLA obligation."],
-      ["Have you worked on Oracle Argus?","'No, but I'm willing to learn.'","[If trained]: 'I've completed a simulation in Argus 8.4 \u2014 demographic entry, MedDRA coding, narrative drafting.' [If untrained]: 'Not in production, but I understand the 8-stage workflow \u2014 intake, data entry, coding, medical review, narrative, QC, submission, and follow-up \u2014 and the E2B R3 standards it follows.'"],
+      ["Have you worked on Enterprise Safety Database?","'No, but I'm willing to learn.'","[If trained]: 'I've completed a simulation in Enterprise Safety Database 8.4 \u2014 demographic entry, Standardized Medical Coding, narrative drafting.' [If untrained]: 'Not in production, but I understand the 8-stage workflow \u2014 intake, data entry, coding, medical review, narrative, QC, submission, and follow-up \u2014 and the E2B R3 standards it follows.'"],
     ],
     theme: "grid",
     headStyles: { fillColor: NAVY, textColor: 255, fontSize: 7.5, fontStyle: "bold", cellPadding: 5 },
@@ -444,9 +444,9 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     head: [["CATEGORY","USE THESE EXACT PHRASES IN YOUR RESUME"]],
     body: [
       ["Regulatory","ICH-E2D  |  ICH-E2A  |  E2B R3  |  GCP  |  GVP Module VI  |  21 CFR 314  |  CDSCO PvPI  |  EMA GVP"],
-      ["Coding Systems","MedDRA 27.0  |  PT coding  |  LLT mapping  |  Primary SOC  |  SMQ  |  WHO-DD  |  ATC classification"],
+      ["Coding Systems","Standardized Medical Coding  |  PT coding  |  LLT mapping  |  Primary SOC  |  SMQ  |  Global Medicinal Product Dictionaries  |  ATC classification"],
       ["Case Processing","ICSR processing  |  Case intake  |  Seriousness assessment  |  Expectedness evaluation  |  Narrative drafting  |  SUSAR  |  Signal detection"],
-      ["Software / Tools","Oracle Argus Safety  |  ARISg  |  Veeva Vault Safety  |  EudraVigilance  |  FAERS  |  VigiBase  |  MedDRA Browser"],
+      ["Software / Tools","Enterprise Safety Database  |  Multi-Sponsor Safety Systems  |  Cloud Safety Management Systems  |  EudraVigilance  |  FAERS  |  VigiBase  |  Clinical Coding Browser"],
       ["Process Terms","Day-0 clock  |  15-day expedited reporting  |  7-day SUSAR  |  SLA adherence  |  QC review  |  Follow-up query  |  PSUR/PBRER"],
       ["Clinical Terms","Adverse drug reaction  |  Serious adverse event  |  Causality assessment  |  WHO-UMC scale  |  Dechallenge  |  Rechallenge"],
     ],
@@ -474,7 +474,7 @@ export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) 
     },
     {
       q: "What does a useful PV candidate's resume look like vs. a typical pharmacy graduate's?",
-      a: "Typical: 'Studied Pharmacology, Pharmaceutics, Clinical Pharmacy.' That tells me nothing about your operational readiness. Useful: 'Familiar with ICH-E2D validity criteria and ICSR triage logic. Understands MedDRA PT-level coding workflow. Completed simulation of adverse event case entry in Oracle Argus 8.4.' One of those gets a callback \u2014 the other doesn't, regardless of grades.",
+      a: "Typical: 'Studied Pharmacology, Pharmaceutics, Clinical Pharmacy.' That tells me nothing about your operational readiness. Useful: 'Familiar with ICH-E2D validity criteria and ICSR triage logic. Understands Standardized Medical Coding PT-level coding workflow. Completed simulation of adverse event case entry in Enterprise Safety Database.' One of those gets a callback \u2014 the other doesn't, regardless of grades.",
     },
     {
       q: "What is the most common mistake in case narratives?",

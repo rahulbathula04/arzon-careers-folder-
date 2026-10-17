@@ -31,7 +31,7 @@ const CASE_STUDIES: CandidateCaseStudy[] = [
     avatar: "/images/avatar-rahul.jpg",
     acriScore: "88/100",
     readinessBand: "Industry Ready",
-    topCompetencies: ["Regulatory Timelines (94%)", "MedDRA Coding (86%)"],
+    topCompetencies: ["Regulatory Timelines (94%)", "Standardized Medical Coding (86%)"],
     takeaway:
       "Most exams test textbook memorization. ACRI tested how I handle regulatory 15-day expedited reporting under pressure. Having a verifiable scorecard that proves day-one competence gives tangible credibility.",
   },

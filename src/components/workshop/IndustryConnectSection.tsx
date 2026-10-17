@@ -45,7 +45,7 @@ const DEFAULT_EVIDENCE_ITEMS: IndustryConnectItem[] = [
     category: "jd_intelligence",
     claimText: "Curriculum mapped to 1,000+ live Pharmacovigilance & CDM job descriptions",
     evidenceSummary:
-      "Empirical audit across Naukri, LinkedIn, and corporate career portals (IQVIA, Parexel, Cognizant, Accenture) from Jan 2024 to Feb 2026. 84% of entry-level listings require ICSR triage and MedDRA familiarity.",
+      "Empirical audit across Naukri, LinkedIn, and corporate career portals (IQVIA, Parexel, Cognizant, Accenture) from Jan 2024 to Feb 2026. 84% of entry-level listings require ICSR triage and standardized medical coding familiarity.",
     dateVerified: "February 2026",
     verificationStatus: "verified_internal",
     sampleSize: "1,140 JDs Analyzed",
@@ -53,7 +53,7 @@ const DEFAULT_EVIDENCE_ITEMS: IndustryConnectItem[] = [
   {
     id: "tool-audit",
     category: "curriculum_audit",
-    claimText: "Enterprise software competency alignment (Oracle Argus & MedDRA focus)",
+    claimText: "Enterprise software competency alignment (Safety Database & Clinical Coding focus)",
     evidenceSummary:
       "Direct comparison between academic pharmacy syllabi (PCI) and enterprise job expectations. Traditional college curriculum dedicates <4 hours to drug safety database workflows; our session demonstrates the complete 4-point validity workflow.",
     dateVerified: "January 2026",

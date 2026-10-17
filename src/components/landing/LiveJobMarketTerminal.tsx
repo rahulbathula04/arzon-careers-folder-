@@ -35,7 +35,7 @@ const SAMPLE_JOBS: JobOpening[] = [
     track: "Pharmacovigilance",
     experience: "Fresher / 0–1 Year",
     salary: "₹4.5L – ₹5.8L",
-    skills: ["Oracle Argus", "MedDRA Coding", "CIOMS-I", "ICSR Triage"],
+    skills: ["Safety Database", "Medical Coding", "CIOMS-I", "ICSR Triage"],
     postedTime: "2 days ago",
   },
   {
@@ -46,7 +46,7 @@ const SAMPLE_JOBS: JobOpening[] = [
     track: "Clinical Research",
     experience: "Fresher / 0–2 Years",
     salary: "₹4.2L – ₹5.5L",
-    skills: ["Medidata RAVE", "ICH-GCP", "Query Resolution", "eCRF"],
+    skills: ["EDC Platforms", "ICH-GCP", "Query Resolution", "eCRF"],
     postedTime: "1 day ago",
   },
   {
@@ -90,7 +90,7 @@ const SAMPLE_JOBS: JobOpening[] = [
     track: "Medical Writing",
     experience: "0–2 Years (Pharm.D/M.Pharm)",
     salary: "₹5.0L – ₹6.5L",
-    skills: ["ICH E3", "CSR Authoring", "Safety Narratives", "Veeva"],
+    skills: ["ICH E3", "CSR Authoring", "Safety Narratives", "Document Systems"],
     postedTime: "5 days ago",
   },
 ];

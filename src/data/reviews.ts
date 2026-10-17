@@ -90,7 +90,7 @@ export const REVIEWS: PublishedReview[] = [
     college: "Sultan-ul-Uloom College of Pharmacy, Hyderabad",
     domain: "Pharmacovigilance",
     body:
-      "Attended the Pharmacovigilance training program at the Madhapur center. What stood out was the thorough practical coverage of ICSR processing, adverse event reporting, and MedDRA terminology rather than just theory. Counselors were transparent about entry-level interview processes in Hyderabad.",
+      "Attended the Pharmacovigilance training program at the Madhapur center. What stood out was the thorough practical coverage of ICSR processing, adverse event reporting, and standardized medical coding terminology rather than just theory. Counselors were transparent about entry-level interview processes in Hyderabad.",
     source: "Google Business Profile",
     sourceKind: "third-party",
     sourceLabel: "Google Business Review · 5.0 ★",
@@ -106,7 +106,7 @@ export const REVIEWS: PublishedReview[] = [
     college: "Kakatiya University, Warangal",
     domain: "Clinical Research",
     body:
-      "The career guidance session gave me clear direction on clinical research versus pharmacovigilance roles. Hands-on exposure to Argus safety database navigation and case triage workflows gave me solid confidence for technical screening.",
+      "The career guidance session gave me clear direction on clinical research versus pharmacovigilance roles. Hands-on exposure to Enterprise Safety Database database navigation and case triage workflows gave me solid confidence for technical screening.",
     source: "Google Business Profile",
     sourceKind: "third-party",
     sourceLabel: "Google Business Review · 5.0 ★",
@@ -222,7 +222,7 @@ export const REVIEWS: PublishedReview[] = [
     college: "Pune College of Pharmacy",
     domain: "Internships",
     body:
-      "Completed a 90-day internship in Drug Safety & Pharmacovigilance. Great learning atmosphere with hands-on practice in safety case intake, MedDRA hierarchy, and narrative drafting. Mentors gave constructive line-by-line feedback.",
+      "Completed a 90-day internship in Drug Safety & Pharmacovigilance. Great learning atmosphere with hands-on practice in safety case intake, 5-tier medical coding hierarchy, and narrative drafting. Mentors gave constructive line-by-line feedback.",
     source: "AmbitionBox",
     sourceKind: "third-party",
     sourceLabel: "AmbitionBox Verified Review · 5.0 ★",
@@ -318,7 +318,7 @@ export const REVIEWS: PublishedReview[] = [
     college: "Dayanand Sagar College of Pharmacy",
     domain: "Pharmacovigilance",
     body:
-      "He described his Pharmacovigilance training as giving him practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, regulatory guidelines and signal detection.",
+      "He described his Pharmacovigilance training as giving him practical exposure to ADR reporting, ICSR processing, Standardized Medical Coding, literature review, regulatory guidelines and signal detection.",
     source: "LinkedIn public post",
     sourceKind: "public-post",
     sourceLabel: "Public LinkedIn learner post",
@@ -473,7 +473,7 @@ export const REVIEWS: PublishedReview[] = [
     domain: "Pharmacovigilance",
     rating: 5,
     body:
-      "Arzon's published feedback says her Pharmacovigilance training gave her practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review and signal detection.",
+      "Arzon's published feedback says her Pharmacovigilance training gave her practical exposure to ADR reporting, ICSR processing, Standardized Medical Coding, literature review and signal detection.",
     source: "Arzon Careers",
     sourceKind: "first-party",
     sourceLabel: "Published on Arzon Careers",

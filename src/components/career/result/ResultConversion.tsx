@@ -50,7 +50,7 @@ export function ResultConversion({ result }: Props) {
         </h2>
 
         <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
-          Knowing your career archetype is step one. Step two is acquiring genuine production mastery (Argus Safety, MedDRA, EDC platforms) and building an audit-proof case portfolio that commands executive recruiter attention.
+          Knowing your career archetype is step one. Step two is acquiring genuine production mastery (Enterprise Safety Databases, Standardized Medical Coding, EDC platforms) and building an audit-proof case portfolio that commands executive recruiter attention.
         </p>
 
         {/* Action CTAs */}

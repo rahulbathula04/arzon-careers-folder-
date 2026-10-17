@@ -23,7 +23,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     excerpt: "Spontaneous report · 64F · suspected SAE post-anticoagulant initiation",
     bullets: [
       "Full E2B(R3) intake - primary source, reporter, dates",
-      "MedDRA LLT coding with PT roll-up + WHO-DD product mapping",
+      "Standardized LLT coding with PT roll-up + drug product mapping",
       "Mentor-reviewed narrative; 3 graded passes before sign-off",
     ],
   },
@@ -44,7 +44,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     artifact: "eCRF + edit-check spec (Rave study)",
     excerpt: "Phase II oncology · Demographics, AE, ConMed forms",
     bullets: [
-      "CDASH-aligned CRF build in Medidata Rave (study build screenshot)",
+      "CDASH-aligned CRF build in clinical EDC systems (study build screenshot)",
       "Edit-check spec written + executed; query log attached",
       "SAE reconciliation report from mock database lock",
     ],

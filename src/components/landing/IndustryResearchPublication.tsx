@@ -15,25 +15,25 @@ import { Interactive3dCard, Card3dLayer } from "@/components/3d/Interactive3dCar
 import { Floating3dBadge } from "@/components/3d/Floating3dBadge";
 
 const SKILL_FREQUENCIES = [
-  { tool: "Oracle Argus Safety (ICSR Workflow)", frequency: 84, track: "Pharmacovigilance", type: "surging" },
-  { tool: "MedDRA Medical Terminology Coding", frequency: 78, track: "Safety & Coding", type: "surging" },
+  { tool: "Safety Database (ICSR Workflow)", frequency: 84, track: "Pharmacovigilance", type: "surging" },
+  { tool: "Standardized Medical Coding", frequency: 78, track: "Safety & Coding", type: "surging" },
   { tool: "ICH-GCP E6(R2) Regulatory Protocol", frequency: 92, track: "Clinical Research", type: "surging" },
-  { tool: "Medidata RAVE Electronic Data Capture", frequency: 71, track: "Clinical Data Mgt", type: "surging" },
+  { tool: "Electronic Data Capture (EDC) Systems", frequency: 71, track: "Clinical Data Mgt", type: "surging" },
   { tool: "ICD-10-CM / CPT Surgical Coding", frequency: 88, track: "Medical Coding", type: "surging" },
-  { tool: "Clinical SAS 9.4 (SDTM/ADaM)", frequency: 66, track: "Healthcare Analytics", type: "surging" },
+  { tool: "Clinical Statistical Programming (SDTM/ADaM)", frequency: 66, track: "Healthcare Analytics", type: "surging" },
 ];
 
 const OBSOLESCENCE_DELTAS = [
   {
     legacy: "Rote memorization of drug classifications without software context",
     drop: "-82%",
-    modern: "Live Argus database entry, narrative authoring & MedDRA PT assignment",
+    modern: "Safety database case entry, narrative authoring & clinical coding",
     growth: "+214%",
   },
   {
     legacy: "Manual paper-based clinical trial case record forms (CRFs)",
     drop: "-75%",
-    modern: "Medidata RAVE EDC validation & automated query management",
+    modern: "Electronic Data Capture (EDC) validation & automated query management",
     growth: "+186%",
   },
   {
@@ -127,7 +127,7 @@ export function IndustryResearchPublication() {
               </div>
 
               <p className="text-xs text-stone-600 font-sans leading-relaxed pt-2 border-t border-stone-200">
-                📌 <strong>Empirical Finding:</strong> Over 82% of enterprise hiring filters immediately eliminate applicants who lack named software tools (Oracle Argus, RAVE, SAS, ICD-10) from their primary CV resume scans.
+                📌 <strong>Empirical Finding:</strong> Over 82% of enterprise hiring filters immediately eliminate applicants who lack industry workflow platforms (Safety DB, EDC, Statistical Programming, ICD-10) from their primary CV resume scans.
               </p>
             </Interactive3dCard>
           </div>
@@ -156,12 +156,12 @@ export function IndustryResearchPublication() {
                 <Card3dLayer translateZ={25} className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900 space-y-1 shadow-2xs">
                   <span className="font-bold block text-[11px]">🔴 STANDARD COLLEGE CV:</span>
                   <p className="text-[11px] font-sans">"Completed project on adverse drug reactions in hospital setting."</p>
-                  <span className="text-[10px] text-rose-700 block font-bold">ATS STATUS: REJECTED (Missing Argus/MedDRA tags)</span>
+                  <span className="text-[10px] text-rose-700 block font-bold">ATS STATUS: REJECTED (Missing Safety DB / Coding tags)</span>
                 </Card3dLayer>
 
                 <Card3dLayer translateZ={35} className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-950 space-y-1 shadow-md ring-1 ring-emerald-500/20">
                   <span className="font-bold block text-[11px] text-emerald-800">🟢 ARZON PREPARED CV:</span>
-                  <p className="text-[11px] font-sans text-stone-800">"Processed 40+ de-identified ICSR cases in Oracle Argus 8.4; assigned MedDRA 27.0 PT codes for expedited 7-day safety reporting."</p>
+                  <p className="text-[11px] font-sans text-stone-800">"Processed 40+ de-identified ICSR cases in clinical safety databases; assigned standardized PT codes for expedited 7-day safety reporting."</p>
                   <span className="text-[10px] text-emerald-700 block font-bold">ATS STATUS: SHORTLISTED (94/100 Intent Score)</span>
                 </Card3dLayer>
               </div>

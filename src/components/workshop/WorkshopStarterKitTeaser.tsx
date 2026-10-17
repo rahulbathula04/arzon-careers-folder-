@@ -13,7 +13,7 @@ export function WorkshopStarterKitTeaser({ onClaimClick }: { onClaimClick: () =>
     },
     {
       title: "Enterprise Software Workflow Cheat-Sheet",
-      desc: "High-resolution diagram comparing Oracle Argus 8.4 case processing vs. Medidata RAVE eCRF query management.",
+      desc: "High-resolution diagram comparing safety database case processing vs. clinical EDC query management.",
     },
     {
       title: "ATS-Optimized Resume Keywords for Healthcare Roles",

@@ -20,8 +20,8 @@ export const Route = createFileRoute("/tools/skill-gap-analyzer")({
 });
 
 const KEYWORD_PATTERNS = [
-  { term: "Argus Safety", category: "Pharmacovigilance Tool", courseSlug: "pharmacovigilance" },
-  { term: "MedDRA", category: "Medical Dictionary", courseSlug: "pharmacovigilance" },
+  { term: "Enterprise Safety Database", category: "Pharmacovigilance Tool", courseSlug: "pharmacovigilance" },
+  { term: "Standardized Medical Coding", category: "Medical Dictionary", courseSlug: "pharmacovigilance" },
   { term: "ICSR", category: "PV Case Intake", courseSlug: "pharmacovigilance" },
   { term: "PSUR", category: "Aggregate Reporting", courseSlug: "pharmacovigilance" },
   { term: "PBRER", category: "Aggregate Reporting", courseSlug: "pharmacovigilance" },
@@ -30,8 +30,8 @@ const KEYWORD_PATTERNS = [
   { term: "HCPCS", category: "Supplies Coding", courseSlug: "medical-coding" },
   { term: "AAPC", category: "Certification Standard", courseSlug: "medical-coding" },
   { term: "CPC", category: "Coding Certification", courseSlug: "medical-coding" },
-  { term: "Medidata Rave", category: "EDC Platform", courseSlug: "clinical-data-management" },
-  { term: "Veeva", category: "Clinical Suite / eCTD", courseSlug: "clinical-data-management" },
+  { term: "Electronic Data Capture (EDC)", category: "EDC Platform", courseSlug: "clinical-data-management" },
+  { term: "Enterprise Life Sciences Cloud", category: "Clinical Suite / eCTD", courseSlug: "clinical-data-management" },
   { term: "CDASH", category: "CRF Standard", courseSlug: "clinical-data-management" },
   { term: "SDTM", category: "CDISC Standard", courseSlug: "sas-clinical" },
   { term: "ADaM", category: "CDISC Standard", courseSlug: "sas-clinical" },
@@ -134,7 +134,7 @@ function SkillGapAnalyzerComponent() {
                     <AlertTriangle className="w-4 h-4 text-amber-700" /> NO ENTERPRISE TECHNICAL TOKENS DETECTED
                   </div>
                   <p>
-                    The pasted text does not specify standard software tools (Oracle Argus, Medidata Rave, ICD-10-CM, eCTD, SAS). It may be a generic recruiter blurb.
+                    The pasted text does not specify standard software tools (Enterprise Safety Database, Electronic Data Capture (EDC), ICD-10-CM, eCTD, SAS). It may be a generic recruiter blurb.
                   </p>
                 </div>
               ) : (

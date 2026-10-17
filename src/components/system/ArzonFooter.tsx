@@ -197,7 +197,7 @@ export function ArzonFooter() {
             <strong>Statutory Notice:</strong> Arzon Global is an independent healthcare workforce intelligence and skill enablement platform (MSME UDYAM Registered · ISO 9001:2015). Arzon Global is not a university or degree-granting body; programmes do not confer statutory academic degrees governed by UGC/AICTE.
           </p>
           <p>
-            <strong>ASCI Compliance & Trademark Notice:</strong> In adherence to ASCI advertising guidelines, Arzon does not offer guaranteed jobs or fixed salaries. All third-party company names, trademarks, and software logos (including MedDRA®, Oracle Argus®, SAS®, Veeva®, etc.) remain the exclusive property of their respective owners and are referenced under Section 30 of the Indian Trade Marks Act, 1999 solely for nominative identification and curriculum context without implied endorsement.
+            <strong>ASCI Compliance & Trademark Notice:</strong> In adherence to ASCI advertising guidelines, Arzon does not offer guaranteed jobs or fixed salaries. All third-party company names, trademarks, and software logos remain the exclusive property of their respective owners and are referenced under Section 30 of the Indian Trade Marks Act, 1999 solely for nominative identification and educational context without implied endorsement.
           </p>
         </div>
       </div>

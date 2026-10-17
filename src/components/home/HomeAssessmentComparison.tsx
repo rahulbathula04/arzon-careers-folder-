@@ -205,7 +205,7 @@ export function HomeAssessmentComparison() {
                   Pharmacovigilance & Drug Safety
                 </h3>
                 <p className="mt-1 text-xs sm:text-[13px] text-[#64748B] leading-relaxed">
-                  Master ICSR case processing, MedDRA coding, and safety narratives with real clinical datasets from 2,000+ analyzed job descriptions.
+                  Master ICSR case processing, standardized medical coding, and safety narratives with real clinical datasets from 2,000+ analyzed job descriptions.
                 </p>
               </div>
 
@@ -232,7 +232,7 @@ export function HomeAssessmentComparison() {
                         </span>
                       </div>
                       <div className="text-[9.5px] sm:text-[10px] text-[#64748B] truncate">
-                        Tools: <span className="font-semibold text-[#081F38]">Argus Workflows & MedDRA v26</span>
+                        Tools: <span className="font-semibold text-[#081F38]">Safety DB & Medical Coding</span>
                       </div>
                     </div>
                   </div>
@@ -247,7 +247,7 @@ export function HomeAssessmentComparison() {
               <div className="grid grid-cols-3 gap-1 sm:gap-1.5 pt-1 text-[10px] sm:text-[11px] font-medium text-[#334155]">
                 <div className="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] px-1.5 sm:px-2 py-1.5 text-center">
                   <span className="block font-bold text-[#081F38] text-[10.5px] sm:text-[11.5px]">Core Tools</span>
-                  <span className="text-[9px] sm:text-[10px] text-[#64748B]">Argus, MedDRA</span>
+                  <span className="text-[9px] sm:text-[10px] text-[#64748B]">Safety DB, Coding</span>
                 </div>
                 <div className="rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] px-1.5 sm:px-2 py-1.5 text-center">
                   <span className="block font-bold text-[#081F38] text-[10.5px] sm:text-[11.5px]">Real Cases</span>

@@ -165,7 +165,7 @@ export function AcriCertificationLanding() {
                     </div>
                     <div className="flex items-center gap-1.5" style={{ color: "#334155", WebkitTextFillColor: "#334155" }}>
                       <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
-                      <span>MedDRA Coding</span>
+                      <span>Standardized Medical Coding</span>
                     </div>
                     <div className="flex items-center gap-1.5" style={{ color: "#94A3B8", WebkitTextFillColor: "#94A3B8" }}>
                       <div className="h-2.5 w-2.5 rounded-full border border-slate-300 shrink-0 ml-0.5" />
@@ -300,7 +300,7 @@ export function AcriCertificationLanding() {
                 <Layers className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">MedDRA and Coding</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Standardized Medical Coding and Coding</h3>
                 <p className="text-[11px] text-slate-500">Classification and coding</p>
               </div>
             </div>

@@ -10,7 +10,7 @@ export type CompetencyKey =
   | "icsrProcessing"
   | "caseAssessment"
   | "medicalInterpretation"
-  | "meddraCoding"
+  | "clinicalCoding"
   | "documentation"
   | "qualityCompliance"
   | "analyticalReasoning"

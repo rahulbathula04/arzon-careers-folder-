@@ -76,7 +76,7 @@ const CARDS = [
     headline: "AI makes you 3× faster. Companies hire more, not less.",
     body: "Hospitals and BPOs are not firing coders. They want 3× the work per person. The job grows, it doesn't shrink.",
     roles: ["Medical Coder", "PV Associate", "Data Analyst"],
-    whatWeTeach: "How to use AI tools (Copilot, AAPC AI, Argus) without making mistakes.",
+    whatWeTeach: "How to use clinical AI and safety automation tools without making compliance mistakes.",
   },
   {
     tag: "Humans approve",

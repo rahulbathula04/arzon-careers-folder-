@@ -12,7 +12,7 @@ const CLINICAL_TRACKS = [
     hiring: "High",
     difficulty: "Medium",
     demand: "Steady",
-    desc: "Process ICSRs in Argus, write case narratives, work to IQVIA and Cognizant SLAs.",
+    desc: "Process ICSRs in clinical safety databases, write case narratives, work to industry SLAs.",
     slug: "pharmacovigilance",
   },
   {

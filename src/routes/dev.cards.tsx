@@ -224,7 +224,7 @@ function DevCardsPage() {
                 acriOverall={64}
                 bandLabel="Recommended"
                 gaps={MOCK_GAPS}
-                skills={["ICSR triage", "MedDRA coding", "E2B(R3)", "Argus Safety", "PSUR/PBRER"]}
+                skills={["ICSR triage", "Standardized Medical Coding", "E2B(R3)", "Enterprise Safety Database", "PSUR/PBRER"]}
                 roles={["Drug Safety Associate", "PV Officer", "Case Processor"]}
                 candidateName="Harness Sample"
               />

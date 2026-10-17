@@ -11,10 +11,10 @@ export const COMMON_GAPS_BY_CATEGORY: Record<CourseCategory, GapPair[]> = {
   "Pharmacy & Life Sciences": [
     {
       rejected: "“I studied PV theory in college.”",
-      hired: "“I’ve processed 40+ ICSRs in Argus with E2B(R3) export.”",
+      hired: "“I’ve processed 40+ ICSRs in Enterprise Safety Database with E2B(R3) export.”",
     },
     {
-      rejected: "“I know MedDRA exists.”",
+      rejected: "“I know Standardized Medical Coding exists.”",
       hired: "“I coded 120 adverse events to LLT/PT with seriousness logic.”",
     },
     {

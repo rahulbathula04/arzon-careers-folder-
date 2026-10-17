@@ -110,7 +110,7 @@ export const COURSES: Course[] = [
   // ───────── Pharmacy & Life Sciences ─────────
   {
     slug: "pharmacovigilance",
-    title: "Fresher Drug Safety Associate Track - Argus + MedDRA + ICSR",
+    title: "Fresher Drug Safety Associate Track - Safety Database + Standardized Coding + ICSR",
     roleTitle: "Drug Safety Associate",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -119,12 +119,12 @@ export const COURSES: Course[] = [
     blurb:
       "Collect, analyse and report drug-safety data to keep patients safe and meet global regulations.",
     heroTagline:
-      "Built from 1,247 live Drug Safety Associate JDs. Argus + MedDRA + E2B(R3) the way Cognizant, IQVIA and Accenture actually hire for.",
-    tools: ["Argus Safety", "ArisG", "MedDRA", "WHO-DD", "E2B(R3)", "VigiBase", "EudraVigilance"],
+      "Built from 1,247 live Drug Safety Associate JDs. Safety Database + Standardized Coding + E2B(R3) the way Cognizant, IQVIA and Accenture actually hire for.",
+    tools: ["Enterprise Safety Database", "Multi-Sponsor Safety Systems", "Standardized Medical Coding", "Global Medicinal Product Dictionaries", "E2B(R3)", "VigiBase", "EudraVigilance"],
     jd: {
       topSkills: [
         "ICSR processing",
-        "MedDRA coding",
+        "Standardized Medical Coding",
         "Narrative writing",
         "E2B / EVDAS",
         "Aggregate reports (PSUR/PBRER)",
@@ -166,27 +166,27 @@ export const COURSES: Course[] = [
       },
       {
         weeks: "W5–6",
-        title: "MedDRA & WHO-DD coding",
+        title: "Standardized Medical Coding & Global Medicinal Product Dictionaries coding",
         topics: [
-          "MedDRA hierarchy (LLT→SOC)",
+          "5-tier medical coding hierarchy (LLT→SOC)",
           "Coding conventions",
-          "WHO Drug Dictionary",
+          "Global Medicinal Product Dictionaries",
           "Quality checks",
         ],
         deliverable: "100-term coding test (>95% accuracy)",
-        jdSkill: "MedDRA + WHO-DD coding proficiency",
+        jdSkill: "Standardized Medical Coding + Global Medicinal Product Dictionaries coding proficiency",
       },
       {
         weeks: "W7–8",
-        title: "Argus Safety hands-on",
+        title: "Enterprise Safety Database hands-on",
         topics: [
           "Case book-in workflow",
           "Narrative writing",
           "Follow-up handling",
           "E2B(R3) submission",
         ],
-        deliverable: "Argus simulation: 25 cases",
-        jdSkill: "Working knowledge of Argus / ArisG",
+        deliverable: "safety database simulation: 25 cases",
+        jdSkill: "Working knowledge of Enterprise Safety Databases",
       },
       {
         weeks: "W9–10",
@@ -210,8 +210,8 @@ export const COURSES: Course[] = [
     ],
     projects: {
       minor: [
-        "Process 25 ICSR cases in a simulated Argus environment",
-        "Code 100 adverse-event terms in MedDRA with QC review",
+        "Process 25 ICSR cases in a simulated Enterprise Safety Database environment",
+        "Code 100 adverse-event terms in Standardized Medical Coding with QC review",
       ],
       major:
         "End-to-end PSUR for a sample drug, including line-listing, signal review and benefit-risk summary",
@@ -221,7 +221,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "medical-coding",
-    title: "Fresher Medical Coder Track - ICD-10-CM + CPT + 3M Encoder",
+    title: "Fresher Medical Coder Track - ICD-10-CM + CPT + Enterprise CAC Encoders",
     roleTitle: "Medical Coder",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -236,8 +236,8 @@ export const COURSES: Course[] = [
       "ICD-10-PCS",
       "CPT®",
       "HCPCS Level II",
-      "3M Encoder",
-      "EncoderPro",
+      "Enterprise CAC Encoders",
+      "Clinical Encoders",
       "EHR systems",
     ],
     jd: {
@@ -341,7 +341,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "clinical-data-management",
-    title: "Clinical Data Associate Track - Medidata Rave + CDASH + SDTM",
+    title: "Clinical Data Associate Track - Electronic Data Capture (EDC) + CDASH + SDTM",
     roleTitle: "Clinical Data Associate",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -349,11 +349,11 @@ export const COURSES: Course[] = [
     Icon: Database,
     blurb: "Manage, validate and report clinical-trial data using industry-standard CDISC tools.",
     heroTagline:
-      "Built from 684 live Clinical Data Associate JDs. Medidata Rave, CDASH, SDTM - the toolkit IQVIA, Parexel and Syneos hire freshers for.",
+      "Built from 684 live Clinical Data Associate JDs. Electronic Data Capture (EDC), CDASH, SDTM - the toolkit IQVIA, Parexel and Syneos hire freshers for.",
     tools: [
-      "Medidata Rave",
+      "Electronic Data Capture (EDC)",
       "Oracle Clinical / RDC",
-      "Veeva CDMS",
+      "Cloud Data Management Systems",
       "CDISC SDTM",
       "CDASH",
       "SAS basics",
@@ -393,10 +393,10 @@ export const COURSES: Course[] = [
       },
       {
         weeks: "W5–6",
-        title: "EDC build (Medidata Rave / Veeva)",
+        title: "EDC build (Electronic Data Capture (EDC) / Enterprise Life Sciences Cloud)",
         topics: ["Study build basics", "Edit checks", "User management", "UAT"],
         deliverable: "Mini study build + UAT log",
-        jdSkill: "Hands-on EDC (Rave / Veeva)",
+        jdSkill: "Hands-on EDC (Rave / Enterprise Life Sciences Cloud)",
       },
       {
         weeks: "W7–8",
@@ -405,7 +405,7 @@ export const COURSES: Course[] = [
           "Discrepancy handling",
           "Query lifecycle",
           "Listings review",
-          "Coding (MedDRA/WHO-DD)",
+          "Coding (Standardized Medical Coding/Global Medicinal Product Dictionaries)",
         ],
         deliverable: "Clean a 200-row dirty dataset",
         jdSkill: "Query management & data cleaning",
@@ -433,7 +433,7 @@ export const COURSES: Course[] = [
     projects: {
       minor: [
         "Design + annotate a CRF for an oncology Phase II protocol",
-        "Build edit checks and run UAT on a Medidata-style EDC",
+        "Build edit checks and run UAT on a Cloud EDC",
       ],
       major: "Take a sample study from CRF design → cleaning → SAE recon → mock database lock",
     },
@@ -534,7 +534,7 @@ export const COURSES: Course[] = [
   },
   {
     slug: "regulatory-affairs",
-    title: "Regulatory Affairs Associate Track - eCTD + Veeva Vault RIM + ANDA",
+    title: "Regulatory Affairs Associate Track - eCTD + Enterprise RIM Platforms + ANDA",
     roleTitle: "Regulatory Affairs Associate",
     seniority: "Fresher",
     jdRefreshedOn: "2026-05-01",
@@ -542,8 +542,8 @@ export const COURSES: Course[] = [
     Icon: FileCheck2,
     blurb: "Submissions and approvals across FDA, EMA and CDSCO for global health authorities.",
     heroTagline:
-      "Built from 437 live Regulatory Affairs Associate JDs. eCTD modules, Veeva Vault RIM, ANDA/NDA/MAA - exactly what Dr Reddy's, Sun Pharma and Aurobindo hire for.",
-    tools: ["eCTD", "FDA portals", "EMA EudraLex", "CDSCO SUGAM", "Veeva Vault RIM"],
+      "Built from 437 live Regulatory Affairs Associate JDs. eCTD modules, Enterprise RIM Platforms, ANDA/NDA/MAA - exactly what Dr Reddy's, Sun Pharma and Aurobindo hire for.",
+    tools: ["eCTD", "FDA portals", "EMA EudraLex", "CDSCO SUGAM", "Enterprise RIM Platforms"],
     jd: {
       topSkills: [
         "eCTD module structure (M1–M5)",
@@ -616,7 +616,7 @@ export const COURSES: Course[] = [
         weeks: "W9–10",
         title: "RIM systems & publishing",
         topics: [
-          "Veeva Vault RIM tour",
+          "Enterprise RIM Platforms tour",
           "Publishing workflow",
           "Validation",
           "Submission tracking",
@@ -738,12 +738,12 @@ export const COURSES: Course[] = [
     Icon: Server,
     blurb:
       "Configure, validate and run studies on the SaaS platforms every CRO and biotech is migrating to.",
-    heroTagline: "The Veeva + Medidata + Oracle skill set CROs interview for.",
+    heroTagline: "The Enterprise Life Sciences Cloud + Enterprise EDC + Oracle skill set CROs interview for.",
     tools: [
-      "Veeva Vault Clinical (CTMS, eTMF, Study Startup)",
-      "Medidata Rave EDC",
+      "Clinical Trial Management & eTMF Cloud",
+      "Electronic Data Capture (EDC)",
       "Oracle Clinical One",
-      "Argus Safety",
+      "Enterprise Safety Database",
       "21 CFR Part 11",
       "GxP validation",
     ],
@@ -758,7 +758,7 @@ export const COURSES: Course[] = [
       hiringRoles: [
         "Clinical Systems Analyst",
         "EDC Build Programmer",
-        "Veeva Vault Administrator",
+        "Life Sciences Cloud Platforms Administrator",
         "Validation Analyst",
       ],
       salary: "₹6 – 12 LPA",
@@ -788,7 +788,7 @@ export const COURSES: Course[] = [
       },
       {
         weeks: "W3–4",
-        title: "Veeva Vault Clinical (CTMS + eTMF)",
+        title: "Clinical Trial Management & eTMF Cloud",
         topics: [
           "Vault object model",
           "CTMS site & monitoring workflows",
@@ -796,11 +796,11 @@ export const COURSES: Course[] = [
           "Vault admin: users, roles, lifecycles",
         ],
         deliverable: "Configure CTMS + eTMF for a mock study",
-        jdSkill: "Hands-on Veeva Vault Clinical configuration",
+        jdSkill: "Hands-on Clinical Trial Cloud Systems configuration",
       },
       {
         weeks: "W5–6",
-        title: "Medidata Rave study build",
+        title: "Electronic Data Capture (EDC) study build",
         topics: [
           "Architect: forms, folders, matrices",
           "Edit checks & derivations",
@@ -812,14 +812,14 @@ export const COURSES: Course[] = [
       },
       {
         weeks: "W7–8",
-        title: "Oracle Clinical One & Argus admin",
+        title: "Oracle Clinical One & Enterprise Safety Database admin",
         topics: [
           "Clinical One study design",
           "Randomisation & supply (RTSM)",
-          "Argus Safety case workflow basics",
+          "Enterprise Safety Database case workflow basics",
           "Cross-system data flow",
         ],
-        deliverable: "Clinical One mock study + Argus user setup",
+        deliverable: "Clinical One mock study + Enterprise Safety Database user setup",
         jdSkill: "Oracle clinical platform familiarity",
       },
       {
@@ -850,8 +850,8 @@ export const COURSES: Course[] = [
     ],
     projects: {
       minor: [
-        "Configure a Veeva Vault eTMF zone with EDLs for a Phase II study",
-        "Build a Medidata Rave EDC form with edit checks and run UAT",
+        "Configure a Cloud eTMF Systems zone with EDLs for a Phase II study",
+        "Build a Electronic Data Capture (EDC) form with edit checks and run UAT",
       ],
       major:
         "End-to-end study configured across Vault Clinical + Rave with full CSV evidence (URS → IQ/OQ → PQ)",

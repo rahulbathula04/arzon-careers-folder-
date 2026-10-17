@@ -50,7 +50,7 @@ export const CLAIMS_REGISTER: ClaimItem[] = [
     evidenceStatus: "verified_system",
     evidenceSource: "Arzon Standard 12-Week Role Training System",
     verificationUrl: "/training",
-    methodologySummary: "Combines 8 weeks of blended software tool mastery (Oracle Argus, ICD-10, Medidata RAVE, SAS) with 4 weeks of applied capstone project execution."
+    methodologySummary: "Combines 8 weeks of blended software tool mastery (Enterprise Safety Database, ICD-10, Electronic Data Capture (EDC), SAS) with 4 weeks of applied capstone project execution."
   }
 ];
 

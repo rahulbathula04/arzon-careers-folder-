@@ -106,7 +106,7 @@ export function WorkshopCertificatePreview({
                 </span>
               </div>
               <p className="text-xs text-stone-500 font-sans max-w-xl mx-auto pt-2 leading-relaxed">
-                For active participation in the 90-minute live working session covering enterprise Drug Safety &amp; Pharmacovigilance triage, ICH-E2D regulatory compliance criteria, MedDRA 26.0 coding hierarchy, and Oracle Argus Safety ICSR case workflows.
+                For active participation in the 90-minute live working session covering enterprise Drug Safety &amp; Pharmacovigilance triage, ICH-E2D regulatory compliance criteria, standardized clinical coding hierarchy, and clinical safety database ICSR workflows.
               </p>
             </div>
 
@@ -116,10 +116,10 @@ export function WorkshopCertificatePreview({
                 ✓ ICH-E2D Case Triage
               </span>
               <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[10px] font-semibold">
-                ✓ MedDRA 26.0 Coding
+                ✓ Clinical Terminology Coding
               </span>
               <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[10px] font-semibold">
-                ✓ Oracle Argus 8.4 Simulation
+                ✓ Safety Database Simulation
               </span>
               <span className="px-2.5 py-1 rounded-md bg-stone-100 border border-stone-200 text-stone-700 font-mono text-[10px] font-semibold">
                 ✓ 21 CFR Part 11 Audit Principles

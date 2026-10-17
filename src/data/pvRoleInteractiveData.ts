@@ -20,7 +20,7 @@ export interface PvRoleInteractiveMeta {
     receiptClock: string;
     rawTranscript: string;
     intakeChecklist: Array<{ item: string; pass: boolean; note: string }>;
-    meddraHierarchy: {
+    codingHierarchy: {
       soc: string;
       hlgt: string;
       hlt: string;
@@ -78,10 +78,10 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
     badgeLabel: "FRONTLINE CASE PROCESSING & TRIAGE",
     heroHeadline: "Drug Safety Associate (DSA)",
     heroSubhead: "Triage source records, extract clinical data, verify Day-0 validity, and execute end-to-end ICSR data entry within strict 15-day regulatory clocks.",
-    leadParagraph: "A Drug Safety Associate (DSA) is the core operational entry gate in pharmaceutical pharmacovigilance units and Clinical Research Organisations (CROs). DSAs receive raw, messy adverse event reports from physicians, clinical trial investigators, patient support hotlines, and digital channels, convert them into structured E2B(R3) safety records, code clinical terms using MedDRA, write chronological narratives, and perform initial seriousness and causality triage.",
+    leadParagraph: "A Drug Safety Associate (DSA) is the core operational entry gate in pharmaceutical pharmacovigilance units and Clinical Research Organisations (CROs). DSAs receive raw, messy adverse event reports from physicians, clinical trial investigators, patient support hotlines, and digital channels, convert them into structured E2B(R3) safety records, code clinical terms using standardized medical dictionaries, write chronological narratives, and perform initial seriousness and causality triage.",
     dailyTimeSplit: [
       { label: "Intake Triage & Day-0 Validity", pct: 25, detail: "Reviewing raw source PDFs, checking 4 minimum criteria, establishing receipt timestamp", color: "#1557D6" },
-      { label: "MedDRA & WHO-DD Term Coding", pct: 25, detail: "Selecting accurate LLT/PT paths, coding trade names to generic salts and ATC classes", color: "#6946E8" },
+      { label: "Standardized Medical & Drug Coding", pct: 25, detail: "Selecting accurate LLT/PT paths, coding trade names to generic salts and ATC classes", color: "#6946E8" },
       { label: "Chronological Narrative Drafting", pct: 30, detail: "Authoring clinical sequence from onset to dechallenge, labs, and reporter causality", color: "#27B9B3" },
       { label: "Self-QC & Duplicate Reconciliation", pct: 20, detail: "Running duplicate algorithms, verifying field agreement, checking expedited flags", color: "#071A4A" },
     ],
@@ -104,9 +104,9 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
       {
         step: "02",
         title: "Dual Medical Dictionary Coding",
-        tagline: "MedDRA & WHO-DD Standardisation",
-        description: "Translate ambiguous physician verbatims into official MedDRA hierarchy (LLT $\\rightarrow$ PT $\\rightarrow$ HLT $\\rightarrow$ HLGT $\\rightarrow$ SOC) according to ICH MTS:PTC rules. Code suspect medications and concomitants to WHO Drug Dictionary MPIDs and ATC classifications.",
-        toolBadge: "MedDRA Browser / WHO-DD",
+        tagline: "Standardized Clinical & Drug Coding",
+        description: "Translate ambiguous physician verbatims into official 5-tier clinical coding hierarchy (LLT $\\rightarrow$ PT $\\rightarrow$ HLT $\\rightarrow$ HLGT $\\rightarrow$ SOC) according to ICH MTS:PTC rules. Code suspect medications and concomitants to standardized global medicinal product dictionaries and ATC classifications.",
+        toolBadge: "Clinical Coding Browser",
         regulatoryRef: "ICH M1 & WHO-UMC",
         sampleArtifact: "Coded Verbatim Rationale Table",
       },
@@ -124,7 +124,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         title: "Triage, Listedness & Expedited Routing",
         tagline: "Seriousness Classification & Gateway Dispatch",
         description: "Assess adverse events against the 6 regulatory seriousness criteria (Death, Life-Threatening, Hospitalization, Disability, Congenital Anomaly, OMIC). Cross-reference with active CCDS/SmPC to evaluate listedness and route for 7-day or 15-day expedited submission.",
-        toolBadge: "Argus Routing Workflow",
+        toolBadge: "Safety Gateway Workflow",
         regulatoryRef: "US 21 CFR 314.80 / EMA GVP VI",
         sampleArtifact: "Expedited Triage & Reporting Clock Ledger",
       },
@@ -140,7 +140,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         { item: "Suspect Drug", pass: true, note: "Atorvastatin 40 mg (Primary suspect), Clopidogrel (Concomitant/Secondary suspect)" },
         { item: "Adverse Event", pass: true, note: "Severe muscle pain, tea-colored urine, CK elevation, Rhabdomyolysis, Acute Kidney Injury" },
       ],
-      meddraHierarchy: {
+      codingHierarchy: {
         soc: "Musculoskeletal and connective tissue disorders",
         hlgt: "Muscle disorders",
         hlt: "Myopathies",
@@ -167,7 +167,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
       },
       {
         severity: "Major",
-        definition: "Clinical distortion: miscodes MedDRA PT, creates date conflicts, or omits critical medical history.",
+        definition: "Clinical distortion: miscodes clinical Preferred Term, creates date conflicts, or omits critical medical history.",
         realWorldExample: "Coding 'Rhabdomyolysis' as 'Myalgia' (loss of primary diagnosis), or narrative onset date conflicting with structured tab.",
         qualityImpact: "Distorts signal detection and product safety profiles; CRO quality audit penalty",
         reworkRequired: "Formal case rework with reviewer sign-off and tracked change rationale",
@@ -186,7 +186,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         location: "Hyderabad, Pune, Mumbai",
         fresherTitle: "Process Specialist - Pharmacovigilance / Drug Safety",
         jdFrequency: "Found in 42% of entry PV JDs",
-        keySkillsMandated: ["ICSR Book-in & Data Entry", "Argus Safety Case Routing", "MedDRA 27.0 Term Selection", "Chronological Narratives"],
+        keySkillsMandated: ["ICSR Book-in & Data Entry", "Safety Database Case Routing", "Standardized Medical Coding", "Chronological Narratives"],
         sampleSalaryBand: "₹3.8 – 4.5 LPA",
       },
       {
@@ -223,7 +223,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         testedInProject: "Minor Project 1 (20 ICSRs)",
       },
       {
-        employerDemand: "MedDRA Coding via Points to Consider (MTS:PTC)",
+        employerDemand: "Clinical Terminology Coding via Points to Consider (MTS:PTC)",
         whyCROsHireForIt: "Inaccurate coding destroys signal detection and triggers client audit defects.",
         syllabusClass: "Class 10 & Class 11",
         practicalOutput: "Verbatim-to-PT Coding Rationale Log",
@@ -258,9 +258,9 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         modelDefense: "Under ICH E2D and CDSCO/EMA guidelines, Day-0 is the exact calendar date any employee or contractual agent of the MAH first receives the four minimum criteria. For electronic transmissions like emails or faxes, Day-0 is the timestamp of receipt on the server (Saturday), not Monday morning when the processor opens it. The 15-day clock begins on Day-0 regardless of weekends or holidays.",
       },
       {
-        question: "If a physician reports 'Myocardial Infarction secondary to extreme dehydration', what is your primary MedDRA PT?",
-        whatPanelEvaluates: "Tests adherence to ICH MedDRA MTS:PTC guideline regarding diagnoses vs. underlying causes.",
-        modelDefense: "Under MedDRA Points to Consider (MTS:PTC Section 2.1), when a definitive clinical diagnosis is reported alongside a secondary or precipitating cause, both events are coded to capture the full safety picture. The primary adverse event PT is 'Acute myocardial infarction' (or 'Myocardial infarction'), and 'Dehydration' is coded as a concurrent event. Neither is ignored.",
+        question: "If a physician reports 'Myocardial Infarction secondary to extreme dehydration', what is your primary Preferred Term (PT)?",
+        whatPanelEvaluates: "Tests adherence to ICH MTS:PTC coding guideline regarding diagnoses vs. underlying causes.",
+        modelDefense: "Under ICH Points to Consider (MTS:PTC Section 2.1), when a definitive clinical diagnosis is reported alongside a secondary or precipitating cause, both events are coded to capture the full safety picture. The primary adverse event PT is 'Acute myocardial infarction' (or 'Myocardial infarction'), and 'Dehydration' is coded as a concurrent event. Neither is ignored.",
       },
       {
         question: "What differentiates a Critical defect from a Major defect during case QC?",
@@ -275,10 +275,10 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
     badgeLabel: "HIGH-THROUGHPUT OPERATIONAL PROCESSING",
     heroHeadline: "ICSR Case Processor",
     heroSubhead: "Process high-volume post-marketing and clinical safety batches with rigorous field mapping, duplicate reconciliation, and zero-defect SLA precision.",
-    leadParagraph: "An ICSR Case Processor is an operational precision specialist inside drug safety delivery centers. Responsible for transforming clinical intake packets into clean, fully articulated database records, the processor navigates safety databases (Argus / ARISg), maps structured fields in accordance with ICH E2B(R3), checks duplicate histories, identifies missing data for targeted follow-up queries, and self-checks every data element before supervisor review.",
+    leadParagraph: "An ICSR Case Processor is an operational precision specialist inside drug safety delivery centers. Responsible for transforming clinical intake packets into clean, fully articulated database records, the processor navigates enterprise safety databases, maps structured fields in accordance with ICH E2B(R3), checks duplicate histories, identifies missing data for targeted follow-up queries, and self-checks every data element before supervisor review.",
     dailyTimeSplit: [
       { label: "End-to-End Data Entry in Safety System", pct: 40, detail: "Populating General, Patient, Product, Event, and Analysis tabs with absolute precision", color: "#1557D6" },
-      { label: "MedDRA & WHO Drug Field Mapping", pct: 25, detail: "Assigning exact LLT codes and mapping brand trade names to standardized active substances", color: "#6946E8" },
+      { label: "Standardized Medical & Drug Mapping", pct: 25, detail: "Assigning exact LLT codes and mapping brand trade names to standardized active substances", color: "#6946E8" },
       { label: "Duplicate Checks & Database Search", pct: 20, detail: "Running multi-parameter queries across patient DOB, initials, country, and event dates", color: "#27B9B3" },
       { label: "Targeted Follow-Up Query Drafting", pct: 15, detail: "Identifying clinical gaps and drafting specific query forms for treating physicians", color: "#071A4A" },
     ],
@@ -303,7 +303,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         title: "Multi-Parameter Duplicate Search",
         tagline: "Preventing Database Inflation & Double-Counting",
         description: "Query master database using patient initials, age/birthdate, country, suspect drug, and event term. Distinguish true duplicates from valid new reports or amendments to existing cases.",
-        toolBadge: "Argus Search & Match Utility",
+        toolBadge: "Master Search & Match Utility",
         regulatoryRef: "GVP Module VI Section VI.C.6",
         sampleArtifact: "Duplicate Match Decision Log",
       },
@@ -337,7 +337,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         { item: "Suspect Drug", pass: true, note: "Teriparatide 20 mcg SC daily (Osteoporosis)" },
         { item: "Adverse Event", pass: true, note: "Post-injection hypotension, severe dizziness, syncope pre-monitory symptoms" },
       ],
-      meddraHierarchy: {
+      codingHierarchy: {
         soc: "Vascular disorders",
         hlgt: "Vascular therapeutic procedures and vascular disorders NEC",
         hlt: "Decreased and negative regulation of blood pressure",
@@ -383,7 +383,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         location: "Bengaluru, Chennai, Hyderabad",
         fresherTitle: "ICSR Processing Associate - Life Sciences",
         jdFrequency: "Found in 38% of case processor JDs",
-        keySkillsMandated: ["High-Volume Case Data Entry", "Argus Safety Case Navigation", "MedDRA Term Selection", "Duplicate Check Algorithms"],
+        keySkillsMandated: ["High-Volume Case Data Entry", "Enterprise Safety Database Navigation", "Standardized Medical Coding", "Duplicate Check Algorithms"],
         sampleSalaryBand: "₹3.5 – 4.2 LPA",
       },
       {
@@ -391,7 +391,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         location: "Pune, Hyderabad, Chennai",
         fresherTitle: "Safety Operations Processor",
         jdFrequency: "Found in 29% of case processor JDs",
-        keySkillsMandated: ["E2B(R3) Field Verification", "Narrative Drafting Standards", "WHO-DD Brand Matching", "Discrepancy Rework"],
+        keySkillsMandated: ["E2B(R3) Field Verification", "Narrative Drafting Standards", "Medicinal Product Matching", "Discrepancy Rework"],
         sampleSalaryBand: "₹3.4 – 4.0 LPA",
       },
       {
@@ -407,7 +407,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         location: "Chennai, Bengaluru",
         fresherTitle: "Junior Safety Processor",
         jdFrequency: "Found in 18% of case processor JDs",
-        keySkillsMandated: ["ICH E2D Triage", "MedDRA Coding Rationale", "Self-QC Execution", "15-Day Expedited Clocks"],
+        keySkillsMandated: ["ICH E2D Triage", "Medical Coding Rationale", "Self-QC Execution", "15-Day Expedited Clocks"],
         sampleSalaryBand: "₹3.3 – 3.9 LPA",
       },
     ],
@@ -534,7 +534,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         { item: "Suspect Drug", pass: true, note: "Investigational Medicinal Product ARZ-301 (Blinded) / Paclitaxel" },
         { item: "Adverse Event", pass: true, note: "Grade 4 Febrile Neutropenia, Septic Shock, Hypotension" },
       ],
-      meddraHierarchy: {
+      codingHierarchy: {
         soc: "Blood and lymphatic system disorders",
         hlgt: "White blood cell disorders",
         hlt: "Neutropenias",
@@ -588,7 +588,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
         location: "Hyderabad, Bengaluru",
         fresherTitle: "PV Associate II / Safety Specialist",
         jdFrequency: "Found in 33% of PV Associate JDs",
-        keySkillsMandated: ["Expectedness Review against IB & SmPC", "MedDRA Coding via MTS:PTC", "Independent Case QC", "CAPA Logging"],
+        keySkillsMandated: ["Expectedness Review against IB & SmPC", "Standardized Coding via MTS:PTC", "Independent Case QC", "CAPA Logging"],
         sampleSalaryBand: "₹4.2 – 5.2 LPA",
       },
       {
@@ -659,7 +659,7 @@ export const PV_ROLE_ENHANCED_DATA: Record<string, PvRoleInteractiveMeta> = {
       {
         question: "What is reconciliation between EDC and the safety database, and why do discrepancies occur?",
         whatPanelEvaluates: "Tests operational knowledge of cross-functional clinical trial safety.",
-        modelDefense: "Reconciliation is the formal comparison between adverse events recorded in the clinical electronic data capture (EDC) system and serious adverse events entered in the safety database (Argus). Discrepancies routinely arise due to differing data entry timelines, site coordinators failing to update the safety team when an event is upgraded to serious, mismatched onset dates, or differing verbatim terms. Both databases must achieve 100% agreement on critical variables before study database lock.",
+        modelDefense: "Reconciliation is the formal comparison between adverse events recorded in the clinical electronic data capture (EDC) system and serious adverse events entered in the enterprise safety database. Discrepancies routinely arise due to differing data entry timelines, site coordinators failing to update the safety team when an event is upgraded to serious, mismatched onset dates, or differing verbatim terms. Both databases must achieve 100% agreement on critical variables before study database lock.",
       },
     ],
   },

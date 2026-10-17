@@ -183,7 +183,7 @@ function whyLine(slug: string, profile: AcriProfile, fit: number): string {
     fit >= 75 ? "very strong" : fit >= 60 ? "strong" : fit >= 45 ? "solid" : "early-stage";
   switch (slug) {
     case "pharmacovigilance":
-      return `${fitTier} match - your ${strong} signal lines up with ICSR processing, MedDRA coding and aggregate-report ownership.`;
+      return `${fitTier} match - your ${strong} signal lines up with ICSR processing, Standardized Medical Coding and aggregate-report ownership.`;
     case "medical-coding":
       return `${fitTier} match - your ${strong} signal fits the 95%+ accuracy bar, daily chart volume and audit grind that coders win on.`;
     case "clinical-data-management":

@@ -7,14 +7,14 @@ interface IndustryRealitySectionProps {
 export function IndustryRealitySection({ onOpenRegister }: IndustryRealitySectionProps) {
   const collegeItems = [
     { title: "Rote Theory Memory", desc: "Memorizing textbook definitions for written semester exams." },
-    { title: "Zero Software Exposure", desc: "Never touching enterprise tools like Argus, MedDRA, or Rave." },
+    { title: "Zero Platform Exposure", desc: "Never touching enterprise platforms like safety databases, clinical dictionaries, or EDC systems." },
     { title: "Static Academic Lectures", desc: "Listening to non-industry faculty without real case study experience." },
     { title: "Generic Job Applications", desc: "'Apply to everything' without domain-specific resume optimization." }
   ];
 
   const companyItems = [
     { title: "Live Regulatory Cases", desc: "Processing real ICSR case intake and narrative evaluations." },
-    { title: "Enterprise Software Hands-on", desc: "Executing live workflows in Argus Safety & eCTDexpress." },
+    { title: "Enterprise Platform Hands-on", desc: "Executing live workflows in safety databases & eCTD publishing." },
     { title: "MNC Team Reviews", desc: "Participating in cross-functional clinical trial data reviews." },
     { title: "Direct Recruiter Targeting", desc: "Connecting directly with hiring managers seeking specific tool skills." }
   ];

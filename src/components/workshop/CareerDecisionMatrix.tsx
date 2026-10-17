@@ -44,7 +44,7 @@ export function CareerDecisionMatrix(props: CareerDecisionMatrixProps) {
       access: "High",
       accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
       whatYouDo: "Process drug safety data & ICSR",
-      keyPrep: "Pharmacology, Argus, safety concepts",
+      keyPrep: "Pharmacology, Safety DB, safety concepts",
       startingSalary: "₹3.00 – 4.80",
     },
     {
@@ -52,7 +52,7 @@ export function CareerDecisionMatrix(props: CareerDecisionMatrixProps) {
       access: "High",
       accessColor: "bg-emerald-100 text-emerald-900 border-emerald-300",
       whatYouDo: "Clean and review trial data",
-      keyPrep: "GCP, Excel, EDC concepts, Rave",
+      keyPrep: "GCP, Excel, EDC concepts, Data Cleaning",
       startingSalary: "₹2.60 – 4.50",
     },
     {

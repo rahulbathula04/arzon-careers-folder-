@@ -94,7 +94,7 @@ function FirstSecondYearStudentComponent() {
               {
                 icon: Layers,
                 title: "3. Tool Awareness & Terminology",
-                desc: "Learn about industry software suites like Oracle Argus, MedDRA, ICD-10, and Medidata RAVE before beginning hands-on practice.",
+                desc: "Learn about industry software suites like Enterprise Safety Database, Standardized Medical Coding, ICD-10, and Electronic Data Capture (EDC) before beginning hands-on practice.",
                 linkText: "Browse Software Curricula",
                 linkTo: "/courses",
               },

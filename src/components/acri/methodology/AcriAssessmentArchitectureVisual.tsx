@@ -88,10 +88,10 @@ const QUESTION_DISTRIBUTIONS: QuestionModal[] = [
     count: 8,
     pct: 20,
     description:
-      "ICH E2B(R3) electronic data specifications, MedDRA hierarchy rules (LLT vs PT vs SOC), and WHO-UMC causality algorithms.",
+      "ICH E2B(R3) electronic data specifications, 5-tier medical coding hierarchy rules (LLT vs PT vs SOC), and WHO-UMC causality algorithms.",
     exampleQuestion: {
       context:
-        "MedDRA Terminology Mapping: A physician reports that a clinical trial patient experienced 'headache on the left side with visual aura and nausea'.",
+        "standardized medical coding terminology Mapping: A physician reports that a clinical trial patient experienced 'headache on the left side with visual aura and nausea'.",
       prompt: "Which Lowest Level Term (LLT) best captures the clinical presentation without losing specificity?",
       options: [
         {
@@ -102,7 +102,7 @@ const QUESTION_DISTRIBUTIONS: QuestionModal[] = [
         {
           text: "LLT: Classical migraine (PT: Migraine with aura)",
           isCorrect: true,
-          feedback: "Accurate MedDRA coding: correctly captures the constellation of unilateral headache with aura.",
+          feedback: "Accurate Standardized Medical Coding: correctly captures the constellation of unilateral headache with aura.",
         },
         {
           text: "LLT: Intracranial hypertension",

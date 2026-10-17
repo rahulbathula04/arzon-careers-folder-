@@ -118,7 +118,7 @@ export function JDMirror({
             <span className="text-[11px] font-mono text-stone-400 font-bold uppercase tracking-wider">Try Sample:</span>
             {[
               { label: "Medical Coding (ICD-10/CPT)", text: "Looking for a Junior Medical Coder proficient in ICD-10-CM, CPT coding, medical terminology, and EHR audit procedures with 0-1 year experience." },
-              { label: "Pharmacovigilance Safety Analyst", text: "Urgent requirement for PV Safety Analyst. Mandatory skills: ICSR case processing, MedDRA coding, Narrative writing, Argus Safety database basics." },
+              { label: "Pharmacovigilance Safety Analyst", text: "Urgent requirement for PV Safety Analyst. Mandatory skills: ICSR case processing, standardized medical coding, regulatory narrative writing, enterprise safety database workflows." },
               { label: "Clinical Data Management", text: "Hiring CDM Trainee / Junior Data Associate. Skills needed: eCRF design, query management, CDISC SDTM standards, GCP compliance." },
             ].map((sample) => (
               <button

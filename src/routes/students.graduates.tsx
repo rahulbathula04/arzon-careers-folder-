@@ -80,7 +80,7 @@ function GraduatesStudentComponent() {
               {
                 period: "WEEKS 01–04",
                 title: "Regulatory & Software Fluency",
-                desc: "ICH E2B(R3), FDA 21 CFR 314.80, and hands-on simulation in Oracle Argus Safety 8.4 and MedDRA coding.",
+                desc: "ICH E2B(R3), FDA 21 CFR 314.80, and hands-on simulation in Enterprise Safety Database and Standardized Medical Coding.",
                 linkText: "View PV Curriculum",
                 linkTo: "/courses",
               },
@@ -138,7 +138,7 @@ function GraduatesStudentComponent() {
               Why Generic Resumes Get Filtered Out by ATS
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 font-sans leading-relaxed">
-              CROs and healthcare IT firms receive thousands of applications from fresh B.Pharm and Life Sciences graduates every month. When a resume lists only university coursework and lacks practical software exposure (Argus, MedDRA, RAVE), ATS screening automatically deprioritizes it. Having a verified ACRI score and real case processing proof sets you apart instantly.
+              CROs and healthcare IT firms receive thousands of applications from fresh B.Pharm and Life Sciences graduates every month. When a resume lists only university coursework and lacks practical software exposure (Enterprise Safety Database, Standardized Medical Coding, RAVE), ATS screening automatically deprioritizes it. Having a verified ACRI score and real case processing proof sets you apart instantly.
             </p>
           </div>
           <div className="pt-2">

@@ -154,7 +154,7 @@ export function MasterclassWhyArzon() {
                 Every attendee who completes the live 90-minute masterclass receives an individual QR-verifiable credential signed directly by mentor <strong className="text-[#081F38]">Mohamed Kumail Abbas</strong>, certifying hands-on exposure to:
               </p>
 
-              {/* Verified Competencies directly from the real certificate */}
+              {/* Verified Competencies */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs font-mono font-medium text-slate-700">
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200 tone-light flex items-center gap-2 shadow-2xs">
                   <span className="text-emerald-600 font-bold">✓</span>
@@ -162,11 +162,11 @@ export function MasterclassWhyArzon() {
                 </div>
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200 tone-light flex items-center gap-2 shadow-2xs">
                   <span className="text-emerald-600 font-bold">✓</span>
-                  <span>MedDRA 26.0 Coding</span>
+                  <span>Clinical Terminology Coding</span>
                 </div>
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200 tone-light flex items-center gap-2 shadow-2xs">
                   <span className="text-emerald-600 font-bold">✓</span>
-                  <span>Oracle Argus 8.4 Simulation</span>
+                  <span>Safety Database Workflow</span>
                 </div>
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200 tone-light flex items-center gap-2 shadow-2xs">
                   <span className="text-emerald-600 font-bold">✓</span>

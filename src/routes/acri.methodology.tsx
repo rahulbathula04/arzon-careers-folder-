@@ -194,7 +194,7 @@ function AcriMethodologyPage() {
             </div>
 
             <div className="p-4 rounded-xl bg-white card-light tone-light border border-stone-200 flex items-start gap-4">
-              <span className="font-mono text-xs font-bold text-[#005B4F] shrink-0 mt-0.5">MedDRA v27.0</span>
+              <span className="font-mono text-xs font-bold text-[#005B4F] shrink-0 mt-0.5">Standardized Medical Coding</span>
               <div className="text-xs text-stone-700">
                 Medical Dictionary for Regulatory Activities terminology hierarchy from Lowest Level Term (LLT) to System Organ Class (SOC) for standardized event classification.
               </div>

@@ -33,7 +33,7 @@ export function ArzonWhatYouWillSee() {
       step: "04",
       icon: Cpu,
       title: "WHAT TECHNOLOGY MATTERS",
-      desc: "Understand the industry tools, software platforms (Argus, MedDRA, Medidata RAVE, SAS), and technical skills relevant to each path."
+      desc: "Understand the industry tools, software platforms (Safety Databases, Clinical Coding, EDC, Statistical Computing), and technical skills relevant to each path."
     },
     {
       step: "05",

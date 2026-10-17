@@ -16,7 +16,7 @@ const ROLE_CARDS: RoleTrackCard[] = [
   {
     domain: "PHARMACOVIGILANCE",
     role: "Fresher PV Associate",
-    requirements: "ICSR • MedDRA • Case Processing",
+    requirements: "ICSR • Medical Coding • Case Processing",
     strongest: true,
   },
   {

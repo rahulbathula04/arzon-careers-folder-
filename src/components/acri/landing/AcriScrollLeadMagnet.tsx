@@ -539,7 +539,7 @@ export function AcriScrollLeadMagnet() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Check className="h-3 w-3 text-emerald-600 shrink-0" />
-                    <span>Argus 8.4 Case Workflow</span>
+                    <span>Enterprise Safety Database 8.4 Case Workflow</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Check className="h-3 w-3 text-emerald-600 shrink-0" />
@@ -593,7 +593,7 @@ export function AcriScrollLeadMagnet() {
                   </div>
                 </div>
                 <p className="text-[11px] text-slate-600 font-sans leading-relaxed">
-                  Your VIP assessment token has been granted. Test authentic ICSR case triage and MedDRA coding workflows at zero cost.
+                  Your VIP assessment token has been granted. Test authentic ICSR case triage and Standardized Medical Coding workflows at zero cost.
                 </p>
                 <button
                   type="button"

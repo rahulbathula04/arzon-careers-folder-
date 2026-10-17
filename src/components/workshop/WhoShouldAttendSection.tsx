@@ -70,7 +70,7 @@ export function WhoShouldAttendSection({ onReserveClick }: WhoShouldAttendSectio
                 Designed for Pharmacy Students Who Refuse to Settle for Generic Sales Rep Jobs
               </h3>
               <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                Most B.Pharm graduates are pushed into field medical sales or generic retail counters because college syllabi don’t teach enterprise database workflows. This workshop provides empirical hiring data and database fluency (Argus Safety, MedDRA, Medidata RAVE, ICD-10) to secure high-paying Tier-1 GCC roles.
+                Most B.Pharm graduates are pushed into field medical sales or generic retail counters because college syllabi don’t teach enterprise database workflows. This workshop provides empirical hiring data and core technical fluency (Safety Databases, Clinical Coding, EDC, ICD-10) to secure high-paying Tier-1 GCC roles.
               </p>
               
               {/* Student snapshot cards */}

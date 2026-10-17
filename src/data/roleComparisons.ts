@@ -54,7 +54,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
     slug: "pharmacovigilance-vs-clinical-data-management",
     title: "Pharmacovigilance vs Clinical Data Management: Salary, Tools & Career Growth 2026",
     h1: "Pharmacovigilance vs Clinical Data Management (CDM): 2026 Strategic Comparison",
-    metaDescription: "Comprehensive 2026 comparison between Pharmacovigilance and Clinical Data Management. Compare entry salaries, Argus vs Rave tools, AI risk & career growth.",
+    metaDescription: "Comprehensive 2026 comparison between Pharmacovigilance and Clinical Data Management. Compare entry salaries, Enterprise Safety Database vs Rave tools, AI risk & career growth.",
     categoryLabel: "PV vs CDM",
     updatedDate: "2026-09-12",
     roleA: {
@@ -62,7 +62,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
       slug: "pharmacovigilance",
       entrySalary: "₹3.8 LPA – ₹6.5 LPA",
       midSalary: "₹8.0 LPA – ₹12.5 LPA",
-      keyTools: ["Oracle Argus Safety", "MedDRA", "E2B(R3) XML", "Signal Detection"],
+      keyTools: ["Enterprise Safety Database", "Standardized Medical Coding", "E2B(R3) XML", "Signal Detection"],
       aiRisk: "Audit-Protected (Low)",
       fitDegrees: ["Pharm.D", "B.Pharm", "M.Pharm", "MBBS", "BDS"],
     },
@@ -71,26 +71,26 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
       slug: "clinical-data-management",
       entrySalary: "₹3.6 LPA – ₹6.0 LPA",
       midSalary: "₹8.5 LPA – ₹13.5 LPA",
-      keyTools: ["Medidata Rave", "Veeva Vault EDC", "CDISC SDTM/CDASH", "SQL"],
+      keyTools: ["Electronic Data Capture (EDC)", "Life Sciences Cloud Platforms EDC", "CDISC SDTM/CDASH", "SQL"],
       aiRisk: "Augmented (Moderate)",
       fitDegrees: ["B.Pharm", "B.Sc Life Sciences", "B.Tech Biotech", "M.Sc"],
     },
     executiveSummary: "While Pharmacovigilance focuses on post-marketing adverse event safety monitoring and regulatory reporting to FDA/EMA, Clinical Data Management centers on designing electronic CRFs, conducting data validation, and ensuring clinical trial data integrity prior to biostatistical lock.",
     verdict: {
       whoShouldChooseA: "Choose Pharmacovigilance if you have a strong clinical or pharmacology background (Pharm.D, B.Pharm, MBBS) and enjoy medical narrative evaluation, causality assessment, and regulatory compliance.",
-      whoShouldChooseB: "Choose Clinical Data Management if you enjoy data structuring, logical protocol validation, database logic, and working with cloud EDC software platforms like Medidata Rave.",
+      whoShouldChooseB: "Choose Clinical Data Management if you enjoy data structuring, logical protocol validation, database logic, and working with cloud EDC software platforms like Electronic Data Capture (EDC).",
     },
     dimensions: [
       {
         title: "Primary Core Operational Objective",
-        roleAValue: "Triage adverse events, code medical terms with MedDRA, process ICSR cases in Oracle Argus, and submit E2B safety reports.",
+        roleAValue: "Triage adverse events, code medical terms with Standardized Medical Coding, process ICSR cases in Enterprise Safety Database, and submit E2B safety reports.",
         roleBValue: "Build eCRFs, set up data validation specs, manage query resolution, and execute database lock for clinical trials.",
         analysis: "PV is continuous safety vigilance across commercial & trial drugs; CDM is study-specific trial data acquisition and validation.",
       },
       {
         title: "Software & Technology Stack",
-        roleAValue: "Oracle Argus Safety v8.2+, MedDRA v27.0, ArisGlobal LifeSphere, WHO Drug Dictionary.",
-        roleBValue: "Medidata Rave EDC, Veeva Vault Clinical, Oracle InForm, CDISC CDASH/SDTM standards.",
+        roleAValue: "Enterprise Safety Database v8.2+, Standardized Medical Coding, Multi-Sponsor Safety Systemslobal LifeSphere, Global Medicinal Product Dictionaries.",
+        roleBValue: "Electronic Data Capture (EDC), Clinical Trial Cloud Systems, Oracle InForm, CDISC CDASH/SDTM standards.",
         analysis: "PV software is safety-database heavy; CDM relies on cloud Electronic Data Capture (EDC) systems and database query management.",
       },
       {
@@ -121,7 +121,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
     slug: "medical-coding-vs-pharmacovigilance",
     title: "Medical Coding vs Pharmacovigilance: CPC Exam, Scope, Salaries & Skill Fit 2026",
     h1: "Medical Coding vs Pharmacovigilance: 2026 Career & Salary Analysis",
-    metaDescription: "Detailed comparison of Medical Coding vs Pharmacovigilance in 2026. Compare CPC certification vs Argus Safety training, job openings, and salaries in India.",
+    metaDescription: "Detailed comparison of Medical Coding vs Pharmacovigilance in 2026. Compare CPC certification vs Enterprise Safety Database training, job openings, and salaries in India.",
     categoryLabel: "Coding vs PV",
     updatedDate: "2026-09-12",
     roleA: {
@@ -129,7 +129,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
       slug: "medical-coding",
       entrySalary: "₹3.0 LPA – ₹5.8 LPA (Certified)",
       midSalary: "₹7.5 LPA – ₹11.0 LPA",
-      keyTools: ["ICD-10-CM", "CPT Manual", "HCPCS Level II", "EncoderPro"],
+      keyTools: ["ICD-10-CM", "CPT Manual", "HCPCS Level II", "Clinical Encoders"],
       aiRisk: "Augmented (Moderate)",
       fitDegrees: ["B.Sc Life Sciences", "B.Pharm", "BPT", "BAMS", "Zoology"],
     },
@@ -138,7 +138,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
       slug: "pharmacovigilance",
       entrySalary: "₹3.8 LPA – ₹6.5 LPA",
       midSalary: "₹8.0 LPA – ₹12.5 LPA",
-      keyTools: ["Oracle Argus Safety", "MedDRA", "E2B(R3)", "Expedited Reporting"],
+      keyTools: ["Enterprise Safety Database", "Standardized Medical Coding", "E2B(R3)", "Expedited Reporting"],
       aiRisk: "Audit-Protected (Low)",
       fitDegrees: ["Pharm.D", "B.Pharm", "M.Pharm", "MBBS", "BDS"],
     },
@@ -157,7 +157,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
       {
         title: "Certification & Entry Credentials",
         roleAValue: "AAPC CPC (Certified Professional Coder) credential gives a immediate 35-45% starting salary premium.",
-        roleBValue: "Verified proof-of-work in Argus Safety case triage and MedDRA coding is highly prized by hiring managers.",
+        roleBValue: "Verified proof-of-work in Enterprise Safety Database case triage and Standardized Medical Coding is highly prized by hiring managers.",
         analysis: "Medical coding has a standardized global credential (CPC); PV values hands-on software case processing simulations.",
       },
       {
@@ -170,7 +170,7 @@ export const ROLE_COMPARISONS: RoleComparison[] = [
     faqs: [
       {
         question: "Can a B.Sc Life Science graduate get into Pharmacovigilance?",
-        answer: "Yes! While Pharm.D and B.Pharm graduates are prioritized for complex medical review, B.Sc Life Science graduates regularly secure Drug Safety Associate and ICSR Triage roles when trained on Argus Safety and MedDRA.",
+        answer: "Yes! While Pharm.D and B.Pharm graduates are prioritized for complex medical review, B.Sc Life Science graduates regularly secure Drug Safety Associate and ICSR Triage roles when trained on Enterprise Safety Database and Standardized Medical Coding.",
       },
       {
         question: "Do I need CPC certification before applying for Medical Coding jobs?",

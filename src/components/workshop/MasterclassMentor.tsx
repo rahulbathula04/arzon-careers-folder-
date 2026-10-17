@@ -24,7 +24,7 @@ const WORK_EXPERIENCE: ExperienceItem[] = [
   {
     company: "Accenture",
     role: "Life Sciences Safety Ops",
-    focus: "Multi-sponsor clinical delivery, adverse event evaluation, and Argus workflows.",
+    focus: "Multi-sponsor clinical delivery, adverse event evaluation, and safety database workflows.",
     badge: "Life Sciences",
   },
   {

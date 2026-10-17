@@ -70,9 +70,9 @@ export function Healthcare3dCanvas({
     ];
 
     const labels = [
-      "Argus 8.4",
-      "MedDRA 27.0",
-      "RAVE EDC",
+      "Enterprise Safety Database 8.4",
+      "Standardized Medical Coding",
+      "Electronic Data Capture (EDC)",
       "ICD-10-CM",
       "CDISC SDTM",
       "ICH-GCP E6",
@@ -211,7 +211,7 @@ export function Healthcare3dCanvas({
         ctx.fill();
         ctx.globalAlpha = 1.0;
 
-        // 3D Tag Labels (e.g. Oracle Argus, MedDRA, etc.)
+        // 3D Tag Labels (e.g. Enterprise Safety Database, Standardized Medical Coding, etc.)
         if (node.label && node.projScale > 0.7) {
           ctx.font = `600 ${Math.round(10 * node.projScale)}px 'JetBrains Mono', monospace`;
           ctx.fillStyle = `rgba(27, 63, 139, ${Math.min(0.9, alpha + 0.2)})`;

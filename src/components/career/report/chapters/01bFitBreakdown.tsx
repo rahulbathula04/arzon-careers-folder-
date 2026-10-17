@@ -92,7 +92,7 @@ const GAP_PLAN: Record<Pillar["key"], Omit<Gap, "pillar" | "delta">> = {
   },
   tools: {
     week1: "Get sandbox access to the two top tools for your slug; work through the guided tour.",
-    week2: "Ship one artefact per tool (e.g. one Argus ICSR + one MedDRA coded event set).",
+    week2: "Ship one artefact per tool (e.g. one enterprise database ICSR + one standardized coded event set).",
     week3: "Screen-record a 5-min walkthrough for your portfolio.",
     success: "You have a portfolio link with tool artefacts a recruiter can open.",
     artefact: "Portfolio page with 3 tool artefacts",

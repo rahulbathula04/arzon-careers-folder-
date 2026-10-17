@@ -13,7 +13,7 @@ const STEPS = [
     icon: FlaskConical,
     window: "Weeks 9–12",
     title: "Work on real project files",
-    body: "Real de-identified ICSR cases, MedDRA coding, eCRF entries - the exact work a fresher does in week one of the job.",
+    body: "Real de-identified ICSR cases, clinical coding, eCRF entries - the exact work a fresher does in week one of the job.",
   },
   {
     icon: Award,

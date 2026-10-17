@@ -82,7 +82,7 @@ function TposPage() {
                 Webinar & Workshop Brochure for Principals, TPOs & Chairmen
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-[var(--arzon-ink)]-soft">
-                A comprehensive 5-page publication-grade PDF covering our 75-minute live clinical safety masterclass (ICH-E2D &amp; MedDRA 27.0 triage), tier-1 MNC hiring benchmarks (₹3.2L–₹5.2L CTC), verified mentor credentials, and student credentialing protocol. Zero commercial fee under our Educational Access Charter.
+                A comprehensive 5-page publication-grade PDF covering our 75-minute live clinical safety masterclass (ICH-E2D &amp; Standardized Medical Coding triage), tier-1 MNC hiring benchmarks (₹3.2L–₹5.2L CTC), verified mentor credentials, and student credentialing protocol. Zero commercial fee under our Educational Access Charter.
               </p>
               <div className="mt-4 flex flex-wrap gap-y-2 gap-x-4 text-xs font-medium text-[var(--arzon-ink)]-soft">
                 <span className="flex items-center gap-1.5">

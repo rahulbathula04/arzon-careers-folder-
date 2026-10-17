@@ -255,7 +255,7 @@ export function Interactive3dBoardingPass({
               2 COMPLIMENTARY TAKEAWAYS INCLUDED
             </span>
             <p className="text-[11px] text-stone-200 font-sans">
-              1. MedDRA 27.0 Quick Reference Chart <br />
+              1. Standardized Medical Coding Quick Reference Chart <br />
               2. ICSR 4-Point Validity Checklist
             </p>
           </div>

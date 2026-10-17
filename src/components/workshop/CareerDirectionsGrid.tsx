@@ -50,10 +50,10 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
       fresherAccess: "High",
       icon: ShieldAlert,
       salaryRange: "₹3.00 – ₹4.80 LPA",
-      keyTools: ["Oracle Argus Safety", "ArisG", "MedDRA", "WHO-ART"],
+      keyTools: ["Clinical Safety DB", "ICSR Gateways", "Medical Coding", "ICH-E2D"],
       hiringHubs: "Hyderabad, Bengaluru, Pune, Mumbai, Gurgaon",
       description:
-        "Primary non-clinical desk career for pharmacy graduates. Involves evaluating patient case safety reports, assigning MedDRA coding terms, assessing seriousness, and submitting expedited safety reports to global regulatory authorities (FDA, EMA, DCGI).",
+        "Primary non-clinical desk career for pharmacy graduates. Involves evaluating patient case safety reports, assigning standardized clinical coding terms, assessing seriousness, and submitting expedited safety reports to global regulatory authorities (FDA, EMA, DCGI).",
     },
     {
       id: "coding",
@@ -62,7 +62,7 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
       fresherAccess: "High",
       icon: FileSpreadsheet,
       salaryRange: "₹2.28 – ₹3.60 LPA",
-      keyTools: ["ICD-10-CM", "CPT-4", "HCPCS", "EncoderPro"],
+      keyTools: ["ICD-10-CM", "CPT-4", "HCPCS", "Clinical Encoders"],
       hiringHubs: "Hyderabad, Chennai, Bengaluru, Coimbatore",
       description:
         "Translates patient medical records into universally recognized alpha-numeric code sets for healthcare billing and insurance reimbursement. High entry-level fresher hiring across US healthcare BPO centers.",
@@ -74,7 +74,7 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
       fresherAccess: "High",
       icon: Database,
       salaryRange: "₹2.60 – ₹4.50 LPA",
-      keyTools: ["Medidata Rave", "Oracle Inform", "CDISC SDTM", "eCRF"],
+      keyTools: ["EDC Platforms", "Query Management", "CDISC SDTM", "eCRF"],
       hiringHubs: "Bengaluru, Hyderabad, Mumbai, Pune",
       description:
         "Ensures clinical trial data is clean, accurate, and ready for statistical analysis. Involves query management, discrepancy resolution, and validation of electronic Case Report Forms (eCRFs).",
@@ -98,7 +98,7 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
       fresherAccess: "Selective",
       icon: FileCheck,
       salaryRange: "₹2.80 – ₹4.50 LPA",
-      keyTools: ["eCTDexpress", "ESG", "FDA 21 CFR", "Dossier Preparation"],
+      keyTools: ["eCTD Publishing Platforms", "ESG Portal", "FDA 21 CFR", "Dossier Preparation"],
       hiringHubs: "Hyderabad, Mumbai, Ahmedabad, New Delhi",
       description:
         "Acts as the liaison between pharma companies and global healthcare regulatory agencies (USFDA, EMA, PMDA, CDSCO). Prepares IND, NDA, and ANDA submissions in eCTD structure.",
@@ -230,7 +230,7 @@ export function CareerDirectionsGrid({ onReserveClick }: CareerDirectionsGridPro
       fresherAccess: "Selective",
       icon: Cpu,
       salaryRange: "₹4.00 – ₹7.00 LPA",
-      keyTools: ["Veeva Vault", "Salesforce Health Cloud", "SAP Life Sciences"],
+      keyTools: ["Life Science Cloud Platforms", "Health CRM Systems", "Pharma ERP"],
       hiringHubs: "Bengaluru, Hyderabad, Pune, Noida",
       description:
         "Bridge domain expert role serving as business analysts and functional consultants for IT companies building life science enterprise software.",

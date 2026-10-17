@@ -64,7 +64,7 @@ export const FAMILIES: Record<FamilyId, CareerFamily> = {
       },
     ],
     dayInLife:
-      "Read case safety reports → code adverse events in MedDRA → write narratives → submit to regulators on tight timelines.",
+      "Read case safety reports → code adverse events in Standardized Medical Coding → write narratives → submit to regulators on tight timelines.",
   },
   "clinical-data": {
     id: "clinical-data",

@@ -47,8 +47,8 @@ export const CAREER_FORECASTS: Record<string, CareerForecast> = {
     avgFresherLpa: 4.5,
     fresherRange: [3.5, 6.2],
     roleExpectations: [
-      "Process 8–12 adverse-event cases per day in Argus or ARISg",
-      "Code symptoms in MedDRA, classify seriousness, file ICSR within the regulator clock",
+      "Process 8–12 adverse-event cases per day in Enterprise Safety Databases",
+      "Code symptoms in Standardized Medical Coding, classify seriousness, file ICSR within the regulator clock",
       "Review aggregate reports (PSUR/PBRER) under a senior reviewer",
     ],
     cagr: 0.13,
@@ -113,7 +113,7 @@ export const CAREER_FORECASTS: Record<string, CareerForecast> = {
     avgFresherLpa: 4.6,
     fresherRange: [4.0, 6.5],
     roleExpectations: [
-      "Build and validate eCRFs in Medidata Rave, Veeva CDB or Oracle Inform",
+      "Build and validate eCRFs in Electronic Data Capture (EDC), Enterprise Life Sciences Cloud CDB or Oracle Inform",
       "Write edit checks, raise + close discrepancies, run weekly data review",
       "Drive database lock with biostats and the trial sponsor",
     ],

@@ -65,14 +65,14 @@ export const JD_PROVENANCE: JdProvenance[] = [
         satisfiedByModule: "Adverse events & ICSR processing",
       },
       {
-        phrase: "MedDRA + WHO-DD coding proficiency",
+        phrase: "Standardized Medical Coding + Global Medicinal Product Dictionaries coding proficiency",
         coverage: 0.84,
-        satisfiedByModule: "MedDRA & WHO-DD coding",
+        satisfiedByModule: "Standardized Medical Coding & Global Medicinal Product Dictionaries coding",
       },
       {
-        phrase: "Hands-on Argus Safety / ArisG",
+        phrase: "Hands-on Enterprise Safety Database / Multi-Sponsor Safety Systems",
         coverage: 0.78,
-        satisfiedByModule: "Argus Safety hands-on",
+        satisfiedByModule: "Enterprise Safety Database hands-on",
       },
       {
         phrase: "Aggregate reports (PSUR / PBRER)",
@@ -87,7 +87,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added a MedDRA v27 drill - most current PV JDs now expect it.",
+      note: "Added a Standardized Medical Coding v27 drill - most current PV JDs now expect it.",
     },
   },
   {
@@ -138,9 +138,9 @@ export const JD_PROVENANCE: JdProvenance[] = [
     topMetros: ["Bengaluru", "Hyderabad", "Mumbai", "Pune"],
     topJdPhrases: [
       {
-        phrase: "Hands-on EDC (Medidata Rave / Veeva)",
+        phrase: "Hands-on EDC (Electronic Data Capture (EDC) / Enterprise Life Sciences Cloud)",
         coverage: 0.86,
-        satisfiedByModule: "EDC build (Medidata Rave / Veeva)",
+        satisfiedByModule: "EDC build (Electronic Data Capture (EDC) / Enterprise Life Sciences Cloud)",
       },
       {
         phrase: "CDASH-aligned CRF design",
@@ -165,7 +165,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added Veeva CDMS coverage alongside Rave - Veeva is showing up more in CDM JDs.",
+      note: "Added Cloud Data Management Systems coverage alongside Rave - Enterprise Life Sciences Cloud is showing up more in CDM JDs.",
     },
   },
   {
@@ -231,7 +231,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
         satisfiedByModule: "Labeling, artwork & promotional review",
       },
       {
-        phrase: "RIM / publishing tool exposure (Veeva Vault)",
+        phrase: "RIM / publishing tool exposure (Life Sciences Cloud Platforms)",
         coverage: 0.54,
         satisfiedByModule: "RIM systems & publishing",
       },
@@ -243,7 +243,7 @@ export const JD_PROVENANCE: JdProvenance[] = [
     ],
     lastChange: {
       dateISO: "2026-05-01",
-      note: "Added a Veeva Vault RIM walkthrough - it is the publishing platform most current RA JDs mention.",
+      note: "Added a Enterprise RIM Platforms walkthrough - it is the publishing platform most current RA JDs mention.",
     },
   },
   {

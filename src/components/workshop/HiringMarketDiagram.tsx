@@ -52,7 +52,7 @@ export function HiringMarketDiagram({ onReserveClick }: HiringMarketDiagramProps
     {
       num: "05",
       title: "Skills & Technologies",
-      desc: "Understand the exact software (Argus, Rave, ICD-10) employers screen for.",
+      desc: "Understand the exact software (Safety DB, EDC, ICD-10) employers screen for.",
     },
     {
       num: "06",
@@ -172,7 +172,7 @@ export function HiringMarketDiagram({ onReserveClick }: HiringMarketDiagramProps
             {[
               { num: "01", label: "Job Postings", desc: "2,180+ Active JDs" },
               { num: "02", label: "Role Reality", desc: "On-Screen Tasks" },
-              { num: "03", label: "Skill Extraction", desc: "Argus, MedDRA, Excel" },
+              { num: "03", label: "Skill Extraction", desc: "Safety DB, Coding, Excel" },
               { num: "04", label: "Career Mapping", desc: "Fresher Access Tags" },
               { num: "05", label: "Training Roadmap", desc: "No Wasted Modules" },
               { num: "06", label: "Job Readiness", desc: "Interview Preparation" },

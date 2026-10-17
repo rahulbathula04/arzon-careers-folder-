@@ -19,7 +19,7 @@ export function PillarFitMatrix({ result }: Props) {
           quadrant: result.quadrant ?? "training_opportunity",
           quadrantLabel: result.quadrantLabel ?? "Training Opportunity",
           topDrivers: ["Precision Detail", "Regulatory Rigor", "Patient Safety Concern"],
-          gaps: ["MedDRA 27.x Coding", "Argus Safety Database"],
+          gaps: ["Standardized Medical Coding", "Enterprise Safety Database Workflows"],
         },
         {
           slug: "clinical-data-management",
@@ -31,7 +31,7 @@ export function PillarFitMatrix({ result }: Props) {
           quadrant: "training_opportunity",
           quadrantLabel: "Training Opportunity",
           topDrivers: ["Data Accuracy", "Protocol Compliance"],
-          gaps: ["Medidata Rave EDC", "eCRF Validation Specs"],
+          gaps: ["Electronic Data Capture (EDC)", "eCRF Validation Specs"],
         },
         {
           slug: "medical-coding",
@@ -188,7 +188,7 @@ export function PillarFitMatrix({ result }: Props) {
                 {primaryPillar.quadrant === 'training_opportunity' && <span className="text-[10px] font-mono bg-[#1557D6] text-white px-2 py-0.5 rounded-full">YOUR PROFILE</span>}
               </div>
               <p className="mt-1 text-[#3F4A60] leading-relaxed">
-                Strong natural working style fit. Needs structured 90-day clinical tool mastery (Argus / MedDRA / EDC).
+                Strong natural working style fit. Needs structured 90-day clinical tool mastery (Safety Databases / Medical Coding / EDC).
               </p>
             </div>
           </div>

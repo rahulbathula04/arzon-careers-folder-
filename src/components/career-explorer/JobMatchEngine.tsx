@@ -83,19 +83,19 @@ const DEGREE_ROLE_COVERAGE: Record<string, Partial<Record<DegreeKey, number>>> =
 // Role-specific skill gaps shown AFTER calculation — derived from real JD analysis
 const ROLE_GAP_MAP: Record<string, string[]> = {
   "Pharmacovigilance (PV) Associate / Safety Specialist": [
-    "MedDRA Medical Dictionary Coding (80% JDs)",
+    "Standardized Medical Coding Medical Dictionary Coding (80% JDs)",
     "ICSR Safety Case Narrative Writing (82% JDs)",
-    "Oracle Argus Safety Workflow & E2B(R3) Submissions",
+    "Enterprise Safety Database Workflow & E2B(R3) Submissions",
   ],
   "Clinical Data Management (CDM) Analyst / EDC Specialist": [
-    "Medidata Rave EDC Navigation & Query Management (70% JDs)",
+    "Electronic Data Capture (EDC) Navigation & Query Management (70% JDs)",
     "CDISC SDTM Data Standards",
     "eCRF Data Discrepancy Resolution",
   ],
   "Clinical Research Associate (CRA) / Trial Monitor": [
     "ICH-GCP E6(R2) Trial Compliance Auditing",
     "Source Data Verification (SDV) Protocols",
-    "Veeva Vault CTMS & eTMF Document Management",
+    "Cloud CTMS Systems & eTMF Document Management",
   ],
   "Regulatory Affairs (RA) Executive / eCTD Dossier Specialist": [
     "eCTD Module 1–5 Dossier Compilation (USFDA/EMA)",
@@ -262,7 +262,7 @@ export const JobMatchEngine: React.FC<JobMatchEngineProps> = ({
                 className="w-full h-11 px-3 rounded-xl bg-[#070D1B] border border-slate-800 font-sans text-xs text-slate-100 focus:outline-none focus:border-sky-400 cursor-pointer"
               >
                 <option value="No">No formal software training</option>
-                <option value="Yes">Yes (Argus / MedDRA / Rave / etc.)</option>
+                <option value="Yes">Yes (Enterprise Safety Database / Standardized Medical Coding / Rave / etc.)</option>
                 <option value="Not Sure">Basic Excel / Self-taught</option>
               </select>
             </div>

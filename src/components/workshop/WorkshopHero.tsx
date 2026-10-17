@@ -11,7 +11,7 @@ const HERO_PREVIEW_DOMAINS = [
     aiRisk: "Low (FDA Mandatory Sign-off)",
     employers: "186 Verified Employers",
     salary: "₹3.8L – ₹16.0L",
-    tools: ["Oracle Argus Safety", "MedDRA 26.0", "Safety Gateway"]
+    tools: ["Clinical Safety DB", "Medical Coding", "Safety Gateway"]
   },
   {
     id: "cdm",
@@ -21,7 +21,7 @@ const HERO_PREVIEW_DOMAINS = [
     aiRisk: "Low (Clinical Audit Lock)",
     employers: "142 Verified Employers",
     salary: "₹3.5L – ₹14.0L",
-    tools: ["Medidata Rave", "Oracle Clinical", "Veeva Vault"]
+    tools: ["Clinical EDC", "Trial Databases", "Cloud Platforms"]
   },
   {
     id: "ra",
@@ -31,7 +31,7 @@ const HERO_PREVIEW_DOMAINS = [
     aiRisk: "Minimal (Legal Agency Filings)",
     employers: "98 Verified Employers",
     salary: "₹4.2L – ₹18.0L",
-    tools: ["eCTDexpress", "Lorenz docuBridge", "ESG Portal"]
+    tools: ["eCTD Publishing", "Validator Suites", "ESG Portal"]
   }
 ];
 

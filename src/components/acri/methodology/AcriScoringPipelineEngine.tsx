@@ -35,7 +35,7 @@ const PIPELINE_STEPS: PipelineStep[] = [
     icon: FileText,
     formula: "X_i ∈ {1..5, Binary, Text} for i = 1..40",
     inputDescription:
-      "20 clinical case vignettes (source document triage, MedDRA term matching), 12 situational judgment items (prioritization under pressure), and 8 regulatory knowledge items.",
+      "20 clinical case vignettes (source document triage, standardized medical coding term matching), 12 situational judgment items (prioritization under pressure), and 8 regulatory knowledge items.",
     processingLogic:
       "Captures candidate selections along with response latency to detect rapid-guessing vs deliberate clinical analysis.",
     outputDescription:

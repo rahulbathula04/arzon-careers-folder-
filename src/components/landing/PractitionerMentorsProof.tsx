@@ -18,14 +18,14 @@ const PRACTITIONER_FACULTY = [
     name: "Dr. Sandeep Vardhan",
     role: "Senior Director, Global Pharmacovigilance Operations",
     background: "Ex-Novartis, Parexel (14+ Yrs Experience)",
-    expertise: "Oracle Argus Safety 8.4, Signal Detection, Aggregate PBRER Reports",
-    quote: "When we screen fresher CVs at global delivery centers, we discard candidates who only list college pharmacology theory. We prioritize candidates who can immediately navigate Argus case intake workflows without a 6-month training delay.",
+    expertise: "Enterprise Safety Databases, Signal Detection, Aggregate PBRER Reports",
+    quote: "When we screen fresher CVs at global delivery centers, we discard candidates who only list college pharmacology theory. We prioritize candidates who can immediately navigate safety database case intake workflows without a 6-month training delay.",
   },
   {
     name: "Ananya Mukherjee",
     role: "Principal Clinical Data Lead & EDC Architect",
     background: "Ex-IQVIA, Syneos Health (11+ Yrs Experience)",
-    expertise: "Medidata RAVE, CDASH Standards, eCRF Query Reconciliation",
+    expertise: "Clinical EDC Platforms, CDASH Standards, eCRF Query Reconciliation",
     quote: "Trial sponsors demand zero data discrepancy. Arzon candidates stand out because they understand clinical data validation specifications before their first interview round.",
   },
   {

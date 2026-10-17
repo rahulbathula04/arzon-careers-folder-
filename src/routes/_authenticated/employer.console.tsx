@@ -503,7 +503,7 @@ function JobsPanel({ employerId }: { employerId: string }) {
                 className="mt-1"
                 value={form.skillsCsv}
                 onChange={(e) => setForm({ ...form, skillsCsv: e.target.value })}
-                placeholder="ICH-GCP, MedDRA, Argus Safety"
+                placeholder="ICH-GCP, Standardized Medical Coding, Enterprise Safety Database"
               />
             </div>
             <div className="sm:col-span-2">

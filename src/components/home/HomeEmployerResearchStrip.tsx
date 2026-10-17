@@ -62,11 +62,11 @@ export function HomeEmployerResearchStrip() {
   ];
 
   const mandatorySkills = [
-    { tool: "Oracle Argus Safety 8.4", tag: "E2B(R3) XML" },
-    { tool: "MedDRA 27.0 Coding", tag: "LLT / PT Hierarchy" },
+    { tool: "Enterprise Safety Database", tag: "E2B(R3) XML" },
+    { tool: "Standardized Medical Coding", tag: "LLT / PT Hierarchy" },
     { tool: "CDISC SDTM v3.3", tag: "FDA Submission" },
     { tool: "CDISC ADaM v1.1", tag: "BDS / ADSL Datasets" },
-    { tool: "Medidata Rave EDC", tag: "eCRF & Discrepancies" },
+    { tool: "Electronic Data Capture (EDC)", tag: "eCRF & Discrepancies" },
     { tool: "ICD-10-CM & CPT-4", tag: "Operative Coding" },
     { tool: "CIOMS I Narrative Drafting", tag: "Day-0 Triage" },
     { tool: "ICH-GCP E6(R2)", tag: "Clinical Compliance" },

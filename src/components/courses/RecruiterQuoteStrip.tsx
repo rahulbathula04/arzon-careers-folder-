@@ -6,7 +6,7 @@
 const QUOTES: { quote: string; who: string; role: string }[] = [
   {
     quote:
-      "I don't care about a course certificate. Show me a candidate who has triaged ten ICSRs in Argus and I'll take the call.",
+      "I don't care about a course certificate. Show me a candidate who has triaged ten ICSRs in an enterprise safety database and I'll take the call.",
     who: "Talent lead",
     role: "Mid-size CRO, Hyderabad",
   },

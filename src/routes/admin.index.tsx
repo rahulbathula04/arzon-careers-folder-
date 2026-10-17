@@ -537,7 +537,7 @@ function AdminHome() {
     }
 
     if (tpl === "pass") {
-      return `Hi ${candidate.name}, here is your confirmed Industry Admission Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🗓️ Session: ${timeStr}\n🔗 Direct Google Meet: ${meetLink}\n\nOur session includes live Oracle Argus & MedDRA adverse drug event triage. Look forward to seeing you live!`;
+      return `Hi ${candidate.name}, here is your confirmed Industry Admission Pass for Arzon Global's live Healthcare Career Workshop!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🗓️ Session: ${timeStr}\n🔗 Direct Google Meet: ${meetLink}\n\nOur session includes live Enterprise Safety Database & Standardized Medical Coding adverse drug event triage. Look forward to seeing you live!`;
     }
     if (tpl === "reminder") {
       return `Hi ${candidate.name}, quick reminder: the live Healthcare Career Workshop begins shortly at ${customTime || WORKSHOP_CONFIG.timeDisplay}!\n\n🎟️ Pass ID: ${candidate.pass_id || "PV-ACTIVE"}\n🔗 Direct Room Link: ${meetLink}\n\nEnsure your device is connected on time.`;

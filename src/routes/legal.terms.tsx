@@ -103,8 +103,8 @@ function TermsPage() {
               This website references various software tools, industry standards, pharmaceutical corporations, and Contract Research Organizations (CROs):
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>MedDRA® is a registered trademark of the International Federation of Pharmaceutical Manufacturers and Associations (IFPMA).</li>
-              <li>Oracle Argus® and Veeva Vault® are registered trademarks of Oracle Corporation and Veeva Systems Inc., respectively.</li>
+              <li>Standardized Medical Coding® is a registered trademark of the International Federation of Pharmaceutical Manufacturers and Associations (IFPMA).</li>
+              <li>Enterprise Safety Database® and Life Sciences Cloud Platforms® are registered trademarks of Oracle Corporation and Enterprise Life Sciences Cloud Providers Inc., respectively.</li>
               <li>SAS® is a registered trademark of SAS Institute Inc., Cary, NC, USA.</li>
               <li>All company names (e.g., IQVIA, Parexel, Novartis, Pfizer, TCS, Cognizant) and logos cited across our research strips, syllabus breakdowns, and JD mirrors are the intellectual property of their respective trademark holders.</li>
               <li>Reference to these trademarks and corporate entities is made strictly under the doctrine of <strong className="text-white">Nominative Fair Use</strong> (pursuant to Section 30 of the Indian Trade Marks Act, 1999) to truthfully identify industry software tools and job-market demand. Such reference does not constitute or imply sponsorship, affiliation, partnership, or endorsement by those entities.</li>

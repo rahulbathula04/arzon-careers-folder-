@@ -43,7 +43,7 @@ export const KNOWLEDGE_GRAPH: EntityNode[] = [
     type: "role",
     label: "Drug Safety & Pharmacovigilance Associate",
     path: "/roles/drug-safety-associate",
-    connectedEntityIds: ["skill-argus", "skill-meddra", "training-pv", "internship-pv", "location-hyderabad", "research-pv-jd"],
+    connectedEntityIds: ["skill-enterprise safety database", "skill-standardized medical coding", "training-pv", "internship-pv", "location-hyderabad", "research-pv-jd"],
   },
   {
     id: "role-medical-coder",
@@ -62,16 +62,16 @@ export const KNOWLEDGE_GRAPH: EntityNode[] = [
 
   // Skills & Software Tools
   {
-    id: "skill-argus",
+    id: "skill-enterprise safety database",
     type: "skill",
-    label: "Oracle Argus Safety v8.4+",
+    label: "Enterprise Safety Database",
     path: "/blog/pharmacovigilance-career-guide-2026",
     connectedEntityIds: ["role-pv-assoc", "training-pv"],
   },
   {
-    id: "skill-meddra",
+    id: "skill-standardized medical coding",
     type: "skill",
-    label: "MedDRA Dictionary Hierarchy v27.0",
+    label: "Standardized Medical Coding Dictionary Hierarchy v27.0",
     path: "/blog/pharmacovigilance-career-guide-2026",
     connectedEntityIds: ["role-pv-assoc", "training-pv"],
   },
@@ -105,6 +105,6 @@ export const KNOWLEDGE_GRAPH: EntityNode[] = [
     type: "research",
     label: "2026 Pharmacovigilance 300+ Verified JD Skill Frequency Report",
     path: "/resources/2026-pharmacovigilance-300-jd-skill-frequency-report",
-    connectedEntityIds: ["role-pv-assoc", "skill-argus", "skill-meddra"],
+    connectedEntityIds: ["role-pv-assoc", "skill-enterprise safety database", "skill-standardized medical coding"],
   },
 ];

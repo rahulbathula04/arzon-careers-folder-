@@ -47,7 +47,7 @@ export function InteractiveCareerFitTool({ onSelectRole }: Props) {
         roleTitle: "Pharmacovigilance (Drug Safety Associate)",
         matchReason:
           "Your pharmacology knowledge aligns directly with adverse drug event triage, ICH-E2A seriousness criteria, and ICSR regulatory reporting.",
-        recommendedFocus: "Oracle Argus Safety workflows, MedDRA 27.0 coding, and expedited 15-day reporting.",
+        recommendedFocus: "Clinical safety database workflows, standardized clinical coding, and expedited 15-day reporting.",
         dayToDaySnippet: "Evaluating post-marketing adverse reaction reports, verifying clinical validity, and authoring narrative summaries.",
       };
     }

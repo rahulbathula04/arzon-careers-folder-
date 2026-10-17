@@ -76,7 +76,7 @@ export const Route = createFileRoute("/why-arzon")({
                 name: "Is the Arzon Global Labs Internship real or fake?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The Arzon Global Labs Internship is a verified 4-week applied capstone experience where candidates process real de-identified ICSR safety cases in Oracle Argus Safety, perform MedDRA coding, and build eCRF schemas in Medidata RAVE. All internship certificates carry a unique online QR verification code linkable via the official portal at arzoncareers.in/verify.",
+                  text: "The Arzon Global Labs Internship is a verified 4-week applied capstone experience where candidates process real de-identified ICSR safety cases in Enterprise Safety Database, perform Standardized Medical Coding, and build eCRF schemas in Electronic Data Capture (EDC). All internship certificates carry a unique online QR verification code linkable via the official portal at arzoncareers.in/verify.",
                 },
               },
               {
@@ -533,7 +533,7 @@ function WhyArzonPage() {
               <div className="rounded-xl border border-[#FED7AA] bg-[#FFF7ED]/70 p-5 space-y-2">
                 <span className="font-mono text-3xl font-bold text-[#8A6D1F]">20%</span>
                 <p className="font-mono text-xs font-bold uppercase text-[var(--arzon-amber-600)] tracking-wider">Real Tools</p>
-                <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">Argus / Python / SQL</p>
+                <p className="text-xs text-[var(--arzon-ink-soft)] font-sans">Enterprise Safety Database / Python / SQL</p>
               </div>
 
               <div className="rounded-xl border border-[#D5E3F5] bg-[var(--arzon-blue-100)]/70 p-5 space-y-2">
@@ -749,7 +749,7 @@ function WhyArzonPage() {
               </div>
               <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is the Arzon Global Labs Internship real or fake?</h3>
               <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                100% Authentic. Candidates complete hands-on ICSR safety report processing in <strong>Oracle Argus Safety 8.2</strong>, MedDRA 26.0 coding, and Medidata RAVE data validation. Every completion certificate is ISO 9001:2015 verified with a QR check at <Link to="/verify" className="text-[var(--arzon-blue-700)] underline font-semibold">arzoncareers.in/verify</Link>.
+                100% Authentic. Candidates complete hands-on ICSR safety report processing in <strong>Enterprise Safety Database</strong>, Standardized Medical Coding coding, and Electronic Data Capture (EDC) data validation. Every completion certificate is ISO 9001:2015 verified with a QR check at <Link to="/verify" className="text-[var(--arzon-blue-700)] underline font-semibold">arzoncareers.in/verify</Link>.
               </p>
             </div>
 

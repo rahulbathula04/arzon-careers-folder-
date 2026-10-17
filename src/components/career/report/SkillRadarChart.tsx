@@ -23,11 +23,11 @@ const DEFAULT_SKILLS: SkillDimension[] = [
     remediationModule: "ICH-GCP E6(R2) Guidelines Refresher",
   },
   {
-    domain: "MedDRA & Safety Coding",
+    domain: "Standardized Safety Coding",
     score: 74,
     maxScore: 100,
     status: "adequate",
-    remediationModule: "MedDRA Terminology & Adverse Event Coding",
+    remediationModule: "Clinical Terminology & Adverse Event Coding",
   },
   {
     domain: "Pharmacovigilance Signal Detection",

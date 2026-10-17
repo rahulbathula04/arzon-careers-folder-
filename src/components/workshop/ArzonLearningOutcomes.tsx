@@ -15,7 +15,7 @@ export function ArzonLearningOutcomes() {
       icon: Layers,
       title: "Recognize what entry-level JDs ask for",
       description:
-        "Deconstruct actual recruitment keywords—ICSR processing, MedDRA hierarchy, serious vs non-serious criteria, and Day 0 clocks—in plain English.",
+        "Deconstruct actual recruitment keywords—ICSR processing, clinical coding hierarchy, serious vs non-serious criteria, and Day 0 clocks—in plain English.",
       evidence: "Direct mapping of job descriptions from top CROs and healthcare IT firms.",
     },
     {

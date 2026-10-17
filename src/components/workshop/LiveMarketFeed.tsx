@@ -58,7 +58,7 @@ export function LiveMarketFeed() {
               <Cpu className="h-4 w-4 text-indigo-400" />
             </div>
             <div className="text-xl font-bold text-white">
-              Argus, eCTD, SAS
+              Safety DB, eCTD, SAS
             </div>
             <p className="text-xs text-slate-400 mt-2">
               Mentioned in 89% of entry job descriptions.

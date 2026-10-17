@@ -61,7 +61,7 @@ export function ArzonRoleIntelligencePage({
   const pvMeta: PvRoleInteractiveMeta | undefined = PV_ROLE_ENHANCED_DATA[cleanSlug];
 
   // Interactive tab state for case simulation
-  const [activeSimTab, setActiveSimTab] = useState<"transcript" | "criteria" | "meddra" | "narrative" | "triage">(
+  const [activeSimTab, setActiveSimTab] = useState<"transcript" | "criteria" | "coding" | "narrative" | "triage">(
     "transcript",
   );
   // Interactive active workflow step
@@ -228,7 +228,7 @@ export function ArzonRoleIntelligencePage({
                     <div className="space-y-3">
                       {(pvMeta?.dailyTimeSplit ?? [
                         { label: "Intake Triage & Day-0 Validity", pct: 25, detail: "Source verification, 4 criteria check", color: "#1557D6" },
-                        { label: "MedDRA & WHO-DD Term Coding", pct: 25, detail: "LLT/PT mapping, ATC product coding", color: "#6946E8" },
+                        { label: "Standardized Medical Coding", pct: 25, detail: "LLT/PT mapping, ATC product coding", color: "#6946E8" },
                         { label: "Chronological Narrative Writing", pct: 30, detail: "Storytelling, dechallenge, labs", color: "#27B9B3" },
                         { label: "Self-QC & Duplicate Reconciliation", pct: 20, detail: "Defect review, clock compliance", color: "#071A4A" },
                       ]).map((item) => (
@@ -296,7 +296,7 @@ export function ArzonRoleIntelligencePage({
               The 4 Core Operational Workflows of a {role.name}
             </h2>
             <p className="text-sm sm:text-base text-[#475569] leading-relaxed">
-              Employers do not hire candidates for reciting definitions. They test whether you can intake a messy clinical file, map MedDRA terms, author an objective narrative, and dispatch before regulatory clocks expire.
+              Employers do not hire candidates for reciting definitions. They test whether you can intake a messy clinical file, map standardized medical terms, author an objective narrative, and dispatch before regulatory clocks expire.
             </p>
           </div>
 
@@ -317,9 +317,9 @@ export function ArzonRoleIntelligencePage({
                 {
                   step: "02",
                   title: "Dual Medical Dictionary Coding",
-                  tagline: "MedDRA & WHO-DD Standardisation",
-                  description: "Map verbatim terms to Lowest Level Term (LLT) and Preferred Term (PT). Code drugs to WHO-DD.",
-                  toolBadge: "MedDRA Browser",
+                  tagline: "Standardized Medical & Drug Coding",
+                  description: "Map verbatim terms to Lowest Level Term (LLT) and Preferred Term (PT). Code drugs to standardized medicinal product dictionaries.",
+                  toolBadge: "Clinical Coding Browser",
                   regulatoryRef: "ICH M1 (MTS:PTC)",
                   sampleArtifact: "Coding Rationale Table",
                 },
@@ -337,7 +337,7 @@ export function ArzonRoleIntelligencePage({
                   title: "Triage, Listedness & Expedited Routing",
                   tagline: "Seriousness Classification & Gateway Dispatch",
                   description: "Evaluate against 6 seriousness criteria and CCDS/SmPC reference safety documents. Route for 15-day alert.",
-                  toolBadge: "Argus Workflow",
+                  toolBadge: "Safety Gateway",
                   regulatoryRef: "US FDA / EMA GVP VI",
                   sampleArtifact: "Triage & Clock Ledger",
                 },
@@ -457,7 +457,7 @@ export function ArzonRoleIntelligencePage({
                 Case Simulation: Inspect How a Safety Associate Solves This Case
               </h2>
               <p className="text-sm sm:text-base text-[#475569] leading-relaxed">
-                Click through each tab below to see how raw medical intake data is parsed into valid criteria, coded to MedDRA hierarchy, turned into a regulatory narrative, and triaged under regulatory clocks.
+                Click through each tab below to see how raw medical intake data is parsed into valid criteria, coded to standardized hierarchy, turned into a regulatory narrative, and triaged under regulatory clocks.
               </p>
             </div>
 
@@ -482,7 +482,7 @@ export function ArzonRoleIntelligencePage({
                   {[
                     { id: "transcript", label: "01 Source Report" },
                     { id: "criteria", label: "02 4-Criteria Triage" },
-                    { id: "meddra", label: "03 MedDRA Coding" },
+                    { id: "coding", label: "03 Standardized Coding" },
                     { id: "narrative", label: "04 Regulatory Narrative" },
                     { id: "triage", label: "05 Reporting Decision" },
                   ].map((tab) => (
@@ -546,35 +546,35 @@ export function ArzonRoleIntelligencePage({
                   </div>
                 )}
 
-                {/* 3. MedDRA Coding Tree */}
-                {activeSimTab === "meddra" && (
+                {/* 3. Standardized Coding Tree */}
+                {activeSimTab === "coding" && (
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono uppercase font-bold text-[#64748B]">ICH MedDRA Hierarchy Path (MTS:PTC Guidelines)</span>
-                      <span className="text-xs font-mono text-[#1557D6] font-semibold">MedDRA Version 27.0</span>
+                      <span className="text-xs font-mono uppercase font-bold text-[#64748B]">5-Tier Clinical Hierarchy Path (MTS:PTC Guidelines)</span>
+                      <span className="text-xs font-mono text-[#1557D6] font-semibold">Standardized Medical Coding</span>
                     </div>
 
                     <div className="rounded-xl border border-[#CBD5E1] bg-white tone-light card-light p-5 space-y-3 shadow-xs font-mono text-xs">
                       <div className="flex items-center gap-3 py-1.5 border-b border-[#E2E8F0]">
                         <span className="w-16 font-bold text-[#64748B]">SOC:</span>
-                        <span className="font-bold text-[#071A4A]">{pvMeta.interactiveCaseStudy.meddraHierarchy.soc}</span>
+                        <span className="font-bold text-[#071A4A]">{pvMeta.interactiveCaseStudy.codingHierarchy.soc}</span>
                       </div>
                       <div className="flex items-center gap-3 py-1.5 border-b border-[#E2E8F0] pl-4">
                         <span className="w-16 font-bold text-[#64748B]">HLGT:</span>
-                        <span className="text-[#334155]">{pvMeta.interactiveCaseStudy.meddraHierarchy.hlgt}</span>
+                        <span className="text-[#334155]">{pvMeta.interactiveCaseStudy.codingHierarchy.hlgt}</span>
                       </div>
                       <div className="flex items-center gap-3 py-1.5 border-b border-[#E2E8F0] pl-8">
                         <span className="w-16 font-bold text-[#64748B]">HLT:</span>
-                        <span className="text-[#334155]">{pvMeta.interactiveCaseStudy.meddraHierarchy.hlt}</span>
+                        <span className="text-[#334155]">{pvMeta.interactiveCaseStudy.codingHierarchy.hlt}</span>
                       </div>
                       <div className="flex items-center gap-3 py-1.5 border-b border-[#E2E8F0] pl-12 bg-[#EEF6FF] rounded">
                         <span className="w-16 font-bold text-[#1557D6]">PT:</span>
-                        <span className="font-extrabold text-[#1557D6]">{pvMeta.interactiveCaseStudy.meddraHierarchy.pt}</span>
+                        <span className="font-extrabold text-[#1557D6]">{pvMeta.interactiveCaseStudy.codingHierarchy.pt}</span>
                         <span className="text-[10px] bg-[#1557D6] text-white px-2 py-0.5 rounded ml-auto">REGULATORY LEVEL</span>
                       </div>
                       <div className="flex items-center gap-3 py-1.5 pl-16">
                         <span className="w-16 font-bold text-[#64748B]">LLT:</span>
-                        <span className="text-[#334155]">{pvMeta.interactiveCaseStudy.meddraHierarchy.llt} ({pvMeta.interactiveCaseStudy.meddraHierarchy.code})</span>
+                        <span className="text-[#334155]">{pvMeta.interactiveCaseStudy.codingHierarchy.llt} ({pvMeta.interactiveCaseStudy.codingHierarchy.code})</span>
                       </div>
                     </div>
                     <p className="text-xs text-[#64748B]">
@@ -950,7 +950,7 @@ export function ArzonRoleIntelligencePage({
 
           <div className="pt-8 flex flex-wrap items-center justify-center gap-8 text-xs font-mono text-slate-400">
             <span>✓ 60+ Synthetic Cases</span>
-            <span>✓ MedDRA MTS:PTC Standard</span>
+            <span>✓ Standardized Medical Coding</span>
             <span>✓ 0% Critical Defect Gate</span>
             <span>✓ Verified Work Portfolio</span>
           </div>

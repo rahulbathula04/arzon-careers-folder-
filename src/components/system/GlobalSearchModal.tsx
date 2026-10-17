@@ -77,11 +77,11 @@ const SEARCH_REGISTRY: SearchEntry[] = [
   // Training
   {
     title: "12-Week Pharmacovigilance Cohort",
-    description: "Oracle Argus, MedDRA, ICSR, Signal Detection, Narrative Writing",
+    description: "Safety Database, Medical Coding, ICSR, Signal Detection, Narrative Writing",
     to: "/courses",
     category: "Training",
     icon: BookOpen,
-    keywords: "training course cohort argus meddra icsr signal detection clinical",
+    keywords: "training course cohort safety database clinical coding icsr signal detection clinical",
   },
   {
     title: "Applied Clinical Internships",

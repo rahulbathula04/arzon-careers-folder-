@@ -103,7 +103,7 @@ export function HomeProgrammesShowcase() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0 mt-0.5" />
-                    <span>MedDRA 27.0 multi-axial coding (SOC, PT, LLT)</span>
+                    <span>Standardized multi-axial medical coding (SOC, PT, LLT)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0 mt-0.5" />
@@ -124,7 +124,7 @@ export function HomeProgrammesShowcase() {
                     CAPSTONE · Process and document sample safety cases
                   </strong>
                   <span className="block text-[11px] text-emerald-800 mt-0.5">
-                    Work on structured, real-world style ICSR cases in Argus.
+                    Work on structured, real-world style ICSR cases in clinical safety databases.
                   </span>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export function HomeProgrammesShowcase() {
                   TOOLS YOU'LL WORK WITH
                 </span>
                 <div className="flex flex-wrap gap-1.5">
-                  {["Oracle Argus", "MedDRA", "WHO-UMC", "CIOMS"].map((t) => (
+                  {["Safety Database", "Clinical Coding", "WHO-UMC", "CIOMS"].map((t) => (
                     <span
                       key={t}
                       className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 font-mono text-[11px] font-semibold text-slate-700"

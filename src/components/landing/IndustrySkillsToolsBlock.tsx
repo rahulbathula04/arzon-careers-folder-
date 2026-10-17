@@ -3,19 +3,19 @@ import { Wrench, ShieldCheck, Database, Code2 } from "lucide-react";
 export function IndustrySkillsToolsBlock() {
   const topSkills = [
     { name: "ICSR Adverse Event Processing & Narratives", percentage: 88, desc: "Mandatory in PV case intake & triage" },
-    { name: "MedDRA Medical Dictionary Coding", percentage: 76, desc: "Standardized medical term classification" },
+    { name: "Standardized Clinical Terminology Coding", percentage: 76, desc: "Standardized medical term classification" },
     { name: "ICH-GCP E6(R2) & GVP Safety Guidelines", percentage: 72, desc: "Global regulatory compliance framework" },
     { name: "Clinical Data Querying & SQL Analysis", percentage: 65, desc: "Database discrepancy resolution & audit" },
     { name: "Aggregate Safety Reports (DSUR / PSUR)", percentage: 58, desc: "Periodic safety update preparation" },
   ];
 
   const validatedTools = [
-    { name: "Oracle Argus Safety", category: "Safety Database", relevance: "Required in 75% of PV job descriptions" },
-    { name: "MedDRA Dictionary", category: "Medical Dictionary", relevance: "Required in 80% of Drug Safety roles" },
-    { name: "Medidata Rave EDC", category: "Clinical EDC", relevance: "Required in 70% of CDM postings" },
-    { name: "Veeva Vault Safety", category: "Cloud Regulatory", relevance: "Required in Enterprise Pharma" },
+    { name: "Enterprise Safety Databases", category: "Safety Database", relevance: "Required in 75% of PV job descriptions" },
+    { name: "Standardized Medical Dictionaries", category: "Medical Terminology", relevance: "Required in 80% of Drug Safety roles" },
+    { name: "Electronic Data Capture (EDC)", category: "Clinical EDC", relevance: "Required in 70% of CDM postings" },
+    { name: "Cloud Regulatory Platforms", category: "Regulatory Operations", relevance: "Required in Enterprise Pharma" },
     { name: "SQL & PowerBI", category: "Healthcare Analytics", relevance: "Required in RWE & Analytics roles" },
-    { name: "Oracle Clinical", category: "Trial Database", relevance: "Required by CRO hiring desks" },
+    { name: "Clinical Data Repositories", category: "Trial Database", relevance: "Required by CRO hiring desks" },
   ];
 
   return (

@@ -5,7 +5,7 @@ export function WorkshopProblemSection() {
     {
       icon: AlertCircle,
       title: "“B.Pharm done. But every interview ends the same way.”",
-      desc: "They ask about ICSR, MedDRA, and case processing—specialized operational concepts your university syllabus never covered.",
+      desc: "They ask about ICSR, clinical coding, and case processing—specialized operational concepts your university syllabus never covered.",
     },
     {
       icon: FileX2,

@@ -38,7 +38,7 @@ export function FutureTimeline() {
       step: 5,
       title: "Applied Learning",
       subtitle: "Tool Practice",
-      detail: "Mastering corporate Argus Safety, eCTD, SAS, or MedDRA workflows rather than outdated academic memorization.",
+      detail: "Mastering corporate safety databases, eCTD, statistical computing, or clinical coding workflows rather than outdated academic memorization.",
       status: "Capability Build"
     },
     {

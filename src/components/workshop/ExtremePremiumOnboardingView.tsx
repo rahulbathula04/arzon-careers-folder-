@@ -174,7 +174,7 @@ export function ExtremePremiumOnboardingView({
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed max-w-lg">
               Salary bands · CRO employer map · ATS-ready skill cheat sheets · Interview question bank · 
-              MedDRA coding workflows · Career growth from Fresher → Senior Associate.
+              Standardized coding workflows · Career growth from Fresher → Senior Associate.
             </p>
 
             {/* Inline metadata tags */}

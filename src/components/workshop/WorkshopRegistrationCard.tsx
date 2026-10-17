@@ -138,7 +138,7 @@ function DegreeDropdown({ value, onChange }: DegreeDropdownProps) {
 const BEFORE_ITEMS = [
   "Uncertain which domain fits your specific qualification",
   "Binge-watching conflicting YouTube advice & forum threads",
-  "Applying blindly without software skills (Argus, MedDRA, eCTD)",
+  "Applying blindly without software skills (Safety DB, Coding, eCTD)",
   "Unsure about starting pay bands across different MNCs",
 ];
 const AFTER_ITEMS = [

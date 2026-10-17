@@ -24,7 +24,7 @@ const ROW_ONE_REVIEWS: MasterclassReviewItem[] = [
     college: "Sultan-ul-Uloom College of Pharmacy, Hyderabad",
     platform: "google",
     rating: 5,
-    quote: "Attended the Pharmacovigilance training program. What stood out was the thorough practical coverage of ICSR processing, adverse event reporting, and MedDRA terminology rather than just theory.",
+    quote: "Attended the Pharmacovigilance training program. What stood out was the thorough practical coverage of ICSR processing, adverse event reporting, and standardized clinical terminology rather than just theory.",
     location: "Google Verified Review · Madhapur, Hyderabad",
   },
   {
@@ -33,7 +33,7 @@ const ROW_ONE_REVIEWS: MasterclassReviewItem[] = [
     degree: "B.Pharm",
     college: "Dayanand Sagar College of Pharmacy",
     platform: "linkedin",
-    quote: "My Pharmacovigilance training gave me practical exposure to ADR reporting, ICSR processing, MedDRA coding, literature review, regulatory guidelines and signal detection.",
+    quote: "My Pharmacovigilance training gave me practical exposure to ADR reporting, ICSR processing, clinical dictionary coding, literature review, regulatory guidelines and signal detection.",
     location: "Public LinkedIn Learner Post",
     profileUrl: "https://in.linkedin.com/in/brahmananda-salagundi-1b24b5380",
   },
@@ -86,7 +86,7 @@ const ROW_TWO_REVIEWS: MasterclassReviewItem[] = [
     college: "Osmania University",
     platform: "google",
     rating: 5,
-    quote: "Transparent guidance on fresher hiring in Hyderabad and Bangalore. No inflated placement claims, just rigorous training in MedDRA hierarchy and safety case intake.",
+    quote: "Transparent guidance on fresher hiring in Hyderabad and Bangalore. No inflated placement claims, just rigorous training in clinical terminology hierarchy and safety case intake.",
     location: "Google Verified Review · Hyderabad",
   },
   {

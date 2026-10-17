@@ -21,8 +21,8 @@ export function CompetencyGapCard({ result }: Props) {
   const candidateGaps = pillarInfo?.gaps?.length
     ? pillarInfo.gaps
     : [
-        "Structured MedDRA / ICD-10 Coding Guidelines",
-        "Enterprise Database Navigation (Argus / Medidata Rave)",
+        "Standardized Medical Terminology & Clinical Coding Guidelines",
+        "Enterprise Database Navigation (Safety & EDC Platforms)",
         "Audit-Defensible Narrative & Discrepancy Writing",
       ];
 

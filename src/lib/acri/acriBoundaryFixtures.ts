@@ -49,7 +49,7 @@ export function buildAnswersForTargetScore(targetPercentage: number): Record<str
   // 4-9: icsrProcessing (6)
   // 10-15: caseAssessment (6)
   // 16-19: medicalInterpretation (4)
-  // 20-24: meddraCoding (5)
+  // 20-24: clinicalCoding (5)
   // 25-28: documentation (4)
   // 29-32: qualityCompliance (4)
   // 33-36: analyticalReasoning (4)

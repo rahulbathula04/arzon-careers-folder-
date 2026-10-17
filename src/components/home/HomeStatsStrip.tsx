@@ -39,7 +39,7 @@ export function HomeStatsStrip() {
       icon: ShieldCheck,
       value: "Industry-Oriented",
       label: "Practical Audit Learning",
-      sublabel: "ICH-GCP & MedDRA calibrated",
+      sublabel: "ICH-GCP & Clinical Coding calibrated",
       badge: "AUDIT READY",
       badgeColor: "bg-amber-50 text-amber-900 border-amber-200",
       iconBg: "bg-amber-50 text-amber-700 border-amber-200",

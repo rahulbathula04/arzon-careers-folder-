@@ -21,7 +21,7 @@ const DEGREE_SEGMENTS = [
     id: "pharmd",
     label: "Pharm.D / M.Pharm",
     mobileLabel: "Pharm.D / M.Pharm",
-    bestFit: "Pharmacovigilance (ICSR/Argus) & Medical Writing",
+    bestFit: "Pharmacovigilance (ICSR/Safety DB) & Medical Writing",
     startingCtc: "₹4.5L – ₹6.5L",
     demandReason: "High clinical evaluation and aggregate safety report readiness in Tier-1 GCCs.",
     route: "/pv-associate",
@@ -128,7 +128,7 @@ export function EditorialHero() {
               <strong className="text-[#1B3F8B] underline decoration-[#1B3F8B]/30 underline-offset-4 font-semibold">
                 Pharmacovigilance, Clinical Data Management &amp; Medical Coding
               </strong>{" "}
-              (₹3.8L–₹7.2L CTC) with day-one database fluency in Oracle Argus, Medidata RAVE, and ICD-10-CM.
+              (₹3.8L–₹7.2L CTC) with day-one fluency in safety databases, clinical EDC platforms, and ICD-10-CM.
             </p>
 
             {/* CTA buttons — stacked full-width on mobile, inline on sm+ */}

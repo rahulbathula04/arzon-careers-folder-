@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export function HomeClinicalWorkbench() {
-  const [activeTab, setActiveTab] = useState<"intake" | "meddra" | "narrative" | "qc">("intake");
+  const [activeTab, setActiveTab] = useState<"intake" | "coding" | "narrative" | "qc">("intake");
   const [checkedCriteria, setCheckedCriteria] = useState<Record<number, boolean>>({
     0: true,
     1: true,
@@ -54,7 +54,7 @@ export function HomeClinicalWorkbench() {
             <div className="flex items-center gap-3">
               <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
               <div className="flex items-center gap-2 font-mono text-[11px] font-semibold tracking-wider">
-                <span className="text-white/90">ARGUS SAFETY E2B(R3) SIMULATOR</span>
+                <span className="text-white/90">ENTERPRISE SAFETY E2B(R3) SIMULATOR</span>
                 <span className="text-white/30">/</span>
                 <span className="text-cyan-300 font-bold">CASE ARZ-2026-PV-0891</span>
               </div>
@@ -88,15 +88,15 @@ export function HomeClinicalWorkbench() {
 
             <button
               type="button"
-              onClick={() => setActiveTab("meddra")}
+              onClick={() => setActiveTab("coding")}
               className={`flex items-center gap-2 py-3.5 px-4 text-xs font-bold border-b-2 transition-all whitespace-nowrap cursor-pointer ${
-                activeTab === "meddra"
+                activeTab === "coding"
                   ? "border-[#1557D6] text-[#071A4A] bg-white tone-light card-light rounded-t-lg shadow-2xs"
                   : "border-transparent text-slate-500 hover:text-slate-800"
               }`}
             >
               <Code2 className="h-4 w-4" />
-              <span>02. MedDRA Coding Tree</span>
+              <span>02. Clinical Coding Tree</span>
             </button>
 
             <button
@@ -247,8 +247,8 @@ export function HomeClinicalWorkbench() {
               </div>
             )}
 
-            {/* TAB 2: MEDDRA CODING */}
-            {activeTab === "meddra" && (
+            {/* TAB 2: STANDARDIZED CODING */}
+            {activeTab === "coding" && (
               <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#EEF6FF] p-4 rounded-xl border border-[#D0E1FD]">
                   <div>
@@ -260,14 +260,14 @@ export function HomeClinicalWorkbench() {
                     </strong>
                   </div>
                   <div className="rounded-lg bg-white px-3 py-1.5 border border-[#CBD5E1] text-xs font-mono text-[#071A4A] shrink-0 tone-light card-light">
-                    MedDRA Dictionary Version 27.0
+                    5-Tier Medical Coding Hierarchy
                   </div>
                 </div>
 
                 {/* 5-Level Hierarchy Visual */}
                 <div className="border border-[#CBD5E1] rounded-xl overflow-hidden bg-white tone-light card-light">
                   <div className="bg-[#F8FAFC] px-4 py-2.5 border-b border-[#E2E8F0] text-xs font-bold text-[#071A4A] flex items-center justify-between">
-                    <span>MedDRA 5-Tier Hierarchical Classification</span>
+                    <span>5-Tier Hierarchical Classification & Coding</span>
                     <span className="font-mono text-[11px] text-[#64748B]">Primary System Organ Class Path</span>
                   </div>
 
@@ -333,7 +333,7 @@ export function HomeClinicalWorkbench() {
                 <div className="p-3.5 rounded-xl border border-blue-200 bg-blue-50 text-xs text-blue-900 flex items-start gap-2.5">
                   <CheckCircle2 className="h-4 w-4 text-blue-700 mt-0.5 shrink-0" />
                   <span>
-                    <strong>MedDRA MSSO Point-to-Consider (PtC) Rule:</strong> When multiple concurrent symptoms (bronchospasm, facial edema, hypotension) point unequivocally to a systemic diagnosis (Anaphylaxis), the processor codes the definitive diagnosis PT rather than splitting individual symptoms.
+                    <strong>Clinical Coding Points-to-Consider (PtC) Rule:</strong> When multiple concurrent symptoms (bronchospasm, facial edema, hypotension) point unequivocally to a systemic diagnosis (Anaphylaxis), the processor codes the definitive diagnosis PT rather than splitting individual symptoms.
                   </span>
                 </div>
               </div>
@@ -421,7 +421,7 @@ export function HomeClinicalWorkbench() {
                       <span>Major Defect (Score: -15)</span>
                     </div>
                     <strong className="block text-xs font-bold text-[#071A4A] mb-1">
-                      Incorrect MedDRA PT / Causality
+                      Incorrect Preferred Term (PT) / Causality
                     </strong>
                     <p className="text-[11px] text-[#475569] leading-relaxed mb-3">
                       Selecting an inaccurate Preferred Term (PT) distorts global signal detection algorithms and aggregate safety data reports (PBRER / DSUR).

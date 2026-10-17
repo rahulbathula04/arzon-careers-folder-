@@ -33,7 +33,7 @@ const AXIS_GUIDANCE: Record<string, { skill: string; proof: string; gap: string 
     gap: "Can't reshape a messy sheet without breaking formulas",
   },
   screen: {
-    skill: "Hands-on exposure to Medidata Rave, Veeva, or Argus",
+    skill: "Hands-on exposure to enterprise EDC, RIM, or safety databases",
     proof: "Screenshots of a live task inside the actual tool",
     gap: "Recruiter can't tell if you've ever logged into the system",
   },

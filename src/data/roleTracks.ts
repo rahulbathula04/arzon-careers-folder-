@@ -62,7 +62,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
       { skill: "Human Anatomy & Pathophysiology", percentage: 88, category: "core" },
       { skill: "Medical Terminology & Chart Auditing", percentage: 82, category: "analytical" },
       { skill: "HCPCS Level II Standards", percentage: 76, category: "compliance" },
-      { skill: "3M Encoder & EHR Systems", percentage: 68, category: "tool" },
+      { skill: "Enterprise CAC Encoders & EHR Systems", percentage: 68, category: "tool" },
       { skill: "HIPAA & Compliance Auditing", percentage: 61, category: "compliance" },
     ],
     keyModules: [
@@ -92,16 +92,16 @@ export const ROLE_TRACKS: RoleTrack[] = [
     skillsFrequency: [
       { skill: "Drug Safety Fundamentals", percentage: 82, category: "core" },
       { skill: "ICSR Case Processing & Narrative Writing", percentage: 71, category: "core" },
-      { skill: "MedDRA & WHO-Drug Coding", percentage: 64, category: "tool" },
+      { skill: "Standardized Medical Coding & Global Medicinal Product Dictionaries Coding", percentage: 64, category: "tool" },
       { skill: "AE/SAE Triage & Causality Assessment", percentage: 61, category: "analytical" },
       { skill: "FDA & EMA Regulatory Compliance", percentage: 54, category: "compliance" },
-      { skill: "Safety Database Navigation (Argus/ArisG)", percentage: 48, category: "tool" },
+      { skill: "Safety Database Navigation (Enterprise Safety Database/Multi-Sponsor Safety Systems)", percentage: 48, category: "tool" },
     ],
     keyModules: [
       "Adverse Event Detection & ICSR Intake Triage",
-      "MedDRA Hierarchy & Medical Coding Practice",
+      "5-tier medical coding hierarchy & Medical Coding Practice",
       "Case Narrative Writing & Quality Control Standards",
-      "Argus Safety Database Hands-on Case Simulation",
+      "Enterprise Safety Database Database Hands-on Case Simulation",
     ],
     targetDegrees: ["B.Pharm", "M.Pharm", "Pharm.D", "B.Sc/M.Sc Life Sciences"],
     heroBadge: "★ Wave 2 · Direct Partner Desk Fast-Track",
@@ -155,7 +155,7 @@ export const ROLE_TRACKS: RoleTrack[] = [
     sampleEmployers: ["Global CRO Networks", "Trial Data Consortia", "EDC Management Centers", "Central Monitoring Hubs"],
     skillsFrequency: [
       { skill: "Clinical Data Validation & Discrepancy Mgmt", percentage: 89, category: "core" },
-      { skill: "EDC Systems (Medidata Rave / Redcap)", percentage: 81, category: "tool" },
+      { skill: "EDC Systems (Electronic Data Capture (EDC) / Redcap)", percentage: 81, category: "tool" },
       { skill: "Data Cleaning & Query Generation", percentage: 76, category: "analytical" },
       { skill: "Data Management Plan (DMP) Review", percentage: 67, category: "compliance" },
       { skill: "Excel Data Auditing & VLOOKUP/Pivot", percentage: 62, category: "tool" },

@@ -30,7 +30,7 @@ import { breadcrumbSchema } from "@/lib/jsonLd";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import {
   STARTER_KIT_QUESTIONS,
-  ARGUS_WORKFLOW_STEPS,
+  SAFETY_WORKFLOW_STEPS,
   RAVE_WORKFLOW_STEPS,
   ATS_KEYWORDS_DATA,
   CITY_SALARY_BENCHMARKS,
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/starter-kit")({
   head: () => {
     const title = "2026 Healthcare Career Starter Kit (Free PDF Download) | Arzon Global";
     const description =
-      "Download the free 2026 Healthcare Career Starter Kit. Includes Top 20 CRO Interview Q&As, Oracle Argus vs Medidata RAVE workflow cheat-sheets, 35+ ATS keywords, and city-by-city salary benchmarks.";
+      "Download the free 2026 Healthcare Career Starter Kit. Includes Top 20 CRO Interview Q&As, Enterprise Safety Database vs Electronic Data Capture (EDC) workflow cheat-sheets, 35+ ATS keywords, and city-by-city salary benchmarks.";
 
     const ps = pageSeo({
       title,
@@ -449,13 +449,13 @@ function StarterKitPage() {
               </p>
             </div>
 
-            {/* Oracle Argus Safety 8.4 */}
+            {/* Enterprise Safety Database */}
             <div className="rounded-2xl border border-stone-200 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-xs">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-stone-200">
                 <div className="space-y-1">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-blue-50 text-[#1B3F8B] font-mono text-xs font-bold uppercase">
                     <Terminal className="w-3.5 h-3.5" />
-                    <span>ORACLE ARGUS SAFETY 8.4</span>
+                    <span>Enterprise Safety Database</span>
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-stone-900 font-sans">
                     End-to-End Adverse Event Case Processing Lifecycle
@@ -465,7 +465,7 @@ function StarterKitPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {ARGUS_WORKFLOW_STEPS.map((step) => (
+                {SAFETY_WORKFLOW_STEPS.map((step) => (
                   <div key={step.stepNumber} className="p-4 rounded-xl border border-stone-200 bg-stone-50 space-y-3 flex flex-col justify-between">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -493,13 +493,13 @@ function StarterKitPage() {
               </div>
             </div>
 
-            {/* Medidata RAVE EDC */}
+            {/* Electronic Data Capture (EDC) */}
             <div className="rounded-2xl border border-stone-200 bg-white tone-light p-6 sm:p-8 space-y-6 shadow-xs">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-stone-200">
                 <div className="space-y-1">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-emerald-50 text-emerald-800 font-mono text-xs font-bold uppercase">
                     <Building2 className="w-3.5 h-3.5" />
-                    <span>MEDIDATA RAVE EDC</span>
+                    <span>Electronic Data Capture (EDC)</span>
                   </div>
                   <h3 className="text-lg sm:text-xl font-bold text-stone-900 font-sans">
                     Clinical Data Management &amp; Database Lock Lifecycle
@@ -738,11 +738,11 @@ function StarterKitPage() {
             </div>
 
             <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              Ready to See Oracle Argus Processed Live?
+              Ready to See Enterprise Safety Database Processed Live?
             </h2>
 
             <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
-              Reading this Starter Kit gives you the theory. In our 90-minute live workshop, Mohamed Kumail Abbas will open a live enterprise screen and walk through real adverse event triage and MedDRA coding live.
+              Reading this Starter Kit gives you the theory. In our 90-minute live workshop, Mohamed Kumail Abbas will open a live enterprise screen and walk through real adverse event triage and Standardized Medical Coding live.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">

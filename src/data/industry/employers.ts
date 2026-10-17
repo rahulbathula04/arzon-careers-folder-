@@ -212,14 +212,14 @@ export const EMPLOYERS: Employer[] = [
 
   // ── Health Tech ────────────────────────────────────────────────────────
   {
-    name: "Veeva Systems",
+    name: "Enterprise Life Sciences Cloud Providers",
     tier: "Health Tech",
     cities: ["Hyderabad", "Bengaluru"],
     hiringFor: ["clinical-data-management"],
     typicalBand: "₹6 – 10 LPA at L1",
   },
   {
-    name: "Medidata (Dassault)",
+    name: "Enterprise EDC (Dassault)",
     tier: "Health Tech",
     cities: ["Hyderabad", "Pune"],
     hiringFor: ["clinical-data-management"],

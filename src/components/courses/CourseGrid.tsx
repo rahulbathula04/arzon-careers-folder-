@@ -70,7 +70,7 @@ export function CourseGrid() {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by role, tool, or skill (e.g. 'Argus', 'ICSR', 'SAS')"
+            placeholder="Search by role, tool, or skill (e.g. 'ICSR', 'Clinical Coding', 'CDISC')"
             className="h-12 w-full rounded-full border border-slate-200 bg-white pl-11 pr-10 text-sm font-semibold text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] outline-none focus:border-[var(--arzon-blue-600)] shadow-sm"
           />
           {query && (

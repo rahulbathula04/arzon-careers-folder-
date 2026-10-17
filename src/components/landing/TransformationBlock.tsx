@@ -43,7 +43,7 @@ export function TransformationBlock() {
     },
     {
       before: "Generic resume with college theory everyone has",
-      after: "Production clinical trial case dossiers, Argus safety reports & audit-ready portfolios",
+      after: "Production clinical trial case dossiers, safety database reports & audit-ready portfolios",
     },
     {
       before: "Failing technical screening in the first 15 minutes",

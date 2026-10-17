@@ -44,7 +44,7 @@ const SAMPLE_ELITE_CANDIDATES: EliteCandidate[] = [
     acriScore: 89,
     percentile: 95,
     location: "Bengaluru",
-    skills: ["Argus Safety", "MedDRA", "CDSCO Compliance", "Form 44"],
+    skills: ["Safety Database", "Medical Coding", "CDSCO Compliance", "Form 44"],
     bidsCount: 3,
   },
   {

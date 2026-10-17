@@ -24,7 +24,7 @@ const LABEL_SHORT_NAMES: Record<string, string> = {
   medicalInterpretation: "Medical Triage",
   qualityCompliance: "Quality & Compliance",
   situationalJudgment: "Situational Judgment",
-  meddraCoding: "MedDRA Coding",
+  clinicalCoding: "Standardized Medical Coding",
 };
 
 export function AcriRadarChart({

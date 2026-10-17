@@ -33,23 +33,23 @@ export const GRADING_RUBRIC: TrackRubric[] = [
     title: "Pharmacovigilance",
     jdRole: "Drug Safety Associate",
     gradedDeliverables: [
-      "10 redacted ICSR cases, end-to-end (intake → MedDRA → narrative)",
+      "10 redacted ICSR cases, end-to-end (intake → Standardized Medical Coding → narrative)",
       "1 aggregate-report section (PSUR / PBRER)",
-      "Argus Safety hands-on capstone (simulated)",
+      "Enterprise Safety Database hands-on capstone (simulated)",
     ],
     rows: [
       {
         band: "A",
         cutoff: "≥ 90 %",
         jdOutcome:
-          "Owns ICSR end-to-end at ≥ 95% accuracy, MedDRA-codes without supervisor edits, drafts narrative + aggregate sections without rework.",
+          "Owns ICSR end-to-end at ≥ 95% accuracy, Standardized Medical Coding-codes without supervisor edits, drafts narrative + aggregate sections without rework.",
         recruiterRead: "Shippable from day 1. Skip the QC pod, put on live cases.",
       },
       {
         band: "B+",
         cutoff: "75-89 %",
         jdOutcome:
-          "Processes ICSRs with reviewer sign-off, MedDRA hit-rate ≥ 90%, narrative drafts need light editing.",
+          "Processes ICSRs with reviewer sign-off, Standardized Medical Coding hit-rate ≥ 90%, narrative drafts need light editing.",
         recruiterRead: "Standard fresher hire - pair with senior for 4-6 weeks, then production.",
       },
       {
@@ -110,7 +110,7 @@ export const GRADING_RUBRIC: TrackRubric[] = [
     title: "Clinical Data Management",
     jdRole: "Clinical Data Associate",
     gradedDeliverables: [
-      "Live EDC build in Medidata Rave (1 study)",
+      "Live EDC build in Electronic Data Capture (EDC) (1 study)",
       "Edit-check spec authored + executed",
       "Mock database lock with SAE reconciliation",
     ],
@@ -196,7 +196,7 @@ export const GRADING_RUBRIC: TrackRubric[] = [
         band: "A",
         cutoff: "≥ 90 %",
         jdOutcome:
-          "Drafts eCTD-ready sections, runs Veeva Vault RIM cleanly, responds to deficiency letters with citations.",
+          "Drafts eCTD-ready sections, runs Enterprise RIM Platforms cleanly, responds to deficiency letters with citations.",
         recruiterRead: "Pharma-RA-ready (Dr. Reddy's / Aurobindo fresher pool).",
       },
       {

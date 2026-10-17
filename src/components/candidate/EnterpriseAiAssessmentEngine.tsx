@@ -88,7 +88,7 @@ const CORE_ASSESSMENT_QUESTIONS: Question[] = [
     prompt: "How comfortable are you reading regulatory dossiers and medical literature in English?",
     helper: "US FDA and EMA submissions require stringent technical English fluency.",
     options: [
-      { value: "fluent", label: "Fluent — I comfortably analyze clinical trials, MedDRA terms, and SOPs", weights: { language: 3, writing: 2 } },
+      { value: "fluent", label: "Fluent — I comfortably analyze clinical trials, medical coding terms, and SOPs", weights: { language: 3, writing: 2 } },
       { value: "good", label: "Good — Comfortable with technical documents, occasional re-reading needed", weights: { language: 1, writing: 1 } },
       { value: "okay", label: "Moderate — Can read with extra time and dictionary assistance" },
       { value: "weak", label: "Basic — Prefer vernacular explanations or non-writing roles", weights: { language: -2, writing: -2 } },
@@ -168,7 +168,7 @@ const CORE_ASSESSMENT_QUESTIONS: Question[] = [
     options: [
       {
         value: "raise_query",
-        label: "Raise a formal data clarification query (DCQ) in Medidata RAVE to the investigator without modifying source data.",
+        label: "Raise a formal data clarification query (DCQ) in the EDC system to the investigator without modifying source data.",
         weights: { compliance: 4, detail: 3, logic: 2 },
         reveals: "Perfect adherence to ICH-GCP data integrity principles.",
       },
@@ -304,7 +304,7 @@ const CORE_ASSESSMENT_QUESTIONS: Question[] = [
   {
     id: "learning_speed",
     kind: "scenario",
-    prompt: "When introduced to complex new enterprise software (e.g. Oracle Argus 8.4 or Medidata RAVE), how do you master it?",
+    prompt: "When introduced to complex new enterprise software (e.g. Enterprise Safety Databases or Cloud EDC), how do you master it?",
     helper: "Gauges software adoption velocity and technical autonomy.",
     options: [
       {
@@ -355,7 +355,7 @@ const CORE_ASSESSMENT_QUESTIONS: Question[] = [
     ],
   },
   {
-    id: "micro_meddra_coding",
+    id: "micro_safety_coding",
     kind: "micro",
     prompt: "MICRO-TASK 2: Pharmacovigilance Adverse Event Triage",
     scenario: "A clinical trial investigator reports: 'Patient developed hives, facial swelling, and acute shortness of breath 20 minutes post-infusion'. How should this event be prioritized?",
@@ -606,7 +606,7 @@ export function EnterpriseAiAssessmentEngine() {
               Synthesizing Your Career Fit Report
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 font-sans max-w-md mx-auto">
-              Analyzing your answers across Oracle Argus, MedDRA, Medidata RAVE, ICD-10-CM, and Regulatory domains.
+              Analyzing your answers across Safety Databases, Medical Coding, Cloud EDC, ICD-10-CM, and Regulatory domains.
             </p>
           </div>
 

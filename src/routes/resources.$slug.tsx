@@ -210,7 +210,7 @@ function ResearchReportDossierComponent() {
             Explore Training &amp; Internship Pathways
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-stone-300 max-w-xl mx-auto">
-            Train for specific roles using industry-standard tools (Argus, Rave, ICD-10, PROC SQL) and complete verified case processing internships.
+            Train for specific roles using industry-standard tools (Enterprise Safety Database, Rave, ICD-10, PROC SQL) and complete verified case processing internships.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
             <Link

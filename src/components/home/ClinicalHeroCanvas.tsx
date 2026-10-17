@@ -24,8 +24,8 @@ const CLINICAL_PALETTE = [
 
 const CLINICAL_LABELS = [
   "ICH-GCP",
-  "MedDRA 27.0",
-  "Argus Safety",
+  "Clinical Coding",
+  "Safety Database",
   "CDISC SDTM",
   "eCRF",
   "CTD Dossier",
@@ -211,7 +211,7 @@ export function ClinicalHeroCanvas() {
         ctx.fillStyle = `${node.color}${depthAlpha.toFixed(2)})`;
         ctx.fill();
 
-        // Render Floating 3D Clinical Micro-Label (e.g. "MedDRA", "ICH-GCP")
+        // Render Floating 3D Clinical Micro-Label (e.g. "Clinical Coding", "ICH-GCP")
         if (node.label && depthAlpha > 0.35 && scale > 0.55) {
           ctx.save();
           const fontSize = Math.max(8.5, Math.min(11, 10 * scale));

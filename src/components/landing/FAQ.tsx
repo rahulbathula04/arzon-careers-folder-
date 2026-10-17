@@ -31,7 +31,7 @@ const INSTITUTIONAL_FAQS = [
   },
   {
     q: "What happens if I fail the internal mock assessment?",
-    a: "You get 2 additional retake opportunities included in your enrollment. Our mentors provide a detailed diagnostic report showing your weak areas (e.g., MedDRA coding accuracy, ICSR case narratives, eCRF query management) and assign targeted lab exercises before your retake.",
+    a: "You get 2 additional retake opportunities included in your enrollment. Our mentors provide a detailed diagnostic report showing your weak areas (e.g., medical coding accuracy, ICSR case narratives, eCRF query management) and assign targeted lab exercises before your retake.",
   },
   {
     q: "Is this a real internship or another online course?",

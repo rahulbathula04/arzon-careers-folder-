@@ -46,11 +46,11 @@ export const DOMAIN_CARDS: DomainCard[] = [
     subject: "Pharmacovigilance & Drug Safety",
     label: "Pharmacovigilance",
     eyebrow: "Drug safety",
-    blurb: "Process ICSRs in Argus, write narratives, work to IQVIA / Cognizant SLAs.",
+    blurb: "Process ICSRs in Enterprise Safety Database, write narratives, work to IQVIA / Cognizant SLAs.",
     skillsHeader: "Learn how to work with:",
     skills: [
       "ICSR case processing",
-      "MedDRA coding",
+      "Standardized Medical Coding",
       "Case narratives",
       "Causality assessment",
       "Safety database workflows",
@@ -90,7 +90,7 @@ export const DOMAIN_CARDS: DomainCard[] = [
     subject: "Clinical Data Management",
     label: "Clinical Data Management",
     eyebrow: "EDC + CDASH",
-    blurb: "Build Medidata Rave studies, write edit checks, lock trial databases.",
+    blurb: "Build Electronic Data Capture (EDC) studies, write edit checks, lock trial databases.",
     skillsHeader: "Build skills in:",
     skills: [
       "EDC systems",

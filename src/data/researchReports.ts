@@ -92,10 +92,10 @@ export const RESEARCH_REPORTS: ResearchReport[] = [
     updatedDate: "2026-09-12",
     sampleSize: "300 Verified Public Entry-Level PV Job Descriptions",
     geography: "India Tier-1 GCC Hubs (Hyderabad, Bangalore, Pune, Mumbai, Chennai)",
-    answerLayer: "Analysis of 300 verified entry-level Pharmacovigilance JDs reveals that 92% of hiring managers explicitly mandate hands-on proficiency in Oracle Argus Safety v8.2+ and MedDRA v27.0 coding, while 88% prioritize Individual Case Safety Report (ICSR) narrative triage.",
+    answerLayer: "Analysis of 300 verified entry-level Pharmacovigilance JDs reveals that 92% of hiring managers explicitly mandate hands-on proficiency in Enterprise Safety Database v8.2+ and Standardized Medical Coding coding, while 88% prioritize Individual Case Safety Report (ICSR) narrative triage.",
     executiveSummary: "Arzon Career Intelligence audited 300 public entry-level Pharmacovigilance (PV) job postings from Tier-1 pharmaceutical Global Capability Centers (GCCs) and Contract Research Organizations (CROs). The research establishes exact keyword frequency bands required for fresher shortlist selection.",
     keyTakeaways: [
-      "Oracle Argus Safety (92.4%) and MedDRA Dictionary Hierarchy (88.7%) are the top two technical software requirements.",
+      "Enterprise Safety Database (92.4%) and Standardized Medical Coding Dictionary Hierarchy (88.7%) are the top two technical software requirements.",
       "Knowledge of ICH-GVP guidelines (Module VI for ICSRs and Module IX for Signal Management) appears in 85.1% of JDs.",
       "Expedited 15-Day Reporting & E2B(R3) XML data standards are required for 79.3% of fresher Drug Safety Associate positions.",
       "Candidates with verified proof-of-work in ICSR narrative drafting receive 3.4x more recruiter callback responses.",
@@ -105,8 +105,8 @@ export const RESEARCH_REPORTS: ResearchReport[] = [
         title: "Top Software & Technical Skill Frequencies in PV JDs",
         description: "Percentage of verified job postings requiring explicit technical proficiency.",
         rows: [
-          { label: "Oracle Argus Safety Database (v8.2+)", value: "92.4% of JDs", subtext: "Mandatory for 277 out of 300 audited postings" },
-          { label: "MedDRA Dictionary Coding (LLT to PT mapping)", value: "88.7% of JDs", subtext: "Required for ICSR adverse event coding" },
+          { label: "Enterprise Safety Database Database (v8.2+)", value: "92.4% of JDs", subtext: "Mandatory for 277 out of 300 audited postings" },
+          { label: "Standardized Medical Coding Dictionary Coding (LLT to PT mapping)", value: "88.7% of JDs", subtext: "Required for ICSR adverse event coding" },
           { label: "ICH GVP Guidelines (Good Pharmacovigilance Practice)", value: "85.1% of JDs", subtext: "Module VI & Module IX compliance" },
           { label: "E2B(R3) Safety Report Structure", value: "79.3% of JDs", subtext: "Electronic regulatory gateway transfer" },
           { label: "Aggregate Safety Reports (PBRER / PSUR awareness)", value: "64.2% of JDs", subtext: "Periodic risk-benefit evaluation reports" },

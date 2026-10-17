@@ -90,7 +90,7 @@ export function CollegeVsIndustryGapBlock({ onCompareCurriculumClick }: CollegeV
                 </li>
                 <li className="flex items-start gap-2.5 p-3 rounded-xl bg-[#070D1B] border border-amber-500/20">
                   <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>Enterprise Software Exposure (Argus Safety / MedDRA / EDC)</span>
+                  <span>Enterprise Platform Exposure (Safety Databases / Clinical Coding / EDC)</span>
                 </li>
                 <li className="flex items-start gap-2.5 p-3 rounded-xl bg-[#070D1B] border border-amber-500/20">
                   <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />

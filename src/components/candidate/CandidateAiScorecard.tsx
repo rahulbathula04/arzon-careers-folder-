@@ -49,7 +49,7 @@ export function CandidateAiScorecard({
   const result: AiAssessmentResult = evaluateCandidatePortfolio(submission);
 
   const dimensionIcons: Record<AcriDimensionKey, typeof FileCode2> = {
-    pharmacovigilanceArgus: FileText,
+    pharmacovigilanceSafety: FileText,
     medicalCodingCpc: FileCode2,
     clinicalDataManagement: Layers,
     clinicalSasCdisc: Brain,
@@ -301,7 +301,7 @@ export function CandidateAiScorecard({
               <div className="space-y-3 text-xs">
                 <div>
                   <div className="flex justify-between font-mono mb-1 text-slate-300">
-                    <span>Pharmacovigilance (Oracle Argus)</span>
+                    <span>Pharmacovigilance (Safety Database)</span>
                     <span className="font-bold text-blue-400">{submission.pvScore ?? 85}/100</span>
                   </div>
                   <input

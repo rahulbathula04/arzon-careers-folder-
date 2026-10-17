@@ -47,7 +47,7 @@ export const CURRENT_ACRI_VERSION: AcriStandardVersion = {
     "EMA GVP Module IX (Signal Management)",
     "CDSCO 2024 Guidance for Marketing Authorization Holders",
     "US FDA 21 CFR 314.80 (Postmarketing Reporting)",
-    "MedDRA Term Selection: Points to Consider v27.0",
+    "Standardized Coding Term Selection: Points to Consider v27.0",
     "WHO-UMC Causality Assessment Table",
   ],
 };

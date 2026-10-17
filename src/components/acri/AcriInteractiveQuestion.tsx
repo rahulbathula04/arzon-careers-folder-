@@ -52,10 +52,10 @@ const SAMPLE_QUESTIONS: ScenarioQuestion[] = [
   },
   {
     number: "Question 25/40",
-    category: "MedDRA Coding",
+    category: "Standardized Medical Coding",
     timeRemaining: "02:00",
     scenario:
-      "When processing an adverse event report in Argus Safety, a reporter's verbatim term 'severe heart attack' must be coded using MedDRA. At which hierarchy level is the term directly entered?",
+      "When processing an adverse event report in Enterprise Safety Database, a reporter's verbatim term 'severe heart attack' must be coded using Standardized Medical Coding. At which hierarchy level is the term directly entered?",
     options: [
       { key: "A", text: "System Organ Class (SOC)" },
       { key: "B", text: "High Level Term (HLT)" },
@@ -64,7 +64,7 @@ const SAMPLE_QUESTIONS: ScenarioQuestion[] = [
     ],
     correctKey: "D",
     explanation:
-      "Correct. In MedDRA, verbatim adverse event terms are always entered at the Lowest Level Term (LLT) level to maintain maximum clinical specificity, which then programmatically maps to a single Preferred Term (PT).",
+      "Correct. In Standardized Medical Coding, verbatim adverse event terms are always entered at the Lowest Level Term (LLT) level to maintain maximum clinical specificity, which then programmatically maps to a single Preferred Term (PT).",
     incorrectExplanation:
       "Not quite. Preferred Term (PT) represents the distinct medical concept, but data entry and verbatim capture must always map to the Lowest Level Term (LLT) first.",
   },

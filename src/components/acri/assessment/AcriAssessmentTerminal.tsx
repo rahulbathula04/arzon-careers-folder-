@@ -873,7 +873,7 @@ export function AcriAssessmentTerminal() {
             </div>
             <p>
               The ACRI assessment evaluates realistic job workflows: 4-criteria intake validation, E2B(R3) field extraction,
-              WHO-UMC causality algorithms, MedDRA LLT coding, narrative drafting, and high-pressure triage.
+              WHO-UMC causality algorithms, Standardized Medical Coding LLT coding, narrative drafting, and high-pressure triage.
             </p>
           </div>
         </main>

@@ -94,7 +94,7 @@ function HyderabadLocationComponent() {
             {[
               { company: "Global Pharma Safety GCCs", hub: "HITEC City", roles: "PV, CSR Writing, Signal Eval" },
               { company: "Healthcare IT & Safety Hubs", hub: "Gachibowli", roles: "ICSR Processing, CDM, Medical Coding" },
-              { company: "Multinational Safety Units", hub: "Raidurg", roles: "PV Safety, MedDRA Coding" },
+              { company: "Multinational Safety Units", hub: "Raidurg", roles: "PV Safety, Standardized Medical Coding" },
               { company: "Tier-1 CRO Trial Centers", hub: "HITEC City", roles: "Clinical SAS, Monitoring, Regulatory" },
               { company: "Global Clinical Data Hubs", hub: "Gachibowli", roles: "eCRF Validation, CDM, Biostats" },
               { company: "US Inpatient RCM Centers", hub: "Financial District", roles: "US Medical Coding, Claims Audit" },
@@ -138,21 +138,21 @@ function HyderabadLocationComponent() {
               {
                 title: "Pharmacovigilance Training Hyderabad",
                 slug: "pharmacovigilance",
-                tools: "Oracle Argus Safety 8.2, MedDRA 26.0, E2B(R3)",
+                tools: "Enterprise Safety Database, Standardized Medical Coding, E2B(R3)",
                 startingCtc: "₹3.8L – ₹5.5L",
                 blurb: "Learn ICSR case processing, medical triage, and adverse event reporting for Hyderabad GCC hiring."
               },
               {
                 title: "Medical Coding Training Hyderabad",
                 slug: "medical-coding",
-                tools: "ICD-10-CM, CPT 2026, EncoderPro, Optum360",
+                tools: "ICD-10-CM, CPT 2026, Clinical Encoders, Optum360",
                 startingCtc: "₹3.5L – ₹4.8L",
                 blurb: "Master diagnostic and procedural coding for US healthcare revenue cycle companies in Gachibowli."
               },
               {
                 title: "Clinical Data Management (CDM) Hyderabad",
                 slug: "clinical-data-management",
-                tools: "Medidata RAVE, Oracle InForm, eCRF Validation",
+                tools: "Electronic Data Capture (EDC), Oracle InForm, eCRF Validation",
                 startingCtc: "₹3.8L – ₹5.0L",
                 blurb: "Hands-on training in electronic case report forms, data validation, and discrepancy management."
               }

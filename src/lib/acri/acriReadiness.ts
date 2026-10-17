@@ -88,7 +88,7 @@ export const READINESS_SUBTITLES: Record<AcriReadinessState, string> = {
   near_ready:
     "You are close to the industry readiness threshold. Focus on the identified areas to reach 80+ and become Industry Ready.",
   developing:
-    "You have demonstrated baseline competence in selected core areas. Targeted practice in ICSR triage and MedDRA coding will accelerate your qualification.",
+    "You have demonstrated baseline competence in selected core areas. Targeted practice in ICSR triage and Standardized Medical Coding will accelerate your qualification.",
   building_foundations:
     "You are currently below the industry readiness threshold. This is a great starting point. Follow the recommended learning path and reassess when you're ready.",
 };

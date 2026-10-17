@@ -712,7 +712,7 @@ export function AdminAssessmentDossier({
                                 )}
                               </div>
                               <p className="text-xs text-slate-400 font-sans max-w-xl">
-                                Corporate desk role processing drug safety reports, MedDRA coding, and expedited regulatory submissions.
+                                Corporate desk role processing drug safety reports, Standardized Medical Coding, and expedited regulatory submissions.
                               </p>
                             </div>
 
@@ -786,9 +786,9 @@ export function AdminAssessmentDossier({
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {(aiAnalysis?.skillGaps || [
-                        "MedDRA & WHO-DD Terminology Coding",
+                        "Standardized Medical Coding & Global Medicinal Product Dictionaries Terminology Coding",
                         "CIOMS I & MedWatch Narrative Formulation",
-                        "Argus Safety Database Workflow Simulation",
+                        "Enterprise Safety Database Database Workflow Simulation",
                         "Expedited Regulatory Reporting Clocks (ICH E2B/E2D)",
                       ]).map((gap, i) => (
                         <span
@@ -817,7 +817,7 @@ export function AdminAssessmentDossier({
                         {
                           phase: "Phase 2 · Weeks 5–8",
                           title: "Applied Case Processing & Coding",
-                          desc: "MedDRA LLT/PT coding, seriousness assessment, causality algorithms (WHO-UMC/Naranjo), and narrative drafting.",
+                          desc: "Standardized Medical Coding LLT/PT coding, seriousness assessment, causality algorithms (WHO-UMC/Naranjo), and narrative drafting.",
                         },
                         {
                           phase: "Phase 3 · Weeks 9–12",

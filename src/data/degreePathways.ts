@@ -35,7 +35,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     degreeName: "B.Pharm (Bachelor of Pharmacy)",
     shortTitle: "B.Pharm Career Pathways",
     metaDescription: "Verified career options after B.Pharm in India (2026). Explore Pharmacovigilance, Medical Coding, CDM, and Regulatory Affairs role training.",
-    overview: "B.Pharm graduates possess a strong foundational understanding of pharmacology, therapeutics, and drug chemistry. While university curricula cover drug mechanisms, global capability centers (GCCs) and CROs require practical database fluency in Argus Safety, ICD-10 coding, and MedDRA standards.",
+    overview: "B.Pharm graduates possess a strong foundational understanding of pharmacology, therapeutics, and drug chemistry. While university curricula cover drug mechanisms, global capability centers (GCCs) and CROs require practical database fluency in Enterprise Safety Database, ICD-10 coding, and Standardized Medical Coding standards.",
     typicalDuration: "4 Years",
     coreSubjects: ["Pharmacology", "Medicinal Chemistry", "Pharmaceutics", "Pharmacokinetics", "Hospital & Clinical Pharmacy"],
     eligibleRoles: [
@@ -44,7 +44,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         roleSlug: "pharmacovigilance-associate",
         fitLevel: "Direct Prerequisite",
         whyFit: "Pharmacology knowledge accelerates medical triage, adverse event severity scoring, and narrative drafting.",
-        keySkillsNeeded: ["Oracle Argus Safety", "MedDRA Coding", "ICSR Processing", "E2B(R3) Compliance"],
+        keySkillsNeeded: ["Enterprise Safety Database", "Standardized Medical Coding", "ICSR Processing", "E2B(R3) Compliance"],
         typicalStartingCtc: "₹3.8L – ₹5.2L"
       },
       {
@@ -60,7 +60,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         roleSlug: "clinical-data-associate",
         fitLevel: "Specialized Bridge",
         whyFit: "Familiarity with clinical trial terminology aligns with electronic case report form (eCRF) validation.",
-        keySkillsNeeded: ["Medidata RAVE", "eCRF Discrepancy Management", "CDISC ODM", "Data Validation"],
+        keySkillsNeeded: ["Electronic Data Capture (EDC)", "eCRF Discrepancy Management", "CDISC ODM", "Data Validation"],
         typicalStartingCtc: "₹3.8L – ₹5.0L"
       }
     ],
@@ -69,13 +69,13 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         trackName: "Pharmacovigilance Safety Specialist",
         trackSlug: "pharmacovigilance",
         duration: "12 Weeks (Blended + Applied Internship)",
-        keyTools: ["Oracle Argus Safety 8.2", "MedDRA 26.0", "WHO-ART", "E2B(R3)"]
+        keyTools: ["Enterprise Safety Database", "Standardized Medical Coding", "WHO-ART", "E2B(R3)"]
       },
       {
         trackName: "Certified Medical Coding Professional",
         trackSlug: "medical-coding",
         duration: "12 Weeks (Blended + Applied Internship)",
-        keyTools: ["ICD-10-CM 2026", "CPT 2026", "HCPCS Level II", "EncoderPro"]
+        keyTools: ["ICD-10-CM 2026", "CPT 2026", "HCPCS Level II", "Clinical Encoders"]
       }
     ],
     eligibilityDisclaimer: "Note: A B.Pharm degree provides strong academic eligibility, but entry-level hiring decisions depend on passing employer technical evaluations and database workflow assessments.",
@@ -88,7 +88,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
       {
         step: 2,
         title: "Master Industry Tooling",
-        description: "Transition from textbook definitions to live database entries in Oracle Argus, MedDRA, or Medidata RAVE."
+        description: "Transition from textbook definitions to live database entries in Enterprise Safety Database, Standardized Medical Coding, or Electronic Data Capture (EDC)."
       },
       {
         step: 3,
@@ -104,7 +104,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     faq: [
       {
         question: "Can I enter Pharmacovigilance immediately after B.Pharm?",
-        answer: "Yes. B.Pharm graduates are eligible for entry-level Drug Safety Associate roles, provided they demonstrate practical ICSR case processing skills and MedDRA coding fluency."
+        answer: "Yes. B.Pharm graduates are eligible for entry-level Drug Safety Associate roles, provided they demonstrate practical ICSR case processing skills and Standardized Medical Coding fluency."
       },
       {
         question: "Is Medical Coding a good option for B.Pharm freshers?",
@@ -126,7 +126,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         roleSlug: "pharmacovigilance-associate",
         fitLevel: "Direct Prerequisite",
         whyFit: "Clinical therapeutics training enables deep signal evaluation and benefit-risk analysis for periodic safety reports.",
-        keySkillsNeeded: ["PBRER Narrative Writing", "Signal Detection", "Oracle Argus", "MedDRA Coding"],
+        keySkillsNeeded: ["PBRER Narrative Writing", "Signal Detection", "Enterprise Safety Database", "Standardized Medical Coding"],
         typicalStartingCtc: "₹4.5L – ₹6.5L"
       },
       {
@@ -143,7 +143,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         trackName: "Pharmacovigilance & Safety Reporting",
         trackSlug: "pharmacovigilance",
         duration: "12 Weeks (Blended + Applied Internship)",
-        keyTools: ["Oracle Argus 8.2", "MedDRA", "Signal Management", "PBRER Templates"]
+        keyTools: ["Enterprise Safety Database 8.2", "Standardized Medical Coding", "Signal Management", "PBRER Templates"]
       }
     ],
     eligibilityDisclaimer: "Note: Pharm.D graduates hold advanced clinical qualifications; however, commercial GCC environments mandate proficiency in standardized global software tools and submission formats.",
@@ -156,7 +156,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
       {
         step: 2,
         title: "Bridge Clinical Knowledge with Database Fluency",
-        description: "Learn how clinical adverse events translate into E2B(R3) XML structures in Oracle Argus."
+        description: "Learn how clinical adverse events translate into E2B(R3) XML structures in Enterprise Safety Database."
       },
       {
         step: 3,
@@ -193,7 +193,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         roleSlug: "pharmacovigilance-associate",
         fitLevel: "High Alignment",
         whyFit: "Postgraduate pharmacology research background enables comprehensive medical assessment of complex adverse event reports.",
-        keySkillsNeeded: ["Oracle Argus Safety", "Signal Detection Methods", "Risk Management Plans (RMP)"],
+        keySkillsNeeded: ["Enterprise Safety Database", "Signal Detection Methods", "Risk Management Plans (RMP)"],
         typicalStartingCtc: "₹4.5L – ₹6.2L"
       }
     ],
@@ -256,7 +256,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         trackName: "Medical Coding & Revenue Cycle Management",
         trackSlug: "medical-coding",
         duration: "12 Weeks (Blended + Applied Internship)",
-        keyTools: ["ICD-10-CM", "CPT-4", "EncoderPro", "Optum360"]
+        keyTools: ["ICD-10-CM", "CPT-4", "Clinical Encoders", "Optum360"]
       }
     ],
     eligibilityDisclaimer: "Note: B.Sc life science graduates benefit significantly from completing a structured certification and practical internship to meet entry-level IT/Healthcare hiring criteria.",
@@ -301,7 +301,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
         roleSlug: "clinical-data-associate",
         fitLevel: "Direct Prerequisite",
         whyFit: "Comprehensive scientific training supports complex eCRF design, query management, and database lock procedures.",
-        keySkillsNeeded: ["Medidata RAVE", "Oracle InForm", "Data Management Plan (DMP)", "Discrepancy Management"],
+        keySkillsNeeded: ["Electronic Data Capture (EDC)", "Oracle InForm", "Data Management Plan (DMP)", "Discrepancy Management"],
         typicalStartingCtc: "₹4.0L – ₹5.8L"
       }
     ],

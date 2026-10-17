@@ -54,7 +54,7 @@ export const CITIES: CityProfile[] = [
     hubFor: ["Clinical Data Management", "Pharmacovigilance"],
     costOfLivingNote:
       "Mid CoL. PG in Hinjewadi/Kharadi ₹10–14k. Tier-1 lifestyle without Mumbai rent.",
-    liveNote: "Cytel, Syneos, Veeva Pune campuses anchor CDM + biostats hiring.",
+    liveNote: "Cytel, Syneos, Enterprise Life Sciences Cloud Pune campuses anchor CDM + biostats hiring.",
   },
   {
     slug: "chennai",

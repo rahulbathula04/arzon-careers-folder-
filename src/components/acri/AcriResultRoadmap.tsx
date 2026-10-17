@@ -176,10 +176,10 @@ export function AcriResultRoadmap({ onOpenSampleReport }: AcriResultRoadmapProps
                       Weeks 5–8
                     </span>
                     <h3 className="font-sans text-sm font-bold text-[#0B1325]">
-                      Medical Terminology &amp; MedDRA Coding
+                      Medical Terminology &amp; Standardized Medical Coding
                     </h3>
                     <p className="text-xs text-stone-500 mt-0.5">
-                      Hands-on coding in Argus-like simulators, SOC/PT mapping, and case validity auditing.
+                      Hands-on coding in Enterprise Safety Database-like simulators, SOC/PT mapping, and case validity auditing.
                     </p>
                   </div>
                 </div>

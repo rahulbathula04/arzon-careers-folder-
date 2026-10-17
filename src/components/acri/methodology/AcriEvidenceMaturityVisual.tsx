@@ -37,7 +37,7 @@ const MATURITY_STAGES: FrameworkStage[] = [
     methodologyDetails: [
       "Extracted 42 discrete occupational skills and clustered them into 9 core clinical competencies.",
       "Calibrated weight coefficients based on mandatory vs optional recruiter requirements.",
-      "Refreshed quarterly to align with evolving health authority guidance (e.g. EU MDR, MedDRA v27.0).",
+      "Refreshed quarterly to align with evolving health authority guidance (e.g. EU MDR, Standardized Medical Coding).",
     ],
     transparencyNotice:
       "Public provenance available in the JD Mirror. Methodology maps directly to employer demand.",
@@ -87,7 +87,7 @@ const MATURITY_STAGES: FrameworkStage[] = [
       "Blind case evaluations by senior pharmacovigilance leads and medical safety physicians comparing simulated ACRI candidate rankings against actual probationary performance.",
     methodologyDetails: [
       "Verification that high scorers (ACRI ≥ 80) require minimal supervision during case intake onboarding.",
-      "Iterative adjustments to scenario vignettes to match real enterprise Argus and MedDRA database workflows.",
+      "Iterative adjustments to scenario vignettes to match real enterprise Enterprise Safety Database and Standardized Medical Coding database workflows.",
       "Hard critical gates validated to ensure zero false positives on safety-critical regulatory rules.",
     ],
     transparencyNotice:

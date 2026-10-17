@@ -195,7 +195,7 @@ export const KEYWORD_BANK: BankKeyword[] = [
     intent: "transactional",
   },
   {
-    term: "argus safety training",
+    term: "Enterprise Safety Database training",
     traffic: "M",
     route: "/courses/pharmacovigilance",
     intent: "transactional",
@@ -225,7 +225,7 @@ export const KEYWORD_BANK: BankKeyword[] = [
     intent: "informational",
   },
   {
-    term: "meddra coding training",
+    term: "Standardized Medical Coding training",
     traffic: "L",
     route: "/courses/pharmacovigilance",
     intent: "transactional",
@@ -305,13 +305,13 @@ export const KEYWORD_BANK: BankKeyword[] = [
     intent: "informational",
   },
   {
-    term: "medidata rave training",
+    term: "Electronic Data Capture (EDC) training",
     traffic: "M",
     route: "/courses/clinical-data-management",
     intent: "transactional",
   },
   {
-    term: "veeva clinical data course",
+    term: "Enterprise Life Sciences Cloud clinical data course",
     traffic: "L",
     route: "/courses/clinical-data-management",
     intent: "transactional",

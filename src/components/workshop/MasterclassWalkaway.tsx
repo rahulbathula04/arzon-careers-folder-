@@ -30,7 +30,7 @@ const FIVE_OUTCOMES = [
     icon: Activity,
     accentLine: "from-[#2563EB] to-[#60A5FA]",
     badgeClass: "bg-[#EEF6FF] text-[#2563EB] border-[#BFDBFE]",
-    iconBoxClass: "bg-[#EEF6FF] text-[#2563EB] border-[#BFDBFE] group-hover:bg-[#2563EB] group-hover:text-white group-hover:border-[#2563EB]",
+    iconBoxClass: "bg-[#2563EB] text-white shadow-2xs border border-[#2563EB]",
   },
   {
     num: "02",
@@ -40,7 +40,7 @@ const FIVE_OUTCOMES = [
     icon: GitBranch,
     accentLine: "from-[#0284C7] to-[#38BDF8]",
     badgeClass: "bg-[#ECFEFF] text-[#0284C7] border-[#A5F3FC]",
-    iconBoxClass: "bg-[#ECFEFF] text-[#0284C7] border-[#A5F3FC] group-hover:bg-[#0284C7] group-hover:text-white group-hover:border-[#0284C7]",
+    iconBoxClass: "bg-[#0284C7] text-white shadow-2xs border border-[#0284C7]",
   },
   {
     num: "03",
@@ -50,7 +50,7 @@ const FIVE_OUTCOMES = [
     icon: Layers,
     accentLine: "from-[#7C3AED] to-[#A78BFA]",
     badgeClass: "bg-[#F5F3FF] text-[#7C3AED] border-[#DDD6FE]",
-    iconBoxClass: "bg-[#F5F3FF] text-[#7C3AED] border-[#DDD6FE] group-hover:bg-[#7C3AED] group-hover:text-white group-hover:border-[#7C3AED]",
+    iconBoxClass: "bg-[#7C3AED] text-white shadow-2xs border border-[#7C3AED]",
   },
   {
     num: "04",
@@ -60,7 +60,7 @@ const FIVE_OUTCOMES = [
     icon: Briefcase,
     accentLine: "from-[#10B981] to-[#34D399]",
     badgeClass: "bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]",
-    iconBoxClass: "bg-[#ECFDF5] text-[#059669] border-[#A7F3D0] group-hover:bg-[#10B981] group-hover:text-white group-hover:border-[#10B981]",
+    iconBoxClass: "bg-[#10B981] text-white shadow-2xs border border-[#10B981]",
   },
   {
     num: "05",
@@ -70,7 +70,7 @@ const FIVE_OUTCOMES = [
     icon: HelpCircle,
     accentLine: "from-[#F59E0B] to-[#FBBF24]",
     badgeClass: "bg-[#FFFBEB] text-[#D97706] border-[#FDE68A]",
-    iconBoxClass: "bg-[#FFFBEB] text-[#D97706] border-[#FDE68A] group-hover:bg-[#F59E0B] group-hover:text-white group-hover:border-[#F59E0B]",
+    iconBoxClass: "bg-[#F59E0B] text-white shadow-2xs border border-[#F59E0B]",
   },
 ];
 
@@ -289,7 +289,7 @@ export function MasterclassWalkaway() {
               return (
                 <div
                   key={item.num}
-                  className="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-white border border-[#E2E8F0] shadow-xs hover:shadow-lg hover:border-blue-400 transition-all duration-300 tone-light card-light flex flex-col justify-between group"
+                  className="relative overflow-hidden p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-xs md:hover:shadow-md md:hover:border-blue-400 transition-all duration-200 tone-light card-light flex flex-col justify-between cursor-default select-none"
                 >
                   {/* Top Micro Accent Line */}
                   <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${item.accentLine}`} />
@@ -299,7 +299,7 @@ export function MasterclassWalkaway() {
                       <span className={`font-mono text-xs font-bold px-2.5 py-1 rounded-lg border ${item.badgeClass}`}>
                         {item.num}
                       </span>
-                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all shadow-2xs ${item.iconBoxClass}`}>
+                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-2xs ${item.iconBoxClass}`}>
                         <Icon className="w-5 h-5 stroke-[2.2]" />
                       </div>
                     </div>
@@ -307,7 +307,7 @@ export function MasterclassWalkaway() {
                     <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-1.5">
                       {item.tag}
                     </div>
-                    <h3 className="text-lg font-bold text-[#081F38] group-hover:text-[#2563EB] transition-colors leading-snug mb-2">
+                    <h3 className="text-base sm:text-lg font-bold text-[#081F38] leading-snug mb-2">
                       {item.title}
                     </h3>
                     <p className="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-sans">
@@ -326,7 +326,7 @@ export function MasterclassWalkaway() {
               return (
                 <div
                   key={item.num}
-                  className="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-white border border-[#E2E8F0] shadow-xs hover:shadow-lg hover:border-blue-400 transition-all duration-300 tone-light card-light flex flex-col justify-between group"
+                  className="relative overflow-hidden p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-xs md:hover:shadow-md md:hover:border-blue-400 transition-all duration-200 tone-light card-light flex flex-col justify-between cursor-default select-none"
                 >
                   {/* Top Micro Accent Line */}
                   <div className={`absolute top-0 inset-x-0 h-1 bg-gradient-to-r ${item.accentLine}`} />
@@ -336,7 +336,7 @@ export function MasterclassWalkaway() {
                       <span className={`font-mono text-xs font-bold px-2.5 py-1 rounded-lg border ${item.badgeClass}`}>
                         {item.num}
                       </span>
-                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all shadow-2xs ${item.iconBoxClass}`}>
+                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shadow-2xs ${item.iconBoxClass}`}>
                         <Icon className="w-5 h-5 stroke-[2.2]" />
                       </div>
                     </div>
@@ -344,7 +344,7 @@ export function MasterclassWalkaway() {
                     <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-1.5">
                       {item.tag}
                     </div>
-                    <h3 className="text-lg font-bold text-[#081F38] group-hover:text-[#2563EB] transition-colors leading-snug mb-2">
+                    <h3 className="text-base sm:text-lg font-bold text-[#081F38] leading-snug mb-2">
                       {item.title}
                     </h3>
                     <p className="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed font-sans">
@@ -543,18 +543,18 @@ export function MasterclassWalkaway() {
                   return (
                     <div 
                       key={idx} 
-                      className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC]/90 border border-[#E2E8F0] hover:bg-white hover:border-[#BFDBFE] hover:shadow-xs transition-all duration-200 group flex flex-col justify-between tone-light card-light"
+                      className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC]/90 border border-[#E2E8F0] md:hover:bg-white md:hover:border-[#BFDBFE] md:hover:shadow-xs transition-all duration-200 flex flex-col justify-between tone-light card-light cursor-default select-none"
                     >
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-2.5">
                           <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${p.theme.tagBg} ${p.theme.tagText} ${p.theme.tagBorder}`}>
                             {p.tag}
                           </span>
-                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all border ${p.theme.iconBox}`}>
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center border ${p.theme.iconBox}`}>
                             <IconComponent className="w-3.5 h-3.5" />
                           </div>
                         </div>
-                        <div className="font-bold text-sm text-[#081F38] group-hover:text-[#2563EB] transition-colors mb-1.5">
+                        <div className="font-bold text-sm text-[#081F38] mb-1.5">
                           {p.title}
                         </div>
                         <div className="text-xs text-slate-600 leading-relaxed font-sans">

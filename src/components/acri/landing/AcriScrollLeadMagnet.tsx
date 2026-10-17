@@ -321,127 +321,102 @@ export function AcriScrollLeadMagnet() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/60 backdrop-blur-xs motion-safe:animate-in motion-safe:fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md motion-safe:animate-in motion-safe:fade-in duration-200"
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-lg rounded-2xl bg-white card-light tone-light border border-slate-200/90 shadow-2xl overflow-hidden font-sans text-slate-900 max-h-[92dvh] sm:max-h-[90vh] flex flex-col">
-        {/* Sleek top brand accent line in Arzon Deep Navy */}
-        <div className="h-1 w-full bg-gradient-to-r from-[#071A4A] via-[#1557D6] to-[#071A4A] shrink-0" />
-
-        {/* Minimal Close Button */}
+      <div className="relative w-full max-w-[480px] rounded-3xl bg-white card-light tone-light border border-black/[0.08] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.2)] overflow-hidden font-sans text-slate-900">
+        {/* Apple-style circular close control */}
         <button
           type="button"
           onClick={handleClose}
-          className="absolute top-3.5 right-3.5 h-8 w-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors z-10 cursor-pointer"
+          className="absolute top-4 right-4 h-7 w-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors z-10 flex items-center justify-center cursor-pointer"
           aria-label="Close dialog"
         >
-          <X className="h-4 w-4" />
+          <X className="h-3.5 w-3.5 stroke-[2.5]" />
         </button>
 
-        {/* Modal Scrollable Body */}
-        <div className="p-5 sm:p-6 overflow-y-auto overscroll-contain">
+        {/* Modal Body */}
+        <div className="p-6 sm:p-7">
           {step === "form" ? (
             <div>
-              {/* Restrained Eyebrow Pill */}
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200/70 text-[#1557D6] font-mono text-[10px] font-bold uppercase tracking-wider mb-2">
-                <Gift className="h-3 w-3" />
-                <span>FREE VALUE GIFT · 2026 CAREER PACK</span>
+              {/* Apple Minimal Header */}
+              <div className="text-left mb-5">
+                <span className="text-[11px] font-semibold text-blue-600 tracking-wider uppercase">
+                  Career Intelligence Pack
+                </span>
+                <h2 className="mt-1 text-xl sm:text-2xl font-semibold tracking-tight text-slate-900 leading-snug">
+                  Get the 2026 Pharmacovigilance Guide
+                </h2>
+                <p className="mt-1.5 text-xs sm:text-sm text-slate-500 leading-relaxed">
+                  Direct access to 40+ hiring companies, salary benchmarks, and your complimentary clinical case assessment pass.
+                </p>
               </div>
 
-              {/* Clear, Minimal Headline */}
-              <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#071A4A] tracking-tight leading-snug">
-                Claim Your Free 2026 Pharmacovigilance Gift Pack
-              </h2>
-
-              <p className="mt-1 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                Enter your details to instantly receive the 18-page 2026 Field Guide (40+ CRO Directory &amp; salary grid) plus your complimentary ACRI assessment pass.
-              </p>
-
-              {/* 3 Clean Highlights (Minimal, Uncluttered) */}
-              <div className="my-3.5 grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/70 text-left font-sans">
-                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
-                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>40+ CRO Directory</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
-                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>Salary Benchmarks</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
-                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>Free Assessment Key</span>
-                </div>
-              </div>
-
-              {/* Clean Lead Capture Form (2x2 Grid) */}
-              <form onSubmit={handleSubmit} className="space-y-3 pt-0.5">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {/* Full Name */}
+              {/* Apple-Style Refined Form */}
+              <form onSubmit={handleSubmit} className="space-y-3.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                      Full Name <span className="text-red-500">*</span>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      Full Name
                     </label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <input
                         type="text"
                         required
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder="e.g. Rahul Bathula"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-400"
                       />
                     </div>
                   </div>
 
-                  {/* Email */}
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                      Email Address <span className="text-red-500">*</span>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      Email Address
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <input
                         type="email"
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="e.g. rahul@example.com"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-400"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {/* WhatsApp Mobile */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                      WhatsApp Number <span className="text-red-500">*</span>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      WhatsApp Number
                     </label>
                     <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <input
                         type="tel"
                         required
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         placeholder="e.g. 93473 79041"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all placeholder:text-slate-400"
                       />
                     </div>
                   </div>
 
-                  {/* Highest Qualification */}
                   <div>
-                    <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                      Degree / Background <span className="text-red-500">*</span>
+                    <label className="block text-xs font-medium text-slate-700 mb-1">
+                      Degree
                     </label>
                     <select
                       value={highestQualification}
                       onChange={(e) => setHighestQualification(e.target.value)}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white tone-light text-[16px] sm:text-xs font-sans text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1557D6]/20 focus:border-[#1557D6] transition-colors"
+                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all cursor-pointer"
                     >
                       {QUALIFICATIONS.map((q) => (
                         <option key={q} value={q}>
@@ -452,110 +427,88 @@ export function AcriScrollLeadMagnet() {
                   </div>
                 </div>
 
-                {/* Clean, Unobtrusive Consent */}
-                <label className="flex items-start gap-2 pt-0.5 text-[11px] text-slate-500 cursor-pointer font-sans">
+                <label className="flex items-start gap-2 pt-0.5 text-xs text-slate-500 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={consentCommunications}
                     onChange={(e) => setConsentCommunications(e.target.checked)}
-                    className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-[#071A4A] focus:ring-[#1557D6] shrink-0"
+                    className="mt-0.5 h-3.5 w-3.5 rounded border-slate-300 text-slate-900 focus:ring-blue-500"
                   />
                   <span className="leading-tight">
-                    Send me the 2026 Field Guide and ACRI invitation via WhatsApp &amp; Email.
+                    Send me the 2026 Field Guide and career updates via WhatsApp &amp; Email.
                   </span>
                 </label>
 
-                {/* Primary Action Button */}
-                <div className="pt-1.5">
+                <div className="pt-2">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full min-h-[44px] flex items-center justify-center gap-2 py-3 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-[0.99] cursor-pointer disabled:opacity-50"
+                    className="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white font-medium text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                   >
                     {isSubmitting ? (
-                      <span>Unlocking gift pack &amp; attaching to Admissions…</span>
+                      <span>Preparing your guide…</span>
                     ) : (
                       <>
-                        <Gift className="h-4 w-4" />
-                        <span>Claim My Free Value Gift Pack →</span>
+                        <span>Get the Free Guide</span>
+                        <ArrowRight className="h-4 w-4" />
                       </>
                     )}
                   </button>
-                  <p className="text-center text-[10px] text-slate-400 mt-2 font-mono">
-                    Instant PDF gift download · Assessment pass included · Zero spam
+                  <p className="text-center text-[11px] text-slate-400 mt-2.5">
+                    Instant PDF download · Assessment pass included · Zero spam
                   </p>
                 </div>
               </form>
             </div>
           ) : (
-            /* Editorial Free Value Gift Delivery View */
-            <div className="space-y-3.5">
-              {/* Dignified Header Badge */}
-              <div className="text-center space-y-1">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/90 text-emerald-800 font-mono text-[10px] font-bold uppercase tracking-wider">
-                  <Gift className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  <span>Free Value Gift Unlocked · ₹2,500 Value</span>
+            /* Apple Minimalist Delivery View */
+            <div className="text-center space-y-4">
+              {/* Apple Success Badge & Header */}
+              <div className="space-y-1.5">
+                <div className="mx-auto w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3">
+                  <Check className="w-6 h-6 stroke-[2.5]" />
                 </div>
 
-                <h2 className="font-serif font-bold text-xl sm:text-2xl text-[#071A4A] tracking-tight leading-snug">
-                  Here is Your Free Value Gift Pack
+                <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-slate-900">
+                  Your Field Guide is Ready
                 </h2>
 
-                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed font-sans">
-                  Prepared exclusively for <strong className="text-slate-900 font-semibold">{fullName}</strong> ({highestQualification}). We recorded your profile and emailed a backup copy to <span className="font-mono text-slate-800 font-semibold">{email}</span>.
+                <p className="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
+                  We've started your download and sent a backup copy to{" "}
+                  <span className="font-medium text-slate-800">{email}</span>.
                 </p>
               </div>
 
-              {/* Gift Item 1: The 2026 Field Guide Dossier (Primary Asset) */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/90 p-3.5 sm:p-4 text-left space-y-2.5">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="flex items-center gap-2.5">
-                    <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-lg bg-[#071A4A] text-white flex items-center justify-center shrink-0 shadow-2xs">
-                      <FileText className="h-4 w-4" />
-                    </div>
-                    <div>
-                      <span className="font-mono text-[9px] font-bold text-[#1557D6] uppercase tracking-wider block">
-                        Gift Deliverable #1 · Technical Dossier
-                      </span>
-                      <h3 className="font-sans font-bold text-xs sm:text-sm text-slate-900 leading-tight">
-                        2026 Pharmacovigilance &amp; Healthcare Career Field Guide
+              {/* Primary Asset Card: Clean Apple File Tile */}
+              <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-4 text-left space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <FileText className="w-5 h-5 stroke-[1.75]" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-sm text-slate-900 truncate">
+                        2026 Pharmacovigilance Career Field Guide
                       </h3>
+                      <span className="text-[10px] font-medium text-slate-500 bg-slate-200/60 px-1.5 py-0.5 rounded shrink-0">
+                        PDF
+                      </span>
                     </div>
-                  </div>
-                  <span className="font-mono text-[10px] text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded font-semibold shrink-0">
-                    PDF · 123 KB
-                  </span>
-                </div>
-
-                {/* 4 Tangible Value Badges */}
-                <div className="grid grid-cols-2 gap-1.5 py-1 text-[11px] text-slate-700 font-sans border-y border-slate-200/70">
-                  <div className="flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
-                    <span>40+ CRO Hiring Directory</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
-                    <span>Freshers' Pay (₹3.8L–₹5.5L)</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
-                    <span>Enterprise Safety Database 8.4 Case Workflow</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <Check className="h-3 w-3 text-emerald-600 shrink-0" />
-                    <span>Top 20 Technical Q&amp;As</span>
+                    <p className="text-xs text-slate-500 truncate mt-0.5">
+                      40+ CRO directory · Salary benchmarks · Interview Q&amp;A
+                    </p>
                   </div>
                 </div>
 
-                {/* Actions: Download Official PDF + Personalized Edition */}
-                <div className="pt-0.5 flex flex-col sm:flex-row gap-2">
+                {/* Apple Buttons: Primary Download + Personalized */}
+                <div className="flex items-center gap-2 pt-0.5">
                   <a
                     href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
                     download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                    className="flex-1 min-h-[42px] flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#071A4A] hover:bg-[#1557D6] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm active:scale-[0.99]"
+                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99]"
                   >
-                    <Download className="h-3.5 w-3.5" />
-                    <span>Download Free Gift (PDF) ↓</span>
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download PDF</span>
                   </a>
 
                   <button
@@ -563,69 +516,68 @@ export function AcriScrollLeadMagnet() {
                     onClick={() => {
                       try {
                         generateStarterKitPDF({ candidateName: fullName, degree: highestQualification });
-                        toast.success("Generated personalized PDF with your name stamped!");
+                        toast.success("Personalized PDF stamped with your profile generated!");
                       } catch (e) {
                         console.error("Personalized PDF failed", e);
                       }
                     }}
-                    className="min-h-[42px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 hover:bg-white text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
+                    className="py-2.5 px-3 rounded-xl border border-slate-200/80 hover:border-slate-300 hover:bg-white text-slate-700 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                     title="Generate a custom PDF stamped with your name"
                   >
-                    <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                     <span>Personalized Edition</span>
                   </button>
                 </div>
               </div>
 
-              {/* Gift Item 2: Free Workstation Key (Assessment Pass) */}
-              <div className="rounded-xl border border-blue-200/80 bg-blue-50/40 p-3.5 text-left space-y-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="h-8 w-8 rounded-lg bg-[#1557D6] text-white flex items-center justify-center shrink-0 shadow-2xs">
-                    <Laptop className="h-4 w-4" />
+              {/* Secondary Asset Card: Apple Companion Banner */}
+              <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3.5 flex items-center justify-between gap-3 text-left">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                    <Laptop className="w-4 h-4" />
                   </div>
-                  <div>
-                    <span className="font-mono text-[9px] font-bold text-[#1557D6] uppercase tracking-wider block">
-                      Gift Deliverable #2 · Workstation Access
-                    </span>
-                    <h3 className="font-sans font-bold text-xs text-slate-900 leading-tight">
-                      Free ACRI Clinical Case Simulation &amp; Assessment Pass
-                    </h3>
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-xs text-slate-900 truncate">
+                      ACRI Clinical Simulation Pass
+                    </h4>
+                    <p className="text-[11px] text-slate-500 truncate">
+                      Complimentary access to case triage &amp; standardized coding
+                    </p>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-600 font-sans leading-relaxed">
-                  Your VIP assessment token has been granted. Test authentic ICSR case triage and Standardized Medical Coding workflows at zero cost.
-                </p>
+
                 <button
                   type="button"
                   onClick={() => {
                     handleClose();
                     navigate({ to: "/career-assessment" });
                   }}
-                  className="w-full min-h-[40px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white tone-light border border-[#1557D6]/40 hover:border-[#1557D6] hover:bg-blue-50 text-[#071A4A] font-bold text-xs transition-colors shadow-2xs cursor-pointer"
+                  className="shrink-0 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                 >
-                  <span>Launch Free Assessment Workstation →</span>
+                  <span>Launch</span>
+                  <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
 
-              {/* Navigation Footer */}
-              <div className="flex items-center justify-between pt-0.5 text-xs">
+              {/* Minimal Apple Sheet Footer */}
+              <div className="flex items-center justify-between pt-1 text-xs">
                 <button
                   type="button"
                   onClick={() => {
                     handleClose();
                     navigate({ to: "/starter-kit" });
                   }}
-                  className="text-xs font-mono font-bold text-[#1557D6] hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <BookOpen className="h-3.5 w-3.5" />
-                  <span>Read 20 Q&amp;As Online →</span>
+                  <BookOpen className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Read 20 Q&amp;As Online</span>
                 </button>
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="text-xs text-slate-400 hover:text-slate-600 transition-colors cursor-pointer py-1"
+                  className="text-xs font-medium text-slate-400 hover:text-slate-700 transition-colors cursor-pointer py-1 px-2.5 rounded-lg hover:bg-slate-100"
                 >
-                  Continue Browsing
+                  Done
                 </button>
               </div>
             </div>

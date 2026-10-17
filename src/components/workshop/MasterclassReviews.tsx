@@ -104,12 +104,12 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
   const isGoogle = review.platform === "google";
 
   return (
-    <article className="w-[300px] sm:w-[360px] rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 shadow-xs hover:shadow-md hover:border-blue-300 transition-all flex flex-col justify-between shrink-0 select-none">
+    <article className="w-[300px] sm:w-[360px] rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-6 shadow-xs hover:shadow-lg hover:border-[#2563EB]/40 transition-all flex flex-col justify-between shrink-0 select-none">
       <div>
         {/* Header: Platform Badge + Verification */}
         <div className="flex items-center justify-between gap-2 mb-3.5">
           {isGoogle ? (
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-800">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-semibold text-[#081F38]">
               {/* Google G SVG */}
               <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
                 <path
@@ -142,9 +142,9 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
           )}
 
           {isGoogle && (
-            <div className="flex items-center gap-0.5 text-amber-400">
+            <div className="flex items-center gap-0.5 text-[#F59E0B]">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-3.5 h-3.5 fill-current text-amber-400" />
+                <Star key={i} className="w-3.5 h-3.5 fill-[#F59E0B] text-[#F59E0B]" />
               ))}
             </div>
           )}
@@ -160,15 +160,15 @@ function ReviewCard({ review }: { review: MasterclassReviewItem }) {
       <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between gap-2">
         <div className="min-w-0">
           <div className="flex items-center gap-1.5">
-            <span className="font-bold text-xs sm:text-sm text-[#081F38] truncate">{review.name}</span>
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <span className="font-semibold text-xs sm:text-sm text-[#081F38] truncate">{review.name}</span>
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
           </div>
           <div className="text-[11px] text-slate-500 truncate">
             {review.degree} · {review.college}
           </div>
         </div>
 
-        <span className="font-mono text-[10px] text-slate-400 uppercase shrink-0">Verified</span>
+        <span className="font-mono text-[10px] text-[#2563EB] font-semibold uppercase shrink-0">Verified</span>
       </div>
     </article>
   );
@@ -178,17 +178,20 @@ export function MasterclassReviews() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="reviews" className="py-16 sm:py-24 border-b border-slate-200/80 bg-slate-50/60 overflow-hidden">
+    <section id="reviews" className="py-16 sm:py-24 border-b border-[#E4EAF2] bg-[#F8FAFC] overflow-hidden">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16">
         {/* Eyebrow */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50/90 border border-blue-200/70 text-blue-700 text-xs font-mono font-semibold uppercase tracking-wider mb-3">
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 text-[#1D4ED8] text-xs font-mono font-bold uppercase tracking-wider mb-3 shadow-2xs">
+          <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
           <span>Learner Proof · Google Reviews &amp; LinkedIn</span>
         </div>
 
         {/* Section Headline */}
         <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-3">
-          Trusted by pharmacy students across India.
+          Trusted by pharmacy students{" "}
+          <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+            across India.
+          </span>
         </h2>
 
         {/* Subtitle */}
@@ -197,24 +200,24 @@ export function MasterclassReviews() {
         </p>
 
         {/* Social Proof Counter Strip */}
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-semibold text-slate-700">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="font-bold">Google 4.5/5 ★</span>
-            <span className="text-slate-500 font-normal">(447+ Reviews)</span>
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-medium text-slate-700">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E2E8F0] shadow-2xs tone-light card-light">
+            <span className="w-2 h-2 rounded-full bg-[#10B981]" />
+            <span className="font-semibold text-[#081F38]">Google 4.5/5 ★</span>
+            <span className="text-slate-400">(447+ Reviews)</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E2E8F0] shadow-2xs tone-light card-light">
             <span className="w-2 h-2 rounded-full bg-[#0A66C2]" />
-            <span className="font-bold">LinkedIn</span>
-            <span className="text-slate-500 font-normal">100+ Student Posts</span>
+            <span className="font-semibold text-[#081F38]">LinkedIn</span>
+            <span className="text-slate-400">100+ Student Posts</span>
           </div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200/90 shadow-2xs tone-light card-light">
-            <span className="w-2 h-2 rounded-full bg-blue-500" />
-            <span className="font-bold">Justdial 4.5/5 ★</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E2E8F0] shadow-2xs tone-light card-light">
+            <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
+            <span className="font-semibold text-[#081F38]">Justdial 4.5/5 ★</span>
           </div>
           <Link
             to="/reviews"
-            className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-bold transition-colors ml-1"
+            className="inline-flex items-center gap-1 text-[#2563EB] hover:text-[#1D4ED8] font-semibold transition-colors ml-1"
           >
             <span>View all reviews</span>
             <ArrowRight className="w-3.5 h-3.5" />

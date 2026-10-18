@@ -24,7 +24,7 @@ export const Route = createFileRoute("/industry/$role")({
     return role;
   },
   head: ({ loaderData, params }) => {
-    if (!loaderData) return {};
+    if (!loaderData || (params as any).city) return {};
     const title = `${loaderData.name} salary, roles, employers, India 2026`;
     const description = `${loaderData.tagline} Pay bands by city, top employers, career ladder, abroad opportunities. Sourced quarterly.`;
     const ps = pageSeo({ path: `/industry/${params.role}`, title, description, ogType: "article" });

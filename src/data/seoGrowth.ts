@@ -17,7 +17,11 @@ export type SeoIntent =
   | "location"
   | "research"
   | "tool"
-  | "comparison";
+  | "comparison"
+  | "interview"
+  | "resume"
+  | "tutorial"
+  | "free-resource";
 
 export interface SeoCluster {
   id: string;
@@ -194,6 +198,68 @@ export const SEO_GROWTH_CLUSTERS: readonly SeoCluster[] = [
     ],
     urlPatterns: ["/comparisons/:comparison"],
     conversion: "career-engine",
+  },
+  {
+    id: "interview-prep",
+    intent: "interview",
+    label: "Healthcare interview question banks & scenarios",
+    priority: "P0",
+    seedTopics: [
+      "pharmacovigilance interview questions and answers for freshers",
+      "drug safety associate interview questions",
+      "medical coding interview questions for freshers",
+      "clinical data management interview questions",
+      "clinical SAS interview questions",
+      "tell me about yourself for pharmacy freshers",
+      "4 criteria for valid ICSR",
+    ],
+    urlPatterns: ["/blog/:slug", "/resources"],
+    conversion: "career-engine",
+  },
+  {
+    id: "resume-linkedin",
+    intent: "resume",
+    label: "Fresher resumes, CVs & LinkedIn optimization",
+    priority: "P0",
+    seedTopics: [
+      "b pharm fresher resume format pdf",
+      "pharmacovigilance resume for freshers",
+      "medical coding resume with no experience",
+      "linkedin headline for pharmacy freshers",
+      "how to message a recruiter on linkedin",
+    ],
+    urlPatterns: ["/blog/:slug", "/resources"],
+    conversion: "tool",
+  },
+  {
+    id: "software-tutorials",
+    intent: "tutorial",
+    label: "Software tools & clinical workflow tutorials",
+    priority: "P0",
+    seedTopics: [
+      "argus safety training for beginners",
+      "icsr case processing explained with examples",
+      "meddra hierarchy explained with examples",
+      "edc system tutorial for beginners",
+      "clinical sas programming basics",
+    ],
+    urlPatterns: ["/blog/:slug", "/courses/:slug"],
+    conversion: "programme",
+  },
+  {
+    id: "free-toolkits",
+    intent: "free-resource",
+    label: "Free notes, practice tests & career toolkits",
+    priority: "P0",
+    seedTopics: [
+      "free pharmacovigilance notes pdf download",
+      "free pv interview questions pdf",
+      "free medical coding practice test",
+      "free clinical research glossary",
+      "free career aptitude test for pharmacy students",
+    ],
+    urlPatterns: ["/resources", "/tools/:tool", "/career-engine"],
+    conversion: "tool",
   },
 ] as const;
 

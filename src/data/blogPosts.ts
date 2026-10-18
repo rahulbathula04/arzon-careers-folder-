@@ -918,6 +918,303 @@ With US healthcare expenditure exceeding $4.5 Trillion, healthcare providers dep
     relatedCourseSlug: "clinical-data-management",
     relatedCourseName: "Clinical Data & Trial Operations Cohort",
   },
+  {
+    slug: "pharmacovigilance-interview-questions-and-answers-for-freshers-2026",
+    title: "Pharmacovigilance Interview Questions & Answers for Freshers (2026): 4 ICSR Criteria, MedDRA & Scenarios",
+    metaDescription: "Master Pharmacovigilance fresher interviews in 2026. 4 criteria for valid ICSR, AE vs ADR, Seriousness vs Severity, MedDRA hierarchy, causality assessment & HR answers.",
+    h1: "Pharmacovigilance Interview Questions & Answers for Freshers (2026 Master Vault)",
+    category: "pharmacovigilance",
+    categoryLabel: "PV Interview Prep",
+    readTime: "15 min read",
+    publishedDate: "2026-09-15",
+    updatedDate: "2026-09-20",
+    author: {
+      name: "Kumail Raza & Arzon Clinical Faculty",
+      role: "Lead Drug Safety Reviewer & Assessment Architect",
+    },
+    heroImage: "/assets/thumbs/pharmacovigilance.webp",
+    heroImageAlt: "Pharmacovigilance Technical Interview Question Bank and ICSR Case Processing Terminal",
+    keywords: [
+      "pharmacovigilance interview questions and answers for freshers",
+      "drug safety associate interview questions",
+      "4 criteria for valid icsr",
+      "ae vs adr in pharmacovigilance",
+      "seriousness vs severity in pv",
+      "meddra coding interview questions",
+      "causality assessment who umc",
+      "pv interview questions pdf",
+    ],
+    excerpt: "The authoritative, recruiter-vetted interview question bank for Pharmacy (B.Pharm, Pharm.D, M.Pharm) and Life Science graduates preparing for Drug Safety Associate (DSA) and ICSR processing rounds.",
+    keyTakeaways: [
+      "Every valid ICSR mandates 4 minimum criteria: an identifiable patient, an identifiable reporter, a suspect medicinal product, and an adverse event.",
+      "An Adverse Event (AE) does not require a confirmed causal relationship; an Adverse Drug Reaction (ADR) has at least a reasonable possibility of a causal link.",
+      "Seriousness is an official regulatory medical outcome definition (death, life-threatening, hospitalization, disability, congenital anomaly, medically significant), whereas severity is simply subjective intensity (mild, moderate, severe).",
+      "Fatal or life-threatening SUSARs mandate 7-calendar-day expedited reporting to regulatory authorities; all other serious unexpected cases follow the 15-calendar-day clock from Day 0.",
+    ],
+    tableOfContents: [
+      { id: "core-definitions", title: "1. Core PV Definitions & Fundamental Concepts" },
+      { id: "icsr-validity", title: "2. The 4 Criteria for Valid ICSR & Day 0 Rules" },
+      { id: "seriousness-severity", title: "3. Seriousness Criteria vs Severity Grading" },
+      { id: "causality-expectedness", title: "4. Causality Assessment & Expectedness (RSI)" },
+      { id: "meddra-coding", title: "5. MedDRA Hierarchy & Adverse Reaction Coding" },
+      { id: "scenario-questions", title: "6. Real-World Case Processing Scenarios" },
+      { id: "hr-pitch", title: "7. HR Interview Questions & Model Pitch" },
+    ],
+    sections: [
+      {
+        id: "core-definitions",
+        title: "1. Core PV Definitions & Fundamental Concepts",
+        content: `### Q1: What is Pharmacovigilance (PV) according to the WHO?
+**Model Answer:**
+According to the World Health Organization (WHO), Pharmacovigilance is defined as the science and activities relating to the detection, assessment, understanding, and prevention of adverse effects or any other possible drug-related problems.
+
+**Follow-up context for recruiters:**
+Mention that PV spans the entire medicinal lifecycle - from pre-marketing clinical trials (Phase 1–3) to post-marketing surveillance (Phase 4), ensuring patient safety and regulatory compliance across global markets (US FDA, EMA, CDSCO).
+
+### Q2: What is the exact difference between an Adverse Event (AE) and an Adverse Drug Reaction (ADR)?
+**Model Answer:**
+- **Adverse Event (AE):** Any untoward medical occurrence in a patient administered a pharmaceutical product, which does not necessarily have a causal relationship with the treatment. Example: A clinical trial patient takes a test drug and gets into a motor vehicle accident 2 hours later. It is an AE because of temporal association, even if not caused by the drug.
+- **Adverse Drug Reaction (ADR):** A response to a medicinal product which is noxious and unintended, where a causal relationship between the medicinal product and the adverse event is at least a reasonable possibility. All ADRs are AEs, but not all AEs are ADRs.`,
+        callout: {
+          type: "tip",
+          title: "Interview High-Impact Tip",
+          text: "Never say ADRs are 'toxic effects due to overdose'. ADRs occur at normal doses used for prophylaxis, diagnosis, or therapy under normal therapeutic conditions.",
+        },
+      },
+      {
+        id: "icsr-validity",
+        title: "2. The 4 Criteria for Valid ICSR & Day 0 Rules",
+        content: `### Q3: What are the four minimum criteria required for an Individual Case Safety Report (ICSR) to be legally valid?
+**Model Answer:**
+Under ICH E2D, FDA 21 CFR 314.80, and EMA GVP Module VI, a case report must possess four core elements to be considered a valid ICSR:
+1. **An Identifiable Patient**: Identified by initials, age, date of birth, gender, or patient identification number. (Full name is never required due to HIPAA/GDPR data privacy rules).
+2. **An Identifiable Reporter**: Healthcare professional, consumer, or lawyer identified by name, initials, address, or qualification.
+3. **At least One Suspect Medicinal Product**: The drug, vaccine, or biologic suspected of causing the reaction.
+4. **At least One Adverse Event / Reaction**: The sign, symptom, disease, or abnormal lab finding experienced by the patient.
+
+### Q4: What is 'Day 0' in Pharmacovigilance?
+**Model Answer:**
+Day 0 is the calendar day on which any employee or contracted representative of the marketing authorization holder (MAH) or pharmaceutical company first becomes aware of a case report that satisfies the 4 minimum validity criteria.
+
+The regulatory clock (e.g., 15-day expedited submission) begins on Day 0, regardless of whether the day falls on a weekend or public holiday.`,
+        callout: {
+          type: "warning",
+          title: "Critical Regulatory Clock",
+          text: "If a medical representative hears of a serious adverse event on a Friday evening, Friday is Day 0. Even if safety processing starts on Monday, two regulatory clock days have already elapsed.",
+        },
+      },
+      {
+        id: "seriousness-severity",
+        title: "3. Seriousness Criteria vs Severity Grading",
+        content: `### Q5: How do you differentiate between 'Seriousness' and 'Severity'?
+**Model Answer:**
+This is one of the most frequently failed questions in fresher interviews:
+- **Seriousness** is an official regulatory definition based on patient outcome. It determines the legal reporting clock (e.g., 15-day vs periodic).
+- **Severity** describes the medical intensity of the event (mild, moderate, severe) using scales like CTCAE. A severe headache is high in severity but non-serious. A transient anaphylactic shock that requires immediate epinephrine and ICU admission is life-threatening, making it serious.
+
+### Q6: What are the 6 official Seriousness Criteria under ICH E2A?
+**Model Answer:**
+An event is classified as serious if it results in any of the following:
+1. **Death**: The event directly caused or contributed to the patient's fatality.
+2. **Life-Threatening**: The patient was at immediate risk of death at the time of the event.
+3. **Inpatient Hospitalization or Prolongation of Existing Hospitalization**: Required overnight hospital admission.
+4. **Persistent or Significant Disability / Incapacity**: Substantial disruption of a person's ability to conduct normal life functions.
+5. **Congenital Anomaly / Birth Defect**: Structural or functional abnormality in offspring born to a parent exposed to the drug.
+6. **Other Medically Significant Event**: Events that may not be immediately life-threatening or result in death, but jeopardize the patient or require medical/surgical intervention to prevent one of the other outcomes above (e.g., blood dyscrasias, convulsions).`,
+      },
+      {
+        id: "causality-expectedness",
+        title: "4. Causality Assessment & Expectedness (RSI)",
+        content: `### Q7: What is Causality Assessment and which methods are used?
+**Model Answer:**
+Causality assessment is the evaluation of the likelihood that a medicine was the causative agent of an observed adverse event.
+Standard methods include:
+- **WHO-UMC Causality Scale**: Categories: Certain, Probable/Likely, Possible, Unlikely, Conditional/Unclassified, Unassessable/Unclassifiable.
+- **Naranjo Algorithm**: A 10-question scoring questionnaire yielding a probability score from Definite (≥9) to Doubtful (≤0).
+
+### Q8: What is 'Expectedness' and what document is used to determine it?
+**Model Answer:**
+Expectedness determines whether the nature, severity, or frequency of the adverse event has already been documented in the authorized Reference Safety Information (RSI):
+- For **approved, marketed drugs**: Determined using the **Summary of Product Characteristics (SmPC)** or US Package Insert (USPI).
+- For **investigational drugs in clinical trials**: Determined using the **Investigator's Brochure (IB)**.
+If an event is not listed in the RSI, it is classified as **Unexpected**. A Serious Unexpected Suspected Adverse Reaction is designated as a **SUSAR**.`,
+      },
+      {
+        id: "meddra-coding",
+        title: "5. MedDRA Hierarchy & Adverse Reaction Coding",
+        content: `### Q9: Explain the 5-level hierarchy of the MedDRA dictionary.
+**Model Answer:**
+The Medical Dictionary for Regulatory Activities (MedDRA) is organized into 5 hierarchical levels:
+1. **SOC (System Organ Class)**: Highest level (27 SOCs), grouping by etiology, site, or purpose (e.g., Cardiac disorders).
+2. **HLGT (High Level Group Term)**: Subordinate to SOC (e.g., Coronary artery disorders).
+3. **HLT (High Level Term)**: Subordinate to HLGT (e.g., Ischaemic coronary artery disorders).
+4. **PT (Preferred Term)**: Single medical concept; the standard level used for reporting and signal detection (e.g., Myocardial infarction).
+5. **LLT (Low Level Term)**: Lowest level (~85,000+ terms), mapping verbatim text entered by reporters (e.g., Heart attack).
+
+**Rule of Thumb:** Verbatim reports code directly to an LLT, which automatically maps to its unique parent PT.`,
+      },
+      {
+        id: "scenario-questions",
+        title: "6. Real-World Case Processing Scenarios",
+        content: `### Scenario A: Incomplete Report Triage
+*Question:* "A consumer calls stating: 'My friend took your Paracetamol 500mg tablet and developed a severe rash.' Does this qualify as a valid ICSR?"
+*Answer:* 
+**No, this is currently an invalid case.** 
+- Suspect drug: Paracetamol (Present)
+- Adverse event: Severe rash (Present)
+- Reporter: Consumer / Friend (Present)
+- Patient: 'My friend' (Non-identifiable: no age, gender, initials, or identifiable characteristics).
+*Next Step:* The safety associate must log this as an inquiry/triage hold and attempt a follow-up call to capture the patient's age, gender, or initials to validate the ICSR.
+
+### Scenario B: De-challenge and Re-challenge
+*Question:* "What is positive de-challenge and positive re-challenge?"
+*Answer:*
+- **Positive De-challenge**: The suspect drug is withdrawn or dose reduced, and the adverse reaction abates or resolves. Strongly supports causality.
+- **Positive Re-challenge**: The drug is re-introduced after de-challenge, and the exact same adverse reaction recurs. This provides the highest evidence of a causal relationship (Certain under WHO-UMC).`,
+      },
+      {
+        id: "hr-pitch",
+        title: "7. HR Interview Questions & Model Pitch",
+        content: `### Q10: "Tell me about yourself" (For B.Pharm / Pharm.D Freshers)
+**Model Script:**
+*"Good morning. I graduated with a B.Pharm degree from [College Name], where I developed a strong foundation in pharmacology, clinical therapeutics, and toxicology. During my final year, I realized my passion lay in corporate clinical data and drug safety rather than retail pharmacy or manufacturing.*
+
+*To prepare for a Drug Safety Associate role, I completed intensive hands-on simulation training on the ICSR lifecycle, MedDRA coding hierarchy, and ICH E2B(R3) guidelines. I have practiced processing 50+ simulated safety cases - verifying the 4 validity criteria, drafting chronological narratives, and evaluating causality using WHO-UMC and Naranjo scales.*
+
+*I am eager to contribute my technical knowledge, precision, and adherence to regulatory compliance to the Pharmacovigilance team at [Company Name]."*`,
+      },
+    ],
+    relatedCourseSlug: "pharmacovigilance",
+    relatedCourseName: "Pharmacovigilance Associate Cohort",
+  },
+  {
+    slug: "medical-coding-interview-questions-and-answers-for-freshers-2026",
+    title: "Medical Coding Interview Questions & Answers for Freshers (2026): ICD-10-CM, CPT, Modifiers & RCM",
+    metaDescription: "Ace your 2026 medical coding fresher interview. Solved questions on ICD-10-CM conventions, CPT coding, Modifier 25 & 59, RCM lifecycle & anatomy essentials.",
+    h1: "Medical Coding Interview Questions & Answers for Freshers (2026 Guide)",
+    category: "medical-coding",
+    categoryLabel: "Coding Interview Prep",
+    readTime: "14 min read",
+    publishedDate: "2026-09-18",
+    updatedDate: "2026-09-22",
+    author: {
+      name: "S. Swaminathan & Arzon Coding Faculty",
+      role: "CPC Certified Senior Coding Instructor",
+    },
+    heroImage: "/assets/thumbs/medical-coding.webp",
+    heroImageAlt: "Medical Coding Technical Interview and ICD-10-CM Coding Desk",
+    keywords: [
+      "medical coding interview questions for freshers",
+      "icd 10 cm interview questions",
+      "cpt modifiers interview questions",
+      "difference between icd and cpt",
+      "what is rcm in healthcare",
+      "cpc exam preparation freshers",
+      "medical coding practice test",
+    ],
+    excerpt: "The complete technical interview preparation dossier for Pharmacy, Nursing, and Life Science graduates entering US Healthcare Revenue Cycle Management (RCM) and Medical Coding.",
+    keyTakeaways: [
+      "ICD-10-CM codes describe medical diagnoses (why the patient was seen), while CPT/HCPCS codes describe procedures and services performed (what was done).",
+      "ICD-10-CM codes contain 3 to 7 alphanumeric characters, utilizing 'X' as a dummy placeholder character to preserve code structure for future expansions.",
+      "Modifier 25 indicates a significant, separately identifiable evaluation and management (E/M) service by the same physician on the same day of a procedure.",
+      "Clean claim rates at leading RCM firms (Omega, Access, AGS Health) require 95%+ coding accuracy against NCCI (National Correct Coding Initiative) edits.",
+    ],
+    tableOfContents: [
+      { id: "coding-fundamentals", title: "1. Medical Coding Fundamentals (ICD vs CPT vs HCPCS)" },
+      { id: "icd10-conventions", title: "2. ICD-10-CM Structure & Coding Conventions" },
+      { id: "modifiers-mastery", title: "3. CPT Modifiers & Unbundling Rules" },
+      { id: "rcm-lifecycle", title: "4. US Healthcare Revenue Cycle Management (RCM)" },
+      { id: "anatomy-terminology", title: "5. Clinical Anatomy & Medical Terminology" },
+      { id: "practical-scenarios", title: "6. Scenario-Based Coding Questions" },
+    ],
+    sections: [
+      {
+        id: "coding-fundamentals",
+        title: "1. Medical Coding Fundamentals (ICD vs CPT vs HCPCS)",
+        content: `### Q1: What is Medical Coding and why is it essential?
+**Model Answer:**
+Medical coding is the transformation of healthcare diagnoses, procedures, medical services, and equipment into universal alphanumeric codes. In US healthcare, it establishes medical necessity, standardizes clinical documentation, and drives insurance claim reimbursement between healthcare providers and third-party payers.
+
+### Q2: What is the fundamental difference between ICD-10-CM, CPT, and HCPCS?
+**Model Answer:**
+- **ICD-10-CM (Clinical Modification)**: Diagnosis coding system developed by CDC/WHO. Explains **WHY** the patient sought healthcare (e.g., J45.909 for Unspecified asthma).
+- **CPT (Current Procedural Terminology)**: Maintained by the American Medical Association (AMA). Explains **WHAT** service, diagnostic test, or surgical procedure was performed by the healthcare provider (e.g., 99213 for Office outpatient visit).
+- **HCPCS Level II**: Maintained by CMS. Codes non-physician services, ambulance transportation, prosthetics, orthotics, and durable medical equipment (DME).`,
+        callout: {
+          type: "info",
+          title: "Golden Rule of Medical Necessity",
+          text: "A claim is denied if the CPT procedure code is not justified by a corresponding medically valid ICD-10-CM diagnosis code.",
+        },
+      },
+      {
+        id: "icd10-conventions",
+        title: "2. ICD-10-CM Structure & Coding Conventions",
+        content: `### Q3: Explain the structure of an ICD-10-CM code.
+**Model Answer:**
+An ICD-10-CM code consists of 3 to 7 characters:
+- **Character 1**: Always an alphabet (except U).
+- **Characters 2 and 3**: Numeric characters representing the category.
+- **Characters 4 through 6**: Numeric or alphabetic, specifying etiology, anatomical site, or manifestation.
+- **Character 7**: Extension representing the episode of care (A = Initial encounter, D = Subsequent encounter, S = Sequela).
+
+### Q4: What is the purpose of the dummy placeholder character 'X'?
+**Model Answer:**
+The letter 'X' is used as a placeholder in certain 6-character codes that require a 7th character extension. It preserves code structure when a specific subcategory does not have characters 4, 5, or 6, allowing future expansions without breaking existing electronic billing formats (e.g., T36.0X1A).
+
+### Q5: What is the difference between 'Excludes1' and 'Excludes2'?
+**Model Answer:**
+- **Excludes1 ('NOT CODED HERE!')**: Pure exclusion rule. The code excluded and the code listed can NEVER be reported together on the same claim because they are mutually exclusive.
+- **Excludes2 ('NOT INCLUDED HERE')**: Indicates that the condition excluded is not part of the condition represented by the code, but a patient may have both conditions at the same time. Both codes may be billed together if documented.`,
+      },
+      {
+        id: "modifiers-mastery",
+        title: "3. CPT Modifiers & Unbundling Rules",
+        content: `### Q6: What is a Modifier and why is it used in CPT coding?
+**Model Answer:**
+A modifier is a two-character numeric or alphanumeric code appended to a CPT code to report that a service or procedure has been altered by some specific circumstance, without changing the fundamental definition of the code.
+
+### Q7: Explain Modifier 25 and Modifier 59.
+**Model Answer:**
+- **Modifier 25**: Significant, Separately Identifiable Evaluation and Management (E/M) Service by the Same Physician on the Same Day of the Procedure or Other Service. Example: A diabetic patient comes for routine E/M and the doctor also performs a minor skin excision. Modifier 25 is attached to the E/M code.
+- **Modifier 59**: Distinct Procedural Service. Identifies procedures or services that are not normally reported together, but were distinct or independent under the clinical circumstances (different site, different organ, or separate incision).`,
+      },
+      {
+        id: "rcm-lifecycle",
+        title: "4. US Healthcare Revenue Cycle Management (RCM)",
+        content: `### Q8: Describe the stages of the US Healthcare Revenue Cycle (RCM).
+**Model Answer:**
+1. **Patient Registration & Eligibility Verification**: Pre-authorizations and insurance coverage checks.
+2. **Clinical Encounter & Documentation**: Physician charts notes in Electronic Health Records (EHR).
+3. **Medical Coding & Charge Capture**: Certified coders assign ICD-10-CM and CPT codes.
+4. **Claim Scrubbing & Submission**: Electronic EDI 837 claim transmission via clearinghouse.
+5. **Payment Posting & Denial Management**: Electronic Remittance Advice (ERA/835) processing, appeals for rejected claims, and patient billing.`,
+      },
+      {
+        id: "anatomy-terminology",
+        title: "5. Clinical Anatomy & Medical Terminology",
+        content: `### Q9: What are common root words, prefixes, and suffixes asked in coding interviews?
+**Model Answer:**
+- **Prefixes**: Dys- (painful/abnormal), Brady- (slow), Tachy- (rapid), Sub- (below), Poly- (many).
+- **Roots**: Nephr/o (Kidney), Hepat/o (Liver), Cholecyst/o (Gallbladder), Encephal/o (Brain), Arthr/o (Joint).
+- **Suffixes**: -itis (inflammation), -ectomy (surgical removal), -otomy (cutting into/incision), -ostomy (creating an artificial opening), -plasty (surgical repair).`,
+      },
+      {
+        id: "practical-scenarios",
+        title: "6. Scenario-Based Coding Questions",
+        content: `### Scenario A: Acute vs Chronic Sequencing
+*Question:* "A patient presents with acute and chronic cholecystitis. How do you sequence the diagnosis codes?"
+*Answer:* 
+According to ICD-10-CM Official Guidelines for Coding and Reporting (Section I.B.8): If the same condition is described as both acute (subacute) and chronic, and separate subentries exist in the Alphabetic Index at the same indentation level, **code both and sequence the acute (subacute) code first**.
+
+### Scenario B: Signs and Symptoms vs Confirmed Diagnosis
+*Question:* "A patient presents with severe right upper quadrant abdominal pain. Ultrasound confirms acute cholelithiasis. Do you code both the pain and the gallstones?"
+*Answer:*
+**No, code only the cholelithiasis.** Under ICD-10 guidelines, signs and symptoms that are routinely associated with a confirmed disease process should not be assigned additional codes once the definitive diagnosis has been established.`,
+      },
+    ],
+    relatedCourseSlug: "medical-coding",
+    relatedCourseName: "Medical Coding & CPC Certification Cohort",
+  },
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {

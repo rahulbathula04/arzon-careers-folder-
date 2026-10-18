@@ -70,9 +70,9 @@ export const JD_PROVENANCE: JdProvenance[] = [
         satisfiedByModule: "Standardized Medical Coding & Global Medicinal Product Dictionaries coding",
       },
       {
-        phrase: "Hands-on Enterprise Safety Database / Multi-Sponsor Safety Systems",
+        phrase: "Enterprise Safety Database / Multi-Sponsor Safety Systems workflow",
         coverage: 0.78,
-        satisfiedByModule: "Enterprise Safety Database hands-on",
+        satisfiedByModule: "Enterprise Safety Database workflows & simulation",
       },
       {
         phrase: "Aggregate reports (PSUR / PBRER)",

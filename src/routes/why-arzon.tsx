@@ -749,7 +749,7 @@ function WhyArzonPage() {
               </div>
               <h3 className="font-serif text-xl font-bold text-[var(--arzon-ink)]">Is the Arzon Global Labs Internship real or fake?</h3>
               <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
-                100% Authentic. Candidates complete hands-on ICSR safety report processing in <strong>Enterprise Safety Database</strong>, Standardized Medical Coding coding, and Electronic Data Capture (EDC) data validation. Every completion certificate is ISO 9001:2015 verified with a QR check at <Link to="/verify" className="text-[var(--arzon-blue-700)] underline font-semibold">arzoncareers.in/verify</Link>.
+                100% Authentic. Candidates complete structured ICSR safety report processing simulations in enterprise safety database environments, Standardized Medical Coding coding, and Electronic Data Capture (EDC) data validation. Every completion certificate is ISO 9001:2015 verified with a QR check at <Link to="/verify" className="text-[var(--arzon-blue-700)] underline font-semibold">arzoncareers.in/verify</Link>.
               </p>
             </div>
 

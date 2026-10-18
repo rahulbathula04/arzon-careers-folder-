@@ -178,12 +178,12 @@ export const COURSES: Course[] = [
       },
       {
         weeks: "W7–8",
-        title: "Enterprise Safety Database hands-on",
+        title: "Enterprise Safety Database workflows & simulation",
         topics: [
-          "Case book-in workflow",
+          "Case book-in workflow concepts",
           "Narrative writing",
           "Follow-up handling",
-          "E2B(R3) submission",
+          "E2B(R3) submission workflow",
         ],
         deliverable: "safety database simulation: 25 cases",
         jdSkill: "Working knowledge of Enterprise Safety Databases",

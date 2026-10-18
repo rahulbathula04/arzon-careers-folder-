@@ -85,15 +85,15 @@ export const DIAGNOSTIC_ROLE_NODES: Record<string, RoleDiagnosticNode> = {
       keyModules: [
         "Module 1: Global Regulatory Frameworks (FDA, EMA, CDSCO)",
         "Module 2: ICSR Case Intake & Triage Protocol",
-        "Module 3: Hands-On Enterprise Safety Database Case Management",
+        "Module 3: Enterprise Safety Database Case Management Simulation",
         "Module 4: Standardized Medical Coding Medical Coding & Auto-Encoding Rules",
         "Module 5: Narrative Writing & Aggregate Safety Reporting"
       ],
-      softwareTaught: ["Enterprise Safety Database", "Standardized Medical Coding Browser", "Arzon ICSR Simulator"]
+      softwareTaught: ["Enterprise Safety Database Simulator", "Standardized Medical Coding Browser", "Arzon ICSR Simulator"]
     },
 
     appliedInternship: {
-      internshipTitle: "4-Week Enterprise Safety Database ICSR Case Safety Internship",
+      internshipTitle: "4-Week Enterprise Safety Database ICSR Case Simulation Internship",
       deliverables: [
         "Processed 25+ real-world ICSR cases through intake, coding, and narrative drafting",
         "Standardized Medical Coding medical coding audit sheet with 100% dictionary term validation",

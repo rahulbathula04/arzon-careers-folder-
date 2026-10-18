@@ -1,6 +1,7 @@
 import { useState, useEffect, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { motion, useReducedMotion } from "framer-motion";
 import { pageSeo } from "@/lib/seo";
 import { submitWorkshopLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
@@ -44,7 +45,7 @@ export const Route = createFileRoute("/healthcare-career-workshop")({
   head: () => {
     const title = "Pharmacovigilance Masterclass | Arzon Careers";
     const description =
-      "Join the free live Pharmacovigilance Masterclass. Understand drug safety roles, ICSR workflows, and entry-level career requirements before deciding.";
+      "Your degree got you here. What gets you hired? Understand what a Drug Safety Associate actually does, what employers look for, and which skills you need to build.";
 
     const ps = pageSeo({
       title,
@@ -252,45 +253,63 @@ function HealthcareCareerWorkshopComponent() {
           /* 8-Section Masterclass Journey */
           <div className="w-full">
             {/* 01. HERO */}
-            <MasterclassHero onReserveClick={scrollToForm} />
+            <WorkshopSectionReveal>
+              <MasterclassHero onReserveClick={scrollToForm} />
+            </WorkshopSectionReveal>
 
             {/* 02. WHAT YOU'LL WALK AWAY WITH */}
-            <MasterclassWalkaway />
+            <WorkshopSectionReveal>
+              <MasterclassWalkaway />
+            </WorkshopSectionReveal>
 
             {/* 03. YOUR MENTOR */}
-            <MasterclassMentor />
+            <WorkshopSectionReveal>
+              <MasterclassMentor />
+            </WorkshopSectionReveal>
 
             {/* 04. IS THIS MASTERCLASS FOR YOU? */}
-            <MasterclassAudience />
+            <WorkshopSectionReveal>
+              <MasterclassAudience />
+            </WorkshopSectionReveal>
 
             {/* 05. WHY ARZON CAREERS */}
-            <MasterclassWhyArzon />
+            <WorkshopSectionReveal>
+              <MasterclassWhyArzon />
+            </WorkshopSectionReveal>
 
             {/* VERIFIED LEARNER REVIEWS & SOCIAL PROOF */}
-            <MasterclassReviews />
+            <WorkshopSectionReveal>
+              <MasterclassReviews />
+            </WorkshopSectionReveal>
 
             {/* 06. RESERVE YOUR SEAT */}
-            <MasterclassRegisterDesk
-              name={name}
-              phone={phone}
-              qualificationStatus={qualificationStatus}
-              pvStage={pvStage}
-              learningGoal={learningGoal}
-              isSubmitting={isSubmitting}
-              errorMsg={errorMsg}
-              onNameChange={setName}
-              onPhoneChange={setPhone}
-              onQualificationChange={setQualificationStatus}
-              onPvStageChange={setPvStage}
-              onLearningGoalChange={setLearningGoal}
-              onSubmit={handleSubmit}
-            />
+            <WorkshopSectionReveal>
+              <MasterclassRegisterDesk
+                name={name}
+                phone={phone}
+                qualificationStatus={qualificationStatus}
+                pvStage={pvStage}
+                learningGoal={learningGoal}
+                isSubmitting={isSubmitting}
+                errorMsg={errorMsg}
+                onNameChange={setName}
+                onPhoneChange={setPhone}
+                onQualificationChange={setQualificationStatus}
+                onPvStageChange={setPvStage}
+                onLearningGoalChange={setLearningGoal}
+                onSubmit={handleSubmit}
+              />
+            </WorkshopSectionReveal>
 
             {/* 07. FREQUENTLY ASKED QUESTIONS */}
-            <MasterclassFaq />
+            <WorkshopSectionReveal>
+              <MasterclassFaq />
+            </WorkshopSectionReveal>
 
             {/* 08. FINAL CTA */}
-            <ArzonFinalCTA onReserveClick={scrollToForm} />
+            <WorkshopSectionReveal>
+              <ArzonFinalCTA onReserveClick={scrollToForm} />
+            </WorkshopSectionReveal>
 
             {/* Mobile Sticky Action Bar */}
             <MasterclassMobileBar onReserveClick={scrollToForm} />
@@ -298,5 +317,33 @@ function HealthcareCareerWorkshopComponent() {
         )}
       </main>
     </div>
+  );
+}
+
+function WorkshopSectionReveal({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 26 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: false, amount: 0.12 }}
+      transition={{
+        type: "spring",
+        stiffness: 280,
+        damping: 26,
+        restDelta: 0.001,
+        delay: shouldReduceMotion ? 0 : delay,
+      }}
+      className="w-full"
+    >
+      {children}
+    </motion.div>
   );
 }

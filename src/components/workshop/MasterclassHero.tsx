@@ -29,18 +29,15 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
 
         {/* Headline with Apple-grade typographic scale & homepage gradient */}
         <h1 className="text-2xl sm:text-5xl lg:text-[3.5rem] font-bold text-[#081F38] tracking-[-0.03em] leading-[1.2] sm:leading-[1.12] mb-4 sm:mb-8 font-serif">
-          Your pharmacy degree is a start.{" "}
-          <span className="block mt-1 sm:mt-2">
-            Do you know what a{" "}
-            <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
-              drug safety job actually involves?
-            </span>
+          Your degree got you here.{" "}
+          <span className="block mt-1 sm:mt-2 bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+            What gets you hired?
           </span>
         </h1>
 
         {/* Subtitle with optical line length */}
         <p className="text-sm sm:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-10 font-sans">
-          See how pharmacovigilance works, understand how an Individual Case Safety Report moves through CRO teams, and explore what employers expect from entry-level candidates.
+          Understand what a Drug Safety Associate actually does, what employers look for, and which skills you need to build.
         </p>
 
         {/* Apple Unified Session Capsule Bar with Homepage Accent Colors */}

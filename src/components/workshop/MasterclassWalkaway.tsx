@@ -151,51 +151,63 @@ const ICSR_PIPELINE = [
 // The 4 Core Pharmacovigilance Pillars from trainer slides
 const FOUR_PILLARS = [
   { 
+    num: "01",
     title: "Detect Early", 
     tag: "Surveillance",
     desc: "Identify rare adverse drug reactions before widespread patient exposure.",
+    clinical: "Signal Detection & Triage",
     icon: Eye,
+    color: "#2563EB",
     theme: {
       tagBg: "bg-[#EEF6FF]",
       tagText: "text-[#2563EB]",
       tagBorder: "border-[#BFDBFE]/70",
-      iconBox: "bg-[#EEF6FF] text-[#2563EB] border-[#BFDBFE]/60 group-hover:bg-[#2563EB] group-hover:text-white group-hover:border-[#2563EB]",
+      iconBox: "bg-[#EEF6FF] text-[#2563EB] border-[#BFDBFE]/80",
     }
   },
   { 
+    num: "02",
     title: "Reduce Errors", 
     tag: "Safety Audits",
     desc: "Flag dosing discrepancies, contraindications & drug-drug interactions.",
+    clinical: "Zero-Defect Case Processing",
     icon: FileCheck,
+    color: "#0284C7",
     theme: {
       tagBg: "bg-[#F0F9FF]",
       tagText: "text-[#0284C7]",
       tagBorder: "border-[#BAE6FD]/70",
-      iconBox: "bg-[#F0F9FF] text-[#0284C7] border-[#BAE6FD]/60 group-hover:bg-[#0284C7] group-hover:text-white group-hover:border-[#0284C7]",
+      iconBox: "bg-[#F0F9FF] text-[#0284C7] border-[#BAE6FD]/80",
     }
   },
   { 
+    num: "03",
     title: "Patient Trust", 
     tag: "Commercial Care",
     desc: "Continuous post-market monitoring of approved commercial medicines.",
+    clinical: "Post-Market Vigilance",
     icon: Stethoscope,
+    color: "#7C3AED",
     theme: {
       tagBg: "bg-[#F5F3FF]",
       tagText: "text-[#7C3AED]",
       tagBorder: "border-[#DDD6FE]/70",
-      iconBox: "bg-[#F5F3FF] text-[#7C3AED] border-[#DDD6FE]/60 group-hover:bg-[#7C3AED] group-hover:text-white group-hover:border-[#7C3AED]",
+      iconBox: "bg-[#F5F3FF] text-[#7C3AED] border-[#DDD6FE]/80",
     }
   },
   { 
+    num: "04",
     title: "Regulatory Fit", 
     tag: "Compliance",
     desc: "Strict adherence to US FDA 21 CFR 314.80, EMA GVP & CDSCO mandates.",
+    clinical: "Statutory Health Audit",
     icon: Scale,
+    color: "#059669",
     theme: {
       tagBg: "bg-[#ECFDF5]",
       tagText: "text-[#059669]",
       tagBorder: "border-[#A7F3D0]/70",
-      iconBox: "bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]/60 group-hover:bg-[#10B981] group-hover:text-white group-hover:border-[#10B981]",
+      iconBox: "bg-[#ECFDF5] text-[#059669] border-[#A7F3D0]/80",
     }
   },
 ];
@@ -211,7 +223,7 @@ const TOP_EMPLOYERS = [
   },
   { 
     name: "Accenture", 
-    tag: "Healthcare GCC", 
+    tag: "Healthcare Operations GCC", 
     monogram: ">", 
     monoBg: "bg-[#A100FF] text-white font-black",
     tier: "Global GCC"
@@ -225,10 +237,10 @@ const TOP_EMPLOYERS = [
   },
   { 
     name: "TCS", 
-    tag: "Enterprise Life Sciences", 
+    tag: "Pharma Technology Services", 
     monogram: "TCS", 
     monoBg: "bg-[#1E293B] text-white",
-    tier: "Pharma Tech"
+    tier: "Tech Sponsor"
   },
   { 
     name: "Pfizer", 
@@ -269,7 +281,7 @@ export function MasterclassWalkaway() {
             <Workflow className="w-3.5 h-3.5 text-blue-600" />
             <span>02 · WHAT YOU'LL WALK AWAY WITH</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#081F38] tracking-[-0.03em] leading-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#081F38] tracking-[-0.03em] leading-tight font-serif">
             Understand the enterprise workflow{" "}
             <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
               before you choose the career.
@@ -507,59 +519,103 @@ export function MasterclassWalkaway() {
           </div>
         </div>
 
-        {/* Part 3: Two Supporting Bento Panels — Apple Minimalist Detailing */}
+        {/* Section Divider with Apple Capsule Tag */}
+        <div className="flex items-center justify-center my-10 sm:my-14">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+          <div className="mx-4 px-3.5 py-1 rounded-full bg-white card-light border border-slate-200/80 text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500 shadow-2xs flex items-center gap-2 tone-light">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+            <span>Clinical Mandates &amp; Hiring Ecosystem</span>
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        </div>
+
+        {/* Part 3: Two Supporting Bento Panels — Apple Flagship Detailing */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
           
           {/* Card A: 4 Core Pharmacovigilance Pillars */}
-          <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light flex flex-col justify-between relative overflow-hidden">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(37,99,235,0.05)] transition-all duration-300 tone-light card-light flex flex-col justify-between relative overflow-hidden group">
             {/* Apple top micro-accent line */}
-            <div aria-hidden="true" className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#2563EB] to-[#60A5FA]" />
+            <div aria-hidden="true" className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED]" />
 
             <div>
               {/* Eyebrow Header */}
-              <div className="flex items-center justify-between gap-2 mb-4 pb-3.5 border-b border-slate-100">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center border border-[#BFDBFE]/60 shrink-0">
+              <div className="flex items-center justify-between gap-2 pb-3.5 border-b border-slate-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center border border-[#BFDBFE]/60 shrink-0 shadow-2xs">
                     <ShieldCheck className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#081F38]">
-                    Why Pharmacovigilance Matters
+                    Clinical Mandates
                   </span>
                 </div>
                 <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono text-[#059669] bg-[#ECFDF5] border border-[#A7F3D0] px-3 py-1 rounded-full font-bold shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] motion-safe:animate-pulse" />
-                  Patient Safety
+                  Patient Safety First
                 </span>
               </div>
 
-              <p className="text-xs sm:text-[13px] text-slate-500 font-sans leading-relaxed mb-4">
+              {/* Title with Signature Arzon Gradient */}
+              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38] tracking-[-0.03em] font-serif mt-4 mb-2">
+                Why Pharmacovigilance{" "}
+                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  Matters
+                </span>
+              </h3>
+              <p className="text-xs sm:text-[13px] text-slate-500 font-sans leading-relaxed mb-6">
                 Four statutory clinical mandates that make Drug Safety an essential, recession-proof division in global life sciences.
               </p>
 
-              {/* 4 Pillars in Apple Micro-Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {FOUR_PILLARS.map((p, idx) => {
+              {/* 4 Pillars in Apple Telemetry Quadrants */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {FOUR_PILLARS.map((p) => {
                   const IconComponent = p.icon;
                   return (
                     <div 
-                      key={idx} 
-                      className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-[#F8FAFC]/90 border border-[#E2E8F0] md:hover:bg-white md:hover:border-[#BFDBFE] md:hover:shadow-xs transition-all duration-200 flex flex-col justify-between tone-light card-light cursor-default select-none"
+                      key={p.num} 
+                      className="p-4 rounded-2xl bg-[#F8FAFC]/90 hover:bg-white border border-[#E2E8F0] hover:border-[#BFDBFE] hover:shadow-xs transition-all duration-200 flex flex-col justify-between group/tile tone-light card-light cursor-default select-none"
                     >
                       <div>
-                        <div className="flex items-center justify-between gap-2 mb-2.5">
-                          <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${p.theme.tagBg} ${p.theme.tagText} ${p.theme.tagBorder}`}>
-                            {p.tag}
-                          </span>
-                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center border ${p.theme.iconBox}`}>
-                            <IconComponent className="w-3.5 h-3.5" />
+                        {/* Top Row: Index + Tag & Translucent Icon Pod */}
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] font-mono font-bold text-slate-400">
+                              {p.num}
+                            </span>
+                            <span className={`text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${p.theme.tagBg} ${p.theme.tagText} ${p.theme.tagBorder}`}>
+                              {p.tag}
+                            </span>
+                          </div>
+                          <div 
+                            className={`w-8 h-8 rounded-xl flex items-center justify-center border shadow-2xs transition-transform duration-200 group-hover/tile:scale-110 ${p.theme.iconBox}`}
+                            style={{
+                              backgroundColor: `${p.color}14`,
+                              borderColor: `${p.color}40`,
+                              color: p.color,
+                            }}
+                          >
+                            <IconComponent 
+                              className="w-4 h-4 stroke-[2.2]" 
+                              style={{ color: p.color, stroke: p.color }}
+                            />
                           </div>
                         </div>
-                        <div className="font-bold text-sm text-[#081F38] mb-1.5">
+
+                        {/* Title & Description */}
+                        <div className="font-bold text-sm text-[#081F38] group-hover/tile:text-[#2563EB] transition-colors mb-1.5">
                           {p.title}
                         </div>
-                        <div className="text-xs text-slate-600 leading-relaxed font-sans">
+                        <p className="text-xs text-slate-600 leading-relaxed font-sans mb-3">
                           {p.desc}
-                        </div>
+                        </p>
+                      </div>
+
+                      {/* Micro Clinical Takeaway Chip */}
+                      <div className="pt-2 border-t border-slate-200/50 flex items-center gap-1.5 text-[10.5px] font-mono text-slate-500">
+                        <span 
+                          className="w-1.5 h-1.5 rounded-full shrink-0" 
+                          style={{ backgroundColor: p.color }} 
+                        />
+                        <span className="truncate">{p.clinical}</span>
                       </div>
                     </div>
                   );
@@ -568,78 +624,104 @@ export function MasterclassWalkaway() {
             </div>
             
             {/* Compliance Footnote */}
-            <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-sans">
-              <Scale className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
-              <span>Mandatory compliance governed under US FDA 21 CFR 314.80 &amp; EMA Good Vigilance Practice (GVP).</span>
+            <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3 text-[11px] text-slate-500 font-sans">
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center shrink-0">
+                  <Scale className="w-3 h-3" />
+                </div>
+                <span>Statutory Mandate: US FDA 21 CFR 314.80 &amp; EMA GVP</span>
+              </div>
+              <span className="font-mono text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 font-bold hidden sm:inline-flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                Zero-Defect Audit
+              </span>
             </div>
           </div>
 
           {/* Card B: Target Roles & Top Hiring Employers */}
-          <div className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] tone-light card-light flex flex-col justify-between relative overflow-hidden">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E2E8F0] shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_36px_rgba(37,99,235,0.05)] transition-all duration-300 tone-light card-light flex flex-col justify-between relative overflow-hidden group">
             {/* Apple top micro-accent line */}
-            <div aria-hidden="true" className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-[#0284C7] via-[#2563EB] to-[#7C3AED]" />
+            <div aria-hidden="true" className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-[#0284C7] via-[#2563EB] to-[#7C3AED]" />
 
             <div>
               {/* Eyebrow Header */}
-              <div className="flex items-center justify-between gap-2 mb-4 pb-3.5 border-b border-slate-100">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center border border-[#BFDBFE]/60 shrink-0">
+              <div className="flex items-center justify-between gap-2 pb-3.5 border-b border-slate-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center border border-[#BFDBFE]/60 shrink-0 shadow-2xs">
                     <Building2 className="w-4 h-4" />
                   </div>
                   <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#081F38]">
-                    Actively Recruiting Employers
+                    Hiring Ecosystem
                   </span>
                 </div>
                 <span className="inline-flex items-center gap-1.5 text-[10.5px] font-mono text-[#1D4ED8] bg-[#EEF6FF] border border-[#BFDBFE] px-3 py-1 rounded-full font-bold shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
-                  Enterprise Tier
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] motion-safe:animate-pulse" />
+                  12,000+ Active Roles
                 </span>
               </div>
 
-              <p className="text-xs sm:text-[13px] text-slate-500 font-sans leading-relaxed mb-4">
+              {/* Title with Signature Arzon Gradient */}
+              <h3 className="text-xl sm:text-2xl font-bold text-[#081F38] tracking-[-0.03em] font-serif mt-4 mb-2">
+                Actively Recruiting{" "}
+                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                  Employers
+                </span>
+              </h3>
+              <p className="text-xs sm:text-[13px] text-slate-500 font-sans leading-relaxed mb-6">
                 Global CROs and pharmaceutical sponsors continuously absorbing life sciences graduates across Indian GCCs.
               </p>
 
               {/* Employer Tiles with Distinctive Brand Monograms & Zero Truncation */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 mb-6">
                 {TOP_EMPLOYERS.map((emp) => (
                   <div
                     key={emp.name}
-                    className="p-3 rounded-2xl bg-[#F8FAFC]/90 border border-[#E2E8F0] hover:bg-white hover:border-[#BFDBFE] hover:shadow-xs transition-all duration-200 flex items-center justify-between gap-2.5 group tone-light card-light"
+                    className="p-3.5 rounded-2xl bg-[#F8FAFC]/90 hover:bg-white border border-[#E2E8F0] hover:border-[#BFDBFE] hover:shadow-xs transition-all duration-200 flex flex-col justify-between group/emp tone-light card-light cursor-default select-none"
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono text-[11px] font-bold shrink-0 shadow-2xs border border-white/20 ${emp.monoBg}`}>
+                    {/* Top Row: Brand Monogram + Tier Badge */}
+                    <div className="flex items-center justify-between gap-1.5 mb-2.5">
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono text-[11px] font-bold shrink-0 shadow-2xs border border-white/20 transition-transform group-hover/emp:scale-105 ${emp.monoBg}`}>
                         {emp.monogram}
                       </div>
-                      <div className="min-w-0">
-                        <div className="font-bold text-xs sm:text-[13px] text-[#081F38] group-hover:text-[#2563EB] transition-colors truncate">
-                          {emp.name}
-                        </div>
-                        <div className="text-[11px] text-slate-500 font-sans truncate">
-                          {emp.tag}
-                        </div>
+                      <span className="text-[9px] font-mono font-semibold uppercase px-1.5 py-0.5 rounded-md bg-white card-light border border-slate-200/80 text-slate-500 shrink-0">
+                        {emp.tier}
+                      </span>
+                    </div>
+
+                    {/* Bottom Area: Full untruncated name and division tag */}
+                    <div>
+                      <div className="font-bold text-xs sm:text-[13px] text-[#081F38] group-hover/emp:text-[#2563EB] transition-colors leading-snug">
+                        {emp.name}
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-sans mt-0.5 leading-tight">
+                        {emp.tag}
                       </div>
                     </div>
-                    <span className="text-[9.5px] font-mono font-semibold uppercase px-2 py-0.5 rounded-md bg-white card-light border border-slate-200/80 text-slate-500 shrink-0">
-                      {emp.tier}
-                    </span>
                   </div>
                 ))}
               </div>
 
-              {/* Target Job Roles */}
-              <div className="pt-2">
-                <div className="flex items-center gap-1.5 text-[10.5px] font-mono uppercase tracking-wider text-slate-600 mb-2.5 font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
-                  <span>Primary Roles Covered in Masterclass:</span>
+              {/* Target Job Roles: Cupertino Segmented Capsules */}
+              <div className="pt-4 border-t border-slate-100">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-[#081F38] font-bold">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                    <span>Primary Roles Covered in Masterclass</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-[#2563EB] font-bold uppercase tracking-wider bg-[#EEF6FF] px-2 py-0.5 rounded-md border border-[#BFDBFE]">
+                    Entry to Mid
+                  </span>
                 </div>
-                <div className="flex flex-wrap gap-1.5">
+
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {TARGET_ROLES.map((role) => (
                     <span
                       key={role}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F8FAFC] hover:bg-[#EEF6FF] border border-[#E2E8F0] hover:border-[#BFDBFE] text-xs font-semibold text-slate-700 hover:text-[#2563EB] transition-all shadow-2xs group cursor-default tone-light card-light"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F8FAFC] hover:bg-[#EEF6FF] border border-[#E2E8F0] hover:border-[#BFDBFE] text-xs font-semibold text-slate-700 hover:text-[#2563EB] transition-all shadow-2xs group cursor-default tone-light card-light"
                     >
-                      <Check className="w-3.5 h-3.5 text-[#10B981] group-hover:scale-110 transition-transform" />
+                      <span className="w-3.5 h-3.5 rounded-full bg-[#ECFDF5] border border-[#A7F3D0] flex items-center justify-center text-[#059669] shrink-0 group-hover:scale-110 transition-transform">
+                        <Check className="w-2.5 h-2.5 stroke-[3]" />
+                      </span>
                       <span>{role}</span>
                     </span>
                   ))}
@@ -648,8 +730,16 @@ export function MasterclassWalkaway() {
             </div>
 
             {/* Market Intelligence Footnote */}
-            <div className="mt-6 pt-3.5 border-t border-slate-100 text-[11px] text-slate-500 font-sans leading-relaxed">
-              <strong className="font-semibold text-slate-700">Market Reference:</strong> 12,000+ entry openings across Indian GCCs. Third-party company names and trademarks are property of their respective holders and cited under Nominative Fair Use (Sec. 30, Trade Marks Act, 1999) strictly for industry hiring intelligence without implied endorsement.
+            <div className="mt-6 pt-3.5 border-t border-slate-100 flex flex-col gap-1 text-[11px] text-slate-500 font-sans leading-relaxed">
+              <div className="flex items-center gap-2 text-slate-700 font-medium">
+                <div className="w-4 h-4 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0">
+                  <CheckCircle2 className="w-2.5 h-2.5" />
+                </div>
+                <span>Market Scope: 12,000+ active openings across Indian GCCs &amp; CROs annually</span>
+              </div>
+              <p className="text-[10px] text-slate-400 pl-6 leading-normal">
+                Third-party trademarks are property of their respective holders and cited under Nominative Fair Use (Sec. 30, Trade Marks Act, 1999) strictly for industry hiring intelligence without implied endorsement.
+              </p>
             </div>
           </div>
 

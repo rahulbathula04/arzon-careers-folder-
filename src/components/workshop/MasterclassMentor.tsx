@@ -64,7 +64,7 @@ export function MasterclassMentor() {
             <UserCheck className="w-3.5 h-3.5 text-[#2563EB]" />
             <span>03 · Your Mentor</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-2.5">
+          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-2.5 font-serif">
             Learn from an active{" "}
             <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
               industry professional.

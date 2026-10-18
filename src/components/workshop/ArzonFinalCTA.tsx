@@ -25,7 +25,7 @@ export function ArzonFinalCTA({ onReserveClick }: ArzonFinalCTAProps) {
           </div>
 
           {/* Cupertino Bold Headline */}
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] text-[#081F38] mb-4 leading-[1.18]">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] text-[#081F38] mb-4 leading-[1.18] font-serif">
             Understand the work. Then{" "}
             <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
               decide your next step.

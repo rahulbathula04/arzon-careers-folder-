@@ -187,7 +187,7 @@ export function MasterclassReviews() {
         </div>
 
         {/* Section Headline */}
-        <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-3">
+        <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-3 font-serif">
           Trusted by pharmacy students{" "}
           <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
             across India.

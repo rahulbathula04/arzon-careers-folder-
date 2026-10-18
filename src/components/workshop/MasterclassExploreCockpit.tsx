@@ -1,24 +1,25 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import {
   Activity,
-  AlertCircle,
   ArrowRight,
   Award,
   CheckCircle2,
-  Clock,
-  Cpu,
+  ChevronRight,
   Database,
-  ExternalLink,
-  FileCheck2,
   FileSpreadsheet,
   FileText,
   GitBranch,
-  Layers,
   SendHorizontal,
   ShieldAlert,
   ShieldCheck,
-  Sparkles,
   Terminal,
   X,
 } from "lucide-react";
@@ -28,264 +29,159 @@ export interface MasterclassTopic {
   index: string;
   category: string;
   title: string;
-  shortLabel: string;
-  tagline: string;
+  summary: string;
   icon: typeof Activity;
   accentColor: string;
-  accentBg: string;
-  accentBorder: string;
-  accentBadge: string;
+  tool: string;
+  cro: string;
   standard: {
     code: string;
     authority: string;
-    rule: string;
   };
-  tools: {
-    primary: string;
-    secondary: string;
-    badge: string;
-  };
-  interviewSignal: {
-    cro: string;
-    question: string;
-    passRate: string;
-  };
-  artifactType: "criteria" | "triage" | "meddra" | "database" | "narrative" | "regulatory";
-  fullScenario: {
-    caseContext: string;
-    learningPoints: string[];
-    technicalSkill: string;
-  };
+  interviewQuestion: string;
+  interviewTip: string;
+  scenario: string;
+  learningPoints: string[];
 }
 
 export const MASTERCLASS_TOPICS: MasterclassTopic[] = [
   {
     id: "icsr",
     index: "01",
-    category: "INTAKE & COMPLIANCE",
-    title: "ICSR Case Processing",
-    shortLabel: "ICSR Processing",
-    tagline: "End-to-end case intake, minimum 4 criteria validation, and Day-0 regulatory clock initiation.",
+    category: "Intake",
+    title: "ICSR Case Intake",
+    summary: "Spot the 4 mandatory regulatory criteria and start the strict Day-0 compliance clock.",
     icon: FileSpreadsheet,
     accentColor: "#2563EB",
-    accentBg: "bg-blue-50/90",
-    accentBorder: "border-blue-200/80",
-    accentBadge: "text-blue-700 bg-blue-50 border-blue-200",
+    tool: "Oracle Argus 8.2",
+    cro: "IQVIA & Parexel",
     standard: {
       code: "ICH E2B(R3)",
       authority: "US FDA 21 CFR 314.80 / EMA GVP VI",
-      rule: "Day-0 begins when any company employee receives the 4 mandatory elements.",
     },
-    tools: {
-      primary: "Oracle Argus Safety 8.2",
-      secondary: "ArisG · XML E2B Validator",
-      badge: "Enterprise Safety DB",
-    },
-    interviewSignal: {
-      cro: "IQVIA & Parexel Technical Round",
-      question: "Given a 1-paragraph spontaneous adverse event email, identify all 4 valid ICSR criteria and determine if the Day-0 clock has triggered.",
-      passRate: "94% of interviewers test this within the first 10 minutes",
-    },
-    artifactType: "criteria",
-    fullScenario: {
-      caseContext: "A physician emails the medical information desk reporting that a 54-year-old female patient developed severe rhabdomyolysis 12 days after starting Atorvastatin 40mg. You must determine if Day-0 has begun.",
-      learningPoints: [
-        "Verifying the 4 minimum regulatory criteria: Patient, Reporter, Suspect Drug, Adverse Event.",
-        "How missing the Day-0 regulatory clock leads to FDA Form 483 audit observations.",
-        "Navigating Book-in workflows inside Oracle Argus Safety 8.2.",
-      ],
-      technicalSkill: "Intake Triage, Source Document Verification, E2B(R3) Field Mapping",
-    },
+    interviewQuestion: "Given a 1-paragraph adverse event email, identify all 4 valid ICSR criteria and determine if the Day-0 clock has triggered.",
+    interviewTip: "94% of technical interviewers test Day-0 rules in the first 10 minutes.",
+    scenario: "A physician reports that a 54-year-old female patient developed severe rhabdomyolysis after starting Atorvastatin 40mg. You verify source documents, check validity, and log initial intake.",
+    learningPoints: [
+      "The 4 mandatory ICSR elements: Identifiable Patient, Reporter, Suspect Drug, and Adverse Event.",
+      "How missing the Day-0 clock results in critical FDA Form 483 audit observations.",
+      "Navigating Book-in workflows inside Oracle Argus Safety 8.2.",
+    ],
   },
   {
     id: "triage",
     index: "02",
-    category: "SERIOUSNESS & CAUSALITY",
+    category: "Triage",
     title: "Adverse Event Triage",
-    shortLabel: "AE Triage",
-    tagline: "Seriousness filtering, WHO-UMC causality algorithms, and SmPC expectedness assessment.",
+    summary: "Classify seriousness (hospitalization vs mild) and grade causality using WHO-UMC.",
     icon: ShieldAlert,
     accentColor: "#0284C7",
-    accentBg: "bg-sky-50/90",
-    accentBorder: "border-sky-200/80",
-    accentBadge: "text-sky-700 bg-sky-50 border-sky-200",
+    tool: "SmPC Section 4.8",
+    cro: "Cognizant & Novartis",
     standard: {
       code: "CIOMS I & WHO-UMC",
       authority: "ICH E2A Clinical Safety Guidance",
-      rule: "Serious criteria (death, hospitalization, disability) triggers expedited dispatch.",
     },
-    tools: {
-      primary: "SmPC Section 4.8 Reference",
-      secondary: "Investigator Brochure (IB) · RSI Matrix",
-      badge: "Clinical Safety Matrix",
-    },
-    interviewSignal: {
-      cro: "Cognizant Life Sciences & Fortrea",
-      question: "A patient took a drug and was admitted to ICU overnight for monitoring. Is this an AE or SAE? Does hospitalization automatically trigger 15-day expedited reporting?",
-      passRate: "Core screening filter for fresher drug safety associates",
-    },
-    artifactType: "triage",
-    fullScenario: {
-      caseContext: "A patient experiences an acute event requiring unexpected ICU admission. You must evaluate seriousness under CIOMS I guidelines, test causality via the WHO-UMC algorithm, and check Section 4.8 of the SmPC for expectedness.",
-      learningPoints: [
-        "Applying the 6 CIOMS seriousness criteria: Death, Life-Threatening, Hospitalization, Disability, Congenital Anomaly, Medically Significant.",
-        "Evaluating positive and negative de-challenge and re-challenge scenarios.",
-        "Distinguishing between 'Adverse Event' (AE) and 'Adverse Drug Reaction' (ADR).",
-      ],
-      technicalSkill: "Causality Grading, SmPC Expectedness Audit, Expedited Threshold Analysis",
-    },
+    interviewQuestion: "A patient took a drug and was kept in ICU overnight for monitoring. Is this an AE or SAE? Does hospitalization automatically trigger expedited reporting?",
+    interviewTip: "Core screening filter for entry-level Drug Safety Associates.",
+    scenario: "An acute event requires ICU admission. You apply the 6 CIOMS seriousness criteria, evaluate causality via the WHO-UMC algorithm, and audit expectedness against Section 4.8 of the SmPC.",
+    learningPoints: [
+      "The 6 CIOMS seriousness criteria: Death, Life-Threatening, Hospitalization, Disability, Congenital Anomaly, Medically Significant.",
+      "De-challenge and re-challenge assessment for causality grading.",
+      "Distinguishing Adverse Events (AE) from Adverse Drug Reactions (ADR).",
+    ],
   },
   {
     id: "coding",
     index: "03",
-    category: "TERMINOLOGY HIERARCHY",
-    title: "Standardized Medical Coding",
-    shortLabel: "Medical Coding",
-    tagline: "Translating unstructured verbatims into calibrated MedDRA 5-level terminology hierarchies.",
+    category: "Coding",
+    title: "MedDRA Medical Coding",
+    summary: "Map verbatim doctor notes to international standard terms across 5 MedDRA levels.",
     icon: GitBranch,
     accentColor: "#7C3AED",
-    accentBg: "bg-purple-50/90",
-    accentBorder: "border-purple-200/80",
-    accentBadge: "text-purple-700 bg-purple-50 border-purple-200",
+    tool: "MedDRA v27.0",
+    cro: "Accenture & Parexel",
     standard: {
       code: "MedDRA v27.0 & WHO-DD",
       authority: "ICH M1 Standardization / MSSO Rules",
-      rule: "Point-to-point verbatim matching without subjective clinical diagnostic leaps.",
     },
-    tools: {
-      primary: "MedDRA Desktop Browser v27.0",
-      secondary: "WHO Drug Global Dictionary B3/C3",
-      badge: "Hierarchical Terminology",
-    },
-    interviewSignal: {
-      cro: "Accenture Health & Parexel PV Ops",
-      question: "What is the structural hierarchy between Preferred Term (PT) and Lowest Level Term (LLT)? Why can an investigator verbatim never be coded directly to an SOC?",
-      passRate: "88% of applicants confuse PT with LLT without practical coding exposure",
-    },
-    artifactType: "meddra",
-    fullScenario: {
-      caseContext: "An investigator writes: 'Patient had extreme muscle breakdown and dark brown urine.' You must select the precise Lowest Level Term (LLT) and map it up the 5-tier MedDRA hierarchy to the System Organ Class (SOC).",
-      learningPoints: [
-        "Navigating the 5 MedDRA tiers: SOC ➔ HLGT ➔ HLT ➔ PT ➔ LLT.",
-        "Strict adherence to MSSO 'Points to Consider' coding conventions.",
-        "Coding suspect and concomitant medications using the WHO Drug Dictionary.",
-      ],
-      technicalSkill: "MedDRA Coding Conventions, WHO-DD Search, Terminology Calibration",
-    },
+    interviewQuestion: "What is the structural hierarchy between Preferred Term (PT) and Lowest Level Term (LLT)? Why can an investigator verbatim never be coded directly to an SOC?",
+    interviewTip: "Tests practical dictionary fluency over theoretical memorization.",
+    scenario: "An investigator writes: 'Patient had extreme muscle breakdown and dark brown urine.' You select the precise Lowest Level Term (LLT) and map it up the 5 tiers to System Organ Class.",
+    learningPoints: [
+      "The 5-tier MedDRA structure: SOC ➔ HLGT ➔ HLT ➔ PT ➔ LLT.",
+      "Adhering strictly to MSSO 'Points to Consider' coding conventions.",
+      "Coding suspect and concomitant medications using the WHO Drug Dictionary.",
+    ],
   },
   {
     id: "database",
     index: "04",
-    category: "ENTERPRISE SYSTEMS",
-    title: "Safety Database Architecture",
-    shortLabel: "Safety DB Systems",
-    tagline: "Enterprise database schema, 5-stage routing workflows, and 21 CFR Part 11 audit trails.",
+    category: "Workflows",
+    title: "Safety Database Entry",
+    summary: "Walk through the 5-stage case lifecycle from Book-in to QC with 21 CFR Part 11 audit trails.",
     icon: Database,
     accentColor: "#0D9488",
-    accentBg: "bg-teal-50/90",
-    accentBorder: "border-teal-200/80",
-    accentBadge: "text-teal-700 bg-teal-50 border-teal-200",
+    tool: "21 CFR Part 11",
+    cro: "TCS & IQVIA",
     standard: {
       code: "21 CFR Part 11 & GAMP 5",
       authority: "EMA GVP Module I / FDA Data Integrity",
-      rule: "Zero record deletions allowed; cryptographic audit log of all field changes.",
     },
-    tools: {
-      primary: "Enterprise Safety Database 8.2",
-      secondary: "Relational E2B SQL Schema · Worklists",
-      badge: "Audit-Ready Workflows",
-    },
-    interviewSignal: {
-      cro: "IQVIA Enterprise PV & TCS Life Sciences",
-      question: "Walk through the lifecycle of a case from 'Book-in' through 'Quality Review' and 'Submissions Gateway' inside an enterprise safety database.",
-      passRate: "Separates candidates with hands-on tool fluency from rote memorizers",
-    },
-    artifactType: "database",
-    fullScenario: {
-      caseContext: "You are assigned an enterprise worklist queue in an E2B(R3)-compliant safety database. You must navigate tabs, enter narrative text, verify audit trail logs, and route the case to Quality Review.",
-      learningPoints: [
-        "5-stage case lifecycle: Book-in ➔ Data Entry ➔ Medical Review ➔ Quality Review ➔ Regulatory Gateway.",
-        "Understanding electronic signatures and 21 CFR Part 11 compliance.",
-        "Performing duplicate searches to prevent redundant case creation.",
-      ],
-      technicalSkill: "Worklist Management, Audit Trail Review, Record Locking Protocols",
-    },
+    interviewQuestion: "Walk through the lifecycle of a case from 'Book-in' through 'Quality Review' and 'Submissions Gateway' inside an enterprise safety database.",
+    interviewTip: "Separates candidates with simulated tool experience from fresh grads.",
+    scenario: "Working inside an enterprise safety worklist, you perform duplicate checks, navigate tabbed workflows, log narrative text, and verify cryptographic audit trail entries.",
+    learningPoints: [
+      "5-stage case lifecycle: Book-in ➔ Data Entry ➔ Medical Review ➔ QC ➔ Gateway.",
+      "Electronic signatures and audit trails under 21 CFR Part 11.",
+      "Performing duplicate searches to protect clinical data integrity.",
+    ],
   },
   {
     id: "narrative",
     index: "05",
-    category: "CLINICAL CHRONOLOGY",
+    category: "Narrative",
     title: "Medical Narrative Writing",
-    shortLabel: "Narrative Writing",
-    tagline: "Drafting chronological, audit-defensible clinical summaries with laboratory correlations.",
+    summary: "Draft objective, audit-defensible case stories correlating drug history, labs, and de-challenge.",
     icon: FileText,
     accentColor: "#D97706",
-    accentBg: "bg-amber-50/90",
-    accentBorder: "border-amber-200/80",
-    accentBadge: "text-amber-800 bg-amber-50 border-amber-200",
+    tool: "CIOMS Form I",
+    cro: "Syneos & Parexel",
     standard: {
       code: "ICH E2C(R2) & CIOMS",
       authority: "GVP Module VI / Post-Marketing SOP",
-      rule: "Chronological medical storytelling without speculation; clear de-challenge details.",
     },
-    tools: {
-      primary: "CIOMS Form I Generator",
-      secondary: "Biomarker & CPK Trend Analyzer",
-      badge: "Clinical Case Story",
-    },
-    interviewSignal: {
-      cro: "Parexel & Syneos Health",
-      question: "Draft the opening sentence of a medical narrative for a 62-year-old male presenting with acute hepatotoxicity after initiation of an anti-tubercular regimen.",
-      passRate: "Evaluates clinical English, passive voice precision, and chronology logic",
-    },
-    artifactType: "narrative",
-    fullScenario: {
-      caseContext: "You have 3 separate medical records: a triage intake form, lab report showing elevated serum CPK (12,400 IU/L), and hospital discharge summary. You must weave these into an objective, chronological CIOMS narrative.",
-      learningPoints: [
-        "Structuring the narrative: Patient Demographics ➔ Medical History ➔ Drug Therapy ➔ Event Onset ➔ Lab Data ➔ De-challenge ➔ Outcome.",
-        "Writing in objective clinical passive voice without ungrounded diagnostic speculation.",
-        "Documenting positive de-challenge and re-challenge with exact timelines.",
-      ],
-      technicalSkill: "Medical English Drafting, Laboratory Data Correlation, CIOMS Narrative Formatting",
-    },
+    interviewQuestion: "Draft the opening sentence of a medical narrative for a 62-year-old male presenting with acute hepatotoxicity after an anti-tubercular regimen.",
+    interviewTip: "Evaluates clinical English, passive voice accuracy, and chronology logic.",
+    scenario: "Synthesizing an intake email, hospital discharge summary, and elevated serum CPK lab trends (12,400 IU/L), you craft an objective, chronological CIOMS narrative.",
+    learningPoints: [
+      "Chronological structure: Demographics ➔ History ➔ Drug Therapy ➔ Onset ➔ Labs ➔ Outcome.",
+      "Writing in clear clinical passive voice without ungrounded diagnostic speculation.",
+      "Documenting positive de-challenge and re-challenge with precise timelines.",
+    ],
   },
   {
     id: "regulatory",
     index: "06",
-    category: "STATUTORY SUBMISSIONS",
-    title: "Expedited Regulatory Reporting",
-    shortLabel: "Regulatory Reporting",
-    tagline: "High-stakes regulatory dispatch adhering to strict 7-day and 15-day statutory deadlines.",
+    category: "Submissions",
+    title: "Expedited Reporting",
+    summary: "Calculate statutory submission deadlines (7-day fatal vs 15-day SUSAR) for FDA & EMA.",
     icon: SendHorizontal,
     accentColor: "#E11D48",
-    accentBg: "bg-rose-50/90",
-    accentBorder: "border-rose-200/80",
-    accentBadge: "text-rose-700 bg-rose-50 border-rose-200",
+    tool: "FDA ESG & EMA",
+    cro: "Novartis & ICON",
     standard: {
       code: "FDA 15-Day & EMA 7-Day",
       authority: "US FDA ESG / EudraVigilance Gateway",
-      rule: "Fatal / life-threatening unexpected reactions must be dispatched within 7 calendar days.",
     },
-    tools: {
-      primary: "FDA Electronic Submissions Gateway",
-      secondary: "EudraVigilance EVWEB · PMDA XML",
-      badge: "Global Authority Gateways",
-    },
-    interviewSignal: {
-      cro: "Novartis Sandoz & IQVIA Regulatory",
-      question: "What is the difference between a 7-day initial clock and a 15-day SUSAR timeline? What happens if an electronic ACK-2 receipt is not received from the FDA?",
-      passRate: "Critical compliance test — late reports result in FDA Form 483 citations",
-    },
-    artifactType: "regulatory",
-    fullScenario: {
-      caseContext: "A fatal adverse event is reported in an ongoing clinical trial. You must calculate the exact 7-day initial statutory deadline and ensure valid E2B(R3) XML transmission to FDA ESG and EMA EudraVigilance.",
-      learningPoints: [
-        "7-day fatal/life-threatening vs 15-day serious unexpected reporting rules.",
-        "Validating XML schema against E2B(R3) gateway specifications.",
-        "Tracking electronic receipts: ACK-1 (Gateway Receipt) and ACK-2 (Regulatory Validation).",
-      ],
-      technicalSkill: "Statutory Deadline Scheduling, XML E2B Validation, Health Authority Transmission",
-    },
+    interviewQuestion: "What is the difference between a 7-day initial clock and a 15-day SUSAR timeline? What happens if an electronic ACK-2 receipt is delayed?",
+    interviewTip: "Critical compliance test — late submissions trigger regulatory citations.",
+    scenario: "A fatal clinical trial reaction occurs. You calculate the 7-day initial statutory deadline and verify E2B(R3) XML transmission and receipt confirmations with the health authority.",
+    learningPoints: [
+      "7-day fatal/life-threatening vs 15-day serious unexpected reporting rules.",
+      "Validating XML schemas against E2B(R3) electronic gateway specifications.",
+      "Tracking ACK-1 (Gateway Receipt) and ACK-2 (Regulatory Validation) confirmations.",
+    ],
   },
 ];
 
@@ -295,6 +191,24 @@ interface MasterclassExploreCockpitProps {
 
 export function MasterclassExploreCockpit({ onReserveClick }: MasterclassExploreCockpitProps) {
   const [selectedTopic, setSelectedTopic] = useState<MasterclassTopic | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Scroll tracking across the section for responsive bidirectional feel
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 90%", "end 20%"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 280,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Scale and opacity driven by bidirectional scroll
+  const sectionScale = useTransform(smoothProgress, [0, 0.15, 0.9, 1], [0.97, 1, 1, 0.98]);
+  const sectionOpacity = useTransform(smoothProgress, [0, 0.1, 0.9, 1], [0.65, 1, 1, 0.75]);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -308,403 +222,185 @@ export function MasterclassExploreCockpit({ onReserveClick }: MasterclassExplore
   }, []);
 
   return (
-    <div className="w-full mt-12 pt-10 border-t border-[#E4EAF2] text-left">
-      {/* ── Apple-Grade Section Header with Authoritative Eyebrow ── */}
-      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-blue-200/80 bg-blue-50/90 backdrop-blur-md text-xs font-mono font-bold tracking-wider uppercase text-blue-700 shadow-2xs mb-3.5 tone-light card-light">
-          <span className="relative flex h-2 w-2 shrink-0">
+    <div
+      ref={containerRef}
+      className="w-full mt-6 pt-6 sm:mt-8 sm:pt-8 border-t border-slate-200/70 text-left relative"
+    >
+      {/* ── Peak Apple Eyebrow & Compact Header (Scroll-Aware Motion Release) ── */}
+      <motion.div
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ type: "spring", stiffness: 350, damping: 28 }}
+        className="text-center max-w-xl mx-auto mb-4 sm:mb-6"
+      >
+        <motion.div
+          whileHover={shouldReduceMotion ? {} : { scale: 1.04 }}
+          whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
+          transition={{ type: "spring", stiffness: 450, damping: 25 }}
+          className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-blue-200/70 bg-blue-50/70 text-[10px] font-mono font-bold tracking-wider uppercase text-blue-700 shadow-2xs mb-2 tone-light card-light cursor-default"
+        >
+          <span className="relative flex h-1.5 w-1.5 shrink-0">
             <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
           </span>
-          <span>6 Core Industry Modules · Live CRO Simulation</span>
-        </div>
+          <span>6 Hands-On Phases · 90 Minutes</span>
+        </motion.div>
 
-        <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-tight font-serif mb-3">
-          What You’ll Explore In This Session
+        <h2 className="text-xl sm:text-3xl font-bold text-[#081F38] tracking-[-0.03em] font-serif">
+          What You’ll Explore{" "}
+          <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+            In This Session
+          </span>
         </h2>
 
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans max-w-2xl mx-auto">
-          Every module mirrors the real-world operational workflows, clinical software, and regulatory timelines evaluated in top-tier MNC &amp; CRO pharmacovigilance hiring.
+        <p className="text-[11px] sm:text-xs text-slate-500 mt-1 max-w-md mx-auto">
+          The complete adverse event operational workflow simulated live — tap any step to inspect technical interview questions.
         </p>
-      </div>
+      </motion.div>
 
-      {/* ── The 6 Apple Bento Cards (Peak UI/UX Detailing) ── */}
-      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-        {MASTERCLASS_TOPICS.map((topic) => {
-          const Icon = topic.icon;
+      {/* ── Peak Apple Unified Bento Card with Interactive Spring Physics & Scroll Telemetry ── */}
+      <motion.div
+        style={shouldReduceMotion ? {} : { scale: sectionScale, opacity: sectionOpacity }}
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.15 }}
+        transition={{ type: "spring", stiffness: 320, damping: 26 }}
+        className="max-w-4xl mx-auto rounded-2xl bg-white/95 backdrop-blur-xl border border-slate-200/90 shadow-[0_2px_16px_-4px_rgba(8,31,56,0.05)] overflow-hidden tone-light card-light relative"
+      >
+        {/* Apple Dynamic Scroll Progress Hairline (tracks scrolling forward & coming back) */}
+        <motion.div
+          style={shouldReduceMotion ? { scaleX: 1 } : { scaleX: smoothProgress, transformOrigin: "0%" }}
+          className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-blue-500 via-sky-400 to-indigo-500 z-10"
+        />
 
-          return (
-            <div
-              key={topic.id}
-              onClick={() => setSelectedTopic(topic)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setSelectedTopic(topic);
-                }
-              }}
-              className="group relative rounded-[26px] bg-white/95 backdrop-blur-2xl border border-slate-200/90 p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(8,31,56,0.06),0_1px_2px_rgba(8,31,56,0.03)] hover:shadow-[0_20px_40px_-12px_rgba(8,31,56,0.12)] hover:border-blue-400/80 transition-all duration-300 flex flex-col justify-between cursor-pointer tone-light card-light overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-white/90 before:to-transparent"
-            >
-              {/* Top Corner Radial Glow in Accent Color */}
-              <div
-                className="absolute top-0 right-0 w-44 h-44 rounded-full blur-2xl opacity-25 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none -z-10"
-                style={{ backgroundColor: topic.accentColor }}
-                aria-hidden="true"
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+          {/* Column 1 (Steps 01 - 03) */}
+          <div className="divide-y divide-slate-100">
+            {MASTERCLASS_TOPICS.slice(0, 3).map((topic, idx) => (
+              <ModuleRow
+                key={topic.id}
+                topic={topic}
+                index={idx}
+                shouldReduceMotion={shouldReduceMotion}
+                onSelect={() => setSelectedTopic(topic)}
               />
+            ))}
+          </div>
 
-              <div className="space-y-4">
-                {/* 1. Module Eyebrow + Icon Badge */}
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100/90 border border-slate-200/80 text-[10.5px] font-mono font-bold text-slate-600 tracking-wider">
-                    <span className="text-[#081F38] font-extrabold">{topic.index}</span>
-                    <span className="text-slate-300">·</span>
-                    <span className="uppercase text-[9.5px] text-slate-500">{topic.category}</span>
-                  </div>
+          {/* Column 2 (Steps 04 - 06) */}
+          <div className="divide-y divide-slate-100">
+            {MASTERCLASS_TOPICS.slice(3, 6).map((topic, idx) => (
+              <ModuleRow
+                key={topic.id}
+                topic={topic}
+                index={idx + 3}
+                shouldReduceMotion={shouldReduceMotion}
+                onSelect={() => setSelectedTopic(topic)}
+              />
+            ))}
+          </div>
+        </div>
 
-                  {/* Frosted Icon Glyph */}
-                  <div
-                    className="w-9 h-9 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-2xs border"
-                    style={{
-                      backgroundColor: `${topic.accentColor}12`,
-                      borderColor: `${topic.accentColor}30`,
-                      color: topic.accentColor,
-                    }}
-                  >
-                    <Icon className="w-4 h-4" />
-                  </div>
-                </div>
+        {/* Micro Bottom Utility Bar with Live Telemetry Badge */}
+        <div className="px-3.5 py-2 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+          <span className="flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-emerald-600" />
+            ICH E2B(R3) &amp; CIOMS Standards
+          </span>
+          <span className="text-slate-400">
+            Simulated on Real De-identified Datasets
+          </span>
+        </div>
+      </motion.div>
 
-                {/* 2. Title & Lead Description */}
-                <div>
-                  <h3 className="text-lg font-bold text-[#081F38] tracking-tight group-hover:text-blue-600 transition-colors font-serif">
-                    {topic.title}
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-1.5 leading-relaxed font-sans line-clamp-2">
-                    {topic.tagline}
-                  </p>
-                </div>
-
-                {/* 3. PEAK APPLE GRAPHIC ARTIFACT (Bespoke Visual Telemetry Widget) */}
-                <div className="rounded-2xl border border-slate-200/80 bg-slate-50/70 p-3 tone-light card-light group-hover:bg-blue-50/30 transition-colors">
-                  {topic.artifactType === "criteria" && (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase font-semibold">
-                        <span>4 E2B(R3) Criteria</span>
-                        <span className="text-emerald-700 font-bold flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                          Validated
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-                        <div className="px-2 py-1 rounded-lg bg-white tone-light card-light border border-slate-200/80 text-slate-700 flex items-center gap-1">
-                          <span className="text-emerald-500 font-bold">✓</span> Patient: 54F
-                        </div>
-                        <div className="px-2 py-1 rounded-lg bg-white tone-light card-light border border-slate-200/80 text-slate-700 flex items-center gap-1">
-                          <span className="text-emerald-500 font-bold">✓</span> Reporter: MD
-                        </div>
-                        <div className="px-2 py-1 rounded-lg bg-white tone-light card-light border border-slate-200/80 text-slate-700 flex items-center gap-1">
-                          <span className="text-emerald-500 font-bold">✓</span> Atorvastatin
-                        </div>
-                        <div className="px-2 py-1 rounded-lg bg-white tone-light card-light border border-slate-200/80 text-slate-700 flex items-center gap-1">
-                          <span className="text-emerald-500 font-bold">✓</span> Rhabdo (AE)
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between pt-1 text-[10px] text-blue-700 font-mono font-semibold">
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-3 h-3 text-blue-600" />
-                          Day-0 Compliance Clock
-                        </span>
-                        <span className="text-blue-900 font-bold">15-Day SUSAR</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {topic.artifactType === "triage" && (
-                    <div className="space-y-1.5 font-sans">
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase font-semibold">
-                        <span>Triage Decision Matrix</span>
-                        <span className="text-sky-700 font-bold">ICH E2A</span>
-                      </div>
-                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-white tone-light card-light border border-slate-200/80 text-[10.5px]">
-                        <span className="text-slate-500">Seriousness:</span>
-                        <span className="font-bold text-rose-700 font-mono text-[10px] px-1.5 py-0.5 rounded bg-rose-50 border border-rose-200">
-                          SAE · Hospitalization
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-1.5 rounded-lg bg-white tone-light card-light border border-slate-200/80 text-[10.5px]">
-                        <span className="text-slate-500">Causality:</span>
-                        <span className="font-bold text-emerald-700 font-mono text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 border border-emerald-200">
-                          Probable (WHO-UMC)
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 pt-0.5">
-                        <span>SmPC Section 4.8:</span>
-                        <span className="font-semibold text-[#081F38]">Unexpected Reaction</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {topic.artifactType === "coding" && (
-                    <div className="space-y-1.5 font-mono">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 uppercase font-semibold">
-                        <span>MedDRA Hierarchy Tree</span>
-                        <span className="text-purple-700 font-bold">v27.0</span>
-                      </div>
-                      <div className="space-y-1 text-[10px]">
-                        <div className="flex items-center gap-1 text-slate-500 truncate">
-                          <span className="px-1 py-0.2 rounded bg-slate-200 text-slate-700 text-[8.5px] font-bold">SOC</span>
-                          <span className="truncate">Musculoskeletal Disorders</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-slate-600 pl-2 border-l border-slate-300 truncate">
-                          <span className="px-1 py-0.2 rounded bg-slate-200 text-slate-700 text-[8.5px] font-bold">HLT</span>
-                          <span className="truncate">Myopathies</span>
-                        </div>
-                        <div className="flex items-center gap-1 text-purple-700 font-bold pl-4 border-l-2 border-purple-500 bg-purple-50/80 py-0.5 rounded-r truncate">
-                          <span className="px-1 py-0.2 rounded bg-purple-200 text-purple-900 text-[8.5px]">PT</span>
-                          <span className="truncate">Rhabdomyolysis [10039020]</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {topic.artifactType === "database" && (
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase font-semibold">
-                        <span>Safety DB 5-Stage Life Cycle</span>
-                        <span className="text-teal-700 font-bold">Argus 8.2</span>
-                      </div>
-                      <div className="grid grid-cols-5 gap-0.5 text-center font-mono text-[9px]">
-                        {[
-                          { label: "Book-in", active: true },
-                          { label: "Entry", active: true },
-                          { label: "Review", active: true },
-                          { label: "QC", active: false },
-                          { label: "Gate", active: false },
-                        ].map((stage) => (
-                          <div
-                            key={stage.label}
-                            className={`py-1 px-0.5 rounded ${
-                              stage.active
-                                ? "bg-teal-500 text-white font-bold"
-                                : "bg-slate-200/80 text-slate-500"
-                            }`}
-                          >
-                            {stage.label}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex items-center justify-between pt-1 text-[10px] font-mono text-teal-800">
-                        <span className="flex items-center gap-1">
-                          <ShieldCheck className="w-3 h-3 text-teal-600" />
-                          21 CFR Part 11
-                        </span>
-                        <span className="text-slate-500">SHA-256 Hash Log</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {topic.artifactType === "narrative" && (
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 uppercase font-semibold">
-                        <span>CIOMS Narrative Terminal</span>
-                        <span className="text-amber-700 font-bold">Standardized</span>
-                      </div>
-                      <div className="p-2 rounded-xl bg-slate-900 text-slate-200 font-mono text-[9.5px] leading-relaxed max-h-[56px] overflow-hidden border border-slate-800">
-                        <p className="truncate text-amber-300">
-                          &gt; 54F on Atorvastatin 40mg PO OD...
-                        </p>
-                        <p className="truncate text-slate-300">
-                          &gt; CPK: 12,400 IU/L ➔ Dechallenge (+)
-                        </p>
-                        <p className="truncate text-emerald-400">
-                          &gt; Outcome: Recovered (CPK 210)
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-[9.5px] font-mono text-slate-500 pt-0.5">
-                        <span className="px-1 py-0.2 rounded bg-slate-200/80">Chronology</span>
-                        <span className="px-1 py-0.2 rounded bg-slate-200/80">Biomarkers</span>
-                        <span className="px-1 py-0.2 rounded bg-slate-200/80">De-challenge</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {topic.artifactType === "regulatory" && (
-                    <div className="space-y-1.5 font-mono">
-                      <div className="flex items-center justify-between text-[10px] text-slate-500 uppercase font-semibold">
-                        <span>Statutory Timelines Dial</span>
-                        <span className="text-rose-700 font-bold">Global Reg</span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1 text-[9.5px]">
-                        <div className="p-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-950 font-bold">
-                          <div>7 Calendar Days</div>
-                          <div className="text-[8.5px] text-rose-700 font-normal">Fatal / Life-Threat</div>
-                        </div>
-                        <div className="p-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-950 font-bold">
-                          <div>15 Calendar Days</div>
-                          <div className="text-[8.5px] text-blue-700 font-normal">SUSAR Expedited</div>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between pt-0.5 text-[10px] text-emerald-700 font-bold">
-                        <span className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3 h-3 text-emerald-600" />
-                          Gateway Status
-                        </span>
-                        <span>ACK-2 Confirmed</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* 4. Standards & Tech Stack Chips */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  <span className="px-2.5 py-1 rounded-full bg-slate-100 text-slate-700 font-mono text-[10.5px] font-semibold border border-slate-200/80">
-                    {topic.standard.code}
-                  </span>
-                  <span
-                    className="px-2.5 py-1 rounded-full font-mono text-[10.5px] font-semibold border"
-                    style={{
-                      backgroundColor: `${topic.accentColor}10`,
-                      borderColor: `${topic.accentColor}30`,
-                      color: topic.accentColor,
-                    }}
-                  >
-                    {topic.tools.badge}
-                  </span>
-                </div>
-              </div>
-
-              {/* 5. Card Footer: Interview Signal + Apple Action */}
-              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-1.5 text-slate-500 font-medium text-[11px] truncate max-w-[170px] sm:max-w-[190px]">
-                  <Award className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                  <span className="truncate">{topic.interviewSignal.cro}</span>
-                </div>
-
-                <div className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 group-hover:text-blue-800 transition-colors">
-                  <span>Inspect Workflow</span>
-                  <div className="w-5 h-5 rounded-full bg-blue-50 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300">
-                    <ArrowRight className="w-3 h-3 stroke-[2.5]" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* ── Apple-Grade Detail Inspection Modal ── */}
+      {/* ── Apple-Grade Detail Modal (Smooth Spring Release & Exit) ── */}
       <AnimatePresence>
         {selectedTopic && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/60 backdrop-blur-md">
-            {/* Backdrop click dismiss */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
               onClick={() => setSelectedTopic(null)}
               className="absolute inset-0 cursor-pointer"
               aria-hidden="true"
             />
 
-            {/* Modal Window */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              initial={shouldReduceMotion ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.94, y: 16 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", stiffness: 450, damping: 35 }}
-              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-2xl p-6 sm:p-8 tone-light card-light z-10 text-left"
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 12 }}
+              transition={{ type: "spring", stiffness: 480, damping: 32 }}
+              className="relative w-full max-w-lg max-h-[86vh] overflow-y-auto rounded-3xl bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-2xl p-5 sm:p-6 tone-light card-light z-10 text-left"
             >
-              {/* Close Button */}
               <button
                 type="button"
                 onClick={() => setSelectedTopic(null)}
-                className="absolute top-5 right-5 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
+                className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer"
                 aria-label="Close details"
               >
-                <X className="w-4 h-4" />
+                <X className="w-3.5 h-3.5" />
               </button>
 
-              {/* Modal Eyebrow */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-mono font-bold uppercase mb-3">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-mono font-bold uppercase mb-2">
                 <span>MODULE {selectedTopic.index} OF 06</span>
                 <span>·</span>
                 <span>{selectedTopic.category}</span>
               </div>
 
-              {/* Title & Tagline */}
-              <h3 className="text-2xl sm:text-3xl font-bold text-[#081F38] font-serif tracking-tight">
+              <h3 className="text-lg sm:text-xl font-bold text-[#081F38] font-sans tracking-tight">
                 {selectedTopic.title}
               </h3>
-              <p className="text-sm text-slate-600 mt-2 leading-relaxed font-sans">
-                {selectedTopic.tagline}
+              <p className="text-xs text-slate-600 mt-1 leading-relaxed font-sans">
+                {selectedTopic.summary}
               </p>
 
-              {/* Case Context Box */}
-              <div className="mt-6 p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2 tone-light card-light">
-                <div className="text-xs font-mono font-bold uppercase text-slate-500 flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-blue-600" />
-                  Live Operational Simulation Scenario
+              {/* Scenario Context */}
+              <div className="mt-3.5 p-3 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1 tone-light card-light">
+                <div className="text-[10px] font-mono font-bold uppercase text-slate-500 flex items-center gap-1.5">
+                  <Terminal className="w-3 h-3 text-blue-600" />
+                  Live Simulation Scenario
                 </div>
-                <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
-                  {selectedTopic.fullScenario.caseContext}
+                <p className="text-xs text-slate-700 leading-relaxed font-sans">
+                  {selectedTopic.scenario}
                 </p>
               </div>
 
-              {/* What You Master In This Module */}
-              <div className="mt-6 space-y-3">
-                <h4 className="text-xs font-mono font-bold uppercase text-[#081F38] tracking-wider">
-                  Technical Competencies Evaluated in MNC Hiring
+              {/* Technical Question */}
+              <div className="mt-3.5 p-3.5 rounded-2xl bg-blue-50/80 border border-blue-200/80 space-y-1 text-xs">
+                <div className="flex items-center gap-1.5 font-bold text-blue-900 text-[11px]">
+                  <Award className="w-3.5 h-3.5 text-blue-600" />
+                  <span>{selectedTopic.cro} Technical Interview Question</span>
+                </div>
+                <p className="text-blue-950 font-sans italic text-xs leading-relaxed">
+                  "{selectedTopic.interviewQuestion}"
+                </p>
+                <div className="text-[10px] text-blue-700 font-mono pt-0.5">
+                  ★ {selectedTopic.interviewTip}
+                </div>
+              </div>
+
+              {/* Learning Outcomes */}
+              <div className="mt-3.5 space-y-1.5">
+                <h4 className="text-[10.5px] font-mono font-bold uppercase text-[#081F38] tracking-wider">
+                  Key Skills You Master
                 </h4>
-                <div className="space-y-2">
-                  {selectedTopic.fullScenario.learningPoints.map((point) => (
-                    <div key={point} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  {selectedTopic.learningPoints.map((point) => (
+                    <div key={point} className="flex items-start gap-1.5 text-xs text-slate-600 leading-snug">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-600 shrink-0 mt-0.5" />
                       <span>{point}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* 2-Column Standards & Tools */}
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
-                  <div className="font-mono text-[10px] text-slate-400 uppercase font-semibold">
-                    Regulatory Standard
-                  </div>
-                  <div className="font-bold text-[#081F38]">{selectedTopic.standard.code}</div>
-                  <div className="text-[11px] text-slate-500">{selectedTopic.standard.authority}</div>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
-                  <div className="font-mono text-[10px] text-slate-400 uppercase font-semibold">
-                    Primary Software Tool
-                  </div>
-                  <div className="font-bold text-[#081F38]">{selectedTopic.tools.primary}</div>
-                  <div className="text-[11px] text-slate-500">{selectedTopic.tools.secondary}</div>
-                </div>
-              </div>
-
-              {/* Authentic Technical Round Question */}
-              <div className="mt-6 p-4 rounded-2xl bg-blue-50/80 border border-blue-200/80 space-y-1.5 text-xs">
-                <div className="flex items-center gap-1.5 font-bold text-blue-900">
-                  <Award className="w-4 h-4 text-blue-600" />
-                  <span>{selectedTopic.interviewSignal.cro}</span>
-                </div>
-                <p className="text-blue-950 font-serif italic text-xs sm:text-sm">
-                  "{selectedTopic.interviewSignal.question}"
-                </p>
-                <div className="text-[11px] text-blue-700 font-mono">
-                  ★ {selectedTopic.interviewSignal.passRate}
-                </div>
-              </div>
-
-              {/* Modal CTA */}
-              <div className="mt-8 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <div className="flex items-center gap-2 text-slate-500 text-xs">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>100% Free Live Masterclass · Practical Case Work</span>
+              {/* Footer CTA */}
+              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between gap-3">
+                <div className="text-[10.5px] font-mono text-slate-500">
+                  Tool: <strong className="text-[#081F38]">{selectedTopic.tool}</strong>
                 </div>
 
                 {onReserveClick && (
@@ -714,10 +410,10 @@ export function MasterclassExploreCockpit({ onReserveClick }: MasterclassExplore
                       setSelectedTopic(null);
                       onReserveClick();
                     }}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all cursor-pointer"
                   >
-                    <span>Reserve My Seat To Practice This</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>Reserve My Seat</span>
+                    <ArrowRight className="w-3 h-3" />
                   </button>
                 )}
               </div>
@@ -726,5 +422,93 @@ export function MasterclassExploreCockpit({ onReserveClick }: MasterclassExplore
         )}
       </AnimatePresence>
     </div>
+  );
+}
+
+function ModuleRow({
+  topic,
+  index,
+  shouldReduceMotion,
+  onSelect,
+}: {
+  topic: MasterclassTopic;
+  index: number;
+  shouldReduceMotion: boolean | null;
+  onSelect: () => void;
+}) {
+  const Icon = topic.icon;
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -8 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: false, amount: 0.2 }}
+      transition={{
+        type: "spring",
+        stiffness: 380,
+        damping: 26,
+        delay: shouldReduceMotion ? 0 : index * 0.04,
+      }}
+      whileHover={shouldReduceMotion ? {} : { x: 3, backgroundColor: "rgba(248, 250, 252, 0.95)" }}
+      whileTap={shouldReduceMotion ? {} : { scale: 0.985 }}
+      onClick={onSelect}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect();
+        }
+      }}
+      className="group relative px-3.5 py-3 sm:px-4 sm:py-3.5 transition-colors flex items-center justify-between gap-3 cursor-pointer text-left overflow-hidden"
+    >
+      <div className="flex items-center gap-3 min-w-0">
+        {/* Step Index Badge with Subtle Micro Spring */}
+        <motion.span
+          whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
+          transition={{ type: "spring", stiffness: 500, damping: 25 }}
+          className="shrink-0 w-6 h-6 rounded-lg bg-slate-100 border border-slate-200/80 text-[10px] font-mono font-extrabold text-[#081F38] flex items-center justify-center shadow-2xs"
+        >
+          {topic.index}
+        </motion.span>
+
+        {/* Tinted Glyph with Soft Hover Scale */}
+        <motion.div
+          whileHover={shouldReduceMotion ? {} : { scale: 1.12, rotate: 2 }}
+          transition={{ type: "spring", stiffness: 450, damping: 22 }}
+          className="shrink-0 w-7 h-7 rounded-xl flex items-center justify-center border shadow-2xs"
+          style={{
+            backgroundColor: `${topic.accentColor}10`,
+            borderColor: `${topic.accentColor}25`,
+            color: topic.accentColor,
+          }}
+        >
+          <Icon className="w-3.5 h-3.5" />
+        </motion.div>
+
+        {/* Title & 1-line Summary */}
+        <div className="min-w-0 pr-1">
+          <div className="flex items-center gap-2">
+            <h3 className="text-xs sm:text-sm font-bold text-[#081F38] group-hover:text-blue-600 transition-colors truncate">
+              {topic.title}
+            </h3>
+            <span className="hidden sm:inline-block px-1.5 py-0.2 rounded text-[9px] font-mono font-medium text-slate-500 bg-slate-100 border border-slate-200/60 shrink-0">
+              {topic.tool}
+            </span>
+          </div>
+          <p className="text-[11px] text-slate-500 truncate leading-tight mt-0.5">
+            {topic.summary}
+          </p>
+        </div>
+      </div>
+
+      {/* Right Indicator: CRO & Chevron with Spring Slide */}
+      <div className="shrink-0 flex items-center gap-1.5 text-slate-400 group-hover:text-blue-600 transition-colors">
+        <span className="hidden lg:inline text-[10px] font-mono text-slate-400">
+          {topic.cro.split("&")[0].trim()}
+        </span>
+        <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+      </div>
+    </motion.div>
   );
 }

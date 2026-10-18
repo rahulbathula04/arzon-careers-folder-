@@ -51,8 +51,11 @@ export function MasterclassAudience() {
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 text-[#1D4ED8] text-xs font-mono font-bold uppercase tracking-wider mb-3 shadow-2xs">
             <span>04 · Eligibility &amp; Expectations</span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-2">
-            Come with curiosity. Leave with a clearer direction.
+          <h2 className="text-2xl sm:text-4xl font-bold text-[#081F38] tracking-[-0.03em] leading-tight mb-2 font-serif">
+            Come with curiosity.{" "}
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+              Leave with a clearer direction.
+            </span>
           </h2>
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-sans">
             Transparent boundaries upfront so you know exactly what this educational masterclass delivers.

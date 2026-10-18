@@ -186,7 +186,7 @@
   "src/routes/recruiters.tsx": 7,
   "src/routes/refund.tsx": 1,
   "src/routes/resources.$slug.tsx": 51,
-  "src/routes/resources.tsx": 29,
+  "src/routes/resources.tsx": 114,
   "src/routes/roles.index.tsx": 6,
   "src/routes/starter-kit.tsx": 212,
   "src/routes/status.tsx": 4,

@@ -2,6 +2,7 @@ export interface DegreePathway {
   slug: string;
   degreeName: string;
   shortTitle: string;
+  category?: "pharmacy" | "lifesciences" | "allied";
   metaDescription: string;
   overview: string;
   typicalDuration: string;
@@ -34,6 +35,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     slug: "bpharm",
     degreeName: "B.Pharm (Bachelor of Pharmacy)",
     shortTitle: "B.Pharm Career Pathways",
+    category: "pharmacy",
     metaDescription: "Verified career options after B.Pharm in India (2026). Explore Pharmacovigilance, Medical Coding, CDM, and Regulatory Affairs role training.",
     overview: "B.Pharm graduates possess a strong foundational understanding of pharmacology, therapeutics, and drug chemistry. While university curricula cover drug mechanisms, global capability centers (GCCs) and CROs require practical database fluency in Enterprise Safety Database, ICD-10 coding, and Standardized Medical Coding standards.",
     typicalDuration: "4 Years",
@@ -116,6 +118,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     slug: "pharmd",
     degreeName: "Pharm.D (Doctor of Pharmacy)",
     shortTitle: "Pharm.D Career Pathways",
+    category: "pharmacy",
     metaDescription: "Career opportunities for Pharm.D graduates in India (2026). Explore Pharmacovigilance, Medical Writing, and Clinical Research roles.",
     overview: "Pharm.D graduates possess advanced clinical pharmacology, pharmacotherapeutics, and patient care training. Their extensive clinical background makes them prime candidates for high-level drug safety evaluation, medical narrative writing, and clinical trial coordination.",
     typicalDuration: "6 Years (5 Years Academic + 1 Year Internship)",
@@ -175,6 +178,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     slug: "mpharm",
     degreeName: "M.Pharm (Master of Pharmacy)",
     shortTitle: "M.Pharm Career Pathways",
+    category: "pharmacy",
     metaDescription: "Career pathways for M.Pharm postgraduates. Explore Regulatory Affairs, Pharmacovigilance, and Clinical Data Management.",
     overview: "M.Pharm postgraduates (Pharmacology, Pharmaceutics, Regulatory Affairs) have deep domain expertise. Combining postgraduate specialization with industry database skills opens doors to advanced roles in global pharmaceutical capability centers.",
     typicalDuration: "2 Years Post-B.Pharm",
@@ -229,6 +233,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     slug: "bsc-lifesciences",
     degreeName: "B.Sc Life Sciences (Biotech / Biochem / Microbiology)",
     shortTitle: "B.Sc Life Sciences Career Pathways",
+    category: "lifesciences",
     metaDescription: "Career pathways for B.Sc Life Sciences graduates in India. Explore Medical Coding, Clinical Data Management, and Clinical Research.",
     overview: "B.Sc graduates in Biotechnology, Microbiology, Biochemistry, and Zoology have foundational biological science knowledge. Focused practical training in medical coding or clinical data management bridges the gap between general science and specialized healthcare administration.",
     typicalDuration: "3 Years",
@@ -283,6 +288,7 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
     slug: "msc-lifesciences",
     degreeName: "M.Sc Life Sciences (Biotech / Microbiology / Clinical Research)",
     shortTitle: "M.Sc Life Sciences Career Pathways",
+    category: "lifesciences",
     metaDescription: "Career options for M.Sc Life Sciences graduates in India. Explore Clinical SAS Programming, Clinical Data Management, and PV.",
     overview: "M.Sc postgraduates bring advanced scientific analytical skills. Postgraduates seeking tech-enabled healthcare careers often excel in Clinical SAS programming, statistical data validation, and clinical data management.",
     typicalDuration: "2 Years Post-B.Sc",
@@ -330,6 +336,129 @@ export const DEGREE_PATHWAYS: DegreePathway[] = [
       {
         question: "Is Clinical SAS suitable for M.Sc freshers?",
         answer: "Clinical SAS programming offers premium entry-level starting CTCs for analytical M.Sc freshers across pharmaceutical GCCs."
+      }
+    ]
+  },
+  {
+    slug: "allied-health",
+    degreeName: "Allied Health Sciences (BDS / Nursing / BAMS / BHMS)",
+    shortTitle: "Allied Health & Clinical Pathways",
+    category: "allied",
+    metaDescription: "Verified healthcare career pathways for BDS, Nursing, BAMS, and BHMS graduates in India (2026). Explore Inpatient Medical Coding, Clinical Triage, and CRC roles.",
+    overview: "Graduates with clinical backgrounds (BDS, B.Sc Nursing, BAMS, BHMS) possess deep knowledge of human anatomy, surgical procedures, and medical charting. Global capability centers value this clinical acumen for specialized surgical chart review, inpatient medical coding, and pharmacovigilance triage.",
+    typicalDuration: "4–5.5 Years",
+    coreSubjects: ["Human Anatomy & Physiology", "Pathology & Microbiology", "Clinical Medicine & Surgery", "Pharmacology & Therapeutics", "Patient Chart Documentation"],
+    eligibleRoles: [
+      {
+        roleName: "Inpatient Medical Coder (DRG / ICD-10-CM)",
+        roleSlug: "medical-coder",
+        fitLevel: "Direct Prerequisite",
+        whyFit: "Clinical understanding of diagnoses, surgical procedures, and lab values accelerates complex inpatient chart auditing.",
+        keySkillsNeeded: ["ICD-10-CM / PCS", "CPT-4 Surgical Coding", "MS-DRG Grouper", "Medical Terminology"],
+        typicalStartingCtc: "₹3.8L – ₹5.5L"
+      },
+      {
+        roleName: "Clinical Triage Associate (Drug Safety)",
+        roleSlug: "pharmacovigilance-associate",
+        fitLevel: "High Alignment",
+        whyFit: "Patient assessment background simplifies adverse event seriousness evaluation and medical narrative reviews.",
+        keySkillsNeeded: ["Adverse Event Triage", "Enterprise Safety Database", "MedDRA Coding", "Seriousness Criteria"],
+        typicalStartingCtc: "₹3.5L – ₹4.8L"
+      },
+      {
+        roleName: "Clinical Research Coordinator (CRC)",
+        roleSlug: "clinical-research-coordinator",
+        fitLevel: "High Alignment",
+        whyFit: "Bedside clinical experience and patient communication skills directly translate to clinical trial site coordination.",
+        keySkillsNeeded: ["ICH-GCP E6(R2)", "Informed Consent Workflow", "Source Document Verification", "eCRF Tracking"],
+        typicalStartingCtc: "₹3.6L – ₹5.0L"
+      }
+    ],
+    arzonTrainingTracks: [
+      {
+        trackName: "Medical Coding & Clinical Documentation",
+        trackSlug: "medical-coding",
+        duration: "12 Weeks (Blended + Applied Internship)",
+        keyTools: ["ICD-10-CM / PCS", "CPT 2026", "HCPCS Level II", "Clinical Encoders"]
+      }
+    ],
+    eligibilityDisclaimer: "Note: Clinical graduates bring strong diagnostic foundations; transition into MNC capability centers requires practical coding encoder and database software training.",
+    transitionStrategy: [
+      {
+        step: 1,
+        title: "Translate Clinical Expertise into Healthcare IT",
+        description: "Map your clinical patient records experience to standardized coding (ICD-10) or safety triage workflows."
+      },
+      {
+        step: 2,
+        title: "Master Revenue Cycle or Safety Databases",
+        description: "Learn hands-on chart auditing and database entry in simulated enterprise environments."
+      },
+      {
+        step: 3,
+        title: "Build Verified Work Evidence",
+        description: "Complete real-world de-identified surgical chart coding portfolios for recruiter evaluation."
+      }
+    ],
+    faq: [
+      {
+        question: "Can BDS and Nursing graduates work in Pharmacovigilance and Medical Coding?",
+        answer: "Yes. BDS and Nursing graduates are highly sought after by US healthcare RCM and CRO teams due to their clinical patient chart familiarity."
+      }
+    ]
+  },
+  {
+    slug: "dpharm",
+    degreeName: "D.Pharm (Diploma in Pharmacy)",
+    shortTitle: "D.Pharm Career Pathways",
+    category: "pharmacy",
+    metaDescription: "Entry-level career pathways for D.Pharm diploma holders in India (2026). Explore Drug Safety Intake, Clinical Operations Support, and Medical Coding.",
+    overview: "D.Pharm holders have practical pharmacy, drug dosage, and therapeutic knowledge. Structured tool training enables diploma holders to enter healthcare IT operations as safety intake specialists, query tracking associates, or medical coding trainees.",
+    typicalDuration: "2 Years",
+    coreSubjects: ["Pharmaceutics", "Pharmacology & Toxicology", "Hospital & Clinical Pharmacy", "Biochemistry & Clinical Pathology"],
+    eligibleRoles: [
+      {
+        roleName: "PV Intake Associate (Case Receipt & Triage)",
+        roleSlug: "pharmacovigilance-associate",
+        fitLevel: "Specialized Bridge",
+        whyFit: "Medicinal nomenclature knowledge simplifies recording incoming safety information and checking minimum validity criteria.",
+        keySkillsNeeded: ["Safety Intake Workflow", "Minimum Case Criteria", "Receipt Tracking Logs", "MedDRA Terminology"],
+        typicalStartingCtc: "₹2.8L – ₹3.8L"
+      },
+      {
+        roleName: "Medical Coding Trainee",
+        roleSlug: "medical-coder",
+        fitLevel: "Specialized Bridge",
+        whyFit: "Basic anatomy and pharmacology understanding supports entry-level outpatient evaluation and management coding.",
+        keySkillsNeeded: ["ICD-10-CM Basics", "Medical Terminology", "HIPAA Compliance", "Chart Review"],
+        typicalStartingCtc: "₹2.8L – ₹3.6L"
+      }
+    ],
+    arzonTrainingTracks: [
+      {
+        trackName: "Pharmacovigilance Intake & Case Processing",
+        trackSlug: "pharmacovigilance",
+        duration: "12 Weeks (Blended + Applied Internship)",
+        keyTools: ["Enterprise Safety Database", "Intake Triage Logs", "MedDRA", "Case Receipt"]
+      }
+    ],
+    eligibilityDisclaimer: "Note: D.Pharm graduates enter via intake and operations support tiers; advancing into senior specialized tracks often benefits from continuing bachelor education alongside corporate experience.",
+    transitionStrategy: [
+      {
+        step: 1,
+        title: "Focus on Entry Operations & Triage Roles",
+        description: "Target case intake, data verification, and document reconciliation positions in healthcare BPOs and CROs."
+      },
+      {
+        step: 2,
+        title: "Develop Database & Compliance Rigor",
+        description: "Build proficiency in entry-level safety intake logs and standard operating procedures (SOPs)."
+      }
+    ],
+    faq: [
+      {
+        question: "Are D.Pharm holders eligible for Pharmacovigilance roles?",
+        answer: "Yes, D.Pharm holders qualify for initial intake associate and case receipt trainee positions before progressing into core case processing."
       }
     ]
   }

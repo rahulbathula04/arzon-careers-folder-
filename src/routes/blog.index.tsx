@@ -23,6 +23,7 @@ export const Route = createFileRoute("/blog/")({
 
 const CATEGORIES = [
   { id: "all", label: "All Intelligence" },
+  { id: "career-guidance", label: "Career Strategy" },
   { id: "pharmacovigilance", label: "Pharmacovigilance" },
   { id: "medical-coding", label: "Medical Coding" },
   { id: "clinical-data-management", label: "Clinical Data" },

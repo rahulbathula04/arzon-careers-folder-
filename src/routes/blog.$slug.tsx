@@ -5,7 +5,8 @@ import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: async ({ params }) => {
-    const post = getBlogPostBySlug(params.slug);
+    const cleanSlug = params.slug.replace(/[\.\/]+$/, "").trim();
+    const post = getBlogPostBySlug(params.slug) || getBlogPostBySlug(cleanSlug);
     if (!post) throw notFound();
     return { post };
   },

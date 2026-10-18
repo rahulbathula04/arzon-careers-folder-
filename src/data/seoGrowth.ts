@@ -206,6 +206,14 @@ export const SEO_GROWTH_CITIES = [
   "delhi-ncr",
   "ahmedabad",
   "kochi",
+  "coimbatore",
+  "kolkata",
+  "vijayawada",
+  "visakhapatnam",
+  "lucknow",
+  "jaipur",
+  "nagpur",
+  "chandigarh",
 ] as const;
 
 export const SEO_GROWTH_GUARDRAILS = {

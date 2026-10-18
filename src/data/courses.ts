@@ -119,7 +119,7 @@ export const COURSES: Course[] = [
     blurb:
       "Collect, analyse and report drug-safety data to keep patients safe and meet global regulations.",
     heroTagline:
-      "Built from 1,247 live Drug Safety Associate JDs. Safety Database + Standardized Coding + E2B(R3) the way Cognizant, IQVIA and Accenture actually hire for.",
+      "Derived from 300+ verified entry-level healthcare JDs. Safety Database + Standardized Coding + E2B(R3) the way Cognizant, IQVIA and Accenture actually hire for.",
     tools: ["Enterprise Safety Database", "Multi-Sponsor Safety Systems", "Standardized Medical Coding", "Global Medicinal Product Dictionaries", "E2B(R3)", "VigiBase", "EudraVigilance"],
     jd: {
       topSkills: [
@@ -230,7 +230,7 @@ export const COURSES: Course[] = [
     blurb:
       "Master the coding standards hospitals and insurers use to process global healthcare claims.",
     heroTagline:
-      "Built from 1,893 live fresher Medical Coder JDs. ICD-10-CM, CPT, E/M, modifiers - exactly what Optum, Omega and Access Healthcare interview on.",
+      "Derived from 300+ verified entry-level healthcare JDs. ICD-10-CM, CPT, E/M, modifiers - exactly what Optum, Omega and Access Healthcare interview on.",
     tools: [
       "ICD-10-CM",
       "ICD-10-PCS",
@@ -349,7 +349,7 @@ export const COURSES: Course[] = [
     Icon: Database,
     blurb: "Manage, validate and report clinical-trial data using industry-standard CDISC tools.",
     heroTagline:
-      "Built from 684 live Clinical Data Associate JDs. Electronic Data Capture (EDC), CDASH, SDTM - the toolkit IQVIA, Parexel and Syneos hire freshers for.",
+      "Derived from 300+ verified entry-level healthcare JDs. Electronic Data Capture (EDC), CDASH, SDTM - the toolkit IQVIA, Parexel and Syneos hire freshers for.",
     tools: [
       "Electronic Data Capture (EDC)",
       "Oracle Clinical / RDC",
@@ -449,7 +449,7 @@ export const COURSES: Course[] = [
     Icon: Code2,
     blurb: "Program SDTM/ADaM datasets and TLFs for regulatory submissions.",
     heroTagline:
-      "Built from 512 live Clinical SAS Programmer JDs. Base SAS + Macros, SDTM, ADaM, TLFs - the exact stack CROs interview on.",
+      "Derived from 300+ verified entry-level healthcare JDs. Base SAS + Macros, SDTM, ADaM, TLFs - the exact stack CROs interview on.",
     tools: ["SAS Base", "SAS Macros", "SAS SQL", "SDTM", "ADaM", "Define-XML", "Pinnacle 21"],
     jd: {
       topSkills: [
@@ -542,7 +542,7 @@ export const COURSES: Course[] = [
     Icon: FileCheck2,
     blurb: "Submissions and approvals across FDA, EMA and CDSCO for global health authorities.",
     heroTagline:
-      "Built from 437 live Regulatory Affairs Associate JDs. eCTD modules, Enterprise RIM Platforms, ANDA/NDA/MAA - exactly what Dr Reddy's, Sun Pharma and Aurobindo hire for.",
+      "Derived from 300+ verified entry-level healthcare JDs. eCTD modules, Enterprise RIM Platforms, ANDA/NDA/MAA - exactly what Dr Reddy's, Sun Pharma and Aurobindo hire for.",
     tools: ["eCTD", "FDA portals", "EMA EudraLex", "CDSCO SUGAM", "Enterprise RIM Platforms"],
     jd: {
       topSkills: [

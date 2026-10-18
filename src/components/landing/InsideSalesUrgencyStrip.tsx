@@ -65,7 +65,7 @@ export function InsideSalesUrgencyStrip() {
       <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/[0.10] to-white/[0.02] p-5 sm:p-7">
         <div className="flex flex-wrap items-center gap-3">
           <Pill icon={Clock} text={`Applications close in ${countdown}`} tone="gold" />
-          <Pill icon={Users} text={`${LIVE_LEARNERS_LABEL} students learning live`} tone="muted" />
+          <Pill icon={Users} text={`${LIVE_LEARNERS_LABEL} · 60 seats/batch`} tone="muted" />
           {counsellorsOnline && (
             <Pill icon={MessageCircle} text="Counsellors online now" tone="emerald" />
           )}

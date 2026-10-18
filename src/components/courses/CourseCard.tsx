@@ -1,154 +1,120 @@
 import { Link } from "@tanstack/react-router";
-import type { CSSProperties } from "react";
-import { ArrowUpRight, Clock3, Briefcase, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Course } from "@/data/courses";
-import { getAIRisk, aiRiskMeta, getSalaryBand, getLastBatch } from "@/data/courseExtras";
-import { getCourseMeta } from "@/data/courseMeta";
+import { getSalaryBand } from "@/data/courseExtras";
 import { thumbFor } from "@/data/courseThumbs";
-import { getTrackTheme } from "@/data/trackTheme";
 
 /**
- * Visual programme card: role imagery first, then the decision data a candidate needs.
- * Reads like a premium programme tile rather than a text-only datasheet.
+ * Programme Card Blueprint aligned with Arzon Home Page Guidelines (v1.0 • 2026)
+ * Matches HomePriorityTracks visual grammar:
+ * - 16:9 thumbnail cover with floating duration pill
+ * - Deep navy header (#071A4A), slate summary (#64748B)
+ * - Standardized tool chips (#F1F5F9 with slate-200 border)
+ * - Dual direct actions: 'View details' + 'Apply'
  */
 export function CourseCard({ course }: { course: Course }) {
   const { Icon } = course;
-  const risk = getAIRisk(course);
-  const riskMeta = aiRiskMeta(risk);
   const salary = getSalaryBand(course);
-  const batch = getLastBatch(course);
-  const meta = getCourseMeta(course);
   const thumb = thumbFor(course.slug, course.category);
-  const theme = getTrackTheme(course.slug);
 
   return (
-    <Link
-      to="/courses/$slug"
-      params={{ slug: course.slug }}
+    <article
       data-track={course.slug}
-      style={{ "--track-from": theme.hex.from, "--track-to": theme.hex.to } as CSSProperties}
-      className="arzon-v2-card group relative flex flex-col overflow-hidden transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--arzon-blue-100)] hover:shadow-[var(--arzon-shadow-popover)]"
+      className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-all group tone-light card-light"
     >
-      {/* Locked track accent strip - single source of identity color on the card */}
-      <span aria-hidden className={`absolute inset-x-0 top-0 z-10 h-[3px] ${theme.accent}`} />
-      {/* Cover image, universal 16:9 with algorithmic gradient mesh */}
-      <div
-        className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--arzon-navy-950)]"
-        style={{
-          background: `
-            radial-gradient(circle at 10% 20%, color-mix(in srgb, var(--track-from) 40%, transparent) 0%, transparent 50%),
-            radial-gradient(circle at 90% 80%, color-mix(in srgb, var(--track-to) 40%, transparent) 0%, transparent 50%),
-            var(--arzon-navy-950)
-          `,
-        }}
-      >
-        <div className="absolute inset-0 opacity-10 mix-blend-overlay"></div>
-        {thumb && (
-          <img
-            src={thumb}
-            alt={`${course.title} programme cover`}
-            loading="lazy"
-            className="relative z-10 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-          />
-        )}
-        <div
-          aria-hidden
-          className="absolute inset-0 z-20 bg-gradient-to-t from-[var(--arzon-navy-950)]/80 via-transparent to-transparent"
-        />
-        <div
-          className={`absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-[#0a0c10]/80 px-2.5 py-1 shadow-sm ring-1 backdrop-blur ${theme.ring}`}
-        >
-          <Icon className={`h-3.5 w-3.5 ${theme.accentText}`} />
-          <span className="font-mono text-micro font-bold uppercase tracking-[0.18em] text-white">
-            {course.category.split(" ")[0]}
-          </span>
-        </div>
-        <ArrowUpRight className="absolute right-3 top-3 h-5 w-5 text-white/80 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
-      </div>
-
-      <div className="flex flex-col gap-5 p-5 sm:p-6">
-        {/* Top row */}
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div>
-              <p className="arzon-v2-data-label">
-                {course.category}
-              </p>
-              <p className="mt-0.5 font-mono text-micro text-[var(--arzon-ink-muted)]">
-                {course.jd.demand} demand · Difficulty {meta.difficulty}/5
-              </p>
+      <div>
+        {/* 16:9 Image Thumbnail with Duration Badge & Category Pill */}
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100">
+          {thumb ? (
+            <img
+              src={thumb}
+              alt={course.title}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#081F38] to-[#1E3A8A]">
+              <Icon className="h-10 w-10 text-white/40" />
             </div>
-          </div>
-        </div>
-
-        {/* Title & blurb */}
-        <div>
-          <h3 className="h-card text-[var(--arzon-ink)]">{course.title}</h3>
-          <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-[var(--arzon-ink-soft)]">{course.blurb}</p>
-        </div>
-
-        {/* Salary + AI posture */}
-        <div className="grid grid-cols-2 gap-3 rounded-xl border border-[var(--arzon-border)] bg-[var(--arzon-surface-subtle)] p-4">
-          <div>
-            <p className="font-mono text-micro uppercase tracking-[0.2em] text-[var(--arzon-ink-muted)]">
-              Salary band
-            </p>
-            <p className="mt-1 text-sm font-semibold text-[var(--arzon-ink)]">
-              {salary.y1} <span className="text-[var(--arzon-ink-muted)]">→</span> {salary.y3}
-            </p>
-            <p className="mt-0.5 font-mono text-micro text-[var(--arzon-ink-muted)]">Y1 → Y3</p>
-          </div>
-          <div>
-            <p className="font-mono text-micro uppercase tracking-[0.2em] text-[var(--arzon-ink-muted)]">
-              AI posture
-            </p>
-            <span
-              className={`mt-1 inline-flex rounded-full border px-2 py-0.5 text-micro font-semibold ${riskMeta.tone}`}
-            >
-              {riskMeta.label}
-            </span>
-            <p className="mt-1 font-mono text-micro text-[var(--arzon-ink-muted)]">
-              Last batch · {batch.placed}/{batch.total}
-            </p>
-          </div>
-        </div>
-
-        {/* Tools */}
-        <div className="flex flex-wrap gap-1.5">
-          {course.tools.slice(0, 4).map((t) => (
-            <span
-              key={t}
-              className="card-light rounded-full border border-[var(--arzon-border)] bg-white px-2 py-0.5 font-mono text-micro text-[var(--arzon-ink-soft)]"
-            >
-              {t}
-            </span>
-          ))}
-          {course.tools.length > 4 && (
-            <span className="rounded-full px-2 py-0.5 font-mono text-micro text-[var(--arzon-ink-muted)]">
-              +{course.tools.length - 4}
-            </span>
           )}
+
+          {/* Floating Duration Badge (Bottom-Right) */}
+          <div className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-mono font-bold text-[#1557D6] border border-white/80 shadow-xs tone-light card-light">
+            <span>12 Weeks</span>
+          </div>
+
+          {/* Floating Category Pill (Top-Left) */}
+          <div className="absolute top-2.5 left-2.5 inline-flex items-center gap-1 rounded-full bg-[#081F38]/85 backdrop-blur-xs px-2.5 py-0.5 text-[10px] font-mono font-bold text-white border border-white/20">
+            <span>{course.category}</span>
+          </div>
         </div>
 
-        {/* Footer meta */}
-        <div className="mt-auto flex items-center justify-between border-t border-[var(--arzon-border)] pt-4 text-micro text-[var(--arzon-ink-muted)]">
-          <span className="inline-flex items-center gap-1.5">
-            <Clock3 className="h-3.5 w-3.5" /> 12 wk
-          </span>
+        {/* Card Body */}
+        <div className="p-4 sm:p-5 space-y-2.5 sm:space-y-3">
+          {/* Demand & Salary Header */}
+          <div className="flex items-center justify-between gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#E6F7F1] border border-[#10B981]/25 px-2 py-0.5 font-mono text-[10px] font-bold text-[#081F38]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
+              {course.jd.demand} Demand
+            </span>
+            <span className="font-mono text-[11px] font-semibold text-[#1557D6]">
+              {salary.y1} &rarr; {salary.y3}
+            </span>
+          </div>
 
-          <span
-            className={`inline-flex items-center gap-1.5 font-semibold ${theme.accentText} truncate max-w-[120px]`}
-          >
-            <Briefcase className="h-3.5 w-3.5 shrink-0" />{" "}
-            <span className="truncate">{course.jd.hiringRoles[0]?.split("(")[0].trim()}</span>
-          </span>
+          {/* Title */}
+          <h3 className="font-sans text-base font-bold text-[#071A4A] leading-snug group-hover:text-[#1557D6] transition-colors line-clamp-2">
+            <Link to="/courses/$slug" params={{ slug: course.slug }}>
+              {course.title}
+            </Link>
+          </h3>
+
+          {/* 1-Line Outcome Summary */}
+          <p className="text-xs text-[#64748B] leading-relaxed line-clamp-2">
+            {course.blurb}
+          </p>
+
+          {/* Standardized Tool Badges */}
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {course.tools.slice(0, 3).map((tool) => (
+              <span
+                key={tool}
+                className="inline-flex items-center rounded-md bg-[#F1F5F9] px-2 py-0.5 text-[10px] font-mono font-semibold text-[#475569] border border-slate-200/70"
+              >
+                {tool}
+              </span>
+            ))}
+            {course.tools.length > 3 && (
+              <span className="inline-flex items-center rounded-md bg-white px-2 py-0.5 text-[10px] font-mono font-semibold text-[#64748B] border border-slate-200/70 tone-light card-light">
+                +{course.tools.length - 3}
+              </span>
+            )}
+          </div>
         </div>
-
-        {/* Subtle hover sparkle */}
-        <Sparkles
-          className={`pointer-events-none absolute right-4 top-4 h-3 w-3 opacity-0 transition-opacity group-hover:opacity-60 ${theme.accentText}`}
-        />
       </div>
-    </Link>
+
+      {/* Card Footer Actions */}
+      <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between border-t border-[#F1F5F9] bg-[#FAFCFF]">
+        <Link
+          to="/courses/$slug"
+          params={{ slug: course.slug }}
+          aria-label={`See full programme - ${course.title}`}
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"
+        >
+          <span>View details</span>
+          <ArrowRight className="h-3 w-3" />
+        </Link>
+        <Link
+          to="/apply"
+          search={{ programme: course.slug, source: "courses_catalog_grid" }}
+          aria-label={`Apply for this internship - ${course.title}`}
+          className="inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] hover:bg-[#1557D6] hover:text-white px-3 py-1 text-xs font-bold text-[#1557D6] transition-colors"
+        >
+          <span>Apply</span>
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </article>
   );
 }

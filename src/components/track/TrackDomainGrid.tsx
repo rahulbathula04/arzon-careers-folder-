@@ -150,11 +150,11 @@ export function TrackDomainGrid({
 
               <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Link
-                  to="/enrol"
+                  to="/apply"
                   search={{ programme: c.slug, source }}
                   data-apply-surface="track-domain-grid"
                   data-programme-slug={c.slug}
-                  aria-label={`Apply for ${c.label} internship`}
+                  aria-label={`Apply for this internship - ${c.label}`}
                   className={`inline-flex min-h-11 w-full items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 sm:w-auto ${tk.primary}`}
                 >
                   Apply now
@@ -163,7 +163,7 @@ export function TrackDomainGrid({
                 <Link
                   to="/courses/$slug"
                   params={{ slug: c.slug }}
-                  aria-label={`See full ${c.label} programme`}
+                  aria-label={`See full programme - ${c.label}`}
                   className={`inline-flex min-h-11 w-full items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 sm:w-auto ${tk.secondary}`}
                 >
                   See full programme

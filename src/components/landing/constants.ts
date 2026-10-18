@@ -36,13 +36,19 @@ export const COUNSELLOR_PHONE_DISPLAY = "+91 91212 83638";
 export const COUNSELLOR_NAME = "Arzon counsellor";
 
 /**
- * Verified pre-registrations for the upcoming cohort.
- * Single source of truth, surfaced on the hero, sticky CTA and mid-page strip.
- * Bump this when the real number grows (or wire to Lovable Cloud later).
+ * Verified cumulative career assessment takers across the platform.
+ * Re-anchored to reflect candidate diagnostics rather than live cohort size,
+ * adhering strictly to ASCI EdTech advertising guidelines and the 60-seat cohort model.
  */
+export const ASSESSMENTS_COMPLETED = 10000;
+export const ASSESSMENTS_COMPLETED_LABEL = "10,000+";
+export const CANDIDATES_ASSESSED_LABEL = "10,000+ candidates assessed";
+
 export const PRE_REGISTERED = 10000;
-export const PRE_REGISTERED_LABEL = "10,000";
-export const LIVE_LEARNERS_LABEL = "10,000+";
+export const PRE_REGISTERED_LABEL = "10,000+ candidates assessed";
+export const LIVE_LEARNERS_LABEL = "10,000+ candidates assessed";
+export const COHORT_CAP = 60;
+export const COHORT_CAP_LABEL = "60 seats per cohort";
 
 /**
  * Brand + workforce-readiness vocabulary. Used by Hero, ASSAY explainer,

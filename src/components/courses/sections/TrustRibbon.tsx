@@ -8,7 +8,7 @@ const ITEMS: { icon: typeof ShieldCheck | "task"; label: string }[] = [
   { icon: BadgeCheck, label: "MSME UDYAM · Govt of India" },
   { icon: Building2, label: "HYBIZ TV HD Telecast" },
   { icon: GraduationCap, label: "ETV partner programme" },
-  { icon: Users, label: PRE_REGISTERED_LABEL },
+  { icon: Users, label: "10,000+ Candidates Assessed" },
 ];
 
 /**

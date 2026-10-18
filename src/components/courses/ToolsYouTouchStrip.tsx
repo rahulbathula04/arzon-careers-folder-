@@ -1,79 +1,123 @@
-import { Wrench, Building2 } from "lucide-react";
+import { Wrench, Building2, Info, CheckCircle2 } from "lucide-react";
 
 const INDUSTRY_DOMAINS: Record<string, string> = {
   Pharmacovigilance: "Global CROs · Indian Pharma GCCs · Multinational Safety Hubs",
   "Medical Coding": "US Health Systems · Revenue Cycle Managers · Inpatient Billing Units",
-  "Clinical Research": "Global CRO Networks · Phase I–IV Trial Units · Site Management Hubs",
-  "SAS Clinical": "Regulatory Biostatistics Units · Statistical Computing GCCs · CRO Data Units",
+  "Clinical Data Management": "Global CRO Networks · Phase I–IV Trial Units · Site Management Hubs",
+  "Clinical SAS Programming": "Regulatory Biostatistics Units · Statistical Computing GCCs · CRO Data Units",
 };
 
 /**
- * 70%-band content for /courses - the actual tools graduates use on the job,
- * grouped by track. No Apply CTA in this block.
+ * Tools You Will Touch in Hands-On Lab Work (Brand Guidelines v1.0 • 2026)
+ * Real tools and dictionaries encountered in entry-level clinical safety and informatics workflows.
  */
 const TRACKS: { name: string; tools: string[] }[] = [
-  { name: "Pharmacovigilance", tools: ["Enterprise Safety DB", "ICSR Gateways", "Standardized Medical Coding", "Drug Product Dictionaries", "E2B(R3) Transmission"] },
-  { name: "Medical Coding", tools: ["ICD-10-CM", "CPT", "HCPCS", "Clinical Encoders", "CAC Software"] },
   {
-    name: "Clinical Research",
-    tools: ["Electronic Data Capture (EDC)", "eTMF Platforms", "eCRF Workflows", "Query Management", "ICH-GCP"],
+    name: "Pharmacovigilance",
+    tools: [
+      "Enterprise Safety DB",
+      "ICSR Gateways",
+      "MedDRA Dictionary",
+      "WHODrug",
+      "E2B(R3) Transmission",
+    ],
   },
-  { name: "SAS Clinical", tools: ["Clinical Statistical Programming", "SDTM", "ADaM", "Define-XML", "CDISC Validation"] },
+  {
+    name: "Medical Coding",
+    tools: [
+      "ICD-10-CM",
+      "CPT Codes",
+      "HCPCS Level II",
+      "Clinical Encoders",
+      "CAC Systems",
+    ],
+  },
+  {
+    name: "Clinical Data Management",
+    tools: [
+      "Electronic Data Capture (EDC)",
+      "CDASH Standards",
+      "eCRF Workflows",
+      "Discrepancy / Query Logs",
+      "ICH-GCP Guidelines",
+    ],
+  },
+  {
+    name: "Clinical SAS Programming",
+    tools: [
+      "Base SAS",
+      "SAS Macros & SQL",
+      "SDTM Domains",
+      "ADaM Datasets",
+      "Pinnacle 21 Community",
+    ],
+  },
 ];
 
 export function ToolsYouTouchStrip() {
   return (
     <section
-      aria-label="Tools you'll touch in each programme"
-      className="tone-light rounded-3xl border border-border bg-gradient-to-b from-white to-slate-50 p-6 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.25)] sm:p-8"
+      aria-labelledby="tools-strip-heading"
+      className="py-12 sm:py-16 border-t border-[#E4EAF2]"
     >
-      <div className="flex items-center gap-2">
-        <Wrench className="h-4 w-4 text-[color:var(--teal-deep)]" />
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-[color:var(--teal-deep)]">
-          Tools you'll touch
-        </p>
-      </div>
-      <h2 className="mt-2 font-display text-h3 font-bold leading-tight text-ink sm:text-h2">
-        The exact software fresh hires open on day one.
-      </h2>
-      <p className="mt-3 max-w-2xl text-[13.5px] leading-relaxed text-muted-foreground">
-        Every tool below is the literal stack pulled from 100–200 live Indian JDs per role. No
-        "industry-standard" hand-waving - these are the strings the recruiter is grepping your CV
-        for.
-      </p>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        {TRACKS.map((t) => (
-          <div
-            key={t.name}
-            className="tone-light rounded-2xl border border-border bg-white p-5 shadow-[0_4px_14px_-6px_rgba(15,23,42,0.12)] transition hover:border-border hover:shadow-[0_10px_24px_-12px_rgba(15,23,42,0.2)]"
-          >
-            <div className="flex items-start justify-between gap-3">
-              <p className="font-display text-body-sm font-bold text-ink">{t.name}</p>
-              <span className="rounded-full bg-accent-emerald-soft px-2 py-0.5 font-mono text-micro font-semibold uppercase tracking-[0.18em] text-accent-emerald-deep ring-1 ring-sky-200">
-                Day one
-              </span>
-            </div>
-            <ul className="mt-3 flex flex-wrap gap-1.5">
-              {t.tools.map((tool) => (
-                <li
-                  key={tool}
-                  className="rounded-full bg-muted px-2.5 py-1 font-mono text-micro font-semibold text-ink ring-1 ring-border"
-                >
-                  {tool}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-3 inline-flex items-center gap-1.5 font-mono text-micro font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              <Building2 className="h-3 w-3" /> Hiring Hubs · {INDUSTRY_DOMAINS[t.name]}
-            </p>
+      <div className="tone-light card-light rounded-3xl border border-[#E4EAF2] bg-white p-6 sm:p-10 shadow-xs">
+        <div className="flex items-center gap-2">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] shadow-2xs tone-light card-light">
+            <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
+            <span>HANDS-ON LAB ENVIRONMENTS</span>
           </div>
-        ))}
-      </div>
+        </div>
 
-      <p className="mt-5 text-center font-mono text-micro font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-        Stack refreshed every quarter from the live JD pool
-      </p>
+        <h2
+          id="tools-strip-heading"
+          className="mt-3 text-2xl sm:text-3xl font-bold text-[#081F38] tracking-tight"
+        >
+          Software, Dictionaries &amp; Standards You Will Work With
+        </h2>
+        <p className="mt-2 max-w-2xl text-sm sm:text-base text-[#475569] leading-relaxed font-normal">
+          Reverse-engineered from 2,000+ Indian entry-level healthcare and data JDs. You build your portfolio projects with the exact systems and standards recruiters look for.
+        </p>
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {TRACKS.map((t) => (
+            <div
+              key={t.name}
+              className="tone-light card-light rounded-2xl border border-[#E4EAF2] bg-[#F8FAFC] p-5 transition hover:bg-white hover:border-[#1557D6]/30 hover:shadow-xs"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-base font-bold text-[#071A4A]">{t.name}</p>
+                <span className="rounded-full bg-[#E6F7F1] border border-[#10B981]/25 px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#081F38]">
+                  Day-one skills
+                </span>
+              </div>
+
+              <ul className="mt-3.5 flex flex-wrap gap-1.5">
+                {t.tools.map((tool) => (
+                  <li
+                    key={tool}
+                    className="rounded-md bg-white border border-slate-200/80 px-2.5 py-1 font-mono text-[11px] font-semibold text-[#071A4A] shadow-2xs tone-light card-light"
+                  >
+                    {tool}
+                  </li>
+                ))}
+              </ul>
+
+              <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold text-[#64748B]">
+                <Building2 className="h-3.5 w-3.5 text-[#1557D6]" />
+                <span className="truncate">{INDUSTRY_DOMAINS[t.name]}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Educational Simulation Disclosure */}
+        <div className="mt-8 flex items-start gap-3 rounded-xl border border-[#E4EAF2] bg-[#F8FAFC] p-4 text-xs text-[#64748B] tone-light card-light">
+          <Info className="h-4 w-4 shrink-0 text-[#1557D6] mt-0.5" />
+          <p className="leading-relaxed font-normal">
+            <strong className="text-[#071A4A] font-semibold">Educational Simulation Disclosure:</strong> Software tools, proprietary databases, and medical coding dictionaries are taught conceptually using synthetic, anonymized training scenarios and compliant sandbox environments. Arzon Careers does not sell proprietary enterprise software licenses.
+          </p>
+        </div>
+      </div>
     </section>
   );
 }

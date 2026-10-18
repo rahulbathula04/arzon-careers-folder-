@@ -68,7 +68,7 @@ export const Route = createFileRoute("/why-arzon")({
                 name: "Is Arzon Global real or fake?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Arzon Global is an officially registered Indian enterprise under UDYAM MSME (Government of India) and operates in collaboration with the Telangana Academy for Skill & Knowledge (TASK), Dept of ITE&C, Govt of Telangana. Its public launch was inaugurated by Dr. Srikanth Sinha, CEO of TASK. All credentials follow the ISO 9001:2015 quality framework.",
+                  text: "Arzon Global is an officially registered Indian enterprise under UDYAM MSME (Government of India) and is recognized by the Telangana Academy for Skill & Knowledge (TASK), Dept of ITE&C, Govt of Telangana. Its public launch was inaugurated by Dr. Srikanth Sinha, CEO of TASK. All credentials follow the ISO 9001:2015 quality framework.",
                 },
               },
               {
@@ -168,7 +168,7 @@ const AUTHORITY = [
   {
     icon: Landmark,
     label: "Government Alignment",
-    value: "TASK Collaboration",
+    value: "TASK Recognition",
     detail: "Telangana Academy for Skill & Knowledge (Dept of ITE&C) — launch event inaugurated by TASK CEO Dr. Srikanth Sinha.",
     verifyUrl: LINKS.mediaInauguration.watch,
     verifyText: "Watch Inauguration Telecast ↗",

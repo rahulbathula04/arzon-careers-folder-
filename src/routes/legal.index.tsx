@@ -85,7 +85,7 @@ function LegalHubPage() {
       label: "Telangana Academy for Skill (TASK)",
       regNumber: "Dept of ITE&C Alignment",
       authority: "Govt. of Telangana",
-      note: "Public launch inaugurated in collaboration with TASK leadership to strengthen state graduate readiness.",
+      note: "Public launch inaugurated in recognition with TASK leadership to strengthen state graduate readiness.",
     },
   ];
 
@@ -246,7 +246,7 @@ function LegalHubPage() {
                 </a>
               </div>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Arzon Global operates in collaboration with the Telangana Academy for Skill and Knowledge (TASK, Department of Information Technology, Electronics &amp; Communications, Government of Telangana). The Hyderabad facility was formally inaugurated with TASK CEO Dr. Srikanth Sinha as Chief Guest, broadcasted by regional news networks (HYBIZ TV HD, ETV Telangana, TV5 News). This alignment reflects workforce skilling initiatives and does not constitute statutory government accreditation or civil service recruitment.
+                Arzon Global is recognized by the Telangana Academy for Skill and Knowledge (TASK, Department of Information Technology, Electronics &amp; Communications, Government of Telangana). The Hyderabad facility was formally inaugurated with TASK CEO Dr. Srikanth Sinha as Chief Guest, broadcasted by regional news networks (HYBIZ TV HD, ETV Telangana, TV5 News). This alignment reflects workforce skilling initiatives and does not constitute statutory government accreditation or civil service recruitment.
               </p>
             </div>
           </div>

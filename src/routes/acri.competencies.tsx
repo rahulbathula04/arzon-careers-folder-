@@ -144,7 +144,7 @@ function AcriCompetenciesPage() {
           </h1>
 
           <p className="font-sans text-base sm:text-lg text-stone-700 leading-relaxed max-w-3xl">
-            Derived directly from 1,247 active job descriptions across top CROs and multinational pharmaceutical companies, the ACRI Competency Framework establishes the exact skills required for entry-level operational independence.
+            Derived directly from 300+ verified entry-level job descriptions across top CROs and multinational pharmaceutical companies, the ACRI Competency Framework establishes the exact skills required for entry-level operational independence.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">

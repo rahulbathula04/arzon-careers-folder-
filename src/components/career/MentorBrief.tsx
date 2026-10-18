@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { Briefcase, Check, Copy, Download, FileText, Link2, Loader2 } from "lucide-react";
-import jsPDF from "jspdf";
-import autoTable from "jspdf-autotable";
 import { createShareCard } from "@/lib/shareCard.functions";
 import { absUrl } from "@/components/landing/constants";
 
@@ -115,7 +113,11 @@ export function MentorBrief({
       .catch(() => undefined);
   };
 
-  const onDownloadPdf = () => {
+  const onDownloadPdf = async () => {
+    const [{ default: jsPDF }, { default: autoTable }] = await Promise.all([
+      import("jspdf"),
+      import("jspdf-autotable"),
+    ]);
     const doc = new jsPDF({ unit: "pt", format: "a4" });
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 40;

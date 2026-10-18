@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Download } from "lucide-react";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { getPercentileBenchmark, type BenchmarkRow } from "@/lib/percentileBenchmark.functions";
 
@@ -67,6 +65,10 @@ export function DownloadReportPdfButton({
         });
       }
 
+      const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+        import("jspdf"),
+        import("jspdf-autotable"),
+      ]);
       const doc = new jsPDF({ unit: "pt", format: "a4" });
       const pageW = doc.internal.pageSize.getWidth();
       const pageH = doc.internal.pageSize.getHeight();

@@ -46,7 +46,7 @@ function IndustryHub() {
         <div className="mt-5 flex flex-wrap gap-3">
           <button
             type="button"
-            onClick={() => exportIndustrySummaryPDF()}
+            onClick={() => void exportIndustrySummaryPDF()}
             className="inline-flex items-center gap-2 rounded-lg border border-[var(--arzon-border)] bg-[var(--arzon-blue-100)] px-4 py-2 text-sm font-medium text-[var(--arzon-blue-700)] hover:bg-[var(--arzon-blue-100)]"
           >
             <Download className="h-4 w-4" />

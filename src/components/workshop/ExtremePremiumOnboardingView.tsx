@@ -60,7 +60,7 @@ export function ExtremePremiumOnboardingView({
   const passSerial = candidatePhone ? candidatePhone.slice(-4) : "8492";
   const passId = `ARZ-2026-${passSerial}`;
 
-  const handleDownloadDossier = () => {
+  const handleDownloadDossier = async () => {
     setIsGeneratingPdf(true);
     track("field_guide_pdf_download", {
       props: {
@@ -72,7 +72,7 @@ export function ExtremePremiumOnboardingView({
     });
 
     try {
-      generateWorkshopBrochurePDF({
+      await generateWorkshopBrochurePDF({
         institutionName: displayCollege,
         recipientName: displayName,
         recipientTitle: `${displayDegree} Candidate · Seat #${passId}`,
@@ -81,7 +81,7 @@ export function ExtremePremiumOnboardingView({
       setTimeout(() => setPdfDone(false), 4000);
     } catch {
       try {
-        generateStarterKitPDF({
+        await generateStarterKitPDF({
           candidateName: displayName,
           degree: displayDegree,
           college: displayCollege,

@@ -1,5 +1,3 @@
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import {
   STARTER_KIT_QUESTIONS,
   SAFETY_WORKFLOW_STEPS,
@@ -16,7 +14,11 @@ export interface StarterKitPdfOptions {
   branch?: string;
 }
 
-export function generateStarterKitPDF(options?: StarterKitPdfOptions) {
+export async function generateStarterKitPDF(options?: StarterKitPdfOptions) {
+  const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+    import("jspdf"),
+    import("jspdf-autotable"),
+  ]);
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();

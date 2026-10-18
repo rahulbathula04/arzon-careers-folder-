@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Download, Loader2 } from "lucide-react";
-import { jsPDF } from "jspdf";
 import type { Course } from "@/data/courses";
 import { NEXT_COHORT, PRICE_CAREER } from "@/components/landing/constants";
 
@@ -13,6 +12,7 @@ export function BrochureButton({ course }: { course: Course }) {
   const generate = async () => {
     setBusy(true);
     try {
+      const { jsPDF } = await import("jspdf");
       const doc = new jsPDF({ unit: "pt", format: "a4" });
       const W = doc.internal.pageSize.getWidth();
       const H = doc.internal.pageSize.getHeight();

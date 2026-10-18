@@ -31,17 +31,17 @@ export function MasterclassPassView({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     setDownloading(true);
     try {
-      generateWorkshopBrochurePDF({
+      await generateWorkshopBrochurePDF({
         institutionName: "Pharmacovigilance & Drug Safety Unit",
         recipientName: name || "Candidate",
         recipientTitle: `${qualificationStatus || "Healthcare Graduate"} · Seat #${passId}`,
       });
     } catch {
       try {
-        generateStarterKitPDF({
+        await generateStarterKitPDF({
           candidateName: name || "Candidate",
           degree: qualificationStatus || "Healthcare Graduate",
           college: "Pharmacy / Life Sciences",

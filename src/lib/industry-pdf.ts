@@ -1,12 +1,14 @@
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import { ROLES } from "@/data/industry/roles";
 import { EMPLOYERS } from "@/data/industry/employers";
 import { SOURCES } from "@/data/industry/sources";
 
 const fmt = (r: [number, number]) => `Rs ${r[0]}-${r[1]} LPA`;
 
-export function exportIndustrySummaryPDF() {
+export async function exportIndustrySummaryPDF() {
+  const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+    import("jspdf"),
+    import("jspdf-autotable"),
+  ]);
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const margin = 40;
   let y = margin;

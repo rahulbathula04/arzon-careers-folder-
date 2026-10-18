@@ -21,7 +21,7 @@ export function WorkshopBrochureDownloadButton({
   const [isGenerating, setIsGenerating] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     setIsGenerating(true);
     track("institutional_brochure_download", {
       props: {
@@ -31,7 +31,7 @@ export function WorkshopBrochureDownloadButton({
     });
 
     try {
-      generateWorkshopBrochurePDF({
+      await generateWorkshopBrochurePDF({
         institutionName: customInstitution || "Partner University / College of Pharmacy",
         recipientName: "The Principal / Head of Placements (TPO) / Chairman",
         recipientTitle: "Academic Leadership & Placement Directorate",

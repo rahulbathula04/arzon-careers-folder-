@@ -1,6 +1,3 @@
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
-
 export interface WorkshopBrochureOptions {
   institutionName?: string;
   recipientName?: string;
@@ -14,7 +11,11 @@ export interface WorkshopBrochureOptions {
  * 7 pages: ICSR validity · Standardized Medical Coding · Seriousness ·
  * CRO work anatomy · Interview Q&A · Mentor notes.
  */
-export function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) {
+export async function generateWorkshopBrochurePDF(_options?: WorkshopBrochureOptions) {
+  const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+    import("jspdf"),
+    import("jspdf-autotable"),
+  ]);
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const pw = doc.internal.pageSize.getWidth();
   const ph = doc.internal.pageSize.getHeight();

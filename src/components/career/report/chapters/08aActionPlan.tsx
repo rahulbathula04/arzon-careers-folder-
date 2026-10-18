@@ -17,8 +17,6 @@ import {
   UserRound,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import { jsPDF } from "jspdf";
-import autoTable from "jspdf-autotable";
 import type { ArchetypeId } from "@/data/careerEngineQuestions";
 import { getSevenDayPlan } from "@/data/sevenDayPlans";
 import { track } from "@/lib/track";
@@ -180,12 +178,12 @@ export function ChapterActionPlan({
     });
   };
 
-  const onDownloadPdf = () => {
+  const onDownloadPdf = async () => {
     track("report_action_plan_download_pdf_click", {
       lead_id: leadId,
       props: { archetype, role: plan.role, done, total },
     });
-    generateActionPlanPdf({
+    await generateActionPlanPdf({
       role: plan.role,
       steps,
       checks: actionPlanChecks,
@@ -474,7 +472,7 @@ function BookingDetailsForm({
   );
 }
 
-function generateActionPlanPdf({
+async function generateActionPlanPdf({
   role,
   steps,
   checks,
@@ -487,6 +485,10 @@ function generateActionPlanPdf({
   done: number;
   total: number;
 }) {
+  const [{ jsPDF }, { default: autoTable }] = await Promise.all([
+    import("jspdf"),
+    import("jspdf-autotable"),
+  ]);
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
   const MARGIN = 48;

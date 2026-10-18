@@ -46,7 +46,6 @@ import { REDUCED_MOTION_BOOT_SCRIPT } from "../hooks/useReducedMotion";
 import { THEME_BOOT_SCRIPT } from "../hooks/useTheme";
 import { GA4_ID, GSC_TOKEN, ga4BootScript, trackPageView } from "../lib/analytics";
 import { initSentry, setSentryRoute } from "../lib/sentry";
-import { organizationReviewsSchema } from "../lib/jsonLd";
 import { REVIEWS, AGGREGATE_RATING } from "../data/reviews";
 import { KEYWORD_BANK_TERMS } from "../data/keywordBank";
 

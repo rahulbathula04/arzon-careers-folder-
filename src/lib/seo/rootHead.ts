@@ -7,8 +7,6 @@ import {
   COUNSELLOR_PHONE_DISPLAY,
 } from "../../components/landing/constants";
 import { GA4_ID, GSC_TOKEN, ga4BootScript } from "../analytics";
-import { organizationReviewsSchema } from "../jsonLd";
-import { REVIEWS } from "../../data/reviews";
 import { KEYWORD_BANK_TERMS } from "../../data/keywordBank";
 
 export function getRootHead() {
@@ -140,20 +138,6 @@ export function getRootHead() {
           },
         }),
       },
-      ...(REVIEWS.length > 0
-        ? [
-            {
-              type: "application/ld+json",
-              children: organizationReviewsSchema({
-                reviews: REVIEWS.filter((review) => typeof review.rating === "number").map((review) => ({
-                  author: review.author,
-                  rating: review.rating as number,
-                  body: review.body,
-                })),
-              }),
-            },
-          ]
-        : []),
       ...(GA4_ID ? [{ children: ga4BootScript(GA4_ID) }] : []),
       {
         type: "application/speculationrules",

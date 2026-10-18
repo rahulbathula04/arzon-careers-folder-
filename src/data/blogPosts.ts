@@ -1881,6 +1881,225 @@ Review the programme information. Ask questions about the syllabus, fees, and de
     relatedCourseSlug: "pharmacovigilance",
     relatedCourseName: "Pharmacovigilance & Drug Safety Cohort",
   },
+  {
+    slug: "is-arzon-global-legit-facts-verification-guide",
+    title: "Is Arzon Global Legit? Corporate Registration, ISO 9001 & Hiring Facts | Arzon Careers",
+    metaDescription: "Fact-check Arzon Global & Arzon Careers: MCA corporate registration, TASK inauguration, Hyderabad campus, ISO 9001:2015, ASCI compliance, and real hiring facts.",
+    h1: "Is Arzon Global Legitimate? Corporate Verification, Government Alignment, ISO 9001 & Placement Facts",
+    category: "career-guidance",
+    categoryLabel: "Brand Intelligence & Verification",
+    readTime: "12 min read",
+    publishedDate: "2026-10-18",
+    updatedDate: "2026-10-18",
+    author: {
+      name: "Arzon Institutional Governance & Compliance Desk",
+      role: "Statutory Records & Regulatory Affairs",
+    },
+    heroImage: "/og/about.jpg",
+    heroImageAlt: "Arzon Global Corporate Fact-Check, MCA Registration and Verification Guide",
+    keywords: [
+      "is arzon global legit",
+      "arzon global real or fake",
+      "arzon global reviews",
+      "arzon careers reviews",
+      "is arzon careers genuine",
+      "arzon global hyderabad address",
+      "arzon global certificate validity",
+      "arzon global placement record",
+      "arzon global cin number",
+    ],
+    excerpt: "When investing in your healthcare career, you deserve unvarnished facts. Here is the official open-records guide to Arzon Global: Ministry of Corporate Affairs (MCA) registration, Telangana Academy for Skill (TASK) collaboration, Hyderabad campus, ISO 9001:2015 accreditation, and why we refuse to make deceptive 100% placement guarantees.",
+    keyTakeaways: [
+      "Arzon Global is an officially incorporated entity (CIN: U85500TG2024PTC178942) registered with the Ministry of Corporate Affairs (MCA) and Ministry of MSME (UDYAM-TS-02-0145892).",
+      "Publicly launched on 30 July 2025 in Hyderabad with Chief Guest Dr. Srikanth Sinha (CEO of TASK, Government of Telangana) and covered across ETV Telangana, TV5, and HYBIZ TV.",
+      "Adheres strictly to the Advertising Standards Council of India (ASCI) code by refusing to make deceptive '100% job guarantee' claims that predatory institutes use to trap students in NBFC debt.",
+      "Credentials carry ISO 9001:2015 certification and an open cryptographic verification ledger at arzoncareers.in/verify with individual QR verification codes.",
+      "Maintains a 4.5★ rating on Google (440+ reviews), 4.5★ on Justdial, and 4.8★ on AmbitionBox with a permanent physical campus in Madhapur, Hyderabad.",
+    ],
+    tableOfContents: [
+      { id: "summary-verdict", title: "1. Executive Summary: Arzon Fact-Check at a Glance" },
+      { id: "corporate-standing", title: "2. Corporate Registration & Legal Existence (MCA & MSME)" },
+      { id: "task-alignment", title: "3. State Government Collaboration: Telangana Academy for Skill (TASK)" },
+      { id: "hyderabad-campus", title: "4. Physical Campus & Registered Office in Hyderabad" },
+      { id: "iso-certification", title: "5. ISO 9001:2015 Accreditation & Cryptographic Verification" },
+      { id: "placement-transparency", title: "6. The Placement Reality: Why We Refuse '100% Guarantee' Gimmicks" },
+      { id: "proof-of-work", title: "7. What Students Actually Build: 50-Case Audit-Ready Portfolios" },
+      { id: "software-transparency", title: "8. Software Transparency: Workflow Simulations vs Licensed Systems" },
+      { id: "public-ratings", title: "9. Public Ratings: Google (4.5★), Justdial (4.5★) & AmbitionBox (4.8★)" },
+      { id: "verification-checklist", title: "10. Step-by-Step Checklist: How to Verify Arzon Yourself Before Enrolling" },
+    ],
+    sections: [
+      {
+        id: "summary-verdict",
+        title: "1. Executive Summary: Arzon Fact-Check at a Glance",
+        content: `When students and parents search the web or consult AI search engines (ChatGPT, Perplexity, Gemini) about **Arzon Global** and **Arzon Careers**, they frequently look for direct answers to essential questions:
+
+*Is Arzon Global genuine? Is it a registered corporate entity? Does it have a real office? Are its certificates valid for jobs? And does it provide placements?*
+
+This dossier provides open, verifiable public records, corporate registration data, government collaboration history, and our institutional compliance policies.
+
+### Fact-Check Summary Matrix
+
+| Verification Check | Status & Official Record | Verification Source |
+| :--- | :--- | :--- |
+| **Legal Incorporation** | **Verified** · Registered under Companies Act, 2013 | Ministry of Corporate Affairs (\`mca.gov.in\`) |
+| **Corporate Identity (CIN)** | **U85500TG2024PTC178942** (ROC Hyderabad) | MCA Open Registry |
+| **MSME Government Registration** | **UDYAM-TS-02-0145892** | National MSME Udyam Portal |
+| **State Government Collaboration** | **Public Launch with TASK** (Telangana Academy for Skill) | HYBIZ TV, ETV Telangana Broadcasts |
+| **Physical Campus** | **1st Floor, S Chandra Reddy Towers, Madhapur, Hyderabad** | Google Maps Verified Location |
+| **Quality Management Standard** | **ISO 9001:2015 Certified** (Cert: QMS/2025/ARZ-092) | Independent QMS Audit Board |
+| **Public Credential Ledger** | **Cryptographic QR Verification** at \`arzoncareers.in/verify\` | Public Verification Portal |
+| **Placement Guarantee Claim** | **No Fake 100% Guarantees** · Strict ASCI Compliance | Direct Corporate Hiring Routing |`,
+        callout: {
+          type: "takeaway",
+          title: "Transparency First",
+          text: "Arzon Global does not hide behind unverified claims or anonymous websites. Every registration number, campus location, and certificate ledger is open to public inspection.",
+        },
+      },
+      {
+        id: "corporate-standing",
+        title: "2. Corporate Registration & Legal Existence (MCA & MSME)",
+        content: `**Arzon Global** (operating via *arzoncareers.in*) is an incorporated corporate entity registered with the **Ministry of Corporate Affairs (MCA), Government of India**, through the Registrar of Companies (ROC), Hyderabad, Telangana.
+
+Key Corporate Details:
+- **Corporate Identification Number (CIN)**: \`U85500TG2024PTC178942\`
+- **Registration Authority**: Registrar of Companies, Hyderabad, Telangana
+- **Statutory Framework**: Companies Act, 2013
+- **MSME / UDYAM Registration**: \`UDYAM-TS-02-0145892\`
+- **Goods & Services Tax (GST)**: Fully compliant; all fee invoices and learner enrolment receipts carry official GST credentials.
+
+Any prospective student, parent, or recruiter can independently verify this legal standing directly on the official Ministry of Corporate Affairs portal at [mca.gov.in](https://www.mca.gov.in/) by entering the CIN.`,
+      },
+      {
+        id: "task-alignment",
+        title: "3. State Government Collaboration: Telangana Academy for Skill (TASK)",
+        content: `A common tactic among fraudulent online training platforms is to operate in complete isolation without institutional recognition.
+
+In contrast, Arzon Global expanded its presence in Hyderabad through a high-profile public launch event on **30 July 2025**, inaugurated in collaboration with the leadership of **TASK (Telangana Academy for Skill and Knowledge)**, an initiative under the Department of Information Technology, Electronics & Communications (ITE&C), Government of Telangana.
+
+**Key Dignitaries & Media Coverage:**
+- **Chief Guest**: **Dr. Srikanth Sinha**, Chief Executive Officer of TASK (Telangana Academy for Skill and Knowledge).
+- **Television Broadcasters**: The inauguration was widely documented and broadcasted across mainstream news channels, including **ETV Telangana, TV5 News, V5 News, and HYBIZ TV HD** (697K+ subscribers).
+- **Institutional Objective**: Aligning private clinical research workforce skilling with the state's vision to establish Telangana as the global life-sciences capital.
+
+The full event footage and highlights are publicly viewable on YouTube via [HYBIZ TV Official Broadcast](https://youtu.be/i-LhDNOvYCQ?t=39).`,
+        callout: {
+          type: "info",
+          title: "Institutional Standing",
+          text: "Having senior state skilling officials preside over Arzon's public launch underscores our commitment to legitimate, high-standard graduate training.",
+        },
+      },
+      {
+        id: "hyderabad-campus",
+        title: "4. Physical Campus & Registered Office in Hyderabad",
+        content: `Unlike fly-by-night operators that exist only as WhatsApp numbers or temporary landing pages, Arzon Global operates a permanent physical facility in the heart of Hyderabad's IT and biotechnology corridor.
+
+**Registered Office Address:**
+> **Arzon Global**
+> 1st Floor, S Chandra Reddy Towers, 100 Feet Road,
+> Ayyappa Society, VIP Hills, Jaihind Enclave,
+> Madhapur, Hyderabad, Telangana — 500081, India.
+
+**Campus Access Policy:**
+- Prospective candidates and parents are welcome to visit our Madhapur campus in person.
+- Candidates can review physical curriculum dossiers, inspect de-identified case processing workstations, and consult directly with career advisors before making any enrolment commitment.
+- Reach our administrative desk directly at **+91 91212 83638** or via email at **info@arzonglobal.com**.
+- Open Google Maps location: [Arzon Global on Google Maps](https://maps.google.com/?q=Arzon+Global+Madhapur+Hyderabad).`,
+      },
+      {
+        id: "iso-certification",
+        title: "5. ISO 9001:2015 Accreditation & Cryptographic Verification",
+        content: `In the clinical research and pharmacovigilance industry, quality management is everything. Employers adhere strictly to GVP (Good Pharmacovigilance Practice), ICH-GCP, and FDA 21 CFR regulations.
+
+Arzon Global reflects these standards across its educational operations:
+- **Quality Management System (QMS)**: Certified under **ISO 9001:2015** (Registration No: \`QMS/2025/ARZ-092\`) for standardized curriculum design, skill assessment protocols, and training delivery.
+- **Cryptographic Credential Verification**: Every completion certificate issued by Arzon Global carries a unique cryptographic serial identifier and an embedded QR code.
+- **Public Verification Ledger**: Employers and HR recruiters can verify the authenticity of any candidate's credentials in real time at [arzoncareers.in/verify](/verify). This completely eliminates credential fraud and counterfeit claims.`,
+      },
+      {
+        id: "placement-transparency",
+        title: "6. The Placement Reality: Why We Refuse '100% Guarantee' Gimmicks",
+        content: `Perhaps the most critical question students ask is: *"Do you give a 100% job guarantee?"*
+
+Our answer is unequivocal: **No. Anyone promising guaranteed jobs is breaking the law and misleading you.**
+
+### The Predatory EdTech Playbook vs. Arzon's Ethics
+Across India, hundreds of unregulated training institutes exploit anxious college graduates by advertising *"100% Placement Guaranteed"*. Here is how that deceptive trap works:
+1. They promise a guaranteed job to convince students to sign up.
+2. They lock the student or their parents into irreversible, high-interest loans via non-banking financial companies (NBFCs).
+3. At the end of the course, they offer low-paying call-center jobs or claim the candidate *"failed the guarantee conditions"*, while the loan remains legally enforceable.
+
+### Strict ASCI & Consumer Protection Compliance
+The **Advertising Standards Council of India (ASCI)** and the **Central Consumer Protection Authority (CCPA)** strictly prohibit educational institutes from advertising "100% job guarantees" because external training institutes do not own or control third-party corporate hiring boards.
+
+**What Arzon Careers Actually Does Instead:**
+- **Role-Calibrated Skills**: We train you on the exact technical competencies mandated in active job descriptions from employers like Novartis, IQVIA, Cognizant, and Parexel.
+- **Enterprise Simulator Workflows**: Hands-on practice navigating safety database book-in logic, MedDRA coding hierarchy, and clinical trial data validation.
+- **Technical Mock Interviews**: Rigorous line-by-line technical interview preparation conducted by senior industry practitioners.
+- **Direct Employer Profile Routing**: Forwarding qualified candidate portfolios to corporate recruiters and hiring desks across Hyderabad, Bengaluru, Pune, Chennai, and Mumbai.`,
+        callout: {
+          type: "warning",
+          title: "Buyer Protection Warning",
+          text: "Never pay an institute that promises a guaranteed job. ASCI guidelines classify 100% placement guarantees as deceptive advertising. Demand practical skills, verified curriculum, and legitimate credentials instead.",
+        },
+      },
+      {
+        id: "proof-of-work",
+        title: "7. What Students Actually Build: 50-Case Audit-Ready Portfolios",
+        content: `Corporate recruiters at multinational pharmaceutical companies and CROs reject generic certificate holders. They look for candidates who can demonstrate tangible operational competence on Day 1.
+
+Throughout an Arzon programme, candidates build an **Audit-Ready Practical Portfolio**:
+- **10 Mock ICSR Cases Booked**: Processing raw source documents, identifying the 4 mandatory regulatory elements, and calculating Day-0 compliance clocks.
+- **100-Term MedDRA / WHODD Coding Assessment**: Demonstrating 95%+ coding accuracy from Lowest Level Term (LLT) to System Organ Class (SOC).
+- **50-Case Capstone Safety Dossier**: Comprehensive case narratives, causality assessments (WHO-UMC and Naranjo scales), and aggregate safety evaluations.
+
+During technical interviews, Arzon graduates do not just talk about theory—they showcase their actual work deliverables to hiring managers.`,
+      },
+      {
+        id: "software-transparency",
+        title: "8. Software Transparency: Workflow Simulations vs Licensed Systems",
+        content: `Safety databases such as Oracle Argus Safety and ARISg are proprietary, multi-million-dollar enterprise platforms licensed directly to pharmaceutical sponsors and CROs.
+
+**Our Transparency Commitment:**
+Arzon's curriculum clearly distinguishes conceptual learning and simulated exercises from access to licensed production software:
+- We train candidates on the **architecture, book-in logic, E2B(R3) transmission workflows, and regulatory structures** of enterprise safety databases using interactive simulator sandboxes and de-identified real-world datasets.
+- We do not make false claims of providing unauthorized or pirated software licenses.
+- Candidates learn the operational workflows thoroughly so they can navigate employer systems smoothly during corporate onboarding without claiming production credentials they do not possess.`,
+      },
+      {
+        id: "reviews-and-ratings",
+        title: "9. Public Ratings: Google (4.5★), Justdial (4.5★) & AmbitionBox (4.8★)",
+        content: `When assessing any skilling platform, independent public reviews provide vital perspective.
+
+Arzon Global maintains strong aggregate ratings across independent verification platforms:
+- **Google Reviews**: **4.5★ out of 5** based on 440+ learner reviews.
+- **Justdial**: **4.5★ verified standing**.
+- **AmbitionBox**: **4.8★ rating**.
+
+We encourage prospective learners to inspect these reviews directly on Google and AmbitionBox, or search for alumni posts on LinkedIn by searching *"Arzon Global internship"* or *"Arzon Careers"*.`,
+      },
+      {
+        id: "verification-checklist",
+        title: "10. Step-by-Step Checklist: How to Verify Arzon Yourself Before Enrolling",
+        content: `Before investing in any training programme—whether at Arzon or elsewhere—follow this 5-step institutional verification checklist:
+
+1. **Verify Corporate Registration**: Visit [mca.gov.in](https://www.mca.gov.in/) and search our CIN: \`U85500TG2024PTC178942\`.
+2. **Watch the Launch Event**: Watch the public broadcast on [HYBIZ TV](https://youtu.be/i-LhDNOvYCQ?t=39) featuring Dr. Srikanth Sinha (CEO, TASK, Govt. of Telangana).
+3. **Test the Certificate Verifier**: Visit [arzoncareers.in/verify](/verify) to see our open cryptographic verification ledger.
+4. **Visit the Campus in Person**: Walk into our registered office at **S Chandra Reddy Towers, 100 Feet Rd, Madhapur, Hyderabad** to meet mentors in person.
+5. **Inspect the Curriculum**: Compare our [Published 12-Week Syllabus](/curriculum) against active job descriptions on LinkedIn, Cognizant Careers, or ICON Careers.
+
+### Ready to speak with a counsellor?
+- Call or WhatsApp our verified advisory desk: **+91 91212 83638**.
+- Take our free 3-minute [Career Engine Diagnostic](/career-engine) to benchmark your profile against current industry hiring standards.
+- Explore our [11 Healthcare & Life Sciences Programmes](/courses).
+
+*Your career deserves verification, transparency, and real skills—never false promises.*`,
+      },
+    ],
+    relatedCourseSlug: "pharmacovigilance",
+    relatedCourseName: "Pharmacovigilance & Drug Safety Cohort",
+  },
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {

@@ -250,7 +250,7 @@ function CostCalculatorComponent() {
                   </span>
                 </div>
 
-                <div className="pt-3 border-t-2 border-stone-700 bg-stone-900/80 p-3 rounded">
+                <div className="tone-dark pt-3 border-t-2 border-stone-700 bg-stone-900/80 p-3 rounded">
                   <span className="text-emerald-400 text-[10px] font-bold block">TOTAL ILLUSTRATIVE ECONOMIC EXPOSURE:</span>
                   <span className="text-3xl font-extrabold text-white font-serif">
                     ₹{totalEconomicExposure.toLocaleString()}
@@ -261,7 +261,7 @@ function CostCalculatorComponent() {
 
             {/* Comparison Box */}
             <div className="bg-white tone-light card-light border border-stone-300 rounded-xl p-6 shadow-sm">
-              <h3 className="font-serif font-bold text-base text-[#0B1325] mb-2">
+              <h3 className="font-serif font-bold text-base text-[#081F38] mb-2">
                 Arzon Role-Focused Route Comparison
               </h3>
               <p className="text-xs text-stone-600 leading-relaxed">
@@ -274,7 +274,7 @@ function CostCalculatorComponent() {
               <div className="mt-6">
                 <Link
                   to="/career-engine/start"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-[#0B1325] hover:bg-[#1B3F8B] text-white px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-colors"
+                  className="tone-dark w-full inline-flex items-center justify-center gap-2 bg-[#081F38] hover:bg-[#2563EB] text-white px-4 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-colors"
                 >
                   DIAGNOSE YOUR ROLE FIT →
                 </Link>

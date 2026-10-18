@@ -76,11 +76,11 @@ const PRICING_FAQS = [
   },
   {
     q: "What do Foundation Track, Recruiter Track, and 1-on-1 Track include?",
-    a: "Foundation Track (₹14,999) is self-paced core access. Recruiter Track (₹24,999) adds mentor-led live cases and partner-desk routing. 1-on-1 Track (₹39,999) adds 1:1 senior director mentoring and the enterprise referral desk with three confirmed hiring-manager introductions.",
+    a: "Foundation Track (₹14,999) is self-paced core access. Recruiter Track (₹24,999) adds mentor-led live cases and partner-desk routing. 1-on-1 Track (₹39,999) adds 1:1 senior director mentoring and the enterprise referral desk with structured partner-desk introductions and direct interview pathways.",
   },
   {
     q: "How do refunds work?",
-    a: "Pre-registration deposits are credited against the programme fee. Refund eligibility follows the written terms published for the selected programme tier. Full cancellation terms are on the refund policy page.",
+    a: "All programme fees, seat reservations, and tuition payments are strictly non-refundable once processed. Because our live cohort seats, technical simulation licenses, and 1:1 mentor allocations are provisioned immediately upon registration, we do not offer refunds under any circumstances.",
   },
   {
     q: "Can I talk to a counsellor before enrolling?",
@@ -198,7 +198,7 @@ function PricingPage() {
               )}
               {tier.id === "elite" && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-                  <div className="bg-stone-900 text-white font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+                  <div className="tone-dark bg-[#081F38] text-white font-mono text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs flex items-center gap-1.5">
                     <Crown className="h-3 w-3 text-amber-300" />
                     <span>1:1 Support</span>
                   </div>
@@ -299,20 +299,17 @@ function PricingPage() {
               <ShieldCheck className="h-5 w-5 text-[var(--arzon-teal-600)]" />
             </div>
             <div>
-              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--arzon-ink)]">Fee Disclosure &amp; Refund Policy</h2>
+              <h2 className="font-serif text-xl sm:text-2xl font-bold text-[var(--arzon-ink)]">Fee Disclosure &amp; Policy</h2>
               <p className="font-mono text-xs text-[var(--arzon-ink-muted)] font-bold uppercase tracking-wider">
-                No loan traps &bull; Written SLA
+                No loan traps &bull; Transparent terms
               </p>
             </div>
           </div>
           <p className="text-xs sm:text-sm text-[var(--arzon-ink-soft)] leading-relaxed font-sans">
             The three prices above are the complete programme fees. We do not package bank loans or
-            third-party EMIs. The 1-on-1 Track&apos;s three introductions are confirmed calendar calls with
-            decision-makers in the partner network — not a guaranteed offer. If we cannot fulfil
-            those introductions in the written window, we refund the difference between Recruiter Track and
-            1-on-1 Track. Details live on the{" "}
+            third-party EMIs. All enrolments carry a strict no-refund policy once confirmed, as infrastructure, simulation licenses, and mentor slots are locked immediately. For 1-on-1 Track candidates, partner-desk introductions are structured directly with hiring teams; if scheduling delays arise, candidates receive continuous advisory support until fulfilled. Complete terms are documented in our{" "}
             <Link to="/refund" className="font-bold text-[var(--arzon-blue-700)] underline underline-offset-2">
-              refund policy
+              no-refund policy
             </Link>
             .
           </p>

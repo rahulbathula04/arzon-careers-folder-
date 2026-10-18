@@ -74,7 +74,7 @@ export function SkillGapDiagnostic() {
 
           <p className="text-sm sm:text-base text-stone-700 leading-relaxed font-sans font-medium">
             Check the healthcare technical competencies you currently possess to calculate your
-            baseline ACRI (Arzon Candidate Readiness Index) score.
+            baseline ACRI (Arzon Clinical Readiness Index) score.
           </p>
         </div>
 

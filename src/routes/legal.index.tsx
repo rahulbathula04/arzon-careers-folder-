@@ -50,8 +50,8 @@ function LegalHubPage() {
       icon: Lock,
     },
     {
-      title: "Refund & Enrolment Policy",
-      description: "Transparent terms regarding the ₹1,000 seat reservation fee, cohort rollovers, and our 5-day written settlement window.",
+      title: "No-Refund & Enrolment Policy",
+      description: "Transparent commercial terms regarding our strict no-refund policy, the ₹1,000 seat reservation fee, and cohort rollovers.",
       link: "/refund",
       tag: "Consumer Protection",
       icon: FileText,

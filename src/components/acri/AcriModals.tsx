@@ -479,12 +479,12 @@ export function VideoModal({ isOpen, onClose }: ModalProps) {
           </div>
 
           {/* Video Mock/Player */}
-          <div className="relative aspect-video rounded-2xl bg-[#0B1325] flex flex-col items-center justify-center text-white overflow-hidden p-6 text-center">
+          <div className="relative aspect-video rounded-2xl bg-[#0B1325] tone-dark flex flex-col items-center justify-center text-white overflow-hidden p-6 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white mb-3 shadow-lg">
               <Play className="h-8 w-8 fill-white ml-1" />
             </div>
             <h4 className="font-sans text-lg font-bold">
-              Authenticated Candidate Readiness Index (ACRI)
+              Arzon Clinical Readiness Index (ACRI)
             </h4>
             <p className="text-xs text-stone-300 max-w-sm mt-1">
               Watch how our 40-question calibrated scenario test evaluates real ICSR workflow competencies for Pharmacovigilance roles.

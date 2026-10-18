@@ -68,7 +68,7 @@ export const ENTERPRISE_JOB_TITLE = "Enterprise AI/ML & Quant Engineer";
 // Primary Enterprise & Quant Fintech constants
 export const GCC_JOBS_2026 = "510,000+";
 export const AI_TALENT_GAP = "10 open GenAI roles per 1 qualified engineer";
-export const ACRI_FULL = "Authenticated Candidate Readiness Index";
+export const ACRI_FULL = "Arzon Clinical Readiness Index";
 export const ACRI_DIMENSIONS = [
   { id: "operational", label: "Operational reasoning" },
   { id: "communication", label: "Communication" },

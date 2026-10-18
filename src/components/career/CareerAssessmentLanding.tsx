@@ -43,13 +43,13 @@ export function CareerAssessmentLanding() {
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
             {/* Left Hero Content (7 cols) */}
             <div className="lg:col-span-7">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6]">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#2563EB]">
                 CAREER ASSESSMENT
               </span>
 
-              <h1 className="mt-2 text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-bold tracking-tight text-[#071A4A] leading-[1.18]">
+              <h1 className="mt-2 text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-[2.75rem] font-sans font-extrabold tracking-tight text-[#081F38] leading-[1.18]">
                 Your degree opens doors. <br />
-                <span className="text-[#1557D6]">Which one should you choose?</span>
+                <span className="text-[#2563EB]">Which one should you choose?</span>
               </h1>
 
               <p className="mt-3.5 max-w-xl text-xs sm:text-base leading-relaxed text-[#3F4A60]">
@@ -60,19 +60,19 @@ export function CareerAssessmentLanding() {
               {/* Badges 2x2 Grid */}
               <div className="mt-6 grid grid-cols-1 min-[340px]:grid-cols-2 gap-y-2.5 gap-x-4 max-w-md text-xs font-medium text-slate-700">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-[#1557D6] shrink-0" />
+                  <ShieldCheck className="h-4 w-4 text-[#2563EB] shrink-0" />
                   <span>Free assessment</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FileText className="h-4 w-4 text-[#1557D6] shrink-0" />
+                  <FileText className="h-4 w-4 text-[#2563EB] shrink-0" />
                   <span>{TARGET_TOTAL} questions</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <FileCheck2 className="h-4 w-4 text-[#1557D6] shrink-0" />
+                  <FileCheck2 className="h-4 w-4 text-[#2563EB] shrink-0" />
                   <span>Personalised report</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-[#1557D6] shrink-0" />
+                  <Clock className="h-4 w-4 text-[#2563EB] shrink-0" />
                   <span>About 6 minutes</span>
                 </div>
               </div>
@@ -82,7 +82,7 @@ export function CareerAssessmentLanding() {
                 <Link
                   to="/career-engine/start"
                   onClick={trackCta("hero_start_assessment")}
-                  className="arzon-button-primary inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-full px-7 text-sm font-bold shadow-md hover:bg-[#1557D6] transition-all active:scale-[0.98]"
+                  className="arzon-button-primary inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-full px-7 text-sm font-bold shadow-md hover:bg-[#1D4ED8] transition-all active:scale-[0.98]"
                 >
                   Start My Free Career Assessment <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -119,7 +119,7 @@ export function CareerAssessmentLanding() {
                           <Heart className="h-3.5 w-3.5 fill-pink-500" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Pharmacovigilance</p>
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#081F38] leading-tight truncate">Pharmacovigilance</p>
                           <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">92% match</p>
                         </div>
                       </div>
@@ -127,11 +127,11 @@ export function CareerAssessmentLanding() {
 
                     <div className="bg-white/95 tone-light card-light backdrop-blur-md rounded-xl p-2 sm:p-2.5 shadow-md border border-slate-200/60 max-w-[135px] min-[390px]:max-w-[155px] sm:max-w-[170px] animate-in fade-in slide-in-from-top-2 duration-300 delay-100">
                       <div className="flex items-center gap-1.5 sm:gap-2">
-                        <div className="h-6 w-6 rounded-lg bg-blue-100 text-[#1557D6] flex items-center justify-center shrink-0">
+                        <div className="h-6 w-6 rounded-lg bg-blue-100 text-[#2563EB] flex items-center justify-center shrink-0">
                           <Database className="h-3.5 w-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Clinical Data Mgmt</p>
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#081F38] leading-tight truncate">Clinical Data Mgmt</p>
                           <p className="text-[9px] sm:text-[10px] font-bold text-emerald-600">84% match</p>
                         </div>
                       </div>
@@ -146,7 +146,7 @@ export function CareerAssessmentLanding() {
                           <FileText className="h-3.5 w-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Medical Coding</p>
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#081F38] leading-tight truncate">Medical Coding</p>
                           <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">78% match</p>
                         </div>
                       </div>
@@ -158,7 +158,7 @@ export function CareerAssessmentLanding() {
                           <Shield className="h-3.5 w-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-[10px] sm:text-[11px] font-bold text-[#071A4A] leading-tight truncate">Regulatory Affairs</p>
+                          <p className="text-[10px] sm:text-[11px] font-bold text-[#081F38] leading-tight truncate">Regulatory Affairs</p>
                           <p className="text-[9px] sm:text-[10px] font-bold text-blue-600">71% match</p>
                         </div>
                       </div>
@@ -176,11 +176,11 @@ export function CareerAssessmentLanding() {
         <section className="rounded-2xl border border-slate-200 bg-white tone-light card-light p-4 sm:p-6 shadow-xs">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-100">
             <div className="flex items-start gap-3 pt-3 sm:pt-0 sm:px-3">
-              <div className="h-8 w-8 rounded-lg bg-blue-50 text-[#1557D6] flex items-center justify-center shrink-0">
+              <div className="h-8 w-8 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0">
                 <ShieldCheck className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Understand your fit</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Understand your fit</h3>
                 <p className="text-[11px] text-slate-600 mt-0.5">See which roles match your background.</p>
               </div>
             </div>
@@ -190,7 +190,7 @@ export function CareerAssessmentLanding() {
                 <Compass className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Discover opportunities</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Discover opportunities</h3>
                 <p className="text-[11px] text-slate-600 mt-0.5">Explore real job paths in healthcare.</p>
               </div>
             </div>
@@ -200,7 +200,7 @@ export function CareerAssessmentLanding() {
                 <BarChart2 className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Identify skill gaps</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Identify skill gaps</h3>
                 <p className="text-[11px] text-slate-600 mt-0.5">Know what to learn next.</p>
               </div>
             </div>
@@ -210,7 +210,7 @@ export function CareerAssessmentLanding() {
                 <Lightbulb className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Plan your next step</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Plan your next step</h3>
                 <p className="text-[11px] text-slate-600 mt-0.5">Get a clear, personalised action plan.</p>
               </div>
             </div>
@@ -222,7 +222,7 @@ export function CareerAssessmentLanding() {
             ========================================================================= */}
         <section>
           <div>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A]">
+            <h2 className="text-xl sm:text-2xl font-sans font-extrabold text-[#081F38]">
               How the Career Assessment works
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-slate-600">
@@ -235,7 +235,7 @@ export function CareerAssessmentLanding() {
               <div className="h-8 w-8 rounded-full bg-pink-100 text-pink-600 font-mono font-bold text-xs flex items-center justify-center mb-3">
                 1
               </div>
-              <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Answer 42 questions</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Answer 42 questions</h3>
               <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
                 Share your background, interests and preferences.
               </p>
@@ -245,7 +245,7 @@ export function CareerAssessmentLanding() {
               <div className="h-8 w-8 rounded-full bg-teal-100 text-teal-700 font-mono font-bold text-xs flex items-center justify-center mb-3">
                 2
               </div>
-              <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">We analyse your profile</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">We analyse your profile</h3>
               <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
                 Your responses are mapped to role-fit signals.
               </p>
@@ -255,7 +255,7 @@ export function CareerAssessmentLanding() {
               <div className="h-8 w-8 rounded-full bg-rose-100 text-rose-600 font-mono font-bold text-xs flex items-center justify-center mb-3">
                 3
               </div>
-              <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Get your personalised report</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Get your personalised report</h3>
               <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
                 See your best-fit roles, strengths and skill gaps.
               </p>
@@ -265,7 +265,7 @@ export function CareerAssessmentLanding() {
               <div className="h-8 w-8 rounded-full bg-blue-100 text-blue-600 font-mono font-bold text-xs flex items-center justify-center mb-3">
                 4
               </div>
-              <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Plan your next steps</h3>
+              <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Plan your next steps</h3>
               <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
                 Explore learning paths, internships and resources.
               </p>
@@ -279,7 +279,7 @@ export function CareerAssessmentLanding() {
         <section className="grid gap-6 lg:grid-cols-12 lg:items-start">
           {/* Left Column: Sample Career Assessment Report (7 cols) */}
           <div className="lg:col-span-7">
-            <h2 className="text-lg sm:text-xl font-serif font-bold text-[#071A4A]">
+            <h2 className="text-lg sm:text-xl font-sans font-extrabold text-[#081F38]">
               Sample Career Assessment Report
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">See what your result will look like.</p>
@@ -288,7 +288,7 @@ export function CareerAssessmentLanding() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {/* Left Inner: Top Role Matches */}
                 <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3.5">
-                  <span className="text-xs font-bold text-[#071A4A] block mb-2.5">Your Top Role Matches</span>
+                  <span className="text-xs font-bold text-[#081F38] block mb-2.5">Your Top Role Matches</span>
                   
                   <div className="space-y-2 text-xs">
                     <div>
@@ -366,7 +366,7 @@ export function CareerAssessmentLanding() {
                   <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-2.5">
                     <span className="text-[11px] font-bold text-blue-800 block mb-1">Recommended Next Steps</span>
                     <ul className="text-[10px] text-slate-700 space-y-0.5">
-                      <li>• Explore <strong className="text-[#1557D6]">Pharmacovigilance</strong> role guide</li>
+                      <li>• Explore <strong className="text-[#2563EB]">Pharmacovigilance</strong> role guide</li>
                       <li>• Consider practical scenario training</li>
                       <li>• Gain verified case study exposure</li>
                     </ul>
@@ -380,12 +380,12 @@ export function CareerAssessmentLanding() {
           <div className="lg:col-span-5">
             <div className="flex items-baseline justify-between">
               <div>
-                <h2 className="text-lg sm:text-xl font-serif font-bold text-[#071A4A]">
+                <h2 className="text-lg sm:text-xl font-sans font-extrabold text-[#081F38]">
                   Explore Healthcare Careers
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">Discover the most in-demand roles.</p>
               </div>
-              <Link to="/careers" className="text-xs font-bold text-[#1557D6] hover:underline">
+              <Link to="/careers" className="text-xs font-bold text-[#2563EB] hover:underline">
                 View all roles →
               </Link>
             </div>
@@ -397,7 +397,7 @@ export function CareerAssessmentLanding() {
                     <Heart className="h-3.5 w-3.5 fill-pink-500" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-[#071A4A]">Pharmacovigilance</h3>
+                    <h3 className="text-xs font-bold text-[#081F38]">Pharmacovigilance</h3>
                     <p className="text-[10px] text-slate-500">Monitor drug safety</p>
                   </div>
                 </div>
@@ -410,7 +410,7 @@ export function CareerAssessmentLanding() {
                     <FileText className="h-3.5 w-3.5" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-[#071A4A]">Medical Coding</h3>
+                    <h3 className="text-xs font-bold text-[#081F38]">Medical Coding</h3>
                     <p className="text-[10px] text-slate-500">Convert healthcare data</p>
                   </div>
                 </div>
@@ -423,7 +423,7 @@ export function CareerAssessmentLanding() {
                     <Database className="h-3.5 w-3.5" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-[#071A4A]">Clinical Data Mgmt</h3>
+                    <h3 className="text-xs font-bold text-[#081F38]">Clinical Data Mgmt</h3>
                     <p className="text-[10px] text-slate-500">Manage clinical trial data</p>
                   </div>
                 </div>
@@ -436,7 +436,7 @@ export function CareerAssessmentLanding() {
                     <Shield className="h-3.5 w-3.5" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-bold text-[#071A4A]">Regulatory Affairs</h3>
+                    <h3 className="text-xs font-bold text-[#081F38]">Regulatory Affairs</h3>
                     <p className="text-[10px] text-slate-500">Ensure compliance</p>
                   </div>
                 </div>
@@ -459,7 +459,7 @@ export function CareerAssessmentLanding() {
         <section className="rounded-3xl border border-[#D0E1FD] bg-gradient-to-r from-[#EEF6FF] via-[#F4F8FF] to-white p-6 sm:p-8 shadow-xs">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A]">
+              <h2 className="text-xl sm:text-2xl font-sans font-extrabold text-[#081F38]">
                 Make your next career decision with more clarity.
               </h2>
               <p className="mt-1 text-xs sm:text-sm text-[#3F4A60]">
@@ -471,7 +471,7 @@ export function CareerAssessmentLanding() {
               <Link
                 to="/career-engine/start"
                 onClick={trackCta("footer_start_assessment")}
-                className="arzon-button-primary inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-full px-6 text-xs sm:text-sm font-bold shadow-md hover:bg-[#1557D6] transition-all"
+                className="arzon-button-primary inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-full px-6 text-xs sm:text-sm font-bold shadow-md hover:bg-[#1D4ED8] transition-all"
               >
                 Start My Free Career Assessment <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

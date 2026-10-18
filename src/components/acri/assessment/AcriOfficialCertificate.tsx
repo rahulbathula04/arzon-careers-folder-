@@ -299,7 +299,7 @@ export function AcriOfficialCertificate({
                 Certificate of Clinical Readiness
               </h1>
               <p className="font-mono text-[8.5px] sm:text-[9.5px] uppercase tracking-[0.22em] text-slate-400">
-                Authenticated Candidate Readiness Index (ACRI) Standard
+                Arzon Clinical Readiness Index (ACRI) Standard
               </p>
             </div>
           </div>

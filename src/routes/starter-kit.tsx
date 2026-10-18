@@ -153,7 +153,7 @@ function StarterKitPage() {
               </p>
 
               {/* Mentor Card */}
-              <div className="flex items-center gap-3.5 p-3 rounded-xl bg-stone-900/80 border border-stone-800 max-w-md">
+              <div className="tone-dark flex items-center gap-3.5 p-3 rounded-xl bg-stone-900/80 border border-stone-800 max-w-md">
                 <div className="relative h-11 w-11 rounded-lg overflow-hidden shrink-0 border border-blue-500/30">
                   <img src={mentorKumailImg} alt="Mohamed Kumail Abbas" className="h-full w-full object-cover object-top" />
                   <span className="absolute bottom-0.5 right-0.5 h-2 w-2 rounded-full bg-emerald-400 ring-1 ring-black" />
@@ -189,14 +189,14 @@ function StarterKitPage() {
                   value={candidateName}
                   onChange={(e) => setCandidateName(e.target.value)}
                   placeholder="Your Full Name (e.g. Rahul Sharma)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-stone-700 bg-stone-950 text-white text-xs font-sans focus:outline-none focus:border-blue-400"
+                  className="tone-dark w-full px-3.5 py-2.5 rounded-xl border border-stone-700 bg-stone-950 text-white text-xs font-sans focus:outline-none focus:border-blue-400"
                 />
                 <input
                   type="text"
                   value={candidateDegree}
                   onChange={(e) => setCandidateDegree(e.target.value)}
                   placeholder="Your Degree (e.g. B.Pharm / M.Sc Biotech)"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-stone-700 bg-stone-950 text-white text-xs font-sans focus:outline-none focus:border-blue-400"
+                  className="tone-dark w-full px-3.5 py-2.5 rounded-xl border border-stone-700 bg-stone-950 text-white text-xs font-sans focus:outline-none focus:border-blue-400"
                 />
                 <button
                   type="button"
@@ -757,7 +757,7 @@ function StarterKitPage() {
                 type="button"
                 onClick={handleDownloadPdf}
                 disabled={isGeneratingPdf}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
+                className="tone-dark w-full sm:w-auto px-6 py-3.5 rounded-xl border border-stone-700 bg-stone-900/80 hover:bg-stone-800 text-white font-mono text-xs font-semibold flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Download PDF Again</span>

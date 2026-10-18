@@ -199,7 +199,7 @@ export function evaluateHealthcareAssessment(
       overallAcriScore < 80
         ? ["Need live hands-on simulations with enterprise safety instances prior to final interview rounds"]
         : [],
-    automatedSummary: `${name} has achieved an Authenticated Candidate Readiness Index (ACRI) score of ${overallAcriScore}/100 (${percentileRank}th national percentile). Profile qualifies for accelerated corporate interview presentation in ${topTrack} at Tier-1 Global Capability Centers.`,
+    automatedSummary: `${name} has achieved an Arzon Clinical Readiness Index (ACRI) score of ${overallAcriScore}/100 (${percentileRank}th national percentile). Profile qualifies for accelerated corporate interview presentation in ${topTrack} at Tier-1 Global Capability Centers.`,
     evaluatedAt: new Date().toISOString().split("T")[0],
     verificationId,
   };

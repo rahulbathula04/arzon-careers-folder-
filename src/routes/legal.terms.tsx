@@ -39,7 +39,12 @@ function TermsPage() {
           </span>
         </div>
 
-        <h1 className="h-display mt-4">Terms of Service</h1>
+        <h1
+          className="h-display text-white mt-4"
+          style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+        >
+          Terms of Service
+        </h1>
         <p className="mt-2 text-sm text-white/70">
           Last updated: April 2026 · Effective immediately for all visitors, applicants, and enrolled candidates.
         </p>
@@ -83,7 +88,7 @@ function TermsPage() {
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
               <li>Arzon Global is NOT a university, degree-granting college, or higher education institution governed by the University Grants Commission (UGC) Act, 1956, or the All India Council for Technical Education (AICTE) Act, 1987.</li>
-              <li>Our certificates, including the Authenticated Candidate Readiness Index (ACRI™), represent independent verification of practical competency and portfolio completion; they do not constitute formal academic degrees, diplomas, or statutory licenses to practice medicine, pharmacy, or allied healthcare.</li>
+              <li>Our certificates, including the Arzon Clinical Readiness Index (ACRI™), represent independent verification of practical competency and portfolio completion; they do not constitute formal academic degrees, diplomas, or statutory licenses to practice medicine, pharmacy, or allied healthcare.</li>
             </ul>
           </Section>
 
@@ -125,19 +130,23 @@ function TermsPage() {
               Enrolment terms are governed by the signed learner enrolment agreement issued during admission:
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>The seat reservation fee (₹1,000) guarantees a dedicated mentor seat in your selected cohort and is 100% credited against your total programme fee.</li>
+              <li>The seat reservation fee (₹1,000) reserves a dedicated mentor seat in your selected cohort and is 100% credited against your total programme fee upon full enrolment.</li>
+              <li>All payments, seat reservations, module fees, and tuition fees are strictly non-refundable and non-transferable under any circumstances once processed.</li>
               <li>Tuition payments are processed securely via authorized third-party payment gateways (including Razorpay, licensed by the Reserve Bank of India). Arzon does not store complete debit/credit card numbers on its servers.</li>
               <li>All payments are inclusive of applicable Goods and Services Tax (GST) as mandated by the Government of India.</li>
             </ul>
           </Section>
 
-          <Section title="8. Refund & Cancellation Terms">
+          <Section title="8. Strict No-Refund Policy & Cohort Rollover">
             <p>
-              Refunds and cohort modifications are administered pursuant to our published{" "}
+              Arzon Global enforces a strict <strong className="text-white">No-Refund Policy</strong> across all programmes, assessment tools, and seat reservations, as detailed in our published{" "}
               <Link to="/refund" className="text-sky-300 underline font-semibold">
-                Refund & Enrolment Policy
+                No-Refund &amp; Enrolment Policy
               </Link>
-              . If Arzon postpones or cancels a cohort, learners are entitled to roll over to the subsequent cohort or receive an immediate, full refund within 5 working days.
+              . Because dedicated mentor bandwidth, simulation laboratory instances, and technical curriculum licenses are allocated immediately upon admission, fees once paid cannot be refunded or cancelled under any circumstances.
+            </p>
+            <p className="mt-2">
+              In the event of documented emergencies or schedule conflicts, learners may request a one-time cohort rollover to a subsequent scheduled batch subject to written notice at least 5 business days prior to cohort commencement. If Arzon Global reschedules a cohort, learner seats are automatically transferred to the confirmed new dates at no additional fee.
             </p>
           </Section>
 

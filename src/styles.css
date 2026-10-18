@@ -1955,6 +1955,17 @@ html {
   background-clip: initial !important;
   -webkit-background-clip: initial !important;
 }
+
+/* Authoritative dark-surface heading override: always pure crisp white in dark containers */
+.tone-dark .h-display:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .h-section:not(.tone-light *, .tone-light, .card-light *, .card-light),
+.tone-dark .h-card:not(.tone-light *, .tone-light, .card-light *, .card-light),
+[class*="bg-[#0"] .h-display:not(.tone-light *, .tone-light, .card-light *, .card-light),
+[class*="bg-[#0"] .h-section:not(.tone-light *, .tone-light, .card-light *, .card-light),
+[class*="bg-[#0"] .h-card:not(.tone-light *, .tone-light, .card-light *, .card-light) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
 /* Italic accent: on light surfaces, render as solid teal ink, never the
    white→champagne gradient that's invisible on pale gradients. */
 .italic-accent:not(.tone-dark *, [class*="bg-[#0"] *),

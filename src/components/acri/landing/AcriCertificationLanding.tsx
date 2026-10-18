@@ -50,7 +50,7 @@ export function AcriCertificationLanding() {
       {/* =========================================================================
           1. HERO SECTION (DARK THEME - EXACT CLONE OF MOCKUP RIGHT)
           ========================================================================= */}
-      <section className="bg-gradient-to-b from-[#071A4A] via-[#0A1D54] to-[#08173E] text-white pt-8 sm:pt-12 pb-12 sm:pb-16 border-b border-[#1E3A8A]">
+      <section className="tone-dark bg-gradient-to-b from-[#081F38] via-[#0D2B4D] to-[#081F38] text-white pt-8 sm:pt-12 pb-12 sm:pb-16 border-b border-[#1E3A8A]">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
             {/* Left Hero Content (7 cols) */}
@@ -59,13 +59,13 @@ export function AcriCertificationLanding() {
                 ACRI CERTIFICATION
               </span>
 
-              <h1 className="mt-2 text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-[2.75rem] font-serif font-bold tracking-tight text-white leading-[1.18]">
+              <h1 className="mt-2 text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-[2.75rem] font-sans font-extrabold tracking-tight text-white leading-[1.18]">
                 Knowing the role is one thing. <br />
                 <span className="text-[#A78BFA] sm:text-[#B197FC]">Demonstrating readiness is another.</span>
               </h1>
 
               <p className="mt-3.5 max-w-xl text-xs sm:text-base leading-relaxed text-slate-300">
-                ACRI (Arzon Critical Research Index) is a role-specific Pharmacovigilance assessment that
+                ACRI (Arzon Clinical Readiness Index) is a role-specific Pharmacovigilance assessment that
                 evaluates how you apply your knowledge to real drug-safety case scenarios.
               </p>
 
@@ -118,7 +118,7 @@ export function AcriCertificationLanding() {
                   style={{ color: "#0F172A", backgroundColor: "#FFFFFF", WebkitTextFillColor: "currentColor" }}
                 >
                   <div className="flex items-center justify-between border-b border-slate-100 pb-1.5 sm:pb-2 mb-1.5 sm:mb-2">
-                    <span className="font-bold text-xs" style={{ color: "#071A4A", WebkitTextFillColor: "#071A4A" }}>ACRI</span>
+                    <span className="font-bold text-xs" style={{ color: "#081F38", WebkitTextFillColor: "#081F38" }}>ACRI</span>
                     <span className="text-[9px] sm:text-[10px] font-semibold" style={{ color: "#64748B", WebkitTextFillColor: "#64748B" }}>Role Readiness Score</span>
                   </div>
 
@@ -142,7 +142,7 @@ export function AcriCertificationLanding() {
                         />
                       </svg>
                       <div className="absolute text-center">
-                        <span className="text-lg sm:text-xl font-bold font-mono" style={{ color: "#071A4A", WebkitTextFillColor: "#071A4A" }}>82%</span>
+                        <span className="text-lg sm:text-xl font-bold font-mono" style={{ color: "#081F38", WebkitTextFillColor: "#081F38" }}>82%</span>
                       </div>
                     </div>
                     <span
@@ -184,7 +184,7 @@ export function AcriCertificationLanding() {
           ========================================================================= */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 mt-12 sm:mt-16">
         <div>
-          <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A]">
+          <h2 className="text-xl sm:text-2xl font-sans font-extrabold text-[#081F38]">
             Who should take ACRI?
           </h2>
         </div>
@@ -194,7 +194,7 @@ export function AcriCertificationLanding() {
             <div className="h-9 w-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
               <GraduationCap className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-bold text-[#071A4A]">Students & Fresh Graduates</h3>
+            <h3 className="text-sm font-bold text-[#081F38]">Students & Fresh Graduates</h3>
             <p className="mt-1 text-xs text-slate-600 leading-relaxed">
               Who want to demonstrate Pharmacovigilance readiness.
             </p>
@@ -204,7 +204,7 @@ export function AcriCertificationLanding() {
             <div className="h-9 w-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3">
               <Briefcase className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-bold text-[#071A4A]">Early-Career Professionals</h3>
+            <h3 className="text-sm font-bold text-[#081F38]">Early-Career Professionals</h3>
             <p className="mt-1 text-xs text-slate-600 leading-relaxed">
               Who want to validate their practical understanding.
             </p>
@@ -214,7 +214,7 @@ export function AcriCertificationLanding() {
             <div className="h-9 w-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-3">
               <Building className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-bold text-[#071A4A]">Career Switchers</h3>
+            <h3 className="text-sm font-bold text-[#081F38]">Career Switchers</h3>
             <p className="mt-1 text-xs text-slate-600 leading-relaxed">
               Who want to prove their industry readiness with a verifiable assessment.
             </p>
@@ -228,7 +228,7 @@ export function AcriCertificationLanding() {
       <section className="mx-auto max-w-6xl px-4 sm:px-6 mt-12 sm:mt-16">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
           <div>
-            <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A]">
+            <h2 className="text-xl sm:text-2xl font-sans font-extrabold text-[#081F38]">
               What ACRI evaluates
             </h2>
             <p className="mt-1 text-xs sm:text-sm text-slate-600">
@@ -248,7 +248,7 @@ export function AcriCertificationLanding() {
                 <Target className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">PV Fundamentals</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">PV Fundamentals</h3>
                 <p className="text-[11px] text-slate-500">Core drug-safety concepts</p>
               </div>
             </div>
@@ -261,7 +261,7 @@ export function AcriCertificationLanding() {
                 <FileCheck className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">ICSR Processing</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">ICSR Processing</h3>
                 <p className="text-[11px] text-slate-500">Case intake and evaluation</p>
               </div>
             </div>
@@ -274,7 +274,7 @@ export function AcriCertificationLanding() {
                 <ShieldCheck className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Case Assessment</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Case Assessment</h3>
                 <p className="text-[11px] text-slate-500">Causality and seriousness</p>
               </div>
             </div>
@@ -287,7 +287,7 @@ export function AcriCertificationLanding() {
                 <Stethoscope className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Medical Interpretation</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Medical Interpretation</h3>
                 <p className="text-[11px] text-slate-500">Clinical and medical review</p>
               </div>
             </div>
@@ -300,7 +300,7 @@ export function AcriCertificationLanding() {
                 <Layers className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Standardized Medical Coding and Coding</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Standardized Medical Coding and Coding</h3>
                 <p className="text-[11px] text-slate-500">Classification and coding</p>
               </div>
             </div>
@@ -313,7 +313,7 @@ export function AcriCertificationLanding() {
                 <FileText className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Documentation</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Documentation</h3>
                 <p className="text-[11px] text-slate-500">Case narratives and records</p>
               </div>
             </div>
@@ -326,7 +326,7 @@ export function AcriCertificationLanding() {
                 <Shield className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Quality and Compliance</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Quality and Compliance</h3>
                 <p className="text-[11px] text-slate-500">Process and reporting</p>
               </div>
             </div>
@@ -339,7 +339,7 @@ export function AcriCertificationLanding() {
                 <Scale className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Analytical Reasoning</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Analytical Reasoning</h3>
                 <p className="text-[11px] text-slate-500">Evidence-based decisions</p>
               </div>
             </div>
@@ -352,7 +352,7 @@ export function AcriCertificationLanding() {
                 <MessageSquare className="h-4 w-4" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Situational Judgement</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Situational Judgement</h3>
                 <p className="text-[11px] text-slate-500">Respond to real work scenarios</p>
               </div>
             </div>
@@ -365,7 +365,7 @@ export function AcriCertificationLanding() {
           ========================================================================= */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 mt-12 sm:mt-16">
         <div>
-          <h2 className="text-xl sm:text-2xl font-serif font-bold text-[#071A4A]">
+          <h2 className="text-xl sm:text-2xl font-sans font-extrabold text-[#081F38]">
             How the ACRI process works
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-slate-600">
@@ -382,7 +382,7 @@ export function AcriCertificationLanding() {
               </div>
               <span className="hidden lg:block text-slate-300 font-bold text-lg">→</span>
             </div>
-            <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Apply for an invite</h3>
+            <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Apply for an invite</h3>
             <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
               Submit a short application for review.
             </p>
@@ -396,7 +396,7 @@ export function AcriCertificationLanding() {
               </div>
               <span className="hidden lg:block text-slate-300 font-bold text-lg">→</span>
             </div>
-            <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Get approved</h3>
+            <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Get approved</h3>
             <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
               Receive an access key by email.
             </p>
@@ -410,7 +410,7 @@ export function AcriCertificationLanding() {
               </div>
               <span className="hidden lg:block text-slate-300 font-bold text-lg">→</span>
             </div>
-            <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Take the assessment</h3>
+            <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Take the assessment</h3>
             <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
               Complete 25-minute, practical cases.
             </p>
@@ -419,11 +419,11 @@ export function AcriCertificationLanding() {
           {/* Step 4 */}
           <div className="rounded-2xl border border-slate-200 bg-white tone-light card-light p-5 shadow-xs">
             <div className="flex items-center justify-between mb-3">
-              <div className="h-8 w-8 rounded-full bg-[#071A4A] text-white font-mono font-bold text-xs flex items-center justify-center">
+              <div className="h-8 w-8 rounded-full bg-[#081F38] text-white font-mono font-bold text-xs flex items-center justify-center">
                 4
               </div>
             </div>
-            <h3 className="text-xs sm:text-sm font-bold text-[#071A4A]">Get your results</h3>
+            <h3 className="text-xs sm:text-sm font-bold text-[#081F38]">Get your results</h3>
             <p className="mt-1 text-[11px] text-slate-600 leading-relaxed">
               See your ACRI score, competency profile and credential eligibility.
             </p>
@@ -442,10 +442,10 @@ export function AcriCertificationLanding() {
           6. BOTTOM CONVERSION BANNER (DARK THEME - EXACT CLONE)
           ========================================================================= */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6 mt-12 sm:mt-16">
-        <div className="rounded-3xl border border-[#1E3A8A] bg-gradient-to-r from-[#071A4A] via-[#091D54] to-[#0A1B44] text-white p-6 sm:p-9 shadow-xl">
+        <div className="tone-dark rounded-3xl border border-[#1E3A8A] bg-gradient-to-r from-[#081F38] via-[#0D2B4D] to-[#081F38] text-white p-6 sm:p-9 shadow-xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-white">
+              <h2 className="text-xl sm:text-2xl font-sans font-extrabold text-white">
                 Ready to demonstrate your Pharmacovigilance capability?
               </h2>
               <p className="mt-1.5 text-xs sm:text-sm text-slate-300">
@@ -458,16 +458,16 @@ export function AcriCertificationLanding() {
                 type="button"
                 onClick={openInviteModal}
                 style={{
-                  color: "#071A4A",
+                  color: "#081F38",
                   backgroundColor: "#FFFFFF",
-                  WebkitTextFillColor: "#071A4A",
+                  WebkitTextFillColor: "#081F38",
                 }}
-                className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-full bg-white tone-light font-extrabold px-6 text-xs sm:text-sm text-[#071A4A] shadow-md transition-all hover:bg-slate-100 active:scale-[0.98]"
+                className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-full bg-white tone-light font-extrabold px-6 text-xs sm:text-sm text-[#081F38] shadow-md transition-all hover:bg-slate-100 active:scale-[0.98]"
               >
-                <span style={{ color: "#071A4A", WebkitTextFillColor: "#071A4A" }}>
+                <span style={{ color: "#081F38", WebkitTextFillColor: "#081F38" }}>
                   Apply for an ACRI Invite
                 </span>
-                <ArrowRight className="ml-2 h-4 w-4 shrink-0" style={{ color: "#071A4A" }} />
+                <ArrowRight className="ml-2 h-4 w-4 shrink-0" style={{ color: "#081F38" }} />
               </button>
             </div>
           </div>

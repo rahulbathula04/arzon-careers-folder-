@@ -47,7 +47,7 @@ export function LogoMarquee() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 space-y-5">
         <p className="text-center font-mono text-[11px] uppercase tracking-[0.28em] text-slate-100/55">
-          Our students intern, code and consult at
+          Healthcare graduates and fellows prepare for roles across
         </p>
 
         {/* Row 1 — left to right */}
@@ -63,6 +63,10 @@ export function LogoMarquee() {
             <PartnerTag key={name} name={name} />
           ))}
         </Marquee>
+
+        <p className="text-center font-sans text-[10px] text-slate-400/80"> {/* @allow-raw-palette */}
+          All brand names and trademarks are property of their respective holders and cited under Nominative Fair Use (Sec. 30, Trade Marks Act, 1999) without implied endorsement.
+        </p>
       </div>
     </section>
   );

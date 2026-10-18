@@ -1,18 +1,11 @@
 import { Calendar, Clock, Video, ArrowRight, Users } from "lucide-react";
 import mentorKumailImg from "@/assets/mentor-kumail.jpg";
 
+import { MasterclassExploreCockpit } from "@/components/workshop/MasterclassExploreCockpit";
+
 interface MasterclassHeroProps {
   onReserveClick: () => void;
 }
-
-const TOPICS = [
-  "ICSR Case Processing",
-  "Adverse Event Triage",
-  "Standardized Medical Coding",
-  "Safety Database Architecture",
-  "Medical Narrative Writing",
-  "Expedited Regulatory Reporting",
-];
 
 export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
   return (
@@ -23,7 +16,7 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
         aria-hidden="true" 
       />
 
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
         {/* Apple-grade live status eyebrow matching homepage */}
         <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 backdrop-blur-md text-[10.5px] sm:text-xs font-mono font-bold tracking-wider uppercase text-[#1D4ED8] shadow-2xs mb-5 sm:mb-8 tone-light card-light">
           <span className="relative flex h-2 w-2 shrink-0">
@@ -120,22 +113,8 @@ export function MasterclassHero({ onReserveClick }: MasterclassHeroProps) {
           </div>
         </div>
 
-        {/* Masterclass Core Topics Bar with Homepage Tag Styling */}
-        <div className="mt-10 pt-6 border-t border-[#E4EAF2] max-w-2xl mx-auto">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3">
-            What You'll Explore In This Session
-          </div>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {TOPICS.map((topic) => (
-              <span
-                key={topic}
-                className="px-3 py-1 rounded-full bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] hover:text-[#2563EB] border border-[#E2E8F0] text-[#081F38] text-xs font-semibold tone-light card-light shadow-2xs transition-colors cursor-default"
-              >
-                {topic}
-              </span>
-            ))}
-          </div>
-        </div>
+        {/* Apple-Grade Masterclass Operational Cockpit with Peak Detailing */}
+        <MasterclassExploreCockpit onReserveClick={onReserveClick} />
 
       </div>
     </section>

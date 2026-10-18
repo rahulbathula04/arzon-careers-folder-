@@ -649,7 +649,7 @@ export function MasterclassWalkaway() {
 
             {/* Market Intelligence Footnote */}
             <div className="mt-6 pt-3.5 border-t border-slate-100 text-[11px] text-slate-500 font-sans leading-relaxed">
-              <strong className="font-semibold text-slate-700">Market Reference:</strong> 12,000+ entry openings across Indian GCCs. Company names and trademarks are property of their respective holders and referenced strictly under nominative fair use for public hiring intelligence; no direct affiliation or endorsement implied.
+              <strong className="font-semibold text-slate-700">Market Reference:</strong> 12,000+ entry openings across Indian GCCs. Third-party company names and trademarks are property of their respective holders and cited under Nominative Fair Use (Sec. 30, Trade Marks Act, 1999) strictly for industry hiring intelligence without implied endorsement.
             </div>
           </div>
 

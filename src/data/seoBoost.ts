@@ -86,4 +86,19 @@ export const COURSE_SEO_BOOST: Record<string, CourseSeoBoost> = {
       "SAS programmer course India",
     ],
   },
+  bioinformatics: {
+    title: "Bioinformatics Course in Hyderabad · NGS & Genomics · Arzon",
+    description:
+      "Bioinformatics & clinical genomics course covering Linux, Python, GATK NGS pipelines and ACMG variant curation. 12-week cohort, clinical exome capstone, verifiable certificate.",
+    h1: "Bioinformatics & Clinical Genomics Course in Hyderabad (NGS & ACMG)",
+    keywords: [
+      "bioinformatics internship",
+      "bioinformatics course in Hyderabad",
+      "NGS data analysis training India",
+      "clinical genomics course",
+      "bioinformatics analyst jobs",
+      "GATK pipeline course",
+      "ACMG variant curation training",
+    ],
+  },
 };

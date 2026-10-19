@@ -3,6 +3,7 @@ import { X, MessageCircle, Linkedin, Instagram, Copy, Check, Download, Share2, S
 import { toast } from "sonner";
 import { track } from "@/lib/track";
 import { CareerIdentityCard } from "./CareerIdentityCard";
+import { ArzonInstagramButton } from "@/components/common/ArzonInstagramButton";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 
 interface Props {
@@ -239,15 +240,21 @@ export function SocialShareModal({
                   shareUrl={shareUrl}
                 />
               </div>
-              <button
-                type="button"
-                onClick={handleDownloadStory}
-                disabled={isExportingStory}
-                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] disabled:opacity-50 w-full sm:w-auto"
-              >
-                <Download className="h-4 w-4" />
-                <span>Download Story Image (PNG)</span>
-              </button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleDownloadStory}
+                  disabled={isExportingStory}
+                  className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#1557D6] disabled:opacity-50 w-full sm:w-auto cursor-pointer"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Download Story Image (PNG)</span>
+                </button>
+                <div className="flex items-center gap-2.5 rounded-full border border-slate-200 bg-slate-50/80 px-3 py-1.5 shadow-2xs">
+                  <ArzonInstagramButton source="share_modal" size="sm" />
+                  <span className="text-[11px] font-semibold text-slate-700">Tag @arzon.global</span>
+                </div>
+              </div>
             </div>
           )}
 

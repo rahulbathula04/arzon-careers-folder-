@@ -19,6 +19,9 @@ import { toast } from "sonner";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { CertificatePreview, type CertificateData } from "./CertificatePreview";
 import { CertificateGenerator } from "./CertificateGenerator";
+import { ArzonInstagramButton } from "@/components/common/ArzonInstagramButton";
+import { ArzonLinkedInButton } from "@/components/common/ArzonLinkedInButton";
+import { ArzonWhatsAppButton } from "@/components/common/ArzonWhatsAppButton";
 
 interface Props {
   result: CareerEngineResult;
@@ -183,60 +186,77 @@ export function CredentialVerification({ result, candidateName: initialName, lea
         </div>
 
         {/* Primary Action Suite (LinkedIn, WhatsApp, Resume, Link) */}
-        <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
-          {/* 1. Add to LinkedIn Profile */}
-          <button
-            type="button"
-            onClick={handleAddToLinkedInProfile}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#004182] px-6 py-3 text-sm font-bold text-white shadow-sm transition active:scale-[0.98] cursor-pointer"
-            title="Adds verified credential directly to your LinkedIn Licenses & Certifications section"
-          >
-            <Linkedin className="h-4 w-4" />
-            <span>Add to LinkedIn Profile</span>
-            <ExternalLink className="h-3 w-3 opacity-80" />
-          </button>
+        <div className="mt-8 space-y-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
+            {/* 1. Add to LinkedIn Profile */}
+            <button
+              type="button"
+              onClick={handleAddToLinkedInProfile}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#004182] px-6 py-3 text-sm font-bold text-white shadow-md transition active:scale-[0.98] cursor-pointer"
+              title="Adds verified credential directly to your LinkedIn Licenses & Certifications section"
+            >
+              <Linkedin className="h-4 w-4 text-white" />
+              <span>Add to LinkedIn Profile</span>
+              <ExternalLink className="h-3 w-3 text-white opacity-80" />
+            </button>
 
-          {/* 2. Share on LinkedIn Post */}
-          <button
-            type="button"
-            onClick={handleShareLinkedIn}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100/80 px-5 py-3 text-sm font-semibold text-blue-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
-          >
-            <Share2 className="h-4 w-4 text-blue-600" />
-            <span>Share Post</span>
-          </button>
+            {/* 2. Share on LinkedIn Post - High contrast guaranteed */}
+            <button
+              type="button"
+              onClick={handleShareLinkedIn}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#0A66C2] bg-white tone-light hover:bg-blue-50 px-5 py-3 text-sm font-bold text-[#0A66C2] shadow-2xs transition active:scale-[0.98] cursor-pointer"
+            >
+              <Share2 className="h-4 w-4 text-[#0A66C2]" />
+              <span className="text-[#0A66C2]">Share on Feed</span>
+            </button>
 
-          {/* 3. Share with Friends (WhatsApp) */}
-          <button
-            type="button"
-            onClick={handleShareWhatsApp}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 hover:bg-emerald-100/80 px-5 py-3 text-sm font-semibold text-emerald-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
-          >
-            <MessageCircle className="h-4 w-4 text-emerald-600" />
-            <span>Share on WhatsApp</span>
-          </button>
+            {/* 3. Share with Friends (WhatsApp) - High contrast guaranteed */}
+            <button
+              type="button"
+              onClick={handleShareWhatsApp}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#00d757] hover:bg-[#00bd4d] px-5 py-3 text-sm font-bold text-white shadow-2xs transition active:scale-[0.98] cursor-pointer"
+            >
+              <MessageCircle className="h-4 w-4 text-white" />
+              <span>Share on WhatsApp</span>
+            </button>
 
-          {/* 4. Add to Resume */}
-          <button
-            type="button"
-            onClick={() => setResumeDrawerOpen((prev) => !prev)}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
-          >
-            <FileText className="h-4 w-4 text-blue-600" />
-            <span>ATS Resume Bullet</span>
-            {resumeDrawerOpen ? <ChevronUp className="h-4 w-4 text-slate-400" /> : <ChevronDown className="h-4 w-4 text-slate-400" />}
-          </button>
+            {/* 4. Add to Resume */}
+            <button
+              type="button"
+              onClick={() => setResumeDrawerOpen((prev) => !prev)}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white tone-light hover:bg-slate-50 px-5 py-3 text-sm font-bold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
+            >
+              <FileText className="h-4 w-4 text-blue-600" />
+              <span className="text-slate-800">ATS Resume Bullet</span>
+              {resumeDrawerOpen ? <ChevronUp className="h-4 w-4 text-slate-500" /> : <ChevronDown className="h-4 w-4 text-slate-500" />}
+            </button>
 
-          {/* 5. Copy Link */}
-          <button
-            type="button"
-            onClick={handleCopyLink}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 hover:bg-slate-100 px-4 py-3 text-sm font-semibold text-slate-700 transition active:scale-[0.98] cursor-pointer"
-            title="Copy direct verification link"
-          >
-            {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4 text-slate-500" />}
-            <span>{copiedLink ? "Link Copied" : "Copy Link"}</span>
-          </button>
+            {/* 5. Copy Link */}
+            <button
+              type="button"
+              onClick={handleCopyLink}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white tone-light hover:bg-slate-50 px-4 py-3 text-sm font-bold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              title="Copy direct verification link"
+            >
+              {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4 text-slate-600" />}
+              <span className="text-slate-800">{copiedLink ? "Link Copied" : "Copy Link"}</span>
+            </button>
+          </div>
+
+          {/* Uiverse Animated Social Command Row (LinkedIn, WhatsApp, Instagram) */}
+          <div className="flex items-center justify-center gap-4 pt-1">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
+              CONNECT &amp; TAG ARZON:
+            </span>
+            <div className="flex items-center gap-2.5">
+              <ArzonLinkedInButton source="credential_card" />
+              <ArzonWhatsAppButton
+                source="credential_card"
+                message={`Hi Arzon team, I just verified my credential for ${recordData.archetypeName} (${recordData.fitScore}% fit)! Verification ref: ${recordData.referenceId}`}
+              />
+              <ArzonInstagramButton source="credential_card" />
+            </div>
+          </div>
         </div>
 
         {/* Expandable "Add to Resume" Drawer */}

@@ -309,6 +309,13 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Fresher Pharmacovigilance Associate track",
   },
   {
+    path: "/bioinformatics-analyst",
+    priority: "0.8",
+    changefreq: "weekly",
+    image: "/images/bioinformatics-workstation.jpg",
+    imageAlt: "Fresher Bioinformatics & Clinical Genomics Analyst track",
+  },
+  {
     path: "/blog",
     priority: "0.9",
     changefreq: "weekly",

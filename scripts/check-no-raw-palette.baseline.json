@@ -140,6 +140,7 @@
   "src/routes/acri.invite.tsx": 79,
   "src/routes/acri.leaderboard.tsx": 80,
   "src/routes/acri.methodology.tsx": 55,
+  "src/routes/bioinformatics-analyst.tsx": 273,
   "src/routes/blog.$slug.tsx": 71,
   "src/routes/blog.index.tsx": 73,
   "src/routes/build.$slug.tsx": 15,

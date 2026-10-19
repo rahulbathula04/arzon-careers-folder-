@@ -219,7 +219,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName, viewM
           type="button"
           onClick={handleDownloadPdf}
           disabled={isExporting}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-slate-900 text-white px-6 py-3 text-sm font-semibold tracking-wide shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15)] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
+          className="arzon-export-pdf-btn inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold tracking-wide shadow-md active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
           <Download className="h-4 w-4" />
           <span>{isExporting ? "Generating PDF..." : viewMode === "certificate" ? "Download Official Certificate (PDF)" : "Download Result Card (PDF)"}</span>
@@ -230,9 +230,9 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName, viewM
           type="button"
           onClick={handleDownloadPng}
           disabled={isExporting}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 hover:bg-blue-100/90 hover:border-blue-300 px-6 py-3 text-sm font-bold text-blue-800 shadow-2xs active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
+          className="arzon-export-png-btn inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold shadow-md active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
-          <ImageIcon className="h-4 w-4 text-blue-600" />
+          <ImageIcon className="h-4 w-4" />
           <span>{isExporting ? "Rendering Image..." : viewMode === "certificate" ? "Save Certificate Image (PNG)" : "Save Result Card Image (PNG)"}</span>
         </button>
       </div>

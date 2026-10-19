@@ -73,6 +73,16 @@ const COMPARISON_ROWS: TrackCompareRow[] = [
     salaryY3: "₹8.00 LPA",
     degreeFit: "Pharm.D, MBBS, M.Pharm, Life Sci",
   },
+  {
+    slug: "bioinformatics",
+    title: "Bioinformatics & Genomic Data",
+    targetRole: "Bioinformatics Analyst / Clinical Genomics Associate",
+    deliverable: "End-to-End Nextflow WES Pipeline & ACMG Dossier",
+    software: ["Linux / Bash", "Python", "GATK v4", "VEP / ClinVar", "IGV", "Nextflow"],
+    salaryY1: "₹4.80 LPA",
+    salaryY3: "₹9.50 LPA",
+    degreeFit: "Biotech, Life Sciences, Genetics, B.Pharm",
+  },
 ];
 
 export function CourseCompareTable() {
@@ -88,7 +98,7 @@ export function CourseCompareTable() {
             id="compare-table-heading"
             className="text-2xl sm:text-3xl font-bold text-[#081F38] tracking-tight"
           >
-            Compare the 6 Core Clinical Tracks
+            Compare Core Clinical &amp; Informatics Tracks
           </h2>
           <p className="mt-2 text-sm sm:text-base text-[#475569] max-w-2xl">
             Every track is reverse-engineered from actual GCC recruiter screening rubrics, with a distinct deliverable and toolchain.

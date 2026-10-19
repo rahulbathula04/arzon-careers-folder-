@@ -6479,3 +6479,250 @@ button[title*="Inspect" i] {
   opacity: 0 !important;
 }
 
+/* ==========================================================================
+   From Uiverse.io by vinodjangid07 · Arzon Global Instagram Animated Button
+   ========================================================================== */
+.Btn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  /* overflow: hidden; */
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all .3s;
+  text-decoration: none;
+  isolation: isolate;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   From Uiverse.io · Arzon Global Animated Social Suite
+   - Instagram (by vinodjangid07)
+   - WhatsApp (by Gaurang7717)
+   - LinkedIn (by mRcOol7)
+   ========================================================================== */
+.Btn,
+.LinkedinBtn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  /* overflow: hidden; */
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  isolation: isolate;
+  flex-shrink: 0;
+}
+
+.LinkedinBtn:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.Btn .svgContainer,
+.LinkedinBtn .svgContainer,
+.svgContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  letter-spacing: 0.8px;
+  border-radius: 10px;
+  transition: all 0.3s;
+  border: 1px solid rgba(156, 156, 156, 0.466);
+  z-index: 1;
+}
+
+.Btn .BG,
+.LinkedinBtn .BG,
+.BG {
+  position: absolute;
+  content: "";
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: 9px;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+/* Default / Instagram gradient */
+.Btn .BG,
+.BG,
+.BG--instagram,
+.Btn--instagram .BG {
+  background: #f09433;
+  background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+}
+
+/* WhatsApp Vibrant Green (#00d757) by Gaurang7717 */
+.Btn--whatsapp .BG,
+.BG--whatsapp {
+  background: #00d757 !important;
+}
+
+/* LinkedIn Blue (#0077b5) by mRcOol7 */
+.LinkedinBtn .BG,
+.Btn--linkedin .BG,
+.BG--linkedin {
+  background: #0077b5 !important;
+}
+
+.Btn:hover .BG,
+.Btn:focus-visible .BG,
+.LinkedinBtn:hover .BG,
+.LinkedinBtn:focus-visible .BG {
+  transform: rotate(35deg);
+  transform-origin: bottom;
+}
+
+.Btn:hover .svgContainer,
+.Btn:focus-visible .svgContainer,
+.LinkedinBtn:hover .svgContainer,
+.LinkedinBtn:focus-visible .svgContainer {
+  background-color: rgba(156, 156, 156, 0.466);
+}
+
+.Btn:focus-visible,
+.LinkedinBtn:focus-visible {
+  outline: 2px solid #1557d6;
+  outline-offset: 3px;
+}
+
+/* Size modifiers */
+.Btn--sm,
+.LinkedinBtn--sm {
+  width: 36px;
+  height: 36px;
+}
+.Btn--sm .svgContainer,
+.LinkedinBtn--sm .svgContainer {
+  border-radius: 8px;
+}
+.Btn--sm .BG,
+.LinkedinBtn--sm .BG {
+  border-radius: 7px;
+}
+
+.Btn--lg,
+.LinkedinBtn--lg {
+  width: 52px;
+  height: 52px;
+}
+.Btn--lg .svgContainer,
+.LinkedinBtn--lg .svgContainer {
+  border-radius: 12px;
+}
+.Btn--lg .BG,
+.LinkedinBtn--lg .BG {
+  border-radius: 11px;
+}
+
+.arzon-insta-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.arzon-insta-label:hover {
+  color: #e1306c;
+}
+
+/* High-Contrast Export Action Buttons (PDF & PNG) */
+.arzon-export-pdf-btn {
+  background-color: #071A4A !important;
+  color: #ffffff !important;
+  border: 1px solid #071A4A !important;
+}
+.arzon-export-pdf-btn:hover {
+  background-color: #1557D6 !important;
+  border-color: #1557D6 !important;
+}
+
+.arzon-export-png-btn {
+  background-color: #ffffff !important;
+  color: #071A4A !important;
+  border: 2px solid #071A4A !important;
+  font-weight: 700 !important;
+}
+.arzon-export-png-btn span,
+.arzon-export-png-btn svg {
+  color: #071A4A !important;
+}
+.arzon-export-png-btn:hover {
+  background-color: #071A4A !important;
+  color: #ffffff !important;
+}
+.arzon-export-png-btn:hover span,
+.arzon-export-png-btn:hover svg {
+  color: #ffffff !important;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .Btn,
+  .LinkedinBtn,
+  .Btn .BG,
+  .LinkedinBtn .BG,
+  .Btn .svgContainer,
+  .LinkedinBtn .svgContainer {
+    transition: none !important;
+  }
+  .Btn:hover .BG,
+  .Btn:focus-visible .BG,
+  .LinkedinBtn:hover .BG,
+  .LinkedinBtn:focus-visible .BG {
+    transform: none !important;
+  }
+}
+
+/*  Executive Student Pass & Archival Academic Diploma Suite */
+.arzon-executive-pass {
+  background: radial-gradient(circle at 50% 0%, #151F33 0%, #0A0F1E 60%, #060913 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 12px 30px -10px rgba(7, 26, 74, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+}
+
+.arzon-smart-chip {
+  background: linear-gradient(135deg, #F3D993 0%, #D4AF37 45%, #AA8222 100%);
+  border: 1px solid #7D5C14;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.arzon-diploma-paper {
+  background-color: #FAF8F2 !important;
+  background-image: 
+    radial-gradient(#D4AF37 0.75px, transparent 0.75px),
+    linear-gradient(to bottom, #FAF8F2 0%, #F5F1E6 100%) !important;
+  background-size: 24px 24px, 100% 100% !important;
+  box-shadow: 0 30px 80px -15px rgba(7, 26, 74, 0.25), inset 0 0 120px rgba(197, 168, 128, 0.15) !important;
+}
+
+.arzon-diploma-inner-frame {
+  border: 2px solid #C5A880 !important;
+  outline: 1.5px solid #071A4A !important;
+  outline-offset: -8px !important;
+  background-color: #FCFBF7 !important;
+}
+
+

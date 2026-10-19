@@ -16,6 +16,7 @@ import { Route as AcriRouteImport } from './routes/acri'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AiHealthcareJobsRouteImport } from './routes/ai-healthcare-jobs'
 import { Route as ApplyRouteImport } from './routes/apply'
+import { Route as BioinformaticsAnalystRouteImport } from './routes/bioinformatics-analyst'
 import { Route as CareerAssessmentRouteImport } from './routes/career-assessment'
 import { Route as CareerEngineRouteImport } from './routes/career-engine'
 import { Route as CareersRouteImport } from './routes/careers'
@@ -236,6 +237,11 @@ const AiHealthcareJobsRoute = AiHealthcareJobsRouteImport.update({
 const ApplyRoute = ApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BioinformaticsAnalystRoute = BioinformaticsAnalystRouteImport.update({
+  id: '/bioinformatics-analyst',
+  path: '/bioinformatics-analyst',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareerAssessmentRoute = CareerAssessmentRouteImport.update({
@@ -1203,6 +1209,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
   '/apply': typeof ApplyRouteWithChildren
+  '/bioinformatics-analyst': typeof BioinformaticsAnalystRoute
   '/career-assessment': typeof CareerAssessmentRoute
   '/career-engine': typeof CareerEngineRouteWithChildren
   '/careers': typeof CareersRouteWithChildren
@@ -1396,6 +1403,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/acri': typeof AcriRouteWithChildren
   '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
+  '/bioinformatics-analyst': typeof BioinformaticsAnalystRoute
   '/career-assessment': typeof CareerAssessmentRoute
   '/careers': typeof CareersRouteWithChildren
   '/changelog': typeof ChangelogRoute
@@ -1591,6 +1599,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/ai-healthcare-jobs': typeof AiHealthcareJobsRoute
   '/apply': typeof ApplyRouteWithChildren
+  '/bioinformatics-analyst': typeof BioinformaticsAnalystRoute
   '/career-assessment': typeof CareerAssessmentRoute
   '/career-engine': typeof CareerEngineRouteWithChildren
   '/careers': typeof CareersRouteWithChildren
@@ -1788,6 +1797,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/ai-healthcare-jobs'
     | '/apply'
+    | '/bioinformatics-analyst'
     | '/career-assessment'
     | '/career-engine'
     | '/careers'
@@ -1981,6 +1991,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/acri'
     | '/ai-healthcare-jobs'
+    | '/bioinformatics-analyst'
     | '/career-assessment'
     | '/careers'
     | '/changelog'
@@ -2175,6 +2186,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/ai-healthcare-jobs'
     | '/apply'
+    | '/bioinformatics-analyst'
     | '/career-assessment'
     | '/career-engine'
     | '/careers'
@@ -2372,6 +2384,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   AiHealthcareJobsRoute: typeof AiHealthcareJobsRoute
   ApplyRoute: typeof ApplyRouteWithChildren
+  BioinformaticsAnalystRoute: typeof BioinformaticsAnalystRoute
   CareerAssessmentRoute: typeof CareerAssessmentRoute
   CareerEngineRoute: typeof CareerEngineRouteWithChildren
   CareersRoute: typeof CareersRouteWithChildren
@@ -2540,6 +2553,13 @@ declare module '@tanstack/react-router' {
       path: '/apply'
       fullPath: '/apply'
       preLoaderRoute: typeof ApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bioinformatics-analyst': {
+      id: '/bioinformatics-analyst'
+      path: '/bioinformatics-analyst'
+      fullPath: '/bioinformatics-analyst'
+      preLoaderRoute: typeof BioinformaticsAnalystRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/career-assessment': {
@@ -4140,6 +4160,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   AiHealthcareJobsRoute: AiHealthcareJobsRoute,
   ApplyRoute: ApplyRouteWithChildren,
+  BioinformaticsAnalystRoute: BioinformaticsAnalystRoute,
   CareerAssessmentRoute: CareerAssessmentRoute,
   CareerEngineRoute: CareerEngineRouteWithChildren,
   CareersRoute: CareersRouteWithChildren,

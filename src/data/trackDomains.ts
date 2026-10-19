@@ -2,7 +2,7 @@ import type { TrackSlug } from "@/data/trackTheme";
 
 export type DomainCard = {
   /** Track slug - drives the locked theme via getTrackTheme. */
-  slug: TrackSlug | "digital-health-fhir";
+  slug: TrackSlug | "digital-health-fhir" | "bioinformatics";
   /** Target Job Title hero heading (e.g., "Fresher PV Associate Track"). */
   heroTitle?: string;
   /** Subject descriptor (e.g., "Pharmacovigilance & Drug Safety"). */
@@ -58,6 +58,31 @@ export const DOMAIN_CARDS: DomainCard[] = [
     bestFor: "B.Pharm / M.Pharm / Pharm.D / Life Sciences",
     footerTag: "12 WEEKS · ROLE-BASED · FRESHER",
     decision: { salary: "₹2.8–4.2 LPA", hiring: "High", difficulty: "Medium", demand: "Steady" },
+  },
+  {
+    slug: "bioinformatics",
+    heroTitle: "Fresher Bioinformatics Analyst Track",
+    subject: "Bioinformatics & Genomic Data",
+    label: "Bioinformatics",
+    eyebrow: "NGS + ACMG",
+    blurb: "Execute GATK variant calling pipelines, annotate with VEP & ClinVar, and curate clinical genetics reports.",
+    skillsHeader: "Build skills in:",
+    skills: [
+      "Linux & Bash scripting",
+      "Python + Biopython",
+      "BWA-MEM & GATK v4",
+      "Variant annotation (VEP)",
+      "ACMG/AMP classification",
+      "Nextflow workflows",
+    ],
+    bestFor: "Biotechnology / Life Sciences / Genetics / Pharmacy graduates",
+    footerTag: "12 WEEKS · ROLE-BASED · FRESHER",
+    decision: {
+      salary: "₹4.8–8.5 LPA",
+      hiring: "High",
+      difficulty: "High",
+      demand: "Surging",
+    },
   },
   {
     slug: "medical-coding",

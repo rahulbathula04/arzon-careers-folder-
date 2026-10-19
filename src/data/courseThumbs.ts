@@ -6,6 +6,7 @@ import thumbSAS from "@/assets/thumbs/sas-clinical.webp";
 import thumbNano from "@/assets/thumbs/nanoscience.webp";
 import thumbAI from "@/assets/thumbs/ai-intelligence.webp";
 import thumbSaaS from "@/assets/thumbs/clinical-saas.webp";
+import thumbBio from "@/assets/thumbs/bioinformatics.webp";
 // Legacy fallbacks (kept for slugs without bespoke art yet).
 import thumbRA from "@/assets/thumbs/regulatory-affairs.webp";
 import thumbCR from "@/assets/thumb-clinical-research.webp";
@@ -30,6 +31,8 @@ import thumbSaaS400 from "@/assets/thumbs/generated/clinical-saas-400w.webp";
 import thumbSaaS600 from "@/assets/thumbs/generated/clinical-saas-600w.webp";
 import thumbRA400 from "@/assets/thumbs/generated/regulatory-affairs-400w.webp";
 import thumbRA600 from "@/assets/thumbs/generated/regulatory-affairs-600w.webp";
+import thumbBio400 from "@/assets/thumbs/generated/bioinformatics-400w.webp";
+import thumbBio600 from "@/assets/thumbs/generated/bioinformatics-600w.webp";
 
 import type { CourseCategory } from "./courses";
 
@@ -52,7 +55,7 @@ const BY_SLUG: Record<string, string> = {
   "healthcare-rcm": thumbMC,
   "digital-health-fhir": thumbAI,
   "medical-writing": thumbRA,
-  bioinformatics: thumbNano,
+  bioinformatics: thumbBio,
 };
 
 /** srcSet variants aligned 1:1 with the BY_SLUG entries above. */
@@ -71,7 +74,7 @@ const SRCSET_BY_SLUG: Record<string, { w400: string; w600: string; w800: string 
   "healthcare-rcm": { w400: thumbMC400, w600: thumbMC600, w800: thumbMC },
   "digital-health-fhir": { w400: thumbAI400, w600: thumbAI600, w800: thumbAI },
   "medical-writing": { w400: thumbRA400, w600: thumbRA600, w800: thumbRA },
-  bioinformatics: { w400: thumbNano400, w600: thumbNano600, w800: thumbNano },
+  bioinformatics: { w400: thumbBio400, w600: thumbBio600, w800: thumbBio },
 };
 
 const SRCSET_BY_CATEGORY: Record<CourseCategory, { w400: string; w600: string; w800: string }> = {

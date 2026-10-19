@@ -3,6 +3,9 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { toast } from "sonner";
 import { ArzonLogo } from "./ArzonLogo";
+import { ArzonInstagramButton } from "../common/ArzonInstagramButton";
+import { ArzonLinkedInButton } from "../common/ArzonLinkedInButton";
+import { ArzonWhatsAppButton } from "../common/ArzonWhatsAppButton";
 
 export function AcriFooter() {
   const [email, setEmail] = useState("");
@@ -36,44 +39,11 @@ export function AcriFooter() {
             <p className="text-xs sm:text-sm text-stone-500 leading-relaxed max-w-xs">
               India&apos;s Most Trusted Platform for Digital Excellence &amp; Healthcare Career Readiness.
             </p>
-            {/* Social Links */}
+            {/* Social Links - Uiverse animated social suite */}
             <div className="flex items-center gap-3 pt-2">
-              <a
-                href="https://linkedin.com/company/arzon-global"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-300 bg-white tone-light text-stone-600 hover:text-[#0B1325] hover:border-stone-400 transition-colors"
-                aria-label="Arzon Global LinkedIn"
-              >
-                <span className="font-bold text-xs">in</span>
-              </a>
-              <a
-                href="https://instagram.com/arzonglobal"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-300 bg-white tone-light text-stone-600 hover:text-[#0B1325] hover:border-stone-400 transition-colors"
-                aria-label="Arzon Global Instagram"
-              >
-                <span className="font-bold text-xs">ig</span>
-              </a>
-              <a
-                href="https://youtube.com/@arzonglobal"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-300 bg-white tone-light text-stone-600 hover:text-[#0B1325] hover:border-stone-400 transition-colors"
-                aria-label="Arzon Global YouTube"
-              >
-                <span className="font-bold text-xs">yt</span>
-              </a>
-              <a
-                href="https://x.com/arzonglobal"
-                target="_blank"
-                rel="noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-stone-300 bg-white tone-light text-stone-600 hover:text-[#0B1325] hover:border-stone-400 transition-colors"
-                aria-label="Arzon Global X"
-              >
-                <span className="font-bold text-xs">X</span>
-              </a>
+              <ArzonLinkedInButton source="acri_footer" size="sm" />
+              <ArzonInstagramButton source="acri_footer" size="sm" />
+              <ArzonWhatsAppButton source="acri_footer" size="sm" />
             </div>
           </div>
 

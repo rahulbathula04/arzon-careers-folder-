@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Instagram, Linkedin, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { ArzonLogo } from "../acri/ArzonLogo";
+import { ArzonInstagramButton } from "../common/ArzonInstagramButton";
+import { ArzonLinkedInButton } from "../common/ArzonLinkedInButton";
+import { ArzonWhatsAppButton } from "../common/ArzonWhatsAppButton";
 import { LINKS, waLink } from "@/components/landing/constants";
 
 const groups = [
@@ -87,35 +90,11 @@ export function ArzonFooter() {
               <span>MSME UDYAM · ISO-Aligned · TASK Collaborative</span>
             </div>
 
-            {/* Social links */}
-            <div className="mt-5 flex items-center gap-2">
-              <a
-                href={LINKS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Arzon Global on LinkedIn"
-                className="grid h-8 w-8 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-slate-500 hover:border-[#1557D6] hover:text-[#1557D6] transition-colors"
-              >
-                <Linkedin className="h-3.5 w-3.5" />
-              </a>
-              <a
-                href={LINKS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Arzon Global on Instagram"
-                className="grid h-8 w-8 place-items-center rounded-full border border-[#E4EAF2] bg-white tone-light text-slate-500 hover:border-[#1557D6] hover:text-[#1557D6] transition-colors"
-              >
-                <Instagram className="h-3.5 w-3.5" />
-              </a>
-              <a
-                href={waLink("Hi, I'm interested in Arzon career programmes")}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Connect on WhatsApp"
-                className="inline-flex items-center gap-1.5 h-8 rounded-full border border-[#E4EAF2] bg-white tone-light px-3 text-[11px] font-semibold text-slate-500 hover:border-emerald-300 hover:text-emerald-700 transition-colors"
-              >
-                WhatsApp
-              </a>
+            {/* Social links - Uiverse animated social suite */}
+            <div className="mt-5 flex items-center gap-3">
+              <ArzonLinkedInButton source="global_footer" />
+              <ArzonInstagramButton source="global_footer" />
+              <ArzonWhatsAppButton source="global_footer" />
             </div>
           </div>
 

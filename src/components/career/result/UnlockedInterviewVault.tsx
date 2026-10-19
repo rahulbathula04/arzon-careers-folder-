@@ -250,10 +250,10 @@ export function UnlockedInterviewVault({ result, candidateName = "Candidate" }: 
             <button
               type="button"
               onClick={() => toast.success("Downloading Argus ICSR Case Sample (.PDF)...")}
-              className="mt-4 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100/80 border border-blue-200/80 text-[11px] font-bold text-blue-700 transition-all active:scale-95 cursor-pointer shadow-2xs"
+              className="mt-4 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-[11px] font-bold text-blue-700 transition-all active:scale-95 cursor-pointer shadow-2xs"
             >
-              <Download className="h-3.5 w-3.5" />
-              <span>Download Casework</span>
+              <Download className="h-3.5 w-3.5 text-blue-700" />
+              <span className="text-blue-700">Download Casework</span>
             </button>
           </div>
 
@@ -276,10 +276,10 @@ export function UnlockedInterviewVault({ result, candidateName = "Candidate" }: 
             <button
               type="button"
               onClick={() => toast.success("Downloading EDC Discrepancy Log (.XLSX)...")}
-              className="mt-4 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-teal-50 hover:bg-teal-100/80 border border-teal-200/80 text-[11px] font-bold text-teal-800 transition-all active:scale-95 cursor-pointer shadow-2xs"
+              className="mt-4 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-[11px] font-bold text-teal-800 transition-all active:scale-95 cursor-pointer shadow-2xs"
             >
-              <Download className="h-3.5 w-3.5" />
-              <span>Download Casework</span>
+              <Download className="h-3.5 w-3.5 text-teal-800" />
+              <span className="text-teal-800">Download Casework</span>
             </button>
           </div>
 
@@ -302,10 +302,10 @@ export function UnlockedInterviewVault({ result, candidateName = "Candidate" }: 
             <button
               type="button"
               onClick={() => toast.success("Downloading Medical Coding Chart (.PDF)...")}
-              className="mt-4 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-indigo-50 hover:bg-indigo-100/80 border border-indigo-200/80 text-[11px] font-bold text-indigo-800 transition-all active:scale-95 cursor-pointer shadow-2xs"
+              className="mt-4 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-[11px] font-bold text-indigo-800 transition-all active:scale-95 cursor-pointer shadow-2xs"
             >
-              <Download className="h-3.5 w-3.5" />
-              <span>Download Casework</span>
+              <Download className="h-3.5 w-3.5 text-indigo-800" />
+              <span className="text-indigo-800">Download Casework</span>
             </button>
           </div>
         </div>

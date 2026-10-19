@@ -4262,8 +4262,10 @@ a { color: inherit; }
 .tone-light button[class*="bg-slate-900"],.tone-light button[class*="bg-slate-900"] *,
 .tone-light a[class*="bg-slate-950"],.tone-light a[class*="bg-slate-950"] *,
 .tone-light button[class*="bg-slate-950"],.tone-light button[class*="bg-slate-950"] *,
-.tone-light a[class*="bg-blue-"],.tone-light a[class*="bg-blue-"] *,
-.tone-light button[class*="bg-blue-"],.tone-light button[class*="bg-blue-"] *,
+.tone-light a[class*="bg-blue-600"],.tone-light a[class*="bg-blue-600"] *,
+.tone-light button[class*="bg-blue-600"],.tone-light button[class*="bg-blue-600"] *,
+.tone-light a[class*="bg-blue-700"],.tone-light a[class*="bg-blue-700"] *,
+.tone-light button[class*="bg-blue-700"],.tone-light button[class*="bg-blue-700"] *,
 .tone-light a[class*="bg-primary"],.tone-light a[class*="bg-primary"] *,
 .tone-light button[class*="bg-primary"],.tone-light button[class*="bg-primary"] *,
 [data-arzon-dark="true"], [data-arzon-dark="true"] * {

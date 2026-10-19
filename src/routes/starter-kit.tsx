@@ -28,6 +28,7 @@ import { ArzonV2PageHero } from "@/components/system/ArzonV2PageHero";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
 import { breadcrumbSchema } from "@/lib/jsonLd";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
+import { ArzonDownloadButton } from "@/components/ui/download-button";
 import {
   STARTER_KIT_QUESTIONS,
   SAFETY_WORKFLOW_STEPS,
@@ -198,15 +199,15 @@ function StarterKitPage() {
                   placeholder="Your Degree (e.g. B.Pharm / M.Sc Biotech)"
                   className="tone-dark w-full px-3.5 py-2.5 rounded-xl border border-stone-700 bg-stone-950 text-white text-xs font-sans focus:outline-none focus:border-blue-400"
                 />
-                <button
-                  type="button"
-                  onClick={handleDownloadPdf}
-                  disabled={isGeneratingPdf}
-                  className="w-full py-3.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-black uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>{isGeneratingPdf ? "Building PDF..." : "Download Official PDF Now"}</span>
-                </button>
+                <div className="flex justify-center pt-1">
+                  <ArzonDownloadButton
+                    label="Download Free PDF"
+                    completedLabel="PDF Downloaded!"
+                    onDownload={handleDownloadPdf}
+                    disabled={isGeneratingPdf}
+                    theme="dark"
+                  />
+                </div>
               </div>
 
               <div className="pt-2 text-[10px] font-mono text-stone-400 flex items-center justify-between">

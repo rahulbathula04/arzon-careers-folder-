@@ -1,4 +1,5 @@
 import arzonIcon from "@/assets/arzon-icon.webp";
+import { CubeLoader } from "@/components/ui/cube-loader";
 
 const PHRASES = ["AI Thinking: Charting your path…", "AI Thinking: Analyzing parameters…", "AI Thinking: Synthesizing results…"];
 
@@ -39,62 +40,11 @@ export function SpaceLoader({
         </>
       )}
 
-      {/* Center mark */}
-      <div className="relative flex flex-col items-center gap-6">
-        <div className="relative h-24 w-24">
-          {/* Pulsing glow */}
-          <div
-            aria-hidden
-            className={`absolute inset-0 rounded-full ${reducedMotion ? "" : "ce-glow-pulse"}`}
-            style={{
-              background:
-                "radial-gradient(circle, color-mix(in oklab, var(--primary-glow, #60A5FA) 50%, transparent) 0%, transparent 70%)",
-              filter: "blur(8px)",
-            }}
-          />
-          {/* Orbiting ring */}
-          <svg
-            viewBox="0 0 100 100"
-            className={`absolute inset-0 h-full w-full ${reducedMotion ? "" : "ce-orbit-spin"}`}
-            aria-hidden
-          >
-            <circle
-              cx="50"
-              cy="50"
-              r="46"
-              fill="none"
-              stroke="color-mix(in oklab, var(--primary-glow, #60A5FA) 60%, transparent)"
-              strokeWidth="1.25"
-              strokeDasharray="6 10"
-              strokeLinecap="round"
-            />
-            <circle cx="50" cy="4" r="2" fill="var(--gold, #F5C04A)" />
-          </svg>
-          {/* Inner orbit, opposite direction */}
-          <svg
-            viewBox="0 0 100 100"
-            className={`absolute inset-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] ${
-              reducedMotion ? "" : "ce-orbit-spin-rev"
-            }`}
-            aria-hidden
-          >
-            <circle
-              cx="50"
-              cy="50"
-              r="46"
-              fill="none"
-              stroke="color-mix(in oklab, white 18%, transparent)"
-              strokeWidth="0.75"
-              strokeDasharray="2 8"
-            />
-          </svg>
-          {/* Logo */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <img src={arzonIcon} alt="" className="h-12 w-12 rounded-full" draggable={false} />
-          </div>
-        </div>
+      {/* Center mark: 3D Isometric Cube Loader in Arzon Blue branding */}
+      <div className="relative flex flex-col items-center gap-2">
+        <CubeLoader size="md" theme="dark" maskColor="#070B16" />
 
-        <div className="flex min-h-[1.25rem] items-center justify-center">
+        <div className="flex min-h-[1.25rem] items-center justify-center -mt-4">
           <p
             key={phraseIndex}
             className={`font-mono text-micro font-semibold uppercase tracking-[0.24em] text-white/70 ${

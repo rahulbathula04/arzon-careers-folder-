@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Download, FileText, CheckCircle2, Building2, Sparkles } from "lucide-react";
+import { CheckCircle2, Download } from "lucide-react";
 import { generateWorkshopBrochurePDF } from "@/lib/workshop-brochure-pdf";
 import { track } from "@/lib/track";
+import { ArzonDownloadButton } from "@/components/ui/download-button";
 
 interface WorkshopBrochureDownloadButtonProps {
   variant?: "primary" | "secondary" | "outline" | "admin";
@@ -66,22 +67,17 @@ export function WorkshopBrochureDownloadButton({
 
   if (variant === "outline") {
     return (
-      <div className="space-y-1">
-        <button
-          type="button"
-          onClick={handleDownload}
+      <div className="space-y-1 flex flex-col items-center">
+        <ArzonDownloadButton
+          label={label ? label.replace(" (PDF)", "") : "Download Brochure"}
+          completedLabel="Downloaded!"
+          onDownload={handleDownload}
           disabled={isGenerating}
-          className={`inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl border-2 border-stone-800 bg-white hover:bg-stone-50 text-stone-900 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-xs cursor-pointer disabled:opacity-60 tone-light ${className}`}
-        >
-          {downloaded ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-          ) : (
-            <Download className="w-4 h-4 text-stone-800" />
-          )}
-          <span>{isGenerating ? "Generating Prospectus..." : downloaded ? "Brochure Downloaded!" : label}</span>
-        </button>
+          theme="light"
+          className={className}
+        />
         {showSubtext && (
-          <p className="text-[11px] text-stone-500 font-sans">
+          <p className="text-[11px] text-stone-500 font-sans text-center">
             5-page official prospectus covering syllabus, faculty, and college partnership guidelines.
           </p>
         )}
@@ -90,25 +86,21 @@ export function WorkshopBrochureDownloadButton({
   }
 
   return (
-    <div className="space-y-1.5">
-      <button
-        type="button"
-        onClick={handleDownload}
+    <div className="space-y-1.5 flex flex-col items-center">
+      <ArzonDownloadButton
+        label={label ? label.replace(" (PDF)", "") : "Download Brochure"}
+        completedLabel="Downloaded!"
+        onDownload={handleDownload}
         disabled={isGenerating}
-        className={`inline-flex items-center justify-center gap-2.5 py-3.5 px-6 rounded-xl bg-[var(--color-medical-navy)] hover:bg-[#1B3F8B] text-white font-mono text-xs sm:text-sm font-bold uppercase tracking-wider transition-all shadow-md cursor-pointer disabled:opacity-60 text-center ${className}`}
-      >
-        {downloaded ? (
-          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-        ) : (
-          <Download className="w-4 h-4 text-sky-400" />
-        )}
-        <span>{isGenerating ? "Generating Prospectus..." : downloaded ? "Brochure Downloaded!" : label}</span>
-      </button>
+        theme="dark"
+        className={className}
+      />
       {showSubtext && (
-        <p className="text-[11px] text-stone-500 font-sans">
+        <p className="text-[11px] text-stone-400 font-sans text-center">
           Curated for College Chairmen, Principals &amp; Placement Officers (TPOs).
         </p>
       )}
     </div>
   );
 }
+

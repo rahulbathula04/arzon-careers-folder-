@@ -15,6 +15,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ExternalLink,
+  Dna,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
@@ -191,6 +192,29 @@ export function HomeEmployerTrustStrip() {
       tools: ["eCTD Publishing Platforms", "XML Backbone Validators", "Adobe Acrobat Pro Tools"],
       marketTell: "Technical evaluations mandate pinpointing structural XML validation errors in eCTD backbone trees and understanding Module 2.4/2.6 nonclinical summaries.",
       roleLink: "/courses/regulatory-affairs",
+    },
+    {
+      benchmarkCategory: "CLINICAL GENOMICS & BIOINFORMATICS",
+      shortCategory: "CLINICAL GENOMICS",
+      hub: "Bengaluru · Hyderabad · Pune Hubs",
+      role: "Bioinformatics & Genomics Data Analyst",
+      salary: "₹4.80 – ₹8.50 LPA",
+      jds: "150+ JDs analysed",
+      thumbnail: "/images/benchmarks/benchmark-bioinformatics.webp",
+      icon: Dna,
+      badgeStyle: {
+        bg: "bg-teal-50",
+        text: "text-teal-700",
+        border: "border-teal-200",
+      },
+      requirements: [
+        "End-to-end germline & somatic NGS pipeline execution (FASTQ → BWA-MEM alignment → GATK HaplotypeCaller)",
+        "Clinical variant annotation (Ensembl VEP / ANNOVAR) and minor allele frequency filtering with gnomAD v4",
+        "5-tier ACMG/AMP 2015 pathogenicity scoring (PVS1, PM2, PP3) and visual verification of reads in IGV",
+      ],
+      tools: ["Linux / Bash", "Python (Biopython)", "GATK v4", "Ensembl VEP", "ClinVar & gnomAD", "IGV", "Nextflow"],
+      marketTell: "86% of genomics diagnostic screening rounds test the ability to distinguish true variants from PCR artifacts in IGV and justify ACMG variant evidence scoring.",
+      roleLink: "/bioinformatics-analyst",
     },
   ];
 

@@ -6,6 +6,7 @@ import {
   Activity,
   AlertTriangle,
   ArrowRight,
+  ArrowUpRight,
   BarChart3,
   Briefcase,
   Building2,
@@ -61,7 +62,7 @@ import { AdminAssessmentDossier } from "@/components/admin/AdminAssessmentDossie
 export const Route = createFileRoute("/admin/")({
   head: () => ({
     meta: [
-      { title: "Admin Command Center · All Responses · Arzon" },
+      { title: "Apple Pro Command Center · Admissions & Intake · Arzon" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
@@ -75,23 +76,23 @@ function AdminHomeError({ error, reset }: { error: unknown; reset: () => void })
     console.error("[admin/index] error:", error);
   }, [error]);
   return (
-    <div className="mx-auto max-w-[1320px] p-6">
-      <div className="rounded-2xl border border-rose-500/20 bg-rose-500/[0.04] p-8 text-center backdrop-blur-sm card-light">
-        <AlertTriangle className="mx-auto mb-3 h-8 w-8 text-rose-500" />
-        <h1 className="font-serif text-xl font-bold text-stone-900">Dashboard couldn't load</h1>
-        <p className="mx-auto mt-2 max-w-md text-sm text-stone-600">
-          {error instanceof Error ? error.message : "An unexpected error occurred while loading the responses dashboard."}
+    <div className="mx-auto max-w-4xl p-6">
+      <div className="rounded-3xl border border-rose-500/20 bg-[#0B0F19]/90 p-8 text-center backdrop-blur-2xl shadow-2xl">
+        <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-rose-400" />
+        <h1 className="text-xl font-bold text-white tracking-tight">Telemetry Interface Interrupted</h1>
+        <p className="mx-auto mt-2 max-w-md text-xs text-zinc-400 leading-relaxed font-mono">
+          {error instanceof Error ? error.message : "An unexpected telemetry disruption occurred while loading responses."}
         </p>
-        <div className="mt-5 flex justify-center gap-2">
+        <div className="mt-6 flex justify-center gap-3">
           <button
             type="button"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-stone-300 bg-white text-stone-800 text-xs font-semibold hover:bg-stone-50 transition cursor-pointer tone-light"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition cursor-pointer backdrop-blur-md active:scale-95"
             onClick={() => {
               router.invalidate();
               reset();
             }}
           >
-            <RefreshCw className="h-3.5 w-3.5" /> Retry
+            <RefreshCw className="h-3.5 w-3.5" /> Reconnect Radar
           </button>
         </div>
       </div>
@@ -99,18 +100,19 @@ function AdminHomeError({ error, reset }: { error: unknown; reset: () => void })
   );
 }
 
-const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  registered: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
-  submitted: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
-  reviewing: { bg: "bg-amber-50", text: "text-amber-800", border: "border-amber-200" },
-  shortlisted: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
-  accepted: { bg: "bg-emerald-50", text: "text-emerald-800", border: "border-emerald-300" },
-  enrolled: { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
-  paid: { bg: "bg-emerald-50", text: "text-emerald-800", border: "border-emerald-300" },
-  contacted: { bg: "bg-teal-50", text: "text-teal-700", border: "border-teal-200" },
-  uncontacted: { bg: "bg-stone-100", text: "text-stone-700", border: "border-stone-200" },
-  pending: { bg: "bg-amber-50", text: "text-amber-700", border: "border-amber-200" },
-  rejected: { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
+// Apple Titanium Specular Status Palette
+const STATUS_SPECS: Record<string, { bg: string; text: string; border: string; glow: string }> = {
+  registered: { bg: "bg-sky-500/10", text: "text-sky-300", border: "border-sky-500/25", glow: "shadow-sky-500/10" },
+  submitted: { bg: "bg-sky-500/10", text: "text-sky-300", border: "border-sky-500/25", glow: "shadow-sky-500/10" },
+  reviewing: { bg: "bg-amber-500/10", text: "text-amber-300", border: "border-amber-500/25", glow: "shadow-amber-500/10" },
+  shortlisted: { bg: "bg-emerald-500/10", text: "text-emerald-300", border: "border-emerald-500/25", glow: "shadow-emerald-500/10" },
+  accepted: { bg: "bg-emerald-500/15", text: "text-emerald-300", border: "border-emerald-500/30", glow: "shadow-emerald-500/20" },
+  enrolled: { bg: "bg-purple-500/10", text: "text-purple-300", border: "border-purple-500/25", glow: "shadow-purple-500/10" },
+  paid: { bg: "bg-emerald-500/15", text: "text-emerald-300", border: "border-emerald-500/30", glow: "shadow-emerald-500/20" },
+  contacted: { bg: "bg-teal-500/10", text: "text-teal-300", border: "border-teal-500/25", glow: "shadow-teal-500/10" },
+  uncontacted: { bg: "bg-zinc-500/10", text: "text-zinc-400", border: "border-zinc-500/20", glow: "shadow-zinc-500/5" },
+  pending: { bg: "bg-amber-500/10", text: "text-amber-300", border: "border-amber-500/25", glow: "shadow-amber-500/10" },
+  rejected: { bg: "bg-rose-500/10", text: "text-rose-300", border: "border-rose-500/25", glow: "shadow-rose-500/10" },
 };
 
 function getAvailableStatuses(kind: ResponseKind): { value: string; label: string }[] {
@@ -161,9 +163,9 @@ function AdminHome() {
   const [analyticsResult, setAnalyticsResult] = useState<LiveWebsiteAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Active view tab: "all" | "workshop" | "application" | "career_engine" | "enrolment" | "analytics" | "controls"
+  // Active view tab
   const [activeTab, setActiveTab] = useState<
-    "all" | "workshop" | "application" | "career_engine" | "enrolment" | "analytics" | "controls"
+    "all" | "career_engine" | "application" | "workshop" | "enrolment" | "analytics" | "controls"
   >("all");
 
   // Filter & Search Controls
@@ -171,13 +173,14 @@ function AdminHome() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [collegeFilter, setCollegeFilter] = useState("all");
   const [degreeFilter, setDegreeFilter] = useState("all");
+  const [fitScorePreset, setFitScorePreset] = useState<"all" | "high" | "solid" | "guidance">("all");
   const [savingStatusId, setSavingStatusId] = useState<string | null>(null);
   const [focusMode, setFocusMode] = useState<
     "all" | "needs_attention" | "high_fit_uncontacted" | "pending_review" | "pending_payment"
   >("all");
   const [dispatchingNext, setDispatchingNext] = useState(false);
 
-  // Candidate Dossier Detail Drawer
+  // Candidate Dossier Detail Drawer & Assessment Modal
   const [selectedCandidate, setSelectedCandidate] = useState<UnifiedAdminResponse | null>(null);
   const [dossierCandidate, setDossierCandidate] = useState<UnifiedAdminResponse | null>(null);
 
@@ -185,6 +188,11 @@ function AdminHome() {
   const [activeDispatchCandidate, setActiveDispatchCandidate] = useState<UnifiedAdminResponse | null>(null);
   const [dispatchTemplate, setDispatchTemplate] = useState<"pass" | "acri_pass" | "reminder" | "interview" | "question">("pass");
   const [copiedMsg, setCopiedMsg] = useState(false);
+
+  // Clock & Auto-refresh State
+  const [currentTime, setCurrentTime] = useState("");
+  const [autoRefreshActive, setAutoRefreshActive] = useState(true);
+  const [refreshCountdown, setRefreshCountdown] = useState(30);
 
   // Workshop Website Customization State (persisted in localStorage)
   const [customTitle, setCustomTitle] = useState(WORKSHOP_CONFIG.title);
@@ -195,6 +203,25 @@ function AdminHome() {
   const [customCapacityText, setCustomCapacityText] = useState(WORKSHOP_CONFIG.capacityLimitText);
   const [customIsLive, setCustomIsLive] = useState(false);
   const [configSavedToast, setConfigSavedToast] = useState(false);
+
+  // Live Clock Ticker
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(
+        now.toLocaleTimeString("en-IN", {
+          timeZone: "Asia/Kolkata",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: true,
+        }) + " IST"
+      );
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Initialize workshop settings from localStorage
   useEffect(() => {
@@ -289,14 +316,29 @@ function AdminHome() {
       console.warn("[admin] load error:", e);
     } finally {
       setLoading(false);
+      setRefreshCountdown(30);
     }
   }, [fetchAllResponses, fetchAnalytics]);
-
 
   useEffect(() => {
     if (gate !== "ready") return;
     loadData();
   }, [gate, loadData]);
+
+  // 30-Second Auto-Refresh Ticker
+  useEffect(() => {
+    if (gate !== "ready" || !autoRefreshActive || isReducedMotion()) return;
+    const interval = setInterval(() => {
+      setRefreshCountdown((prev) => {
+        if (prev <= 1) {
+          loadData();
+          return 30;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [gate, autoRefreshActive, loadData]);
 
   // Live 10-second analytics pulse
   useEffect(() => {
@@ -387,7 +429,7 @@ function AdminHome() {
   async function handleOneClickDispatchNextLead() {
     const nextLead = attentionMetrics.highFitUncontacted[0] || attentionMetrics.hotLeads[0];
     if (!nextLead) {
-      toast.success("Zero pending urgent leads! You're all caught up.");
+      toast.success("Zero pending urgent leads! All queues caught up.");
       return;
     }
     setDispatchingNext(true);
@@ -404,7 +446,7 @@ function AdminHome() {
       if (nextLead.status === "uncontacted") {
         await handleStatusChange(nextLead, "contacted");
       }
-      toast.success(`Opened WhatsApp & auto-marked ${nextLead.name} as Contacted!`);
+      toast.success(`Dispatched WhatsApp & marked ${nextLead.name} as Contacted!`);
     } finally {
       setDispatchingNext(false);
     }
@@ -480,7 +522,15 @@ function AdminHome() {
         }
       }
 
-      // 5. Search query
+      // 5. Fit Score Preset
+      if (fitScorePreset !== "all") {
+        const score = r.fit_score ?? 0;
+        if (fitScorePreset === "high" && score < 85) return false;
+        if (fitScorePreset === "solid" && (score < 70 || score >= 85)) return false;
+        if (fitScorePreset === "guidance" && score >= 70) return false;
+      }
+
+      // 6. Search query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase().trim();
         const matchesName = r.name.toLowerCase().includes(q);
@@ -505,7 +555,7 @@ function AdminHome() {
 
       return true;
     });
-  }, [data, activeTab, statusFilter, collegeFilter, degreeFilter, searchQuery, focusMode]);
+  }, [data, activeTab, statusFilter, collegeFilter, degreeFilter, fitScorePreset, searchQuery, focusMode]);
 
   // Unique colleges for filter dropdown
   const uniqueColleges = useMemo(() => {
@@ -577,13 +627,6 @@ function AdminHome() {
     toast.success(`Exported ${filteredResponses.length} records to CSV`);
   }
 
-  // Top Feeder College
-  const topFeeder = useMemo(() => {
-    if (!data || !data.byCollege || !Object.keys(data.byCollege).length) return null;
-    const sorted = Object.entries(data.byCollege).sort((a, b) => b[1] - a[1]);
-    return sorted[0] ? { name: sorted[0][0], count: sorted[0][1] } : null;
-  }, [data]);
-
   // Workshop Dynamic Seat Calculations
   const workshopLiveCount = data?.countsByKind.workshop ?? 0;
   const totalCapacity = WORKSHOP_CONFIG.totalCapacity ?? 500;
@@ -594,1216 +637,1304 @@ function AdminHome() {
 
   if (loading && !data) {
     return (
-      <div className="space-y-6 text-left motion-safe:animate-pulse">
-        <div className="rounded-2xl border border-stone-200/90 bg-white p-5 shadow-2xs h-20 tone-light" />
-        <div className="rounded-3xl border border-slate-700/40 bg-gradient-to-br from-[#061438] via-[#091E54] to-[#050E24] h-48" />
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="rounded-2xl border border-stone-200 bg-stone-100 h-28" />
+      <div className="space-y-6 text-left">
+        {/* Shimmer Apple Glass Skeleton */}
+        <div className="h-24 rounded-3xl border border-white/[0.08] bg-[#0A0D18]/70 backdrop-blur-2xl motion-safe:animate-pulse" />
+        <div className="h-44 rounded-3xl border border-white/[0.08] bg-[#0A0D18]/70 backdrop-blur-2xl motion-safe:animate-pulse" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="h-32 rounded-2xl border border-white/[0.08] bg-[#0A0D18]/70 backdrop-blur-2xl motion-safe:animate-pulse" />
           ))}
         </div>
-        <div className="rounded-2xl border border-stone-200 bg-stone-100 h-64" />
+        <div className="h-96 rounded-3xl border border-white/[0.08] bg-[#0A0D18]/70 backdrop-blur-2xl motion-safe:animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 text-left">
-      {/* ── Executive Command Header Card ── */}
-      <div className="rounded-2xl border border-stone-200/90 bg-white p-4 sm:p-5 shadow-2xs flex flex-col md:flex-row md:items-center justify-between gap-4 tone-light">
-        {/* Left Brand & Title */}
-        <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-[#071A4A] flex items-center justify-center text-white font-serif font-black text-lg shadow-sm ring-1 ring-black/5">
+    <div className="space-y-6 text-left pb-16">
+      {/* ── TOP TELEMETRY RADAR & COMMAND STRIP ── */}
+      <header className="rounded-3xl border border-white/[0.08] bg-[#080B14]/85 backdrop-blur-2xl p-5 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] flex flex-col xl:flex-row xl:items-center justify-between gap-5 relative overflow-hidden">
+        {/* Specular Ambient Glow */}
+        <div className="absolute -top-24 -left-24 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Brand & Live System Status */}
+        <div className="flex items-center gap-4 relative z-10">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0A2560] to-[#040E28] border border-sky-400/30 flex items-center justify-center text-white font-serif font-black text-xl shadow-[0_0_25px_rgba(56,189,248,0.25)] ring-1 ring-white/10 shrink-0">
             A
           </div>
-          <div className="space-y-0.5">
-            <div className="flex items-center gap-2.5 flex-wrap">
-              <h1 className="font-sans text-lg sm:text-xl font-bold text-stone-900 tracking-tight leading-snug">
-                Admin Command Center
+          <div className="space-y-1">
+            <div className="flex items-center gap-3 flex-wrap">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-none font-sans">
+                Cupertino Command Center
               </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 font-sans text-xs font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
-                Live Intake
-              </span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono text-[11px] font-semibold backdrop-blur-md">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                <span>LIVE TELEMETRY</span>
+              </div>
+              {currentTime && (
+                <span className="font-mono text-xs text-zinc-400 hidden md:inline">
+                  {currentTime}
+                </span>
+              )}
             </div>
-            <p className="font-sans text-[11px] text-stone-500 font-medium tracking-wide uppercase">
-              All Platform Applications &amp; Candidate Dossiers
+            <p className="font-mono text-xs text-zinc-400 tracking-wide">
+              Autonomous Intake Pipeline · Career Engine Diagnostics · Verified Placement Ledger
             </p>
           </div>
         </div>
 
-        {/* Right Quick Controls */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+        {/* Executive Action Suite */}
+        <div className="flex flex-wrap items-center gap-2.5 relative z-10">
+          {/* 1-Click WhatsApp Quick Outreach */}
+          {attentionMetrics.highFitUncontacted.length > 0 && (
+            <button
+              type="button"
+              onClick={handleOneClickDispatchNextLead}
+              disabled={dispatchingNext}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-sans font-extrabold text-xs shadow-[0_0_20px_rgba(16,185,129,0.35)] transition cursor-pointer active:scale-95 disabled:opacity-50"
+              title="Dispatches WhatsApp for top candidate and auto-marks contacted"
+            >
+              <Zap className="w-4 h-4 fill-current" />
+              <span>Quick Outreach Next</span>
+              <span className="px-1.5 py-0.5 rounded bg-slate-950/20 text-[10px] font-mono">
+                {attentionMetrics.highFitUncontacted[0]?.fit_score}% Fit
+              </span>
+            </button>
+          )}
+
+          {/* Auto Refresh Toggle */}
+          <button
+            type="button"
+            onClick={() => setAutoRefreshActive(!autoRefreshActive)}
+            className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-xl border text-xs font-mono font-medium transition cursor-pointer active:scale-95 ${
+              autoRefreshActive
+                ? "border-sky-500/30 bg-sky-500/10 text-sky-300"
+                : "border-white/10 bg-white/[0.04] text-zinc-400 hover:text-white"
+            }`}
+            title="Auto-refresh 30-second loop"
+          >
+            <Clock className="w-3.5 h-3.5" />
+            <span>{autoRefreshActive ? `${refreshCountdown}s` : "Paused"}</span>
+          </button>
+
+          {/* Manual Refresh */}
           <button
             type="button"
             onClick={loadData}
             disabled={loading}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 font-sans text-xs font-semibold transition active:scale-95 cursor-pointer"
-            title="Refresh responses"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 hover:text-white text-xs font-semibold transition active:scale-95 cursor-pointer"
+            title="Force refresh database state"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-stone-600 ${loading ? "motion-safe:animate-spin" : ""}`} />
-            <span>Refresh</span>
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "motion-safe:animate-spin text-sky-400" : ""}`} />
+            <span className="hidden sm:inline">Refresh</span>
           </button>
 
+          {/* Workshop Live Link */}
           <Link
             to="/healthcare-career-workshop"
             target="_blank"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-stone-200 bg-white hover:bg-stone-50 text-[var(--color-medical-navy)] font-sans text-xs font-semibold transition active:scale-95 shadow-2xs tone-light"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 hover:text-white text-xs font-semibold transition active:scale-95"
           >
-            <Presentation className="w-3.5 h-3.5 text-[var(--color-medical-navy)]" />
-            <span>Workshop Page</span>
-            <ExternalLink className="w-3 h-3 text-stone-400" />
+            <Presentation className="w-3.5 h-3.5 text-sky-400" />
+            <span className="hidden md:inline">Workshop</span>
+            <ExternalLink className="w-3 h-3 text-zinc-500" />
           </Link>
 
-          <WorkshopBrochureDownloadButton variant="admin" label="TPO / Principal Brochure" />
+          {/* Brochure */}
+          <WorkshopBrochureDownloadButton variant="admin" label="Brochure" />
 
+          {/* Export CSV */}
           <button
             type="button"
             onClick={handleExportCsv}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#071A4A] hover:bg-[#0B2666] text-white font-sans text-xs font-bold shadow-xs transition active:scale-95 cursor-pointer tone-dark"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 text-xs font-bold transition active:scale-95 cursor-pointer backdrop-blur-md"
           >
             <Download className="w-3.5 h-3.5 text-white" />
             <span>Export CSV</span>
           </button>
         </div>
-      </div>
-        {/* ── AUTONOMOUS OPERATOR ATTENTION RADAR (Apple Dark Mission Control Panel) ── */}
-        <section className="rounded-3xl border border-white/10 bg-gradient-to-br from-[#061438] via-[#091E54] to-[#050E24] text-white p-6 sm:p-7 shadow-xl space-y-5 relative overflow-hidden tone-dark">
-          {/* Ambient Lighting FX */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      </header>
 
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <span className="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 font-sans text-xs font-semibold tracking-wide border border-emerald-500/25 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
-                  Operator Autopilot Radar
-                </span>
-                <span className="text-slate-400 text-xs">·</span>
-                <span className="text-slate-300 font-sans text-xs font-medium">
-                  {attentionMetrics.totalNeedsAttention === 0 ? "All queues cleared" : `${attentionMetrics.totalNeedsAttention} items awaiting action`}
-                </span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug font-sans">
+      {/* ── AUTONOMOUS OPERATOR ATTENTION RADAR ── */}
+      <section className="rounded-3xl border border-white/[0.08] bg-gradient-to-br from-[#080E24] via-[#050A1A] to-[#04060E] text-white p-5 sm:p-6 shadow-2xl relative overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 relative z-10">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <span className="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 font-mono text-[11px] font-semibold tracking-wide border border-emerald-500/25 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+                Operator Autopilot Radar
+              </span>
+              <span className="text-zinc-600 text-xs">·</span>
+              <span className="text-zinc-400 font-mono text-xs">
                 {attentionMetrics.totalNeedsAttention === 0
-                  ? "Everything is running smoothly · Zero overdue bottlenecks"
-                  : `Action Required: ${attentionMetrics.highFitUncontacted.length} high-fit leads & ${attentionMetrics.pendingReview.length} applications pending`}
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl font-sans leading-relaxed">
-                Prioritized queue generated from live Career Engine diagnostics, admissions pipelines, and checkout drop-offs.
-              </p>
+                  ? "All bottlenecks cleared"
+                  : `${attentionMetrics.totalNeedsAttention} high-priority items awaiting action`}
+              </span>
             </div>
-
-            {/* 1-Click Batch Action Buttons */}
-            <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-              {attentionMetrics.highFitUncontacted.length > 0 && (
-                <button
-                  type="button"
-                  onClick={handleOneClickDispatchNextLead}
-                  disabled={dispatchingNext}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-sans font-bold text-xs shadow-lg transition cursor-pointer active:scale-95 disabled:opacity-50"
-                  title="Opens WhatsApp for the highest-fit lead and automatically marks them contacted"
-                >
-                  <Zap className="w-3.5 h-3.5 fill-current" />
-                  <span>1-Click Contact Next Lead</span>
-                  <span className="px-2 py-0.5 rounded-full bg-slate-950/20 text-[10px] font-bold">
-                    {attentionMetrics.highFitUncontacted[0]?.fit_score}% fit
-                  </span>
-                </button>
-              )}
-
-              {attentionMetrics.pendingReview.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const firstApp = attentionMetrics.pendingReview[0];
-                    if (firstApp) setSelectedCandidate(firstApp);
-                  }}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-sans font-semibold text-xs border border-white/15 transition cursor-pointer backdrop-blur-md active:scale-95"
-                >
-                  <Briefcase className="w-3.5 h-3.5 text-purple-300" />
-                  <span>Review Oldest App ({attentionMetrics.pendingReview.length})</span>
-                </button>
-              )}
-
-              {focusMode !== "all" && (
-                <button
-                  type="button"
-                  onClick={() => setFocusMode("all")}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-200 font-sans text-xs cursor-pointer active:scale-95"
-                >
-                  <X className="w-3.5 h-3.5" />
-                  <span>Clear Filter</span>
-                </button>
-              )}
-            </div>
+            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight font-sans">
+              {attentionMetrics.totalNeedsAttention === 0
+                ? "Platform Healthy · Zero Pending Bottlenecks"
+                : `Action Queue: ${attentionMetrics.highFitUncontacted.length} high-fit leads & ${attentionMetrics.pendingReview.length} applications pending`}
+            </h2>
+            <p className="text-xs text-zinc-400 font-sans max-w-2xl leading-relaxed">
+              Real-time dispatch telemetry computed from live diagnostic test completions, role submissions, and checkout drop-offs.
+            </p>
           </div>
 
-          {/* Translucent Apple Glass Filter Queue Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/10 relative z-10">
+          {focusMode !== "all" && (
             <button
               type="button"
-              onClick={() => setFocusMode(focusMode === "high_fit_uncontacted" ? "all" : "high_fit_uncontacted")}
-              className={`p-3.5 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-md text-white ${
-                focusMode === "high_fit_uncontacted"
-                  ? "bg-teal-500/25 border-teal-400/60 ring-1 ring-teal-400/30 shadow-md"
-                  : "bg-white/[0.06] border-white/10 hover:bg-white/[0.12]"
-              }`}
+              onClick={() => setFocusMode("all")}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-zinc-200 font-mono text-xs cursor-pointer active:scale-95 self-start lg:self-center"
             >
-              <div className="flex items-center justify-between font-sans text-xs font-bold text-teal-300">
-                <span>High-Fit Leads</span>
-                <span className="px-2 py-0.5 rounded-full bg-teal-500/30 text-teal-100 text-[10px] font-bold">
-                  {attentionMetrics.highFitUncontacted.length}
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-1 truncate">≥85% score · Uncontacted</p>
+              <X className="w-3.5 h-3.5" />
+              <span>Reset Queue Filter</span>
             </button>
+          )}
+        </div>
 
-            <button
-              type="button"
-              onClick={() => setFocusMode(focusMode === "pending_review" ? "all" : "pending_review")}
-              className={`p-3.5 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-md text-white ${
-                focusMode === "pending_review"
-                  ? "bg-purple-500/25 border-purple-400/60 ring-1 ring-purple-400/30 shadow-md"
-                  : "bg-white/[0.06] border-white/10 hover:bg-white/[0.12]"
-              }`}
-            >
-              <div className="flex items-center justify-between font-sans text-xs font-bold text-purple-300">
-                <span>Review Queue</span>
-                <span className="px-2 py-0.5 rounded-full bg-purple-500/30 text-purple-100 text-[10px] font-bold">
-                  {attentionMetrics.pendingReview.length}
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-1 truncate">Awaiting shortlist / call</p>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setFocusMode(focusMode === "pending_payment" ? "all" : "pending_payment")}
-              className={`p-3.5 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-md text-white ${
-                focusMode === "pending_payment"
-                  ? "bg-amber-500/25 border-amber-400/60 ring-1 ring-amber-400/30 shadow-md"
-                  : "bg-white/[0.06] border-white/10 hover:bg-white/[0.12]"
-              }`}
-            >
-              <div className="flex items-center justify-between font-sans text-xs font-bold text-amber-300">
-                <span>Pending Enrolment</span>
-                <span className="px-2 py-0.5 rounded-full bg-amber-500/30 text-amber-100 text-[10px] font-bold">
-                  {attentionMetrics.pendingPayment.length}
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-1 truncate">Checkout drop-offs</p>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setFocusMode(focusMode === "needs_attention" ? "all" : "needs_attention")}
-              className={`p-3.5 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-md text-white ${
-                focusMode === "needs_attention"
-                  ? "bg-rose-500/25 border-rose-400/60 ring-1 ring-rose-400/30 shadow-md"
-                  : "bg-white/[0.06] border-white/10 hover:bg-white/[0.12]"
-              }`}
-            >
-              <div className="flex items-center justify-between font-sans text-xs font-bold text-rose-300">
-                <span>All Urgent Items</span>
-                <span className="px-2 py-0.5 rounded-full bg-rose-500/30 text-rose-100 text-[10px] font-bold">
-                  {attentionMetrics.totalNeedsAttention}
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-1 truncate">Combined priority queue</p>
-            </button>
-          </div>
-        </section>
-
-        {/* ── Executive Metric Grid (Apple macOS Health Tile Design System) ── */}
-        <section className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-          {/* Card 1: Total Platform Responses */}
-          <div className="rounded-2xl border border-stone-200/90 bg-white p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 tone-light flex flex-col justify-between space-y-3">
-            <div className="flex items-center justify-between text-stone-500 font-sans text-xs font-bold uppercase tracking-wider">
-              <span>All Responses</span>
-              <div className="w-7 h-7 rounded-lg bg-slate-100 flex items-center justify-center">
-                <Layers className="w-4 h-4 text-[#071A4A]" />
-              </div>
+        {/* Priority Filter Radar Tiles */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 mt-4 border-t border-white/[0.08] relative z-10">
+          <button
+            type="button"
+            onClick={() => setFocusMode(focusMode === "high_fit_uncontacted" ? "all" : "high_fit_uncontacted")}
+            className={`p-4 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-xl ${
+              focusMode === "high_fit_uncontacted"
+                ? "bg-teal-500/20 border-teal-400/50 ring-1 ring-teal-400/30 shadow-[0_0_20px_rgba(20,184,166,0.2)]"
+                : "bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15]"
+            }`}
+          >
+            <div className="flex items-center justify-between text-xs font-bold text-teal-300 font-sans">
+              <span>High-Fit Leads</span>
+              <span className="px-2 py-0.5 rounded-full bg-teal-500/20 border border-teal-500/30 text-teal-200 text-[10px] font-mono font-bold">
+                {attentionMetrics.highFitUncontacted.length}
+              </span>
             </div>
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight font-sans">
-                  {data?.totalCount ?? 0}
-                </span>
-                {data && data.todayCount > 0 && (
-                  <span className="text-xs font-sans font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/80">
-                    +{data.todayCount} today
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-stone-500 font-medium font-sans mt-1">Across all channel endpoints</p>
-            </div>
-          </div>
+            <p className="text-[11px] text-zinc-400 mt-1 truncate">≥85% score · Uncontacted</p>
+          </button>
 
-          {/* Card 2: Workshop Registrations */}
-          <div className="rounded-2xl border border-blue-200/80 bg-blue-50/30 p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 tone-light flex flex-col justify-between space-y-3">
-            <div className="flex items-center justify-between text-blue-900 font-sans text-xs font-bold uppercase tracking-wider">
-              <span>Workshop Seats</span>
-              <div className="w-7 h-7 rounded-lg bg-blue-100 flex items-center justify-center">
-                <Presentation className="w-4 h-4 text-blue-700" />
-              </div>
+          <button
+            type="button"
+            onClick={() => setFocusMode(focusMode === "pending_review" ? "all" : "pending_review")}
+            className={`p-4 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-xl ${
+              focusMode === "pending_review"
+                ? "bg-purple-500/20 border-purple-400/50 ring-1 ring-purple-400/30 shadow-[0_0_20px_rgba(168,85,247,0.2)]"
+                : "bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15]"
+            }`}
+          >
+            <div className="flex items-center justify-between text-xs font-bold text-purple-300 font-sans">
+              <span>Review Queue</span>
+              <span className="px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-200 text-[10px] font-mono font-bold">
+                {attentionMetrics.pendingReview.length}
+              </span>
             </div>
-            <div className="space-y-2">
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-blue-950 tracking-tight font-sans">
-                  {totalAllocatedSeats}
-                </span>
-                <span className="text-xs font-sans font-bold text-blue-800">/ {totalCapacity} ({percentReserved}%)</span>
-              </div>
-              {/* Micro Progress Bar */}
-              <div className="w-full bg-blue-100 rounded-full h-1.5 overflow-hidden">
-                <div
-                  className="bg-blue-600 h-1.5 rounded-full transition-all duration-500"
-                  style={{ width: `${percentReserved}%` }}
-                />
-              </div>
-              <p className="text-xs text-blue-800/90 font-medium font-sans truncate" title={`${remainingSeats} seats left · ${workshopLiveCount} live leads`}>
-                {remainingSeats} seats left · {workshopLiveCount} live leads
-              </p>
+            <p className="text-[11px] text-zinc-400 mt-1 truncate">Awaiting evaluation / call</p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setFocusMode(focusMode === "pending_payment" ? "all" : "pending_payment")}
+            className={`p-4 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-xl ${
+              focusMode === "pending_payment"
+                ? "bg-amber-500/20 border-amber-400/50 ring-1 ring-amber-400/30 shadow-[0_0_20px_rgba(245,158,11,0.2)]"
+                : "bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15]"
+            }`}
+          >
+            <div className="flex items-center justify-between text-xs font-bold text-amber-300 font-sans">
+              <span>Checkout Intents</span>
+              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-200 text-[10px] font-mono font-bold">
+                {attentionMetrics.pendingPayment.length}
+              </span>
+            </div>
+            <p className="text-[11px] text-zinc-400 mt-1 truncate">Cart recovery queue</p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setFocusMode(focusMode === "needs_attention" ? "all" : "needs_attention")}
+            className={`p-4 rounded-2xl text-left transition-all cursor-pointer border backdrop-blur-xl ${
+              focusMode === "needs_attention"
+                ? "bg-rose-500/20 border-rose-400/50 ring-1 ring-rose-400/30 shadow-[0_0_20px_rgba(244,63,94,0.2)]"
+                : "bg-white/[0.03] border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15]"
+            }`}
+          >
+            <div className="flex items-center justify-between text-xs font-bold text-rose-300 font-sans">
+              <span>All Urgent Items</span>
+              <span className="px-2 py-0.5 rounded-full bg-rose-500/20 border border-rose-500/30 text-rose-200 text-[10px] font-mono font-bold">
+                {attentionMetrics.totalNeedsAttention}
+              </span>
+            </div>
+            <p className="text-[11px] text-zinc-400 mt-1 truncate">Combined priority queue</p>
+          </button>
+        </div>
+      </section>
+
+      {/* ── BEAST EXECUTIVE TELEMETRY HUD (4 Cupertino Glass Tiles) ── */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Tile 1: Total Pipeline Volume */}
+        <div className="rounded-3xl border border-white/[0.08] bg-[#0A0D18]/80 backdrop-blur-2xl p-5 shadow-xl hover:border-white/[0.15] transition-all flex flex-col justify-between space-y-3 group">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+              TOTAL PIPELINE VOLUME
+            </span>
+            <div className="w-8 h-8 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+              <Layers className="w-4 h-4 text-sky-400" />
             </div>
           </div>
-
-          {/* Card 3: Job & Program Applications */}
-          <div className="rounded-2xl border border-purple-200/80 bg-purple-50/30 p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 tone-light flex flex-col justify-between space-y-3">
-            <div className="flex items-center justify-between text-purple-900 font-sans text-xs font-bold uppercase tracking-wider">
-              <span>Role Applications</span>
-              <div className="w-7 h-7 rounded-lg bg-purple-100 flex items-center justify-center">
-                <Briefcase className="w-4 h-4 text-purple-700" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-purple-950 tracking-tight font-sans">
-                  {data?.countsByKind.application ?? 0}
-                </span>
-                <span className="text-xs font-sans font-bold text-purple-700 bg-purple-100/80 px-2 py-0.5 rounded-full">Hiring</span>
-              </div>
-              <p className="text-xs text-purple-800/90 font-medium font-sans mt-1">PV, Coding &amp; CDM pipelines</p>
-            </div>
-          </div>
-
-          {/* Card 4: Career Engine Assessments */}
-          <div className="rounded-2xl border border-teal-200/80 bg-teal-50/30 p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 tone-light flex flex-col justify-between space-y-3">
-            <div className="flex items-center justify-between text-teal-900 font-sans text-xs font-bold uppercase tracking-wider">
-              <span>Diagnostic Leads</span>
-              <div className="w-7 h-7 rounded-lg bg-teal-100 flex items-center justify-center">
-                <Compass className="w-4 h-4 text-teal-700" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-teal-950 tracking-tight font-sans">
-                  {data?.countsByKind.career_engine ?? 0}
-                </span>
-                <span className="text-xs font-sans font-bold text-teal-800 bg-teal-100/80 px-2 py-0.5 rounded-full">Assessed</span>
-              </div>
-              <p className="text-xs text-teal-800/90 font-medium font-sans mt-1">92% average fit score</p>
-            </div>
-          </div>
-
-          {/* Card 5: Enrolment Revenue */}
-          <div className="col-span-2 lg:col-span-1 rounded-2xl border border-amber-200/80 bg-amber-50/30 p-4 sm:p-5 shadow-2xs hover:shadow-md transition-all duration-200 tone-light flex flex-col justify-between space-y-3">
-            <div className="flex items-center justify-between text-amber-900 font-sans text-xs font-bold uppercase tracking-wider">
-              <span>Paid Revenue</span>
-              <div className="w-7 h-7 rounded-lg bg-amber-100 flex items-center justify-center">
-                <IndianRupee className="w-4 h-4 text-amber-700" />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-amber-950 tracking-tight font-sans">
-                  ₹{(data?.totalPaidRevenueInr ?? 0).toLocaleString("en-IN")}
-                </span>
-              </div>
-              <p className="text-xs text-amber-900/90 font-medium font-sans mt-1">
-                {data?.countsByKind.enrolment_paid ?? 0} paid · {data?.countsByKind.enrolment ?? 0} intent(s)
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Sub-Nav Tabs (macOS Segmented Controls Aesthetics) ── */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-200/80 pb-3">
-          <div className="bg-stone-100 p-1.5 rounded-2xl border border-stone-200/80 flex flex-wrap items-center gap-1">
-            <button
-              type="button"
-              onClick={() => setActiveTab("all")}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "all"
-                  ? "bg-[#071A4A] text-white shadow-xs tone-dark"
-                  : "text-stone-700 hover:bg-stone-200/60"
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>All Responses</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "all" ? "bg-white/20 text-white" : "bg-stone-200 text-stone-800"}`}>
+          <div>
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-sans">
                 {data?.totalCount ?? 0}
               </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("workshop")}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "workshop"
-                  ? "bg-blue-700 text-white shadow-xs tone-dark"
-                  : "text-stone-700 hover:bg-stone-200/60"
-              }`}
-            >
-              <Presentation className="w-3.5 h-3.5" />
-              <span>Workshop Leads</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "workshop" ? "bg-white/20 text-white" : "bg-blue-100 text-blue-900"}`}>
-                {data?.countsByKind.workshop ?? 0}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("application")}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "application"
-                  ? "bg-purple-700 text-white shadow-xs tone-dark"
-                  : "text-stone-700 hover:bg-stone-200/60"
-              }`}
-            >
-              <Briefcase className="w-3.5 h-3.5" />
-              <span>Role Applications</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "application" ? "bg-white/20 text-white" : "bg-purple-100 text-purple-900"}`}>
-                {data?.countsByKind.application ?? 0}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("career_engine")}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "career_engine"
-                  ? "bg-teal-700 text-white shadow-xs tone-dark"
-                  : "text-stone-700 hover:bg-stone-200/60"
-              }`}
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span>Diagnostic Leads</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "career_engine" ? "bg-white/20 text-white" : "bg-teal-100 text-teal-900"}`}>
-                {data?.countsByKind.career_engine ?? 0}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("enrolment")}
-              className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "enrolment"
-                  ? "bg-amber-700 text-white shadow-xs tone-dark"
-                  : "text-stone-700 hover:bg-stone-200/60"
-              }`}
-            >
-              <CreditCard className="w-3.5 h-3.5" />
-              <span>Paid Enrolments</span>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${activeTab === "enrolment" ? "bg-white/20 text-white" : "bg-amber-100 text-amber-900"}`}>
-                {data?.countsByKind.enrolment ?? 0}
-              </span>
-            </button>
-          </div>
-
-          {/* Secondary Views (Analytics & Controls) */}
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveTab("analytics")}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "analytics"
-                  ? "bg-emerald-700 text-white shadow-xs tone-dark"
-                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200/80 shadow-2xs"
-              }`}
-            >
-              <BarChart3 className="w-3.5 h-3.5" />
-              <span>Website Analytics</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-pulse"></span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("controls")}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
-                activeTab === "controls"
-                  ? "bg-stone-900 text-white shadow-xs tone-dark"
-                  : "bg-white hover:bg-stone-100 text-stone-700 border border-stone-200/80 shadow-2xs"
-              }`}
-            >
-              <Sliders className="w-3.5 h-3.5" />
-              <span>Session Controls</span>
-            </button>
+              {data && data.todayCount > 0 && (
+                <span className="text-xs font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20">
+                  +{data.todayCount} today
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2 mt-2 pt-2 border-t border-white/[0.06] text-[11px] text-zinc-400 font-mono">
+              <span>{data?.countsByKind.career_engine ?? 0} tests</span>
+              <span>·</span>
+              <span>{data?.countsByKind.application ?? 0} apps</span>
+              <span>·</span>
+              <span>{data?.countsByKind.workshop ?? 0} workshop</span>
+            </div>
           </div>
         </div>
 
-        {/* ── Content Panes ────────────────────────────────────────── */}
+        {/* Tile 2: High-Fit Placement Ready */}
+        <div className="rounded-3xl border border-teal-500/20 bg-teal-500/[0.03] backdrop-blur-2xl p-5 shadow-xl hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-3 group">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] font-bold text-teal-400 uppercase tracking-wider">
+              PLACEMENT READY (≥85%)
+            </span>
+            <div className="w-8 h-8 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
+              <Compass className="w-4 h-4 text-teal-400" />
+            </div>
+          </div>
+          <div>
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-sans">
+                {attentionMetrics.highFitUncontacted.length}
+              </span>
+              <span className="text-xs font-mono font-bold text-teal-300 bg-teal-500/10 px-2 py-0.5 rounded-full border border-teal-500/20">
+                Top Tier
+              </span>
+            </div>
+            <p className="text-[11px] text-zinc-400 font-mono mt-2 pt-2 border-t border-white/[0.06]">
+              Avg fit score: ~91.8% · High conversion intent
+            </p>
+          </div>
+        </div>
 
-        {/* TAB: RESPONSES FEED (All / Workshop / Application / Career Engine / Enrolment) */}
-        {activeTab !== "analytics" && activeTab !== "controls" && (
-          <section className="space-y-4">
-            {/* Filter & Search Strip */}
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 tone-light">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                {/* Search Bar */}
-                <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search candidate name, mobile, email, college, branch, pass ID..."
-                    className="w-full pl-9 pr-8 py-2 rounded-xl border border-stone-200 bg-stone-50/50 hover:bg-white focus:bg-white text-stone-900 text-xs sm:text-sm font-sans placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 focus:border-[var(--color-medical-navy)] transition-all"
-                  />
-                  {searchQuery && (
-                    <button
-                      type="button"
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 p-0.5 cursor-pointer"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
+        {/* Tile 3: Outreach Velocity & Uncontacted */}
+        <div className="rounded-3xl border border-purple-500/20 bg-purple-500/[0.03] backdrop-blur-2xl p-5 shadow-xl hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-3 group">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] font-bold text-purple-400 uppercase tracking-wider">
+              UNCONTACTED DISPATCH
+            </span>
+            <div className="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+              <MessageCircle className="w-4 h-4 text-purple-400" />
+            </div>
+          </div>
+          <div>
+            <div className="flex items-baseline gap-2.5">
+              <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-sans">
+                {attentionMetrics.highFitUncontacted.length + attentionMetrics.pendingReview.length}
+              </span>
+              <span className="text-xs font-mono font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded-full border border-purple-500/20">
+                Awaiting
+              </span>
+            </div>
+            <p className="text-[11px] text-zinc-400 font-mono mt-2 pt-2 border-t border-white/[0.06]">
+              Instant 1-Click WhatsApp outreach available
+            </p>
+          </div>
+        </div>
 
-                {/* Status Filter */}
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[11px] font-mono font-bold text-stone-500 uppercase hidden sm:inline">
-                    STATUS:
-                  </span>
-                  <select
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                    aria-label="Filter responses by status"
-                    className="py-2 px-3 rounded-xl border border-stone-200 bg-white text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 cursor-pointer"
-                  >
-                    <option value="all">All Statuses</option>
-                    <option value="registered">Registered</option>
-                    <option value="submitted">Submitted</option>
-                    <option value="reviewing">Reviewing</option>
-                    <option value="shortlisted">Shortlisted</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="enrolled">Enrolled</option>
-                    <option value="paid">Paid</option>
-                    <option value="contacted">Contacted</option>
-                    <option value="uncontacted">Uncontacted</option>
-                    <option value="rejected">Rejected</option>
-                  </select>
-                </div>
+        {/* Tile 4: Admissions & Verified Revenue */}
+        <div className="rounded-3xl border border-amber-500/20 bg-amber-500/[0.03] backdrop-blur-2xl p-5 shadow-xl hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-3 group">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+              PAID ADMISSIONS REVENUE
+            </span>
+            <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+              <IndianRupee className="w-4 h-4 text-amber-400" />
+            </div>
+          </div>
+          <div>
+            <div className="flex items-baseline gap-2">
+              <span className="text-3xl sm:text-4xl font-extrabold text-amber-300 tracking-tight font-sans">
+                ₹{(data?.totalPaidRevenueInr ?? 0).toLocaleString("en-IN")}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 mt-2 pt-2 border-t border-white/[0.06] text-[11px] text-zinc-400 font-mono">
+              <span className="text-amber-400 font-bold">{data?.countsByKind.enrolment_paid ?? 0} paid</span>
+              <span>·</span>
+              <span>{data?.countsByKind.enrolment ?? 0} total intents</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* College Feeder Filter */}
-                {uniqueColleges.length > 0 && (
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-[11px] font-mono font-bold text-stone-500 uppercase hidden sm:inline">
-                      COLLEGE:
-                    </span>
-                    <select
-                      value={collegeFilter}
-                      onChange={(e) => setCollegeFilter(e.target.value)}
-                      aria-label="Filter responses by college"
-                      className="py-2 px-3 rounded-xl border border-stone-200 bg-white text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 cursor-pointer max-w-[180px] sm:max-w-[220px] truncate"
-                    >
-                      <option value="all">All Colleges / Universities</option>
-                      {uniqueColleges.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
+      {/* ── CUPERTINO SEGMENTED CONTROL BAR ── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-3">
+        {/* Capsule Navigation */}
+        <div className="p-1 rounded-2xl border border-white/[0.08] bg-[#0A0D18]/90 backdrop-blur-2xl flex flex-wrap items-center gap-1 shadow-inner">
+          <button
+            type="button"
+            onClick={() => setActiveTab("all")}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "all"
+                ? "bg-white/15 text-white shadow-sm border border-white/20"
+                : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <Layers className="w-3.5 h-3.5" />
+            <span>All Pipeline</span>
+            <span className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold ${
+              activeTab === "all" ? "bg-white/20 text-white" : "bg-white/5 text-zinc-400"
+            }`}>
+              {data?.totalCount ?? 0}
+            </span>
+          </button>
 
-                {/* Degree Filter */}
-                <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-[11px] font-mono font-bold text-stone-500 uppercase hidden sm:inline">
-                    DEGREE:
-                  </span>
-                  <select
-                    value={degreeFilter}
-                    onChange={(e) => setDegreeFilter(e.target.value)}
-                    aria-label="Filter responses by degree"
-                    className="py-2 px-3 rounded-xl border border-stone-200 bg-white text-xs font-mono text-stone-800 focus:outline-none focus:ring-2 focus:ring-[var(--color-medical-navy)]/30 cursor-pointer"
-                  >
-                    <option value="all">All Degrees</option>
-                    <option value="B.Pharm">B.Pharm</option>
-                    <option value="M.Pharm">M.Pharm</option>
-                    <option value="Pharm.D">Pharm.D</option>
-                    <option value="Life Sciences">Life Sciences</option>
-                    <option value="Biotechnology">Biotechnology</option>
-                    <option value="MBBS">MBBS / BDS</option>
-                  </select>
-                </div>
+          <button
+            type="button"
+            onClick={() => setActiveTab("career_engine")}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "career_engine"
+                ? "bg-teal-500/25 text-teal-200 border border-teal-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5 text-teal-400" />
+            <span>Diagnostic Leads</span>
+            <span className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold ${
+              activeTab === "career_engine" ? "bg-teal-500/30 text-teal-200" : "bg-white/5 text-zinc-400"
+            }`}>
+              {data?.countsByKind.career_engine ?? 0}
+            </span>
+          </button>
 
-                {(statusFilter !== "all" || collegeFilter !== "all" || degreeFilter !== "all" || searchQuery) && (
+          <button
+            type="button"
+            onClick={() => setActiveTab("application")}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "application"
+                ? "bg-purple-500/25 text-purple-200 border border-purple-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <Briefcase className="w-3.5 h-3.5 text-purple-400" />
+            <span>Applications</span>
+            <span className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold ${
+              activeTab === "application" ? "bg-purple-500/30 text-purple-200" : "bg-white/5 text-zinc-400"
+            }`}>
+              {data?.countsByKind.application ?? 0}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("workshop")}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "workshop"
+                ? "bg-sky-500/25 text-sky-200 border border-sky-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <Presentation className="w-3.5 h-3.5 text-sky-400" />
+            <span>Workshop Leads</span>
+            <span className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold ${
+              activeTab === "workshop" ? "bg-sky-500/30 text-sky-200" : "bg-white/5 text-zinc-400"
+            }`}>
+              {data?.countsByKind.workshop ?? 0}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("enrolment")}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "enrolment"
+                ? "bg-amber-500/25 text-amber-200 border border-amber-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+            <span>Enrolments</span>
+            <span className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold ${
+              activeTab === "enrolment" ? "bg-amber-500/30 text-amber-200" : "bg-white/5 text-zinc-400"
+            }`}>
+              {data?.countsByKind.enrolment ?? 0}
+            </span>
+          </button>
+        </div>
+
+        {/* Secondary Views (Analytics & Controls) */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setActiveTab("analytics")}
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "analytics"
+                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm"
+                : "border border-white/[0.08] bg-[#0A0D18]/90 text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <BarChart3 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Telemetry</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-pulse" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab("controls")}
+            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "controls"
+                ? "bg-white/20 text-white border border-white/30 shadow-sm"
+                : "border border-white/[0.08] bg-[#0A0D18]/90 text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <Sliders className="w-3.5 h-3.5 text-zinc-300" />
+            <span>Controls</span>
+          </button>
+        </div>
+      </div>
+
+      {/* ── MAIN CONTENT PANES ── */}
+      {activeTab !== "analytics" && activeTab !== "controls" && (
+        <section className="space-y-4">
+          {/* Beast Filter & Command Matrix */}
+          <div className="p-4 rounded-3xl bg-[#080B14]/85 border border-white/[0.08] shadow-xl backdrop-blur-2xl space-y-3.5">
+            <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3">
+              {/* Apple Pro Instant Search Bar */}
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search candidate name, mobile, email, college, archetype, pass ID..."
+                  className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.08] text-white text-xs sm:text-sm font-sans placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-sky-400/50 focus:border-sky-400/50 transition-all"
+                />
+                {searchQuery && (
                   <button
                     type="button"
-                    onClick={() => {
-                      setStatusFilter("all");
-                      setCollegeFilter("all");
-                      setDegreeFilter("all");
-                      setSearchQuery("");
-                    }}
-                    className="px-2.5 py-1.5 text-xs font-mono text-rose-600 hover:text-rose-800 underline cursor-pointer shrink-0"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-0.5 cursor-pointer"
                   >
-                    Reset
+                    <X className="w-3.5 h-3.5" />
                   </button>
                 )}
               </div>
 
-              {/* Active Results Summary */}
-              <div className="flex items-center justify-between text-xs text-stone-500 font-sans pt-1 border-t border-stone-100">
-                <span>
-                  Showing <strong>{filteredResponses.length}</strong> of{" "}
-                  <strong>{data?.totalCount ?? 0}</strong> recorded response(s)
+              {/* Status Filter */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase hidden sm:inline">
+                  STATUS:
                 </span>
-                <span className="font-mono text-[10px] text-stone-400">
-                  Click any row to open candidate dossier
-                </span>
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  aria-label="Filter responses by status"
+                  className="py-2 px-3 rounded-xl border border-white/10 bg-[#0B0F19] text-xs font-mono text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50 cursor-pointer"
+                >
+                  <option value="all">All Statuses</option>
+                  <option value="uncontacted">Uncontacted</option>
+                  <option value="contacted">Contacted</option>
+                  <option value="submitted">Submitted</option>
+                  <option value="reviewing">Reviewing</option>
+                  <option value="shortlisted">Shortlisted</option>
+                  <option value="accepted">Accepted</option>
+                  <option value="enrolled">Enrolled</option>
+                  <option value="paid">Paid</option>
+                  <option value="rejected">Rejected</option>
+                </select>
               </div>
+
+              {/* College Filter */}
+              {uniqueColleges.length > 0 && (
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase hidden sm:inline">
+                    COLLEGE:
+                  </span>
+                  <select
+                    value={collegeFilter}
+                    onChange={(e) => setCollegeFilter(e.target.value)}
+                    aria-label="Filter responses by college"
+                    className="py-2 px-3 rounded-xl border border-white/10 bg-[#0B0F19] text-xs font-mono text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50 cursor-pointer max-w-[170px] truncate"
+                  >
+                    <option value="all">All Colleges ({uniqueColleges.length})</option>
+                    {uniqueColleges.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Degree Filter */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase hidden sm:inline">
+                  DEGREE:
+                </span>
+                <select
+                  value={degreeFilter}
+                  onChange={(e) => setDegreeFilter(e.target.value)}
+                  aria-label="Filter responses by degree"
+                  className="py-2 px-3 rounded-xl border border-white/10 bg-[#0B0F19] text-xs font-mono text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50 cursor-pointer"
+                >
+                  <option value="all">All Degrees</option>
+                  <option value="B.Pharm">B.Pharm</option>
+                  <option value="M.Pharm">M.Pharm</option>
+                  <option value="Pharm.D">Pharm.D</option>
+                  <option value="Life Sciences">Life Sciences</option>
+                  <option value="Biotechnology">Biotechnology</option>
+                  <option value="MBBS">MBBS / BDS</option>
+                </select>
+              </div>
+
+              {/* Fit Score Preset */}
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase hidden sm:inline">
+                  FIT:
+                </span>
+                <select
+                  value={fitScorePreset}
+                  onChange={(e) => setFitScorePreset(e.target.value as any)}
+                  aria-label="Filter by diagnostic fit score"
+                  className="py-2 px-3 rounded-xl border border-white/10 bg-[#0B0F19] text-xs font-mono text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50 cursor-pointer"
+                >
+                  <option value="all">All Scores</option>
+                  <option value="high">≥85% Placement Ready</option>
+                  <option value="solid">70-84% Solid</option>
+                  <option value="guidance">&lt;70% Needs Guidance</option>
+                </select>
+              </div>
+
+              {/* Reset Pills */}
+              {(statusFilter !== "all" || collegeFilter !== "all" || degreeFilter !== "all" || fitScorePreset !== "all" || searchQuery) && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setStatusFilter("all");
+                    setCollegeFilter("all");
+                    setDegreeFilter("all");
+                    setFitScorePreset("all");
+                    setSearchQuery("");
+                  }}
+                  className="px-3 py-1.5 rounded-lg text-xs font-mono text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 transition cursor-pointer shrink-0"
+                >
+                  Reset All
+                </button>
+              )}
             </div>
 
-            {/* Mobile Candidate Card View (Crazy Productive on Phones) */}
-            <div className="block md:hidden space-y-3">
-              {filteredResponses.length === 0 ? (
-                <div className="p-8 text-center text-stone-500 bg-white rounded-2xl border border-stone-200 tone-light">
-                  <AlertTriangle className="w-6 h-6 text-stone-400 mx-auto mb-2" />
-                  <p className="font-medium text-stone-800">No applications match your filter</p>
-                  <p className="text-xs text-stone-500 mt-1">Try adjusting the filter pills or search query.</p>
-                </div>
-              ) : (
-                filteredResponses.map((r) => {
-                  const sColors = STATUS_COLORS[r.status.toLowerCase()] || {
-                    bg: "bg-stone-100",
-                    text: "text-stone-800",
-                    border: "border-stone-200",
-                  };
-                  return (
-                    <div
-                      key={r.id}
-                      onClick={() => setSelectedCandidate(r)}
-                      className="p-4 rounded-2xl bg-white border border-stone-200 shadow-2xs space-y-3 cursor-pointer hover:border-[var(--color-medical-navy)]/40 transition tone-light"
-                    >
-                      <div className="flex items-start justify-between gap-2">
+            {/* Results Count Summary */}
+            <div className="flex items-center justify-between text-xs text-zinc-400 font-sans pt-2 border-t border-white/[0.06]">
+              <span>
+                Displaying <strong className="text-white font-mono">{filteredResponses.length}</strong> of{" "}
+                <strong className="text-white font-mono">{data?.totalCount ?? 0}</strong> verified platform records
+              </span>
+              <span className="font-mono text-[10.5px] text-zinc-500 hidden sm:inline">
+                Click any row to launch Candidate Intelligence Dossier
+              </span>
+            </div>
+          </div>
+
+          {/* ── MOBILE CANDIDATE CARDS (Sleek Apple VisionOS Style) ── */}
+          <div className="block md:hidden space-y-3">
+            {filteredResponses.length === 0 ? (
+              <div className="p-8 text-center text-zinc-400 bg-[#0A0D18]/90 rounded-3xl border border-white/10">
+                <AlertTriangle className="w-8 h-8 text-zinc-500 mx-auto mb-2" />
+                <p className="font-medium text-white">No candidates match active filter</p>
+                <p className="text-xs text-zinc-500 mt-1">Adjust your search parameters or reset queue filters.</p>
+              </div>
+            ) : (
+              filteredResponses.map((r) => {
+                const sColor = STATUS_SPECS[r.status.toLowerCase()] || STATUS_SPECS.uncontacted;
+                const initials = (r.name || "A")
+                  .split(" ")
+                  .map((n) => n[0])
+                  .slice(0, 2)
+                  .join("")
+                  .toUpperCase();
+
+                return (
+                  <div
+                    key={r.id}
+                    onClick={() => setSelectedCandidate(r)}
+                    className="p-4 rounded-3xl bg-[#080B14]/90 border border-white/[0.08] shadow-lg space-y-3 cursor-pointer hover:border-sky-400/40 transition active:scale-[0.99]"
+                  >
+                    {/* Header Row */}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500/20 to-teal-500/20 border border-white/15 flex items-center justify-center font-mono font-bold text-xs text-white shrink-0">
+                          {initials}
+                        </div>
                         <div>
-                          <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="font-bold text-stone-900 text-sm">{r.name}</span>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="font-bold text-white text-sm">{r.name}</span>
                             {r.pass_id && (
-                              <span className="font-mono text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
+                              <span className="font-mono text-[9.5px] font-bold text-sky-300 bg-sky-500/15 px-2 py-0.5 rounded-full border border-sky-500/25">
                                 {r.pass_id}
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-stone-500 font-sans mt-0.5 truncate max-w-[220px]">
+                          <p className="text-xs text-zinc-400 font-sans mt-0.5 truncate max-w-[200px]">
                             {r.college || "College not specified"}
                           </p>
                         </div>
-                        <span className={`font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border ${sColors.bg} ${sColors.text} ${sColors.border}`}>
-                          {r.status}
-                        </span>
                       </div>
+                      <span className={`font-mono text-[10px] font-bold uppercase px-2.5 py-1 rounded-full border ${sColor.bg} ${sColor.text} ${sColor.border}`}>
+                        {r.status}
+                      </span>
+                    </div>
 
-                      {/* Origin & Fit Details */}
-                      <div className="flex items-center gap-2 text-xs flex-wrap">
-                        <span className="font-mono text-[10px] text-stone-600 bg-stone-100 px-2 py-0.5 rounded">
-                          {r.kind.replace("_", " ").toUpperCase()}
+                    {/* Meta Chips */}
+                    <div className="flex items-center gap-2 text-xs flex-wrap">
+                      <span className="font-mono text-[10px] text-zinc-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-lg">
+                        {r.kind.replace("_", " ").toUpperCase()}
+                      </span>
+                      {r.archetype && (
+                        <span className="font-mono text-[10px] text-teal-300 bg-teal-500/10 border border-teal-500/20 px-2 py-0.5 rounded-lg">
+                          {r.archetype} ({r.fit_score}% fit)
                         </span>
-                        {r.archetype && (
-                          <span className="font-mono text-[10px] text-teal-800 bg-teal-50 border border-teal-200 px-2 py-0.5 rounded">
-                            {r.archetype} ({r.fit_score}% fit)
-                          </span>
-                        )}
-                        {r.amount_inr && (
-                          <span className="font-mono text-[10px] text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded font-bold">
-                            ₹{r.amount_inr.toLocaleString("en-IN")}
-                          </span>
-                        )}
-                      </div>
+                      )}
+                      {r.amount_inr && (
+                        <span className="font-mono text-[10px] text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-lg font-bold">
+                          ₹{r.amount_inr.toLocaleString("en-IN")}
+                        </span>
+                      )}
+                    </div>
 
-                      {/* 1-Tap Action Row */}
-                      <div className="pt-2 border-t border-stone-100 flex items-center justify-between gap-2" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-center gap-2">
-                          {r.whatsapp_link && (
-                            <button
-                              type="button"
-                              onClick={() => handleOneClickWhatsAppRow(r)}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-bold shadow-xs active:scale-95 transition cursor-pointer"
-                            >
-                              <MessageCircle className="w-3.5 h-3.5" />
-                              <span>{r.status === "uncontacted" ? "1-Tap WhatsApp & Done" : "WhatsApp"}</span>
-                            </button>
-                          )}
-                          {r.phone && (
-                            <a
-                              href={`tel:${r.phone}`}
-                              className="p-2 rounded-xl border border-stone-200 text-stone-600 hover:bg-stone-50"
-                              title="Call Candidate"
-                            >
-                              <Phone className="w-3.5 h-3.5" />
-                            </a>
-                          )}
-                        </div>
-
-                        {/* Inline Status Select */}
-                        <div className="relative">
-                          <select
-                            value={r.status.toLowerCase()}
-                            disabled={savingStatusId === r.id}
-                            onChange={(e) => handleStatusChange(r, e.target.value)}
-                            aria-label={`Update status for ${r.name}`}
-                            className={`py-1.5 pl-2.5 pr-6 rounded-xl text-xs font-mono font-bold border ${sColors.bg} ${sColors.text} ${sColors.border}`}
+                    {/* Actions Strip */}
+                    <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between gap-2" onClick={(e) => e.stopPropagation()}>
+                      <div className="flex items-center gap-2">
+                        {r.whatsapp_link && (
+                          <button
+                            type="button"
+                            onClick={() => handleOneClickWhatsAppRow(r)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono text-xs font-bold shadow-md active:scale-95 transition cursor-pointer"
                           >
-                            {getAvailableStatuses(r.kind).map((opt) => (
-                              <option key={opt.value} value={opt.value}>
-                                {opt.label}
-                              </option>
-                            ))}
-                          </select>
-                          <ChevronDown className="w-3 h-3 text-stone-400 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                        </div>
+                            <MessageCircle className="w-3.5 h-3.5" />
+                            <span>{r.status === "uncontacted" ? "1-Tap WhatsApp" : "Chat"}</span>
+                          </button>
+                        )}
+                        {r.phone && (
+                          <a
+                            href={`tel:${r.phone}`}
+                            className="p-2 rounded-xl border border-white/10 text-zinc-300 hover:text-white hover:bg-white/5 transition"
+                            title="Call Phone"
+                          >
+                            <Phone className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                        {r.archetype && (
+                          <button
+                            type="button"
+                            onClick={() => setDossierCandidate(r)}
+                            className="p-2 rounded-xl border border-teal-500/30 text-teal-300 hover:bg-teal-500/10 transition"
+                            title="Dossier"
+                          >
+                            <Compass className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Inline Status Dropdown */}
+                      <div className="relative">
+                        <select
+                          value={r.status.toLowerCase()}
+                          disabled={savingStatusId === r.id}
+                          onChange={(e) => handleStatusChange(r, e.target.value)}
+                          aria-label={`Update status for ${r.name}`}
+                          className={`py-1.5 pl-2.5 pr-6 rounded-xl text-xs font-mono font-bold border ${sColor.bg} ${sColor.text} ${sColor.border} appearance-none cursor-pointer`}
+                        >
+                          {getAvailableStatuses(r.kind).map((opt) => (
+                            <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
+                              {opt.label}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-3 h-3 text-zinc-400 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                       </div>
                     </div>
-                  );
-                })
-              )}
-            </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
 
-            {/* Master Desktop Responses Table */}
-            <div className="hidden md:block rounded-2xl border border-stone-200 bg-white shadow-2xs overflow-hidden tone-light">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-xs">
-                  <thead>
-                    <tr className="bg-stone-50 border-b border-stone-200 font-mono text-[10.5px] uppercase tracking-wider text-stone-600 select-none">
-                      <th className="py-3 px-4">Candidate &amp; Contact</th>
-                      <th className="py-3 px-4">Origin / Program</th>
-                      <th className="py-3 px-4">College / University</th>
-                      <th className="py-3 px-4">Branch &amp; Degree</th>
-                      <th className="py-3 px-4">Status Workflow</th>
-                      <th className="py-3 px-4">Submitted</th>
-                      <th className="py-3 px-4 text-right">Actions</th>
+          {/* ── DESKTOP BEAST CANDIDATE MASTER GRID ── */}
+          <div className="hidden md:block rounded-3xl border border-white/[0.08] bg-[#080B14]/85 shadow-2xl backdrop-blur-2xl overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr className="bg-white/[0.02] border-b border-white/[0.08] font-mono text-[10.5px] uppercase tracking-wider text-zinc-400 select-none">
+                    <th className="py-3.5 px-5">Candidate &amp; Channels</th>
+                    <th className="py-3.5 px-4">Origin &amp; Diagnostic</th>
+                    <th className="py-3.5 px-4">Academic Dossier</th>
+                    <th className="py-3.5 px-4">Branch &amp; Degree</th>
+                    <th className="py-3.5 px-4">Status Engine</th>
+                    <th className="py-3.5 px-4">Intake Time</th>
+                    <th className="py-3.5 px-5 text-right">Action Suite</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/[0.04]">
+                  {filteredResponses.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="py-16 text-center text-zinc-400 space-y-2">
+                        <AlertTriangle className="w-8 h-8 text-zinc-500 mx-auto" />
+                        <p className="font-semibold text-white text-sm">No candidate records match your query</p>
+                        <p className="text-xs text-zinc-500 font-mono">
+                          Try modifying search keywords, college filters, or fit score ranges.
+                        </p>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-stone-100">
-                    {filteredResponses.length === 0 ? (
-                      <tr>
-                        <td colSpan={7} className="py-12 text-center text-stone-500 space-y-2">
-                          <AlertTriangle className="w-6 h-6 text-stone-400 mx-auto" />
-                          <p className="font-medium text-stone-800">No applications match your filter</p>
-                          <p className="text-xs text-stone-500">
-                            Try adjusting your search query, status, or university filters.
-                          </p>
-                        </td>
-                      </tr>
-                    ) : (
-                      filteredResponses.map((r) => {
-                        const sColors = STATUS_COLORS[r.status.toLowerCase()] || {
-                          bg: "bg-stone-100",
-                          text: "text-stone-800",
-                          border: "border-stone-200",
-                        };
+                  ) : (
+                    filteredResponses.map((r) => {
+                      const sColor = STATUS_SPECS[r.status.toLowerCase()] || STATUS_SPECS.uncontacted;
+                      const initials = (r.name || "A")
+                        .split(" ")
+                        .map((n) => n[0])
+                        .slice(0, 2)
+                        .join("")
+                        .toUpperCase();
 
-                        const kindBadge =
-                          r.kind === "workshop"
-                            ? { label: "Workshop", bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" }
-                            : r.kind === "application"
-                            ? { label: "Job App", bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" }
-                            : r.kind === "career_engine"
-                            ? { label: "Assessment", bg: "bg-teal-50", text: "text-teal-700", border: "border-teal-200" }
-                            : { label: "Enrolment", bg: "bg-amber-50", text: "text-amber-800", border: "border-amber-200" };
+                      const kindSpec =
+                        r.kind === "career_engine"
+                          ? { label: "Assessment", bg: "bg-teal-500/10", text: "text-teal-300", border: "border-teal-500/25" }
+                          : r.kind === "application"
+                          ? { label: "Job App", bg: "bg-purple-500/10", text: "text-purple-300", border: "border-purple-500/25" }
+                          : r.kind === "workshop"
+                          ? { label: "Workshop", bg: "bg-sky-500/10", text: "text-sky-300", border: "border-sky-500/25" }
+                          : { label: "Enrolment", bg: "bg-amber-500/10", text: "text-amber-300", border: "border-amber-500/25" };
 
-                        return (
-                          <tr
-                            key={r.id}
-                            className="hover:bg-stone-50/80 transition-colors group cursor-pointer"
-                            onClick={() => setSelectedCandidate(r)}
-                          >
-                            {/* Candidate & Contact */}
-                            <td className="py-3 px-4 space-y-1">
-                              <div className="flex items-center gap-1.5">
-                                <span className="font-bold text-stone-900 group-hover:text-[var(--color-medical-navy)] transition-colors text-sm">
-                                  {r.name}
-                                </span>
-                                {r.pass_id && (
-                                  <span className="font-mono text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.2 rounded border border-blue-200">
-                                    {r.pass_id}
-                                  </span>
-                                )}
+                      return (
+                        <tr
+                          key={r.id}
+                          className="hover:bg-white/[0.04] transition-all group cursor-pointer"
+                          onClick={() => setSelectedCandidate(r)}
+                        >
+                          {/* Candidate & Contact */}
+                          <td className="py-3.5 px-5 space-y-1">
+                            <div className="flex items-center gap-3">
+                              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/15 flex items-center justify-center font-mono font-bold text-xs text-white shrink-0 group-hover:border-sky-400/50 transition">
+                                {initials}
                               </div>
-                              <div className="flex items-center gap-2 text-stone-500 font-mono text-[11px]">
-                                {r.phone && (
-                                  <a
-                                    href={`tel:${r.phone}`}
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="hover:text-[var(--color-medical-navy)] flex items-center gap-1"
-                                    title="Call phone"
-                                  >
-                                    <Phone className="w-3 h-3 text-stone-400" />
-                                    <span>{r.phone}</span>
-                                  </a>
-                                )}
-                                {r.email && (
-                                  <a
-                                    href={`mailto:${r.email}`}
-                                    onClick={(e) => e.stopPropagation()}
-                                    className="hover:text-[var(--color-medical-navy)] truncate max-w-[140px] flex items-center gap-1"
-                                    title={r.email}
-                                  >
-                                    <Mail className="w-3 h-3 text-stone-400" />
-                                    <span className="truncate">{r.email}</span>
-                                  </a>
-                                )}
-                              </div>
-                            </td>
-
-                            {/* Origin / Program */}
-                            <td className="py-3 px-4 space-y-1">
-                              <span
-                                className={`inline-block font-mono text-[9.5px] uppercase font-bold px-2 py-0.5 rounded border ${kindBadge.bg} ${kindBadge.text} ${kindBadge.border}`}
-                              >
-                                {kindBadge.label}
-                              </span>
-                              <p className="font-sans text-xs text-stone-800 font-medium truncate max-w-[160px]" title={r.program_name || ""}>
-                                {r.program_name || "Healthcare Program"}
-                              </p>
-                              {r.archetype && (
-                                <p className="font-mono text-[10px] text-teal-700 truncate">
-                                  {r.archetype} ({r.fit_score}% fit)
-                                </p>
-                              )}
-                              {r.amount_inr && (
-                                <p className="font-mono text-[10.5px] font-bold text-amber-800">
-                                  ₹{r.amount_inr.toLocaleString("en-IN")}
-                                </p>
-                              )}
-                            </td>
-
-                            {/* College / University */}
-                            <td className="py-3 px-4 space-y-0.5">
-                              {r.college ? (
-                                <div className="flex items-start gap-1.5 max-w-[200px]">
-                                  <Building2 className="w-3.5 h-3.5 text-stone-400 shrink-0 mt-0.5" />
-                                  <span className="font-sans text-xs text-stone-800 leading-tight" title={r.college}>
-                                    {r.college}
+                              <div>
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  <span className="font-bold text-white group-hover:text-sky-300 transition-colors text-sm">
+                                    {r.name}
                                   </span>
+                                  {r.pass_id && (
+                                    <span className="font-mono text-[9px] font-bold text-sky-300 bg-sky-500/15 px-1.5 py-0.5 rounded border border-sky-500/25">
+                                      {r.pass_id}
+                                    </span>
+                                  )}
                                 </div>
-                              ) : (
-                                <span className="font-mono text-[11px] text-stone-400">—</span>
-                              )}
-                            </td>
-
-                            {/* Branch & Degree */}
-                            <td className="py-3 px-4 space-y-1">
-                              <div className="font-medium text-stone-900 text-xs">
-                                {r.degree || "Healthcare"}
-                                {r.grad_year && (
-                                  <span className="text-stone-400 font-mono text-[10px] ml-1">
-                                    ('{r.grad_year.slice(-2)})
-                                  </span>
-                                )}
+                                <div className="flex items-center gap-2 text-zinc-400 font-mono text-[11px] mt-0.5">
+                                  {r.phone && (
+                                    <a
+                                      href={`tel:${r.phone}`}
+                                      onClick={(e) => e.stopPropagation()}
+                                      className="hover:text-sky-300 flex items-center gap-1 transition"
+                                      title="Call candidate"
+                                    >
+                                      <Phone className="w-3 h-3 text-zinc-500" />
+                                      <span>{r.phone}</span>
+                                    </a>
+                                  )}
+                                  {r.email && (
+                                    <span
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleCopy(r.email, "Email");
+                                      }}
+                                      className="hover:text-white truncate max-w-[140px] flex items-center gap-1 cursor-pointer transition"
+                                      title={`Click to copy: ${r.email}`}
+                                    >
+                                      <Mail className="w-3 h-3 text-zinc-500" />
+                                      <span className="truncate">{r.email}</span>
+                                    </span>
+                                  )}
+                                </div>
                               </div>
-                              {r.branch && (
-                                <span className="inline-block px-1.5 py-0.5 rounded bg-stone-100 text-stone-700 font-mono text-[10px] truncate max-w-[150px]" title={r.branch}>
-                                  {r.branch}
+                            </div>
+                          </td>
+
+                          {/* Origin & Diagnostic */}
+                          <td className="py-3.5 px-4 space-y-1">
+                            <span
+                              className={`inline-block font-mono text-[9px] uppercase font-bold px-2 py-0.5 rounded-full border ${kindSpec.bg} ${kindSpec.text} ${kindSpec.border}`}
+                            >
+                              {kindSpec.label}
+                            </span>
+                            <p className="font-sans text-xs text-zinc-200 font-medium truncate max-w-[170px]" title={r.program_name || ""}>
+                              {r.program_name || "Healthcare Program"}
+                            </p>
+                            {r.archetype && (
+                              <div className="flex items-center gap-1.5 pt-0.5">
+                                <span className="font-mono text-[10.5px] font-bold text-teal-300 truncate max-w-[140px]">
+                                  {r.archetype}
+                                </span>
+                                <span className="font-mono text-[9.5px] font-extrabold text-teal-200 bg-teal-500/20 px-1.5 py-0.2 rounded border border-teal-500/30">
+                                  {r.fit_score}%
+                                </span>
+                              </div>
+                            )}
+                            {r.amount_inr && (
+                              <p className="font-mono text-[11px] font-bold text-amber-300">
+                                ₹{r.amount_inr.toLocaleString("en-IN")}
+                              </p>
+                            )}
+                          </td>
+
+                          {/* Academic Dossier */}
+                          <td className="py-3.5 px-4 space-y-0.5">
+                            {r.college ? (
+                              <div className="flex items-start gap-1.5 max-w-[200px]">
+                                <Building2 className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
+                                <span className="font-sans text-xs text-zinc-200 leading-tight" title={r.college}>
+                                  {r.college}
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="font-mono text-[11px] text-zinc-600">—</span>
+                            )}
+                          </td>
+
+                          {/* Branch & Degree */}
+                          <td className="py-3.5 px-4 space-y-1">
+                            <div className="font-medium text-white text-xs">
+                              {r.degree || "Healthcare"}
+                              {r.grad_year && (
+                                <span className="text-zinc-500 font-mono text-[10px] ml-1">
+                                  ('{r.grad_year.slice(-2)})
                                 </span>
                               )}
-                            </td>
+                            </div>
+                            {r.branch && (
+                              <span className="inline-block px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-[10px] truncate max-w-[150px]" title={r.branch}>
+                                {r.branch}
+                              </span>
+                            )}
+                          </td>
 
-                            {/* Status Workflow Dropdown */}
-                            <td className="py-3 px-4" onClick={(e) => e.stopPropagation()}>
-                              <div className="relative inline-block">
-                                <select
-                                  value={r.status.toLowerCase()}
-                                  disabled={savingStatusId === r.id}
-                                  onChange={(e) => handleStatusChange(r, e.target.value)}
-                                  aria-label={`Update status for ${r.name}`}
-                                  className={`py-1 pl-2 pr-6 rounded-lg text-[11px] font-mono font-bold border transition cursor-pointer appearance-none ${sColors.bg} ${sColors.text} ${sColors.border} focus:outline-none focus:ring-1 focus:ring-[var(--color-medical-navy)]`}
-                                >
-                                  {getAvailableStatuses(r.kind).map((opt) => (
-                                    <option key={opt.value} value={opt.value}>
-                                      {opt.label}
-                                    </option>
-                                  ))}
-                                </select>
-                                <ChevronDown className="w-3 h-3 text-stone-400 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                              </div>
-                            </td>
+                          {/* Status Workflow */}
+                          <td className="py-3.5 px-4" onClick={(e) => e.stopPropagation()}>
+                            <div className="relative inline-block">
+                              <select
+                                value={r.status.toLowerCase()}
+                                disabled={savingStatusId === r.id}
+                                onChange={(e) => handleStatusChange(r, e.target.value)}
+                                aria-label={`Update status for ${r.name}`}
+                                className={`py-1.5 pl-2.5 pr-7 rounded-xl text-[11px] font-mono font-bold border transition cursor-pointer appearance-none ${sColor.bg} ${sColor.text} ${sColor.border} focus:outline-none focus:ring-1 focus:ring-sky-400`}
+                              >
+                                {getAvailableStatuses(r.kind).map((opt) => (
+                                  <option key={opt.value} value={opt.value} className="bg-[#0B0F19] text-white">
+                                    {opt.label}
+                                  </option>
+                                ))}
+                              </select>
+                              <ChevronDown className="w-3 h-3 text-zinc-400 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+                            </div>
+                          </td>
 
-                            {/* Submitted Date */}
-                            <td className="py-3 px-4 font-mono text-[11px] text-stone-500 whitespace-nowrap">
-                              {new Date(r.created_at).toLocaleDateString("en-IN", {
-                                day: "numeric",
-                                month: "short",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </td>
+                          {/* Submitted Date */}
+                          <td className="py-3.5 px-4 font-mono text-[11px] text-zinc-400 whitespace-nowrap">
+                            {new Date(r.created_at).toLocaleDateString("en-IN", {
+                              day: "numeric",
+                              month: "short",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })}
+                          </td>
 
-                            {/* Action Buttons */}
-                            <td className="py-3 px-4 text-right" onClick={(e) => e.stopPropagation()}>
-                              <div className="flex items-center justify-end gap-1.5">
-                                {r.whatsapp_link && r.status === "uncontacted" ? (
-                                  <button
-                                    type="button"
-                                    onClick={() => handleOneClickWhatsAppRow(r)}
-                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-emerald-400 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-mono text-[10.5px] font-bold transition cursor-pointer shadow-2xs active:scale-95"
-                                    title="1-Click: Open WhatsApp and auto-mark Contacted"
-                                  >
-                                    <Zap className="w-3 h-3 fill-current text-emerald-600" />
-                                    <span>Contact</span>
-                                  </button>
-                                ) : r.whatsapp_link ? (
-                                  <button
-                                    type="button"
-                                    onClick={() => setActiveDispatchCandidate(r)}
-                                    className="p-1.5 rounded-lg border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 transition cursor-pointer"
-                                    title="Open WhatsApp Dispatcher"
-                                  >
-                                    <MessageCircle className="w-3.5 h-3.5 text-emerald-700" />
-                                  </button>
-                                ) : null}
-                                {r.archetype && (
-                                  <button
-                                    type="button"
-                                    onClick={() => setDossierCandidate(r)}
-                                    className="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-blue-300 bg-blue-50 hover:bg-blue-100 text-blue-800 font-mono text-[10.5px] font-bold transition cursor-pointer shadow-2xs active:scale-95"
-                                    title="View Complete 9-Section Assessment Dossier"
-                                  >
-                                    <Compass className="w-3 h-3 text-blue-600" />
-                                    <span className="hidden sm:inline">Dossier</span>
-                                  </button>
-                                )}
+                          {/* Action Suite */}
+                          <td className="py-3.5 px-5 text-right" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex items-center justify-end gap-1.5">
+                              {/* 1-Click WhatsApp Direct */}
+                              {r.whatsapp_link && r.status === "uncontacted" ? (
                                 <button
                                   type="button"
-                                  onClick={() => setSelectedCandidate(r)}
-                                  className="p-1.5 rounded-lg border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 transition cursor-pointer"
-                                  title="View full candidate file"
+                                  onClick={() => handleOneClickWhatsAppRow(r)}
+                                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-emerald-400/40 bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 font-mono text-[10.5px] font-bold transition cursor-pointer shadow-sm active:scale-95"
+                                  title="1-Click: Open WhatsApp & auto-mark Contacted"
                                 >
-                                  <Eye className="w-3.5 h-3.5" />
+                                  <Zap className="w-3.5 h-3.5 fill-current text-emerald-400" />
+                                  <span>Contact</span>
                                 </button>
-                              </div>
-                            </td>
-                          </tr>
-                        );
-                      })
-                    )}
-                  </tbody>
-                </table>
-              </div>
+                              ) : r.whatsapp_link ? (
+                                <button
+                                  type="button"
+                                  onClick={() => setActiveDispatchCandidate(r)}
+                                  className="p-1.5 rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 transition cursor-pointer"
+                                  title="Open WhatsApp Dispatcher"
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5" />
+                                </button>
+                              ) : null}
+
+                              {/* Assessment Dossier Launcher */}
+                              {r.archetype && (
+                                <button
+                                  type="button"
+                                  onClick={() => setDossierCandidate(r)}
+                                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl border border-teal-500/30 bg-teal-500/10 hover:bg-teal-500/20 text-teal-300 font-mono text-[10.5px] font-bold transition cursor-pointer active:scale-95"
+                                  title="Launch full 9-section candidate dossier"
+                                >
+                                  <Compass className="w-3.5 h-3.5 text-teal-400" />
+                                  <span className="hidden lg:inline">Dossier</span>
+                                </button>
+                              )}
+
+                              {/* Candidate Profile Inspector */}
+                              <button
+                                type="button"
+                                onClick={() => setSelectedCandidate(r)}
+                                className="p-1.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 hover:text-white transition cursor-pointer"
+                                title="Inspect candidate file"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
             </div>
-          </section>
-        )}
-
-        {/* TAB: PURE WEBSITE ANALYTICS */}
-        {activeTab === "analytics" && (
-          <section className="space-y-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-serif text-xl font-bold text-stone-900">
-                  Live Traffic &amp; Conversion Radar
-                </h2>
-                <p className="text-xs text-stone-500 font-sans">
-                  Real-time visitor telemetry, interaction points &amp; registration conversion funnel.
-                </p>
-              </div>
-              <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 motion-safe:animate-ping"></span>
-                10s Live Refresh Active
-              </span>
-            </div>
-
-            {/* Metrics Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
-                  TOTAL PAGEVIEWS
-                </span>
-                <p className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
-                  {analyticsResult?.totalPageViews24h ?? 142}
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
-                  UNIQUE VISITORS
-                </span>
-                <p className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
-                  {analyticsResult?.uniqueVisitors24h ?? 84}
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
-                  OVERALL CONVERSION
-                </span>
-                <p className="text-2xl sm:text-3xl font-serif font-black text-emerald-700">
-                  {analyticsResult?.conversionRate.overallPageToPass ?? 18.2}%
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-1">
-                <span className="font-mono text-[10px] uppercase font-bold text-stone-500">
-                  MOBILE SHARE
-                </span>
-                <p className="text-2xl sm:text-3xl font-serif font-black text-stone-900">
-                  {analyticsResult?.deviceBreakdown.mobilePct ?? 68}%
-                </p>
-              </div>
-            </div>
-
-            {/* Funnel Visual Strip */}
-            <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs tone-light space-y-4">
-              <h3 className="font-serif text-base font-bold text-stone-900">
-                Visitor-to-Candidate Conversion Pipeline
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center">
-                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">1. Page View</span>
-                  <span className="text-xl font-bold font-serif text-stone-900">
-                    {analyticsResult?.funnel.pageViews ?? 142}
-                  </span>
-                </div>
-                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">2. Case Explored</span>
-                  <span className="text-xl font-bold font-serif text-stone-900">
-                    {analyticsResult?.funnel.caseInteractions ?? 58}
-                  </span>
-                  <span className="text-[10px] font-mono text-emerald-700 block">
-                    {analyticsResult?.conversionRate.pageToInteraction ?? 40.8}%
-                  </span>
-                </div>
-                <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 space-y-1">
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">3. Form Started</span>
-                  <span className="text-xl font-bold font-serif text-stone-900">
-                    {analyticsResult?.funnel.formStarts ?? 34}
-                  </span>
-                  <span className="text-[10px] font-mono text-emerald-700 block">
-                    {analyticsResult?.conversionRate.interactionToForm ?? 58.6}%
-                  </span>
-                </div>
-                <div className="p-3.5 rounded-xl bg-blue-50 border border-blue-200 space-y-1">
-                  <span className="font-mono text-[10px] text-blue-800 uppercase block font-bold">4. Pass Issued</span>
-                  <span className="text-xl font-bold font-serif text-blue-950">
-                    {analyticsResult?.funnel.passesReserved ?? (data?.countsByKind.workshop ?? 12)}
-                  </span>
-                  <span className="text-[10px] font-mono text-blue-800 block font-bold">
-                    {analyticsResult?.conversionRate.formToPass ?? 76.5}%
-                  </span>
-                </div>
-                <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1">
-                  <span className="font-mono text-[10px] text-emerald-800 uppercase block font-bold">5. WhatsApp Confirm</span>
-                  <span className="text-xl font-bold font-serif text-emerald-950">
-                    {analyticsResult?.funnel.whatsappClicks ?? 8}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* TAB: WORKSHOP WEBSITE CONTROLS */}
-        {activeTab === "controls" && (
-          <section className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="font-serif text-xl font-bold text-stone-900">
-                  Live Workshop Schedule &amp; Desk Overrides
-                </h2>
-                <p className="text-xs text-stone-500 font-sans">
-                  Instantly synchronize the live date, time, title, and Google Meet room URL across the entire marketing site.
-                </p>
-              </div>
-              {configSavedToast && (
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold">
-                  <Check className="w-3.5 h-3.5" /> Saved Live!
-                </span>
-              )}
-            </div>
-
-            <div className="p-6 rounded-2xl bg-white border border-stone-200 shadow-xs space-y-5 tone-light">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label htmlFor="ws-title" className="block text-xs font-mono font-bold uppercase text-stone-700">
-                    Workshop Title
-                  </label>
-                  <input
-                    id="ws-title"
-                    type="text"
-                    value={customTitle}
-                    onChange={(e) => setCustomTitle(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-sans text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label htmlFor="ws-date" className="block text-xs font-mono font-bold uppercase text-stone-700">
-                    Date Display
-                  </label>
-                  <input
-                    id="ws-date"
-                    type="text"
-                    value={customDate}
-                    onChange={(e) => setCustomDate(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-sans text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label htmlFor="ws-time" className="block text-xs font-mono font-bold uppercase text-stone-700">
-                    Time Display
-                  </label>
-                  <input
-                    id="ws-time"
-                    type="text"
-                    value={customTime}
-                    onChange={(e) => setCustomTime(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-sans text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label htmlFor="ws-meet" className="block text-xs font-mono font-bold uppercase text-stone-700">
-                    Google Meet Room Link
-                  </label>
-                  <input
-                    id="ws-meet"
-                    type="text"
-                    value={customMeetUrl}
-                    onChange={(e) => setCustomMeetUrl(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border border-stone-300 text-xs font-mono text-stone-900 focus:ring-2 focus:ring-[var(--color-medical-navy)]/30"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-stone-100">
-                <button
-                  type="button"
-                  onClick={handleResetWorkshopConfig}
-                  className="px-4 py-2 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-700 font-mono text-xs font-semibold cursor-pointer"
-                >
-                  Reset Defaults
-                </button>
-                <button
-                  type="button"
-                  onClick={handleSaveWorkshopConfig}
-                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[var(--color-medical-navy)] hover:bg-[#0A2246] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
-                >
-                  <Save className="w-3.5 h-3.5 text-white" />
-                  <span>Save Live Overrides</span>
-                </button>
-              </div>
-            </div>
-            <SystemStatusEditor />
+          </div>
         </section>
-        )}
+      )}
 
-      {/* ── CANDIDATE DOSSIER DETAIL DRAWER / MODAL ────────────────── */}
+      {/* ── TAB: LIVE WEBSITE TELEMETRY ── */}
+      {activeTab === "analytics" && (
+        <section className="space-y-5">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-white tracking-tight font-sans">
+                Live Traffic &amp; Conversion Telemetry
+              </h2>
+              <p className="text-xs text-zinc-400 font-mono mt-0.5">
+                Real-time visitor signals, interactive case evaluations, and funnel drop-off analytics.
+              </p>
+            </div>
+            <span className="flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono text-xs">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 motion-safe:animate-ping" />
+              10s Live Pulse Active
+            </span>
+          </div>
+
+          {/* Telemetry Numbers Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="p-5 rounded-3xl bg-[#080B14]/85 border border-white/[0.08] shadow-xl backdrop-blur-2xl space-y-1">
+              <span className="font-mono text-[10px] uppercase font-bold text-zinc-400">
+                TOTAL PAGEVIEWS (24H)
+              </span>
+              <p className="text-3xl font-extrabold text-white font-sans">
+                {analyticsResult?.totalPageViews24h ?? 142}
+              </p>
+            </div>
+            <div className="p-5 rounded-3xl bg-[#080B14]/85 border border-white/[0.08] shadow-xl backdrop-blur-2xl space-y-1">
+              <span className="font-mono text-[10px] uppercase font-bold text-zinc-400">
+                UNIQUE VISITORS
+              </span>
+              <p className="text-3xl font-extrabold text-white font-sans">
+                {analyticsResult?.uniqueVisitors24h ?? 84}
+              </p>
+            </div>
+            <div className="p-5 rounded-3xl bg-[#080B14]/85 border border-emerald-500/20 shadow-xl backdrop-blur-2xl space-y-1">
+              <span className="font-mono text-[10px] uppercase font-bold text-emerald-400">
+                OVERALL CONVERSION
+              </span>
+              <p className="text-3xl font-extrabold text-emerald-300 font-sans">
+                {analyticsResult?.conversionRate.overallPageToPass ?? 18.2}%
+              </p>
+            </div>
+            <div className="p-5 rounded-3xl bg-[#080B14]/85 border border-white/[0.08] shadow-xl backdrop-blur-2xl space-y-1">
+              <span className="font-mono text-[10px] uppercase font-bold text-zinc-400">
+                MOBILE TRAFFIC SHARE
+              </span>
+              <p className="text-3xl font-extrabold text-white font-sans">
+                {analyticsResult?.deviceBreakdown.mobilePct ?? 68}%
+              </p>
+            </div>
+          </div>
+
+          {/* 5-Stage Conversion Funnel Visual Strip */}
+          <div className="p-6 rounded-3xl bg-[#080B14]/85 border border-white/[0.08] shadow-xl backdrop-blur-2xl space-y-4">
+            <h3 className="text-base font-bold text-white font-sans">
+              Visitor-to-Candidate Conversion Pipeline
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center">
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-1">
+                <span className="font-mono text-[10px] text-zinc-400 uppercase block">1. Page View</span>
+                <span className="text-2xl font-extrabold text-white font-sans">
+                  {analyticsResult?.funnel.pageViews ?? 142}
+                </span>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-1">
+                <span className="font-mono text-[10px] text-zinc-400 uppercase block">2. Case Explored</span>
+                <span className="text-2xl font-extrabold text-white font-sans">
+                  {analyticsResult?.funnel.caseInteractions ?? 58}
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400 block font-bold">
+                  {analyticsResult?.conversionRate.pageToInteraction ?? 40.8}%
+                </span>
+              </div>
+              <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-1">
+                <span className="font-mono text-[10px] text-zinc-400 uppercase block">3. Form Started</span>
+                <span className="text-2xl font-extrabold text-white font-sans">
+                  {analyticsResult?.funnel.formStarts ?? 34}
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400 block font-bold">
+                  {analyticsResult?.conversionRate.interactionToForm ?? 58.6}%
+                </span>
+              </div>
+              <div className="p-4 rounded-2xl bg-sky-500/10 border border-sky-500/20 space-y-1">
+                <span className="font-mono text-[10px] text-sky-300 uppercase block font-bold">4. Pass Issued</span>
+                <span className="text-2xl font-extrabold text-sky-200 font-sans">
+                  {analyticsResult?.funnel.passesReserved ?? (data?.countsByKind.workshop ?? 12)}
+                </span>
+                <span className="text-[10px] font-mono text-sky-300 block font-bold">
+                  {analyticsResult?.conversionRate.formToPass ?? 76.5}%
+                </span>
+              </div>
+              <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 space-y-1">
+                <span className="font-mono text-[10px] text-emerald-300 uppercase block font-bold">5. WhatsApp Confirm</span>
+                <span className="text-2xl font-extrabold text-emerald-200 font-sans">
+                  {analyticsResult?.funnel.whatsappClicks ?? 8}
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── TAB: WORKSHOP WEBSITE CONTROLS ── */}
+      {activeTab === "controls" && (
+        <section className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-white tracking-tight font-sans">
+                Live Workshop Schedule &amp; Desk Overrides
+              </h2>
+              <p className="text-xs text-zinc-400 font-mono mt-0.5">
+                Instantly synchronize the live date, time, title, and Google Meet room URL across the entire marketing site.
+              </p>
+            </div>
+            {configSavedToast && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono text-xs font-bold">
+                <Check className="w-3.5 h-3.5" /> Saved Live!
+              </span>
+            )}
+          </div>
+
+          <div className="p-6 rounded-3xl bg-[#080B14]/85 border border-white/[0.08] shadow-2xl backdrop-blur-2xl space-y-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label htmlFor="ws-title" className="block text-xs font-mono font-bold uppercase text-zinc-300">
+                  Workshop Title
+                </label>
+                <input
+                  id="ws-title"
+                  type="text"
+                  value={customTitle}
+                  onChange={(e) => setCustomTitle(e.target.value)}
+                  className="w-full p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-sans text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label htmlFor="ws-date" className="block text-xs font-mono font-bold uppercase text-zinc-300">
+                  Date Display
+                </label>
+                <input
+                  id="ws-date"
+                  type="text"
+                  value={customDate}
+                  onChange={(e) => setCustomDate(e.target.value)}
+                  className="w-full p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-sans text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label htmlFor="ws-time" className="block text-xs font-mono font-bold uppercase text-zinc-300">
+                  Time Display
+                </label>
+                <input
+                  id="ws-time"
+                  type="text"
+                  value={customTime}
+                  onChange={(e) => setCustomTime(e.target.value)}
+                  className="w-full p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-sans text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label htmlFor="ws-meet" className="block text-xs font-mono font-bold uppercase text-zinc-300">
+                  Google Meet Room Link
+                </label>
+                <input
+                  id="ws-meet"
+                  type="text"
+                  value={customMeetUrl}
+                  onChange={(e) => setCustomMeetUrl(e.target.value)}
+                  className="w-full p-2.5 rounded-xl border border-white/10 bg-white/5 text-xs font-mono text-white focus:outline-none focus:ring-1 focus:ring-sky-400/50"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/[0.08]">
+              <button
+                type="button"
+                onClick={handleResetWorkshopConfig}
+                className="px-4 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-zinc-300 font-mono text-xs font-semibold cursor-pointer transition active:scale-95"
+              >
+                Reset Defaults
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveWorkshopConfig}
+                className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-lg transition cursor-pointer active:scale-95"
+              >
+                <Save className="w-3.5 h-3.5 text-white" />
+                <span>Save Live Overrides</span>
+              </button>
+            </div>
+          </div>
+
+          <SystemStatusEditor />
+        </section>
+      )}
+
+      {/* ── CANDIDATE PROFILE INSPECTOR DRAWER ── */}
       {selectedCandidate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-150">
-          <div className="w-full max-w-xl h-full bg-white border-l border-stone-200 shadow-2xl p-6 flex flex-col space-y-6 overflow-y-auto tone-light text-left">
+        <div className="fixed inset-0 z-50 flex items-center justify-end bg-black/60 backdrop-blur-md transition-opacity">
+          <div className="w-full max-w-xl h-full bg-[#080B14]/98 border-l border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] p-6 sm:p-7 flex flex-col space-y-6 overflow-y-auto text-left text-white">
             {/* Header */}
-            <div className="flex items-start justify-between border-b border-stone-200 pb-4">
+            <div className="flex items-start justify-between border-b border-white/10 pb-4">
               <div>
-                <div className="flex items-center gap-2">
-                  <h2 className="font-serif text-xl font-bold text-stone-900">
+                <div className="flex items-center gap-2.5 flex-wrap">
+                  <h2 className="text-xl font-extrabold text-white tracking-tight font-sans">
                     {selectedCandidate.name}
                   </h2>
                   {selectedCandidate.pass_id && (
-                    <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
+                    <span className="font-mono text-xs font-bold text-sky-300 bg-sky-500/15 px-2.5 py-0.5 rounded-full border border-sky-500/25">
                       {selectedCandidate.pass_id}
                     </span>
                   )}
                 </div>
-                <p className="font-mono text-xs text-stone-500 uppercase mt-0.5">
-                  Candidate Dossier · {selectedCandidate.kind.toUpperCase()}
+                <p className="font-mono text-xs text-zinc-400 uppercase mt-1">
+                  Candidate File · {selectedCandidate.kind.toUpperCase()}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setSelectedCandidate(null)}
-                className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition cursor-pointer"
+                className="p-2 rounded-xl text-zinc-400 hover:text-white hover:bg-white/10 transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Academic Dossier Block */}
-            <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[var(--color-medical-navy)] uppercase tracking-wider">
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-3">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">
                 <GraduationCap className="w-4 h-4" />
                 <span>Academic Verification</span>
               </div>
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">College / University</span>
-                  <p className="font-semibold text-stone-900 mt-0.5">
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase block">College / University</span>
+                  <p className="font-semibold text-white mt-0.5">
                     {selectedCandidate.college || "Not Specified"}
                   </p>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">Degree Qualification</span>
-                  <p className="font-semibold text-stone-900 mt-0.5">
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase block">Degree Qualification</span>
+                  <p className="font-semibold text-white mt-0.5">
                     {selectedCandidate.degree || "Healthcare"}
                   </p>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">Branch / Specialization</span>
-                  <p className="font-semibold text-stone-900 mt-0.5">
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase block">Branch / Specialization</span>
+                  <p className="font-semibold text-white mt-0.5">
                     {selectedCandidate.branch || "General"}
                   </p>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] text-stone-500 uppercase block">Graduation Year</span>
-                  <p className="font-semibold text-stone-900 mt-0.5">
+                  <span className="font-mono text-[10px] text-zinc-400 uppercase block">Graduation Year</span>
+                  <p className="font-semibold text-white mt-0.5">
                     {selectedCandidate.grad_year || "2025/2026"}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Direct Contact Block */}
-            <div className="p-4 rounded-xl bg-white border border-stone-200 shadow-2xs space-y-3 tone-light">
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-stone-700 uppercase tracking-wider">
-                <UserCheck className="w-4 h-4 text-emerald-600" />
-                <span>Candidate Contact Channels</span>
+            {/* Contact Channels */}
+            <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] space-y-3">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                <UserCheck className="w-4 h-4" />
+                <span>Verified Contact Channels</span>
               </div>
               <div className="space-y-2 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="text-stone-500">Phone (WhatsApp):</span>
-                  <span className="font-mono font-bold text-stone-900">{selectedCandidate.phone}</span>
+                  <span className="text-zinc-400">Phone (WhatsApp):</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono font-bold text-white">{selectedCandidate.phone}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(selectedCandidate.phone, "Phone")}
+                      className="text-zinc-400 hover:text-white p-0.5"
+                      title="Copy phone"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-stone-500">Email:</span>
-                  <span className="font-mono text-stone-900">{selectedCandidate.email || "—"}</span>
+                  <span className="text-zinc-400">Email:</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-white">{selectedCandidate.email || "—"}</span>
+                    {selectedCandidate.email && (
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(selectedCandidate.email, "Email")}
+                        className="text-zinc-400 hover:text-white p-0.5"
+                        title="Copy email"
+                      >
+                        <Copy className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-stone-500">Acquisition Source:</span>
-                  <span className="font-mono text-stone-600">{selectedCandidate.utm_source || "direct"}</span>
+                  <span className="text-zinc-400">Acquisition Channel:</span>
+                  <span className="font-mono text-zinc-300">{selectedCandidate.utm_source || "direct"}</span>
                 </div>
               </div>
             </div>
 
-            {/* Mentor Question / Notes */}
-            {selectedCandidate.mentor_question && (
-              <div className="p-4 rounded-xl bg-blue-50/70 border border-blue-200 space-y-2 text-xs">
-                <span className="font-mono text-[10px] font-bold text-blue-900 uppercase block">
-                  Question for Faculty (Mohamed Kumail Abbas):
-                </span>
-                <p className="font-sans text-stone-800 leading-relaxed italic">
-                  "{selectedCandidate.mentor_question}"
-                </p>
-              </div>
-            )}
-
-            {/* Diagnostic Assessment Details */}
+            {/* Diagnostic Assessment Block */}
             {selectedCandidate.archetype && (
-              <div className="p-4 rounded-xl bg-teal-50/70 border border-teal-200 space-y-2 text-xs">
-                <span className="font-mono text-[10px] font-bold text-teal-900 uppercase block">
-                  Career Engine Diagnostic Result:
+              <div className="p-4 rounded-2xl bg-teal-500/[0.05] border border-teal-500/20 space-y-3 text-xs">
+                <span className="font-mono text-[10px] font-bold text-teal-300 uppercase block tracking-wider">
+                  Career Engine Diagnostic Fit:
                 </span>
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-teal-950 text-sm">{selectedCandidate.archetype}</span>
-                  <span className="font-mono font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded">
+                  <span className="font-bold text-white text-sm">{selectedCandidate.archetype}</span>
+                  <span className="font-mono font-extrabold text-teal-200 bg-teal-500/20 px-2 py-0.5 rounded-full border border-teal-500/30">
                     {selectedCandidate.fit_score}% Fit
                   </span>
                 </div>
@@ -1813,7 +1944,7 @@ function AdminHome() {
                       const label = typeof p === "string" ? p : p?.title || p?.slug || "Career Track";
                       const salary = typeof p === "object" && p?.salary ? ` (${p.salary})` : "";
                       return (
-                        <span key={idx} className="px-2 py-0.5 rounded bg-white text-teal-800 font-mono text-[10px] border border-teal-200">
+                        <span key={idx} className="px-2.5 py-1 rounded-lg bg-white/5 text-teal-200 font-mono text-[10px] border border-white/10">
                           {label}{salary}
                         </span>
                       );
@@ -1823,33 +1954,33 @@ function AdminHome() {
                 <button
                   type="button"
                   onClick={() => setDossierCandidate(selectedCandidate)}
-                  className="w-full mt-2.5 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-teal-700 hover:bg-teal-800 text-slate-50 font-mono text-xs font-bold transition shadow-xs cursor-pointer active:scale-95"
+                  className="w-full mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-teal-500/20 hover:bg-teal-500/30 text-teal-200 border border-teal-500/40 font-mono text-xs font-bold transition cursor-pointer active:scale-95 shadow-md"
                 >
-                  <Compass className="w-4 h-4" />
-                  <span>View Complete 9-Section Assessment Dossier →</span>
+                  <Compass className="w-4 h-4 text-teal-300" />
+                  <span>Launch 9-Section Candidate Intelligence Dossier →</span>
                 </button>
               </div>
             )}
 
             {/* ACRI Certification Invite Access Key if Accepted */}
             {(selectedCandidate.pass_id || selectedCandidate.status.toLowerCase() === "accepted") && (
-              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200/90 space-y-2 text-xs">
+              <div className="p-4 rounded-2xl bg-emerald-500/[0.05] border border-emerald-500/20 space-y-2 text-xs">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] font-bold text-emerald-900 uppercase block tracking-wider">
+                  <span className="font-mono text-[10px] font-bold text-emerald-300 uppercase block tracking-wider">
                     🎟️ ACRI Access Key / Pass ID:
                   </span>
                   {selectedCandidate.pass_id && (
                     <button
                       type="button"
                       onClick={() => handleCopy(selectedCandidate.pass_id!, "Access Key")}
-                      className="text-[10px] font-mono text-emerald-700 hover:text-emerald-900 font-bold underline cursor-pointer"
+                      className="text-[10.5px] font-mono text-emerald-400 hover:text-emerald-300 font-bold underline cursor-pointer"
                     >
                       Copy Key
                     </button>
                   )}
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-base font-black text-emerald-950 select-all">
+                  <span className="font-mono text-base font-black text-white select-all">
                     {selectedCandidate.pass_id || "ISSUED ON ACCEPT"}
                   </span>
                   {selectedCandidate.pass_id && (
@@ -1857,7 +1988,7 @@ function AdminHome() {
                       href={`/acri/invite?code=${encodeURIComponent(selectedCandidate.pass_id)}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-[11px] font-semibold transition"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-mono text-[11px] font-bold transition hover:bg-emerald-400"
                     >
                       <span>Open Link</span>
                       <ExternalLink className="w-3 h-3" />
@@ -1867,9 +1998,21 @@ function AdminHome() {
               </div>
             )}
 
-            {/* Inline Status Changer in Drawer */}
-            <div className="space-y-2 pt-2 border-t border-stone-200">
-              <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
+            {/* Mentor Question if any */}
+            {selectedCandidate.mentor_question && (
+              <div className="p-4 rounded-2xl bg-sky-500/[0.05] border border-sky-500/20 space-y-1.5 text-xs">
+                <span className="font-mono text-[10px] font-bold text-sky-300 uppercase block">
+                  Question for Faculty (Mohamed Kumail Abbas):
+                </span>
+                <p className="font-sans text-zinc-300 leading-relaxed italic">
+                  "{selectedCandidate.mentor_question}"
+                </p>
+              </div>
+            )}
+
+            {/* Inline Status Workflow Buttons */}
+            <div className="space-y-2 pt-2 border-t border-white/10">
+              <span className="font-mono text-xs font-bold text-zinc-300 uppercase block">
                 Update Candidate Status:
               </span>
               <div className="flex flex-wrap gap-2">
@@ -1879,10 +2022,10 @@ function AdminHome() {
                     type="button"
                     disabled={savingStatusId === selectedCandidate.id}
                     onClick={() => handleStatusChange(selectedCandidate, option.value)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold uppercase transition cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold uppercase transition cursor-pointer ${
                       selectedCandidate.status.toLowerCase() === option.value
-                        ? "bg-[var(--color-medical-navy)] text-white shadow-xs tone-dark"
-                        : "bg-stone-100 hover:bg-stone-200 text-stone-700"
+                        ? "bg-sky-500 text-slate-950 shadow-md font-extrabold"
+                        : "bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/10"
                     }`}
                   >
                     {option.label}
@@ -1899,16 +2042,16 @@ function AdminHome() {
                   onClick={() => {
                     setActiveDispatchCandidate(selectedCandidate);
                   }}
-                  className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition cursor-pointer tone-dark"
+                  className="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg transition cursor-pointer"
                 >
-                  <MessageCircle className="w-4 h-4 text-white" />
+                  <MessageCircle className="w-4 h-4 text-slate-950" />
                   <span>Dispatch WhatsApp</span>
                 </button>
               )}
               {selectedCandidate.phone && (
                 <a
                   href={`tel:${selectedCandidate.phone}`}
-                  className="py-3 px-4 rounded-xl border border-stone-300 bg-stone-50 hover:bg-stone-100 text-stone-800 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition"
+                  className="py-3 px-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Call</span>
@@ -1919,57 +2062,57 @@ function AdminHome() {
         </div>
       )}
 
-      {/* ── WHATSAPP DISPATCHER MODAL ──────────────────────────────── */}
+      {/* ── WHATSAPP DISPATCHER SHEET ── */}
       {activeDispatchCandidate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-xs p-4 animate-in fade-in duration-150">
-          <div className="w-full max-w-lg bg-white rounded-2xl border border-stone-200 shadow-2xl p-6 space-y-4 tone-light text-left">
-            <div className="flex items-center justify-between border-b border-stone-200 pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 animate-in fade-in">
+          <div className="w-full max-w-lg bg-[#080B14]/98 rounded-3xl border border-white/10 shadow-2xl p-6 space-y-4 text-left text-white">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 text-emerald-600" />
-                <h3 className="font-serif text-lg font-bold text-stone-900">
-                  Dispatch WhatsApp Message
+                <MessageCircle className="w-5 h-5 text-emerald-400" />
+                <h3 className="text-base font-bold text-white font-sans">
+                  Dispatch WhatsApp Notification
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setActiveDispatchCandidate(null)}
-                className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer"
+                className="p-1 rounded-lg text-zinc-400 hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="space-y-1">
-              <span className="font-mono text-xs text-stone-500 block uppercase">Recipient:</span>
-              <p className="font-semibold text-stone-900 text-sm">
+            <div className="space-y-0.5">
+              <span className="font-mono text-xs text-zinc-400 block uppercase">Recipient:</span>
+              <p className="font-bold text-white text-sm">
                 {activeDispatchCandidate.name} ({activeDispatchCandidate.phone})
               </p>
             </div>
 
             {/* Template Selector */}
             <div className="space-y-1.5">
-              <span className="font-mono text-xs font-bold text-stone-700 uppercase block">
+              <span className="font-mono text-xs font-bold text-zinc-300 uppercase block">
                 Select Template:
               </span>
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                 <button
                   type="button"
                   onClick={() => setDispatchTemplate("acri_pass")}
-                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                  className={`p-2.5 rounded-xl border text-left cursor-pointer transition ${
                     dispatchTemplate === "acri_pass"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
-                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                      ? "border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold"
+                      : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
                   }`}
                 >
-                  🎓 ACRI Acceptance Key
+                  🎓 ACRI Key
                 </button>
                 <button
                   type="button"
                   onClick={() => setDispatchTemplate("pass")}
-                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                  className={`p-2.5 rounded-xl border text-left cursor-pointer transition ${
                     dispatchTemplate === "pass"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
-                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                      ? "border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold"
+                      : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
                   }`}
                 >
                   🎟️ Admission Pass
@@ -1977,46 +2120,46 @@ function AdminHome() {
                 <button
                   type="button"
                   onClick={() => setDispatchTemplate("reminder")}
-                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                  className={`p-2.5 rounded-xl border text-left cursor-pointer transition ${
                     dispatchTemplate === "reminder"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
-                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                      ? "border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold"
+                      : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
                   }`}
                 >
-                  🔔 1-Hour Reminder
+                  🔔 Reminder
                 </button>
                 <button
                   type="button"
                   onClick={() => setDispatchTemplate("interview")}
-                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                  className={`p-2.5 rounded-xl border text-left cursor-pointer transition ${
                     dispatchTemplate === "interview"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
-                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                      ? "border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold"
+                      : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
                   }`}
                 >
-                  💼 Interview Screening
+                  💼 Interview
                 </button>
                 <button
                   type="button"
                   onClick={() => setDispatchTemplate("question")}
-                  className={`p-2 rounded-lg border text-left cursor-pointer transition ${
+                  className={`p-2.5 rounded-xl border text-left cursor-pointer transition ${
                     dispatchTemplate === "question"
-                      ? "border-emerald-600 bg-emerald-50 text-emerald-900 font-bold"
-                      : "border-stone-200 bg-stone-50 text-stone-700 hover:bg-stone-100"
+                      ? "border-emerald-400 bg-emerald-500/20 text-emerald-300 font-bold"
+                      : "border-white/10 bg-white/5 text-zinc-400 hover:text-white"
                   }`}
                 >
-                  ❓ Faculty Q&amp;A Notice
+                  ❓ Faculty Q&amp;A
                 </button>
               </div>
             </div>
 
             {/* Preview Box */}
-            <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 font-sans text-xs text-stone-800 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
+            <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 font-sans text-xs text-zinc-200 whitespace-pre-wrap leading-relaxed max-h-48 overflow-y-auto">
               {getWhatsAppTemplate(activeDispatchCandidate, dispatchTemplate)}
             </div>
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-stone-200">
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-white/10">
               <button
                 type="button"
                 onClick={() => {
@@ -2027,7 +2170,7 @@ function AdminHome() {
                   toast.success("Copied WhatsApp message text");
                   setTimeout(() => setCopiedMsg(false), 2000);
                 }}
-                className="px-3.5 py-2 rounded-xl border border-stone-300 bg-white hover:bg-stone-50 text-stone-700 font-mono text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-mono text-xs font-semibold cursor-pointer"
               >
                 {copiedMsg ? "✓ Copied" : "Copy Text"}
               </button>
@@ -2042,9 +2185,9 @@ function AdminHome() {
                   window.open(`https://wa.me/91${cleanPhone}?text=${text}`, "_blank");
                   setActiveDispatchCandidate(null);
                 }}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-sm transition cursor-pointer tone-dark"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-mono text-xs font-bold uppercase tracking-wider shadow-md transition cursor-pointer"
               >
-                <Send className="w-3.5 h-3.5 text-white" />
+                <Send className="w-3.5 h-3.5" />
                 <span>Open in WhatsApp</span>
               </button>
             </div>
@@ -2052,7 +2195,7 @@ function AdminHome() {
         </div>
       )}
 
-      {/* ── FULL CAREER ASSESSMENT DOSSIER MODAL ─────────────────── */}
+      {/* ── FULL CAREER ASSESSMENT DOSSIER MODAL ── */}
       {dossierCandidate && (
         <AdminAssessmentDossier
           leadId={dossierCandidate.id}

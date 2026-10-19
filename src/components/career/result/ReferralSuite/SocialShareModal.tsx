@@ -190,7 +190,7 @@ export function SocialShareModal({
               <div className="rounded-2xl border border-slate-200 bg-[#FAFBFD] p-4 text-left text-xs font-sans text-slate-800 leading-relaxed whitespace-pre-wrap">
                 {linkedInText}
               </div>
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2 justify-center">
                 <a
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`}
                   onClick={() => track("ce_share_channel_clicked", { lead_id: leadId ?? null, props: { channel: "linkedin" } })}
@@ -200,6 +200,19 @@ export function SocialShareModal({
                 >
                   <Linkedin className="h-4 w-4" />
                   <span>Share on LinkedIn</span>
+                </a>
+                <a
+                  href={`https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(
+                    `Arzon Certified Healthcare Career Match: ${roleName}`,
+                  )}&organizationName=Arzon%20Global&issueYear=${new Date().getFullYear()}&issueMonth=${new Date().getMonth() + 1}&certUrl=${encodeURIComponent(
+                    shareUrl,
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full border border-blue-200 bg-blue-50/90 hover:bg-blue-100 px-4 py-3 text-xs font-bold text-blue-800 w-full sm:w-auto"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-blue-600" />
+                  <span>Add to LinkedIn Profile</span>
                 </a>
                 <button
                   type="button"

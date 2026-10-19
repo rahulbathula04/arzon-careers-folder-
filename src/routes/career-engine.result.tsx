@@ -473,26 +473,22 @@ function ResultPage() {
   // The referral code is issued by Supabase for this completed result.
   // A raw lead ID is never accepted as a referral code.
   const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
+  const fallbackShareUrl = leadId && !leadId.startsWith("lead_local_")
+    ? `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}`
+    : `${origin}/career-engine/start`;
+
   const shareUrl = referralProgress?.referralCode
     ? `${origin}/career-engine/start?ref=${encodeURIComponent(referralProgress.referralCode)}&name=${encodeURIComponent(
         candidateName || "",
       )}&identity=${encodeURIComponent(result.archetypeId)}&fit=${encodeURIComponent(
         Math.round(result.fitScore),
       )}`
-    : `${origin}/career-engine/start`;
+    : fallbackShareUrl;
 
   const openSocialShare = () => {
-    if (referralProgressLoading) {
-      toast.message("Your unique referral link is being prepared.");
-      return;
-    }
-    if (!referralProgress?.referralCode) {
-      toast.error("A verified referral link is not available for this result yet. Refresh the report to retry.");
-      return;
-    }
     track("ce_share_modal_opened", {
       lead_id: leadId,
-      props: { referral_code: referralProgress.referralCode },
+      props: { referral_code: referralProgress?.referralCode ?? "direct_result" },
     });
     setSocialModalOpen(true);
   };

@@ -12,6 +12,8 @@ import {
   ChevronDown,
   ChevronUp,
   Sparkles,
+  ExternalLink,
+  Linkedin,
 } from "lucide-react";
 import { toast } from "sonner";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
@@ -26,11 +28,19 @@ interface Props {
 
 export function CredentialVerification({ result, candidateName: initialName, leadId }: Props) {
   const [candidateName, setCandidateName] = useState(initialName || "Candidate");
+  const [viewMode, setViewMode] = useState<"card" | "certificate">("card");
   const [resumeDrawerOpen, setResumeDrawerOpen] = useState(false);
   const [copiedBullet, setCopiedBullet] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
   const cardRef = useRef<HTMLDivElement>(null);
+
+  // Sync candidate name if prop updates
+  useEffect(() => {
+    if (initialName && initialName !== "Candidate") {
+      setCandidateName(initialName);
+    }
+  }, [initialName]);
 
   // Generate deterministic audit reference
   const rawId = leadId || result.resultMeta?.attemptId || "career-engine-report";
@@ -49,6 +59,11 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     year: "numeric",
   });
 
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
+  const reportUrl = leadId && !leadId.startsWith("lead_local_")
+    ? `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}`
+    : `${origin}/career-engine/result`;
+
   const recordData: CertificateData = {
     candidateName,
     candidateQualification: result.profile?.course ?? "Healthcare Graduate",
@@ -57,34 +72,44 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     fitScore: Math.max(0, Math.min(100, Math.round(result.fitScore))),
     referenceId,
     issueDate,
+    verificationUrl: reportUrl,
   };
-
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
-  const reportUrl = leadId && !leadId.startsWith("lead_local_")
-    ? `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}`
-    : `${origin}/career-engine/result`;
 
   const resumeBullet = `• Arzon Verified Career Evaluation: Top Match: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index, ACRI Ref: ${referenceId}). Verified ledger at: ${reportUrl}`;
 
-  // 1. Share on LinkedIn
+  // 1. Add Directly to LinkedIn Profile Licenses & Certifications
+  const handleAddToLinkedInProfile = () => {
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
+    const certName = `Arzon Certified Healthcare Career Match: ${recordData.archetypeName}`;
+    const linkedInAddUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(
+      certName,
+    )}&organizationName=Arzon%20Global&issueYear=${currentYear}&issueMonth=${currentMonth}&certUrl=${encodeURIComponent(
+      reportUrl,
+    )}&certId=${encodeURIComponent(referenceId)}`;
+
+    toast.success("Opening LinkedIn to add this certification to your profile!");
+    window.open(linkedInAddUrl, "_blank", "noopener,noreferrer");
+  };
+
+  // 2. Share on LinkedIn Post
   const handleShareLinkedIn = () => {
-    const text = `I just completed the Arzon Career Engine diagnostic. My top clinical career match is "${recordData.archetypeName}" with a ${recordData.fitScore}% verified fit index! Check my evaluation ledger here:`;
+    const text = `Excited to share that I have completed the Arzon Healthcare Career Intelligence Assessment! My diagnostic mapped my profile to "${recordData.archetypeName}" with a ${recordData.fitScore}% verified role-fit index.\n\nVerify my official evaluation ledger here:`;
     const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(reportUrl)}`;
-    
-    // Copy summary to clipboard so user can paste it into the post description
+
     navigator.clipboard.writeText(`${text} ${reportUrl}`);
     toast.success("Post text & verification link copied! Opening LinkedIn…");
     window.open(shareUrl, "_blank", "noopener,noreferrer");
   };
 
-  // 2. Share with Friends on WhatsApp
+  // 3. Share with Friends on WhatsApp
   const handleShareWhatsApp = () => {
     const text = `Hey! I took the Arzon Career Engine diagnostic and matched as "${recordData.archetypeName}" with a ${recordData.fitScore}% fit score! What role matches your healthcare background? Take the test here: ${reportUrl}`;
     const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
   };
 
-  // 3. Copy ATS Resume Bullet
+  // 4. Copy ATS Resume Bullet
   const handleCopyResumeBullet = () => {
     navigator.clipboard.writeText(resumeBullet);
     setCopiedBullet(true);
@@ -92,7 +117,7 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     setTimeout(() => setCopiedBullet(false), 2500);
   };
 
-  // 4. Copy Direct Verification Link
+  // 5. Copy Direct Verification Link
   const handleCopyLink = () => {
     navigator.clipboard.writeText(reportUrl);
     setCopiedLink(true);
@@ -102,63 +127,83 @@ export function CredentialVerification({ result, candidateName: initialName, lea
 
   return (
     <section id="assessment-record" className="space-y-6">
-      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
+      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-5 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
         {/* Header Bar */}
-        <div className="flex flex-col justify-between gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-center">
+        <div className="flex flex-col justify-between gap-4 border-b border-slate-100 pb-5 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3.5">
             <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/80 shadow-2xs flex items-center justify-center text-blue-600 shrink-0">
               <Award className="h-6 w-6" />
             </div>
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-blue-600 block">
-                CAREER IDENTITY RESULT CARD · VERIFIED LEDGER
+                CAREER IDENTITY &amp; OFFICIAL CREDENTIAL
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
-                Your Verified Career Result Card
+                Your Verified Career Credential
               </h2>
             </div>
           </div>
-          <span className="inline-flex items-center gap-2 self-start rounded-full border border-emerald-200/90 bg-emerald-50/90 px-3.5 py-1 font-mono text-[11px] font-bold text-emerald-800 shadow-2xs sm:self-auto">
-            <span className="relative flex h-2 w-2">
-              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>Verified Evaluation Record</span>
-          </span>
-        </div>
 
-        <p className="mt-3.5 max-w-2xl text-sm leading-relaxed text-slate-600 font-sans">
-          Your official candidate result card demonstrates your primary career archetype, role-fit calibration index, and verified audit ledger reference. Share on LinkedIn, append directly to your resume, or share with friends.
-        </p>
-
-        {/* The Result Card Preview */}
-        <div className="mt-6 sm:mt-8 flex justify-center">
-          <div className="w-full max-w-[680px]">
-            <CertificatePreview ref={cardRef} data={recordData} />
+          {/* Apple Segmented Capsule Mode Switcher */}
+          <div className="inline-flex items-center p-1 rounded-2xl bg-slate-100 border border-slate-200 shadow-inner self-start sm:self-auto">
+            <button
+              type="button"
+              onClick={() => setViewMode("card")}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-sans font-bold transition-all cursor-pointer ${
+                viewMode === "card"
+                  ? "bg-[#081F38] text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+               Result Card
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("certificate")}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-sans font-bold transition-all cursor-pointer ${
+                viewMode === "certificate"
+                  ? "bg-[#081F38] text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              🎓 Official Certificate
+            </button>
           </div>
         </div>
 
-        {/* 4 Action Triggers: LinkedIn, Resume, WhatsApp, Download */}
+        <p className="mt-3.5 max-w-2xl text-sm leading-relaxed text-slate-600 font-sans">
+          Toggle between your digital Result Card and the Official Industry Readiness Certificate. Add directly to your LinkedIn licenses, append to your resume, or share with employers.
+        </p>
+
+        {/* Live Card / Certificate Canvas */}
+        <div className="mt-6 sm:mt-8 flex justify-center">
+          <div className="w-full max-w-[760px] transition-all duration-300">
+            <CertificatePreview ref={cardRef} data={recordData} viewMode={viewMode} />
+          </div>
+        </div>
+
+        {/* Primary Action Suite (LinkedIn, WhatsApp, Resume, Link) */}
         <div className="mt-8 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
-          {/* 1. Share on LinkedIn */}
+          {/* 1. Add to LinkedIn Profile */}
+          <button
+            type="button"
+            onClick={handleAddToLinkedInProfile}
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#004182] px-6 py-3 text-sm font-bold text-white shadow-sm transition active:scale-[0.98] cursor-pointer"
+            title="Adds verified credential directly to your LinkedIn Licenses & Certifications section"
+          >
+            <Linkedin className="h-4 w-4" />
+            <span>Add to LinkedIn Profile</span>
+            <ExternalLink className="h-3 w-3 opacity-80" />
+          </button>
+
+          {/* 2. Share on LinkedIn Post */}
           <button
             type="button"
             onClick={handleShareLinkedIn}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#004182] px-6 py-3 text-sm font-bold text-white shadow-sm transition active:scale-[0.98] cursor-pointer"
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100/80 px-5 py-3 text-sm font-semibold text-blue-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
           >
-            <Share2 className="h-4 w-4" />
-            <span>Share on LinkedIn</span>
-          </button>
-
-          {/* 2. Add to Resume */}
-          <button
-            type="button"
-            onClick={() => setResumeDrawerOpen((prev) => !prev)}
-            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
-          >
-            <FileText className="h-4 w-4 text-blue-600" />
-            <span>Add to Resume</span>
-            {resumeDrawerOpen ? <ChevronUp className="h-4 w-4 text-slate-400" /> : <ChevronDown className="h-4 w-4 text-slate-400" />}
+            <Share2 className="h-4 w-4 text-blue-600" />
+            <span>Share Post</span>
           </button>
 
           {/* 3. Share with Friends (WhatsApp) */}
@@ -168,10 +213,21 @@ export function CredentialVerification({ result, candidateName: initialName, lea
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-emerald-300 bg-emerald-50 hover:bg-emerald-100/80 px-5 py-3 text-sm font-semibold text-emerald-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
           >
             <MessageCircle className="h-4 w-4 text-emerald-600" />
-            <span>Share with Friends</span>
+            <span>Share on WhatsApp</span>
           </button>
 
-          {/* 4. Copy Verification Link */}
+          {/* 4. Add to Resume */}
+          <button
+            type="button"
+            onClick={() => setResumeDrawerOpen((prev) => !prev)}
+            className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white hover:bg-slate-50 px-5 py-3 text-sm font-semibold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
+          >
+            <FileText className="h-4 w-4 text-blue-600" />
+            <span>ATS Resume Bullet</span>
+            {resumeDrawerOpen ? <ChevronUp className="h-4 w-4 text-slate-400" /> : <ChevronDown className="h-4 w-4 text-slate-400" />}
+          </button>
+
+          {/* 5. Copy Link */}
           <button
             type="button"
             onClick={handleCopyLink}
@@ -220,11 +276,12 @@ export function CredentialVerification({ result, candidateName: initialName, lea
           </div>
         )}
 
-        {/* PDF & Export Options Bar */}
+        {/* PDF & PNG Export Bar */}
         <div className="mt-6 border-t border-slate-100 pt-5">
           <CertificateGenerator
             data={recordData}
             certificateRef={cardRef}
+            viewMode={viewMode}
             onUpdateName={(name) => setCandidateName(name)}
           />
         </div>

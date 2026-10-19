@@ -29,7 +29,7 @@ export function ResultConversion({ result }: Props) {
 
   const roleName = result.archetype?.name ?? "Recommended Track";
 
-  const whatsappCounsellorUrl = `https://api.whatsapp.com/send?phone=919876543210&text=${encodeURIComponent(
+  const whatsappCounsellorUrl = `https://wa.me/919121283638?text=${encodeURIComponent(
     `Hello Arzon Admissions Team, I just completed my Career Engine diagnostic. My top identity match is "${roleName}" (${Math.round(
       result.fitScore,
     )}% Fit). I'd like to consult with a senior career counsellor regarding role preparation and upcoming cohorts.`,

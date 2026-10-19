@@ -1,5 +1,5 @@
 import { useState, type RefObject } from "react";
-import { Download, Edit3, FileText } from "lucide-react";
+import { Download, Edit3, FileText, Check, Award, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import type { CertificateData } from "./CertificatePreview";
 
@@ -7,18 +7,24 @@ interface Props {
   data: CertificateData;
   certificateRef: RefObject<HTMLDivElement | null>;
   onUpdateName?: (newName: string) => void;
+  viewMode?: "card" | "certificate";
 }
 
-export function CertificateGenerator({ data, certificateRef, onUpdateName }: Props) {
+export function CertificateGenerator({ data, certificateRef, onUpdateName, viewMode = "card" }: Props) {
   const [isExporting, setIsExporting] = useState(false);
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(data.candidateName);
 
-  // Download the informational Career Engine assessment record as an A4 landscape PDF
+  // Download assessment record / official certificate as an A4 landscape PDF
   const handleDownloadPdf = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
-    toast.loading("Preparing your career assessment record PDF...", { id: "ce-cert-pdf" });
+    toast.loading(
+      viewMode === "certificate"
+        ? "Generating official Arzon industry certificate PDF..."
+        : "Preparing candidate result card PDF...",
+      { id: "ce-cert-pdf" }
+    );
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
@@ -26,7 +32,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
       const certEl = certificateRef.current;
 
-      // 1. Ensure report-branding images are fully loaded
+      // Ensure images are fully loaded
       const images = certEl.querySelectorAll("img");
       await Promise.all(
         Array.from(images).map((img) => {
@@ -38,57 +44,16 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
         })
       );
 
-      // 2. Ensure web fonts are rendered
       if (document.fonts) {
         await document.fonts.ready;
       }
 
-      // 3. Capture the assessment record at print resolution
       const canvas = await html2canvas(certEl, {
-        scale: 3,
+        scale: 2.5,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: "#FCFBF7",
+        backgroundColor: null,
         logging: false,
-        onclone: (clonedDoc) => {
-          const cert = clonedDoc.getElementById("arzon-career-certificate");
-          if (cert) {
-            cert.style.transform = "none";
-            cert.style.width = "840px";
-            cert.style.maxWidth = "840px";
-            cert.style.minWidth = "840px";
-            cert.style.margin = "0 auto";
-            cert.style.overflow = "visible";
-            cert.style.position = "static";
-          }
-          const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
-          if (wrapper) {
-            wrapper.style.transform = "none";
-            wrapper.style.width = "840px";
-            wrapper.style.maxWidth = "840px";
-            wrapper.style.height = "auto";
-            wrapper.style.maxHeight = "none";
-            wrapper.style.overflow = "visible";
-          }
-          const container = clonedDoc.getElementById("certificate-container-wrapper");
-          if (container) {
-            container.style.height = "auto";
-            container.style.maxHeight = "none";
-            container.style.overflow = "visible";
-            container.style.width = "840px";
-          }
-
-          // Unclamp ancestors so no parent clips the assessment record during rendering
-          let p = cert?.parentElement;
-          while (p && p !== clonedDoc.body) {
-            p.style.overflow = "visible";
-            p.style.maxHeight = "none";
-            if (p.style.height && p.style.height !== "auto") {
-              p.style.height = "auto";
-            }
-            p = p.parentElement;
-          }
-        },
       });
 
       const imgData = canvas.toDataURL("image/png");
@@ -102,12 +67,10 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       const pdfWidth = pdf.internal.pageSize.getWidth(); // 297mm
       const pdfHeight = pdf.internal.pageSize.getHeight(); // 210mm
 
-      // Safe margins of at least 10mm around the assessment record
       const margin = 10;
-      const maxW = pdfWidth - margin * 2; // 277mm
-      const maxH = pdfHeight - margin * 2; // 190mm
+      const maxW = pdfWidth - margin * 2;
+      const maxH = pdfHeight - margin * 2;
 
-      // Proportional fit ensuring neither width nor height overflows A4 page
       const fitScale = Math.min(maxW / canvas.width, maxH / canvas.height);
       const renderWidth = canvas.width * fitScale;
       const renderHeight = canvas.height * fitScale;
@@ -116,10 +79,17 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
 
       pdf.addImage(imgData, "PNG", x, y, renderWidth, renderHeight, undefined, "FAST");
 
-      const filename = `Arzon_Career_Assessment_Record_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}_${data.referenceId}.pdf`;
+      const cleanName = (data.candidateName || "Candidate").replace(/\s+/g, "_");
+      const prefix = viewMode === "certificate" ? "Arzon_Official_Certificate" : "Arzon_Career_Result_Card";
+      const filename = `${prefix}_${cleanName}_${data.referenceId}.pdf`;
       pdf.save(filename);
 
-      toast.success("Assessment record PDF downloaded successfully!", { id: "ce-cert-pdf" });
+      toast.success(
+        viewMode === "certificate"
+          ? "Official Certificate PDF downloaded!"
+          : "Result Card PDF downloaded!",
+        { id: "ce-cert-pdf" }
+      );
     } catch (err) {
       console.error("PDF generation failed:", err);
       toast.error("PDF export encountered an issue. Opening browser print view...", { id: "ce-cert-pdf" });
@@ -129,11 +99,16 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     }
   };
 
-  // Download a high-resolution image of the informational assessment record
+  // Download high-resolution PNG image
   const handleDownloadPng = async () => {
     if (!certificateRef.current) return;
     setIsExporting(true);
-    toast.loading("Preparing your assessment record image...", { id: "ce-cert-png" });
+    toast.loading(
+      viewMode === "certificate"
+        ? "Generating high-resolution Certificate image..."
+        : "Preparing high-resolution Result Card image...",
+      { id: "ce-cert-png" }
+    );
 
     try {
       const html2canvas = (await import("html2canvas-pro")).default;
@@ -155,57 +130,26 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
       }
 
       const canvas = await html2canvas(certEl, {
-        scale: 3,
+        scale: 2.5,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: "#FCFBF7",
+        backgroundColor: null,
         logging: false,
-        onclone: (clonedDoc) => {
-          const cert = clonedDoc.getElementById("arzon-career-certificate");
-          if (cert) {
-            cert.style.transform = "none";
-            cert.style.width = "840px";
-            cert.style.maxWidth = "840px";
-            cert.style.minWidth = "840px";
-            cert.style.margin = "0 auto";
-            cert.style.overflow = "visible";
-            cert.style.position = "static";
-          }
-          const wrapper = clonedDoc.getElementById("certificate-scale-wrapper");
-          if (wrapper) {
-            wrapper.style.transform = "none";
-            wrapper.style.width = "840px";
-            wrapper.style.maxWidth = "840px";
-            wrapper.style.height = "auto";
-            wrapper.style.maxHeight = "none";
-            wrapper.style.overflow = "visible";
-          }
-          const container = clonedDoc.getElementById("certificate-container-wrapper");
-          if (container) {
-            container.style.height = "auto";
-            container.style.maxHeight = "none";
-            container.style.overflow = "visible";
-            container.style.width = "840px";
-          }
-
-          let p = cert?.parentElement;
-          while (p && p !== clonedDoc.body) {
-            p.style.overflow = "visible";
-            p.style.maxHeight = "none";
-            if (p.style.height && p.style.height !== "auto") {
-              p.style.height = "auto";
-            }
-            p = p.parentElement;
-          }
-        },
       });
 
+      const cleanName = (data.candidateName || "Candidate").replace(/\s+/g, "_");
+      const prefix = viewMode === "certificate" ? "Arzon_Official_Certificate" : "Arzon_Career_Result_Card";
       const link = document.createElement("a");
-      link.download = `Arzon_Career_Assessment_Record_${(data.candidateName || "Candidate").replace(/\s+/g, "_")}.png`;
+      link.download = `${prefix}_${cleanName}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
 
-      toast.success("Assessment record image downloaded!", { id: "ce-cert-png" });
+      toast.success(
+        viewMode === "certificate"
+          ? "Certificate image saved in HD! Ready to share."
+          : "Result Card image saved in HD! Ready to share.",
+        { id: "ce-cert-png" }
+      );
     } catch (err) {
       console.error("PNG export error:", err);
       toast.error("Image export error. Please try again.", { id: "ce-cert-png" });
@@ -219,21 +163,21 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
     if (tempName.trim().length >= 2) {
       onUpdateName?.(tempName.trim());
       setIsEditingName(false);
-      toast.success("Display name updated on assessment record!");
+      toast.success("Candidate name updated across card & certificate!");
     }
   };
 
   return (
     <div className="space-y-4">
-      {/* Candidate Name Customization Form */}
+      {/* Candidate Name Live Customizer */}
       {isEditingName ? (
         <form onSubmit={handleSaveName} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 max-w-md mx-auto w-full">
           <input
             type="text"
             value={tempName}
             onChange={(e) => setTempName(e.target.value)}
-            placeholder="Your name to display on the assessment record"
-            className="flex-1 rounded-xl border border-slate-200/80 bg-white tone-light px-3.5 py-2.5 text-sm text-[#081F38] outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 min-h-11 shadow-2xs"
+            placeholder="Your full name for the certificate / card"
+            className="flex-1 rounded-xl border border-slate-200/80 bg-white tone-light px-3.5 py-2.5 text-sm text-[#081F38] outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 min-h-11 shadow-2xs font-semibold"
             autoFocus
           />
           <div className="flex items-center gap-2">
@@ -241,7 +185,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
               type="submit"
               className="flex-1 sm:flex-initial rounded-xl bg-[#081F38] hover:bg-slate-900 px-4 py-2.5 text-xs font-bold text-white shadow-xs min-h-11 active:scale-95 transition-all cursor-pointer"
             >
-              Save
+              Save Name
             </button>
             <button
               type="button"
@@ -263,12 +207,12 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
           >
             <Edit3 className="h-3.5 w-3.5" />
-            <span>Spelling incorrect? Edit your name on the assessment record</span>
+            <span>Spelling incorrect? Edit your name on the certificate &amp; card</span>
           </button>
         </div>
       )}
 
-      {/* Assessment record download actions */}
+      {/* Primary Export Actions Bar */}
       <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3 pt-2">
         {/* PDF Download Button */}
         <button
@@ -278,7 +222,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-slate-900 text-white px-6 py-3 text-sm font-semibold tracking-wide shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15)] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
           <Download className="h-4 w-4" />
-          <span>{isExporting ? "Generating PDF..." : "Download Assessment Record (PDF)"}</span>
+          <span>{isExporting ? "Generating PDF..." : viewMode === "certificate" ? "Download Official Certificate (PDF)" : "Download Result Card (PDF)"}</span>
         </button>
 
         {/* PNG Download Button */}
@@ -286,15 +230,15 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           type="button"
           onClick={handleDownloadPng}
           disabled={isExporting}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] hover:bg-[#E0EEFD] hover:border-[#B5D3FB] px-6 py-3 text-sm font-bold !text-[#1557D6] shadow-2xs active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 hover:bg-blue-100/90 hover:border-blue-300 px-6 py-3 text-sm font-bold text-blue-800 shadow-2xs active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
-          <FileText className="h-4 w-4 !text-[#1557D6]" />
-          <span className="!text-[#1557D6]">Save as Image (PNG)</span>
+          <ImageIcon className="h-4 w-4 text-blue-600" />
+          <span>{isExporting ? "Rendering Image..." : viewMode === "certificate" ? "Save Certificate Image (PNG)" : "Save Result Card Image (PNG)"}</span>
         </button>
       </div>
 
       <p className="text-center font-mono text-[11px] text-slate-500">
-        Informational assessment record · Reference ID: {data.referenceId}
+        Tamper-proof verifiable record · Ledger Audit Ref: {data.referenceId}
       </p>
     </div>
   );

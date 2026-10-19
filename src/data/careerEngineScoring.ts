@@ -154,8 +154,11 @@ export const PATHS: Record<string, PathDef> = {
       "ICD-10 / CPT coding work for US/EU payers. Desk job, high accuracy, US night shift common.",
     weights: { detail: 6, compliance: 3, screen: 3, logic: 1.5, language: 1 },
     hard: [
-      { trait: "screen", min: 0, penalty: 25 },
-      { trait: "detail", min: 0, penalty: 18 },
+      { trait: "screen", min: -1, penalty: 12 },
+      { trait: "detail", min: -1, penalty: 12 },
+    ],
+    bonuses: [
+      { id: "career_goal", value: "medical_coding", bonus: 8 },
     ],
   },
   pharmacovigilance: {
@@ -168,6 +171,9 @@ export const PATHS: Record<string, PathDef> = {
       { trait: "language", min: 0, penalty: 22 },
       { trait: "empathy", min: 0, penalty: 12 },
     ],
+    bonuses: [
+      { id: "career_goal", value: "pharmacovigilance", bonus: 8 },
+    ],
   },
   "clinical-data-management": {
     slug: "clinical-data-management",
@@ -178,6 +184,9 @@ export const PATHS: Record<string, PathDef> = {
     hard: [
       { trait: "data", min: 0, penalty: 20 },
       { trait: "detail", min: 0, penalty: 12 },
+    ],
+    bonuses: [
+      { id: "career_goal", value: "cdm", bonus: 8 },
     ],
   },
   "regulatory-affairs": {
@@ -191,6 +200,9 @@ export const PATHS: Record<string, PathDef> = {
       { trait: "language", min: 0, penalty: 20 },
       { trait: "writing", min: -1, penalty: 12 },
     ],
+    bonuses: [
+      { id: "career_goal", value: "regulatory", bonus: 8 },
+    ],
   },
   "sas-clinical": {
     slug: "sas-clinical",
@@ -202,6 +214,9 @@ export const PATHS: Record<string, PathDef> = {
     hard: [
       { trait: "logic", min: 0, penalty: 18 },
       { trait: "tech", min: -1, penalty: 14 },
+    ],
+    bonuses: [
+      { id: "career_goal", value: "sas_ai", bonus: 8 },
     ],
   },
   "ai-intelligence": {
@@ -427,14 +442,14 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
   },
 };
 
-/** Map each archetype to the 1–2 paths it owns most strongly. */
+/** Map each archetype to the 1–3 paths it owns most strongly. */
 const ARCHETYPE_PRIMARY_PATHS: Record<ArchetypeId, string[]> = {
   coder: ["medical-coding"],
   sentinel: ["pharmacovigilance"],
-  data_storyteller: ["clinical-data-management", "sas-clinical"],
+  data_storyteller: ["clinical-data-management", "sas-clinical", "business-analyst"],
   regulatory_architect: ["regulatory-affairs"],
-  operator: ["clinical-saas"],
-  ai_builder: ["ai-intelligence"],
+  operator: ["clinical-saas", "b2b-saas-sales", "agri-tech-ops"],
+  ai_builder: ["ai-intelligence", "software-engineer"],
 };
 
 // ─────────────────────────────────────────────
@@ -495,9 +510,14 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
   let microCorrect = 0;
   let answered = 0;
 
-  const targetQuestions = sampledQuestions?.length ? sampledQuestions : QUESTIONS;
+  // Use the questions in the attempt if provided, otherwise the questions actually answered
+  const targetQuestions = sampledQuestions?.length
+    ? sampledQuestions
+    : Object.keys(answers).length > 0
+      ? QUESTIONS.filter((q) => q.id in answers)
+      : QUESTIONS;
 
-  // Calculate maximum positive trait weight achievable in this attempt
+  // Calculate maximum positive trait weight achievable in this specific attempt
   const maxAttempt = emptyTraits();
   for (const q of targetQuestions) {
     const best: Record<Trait, number> = emptyTraits();
@@ -510,7 +530,6 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
     }
     for (const t of TRAITS) maxAttempt[t] += best[t];
   }
-  for (const t of TRAITS) if (maxAttempt[t] <= 0) maxAttempt[t] = 1;
 
   for (const q of targetQuestions) {
     const v = answers[q.id];
@@ -532,7 +551,11 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
   // Normalise to 0..10 range relative to achievable attempt maximums
   const norm = emptyTraits();
   for (const t of TRAITS) {
-    norm[t] = clamp((raw[t] / maxAttempt[t]) * 10, -10, 10);
+    if (maxAttempt[t] <= 0) {
+      norm[t] = 0;
+    } else {
+      norm[t] = Math.max(-10, Math.min(10, Math.round(((raw[t] / maxAttempt[t]) * 10) * 10) / 10));
+    }
   }
   return { raw, norm, microTotal, microCorrect, answered };
 }
@@ -580,26 +603,33 @@ function scorePath(
   answers: Record<string, string>,
   microPct: number,
 ): PathScore {
-  // Recalibrated Base Fit Score: 52 base
-  let score = 52;
+  // Calibrated Base Fit Score: 42 base
+  let score = 42;
   
   // Sum weighted positive trait evidence
   let traitPoints = 0;
   let weightSum = 0;
   for (const [t, w] of Object.entries(pdef.weights) as [Trait, number][]) {
-    traitPoints += (norm[t] ?? 0) * w;
+    const val = norm[t] ?? 0;
+    traitPoints += val * w;
     weightSum += w;
   }
   
   if (weightSum > 0) {
-    // Add up to 38 additional fit points based on trait alignment
-    score += (traitPoints / (weightSum * 10)) * 38;
+    // Add up to 48 additional fit points based on trait alignment
+    const ratio = Math.max(0, traitPoints / (weightSum * 10));
+    score += ratio * 48;
   }
 
-  // Hard requirement penalties (penalize proportionally if trait is missing)
+  // Proportional hard requirement penalties (only penalize when below requirement)
   if (pdef.hard) {
     for (const h of pdef.hard) {
-      if ((norm[h.trait] ?? 0) < h.min) score -= Math.min(15, h.penalty * 0.5);
+      const val = norm[h.trait] ?? 0;
+      if (val < h.min) {
+        const deficit = Math.abs(h.min - val);
+        const penalty = Math.min(14, Math.round(deficit * 2.5 + 4));
+        score -= penalty;
+      }
     }
   }
 
@@ -613,12 +643,47 @@ function scorePath(
   // Micro accuracy nudges aptitude-heavy paths
   const microWeight = pdef.weights.logic ?? pdef.weights.detail ?? 0;
   if (microWeight > 0 && microPct > 0) {
-    score += (microPct - 50) * 0.06;
+    score += (microPct - 50) * 0.08;
   }
 
-  // Healthcare stream & degree alignment bonuses
-  if (answers.course === "pharma" || answers.course === "lifesci" || answers.course === "med" || answers.course === "allied") {
-    score += 4;
+  // Healthcare stream & degree alignment synergies
+  const isMedOrClinical = answers.course === "med" || answers.stream === "Medical";
+  const isPharma = answers.course === "pharma" || answers.stream === "Pharma";
+  const isLifeSci = answers.course === "lifesci" || answers.stream === "LifeSciences";
+  const isAllied = answers.course === "allied";
+
+  if (isMedOrClinical) {
+    // Physiotherapy (BPT/MPT), BDS, MBBS, Nursing have peak clinical anatomy/pathology mastery -> #1 for Medical Coding
+    if (pdef.slug === "medical-coding") score += 10;
+    else if (pdef.slug === "clinical-data-management") score += 6;
+    else if (pdef.slug === "pharmacovigilance") score += 4;
+  } else if (isPharma) {
+    // Pharmacy graduates (B.Pharm/Pharm.D) have deep drug safety & pharmacology mechanisms -> #1 for PV & Regulatory
+    if (pdef.slug === "pharmacovigilance") score += 10;
+    else if (pdef.slug === "regulatory-affairs") score += 8;
+    else if (pdef.slug === "clinical-data-management") score += 6;
+    else if (pdef.slug === "medical-coding") score += 4;
+  } else if (isLifeSci) {
+    // Life sciences (Biotech, Biochem, Micro) -> strong data & clinical trial workflows
+    if (pdef.slug === "clinical-data-management") score += 8;
+    else if (pdef.slug === "medical-coding") score += 7;
+    else if (pdef.slug === "pharmacovigilance") score += 5;
+  } else if (isAllied) {
+    if (pdef.slug === "medical-coding") score += 8;
+    else if (pdef.slug === "clinical-data-management") score += 7;
+  }
+
+  // Direct career goal alignment multiplier
+  if (answers.career_goal === "medical_coding" && pdef.slug === "medical-coding") {
+    score += 8;
+  } else if (answers.career_goal === "pharmacovigilance" && pdef.slug === "pharmacovigilance") {
+    score += 8;
+  } else if (answers.career_goal === "cdm" && pdef.slug === "clinical-data-management") {
+    score += 8;
+  } else if (answers.career_goal === "regulatory" && pdef.slug === "regulatory-affairs") {
+    score += 8;
+  } else if (answers.career_goal === "sas_ai" && (pdef.slug === "sas-clinical" || pdef.slug === "ai-intelligence")) {
+    score += 8;
   }
 
   // Reasons (top 3 strongest weighted contributions)
@@ -925,7 +990,7 @@ export function computeResult(
   answers: Record<string, string>,
   options: { questions?: Question[]; meta?: ResultMeta } = {},
 ): CareerEngineResult {
-  const t = tally(answers);
+  const t = tally(answers, options.questions);
   const microPct = t.microTotal === 0 ? 0 : Math.round((t.microCorrect / t.microTotal) * 100);
 
   // 1) Score every path independently
@@ -944,49 +1009,51 @@ export function computeResult(
     }))
     .sort((a, b) => b.fit - a.fit);
 
-  // 3) Stream tie-breaker only if top 2 are within 2 points
-  const stream = answers.stream;
-  const STREAM_PRIORITY: Record<string, ArchetypeId[]> = {
-    MPC: [
-      "ai_builder",
-      "data_storyteller",
-      "coder",
-      "regulatory_architect",
-      "sentinel",
-      "operator",
-    ],
-    BiPC: [
-      "sentinel",
-      "coder",
-      "regulatory_architect",
-      "data_storyteller",
-      "ai_builder",
-      "operator",
-    ],
-    Commerce: [
-      "operator",
-      "regulatory_architect",
-      "data_storyteller",
-      "coder",
-      "sentinel",
-      "ai_builder",
-    ],
-    Arts: [
-      "operator",
-      "sentinel",
-      "regulatory_architect",
-      "coder",
-      "data_storyteller",
-      "ai_builder",
-    ],
-  };
-  if (Math.abs(ranking[0].fit - ranking[1].fit) <= 2 && STREAM_PRIORITY[stream]) {
-    const order = STREAM_PRIORITY[stream];
+  // 3) Intelligent dynamic tie-breaker only if top 2 archetypes are within 2 points
+  if (Math.abs(ranking[0].fit - ranking[1].fit) <= 2) {
     const top2 = [ranking[0].id, ranking[1].id];
-    const preferred = order.find((id) => top2.includes(id));
-    if (preferred && preferred !== ranking[0].id) {
-      const i = ranking.findIndex((r) => r.id === preferred);
-      [ranking[0], ranking[i]] = [ranking[i], ranking[0]];
+
+    // Check candidate's core trait strength between the two tied archetypes
+    const getArchetypeCoreSignal = (id: ArchetypeId): number => {
+      switch (id) {
+        case "coder":
+          return (t.norm.detail ?? 0) * 1.5 + (t.norm.screen ?? 0);
+        case "sentinel":
+          return (t.norm.empathy ?? 0) * 1.5 + (t.norm.patient ?? 0);
+        case "data_storyteller":
+          return (t.norm.data ?? 0) * 1.5 + (t.norm.logic ?? 0);
+        case "regulatory_architect":
+          return (t.norm.compliance ?? 0) * 1.5 + (t.norm.writing ?? 0);
+        case "ai_builder":
+          return (t.norm.tech ?? 0) * 1.5 + (t.norm.logic ?? 0);
+        case "operator":
+          return (t.norm.sales ?? 0) * 1.5 + (t.norm.pressure ?? 0);
+      }
+    };
+
+    const signal0 = getArchetypeCoreSignal(ranking[0].id);
+    const signal1 = getArchetypeCoreSignal(ranking[1].id);
+
+    if (signal1 > signal0 + 0.4) {
+      [ranking[0], ranking[1]] = [ranking[1], ranking[0]];
+    } else if (Math.abs(signal0 - signal1) <= 0.4) {
+      // Balanced stream priorities when traits are indistinguishable
+      const stream = answers.stream || "Pharma";
+      const BALANCED_STREAM_PRIORITY: Record<string, ArchetypeId[]> = {
+        BiPC: ["coder", "data_storyteller", "sentinel", "regulatory_architect", "ai_builder", "operator"],
+        Pharma: ["data_storyteller", "regulatory_architect", "sentinel", "coder", "operator", "ai_builder"],
+        LifeSciences: ["coder", "data_storyteller", "regulatory_architect", "sentinel", "ai_builder", "operator"],
+        Medical: ["regulatory_architect", "sentinel", "coder", "data_storyteller", "operator", "ai_builder"],
+        MPC: ["ai_builder", "data_storyteller", "coder", "regulatory_architect", "sentinel", "operator"],
+        Commerce: ["operator", "data_storyteller", "regulatory_architect", "coder", "sentinel", "ai_builder"],
+        Arts: ["operator", "regulatory_architect", "sentinel", "coder", "data_storyteller", "ai_builder"],
+      };
+      const order = BALANCED_STREAM_PRIORITY[stream] || BALANCED_STREAM_PRIORITY["Pharma"];
+      const preferred = order.find((id) => top2.includes(id));
+      if (preferred && preferred !== ranking[0].id) {
+        const i = ranking.findIndex((r) => r.id === preferred);
+        [ranking[0], ranking[i]] = [ranking[i], ranking[0]];
+      }
     }
   }
 
@@ -1148,8 +1215,8 @@ export function computeResult(
 }
 
 // Exposed for diagnostics / simulator
-export function _debugScore(answers: Record<string, string>) {
-  const t = tally(answers);
+export function _debugScore(answers: Record<string, string>, questions?: Question[]) {
+  const t = tally(answers, questions);
   const microPct = t.microTotal === 0 ? 0 : Math.round((t.microCorrect / t.microTotal) * 100);
   const paths = Object.keys(PATHS).map((slug) => scorePath(PATHS[slug], t.norm, answers, microPct));
   return { tally: t, microPct, paths: paths.sort((a, b) => b.fit - a.fit) };

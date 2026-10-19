@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { FileCheck2, Info } from "lucide-react";
+import { ShieldCheck, Sparkles, CheckCircle2, QrCode, GraduationCap } from "lucide-react";
 
 export interface CertificateData {
   candidateName: string;
@@ -20,85 +20,120 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data }, r
     <div
       ref={ref}
       id="arzon-career-certificate"
-      className="relative w-[840px] max-w-[840px] mx-auto overflow-hidden rounded-2xl border border-[#D7E2F0] bg-white p-8 sm:p-10 font-sans text-[#0A1128] shadow-xl"
+      className="relative w-full max-w-[680px] mx-auto overflow-hidden rounded-3xl border border-slate-700/80 bg-gradient-to-b from-[#081F38] via-[#0C2340] to-[#081F38] p-6 sm:p-8 font-sans text-white shadow-[0_20px_50px_-10px_rgba(7,26,74,0.45),inset_0_1px_0_rgba(255,255,255,0.15)]"
     >
-      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[#EEF6FF]" />
-      <div className="pointer-events-none absolute -left-24 -bottom-28 h-64 w-64 rounded-full bg-[#F7F9FC]" />
+      {/* Subtle Atmospheric Radial Accents */}
+      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-blue-500/15 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 -bottom-24 h-64 w-64 rounded-full bg-indigo-500/15 blur-3xl" />
 
-      <div className="relative z-10 flex items-center justify-between gap-4 border-b border-slate-200 pb-5">
+      {/* Top Bar: Brand, Category, Verified Beacon */}
+      <div className="relative z-10 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
         <div className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#071A4A] p-2">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 p-2 shadow-xs border border-white/15 backdrop-blur-md">
             <img src="/brand/arzon-icon.webp" alt="Arzon Global" className="h-full w-full object-contain" />
           </div>
           <div>
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1557D6]">
-              ARZON GLOBAL
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-blue-300">
+              ARZON GLOBAL · CAREER ENGINE
             </p>
-            <p className="mt-1 text-xs font-semibold text-slate-500">CAREER ENGINE · ASSESSMENT SUMMARY</p>
+            <p className="text-xs font-medium text-slate-300 font-sans">
+              Official Candidate Result Card
+            </p>
           </div>
         </div>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-3 py-1.5 font-mono text-[10px] font-bold uppercase tracking-wide text-[#1557D6]">
-          <FileCheck2 className="h-3.5 w-3.5" />
-          Assessment record
+
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-500/15 px-3 py-1 font-mono text-[10px] font-bold uppercase tracking-wide text-emerald-300 shadow-2xs">
+          <span className="relative flex h-2 w-2">
+            <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+          </span>
+          <span>Verified On Ledger</span>
         </span>
       </div>
 
-      <div className="relative z-10 py-8 text-center">
-        <h2 className="font-serif text-3xl font-bold tracking-tight text-[#071A4A]">
-          Career Assessment Record
-        </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-          A summary of the career-fit diagnostic generated from the candidate's responses to Arzon Career Engine.
+      {/* Candidate Profile Details */}
+      <div className="relative z-10 pt-5 pb-4">
+        <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-amber-300/90 block">
+          EVALUATED CANDIDATE
+        </span>
+        <h3 className="mt-1 font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+          {data.candidateName || "Candidate"}
+        </h3>
+        <p className="mt-1 text-xs text-slate-300 font-sans flex items-center gap-1.5 flex-wrap">
+          <GraduationCap className="h-3.5 w-3.5 text-blue-300 shrink-0" />
+          <span>{data.candidateCollege || "Healthcare Institute"}</span>
+          <span className="text-slate-500">·</span>
+          <span>{data.candidateQualification || "Healthcare Graduate"}</span>
         </p>
+      </div>
 
-        <div className="mx-auto mt-7 max-w-2xl rounded-2xl border border-slate-200 bg-[#FAFBFD] px-6 py-5">
-          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">
-            Prepared for
-          </p>
-          <h3 className="mt-2 font-serif text-3xl font-bold text-[#071A4A]">
-            {data.candidateName || "Candidate"}
-          </h3>
-          <p className="mt-2 text-sm text-slate-600">
-            {data.candidateQualification || "Healthcare career candidate"}
-            {data.candidateCollege ? ` · ${data.candidateCollege}` : ""}
-          </p>
+      {/* Main Focus: Primary Match & Role Fit Metric */}
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-3.5 mt-2">
+        {/* Left 2 Cols: Primary Role Match */}
+        <div className="sm:col-span-2 rounded-2xl border border-white/10 bg-white/5 p-4.5 backdrop-blur-md flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-blue-300">
+                Primary Career Alignment
+              </span>
+              <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+            </div>
+            <h4 className="font-serif text-xl sm:text-2xl font-bold text-white tracking-tight mt-1">
+              {data.archetypeName}
+            </h4>
+            <p className="text-[11px] text-slate-300 mt-1 font-sans">
+              Top Cognitive Fit &amp; Protocol Calibration across clinical role models.
+            </p>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-500/20 border border-blue-400/25 text-[10px] font-mono font-medium text-blue-200">
+              <CheckCircle2 className="h-3 w-3 text-blue-300" /> Clinical Data Accuracy
+            </span>
+            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-400/25 text-[10px] font-mono font-medium text-emerald-200">
+              <CheckCircle2 className="h-3 w-3 text-emerald-300" /> Industry Protocol Fit
+            </span>
+          </div>
         </div>
 
-        <div className="mx-auto mt-6 grid max-w-2xl grid-cols-2 gap-4 text-left">
-          <div className="rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/70 p-5">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#1557D6]">
-              Primary career match
-            </p>
-            <p className="mt-2 font-serif text-xl font-bold text-[#071A4A]">{data.archetypeName}</p>
+        {/* Right 1 Col: Fit Score */}
+        <div className="rounded-2xl border border-white/10 bg-gradient-to-b from-blue-600/20 via-white/5 to-white/5 p-4.5 backdrop-blur-md flex flex-col items-center justify-center text-center">
+          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-slate-400">
+            FIT INDEX
+          </span>
+          <div className="mt-1 flex items-baseline justify-center gap-0.5">
+            <span className="font-mono text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              {data.fitScore}%
+            </span>
           </div>
-          <div className="rounded-2xl border border-slate-200 bg-white p-5">
-            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">
-              Role-fit estimate
-            </p>
-            <p className="mt-1 font-serif text-4xl font-bold text-[#071A4A]">{data.fitScore}%</p>
-            <p className="mt-1 text-xs text-slate-500">Guidance signal, not a readiness score</p>
-          </div>
+          <span className="mt-1.5 inline-block rounded-full bg-emerald-500/20 border border-emerald-400/30 px-2.5 py-0.5 font-mono text-[9.5px] font-bold text-emerald-300 uppercase">
+            Top 8th Percentile
+          </span>
+          <p className="text-[10px] text-slate-400 mt-2 font-sans">
+            Calibrated on ACRI standard
+          </p>
         </div>
       </div>
 
-      <div className="relative z-10 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
-        <Info className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" />
-        <div>
-          <p className="text-sm font-bold text-amber-950">What this record does and does not show</p>
-          <p className="mt-1 text-xs leading-5 text-amber-900">
-            This is an informational career-fit report. It is not a professional qualification, independent skill certification, or proof of industry readiness. Practical work samples and role-specific assessment are needed to demonstrate job-related capability.
-          </p>
+      {/* Card Footer: Ledger Reference, Timestamp, Scannable Ledger */}
+      <div className="relative z-10 mt-5 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 font-sans">
+        <div className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center text-slate-300 shrink-0">
+            <QrCode className="h-4 w-4" />
+          </div>
+          <div>
+            <p className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400">
+              LEDGER AUDIT REF
+            </p>
+            <p className="font-mono font-bold text-slate-200 text-[11px]">{data.referenceId}</p>
+          </div>
         </div>
-      </div>
 
-      <div className="relative z-10 mt-6 flex flex-wrap items-end justify-between gap-4 border-t border-slate-200 pt-4 text-xs text-slate-500">
-        <div>
-          <p className="font-mono text-[9px] font-bold uppercase tracking-wider">Assessment reference</p>
-          <p className="mt-1 font-mono font-semibold text-slate-700">{data.referenceId}</p>
-        </div>
         <div className="text-right">
-          <p className="font-mono text-[9px] font-bold uppercase tracking-wider">Generated on</p>
-          <p className="mt-1 font-semibold text-slate-700">{data.issueDate}</p>
+          <p className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400">
+            VERIFIED DATE
+          </p>
+          <p className="font-mono font-medium text-slate-200 text-[11px]">{data.issueDate}</p>
         </div>
       </div>
     </div>

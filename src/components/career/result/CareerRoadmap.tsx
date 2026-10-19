@@ -191,70 +191,109 @@ export function CareerRoadmap({ result }: Props) {
     ROADMAP_PHASES["pharmacovigilance"];
 
   return (
-    <section className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-6 sm:p-8 shadow-sm">
-      <div className="flex items-center gap-2.5">
-        <div className="grid h-8 w-8 place-items-center rounded-lg bg-[#EEF6FF] text-[#1557D6]">
-          <Calendar className="h-4 w-4" />
-        </div>
+    <section className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
         <div>
-          <span className="text-[11px] font-mono uppercase tracking-wider text-[#1557D6] font-bold">
-            EXECUTION BLUEPRINT
-          </span>
-          <h2 className="font-serif text-2xl font-bold text-[#071A4A]">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 mb-2.5 shadow-2xs">
+            <Calendar className="h-3.5 w-3.5 text-blue-600" />
+            <span>EXECUTION BLUEPRINT · 90-DAY ACCELERATION</span>
+          </div>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
             90-Day Proof-of-Work Roadmap
           </h2>
+          <p className="mt-1 text-sm text-slate-600 max-w-3xl leading-relaxed font-sans">
+            Industry hiring managers do not hire for passive course certificates. They hire candidates who can prove operational competence from day one. Here is the structured 3-month progression:
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 self-start sm:self-auto bg-slate-50 border border-slate-200/80 px-3.5 py-2 rounded-2xl shadow-2xs">
+          <Layers className="h-4 w-4 text-blue-600 shrink-0" />
+          <span className="text-xs font-mono font-bold text-[#081F38]">3 Structured Sprints</span>
         </div>
       </div>
 
-      <p className="mt-3 text-sm text-[#3F4A60] leading-relaxed max-w-3xl">
-        Industry hiring managers do not hire for passive course certificates. They hire candidates who can prove operational competence from day one. Here is the structured 3-month progression:
-      </p>
+      {/* 3 Phases Grid (Apple Pro Progressive Sprint Cards) */}
+      <div className="mt-6 grid gap-4.5 lg:grid-cols-3 items-stretch">
+        {roadmap.phases.map((phase, idx) => {
+          const isMonth3 = idx === 2;
+          const isMonth2 = idx === 1;
+          const weekRanges = ["Weeks 1–4", "Weeks 5–8", "Weeks 9–12"];
 
-      {/* 3 Phases Grid */}
-      <div className="mt-8 grid gap-4 lg:grid-cols-3">
-        {roadmap.phases.map((phase, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-[#FAFBFD] p-5 text-sm"
-          >
-            <div>
-              <div className="flex items-center justify-between pb-3 border-b border-[#E4EAF2]">
-                <span className="text-xs font-mono font-bold uppercase text-[#1557D6]">
-                  {phase.month}
-                </span>
-                <span className="h-6 w-6 rounded-full bg-white tone-light border border-[#E4EAF2] grid place-items-center text-xs font-bold text-[#071A4A]">
-                  0{idx + 1}
-                </span>
+          return (
+            <div
+              key={idx}
+              className={`flex flex-col justify-between rounded-2xl border p-5 sm:p-6 transition-all duration-200 shadow-2xs ${
+                isMonth3
+                  ? "border-emerald-300/90 bg-gradient-to-b from-emerald-50/40 via-white to-slate-50/30 hover:border-emerald-400"
+                  : isMonth2
+                    ? "border-blue-200/90 bg-gradient-to-b from-blue-50/40 via-white to-slate-50/30 hover:border-blue-300"
+                    : "border-slate-200/90 bg-white hover:border-slate-300"
+              }`}
+            >
+              <div>
+                <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`text-[10px] font-mono font-bold uppercase tracking-[0.14em] ${
+                        isMonth3 ? "text-emerald-700" : isMonth2 ? "text-blue-700" : "text-blue-600"
+                      }`}
+                    >
+                      MONTH 0{idx + 1}
+                    </span>
+                    <span className="text-[10px] font-mono text-slate-400">· {weekRanges[idx]}</span>
+                  </div>
+                  <span className="h-6 w-6 rounded-lg bg-slate-100/90 border border-slate-200/80 grid place-items-center text-[10px] font-mono font-bold text-[#081F38] shadow-2xs">
+                    0{idx + 1}
+                  </span>
+                </div>
+
+                <h3 className="mt-3.5 text-sm sm:text-base font-bold text-[#081F38] font-sans leading-snug">
+                  {phase.focus}
+                </h3>
+
+                <ul className="mt-4 space-y-3 text-xs text-slate-600 font-sans">
+                  {phase.deliverables.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2.5 leading-relaxed">
+                      <div className="h-4 w-4 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200/70 flex items-center justify-center shrink-0 mt-0.5">
+                        <CheckCircle2 className="h-3 w-3" />
+                      </div>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
 
-              <h3 className="mt-3 text-sm font-bold text-[#071A4A]">
-                {phase.focus}
-              </h3>
-
-              <ul className="mt-3 space-y-2 text-xs text-[#3F4A60]">
-                {phase.deliverables.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-5 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                <span>Phase Outcome</span>
+                <span className={`font-bold ${isMonth3 ? "text-emerald-700" : "text-blue-700"}`}>
+                  {isMonth3 ? "Placement Clear" : "Casework Verified"}
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Capstone Proof-of-Work Box */}
-      <div className="mt-6 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/60 p-4 sm:p-5 flex items-start gap-4">
-        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#1557D6] text-white">
-          <FileCheck className="h-5 w-5" />
+      {/* Capstone Proof-of-Work Box (Executive Asset Banner) */}
+      <div className="mt-6 rounded-3xl border border-slate-200/90 bg-gradient-to-br from-blue-50/50 via-white to-slate-50/50 p-5 sm:p-6 shadow-2xs flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
+        <div className="h-12 w-12 rounded-2xl bg-[#081F38] text-white flex items-center justify-center shrink-0 shadow-sm border border-slate-700">
+          <FileCheck className="h-6 w-6 text-blue-400" />
         </div>
-        <div>
-          <span className="text-xs font-mono uppercase text-[#1557D6] font-bold block">
-            REQUIRED CAPSTONE PROOF-OF-WORK
-          </span>
-          <p className="mt-1 text-sm font-semibold text-[#071A4A]">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap mb-1">
+            <span className="text-[10px] font-mono uppercase text-blue-700 font-bold tracking-[0.14em]">
+              REQUIRED CAPSTONE PROOF-OF-WORK
+            </span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-mono font-bold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
+              Auditable Artifact
+            </span>
+          </div>
+          <p className="text-sm font-semibold text-[#081F38] leading-relaxed font-sans">
             {roadmap.capstone}
+          </p>
+          <p className="mt-1 text-xs text-slate-500 font-sans">
+            Verifiable in Round 2 Technical Case Interviews &amp; Recruiter Screenings.
           </p>
         </div>
       </div>

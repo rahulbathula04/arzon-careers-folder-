@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Clock, ShieldCheck, Building2 } from "lucide-react";
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
+import { CompanyBrandLogo } from "@/components/career/result/CompanyLogos";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
 import { buildAssessment } from "@/data/careerEngineSampler";
 import { adaptiveOrderedVisible } from "@/data/careerEngineAdaptive";
-import type { Question } from "@/data/careerEngineQuestions";
+import type { Question, Stream } from "@/data/careerEngineQuestions";
 import { getOrCreateSeed } from "@/data/careerEngineSampler";
 import { computeResult, isAdaptiveConfident } from "@/data/careerEngineScoring";
 import {
@@ -29,7 +30,14 @@ const MAX_MINUTES = 10;
 export function CareerEngineAssessment() {
   const navigate = useNavigate();
   const profile = getProfile();
-  const [answers, setAnswers] = useState<Record<string, string>>(() => loadSavedAnswers());
+  const [answers, setAnswers] = useState<Record<string, string>>(() => {
+    const loaded = loadSavedAnswers();
+    if (profile?.college && !loaded.college_name) {
+      loaded.college_name = profile.college;
+      loaded.college = profile.college;
+    }
+    return loaded;
+  });
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [startedAt] = useState(() => getOrInitAttemptStartedAt());
   const [now, setNow] = useState(() => Date.now());
@@ -62,7 +70,10 @@ export function CareerEngineAssessment() {
     return promise;
   };
 
-  const assessment = useMemo(() => buildAssessment(getOrCreateSeed(getSessionId())), []);
+  const activeStream = (answers.stream as Stream) || null;
+  const assessment = useMemo(() => {
+    return buildAssessment(getOrCreateSeed(getSessionId()), activeStream);
+  }, [activeStream]);
 
   useEffect(() => {
     if (isReducedMotion()) return;
@@ -99,14 +110,18 @@ export function CareerEngineAssessment() {
             setSubmitting(true);
             setError(null);
             try {
-              const result = computeResult(answers, {
+              const finalAnswers = {
+                ...answers,
+                ...(profile?.college ? { college_name: profile.college, college: profile.college } : {}),
+              };
+              const result = computeResult(finalAnswers, {
                 questions: assessment,
                 meta: {
                   attemptId: getAttemptId() ?? `att_${Date.now()}`,
                   createdAt: new Date().toISOString(),
                 },
               });
-              saveAnswers(answers);
+              saveAnswers(finalAnswers);
 
               // Final persistence is a single idempotent batch. The report is
               // already cached locally, so the database is never on the critical
@@ -224,17 +239,6 @@ export function CareerEngineAssessment() {
 
           {current.inputType === "text" ? (
             <TextAnswer question={current} value={answers[current.id] ?? ""} onSubmit={choose} />
-          ) : current.inputType === "candidate_info" ? (
-            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-              Your name and contact details were already captured. We’ll attach the report to this assessment.
-              <button
-                type="button"
-                className="mt-4 flex h-11 w-full items-center justify-center rounded-xl bg-[#071A4A] text-sm font-semibold text-white"
-                onClick={() => choose(profile.name)}
-              >
-                Continue
-              </button>
-            </div>
           ) : (
             <div className="mt-2 space-y-2.5">
               <style>{`
@@ -384,6 +388,36 @@ function AssessmentShell({ children, percent, answered, total, remaining }: { ch
             <div className="mt-5 border-t border-slate-100 pt-4">
               <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Progress</p>
               <p className="mt-1 text-sm font-extrabold text-slate-800">{percent}% complete</p>
+            </div>
+
+            {/* Recruiter Benchmarking Live Trust Strip */}
+            <div className="mt-6 border-t border-slate-100 pt-5">
+              <div className="flex items-center gap-1.5 mb-2.5">
+                <Building2 className="h-3.5 w-3.5 text-[#1557D6]" />
+                <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500">
+                  Benchmarked Against Live JDs
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-2 flex items-center justify-center h-8 shadow-2xs">
+                  <CompanyBrandLogo company="cognizant" className="h-3 w-auto" />
+                </div>
+                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-2 flex items-center justify-center h-8 shadow-2xs">
+                  <CompanyBrandLogo company="iqvia" className="h-3 w-auto" />
+                </div>
+                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-2 flex items-center justify-center h-8 shadow-2xs">
+                  <CompanyBrandLogo company="parexel" className="h-3 w-auto" />
+                </div>
+                <div className="bg-slate-50/80 border border-slate-200/80 rounded-xl p-2 flex items-center justify-center h-8 shadow-2xs">
+                  <CompanyBrandLogo company="novartis" className="h-3 w-auto" />
+                </div>
+                <div className="col-span-2 bg-slate-50/80 border border-slate-200/80 rounded-xl p-2 flex items-center justify-center h-8 shadow-2xs">
+                  <CompanyBrandLogo company="accenture" className="h-3 w-auto" />
+                </div>
+              </div>
+              <p className="mt-2 text-[10px] leading-relaxed text-slate-400 font-sans">
+                Scoring logic dynamically correlates your traits with verified entry requisitions.
+              </p>
             </div>
           </aside>
 

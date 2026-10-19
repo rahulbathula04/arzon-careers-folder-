@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, Menu, Search, X } from "lucide-react";
 import { ArzonLogo } from "../acri/ArzonLogo";
@@ -46,7 +47,18 @@ export function ArzonHeader() {
       if (event.key === "Escape") setMobileOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const scrollRoot = document.getElementById("app-scroll-root");
+    const originalRootOverflow = scrollRoot ? scrollRoot.style.overflow : "";
+    if (scrollRoot) scrollRoot.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = originalOverflow;
+      if (scrollRoot) scrollRoot.style.overflow = originalRootOverflow;
+    };
   }, [mobileOpen]);
 
   return (
@@ -168,104 +180,135 @@ export function ArzonHeader() {
           </div>
         </div>
 
-        {/* Mobile Full-Screen iOS Sheet Modal */}
-        {mobileOpen ? (
-          <div className="arzon-site-mobile fixed inset-x-0 top-16 bottom-0 z-50 bg-white/96 backdrop-blur-2xl tone-light card-light lg:hidden overflow-y-auto overscroll-contain pb-12 shadow-2xl motion-safe:animate-in motion-safe:fade-in duration-200 flex flex-col justify-between">
-            <nav aria-label="Mobile navigation" className="arzon-site-container py-4 space-y-4">
-              {/* Apple-style iOS Spotlight Search Bar */}
-              <button
-                type="button"
-                onClick={() => {
-                  setMobileOpen(false);
-                  setSearchOpen(true);
-                }}
-                className="w-full flex items-center justify-between rounded-2xl border border-slate-200/80 bg-[#F8FAFC] px-4 py-3 text-left transition-all active:scale-[0.99] shadow-2xs"
-              >
-                <div className="flex items-center gap-2.5 text-xs text-slate-500">
-                  <Search className="h-4 w-4 text-[#1557D6]" />
-                  <span>Search roles, degrees, tools, JDs...</span>
-                </div>
-                <kbd className="rounded-md bg-white border border-slate-200 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 tone-light">
-                  ⌘K
-                </kbd>
-              </button>
+      </header>
 
-              {/* Group 1: Core Healthcare Career Intelligence */}
-              <div>
-                <div className="px-2 pb-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  CAREER INTELLIGENCE & PATHS
+      {/* Mobile Full-Screen iOS Sheet Modal - Portaled to document.body so it is never trapped by header backdrop-filter or transform */}
+      {typeof document !== "undefined" && mobileOpen
+        ? createPortal(
+            <div
+              className="arzon-site-mobile fixed inset-0 z-[100] bg-white tone-light card-light lg:hidden flex flex-col motion-safe:animate-in motion-safe:fade-in duration-200"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation Menu"
+            >
+              {/* Header inside Mobile Menu */}
+              <div className="h-16 px-4 sm:px-6 flex items-center justify-between border-b border-slate-100/90 shrink-0 bg-white tone-light">
+                <Link
+                  to="/"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center rounded-md"
+                  aria-label="Arzon Global home"
+                >
+                  <ArzonLogo variant="light" size="md" className="!flex" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpen(false)}
+                  className="inline-flex h-9 items-center gap-1.5 rounded-full border border-slate-200/80 bg-[#F8FAFC] px-3 text-xs font-bold text-[#1557D6] hover:bg-slate-100 active:scale-95 transition-transform"
+                  aria-label="Close navigation menu"
+                >
+                  <X className="h-4 w-4 text-[#1557D6]" />
+                  <span>Close</span>
+                </button>
+              </div>
+
+              {/* Scrollable Navigation Items */}
+              <nav aria-label="Mobile navigation" className="flex-1 overflow-y-auto overscroll-contain px-4 sm:px-6 py-4 space-y-4">
+                {/* Apple-style iOS Spotlight Search Bar */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    setSearchOpen(true);
+                  }}
+                  className="w-full flex items-center justify-between rounded-2xl border border-slate-200/80 bg-[#F8FAFC] px-4 py-3 text-left transition-all active:scale-[0.99] shadow-2xs"
+                >
+                  <div className="flex items-center gap-2.5 text-xs text-slate-500">
+                    <Search className="h-4 w-4 text-[#1557D6]" />
+                    <span>Search roles, degrees, tools, JDs...</span>
+                  </div>
+                  <kbd className="rounded-md bg-white border border-slate-200 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 tone-light">
+                    ⌘K
+                  </kbd>
+                </button>
+
+                {/* Group 1: Core Healthcare Career Intelligence */}
+                <div>
+                  <div className="px-2 pb-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    CAREER INTELLIGENCE &amp; PATHS
+                  </div>
+                  <div className="rounded-2xl border border-slate-200/80 bg-white divide-y divide-slate-100 overflow-hidden shadow-xs tone-light card-light">
+                    {NAV_ITEMS.map((item) => {
+                      const active =
+                        location.pathname === item.to ||
+                        location.pathname.startsWith(item.to + "/");
+                      return (
+                        <Link
+                          key={item.to}
+                          to={item.to as any}
+                          onClick={() => setMobileOpen(false)}
+                          className={`flex items-center justify-between p-3.5 transition-colors active:bg-slate-50 min-h-[48px] ${
+                            active ? "bg-[#EEF6FF]/60" : ""
+                          }`}
+                        >
+                          <div className="min-w-0 pr-2">
+                            <div className={`text-sm font-bold ${active ? "text-[#1557D6]" : "text-[#071A4A]"}`}>
+                              {item.label}
+                            </div>
+                            <div className="text-[11px] text-slate-500 truncate mt-0.5">
+                              {item.description}
+                            </div>
+                          </div>
+                          <ArrowRight className={`h-4 w-4 shrink-0 ${active ? "text-[#1557D6]" : "text-slate-300"}`} />
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="rounded-2xl border border-slate-200/80 bg-white divide-y divide-slate-100 overflow-hidden shadow-xs tone-light card-light">
-                  {NAV_ITEMS.map((item) => {
-                    const active =
-                      location.pathname === item.to ||
-                      location.pathname.startsWith(item.to + "/");
-                    return (
+
+                {/* Group 2: Institutional & Verification */}
+                <div>
+                  <div className="px-2 pb-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    PROGRAMMES &amp; INSTITUTIONAL
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {SECONDARY_ITEMS.map((item) => (
                       <Link
                         key={item.to}
-                        to={item.to as any}
+                        to={item.to}
                         onClick={() => setMobileOpen(false)}
-                        className={`flex items-center justify-between p-3.5 transition-colors active:bg-slate-50 min-h-[48px] ${
-                          active ? "bg-[#EEF6FF]/60" : ""
-                        }`}
+                        className="flex items-center justify-between rounded-xl border border-slate-200/70 bg-white p-3 text-xs font-semibold text-[#071A4A] hover:bg-slate-50 active:scale-[0.98] transition-all tone-light card-light shadow-2xs"
                       >
-                        <div className="min-w-0 pr-2">
-                          <div className={`text-sm font-bold ${active ? "text-[#1557D6]" : "text-[#071A4A]"}`}>
-                            {item.label}
-                          </div>
-                          <div className="text-[11px] text-slate-500 truncate mt-0.5">
-                            {item.description}
-                          </div>
-                        </div>
-                        <ArrowRight className={`h-4 w-4 shrink-0 ${active ? "text-[#1557D6]" : "text-slate-300"}`} />
+                        <span className="truncate">{item.label}</span>
+                        <ArrowRight className="h-3 w-3 text-slate-400 shrink-0" />
                       </Link>
-                    );
-                  })}
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* Group 2: Institutional & Verification */}
-              <div>
-                <div className="px-2 pb-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                  PROGRAMMES & INSTITUTIONAL
+                {/* Pinned Bottom Actions */}
+                <div className="pt-2 pb-8 space-y-2.5">
+                  <Link
+                    to="/career-assessment"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full h-12 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
+                  >
+                    <span>Find My Career Path</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full h-11 rounded-full border border-slate-200 bg-[#F8FAFC] text-slate-700 font-semibold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
+                  >
+                    Candidate Portal Sign In
+                  </Link>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {SECONDARY_ITEMS.map((item) => (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      onClick={() => setMobileOpen(false)}
-                      className="flex items-center justify-between rounded-xl border border-slate-200/70 bg-white p-3 text-xs font-semibold text-[#071A4A] hover:bg-slate-50 active:scale-[0.98] transition-all tone-light card-light shadow-2xs"
-                    >
-                      <span className="truncate">{item.label}</span>
-                      <ArrowRight className="h-3 w-3 text-slate-400 shrink-0" />
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Pinned Bottom Actions */}
-              <div className="pt-2 space-y-2.5">
-                <Link
-                  to="/career-assessment"
-                  onClick={() => setMobileOpen(false)}
-                  className="w-full h-12 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
-                >
-                  <span>Find My Career Path</span>
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/login"
-                  onClick={() => setMobileOpen(false)}
-                  className="w-full h-11 rounded-full border border-slate-200 bg-[#F8FAFC] text-slate-700 font-semibold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
-                >
-                  Candidate Portal Sign In
-                </Link>
-              </div>
-            </nav>
-          </div>
-        ) : null}
-      </header>
+              </nav>
+            </div>,
+            document.body,
+          )
+        : null}
 
       <GlobalSearchModal open={searchOpen} onOpenChange={setSearchOpen} />
     </>

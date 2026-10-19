@@ -324,124 +324,178 @@ export function CareerMarketDossier({ result }: Props) {
   return (
     <section className="space-y-6">
       {/* ─── Role Reality & Executive Market Context ───────────────── */}
-      <div className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-6 sm:p-8 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E4EAF2]">
+      <div className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
           <div className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#EEF6FF] text-[#1557D6]">
+            <div className="grid h-10 w-10 place-items-center rounded-2xl border border-blue-200/60 bg-gradient-to-br from-blue-50 to-indigo-50/60 text-blue-600 shadow-xs">
               <Briefcase className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#1557D6] font-bold block">
+              <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-blue-600 font-bold block">
                 CAREER MARKET INTELLIGENCE · 2026 INDIA BENCHMARKS
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#071A4A]">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
                 Target Role & Industry Market Reality
               </h2>
             </div>
           </div>
-          <span className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-full bg-emerald-50 px-3 py-1 font-mono text-xs font-semibold text-emerald-700 border border-emerald-200">
-            <ShieldCheck className="h-3.5 w-3.5" />
-            Active Hiring Market
+          <span className="inline-flex items-center gap-2 self-start sm:self-auto rounded-full bg-emerald-50/90 px-3 py-1 font-mono text-[11px] font-bold text-emerald-700 border border-emerald-200/80 shadow-2xs">
+            <span className="relative flex h-2 w-2">
+              <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Active Hiring Market</span>
           </span>
         </div>
 
-        {/* Primary Role Box */}
-        <div className="mt-6 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/60 p-5 sm:p-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div>
-              <span className="text-xs font-mono uppercase text-[#1557D6] font-bold tracking-wider block">
-                RECOMMENDED DESIGNATION IN INDIAN MENTORSHIPS / CROs
-              </span>
-              <p className="mt-1 font-serif text-2xl sm:text-3xl font-bold text-[#071A4A]">
-                {market.targetRole}
-              </p>
+        {/* Primary Role Box: Apple Pro Executive Designation Hero */}
+        <div className="mt-6 rounded-3xl border border-slate-200/90 bg-gradient-to-br from-blue-50/50 via-white to-slate-50/50 p-6 sm:p-7 shadow-[0_2px_12px_-2px_rgba(37,99,235,0.06),inset_0_1px_0_rgba(255,255,255,1)]">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div className="flex items-start gap-4">
+              <div className="h-12 w-12 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center justify-center text-blue-600 shrink-0">
+                <Briefcase className="h-6 w-6" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono uppercase text-blue-600 font-bold tracking-[0.14em] block">
+                  RECOMMENDED DESIGNATION IN INDIAN MENTORSHIPS / CROS
+                </span>
+                <h3 className="mt-1 font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
+                  {market.targetRole}
+                </h3>
+              </div>
             </div>
+            <span className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-full bg-blue-50 border border-blue-200/80 px-3 py-1 text-[11px] font-mono font-bold text-blue-700 shadow-2xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+              Primary Requisition Focus
+            </span>
           </div>
-          <p className="mt-3 text-xs sm:text-sm text-[#3F4A60] leading-relaxed">
+
+          <p className="mt-3.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans max-w-4xl">
             {market.dayInLife}
           </p>
 
-          <div className="mt-4 pt-4 border-t border-[#D0E1FD]/60 flex items-start gap-2 text-xs text-[#071A4A]">
-            <span className="font-bold shrink-0">Market Footprint in India:</span>
-            <span>{market.marketShareInIndia}</span>
+          <div className="mt-4 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs text-[#081F38]">
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200/80 text-[10px] font-mono font-bold text-blue-700">
+                MARKET FOOTPRINT
+              </span>
+              <span className="text-slate-600 font-sans">{market.marketShareInIndia}</span>
+            </div>
           </div>
         </div>
 
-        {/* 5-Year Compensation Progression Grid (Defensible Indian CTC Bands) */}
+        {/* 5-Year Compensation Progression Grid (Tactile Step Cards) */}
         <div className="mt-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-4">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#69758A] font-bold">
-              COMPENSATION PROGRESSION ACROSS TIER-1 INDIAN LIFE SCIENCES GCCs
+            <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-400 font-bold">
+              COMPENSATION PROGRESSION ACROSS TIER-1 INDIAN LIFE SCIENCES GCCS
             </span>
-            <span className="text-[11px] text-[#69758A] font-mono">Real-world CTC Benchmarks</span>
+            <span className="text-[11px] text-slate-500 font-mono">Real-world CTC Benchmarks</span>
           </div>
 
           <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
             {/* Level 1: Fresher */}
-            <div className="rounded-2xl border border-[#E4EAF2] bg-[#FAFBFD] p-4 text-center">
-              <span className="text-[10px] font-mono text-[#69758A] block uppercase font-bold">
-                Level 1 · Trainee / Fresher (0–1 yr)
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4.5 text-center hover:border-slate-300 transition-all duration-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between text-slate-400 mb-2">
+                  <span className="text-[10px] font-mono uppercase font-bold tracking-wider">LEVEL 01</span>
+                  <span className="text-[10px] font-mono text-slate-400">0–1 YR</span>
+                </div>
+                <span className="text-xs font-semibold text-slate-600 block font-sans">
+                  Trainee / Fresher
+                </span>
+                <span className="mt-2 font-mono text-xl sm:text-2xl font-bold text-[#081F38] block tracking-tight">
+                  {market.entryRange}
+                </span>
+                <span className="inline-block mt-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] text-slate-700 font-semibold font-mono">
+                  {market.entryTakeHome}
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-3 pt-2.5 border-t border-slate-100 font-sans">
+                Starting Candidate Package
               </span>
-              <span className="mt-2 font-serif text-2xl font-bold text-[#071A4A] block">
-                {market.entryRange}
-              </span>
-              <span className="text-[11px] text-[#1557D6] font-semibold block mt-1">
-                {market.entryTakeHome}
-              </span>
-              <span className="text-[10px] text-[#69758A] block mt-0.5">Starting Package</span>
             </div>
 
-            {/* Level 2: Specialist */}
-            <div className="rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/40 p-4 text-center">
-              <span className="text-[10px] font-mono text-[#1557D6] block uppercase font-bold">
-                Level 2 · Specialist (2–4 yrs)
+            {/* Level 2: Specialist (Target Promotion Landmark) */}
+            <div className="rounded-2xl border-2 border-blue-500 bg-gradient-to-b from-blue-50/70 via-indigo-50/20 to-white p-4.5 text-center shadow-[0_4px_16px_rgba(37,99,235,0.1),inset_0_1px_0_rgba(255,255,255,1)] relative ring-2 ring-blue-500/15 flex flex-col justify-between">
+              <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 text-white px-2.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider shadow-2xs">
+                PROMOTION TARGET
               </span>
-              <span className="mt-2 font-serif text-2xl font-bold text-[#1557D6] block">
-                {market.midRange}
+              <div>
+                <div className="flex items-center justify-between text-blue-600 mb-2">
+                  <span className="text-[10px] font-mono uppercase font-bold tracking-wider">LEVEL 02</span>
+                  <span className="text-[10px] font-mono font-bold">2–4 YRS</span>
+                </div>
+                <span className="text-xs font-bold text-blue-900 block font-sans">
+                  Specialist / Processor
+                </span>
+                <span className="mt-2 font-mono text-xl sm:text-2xl font-bold text-blue-700 block tracking-tight">
+                  {market.midRange}
+                </span>
+                <span className="inline-block mt-1.5 px-2.5 py-0.5 rounded-full bg-blue-100/80 text-[11px] text-blue-800 font-bold font-mono">
+                  Independent Case Processor
+                </span>
+              </div>
+              <span className="text-[10px] text-blue-700/80 block mt-3 pt-2.5 border-t border-blue-100 font-medium font-sans">
+                Core Production Technical Band
               </span>
-              <span className="text-[11px] text-[#071A4A] font-semibold block mt-1">
-                Independent Case Processor
-              </span>
-              <span className="text-[10px] text-[#69758A] block mt-0.5">Core Technical Band</span>
             </div>
 
             {/* Level 3: Lead */}
-            <div className="rounded-2xl border border-[#E4EAF2] bg-[#FAFBFD] p-4 text-center">
-              <span className="text-[10px] font-mono text-[#69758A] block uppercase font-bold">
-                Level 3 · Lead / Manager (5–8 yrs)
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4.5 text-center hover:border-slate-300 transition-all duration-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between text-slate-400 mb-2">
+                  <span className="text-[10px] font-mono uppercase font-bold tracking-wider">LEVEL 03</span>
+                  <span className="text-[10px] font-mono text-slate-400">5–8 YRS</span>
+                </div>
+                <span className="text-xs font-semibold text-slate-600 block font-sans">
+                  Lead / Manager
+                </span>
+                <span className="mt-2 font-mono text-xl sm:text-2xl font-bold text-[#081F38] block tracking-tight">
+                  {market.leadRange}
+                </span>
+                <span className="inline-block mt-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] text-slate-700 font-semibold font-mono">
+                  QA &amp; Team Authority
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-3 pt-2.5 border-t border-slate-100 font-sans">
+                Quality Reviewer Band
               </span>
-              <span className="mt-2 font-serif text-2xl font-bold text-[#071A4A] block">
-                {market.leadRange}
-              </span>
-              <span className="text-[11px] text-[#071A4A] font-semibold block mt-1">
-                QA & Team Authority
-              </span>
-              <span className="text-[10px] text-[#69758A] block mt-0.5">Quality Reviewer Band</span>
             </div>
 
             {/* Level 4: Executive */}
-            <div className="rounded-2xl border border-[#E4EAF2] bg-[#FAFBFD] p-4 text-center">
-              <span className="text-[10px] font-mono text-[#69758A] block uppercase font-bold">
-                Level 4 · Associate Director (8+ yrs)
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-4.5 text-center hover:border-slate-300 transition-all duration-200 shadow-2xs flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between text-slate-400 mb-2">
+                  <span className="text-[10px] font-mono uppercase font-bold tracking-wider">LEVEL 04</span>
+                  <span className="text-[10px] font-mono text-slate-400">8+ YRS</span>
+                </div>
+                <span className="text-xs font-semibold text-slate-600 block font-sans">
+                  Associate Director
+                </span>
+                <span className="mt-2 font-mono text-xl sm:text-2xl font-bold text-[#081F38] block tracking-tight">
+                  {market.execRange}
+                </span>
+                <span className="inline-block mt-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-[11px] text-slate-700 font-semibold font-mono">
+                  Global Operations Head
+                </span>
+              </div>
+              <span className="text-[10px] text-slate-400 block mt-3 pt-2.5 border-t border-slate-100 font-sans">
+                Delivery Leadership Band
               </span>
-              <span className="mt-2 font-serif text-2xl font-bold text-[#071A4A] block">
-                {market.execRange}
-              </span>
-              <span className="text-[11px] text-[#071A4A] font-semibold block mt-1">
-                Global Operations Head
-              </span>
-              <span className="text-[10px] text-[#69758A] block mt-0.5">Delivery Leadership</span>
             </div>
           </div>
         </div>
 
         {/* Major Indian Hubs & Real Hiring Employers */}
-        <div className="mt-8 grid gap-6 md:grid-cols-2 pt-6 border-t border-[#E4EAF2]">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 pt-6 border-t border-slate-100">
           {/* Key Geographic Hubs */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <MapPin className="h-4 w-4 text-[#1557D6]" />
-              <span className="text-xs font-mono uppercase tracking-wider text-[#071A4A] font-bold">
+              <div className="h-6 w-6 rounded-lg bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shrink-0">
+                <MapPin className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#081F38] font-bold">
                 PRIMARY LIFE SCIENCES HUBS IN INDIA
               </span>
             </div>
@@ -449,10 +503,10 @@ export function CareerMarketDossier({ result }: Props) {
               {market.hubs.map((h) => (
                 <div
                   key={h.city}
-                  className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 rounded-xl border border-[#E4EAF2] bg-[#FAFBFD] px-3.5 py-2 text-xs"
+                  className="flex items-center justify-between gap-2 rounded-xl border border-slate-200/80 bg-gradient-to-b from-white to-slate-50/40 px-3.5 py-2.5 text-xs hover:border-slate-300 transition-all duration-150 shadow-2xs"
                 >
-                  <span className="font-bold text-[#071A4A]">{h.city}</span>
-                  <span className="text-[#69758A] text-[11px] sm:text-xs">{h.areas}</span>
+                  <span className="font-bold text-[#081F38]">{h.city}</span>
+                  <span className="text-slate-500 text-[11px] font-mono bg-white px-2 py-0.5 rounded-md border border-slate-200/60">{h.areas}</span>
                 </div>
               ))}
             </div>
@@ -461,8 +515,10 @@ export function CareerMarketDossier({ result }: Props) {
           {/* Top Hiring Ecosystem in India */}
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <Building2 className="h-4 w-4 text-[#1557D6]" />
-              <span className="text-xs font-mono uppercase tracking-wider text-[#071A4A] font-bold">
+              <div className="h-6 w-6 rounded-lg bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shrink-0">
+                <Building2 className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#081F38] font-bold">
                 TIER-1 HIRING ECOSYSTEMS &amp; GLOBAL CAPABILITY CENTERS
               </span>
             </div>
@@ -470,73 +526,87 @@ export function CareerMarketDossier({ result }: Props) {
               {market.employers.map((emp) => (
                 <span
                   key={emp}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#E4EAF2] bg-white tone-light card-light px-3 py-1.5 text-xs font-semibold text-[#071A4A] shadow-2xs"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white px-3 py-1.5 text-xs font-semibold text-[#081F38] shadow-2xs hover:border-blue-300 transition-all duration-150"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#1557D6]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shadow-[0_0_6px_rgba(37,99,235,0.5)]" />
                   {emp}
                 </span>
               ))}
             </div>
-            <p className="mt-3 text-[11px] text-[#69758A] leading-relaxed">
+            <p className="mt-3 text-[11px] text-slate-500 leading-relaxed font-sans">
               These industry sectors and captive GCC units conduct continuous campus, off-campus, and lateral recruitment drives across Indian life sciences hubs for this role profile.
             </p>
           </div>
         </div>
 
         {/* Expected Production Tool Competencies */}
-        <div className="mt-8 pt-6 border-t border-[#E4EAF2]">
-          <div className="flex items-center gap-2 mb-3">
-            <Layers className="h-4 w-4 text-[#1557D6]" />
-            <span className="text-xs font-mono uppercase tracking-wider text-[#071A4A] font-bold">
-              PRODUCTION TOOL STACK EXPECTED IN TECHNICAL ROUNDS
+        <div className="mt-8 pt-6 border-t border-slate-100">
+          <div className="flex items-center justify-between gap-2 mb-3.5">
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-lg bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shrink-0">
+                <Layers className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#081F38] font-bold">
+                PRODUCTION TOOL STACK EXPECTED IN TECHNICAL ROUNDS
+              </span>
+            </div>
+            <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200/70 px-2.5 py-0.5 rounded-full shadow-2xs">
+              6 Core Tools
             </span>
           </div>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
             {market.tools.map((t) => (
               <div
                 key={t.name}
-                className="flex items-center justify-between rounded-xl border border-[#E4EAF2] bg-[#FAFBFD] p-3 text-xs"
+                className="flex items-center justify-between rounded-xl border border-slate-200/80 bg-white p-3 text-xs hover:border-slate-300 transition-all duration-150 shadow-2xs"
               >
                 <div>
-                  <span className="font-bold text-[#071A4A] block">{t.name}</span>
-                  <span className="text-[10px] text-[#69758A] block">{t.category}</span>
+                  <span className="font-bold text-[#081F38] block">{t.name}</span>
+                  <span className="text-[10px] text-slate-500 block font-mono mt-0.5">{t.category}</span>
                 </div>
-                <CheckCircle2 className="h-4 w-4 text-[#1557D6] shrink-0" />
+                <div className="grid h-6 w-6 place-items-center rounded-lg bg-emerald-50 text-emerald-600 shrink-0 border border-emerald-200/70">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                </div>
               </div>
             ))}
           </div>
         </div>
 
         {/* Daily KPIs & Technical Interview Questions Asked in India */}
-        <div className="mt-8 grid gap-6 md:grid-cols-2 pt-6 border-t border-[#E4EAF2]">
+        <div className="mt-8 grid gap-4 md:grid-cols-2 pt-6 border-t border-slate-100">
           {/* Daily Workload Reality & KPIs */}
-          <div className="rounded-2xl border border-slate-200 bg-[#FAFBFD] p-5">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#071A4A] font-bold block mb-2">
-              DAILY OPERATIONAL WORKLOAD & SHIFT KPIs
+          <div className="rounded-2xl border border-slate-200/90 bg-gradient-to-br from-slate-50/60 via-white to-slate-50/30 p-5 shadow-2xs">
+            <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-[#081F38] font-bold block mb-3">
+              DAILY OPERATIONAL WORKLOAD &amp; SHIFT KPIS
             </span>
-            <ul className="space-y-2 text-xs text-[#3F4A60]">
+            <ul className="space-y-2.5 text-xs text-slate-700 font-sans">
               {market.dailyKpis.map((kpi, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="font-mono text-[#1557D6] font-bold">•</span>
-                  <span>{kpi}</span>
+                <li key={idx} className="flex items-start gap-2.5">
+                  <span className="h-4 w-4 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-mono text-[9px] font-bold shrink-0 mt-0.5">
+                    {idx + 1}
+                  </span>
+                  <span className="leading-relaxed">{kpi}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Technical Round Tells in India */}
-          <div className="rounded-2xl border border-amber-200/70 bg-amber-50/50 p-5">
-            <div className="flex items-center gap-1.5 mb-2 text-amber-900">
-              <AlertTriangle className="h-4 w-4 text-amber-600" />
-              <span className="text-xs font-mono uppercase tracking-wider font-bold">
+          <div className="rounded-2xl border border-amber-200/90 bg-gradient-to-br from-amber-50/50 via-white to-amber-50/20 p-5 shadow-2xs">
+            <div className="flex items-center gap-2 mb-3 text-amber-900">
+              <div className="h-5 w-5 rounded-lg bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
+                <AlertTriangle className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-[10px] font-mono uppercase tracking-[0.14em] font-bold">
                 WHAT INDIAN TECHNICAL INTERVIEWERS PROBE
               </span>
             </div>
-            <ul className="space-y-2 text-xs text-amber-950/80">
+            <ul className="space-y-2.5 text-xs text-amber-950/90 font-sans">
               {market.technicalInterviewTells.map((tell, idx) => (
-                <li key={idx} className="flex items-start gap-2">
-                  <span className="font-mono text-amber-700 font-bold">•</span>
-                  <span>{tell}</span>
+                <li key={idx} className="flex items-start gap-2.5">
+                  <span className="font-mono text-amber-600 font-bold">•</span>
+                  <span className="leading-relaxed">{tell}</span>
                 </li>
               ))}
             </ul>

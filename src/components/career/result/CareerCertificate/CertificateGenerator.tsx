@@ -233,13 +233,13 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
             value={tempName}
             onChange={(e) => setTempName(e.target.value)}
             placeholder="Your name to display on the assessment record"
-            className="flex-1 rounded-xl border border-[#D0E1FD] bg-white tone-light px-3.5 py-2.5 text-sm text-[#071A4A] outline-hidden focus:ring-2 focus:ring-[#1557D6] min-h-11"
+            className="flex-1 rounded-xl border border-slate-200/80 bg-white tone-light px-3.5 py-2.5 text-sm text-[#081F38] outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 min-h-11 shadow-2xs"
             autoFocus
           />
           <div className="flex items-center gap-2">
             <button
               type="submit"
-              className="flex-1 sm:flex-initial rounded-xl bg-[#071A4A] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#1557D6] min-h-11"
+              className="flex-1 sm:flex-initial rounded-xl bg-[#081F38] hover:bg-slate-900 px-4 py-2.5 text-xs font-bold text-white shadow-xs min-h-11 active:scale-95 transition-all cursor-pointer"
             >
               Save
             </button>
@@ -249,7 +249,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
                 setTempName(data.candidateName);
                 setIsEditingName(false);
               }}
-              className="flex-1 sm:flex-initial rounded-xl border border-slate-200 px-3 py-2.5 text-xs font-medium text-slate-600 hover:bg-slate-50 min-h-11"
+              className="flex-1 sm:flex-initial rounded-xl border border-slate-200 px-3 py-2.5 text-xs font-medium text-slate-600 hover:bg-slate-50 min-h-11 active:scale-95 transition-all cursor-pointer"
             >
               Cancel
             </button>
@@ -260,7 +260,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           <button
             type="button"
             onClick={() => setIsEditingName(true)}
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-[#1557D6] hover:underline"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
           >
             <Edit3 className="h-3.5 w-3.5" />
             <span>Spelling incorrect? Edit your name on the assessment record</span>
@@ -275,7 +275,7 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           type="button"
           onClick={handleDownloadPdf}
           disabled={isExporting}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-6 py-3 text-sm font-bold text-white shadow-md hover:bg-[#1557D6] transition-all active:scale-[0.98] disabled:opacity-50 w-full sm:w-auto cursor-pointer"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-slate-900 text-white px-6 py-3 text-sm font-semibold tracking-wide shadow-[0_1px_2px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.15)] active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
           <Download className="h-4 w-4" />
           <span>{isExporting ? "Generating PDF..." : "Download Assessment Record (PDF)"}</span>
@@ -286,16 +286,14 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName }: Pro
           type="button"
           onClick={handleDownloadPng}
           disabled={isExporting}
-          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] px-5 py-3 text-sm font-bold text-[#1557D6] hover:bg-[#DCEBFE] transition-all active:scale-[0.98] disabled:opacity-50 w-full sm:w-auto cursor-pointer"
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] hover:bg-[#E0EEFD] hover:border-[#B5D3FB] px-6 py-3 text-sm font-bold !text-[#1557D6] shadow-2xs active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
         >
-          <FileText className="h-4 w-4" />
-          <span>Save as Image (PNG)</span>
+          <FileText className="h-4 w-4 !text-[#1557D6]" />
+          <span className="!text-[#1557D6]">Save as Image (PNG)</span>
         </button>
-
-
       </div>
 
-      <p className="text-center font-mono text-[11px] text-[#69758A]">
+      <p className="text-center font-mono text-[11px] text-slate-500">
         Informational assessment record · Reference ID: {data.referenceId}
       </p>
     </div>

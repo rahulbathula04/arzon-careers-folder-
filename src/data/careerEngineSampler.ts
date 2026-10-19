@@ -275,50 +275,57 @@ export function getOrCreateSeed(sessionId: string | null): string {
     const qs = new URLSearchParams(window.location.search);
     const fromUrl = qs.get("seed");
     if (fromUrl) {
-      window.localStorage.setItem(SEED_KEY, fromUrl);
-      window.localStorage.setItem(SEED_LOCK_KEY, fromUrl);
+      sessionStorage.setItem(SEED_KEY, fromUrl);
+      sessionStorage.setItem(SEED_LOCK_KEY, fromUrl);
       return fromUrl;
     }
   } catch {
     /* noop */
   }
 
-  // 2. Existing lock - never reshuffle once a test is in flight
-  const locked = window.localStorage.getItem(SEED_LOCK_KEY);
-  if (locked) return locked;
+  // 2. Existing session lock - ensures questions remain stable during the current attempt
+  const sessionLocked = sessionStorage.getItem(SEED_LOCK_KEY);
+  if (sessionLocked) return sessionLocked;
+
+  const sessionSeed = sessionStorage.getItem(SEED_KEY);
+  if (sessionSeed) return sessionSeed;
 
   // 3. DB sessionId
   if (sessionId) {
-    window.localStorage.setItem(SEED_KEY, sessionId);
+    sessionStorage.setItem(SEED_KEY, sessionId);
+    sessionStorage.setItem(SEED_LOCK_KEY, sessionId);
     return sessionId;
   }
 
-  // 4 / 5. Cached or fresh UUID
-  let seed = window.localStorage.getItem(SEED_KEY);
-  if (!seed) {
-    seed =
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `seed_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-    window.localStorage.setItem(SEED_KEY, seed);
-  }
+  // 4. Generate a fresh attempt seed
+  const seed =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `seed_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  sessionStorage.setItem(SEED_KEY, seed);
+  sessionStorage.setItem(SEED_LOCK_KEY, seed);
   return seed;
 }
 
 /** Lock the active seed so subsequent calls can't drift away from it. */
 export function lockSeed(seed: string): void {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(SEED_LOCK_KEY, seed);
+  sessionStorage.setItem(SEED_LOCK_KEY, seed);
+  try {
+    localStorage.setItem(SEED_LOCK_KEY, seed);
+  } catch {
+    /* noop */
+  }
 }
 
 /** Wipe seed + lock so the next test draws a brand-new 42. */
 export function resetSeed(): void {
   if (typeof window === "undefined") return;
-  window.localStorage.removeItem(SEED_KEY);
-  window.localStorage.removeItem(SEED_LOCK_KEY);
-  // Legacy sessionStorage cleanup
+  sessionStorage.removeItem(SEED_KEY);
+  sessionStorage.removeItem(SEED_LOCK_KEY);
   try {
-    window.sessionStorage.removeItem(SEED_KEY);
+    localStorage.removeItem(SEED_KEY);
+    localStorage.removeItem(SEED_LOCK_KEY);
   } catch {
     /* noop */
   }

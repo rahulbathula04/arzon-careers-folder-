@@ -219,6 +219,7 @@ export interface CareerEngineProfile {
   name: string;
   phone: string; // 10 digits, no +91
   email: string;
+  college?: string;
   whatsappOptin: boolean;
 }
 

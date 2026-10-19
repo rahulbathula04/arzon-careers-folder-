@@ -22,6 +22,7 @@ type Candidate = {
   track: Exclude<Pillar, "All">;
   score: number;
   image: string;
+  quote?: string;
 };
 
 type University = {
@@ -34,16 +35,86 @@ type University = {
 };
 
 const CANDIDATES: Candidate[] = [
-  { rank: 1, name: "Pooja S.", college: "Manipal College of Pharmaceutical Sciences", track: "Pharmacovigilance", score: 96, image: "/images/avatar-priya.jpg" },
-  { rank: 2, name: "Karthik R.", college: "JNTU Hyderabad", track: "Regulatory Affairs", score: 94, image: "/images/avatar-rahul.jpg" },
-  { rank: 3, name: "Sneha M.", college: "NIPER Hyderabad", track: "Clinical Data Management", score: 93, image: "/images/avatar-sneha.jpg" },
-  { rank: 4, name: "Ananya D.", college: "Bombay College of Pharmacy", track: "SAS Clinical", score: 91, image: "/images/avatar-ananya.jpg" },
+  {
+    rank: 1,
+    name: "Pooja Patel",
+    college: "JSS College of Pharmacy, Ooty",
+    track: "Clinical Data Management",
+    score: 96,
+    image: "/images/testimonials/pooja-patel.jpg",
+    quote: "Arzon's CDM module clarified discrepancy management and EDC platforms, giving me practical hands-on confidence before attending company interviews.",
+  },
+  {
+    rank: 2,
+    name: "Arun Jain",
+    college: "Dayanand Sagar College of Pharmacy",
+    track: "Pharmacovigilance",
+    score: 95,
+    image: "/images/testimonials/arun-jain.png",
+    quote: "My Pharmacovigilance training gave me practical exposure to ADR reporting, ICSR processing, standardized medical coding, literature review, and signal detection.",
+  },
+  {
+    rank: 3,
+    name: "Sneha Rao",
+    college: "Osmania University, Hyderabad",
+    track: "Pharmacovigilance",
+    score: 94,
+    image: "/images/testimonials/sneha-rao.jpg",
+    quote: "My Pharmacovigilance training gave me practical exposure to ADR reporting, ICSR processing, standardized medical coding, literature review, and signal detection.",
+  },
+  {
+    rank: 4,
+    name: "Ronak Reddy",
+    college: "Bombay College of Pharmacy, Mumbai",
+    track: "Regulatory Affairs",
+    score: 93,
+    image: "/images/testimonials/ronak-reddy.jpg",
+    quote: "I found the hiring-market map useful for understanding what CROs screen for in EDC platforms and that it gave me genuine career clarity.",
+  },
+  {
+    rank: 5,
+    name: "Aman D",
+    college: "Osmania University, Hyderabad",
+    track: "Medical Coding",
+    score: 92,
+    image: "/images/testimonials/aman-d.jpg",
+    quote: "Arzon's career map and fresher-access breakdown helped me understand my options before deciding whether to pursue an intensive training programme.",
+  },
+  {
+    rank: 6,
+    name: "Ananya Verma",
+    college: "Bombay College of Pharmacy",
+    track: "SAS Clinical",
+    score: 91,
+    image: "/images/testimonials/ananya-verma.jpg",
+    quote: "I found the hiring-market map and practical GCP protocol analysis invaluable for understanding how life sciences graduates access clinical trial operations.",
+  },
+  {
+    rank: 7,
+    name: "Priyanka Joshi",
+    college: "NIPER Hyderabad",
+    track: "Medical Coding",
+    score: 90,
+    image: "/images/testimonials/priyanka-joshi.jpg",
+    quote: "Arzon's career map and fresher-access breakdown helped me understand medical coding guidelines and anatomy requirements before deciding on my career path.",
+  },
+  {
+    rank: 8,
+    name: "Anya Tiwari",
+    college: "JSS College of Pharmacy, Ooty",
+    track: "Pharmacovigilance",
+    score: 89,
+    image: "/images/testimonials/anya-tiwari.png",
+    quote: "The workshop helped me compare Pharmacovigilance, Medical Coding and Sales using employer requirements, and gave me clearer direction toward PV.",
+  },
 ];
 
 const UNIVERSITIES: University[] = [
   { rank: 1, name: "NIPER Hyderabad", city: "Hyderabad, Telangana", index: 96.4, candidates: 214, image: "/images/acri-campus-bg.jpg" },
-  { rank: 2, name: "Manipal College of Pharmaceutical Sciences", city: "Manipal, Karnataka", index: 95.8, candidates: 198, image: "/images/bpharm-students-group.jpg" },
+  { rank: 2, name: "JSS College of Pharmacy", city: "Ooty, Tamil Nadu", index: 95.8, candidates: 198, image: "/images/bpharm-students-group.jpg" },
   { rank: 3, name: "Osmania University", city: "Hyderabad, Telangana", index: 94.9, candidates: 342, image: "/images/bpharm-male-graduate.jpg" },
+  { rank: 4, name: "Bombay College of Pharmacy", city: "Mumbai, Maharashtra", index: 94.1, candidates: 176, image: "/images/acri-campus-bg.jpg" },
+  { rank: 5, name: "Dayanand Sagar College of Pharmacy", city: "Bengaluru, Karnataka", index: 93.6, candidates: 152, image: "/images/bpharm-students-group.jpg" },
 ];
 
 const PILLARS: Pillar[] = [
@@ -55,7 +126,17 @@ const PILLARS: Pillar[] = [
   "SAS Clinical",
 ];
 
-export function ViralLeaderboardSuite() {
+export interface ViralLeaderboardSuiteProps {
+  ctaHref?: string;
+  ctaLabel?: string;
+  hideProofBanner?: boolean;
+}
+
+export function ViralLeaderboardSuite({
+  ctaHref = "/courses",
+  ctaLabel = "Explore career programmes",
+  hideProofBanner = false,
+}: ViralLeaderboardSuiteProps = {}) {
   const [tab, setTab] = useState<Tab>("candidates");
   const [pillar, setPillar] = useState<Pillar>("All");
   const [query, setQuery] = useState("");
@@ -97,10 +178,10 @@ export function ViralLeaderboardSuite() {
 
       <div className="arena110-tabs" role="tablist" aria-label="Career arena">
         <button className={tab === "candidates" ? "is-active" : ""} onClick={() => setTab("candidates")}>
-          National Candidates <span>4</span>
+          National Candidates <span>{CANDIDATES.length}</span>
         </button>
         <button className={tab === "universities" ? "is-active" : ""} onClick={() => setTab("universities")}>
-          University Rankings <span>3</span>
+          University Rankings <span>{UNIVERSITIES.length}</span>
         </button>
         <button className={tab === "duel" ? "is-active arena110-tab-duel" : "arena110-tab-duel"} onClick={() => setTab("duel")}>
           <Swords size={14} /> 1v1 Challenge
@@ -129,22 +210,31 @@ export function ViralLeaderboardSuite() {
             {candidates.map((candidate) => (
               <article key={candidate.rank} className="arena110-candidate">
                 <div className="arena110-rank">{String(candidate.rank).padStart(2, "0")}</div>
-                <img src={candidate.image} alt="" />
+                <img src={candidate.image} alt={candidate.name} />
                 <div className="arena110-candidate-copy">
                   <div className="arena110-candidate-top">
                     <h3>{candidate.name}</h3>
                     <span>{candidate.score}%</span>
                   </div>
                   <p>{candidate.college}</p>
+                  {candidate.quote && (
+                    <p className="arena110-candidate-quote">
+                      "{candidate.quote}"
+                    </p>
+                  )}
                   <div className="arena110-meta">
                     <span>{candidate.track}</span>
                     <span className="arena110-meter"><i style={{ width: `${candidate.score}%` }} /></span>
                     <small>Readiness score</small>
                   </div>
                 </div>
-                <button className="arena110-arrow" aria-label={`Open ${candidate.name}`}>
+                <Link
+                  to="/reviews"
+                  className="arena110-arrow"
+                  aria-label={`Read verified testimonial by ${candidate.name}`}
+                >
                   <ArrowUpRight size={17} />
-                </button>
+                </Link>
               </article>
             ))}
           </div>
@@ -203,24 +293,37 @@ export function ViralLeaderboardSuite() {
         </section>
       )}
 
-      <section className="arena110-proof">
-        <div className="arena110-proof-image">
-          <img src="/images/bpharm-female-graduate-hero.jpg" alt="" />
-        </div>
-        <div className="arena110-proof-copy">
-          <span className="arena110-eyebrow">CAREER ENGINE</span>
-          <h2>Know what you need to solve before you buy training.</h2>
-          <p>Your result starts with a diagnostic. It shows what you already demonstrate, where your next gaps are, and which role you are preparing for.</p>
-          <div className="arena110-proof-steps">
-            <div><b>01</b><span>Take the diagnostic</span></div>
-            <div><b>02</b><span>See your readiness profile</span></div>
-            <div><b>03</b><span>Build the next capability</span></div>
+      {!hideProofBanner && (
+        <section className="arena110-proof">
+          <div className="arena110-proof-image">
+            <img src="/images/bpharm-female-graduate-hero.jpg" alt="Healthcare Career Graduate" />
           </div>
-          <Link to="/career-engine/start" className="arena110-primary">
-            Test your readiness <ArrowUpRight size={15} />
-          </Link>
-        </div>
-      </section>
+          <div className="arena110-proof-copy">
+            <span className="arena110-eyebrow">FROM DIAGNOSTIC TO EMPLOYMENT</span>
+            <h2>Turn your readiness score into verified proof of work.</h2>
+            <p>
+              Your diagnostic profile identifies your role match and baseline readiness score. The next step is mastering enterprise safety databases, clinical software, and regulatory guidelines that healthcare employers screen for.
+            </p>
+            <div className="arena110-proof-steps">
+              <div>
+                <b>01</b>
+                <span>Target your skill gaps</span>
+              </div>
+              <div>
+                <b>02</b>
+                <span>Build practical casework</span>
+              </div>
+              <div>
+                <b>03</b>
+                <span>Interview with verified proof</span>
+              </div>
+            </div>
+            <Link to={ctaHref} className="arena110-primary">
+              {ctaLabel} <ArrowUpRight size={15} />
+            </Link>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

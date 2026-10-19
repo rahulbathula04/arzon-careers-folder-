@@ -141,13 +141,37 @@ export const QUESTIONS: Question[] = [
     options: [],
   },
   {
-    id: "candidate_info",
+    id: "career_goal",
     kind: "profile",
-    prompt:
-      "Enter your contact details so we can save & personalize your verified Career Fit Dossier",
-    helper: "Your dossier & verified fit score will be generated for this profile.",
-    inputType: "candidate_info",
-    options: [],
+    prompt: "Which healthcare career domain or work style are you most drawn to pursuing?",
+    helper: "We use your target preference alongside your clinical skills to calibrate your true role fit.",
+    options: [
+      {
+        value: "medical_coding",
+        label: "Medical Coding & Health Records (clinical chart translation, ICD-10/CPT codes, high accuracy desk work)",
+        weights: { detail: 2, compliance: 2, screen: 2 },
+      },
+      {
+        value: "pharmacovigilance",
+        label: "Pharmacovigilance & Drug Safety (monitoring adverse drug reactions, case safety reports, patient safety)",
+        weights: { empathy: 2, patient: 2, writing: 2 },
+      },
+      {
+        value: "cdm",
+        label: "Clinical Data Management (EDC database management, trial data cleaning, discrepancy resolution)",
+        weights: { data: 2, logic: 2, screen: 1 },
+      },
+      {
+        value: "regulatory",
+        label: "Regulatory Affairs (dossier submissions, FDA/EMA compliance, health authority approvals)",
+        weights: { compliance: 2, writing: 2, language: 1 },
+      },
+      {
+        value: "sas_ai",
+        label: "Clinical SAS & Healthcare AI (programming trial statistics, AI automation, health tech)",
+        weights: { tech: 2, logic: 2, data: 1 },
+      },
+    ],
   },
   {
     id: "city",
@@ -173,8 +197,194 @@ export const QUESTIONS: Question[] = [
   },
 
   // ─────────────────────────────────────────────
-  // SCENARIO (50) - forced-choice, every option plausible
+  // CLINICAL WORK-SIMULATION & SCENARIO QUESTIONS
   // ─────────────────────────────────────────────
+  {
+    id: "clinical_sim_icsr_triage",
+    kind: "scenario",
+    prompt: "An expedited adverse reaction report arrives for an oncology therapy: Stevens-Johnson Syndrome (SJS). The onset date is unspecified in the hospital fax. What is your mandatory Day 0 regulatory action?",
+    scenario: "Suspect: Pembrolizumab 200mg. Event: Suspected SJS with epidermal detachment. Reporter: Dr. K. Sharma (Medical Oncologist). Concomitant meds: 4. Onset date: Unspecified.",
+    streams: ["Pharma", "BiPC", "LifeSciences", "Medical"],
+    options: [
+      {
+        value: "valid_day0",
+        label: "Treat as valid Day 0; initiate follow-up query immediately while starting regulatory 15-day expedited reporting clock",
+        weights: { compliance: 4, detail: 3, pressure: 2 },
+        correct: true,
+        reveals: "Under ICH E2D and GVP Module VI, lack of an exact onset date does not invalidate Day 0 when patient, reporter, drug, and serious event are identifiable.",
+      },
+      {
+        value: "reject_invalid",
+        label: "Reject report as invalid until the hospital provides the exact date of onset",
+        weights: { compliance: -3 },
+      },
+      {
+        value: "wait_physician",
+        label: "Hold case in intake queue without logging Day 0 until the treating oncologist responds",
+        weights: { compliance: -2, pressure: -1 },
+      },
+      {
+        value: "downgrade_nonserious",
+        label: "Log as non-serious until formal dermatological biopsy confirmation is received",
+        weights: { compliance: -4, detail: -2 },
+      },
+    ],
+  },
+  {
+    id: "clinical_sim_crf_reconciliation",
+    kind: "scenario",
+    prompt: "In a Phase III diabetes trial, a subject's fasting blood glucose is recorded as 14 mg/dL with no corresponding hypoglycemic event. What is your clinical data management action?",
+    scenario: "Subject 104-012, Visit 4. Fasting Blood Sugar: 14 mg/dL. Normal range: 70–110 mg/dL. Site marked 'Clinically Not Significant' with no Adverse Event logged.",
+    streams: ["Pharma", "BiPC", "LifeSciences", "Medical"],
+    options: [
+      {
+        value: "dcf_query",
+        label: "Issue an electronic query (DCF) to site CRC to verify transcription / unit error (mmol/L vs mg/dL) and check for unrecorded SAE",
+        weights: { data: 4, detail: 3, logic: 3 },
+        correct: true,
+        reveals: "Under GCP and 21 CFR Part 11, data managers never edit raw trial records; they formulate targeted discrepancies with site audit trails.",
+      },
+      {
+        value: "auto_correct",
+        label: "Directly edit the value to 140 mg/dL in the EDC assuming an obvious typographical error",
+        weights: { compliance: -4, logic: -2 },
+      },
+      {
+        value: "ignore_signoff",
+        label: "Accept the data as valid since the Principal Investigator already signed off on the visit CRF",
+        weights: { detail: -3, compliance: -2 },
+      },
+      {
+        value: "delete_visit",
+        label: "Delete the visit page and re-request central laboratory API sync",
+        weights: { data: -2, compliance: -3 },
+      },
+    ],
+  },
+  {
+    id: "clinical_sim_meddra_hierarchy",
+    kind: "scenario",
+    prompt: "A patient reports: 'Severe throbbing pain on left side of head with visual aura and vomiting'. How do you sequence coding in the safety database?",
+    scenario: "Verbatim text: Severe left-sided headache with aura and nausea/vomiting. Diagnosis confirmed by neurologist: Classical Migraine with aura.",
+    streams: ["Pharma", "BiPC", "LifeSciences", "Medical"],
+    options: [
+      {
+        value: "pt_migraine",
+        label: "Code primary Lowest Level Term (LLT) to 'Migraine with aura' under SOC 'Nervous system disorders'",
+        weights: { detail: 4, compliance: 3, logic: 2 },
+        correct: true,
+        reveals: "Under MedDRA Points to Consider (MTS:PTC), a confirmed medical diagnosis supersedes individual characteristic symptoms.",
+      },
+      {
+        value: "code_symptoms",
+        label: "Code 3 separate LLTs for pain, aura, and vomiting under three separate System Organ Classes",
+        weights: { detail: -1, logic: -1 },
+      },
+      {
+        value: "general_headache",
+        label: "Code generic LLT 'Headache' under General disorders and administration site conditions",
+        weights: { detail: -2, compliance: -2 },
+      },
+      {
+        value: "unclassified",
+        label: "Mark verbatim as 'Unclassifiable symptom complex'",
+        weights: { logic: -3 },
+      },
+    ],
+  },
+  {
+    id: "clinical_sim_regulatory_dossier",
+    kind: "scenario",
+    prompt: "A pharmaceutical sponsor changes the synthesis route of an active drug substance to reduce residual solvents. Which CTD Module requires updating?",
+    scenario: "Post-approval lifecycle change: Synthesis route altered from Route A (acetone) to Route B (ethanol). Final drug substance release specs remain unchanged.",
+    streams: ["Pharma", "BiPC", "LifeSciences", "Medical"],
+    options: [
+      {
+        value: "module_3_cmc",
+        label: "Module 3 (Quality / CMC) Drug Substance section 3.2.S.2 Manufacture and Process Controls",
+        weights: { compliance: 4, writing: 3, detail: 2 },
+        correct: true,
+        reveals: "Active substance synthetic route and control modifications strictly fall under Module 3 Quality (CMC) section 3.2.S.2.",
+      },
+      {
+        value: "module_4_nonclinical",
+        label: "Module 4 Non-clinical toxicology study reports",
+        weights: { compliance: -2, detail: -1 },
+      },
+      {
+        value: "module_5_clinical",
+        label: "Module 5 Clinical efficacy study reports",
+        weights: { logic: -2 },
+      },
+      {
+        value: "module_1_admin",
+        label: "Module 1 Application form only without updating scientific technical files",
+        weights: { compliance: -3 },
+      },
+    ],
+  },
+  {
+    id: "clinical_sim_coding_sequencing",
+    kind: "scenario",
+    prompt: "Inpatient chart: Patient admitted for acute gangrenous appendicitis. Patient also has well-controlled Type 2 Diabetes. Appendectomy performed. What is the principal diagnosis?",
+    scenario: "ICD-10-CM Official Coding Guidelines Section II: Selection of Principal Diagnosis.",
+    streams: ["Pharma", "BiPC", "LifeSciences", "Medical"],
+    options: [
+      {
+        value: "acute_appendicitis",
+        label: "Acute appendicitis with gangrene (K35.20) as principal diagnosis; Type 2 diabetes (E11.9) as secondary comorbidity",
+        weights: { detail: 4, logic: 3, compliance: 2 },
+        correct: true,
+        reveals: "The condition established after study to be chiefly responsible for occasioning the admission is sequenced as principal diagnosis.",
+      },
+      {
+        value: "diabetes_first",
+        label: "Type 2 diabetes (E11.9) as principal diagnosis because it is a chronic systemic endocrine disease",
+        weights: { logic: -2, detail: -2 },
+      },
+      {
+        value: "appendectomy_first",
+        label: "Assign surgical CPT procedure code directly in the principal diagnosis slot",
+        weights: { detail: -3, compliance: -2 },
+      },
+      {
+        value: "code_both_equal",
+        label: "Sequence whichever diagnosis generated the higher hospital room charge",
+        weights: { compliance: -4, logic: -3 },
+      },
+    ],
+  },
+  {
+    id: "clinical_sim_safety_signal",
+    kind: "scenario",
+    prompt: "A post-marketing safety data-mining algorithm flags a disproportionate reporting ratio (PRR > 2.5, Chi-square > 4.0) for Drug Z and Acute Pancreatitis. What is the immediate safety evaluation step?",
+    scenario: "Signal detection query run on 14,000 global safety cases in Argus Safety / FDA FAERS database.",
+    streams: ["Pharma", "BiPC", "LifeSciences", "Medical"],
+    options: [
+      {
+        value: "case_series_review",
+        label: "Retrieve a dedicated case series to evaluate temporal relationship, dechallenge/rechallenge evidence, and confounding risk factors",
+        weights: { data: 4, logic: 3, compliance: 3, detail: 2 },
+        correct: true,
+        reveals: "Statistical disproportionality is an alert, not clinical causation. Medical safety specialists must conduct in-depth case series reviews before regulatory escalation.",
+      },
+      {
+        value: "immediate_recall",
+        label: "Issue an immediate global drug recall before reviewing individual clinical narratives",
+        weights: { pressure: -2, compliance: -2 },
+      },
+      {
+        value: "dismiss_statistical",
+        label: "Dismiss the alert because statistical disproportionality does not establish biological causality",
+        weights: { detail: -3, compliance: -3 },
+      },
+      {
+        value: "delete_cases",
+        label: "Filter out all spontaneous patient reports to reduce the statistical ratio below threshold",
+        weights: { compliance: -5, logic: -4 },
+      },
+    ],
+  },
   {
     id: "saturday",
     kind: "scenario",

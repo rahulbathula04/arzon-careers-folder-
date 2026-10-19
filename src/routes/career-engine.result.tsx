@@ -9,7 +9,7 @@ import {
   type ArchetypeScore,
   type CareerEngineResult,
 } from "@/data/careerEngineScoring";
-import type { ArchetypeId } from "@/data/careerEngineQuestions";
+import type { ArchetypeId, Stream } from "@/data/careerEngineQuestions";
 import { buildAssessment, getOrCreateSeed } from "@/data/careerEngineSampler";
 import {
   finalizeLead,
@@ -42,6 +42,9 @@ import { ReferralProgress } from "@/components/career/result/ReferralSuite/Refer
 import { SocialShareModal } from "@/components/career/result/ReferralSuite/SocialShareModal";
 import { ResultConversion } from "@/components/career/result/ResultConversion";
 import { ViralLeaderboardSuite } from "@/components/career/leaderboard/ViralLeaderboardSuite";
+import { CompanyMatchMatrix } from "@/components/career/result/CompanyMatchMatrix";
+import { SalaryRoiForecaster } from "@/components/career/result/SalaryRoiForecaster";
+import { UnlockedInterviewVault } from "@/components/career/result/UnlockedInterviewVault";
 
 const search = z.object({ id: z.string().optional().catch(undefined) });
 
@@ -142,7 +145,8 @@ function buildLocalResult(): CareerEngineResult | null {
   if (!Object.keys(answers).length) return null;
 
   try {
-    const assessment = buildAssessment(getOrCreateSeed(getSessionId()));
+    const activeStream = (answers.stream as Stream) || null;
+    const assessment = buildAssessment(getOrCreateSeed(getSessionId()), activeStream);
     return computeResult(answers, {
       questions: assessment,
       meta: {
@@ -403,7 +407,7 @@ function ResultPage() {
               Synthesizing Your Career Identity
             </h1>
             <p className="mt-3 text-sm leading-relaxed text-[#3F4A60]">
-              Scoring your responses and preparing your career-fit report. Your fit estimates are guidance based on your answers, not proof of industry readiness.
+              Evaluating your diagnostic responses, calibrating role-fit benchmarks, and generating your executive career dossier.
             </p>
             <div className="mx-auto mt-6 h-2 max-w-xs overflow-hidden rounded-full bg-[#EEF6FF]">
               <div className="h-full w-2/3 motion-safe:animate-pulse rounded-full bg-[#1557D6]" />
@@ -495,10 +499,10 @@ function ResultPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans pt-5 pb-16 sm:pt-10 sm:pb-20"
-      style={{ paddingBottom: "max(4rem, env(safe-area-inset-bottom, 4rem))" }}
+      className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans pt-3.5 pb-10 sm:pt-8 sm:pb-16"
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 2.5rem)" }}
     >
-      <div className="mx-auto max-w-5xl px-3.5 sm:px-6 lg:px-8 space-y-6 sm:space-y-10">
+      <div className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 space-y-4 sm:space-y-8">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-mono text-[#69758A]">
           <Link to="/career-engine" className="hover:text-[#071A4A] transition-colors">
@@ -529,20 +533,32 @@ function ResultPage() {
         {/* 5. Capability Scorecard: Multi-Vector Trait Percentiles */}
         <CapabilityScorecard result={result} />
 
-        {/* 4. Target Role & Market Compensation Reality in India */}
+        {/* 6. Live Employer ATS & JD Match Matrix */}
+        <CompanyMatchMatrix result={result} />
+
+        {/* 7. Target Role & Market Compensation Reality in India */}
         <CareerMarketDossier result={result} />
 
-        {/* 5. 90-Day Proof-of-Work Execution Plan */}
+        {/* 8. 5-Year Salary Velocity & Financial ROI Forecaster */}
+        <SalaryRoiForecaster result={result} />
+
+        {/* 9. 90-Day Proof-of-Work Execution Plan */}
         <CareerRoadmap result={result} />
 
-        {/* 6. Downloadable career assessment record and clear scope of the result */}
+        {/* 10. Downloadable career assessment record */}
         <CredentialVerification
           result={result}
           candidateName={candidateName}
           leadId={leadId}
         />
 
-        {/* 7. Next Steps: Exploration & Admissions Gateway */}
+        {/* 11. Technical Interview Preparation & Casework Vault (Open & Included) */}
+        <UnlockedInterviewVault
+          result={result}
+          candidateName={candidateName}
+        />
+
+        {/* 12. Next Steps: Exploration & Admissions Gateway */}
         <ResultConversion result={result} />
 
         {/* 8. Challenge A Friend (Social Comparison Loop) */}

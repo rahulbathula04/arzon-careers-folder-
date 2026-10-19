@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ArrowRight, ArrowLeft, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, ShieldCheck, CheckCircle2, GraduationCap, Mail, Phone, User, Sparkles } from "lucide-react";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { CareerShell } from "@/components/career/CareerShell";
 import { Input } from "@/components/ui/input";
@@ -28,6 +28,7 @@ import {
 import { trackEvent } from "@/lib/analytics";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { TARGET_TOTAL } from "@/data/careerEngineSampler";
+import { CompanyBrandLogo } from "@/components/career/result/CompanyLogos";
 
 export const Route = createFileRoute("/career-engine/start")({
   head: () => ({
@@ -54,12 +55,14 @@ export const Route = createFileRoute("/career-engine/start")({
 });
 
 const schema = z.object({
-  name: z.string().trim().min(2, "Please enter your full name").max(80),
+  name: z.string().trim().min(2, "Please enter your full name (at least 2 characters)").max(80),
+  college: z.string().trim().min(3, "Please enter your college or university name").max(120),
   phone: z
     .string()
     .trim()
-    .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile"),
-  whatsappOptin: z.boolean(),
+    .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile number"),
+  email: z.string().trim().email("Please enter a valid email address"),
+  whatsappOptin: z.boolean().default(true),
   // Honeypot: must stay empty. Real users never see or fill this.
   website: z.string().max(0, "request rejected").optional().default(""),
 });
@@ -70,11 +73,12 @@ function StartPage() {
   const existing = getProfile();
   const [form, setForm] = useState({
     name: existing?.name ?? "",
+    college: existing?.college ?? "",
     phone: existing?.phone ?? "",
+    email: existing?.email && !existing.email.includes("@arzon.local") ? existing.email : "",
     whatsappOptin: existing?.whatsappOptin ?? true,
     website: "",
   });
-  const [step, setStep] = useState<1 | 2>(1);
   const [busy, setBusy] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [existingResult, setExistingResult] = useState<{
@@ -116,8 +120,9 @@ function StartPage() {
     try {
       saveProfile({
         name: validData.name,
+        college: validData.college,
         phone: validData.phone,
-        email: `whatsapp-${validData.phone}@arzon.local`,
+        email: validData.email,
         whatsappOptin: validData.whatsappOptin,
       });
 
@@ -148,7 +153,7 @@ function StartPage() {
           leadId = await createLeadEarly({
             sessionId,
             name: validData.name,
-            email: `whatsapp-${validData.phone}@arzon.local`,
+            email: validData.email,
             phone: validData.phone,
             whatsappOptin: validData.whatsappOptin,
           });
@@ -206,46 +211,10 @@ function StartPage() {
     }
   };
 
-  const validateStep = (s: 1 | 2): string | null => {
-    if (s === 1) {
-      const r = schema.pick({ name: true }).safeParse({ name: form.name });
-      return r.success ? null : (r.error.issues[0]?.message ?? "Please enter your name");
-    }
-    if (s === 2) {
-      const r = schema.pick({ phone: true }).safeParse({ phone: form.phone });
-      return r.success ? null : (r.error.issues[0]?.message ?? "Please check your phone number");
-    }
-    return null;
-  };
-
-  const goNext = () => {
-    const err = validateStep(step);
-    if (err) {
-      setErrorMsg(err);
-      toast.error(err);
-      return;
-    }
-    setErrorMsg(null);
-    setStep((s) => (s < 2 ? ((s + 1) as 1 | 2) : s));
-  };
-
-  const goBack = () => {
-    setErrorMsg(null);
-    setStep((s) => (s > 1 ? ((s - 1) as 1 | 2) : s));
-  };
-
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (inFlightRef.current) return;
-    if (step !== 2) {
-      goNext();
-      return;
-    }
-    const formWithDummyEmail = {
-      ...form,
-      email: `whatsapp-${form.phone}@arzon.local`,
-    };
-    const parsed = schema.safeParse(formWithDummyEmail);
+    const parsed = schema.safeParse(form);
     if (!parsed.success) {
       const msg = parsed.error.issues[0]?.message ?? "Please check your details";
       setErrorMsg(msg);
@@ -343,10 +312,24 @@ function StartPage() {
         ))}
       </div>
 
+      {/* Recruiter Benchmarked Employers Trust Banner */}
+      <div className="mt-4 rounded-2xl border border-slate-200/90 bg-white p-3.5 sm:p-4 text-center shadow-2xs">
+        <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+          Scored Against Live Entry-Level Requisitions At:
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 opacity-90">
+          <CompanyBrandLogo company="cognizant" className="h-4 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="iqvia" className="h-4 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="parexel" className="h-4 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="novartis" className="h-4 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="accenture" className="h-4 sm:h-4.5 w-auto" />
+        </div>
+      </div>
+
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="arzon-engine-form mt-5 sm:mt-7 space-y-4 sm:space-y-5 rounded-2xl sm:rounded-[1.25rem] border border-[var(--arzon-border)] bg-white tone-light card-light p-4 sm:p-8 shadow-sm"
+        className="arzon-engine-form mt-5 sm:mt-7 space-y-4 sm:space-y-6 rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-5 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]"
       >
         {/* Honeypot */}
         <div
@@ -364,30 +347,30 @@ function StartPage() {
           />
         </div>
 
-        {/* Progress bar */}
-        <div>
-          <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)]">
-            <span>Step {step} of 2</span>
-            <span>{step === 1 ? "Who are you?" : "How do we reach you?"}</span>
+        {/* Header Eyebrow */}
+        <div className="border-b border-slate-100 pb-4">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-50 px-3 py-1 font-mono text-[10px] font-bold text-blue-700 uppercase tracking-widest">
+              <Sparkles className="w-3 h-3 text-blue-600" />
+              <span>CANDIDATE ONBOARDING</span>
+            </span>
+            <span className="font-mono text-[11px] text-slate-500 font-medium">Step 1 of 2 · Profile Setup</span>
           </div>
-          <div
-            role="progressbar"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={step * 50}
-            className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-[var(--arzon-blue-100)]"
-          >
-            <div
-              className="relative h-full rounded-full bg-[var(--arzon-navy-950)] transition-all duration-300"
-              style={{ width: `${(step / 2) * 100}%` }}
-            />
-          </div>
+          <h2 className="mt-2.5 font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#081F38]">
+            Enter Your Academic &amp; Contact Details
+          </h2>
+          <p className="mt-1 text-xs sm:text-sm text-slate-600 font-sans">
+            Your verified career fit score, benchmark analysis, and official evaluation record will be tied to this candidate profile.
+          </p>
         </div>
 
-        {step === 1 ? (
+        {/* 4 Fields: 2x2 Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Full Name */}
           <div>
-            <Label htmlFor="name" className="text-xs font-bold text-[var(--arzon-ink-soft)]">
-              Full name
+            <Label htmlFor="name" className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5 text-blue-600" />
+              <span>Full Name *</span>
             </Label>
             <Input
               id="name"
@@ -396,55 +379,94 @@ function StartPage() {
               autoFocus
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-[var(--arzon-border-strong)] bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
-              placeholder="Your name"
+              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
+              placeholder="e.g. Rahul Bathula"
             />
-            <p className="mt-2 text-xs text-[var(--arzon-ink-muted)] font-sans">We'll use this on your career report.</p>
+            <p className="mt-1 text-[11px] text-slate-500 font-sans">Used on your verified result card &amp; record.</p>
           </div>
-        ) : null}
 
-        {step === 2 ? (
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="phone" className="text-xs font-bold text-[var(--arzon-ink-soft)]">
-                WhatsApp number
-              </Label>
-              <div className="mt-1.5 flex items-center shadow-xs">
-                <span className="inline-flex h-12 items-center rounded-l-xl border border-r-0 border-stone-300 bg-[var(--arzon-blue-100)] px-4 text-sm font-mono font-bold text-[var(--arzon-ink-soft)]">
-                  +91
-                </span>
-                <Input
-                  id="phone"
-                  inputMode="numeric"
-                  autoComplete="tel"
-                  required
-                  autoFocus
-                  maxLength={10}
-                  value={form.phone}
-                  onChange={(e) =>
-                    setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
-                  }
-                  className="h-12 rounded-l-none rounded-r-xl border border-stone-300 bg-[var(--arzon-surface-subtle)]/50 text-[var(--arzon-ink)] placeholder:text-[var(--arzon-ink-muted)] focus:bg-white focus-visible:border-[#1B3F8B] focus-visible:ring-1 focus-visible:ring-[#1B3F8B] transition-all"
-                  placeholder="98765 43210"
-                />
-              </div>
-            </div>
+          {/* College Name */}
+          <div>
+            <Label htmlFor="college" className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <GraduationCap className="w-3.5 h-3.5 text-blue-600" />
+              <span>College or University *</span>
+            </Label>
+            <Input
+              id="college"
+              autoComplete="organization"
+              required
+              value={form.college}
+              onChange={(e) => setForm({ ...form, college: e.target.value })}
+              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
+              placeholder="e.g. Osmania Medical College / JNTUH"
+            />
+            <p className="mt-1 text-[11px] text-slate-500 font-sans">Current institute or graduating college.</p>
+          </div>
 
-            <label className="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-sky-200 bg-sky-50/60 p-4 text-xs text-[var(--arzon-ink-soft)] font-sans shadow-2xs hover:bg-sky-50 transition-colors">
-              <input
-                type="checkbox"
-                className="mt-0.5 h-4 w-4 rounded border-stone-300 accent-[var(--arzon-blue-700)]"
-                checked={form.whatsappOptin}
-                onChange={(e) => setForm({ ...form, whatsappOptin: e.target.checked })}
+          {/* WhatsApp Mobile */}
+          <div>
+            <Label htmlFor="phone" className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <Phone className="w-3.5 h-3.5 text-blue-600" />
+              <span>WhatsApp Mobile Number *</span>
+            </Label>
+            <div className="mt-1.5 flex items-center shadow-2xs">
+              <span className="inline-flex h-12 items-center rounded-l-xl border border-r-0 border-slate-300 bg-slate-100 px-3.5 text-xs font-mono font-bold text-slate-700">
+                +91
+              </span>
+              <Input
+                id="phone"
+                inputMode="numeric"
+                autoComplete="tel"
+                required
+                maxLength={10}
+                value={form.phone}
+                onChange={(e) =>
+                  setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
+                }
+                className="h-12 rounded-l-none rounded-r-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans font-mono"
+                placeholder="98765 43210"
               />
-              <span>Yes, send my career report and counsellor follow-up on WhatsApp.</span>
-            </label>
-
-            <p className="flex items-center gap-1.5 text-xs text-[var(--arzon-ink-soft)] mt-3 font-sans">
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" /> Private · No spam · Never shared
-            </p>
+            </div>
+            <p className="mt-1 text-[11px] text-slate-500 font-sans">Where your instant report link is sent.</p>
           </div>
-        ) : null}
+
+          {/* Email Address */}
+          <div>
+            <Label htmlFor="email" className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <Mail className="w-3.5 h-3.5 text-blue-600" />
+              <span>Email Address *</span>
+            </Label>
+            <Input
+              id="email"
+              type="email"
+              autoComplete="email"
+              required
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
+              placeholder="e.g. rahul@gmail.com"
+            />
+            <p className="mt-1 text-[11px] text-slate-500 font-sans">For official assessment summary and PDF copy.</p>
+          </div>
+        </div>
+
+        {/* WhatsApp Opt-in Card */}
+        <label className="flex cursor-pointer items-start gap-3 rounded-2xl border border-blue-200/80 bg-blue-50/50 p-4 text-xs text-slate-700 font-sans shadow-2xs hover:bg-blue-50 transition-colors">
+          <input
+            type="checkbox"
+            className="mt-0.5 h-4 w-4 rounded border-slate-300 accent-blue-600 cursor-pointer"
+            checked={form.whatsappOptin}
+            onChange={(e) => setForm({ ...form, whatsappOptin: e.target.checked })}
+          />
+          <div>
+            <span className="font-semibold text-slate-900 block">
+              Send my verified career evaluation and counsellor briefing on WhatsApp
+            </span>
+            <span className="text-[11px] text-slate-600 mt-0.5 block">
+              Instant PDF report, percentile rating, and one-on-one advisory from Arzon career team.
+            </span>
+          </div>
+        </label>
 
         {errorMsg ? (
           <div
@@ -455,35 +477,25 @@ function StartPage() {
           </div>
         ) : null}
 
-        <div className="flex flex-col-reverse gap-2.5 sm:flex-row sm:items-center sm:justify-between pt-2">
-          {step > 1 ? (
-            <button
-              type="button"
-              onClick={goBack}
-              disabled={busy}
-              className="arzon-button-secondary inline-flex h-12 w-full sm:w-auto items-center justify-center gap-1.5 rounded-full border border-stone-300 bg-white tone-light px-5 text-sm font-bold shadow-2xs transition active:scale-[0.98] cursor-pointer"
-            >
-              <ArrowLeft className="h-4 w-4 text-[var(--arzon-ink-soft)]" /> Back
-            </button>
-          ) : (
-            <span className="hidden sm:block" />
-          )}
+        {/* Submit Button */}
+        <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="flex items-center gap-1.5 text-xs text-slate-500 font-sans">
+            <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+            <span>Private · No Spam · Verifiable ACRI Ledger</span>
+          </p>
 
           <button
             type="submit"
             disabled={busy}
             aria-disabled={busy}
-            className="arzon-button-primary inline-flex h-12 w-full sm:w-auto sm:min-w-[220px] items-center justify-center rounded-full px-6 text-sm font-bold shadow-md transition-all active:scale-[0.98] cursor-pointer"
+            className="inline-flex h-12 w-full sm:w-auto sm:min-w-[260px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-6 text-sm font-bold text-white shadow-[0_2px_12px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all active:scale-[0.98] cursor-pointer"
           >
             {busy ? (
-              <AiThinkingLoader label="Thinking…" size="sm" textClassName="text-white" />
-            ) : step < 2 ? (
-              <>
-                Next <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
-              </>
+              <AiThinkingLoader label="Initializing Diagnostic…" size="sm" textClassName="text-white" />
             ) : (
               <>
-                Start the assessment <ArrowRight className="ml-1.5 h-4 w-4 text-white" />
+                <span>Begin Career Assessment (10 Mins)</span>
+                <ArrowRight className="h-4 w-4 text-white" />
               </>
             )}
           </button>

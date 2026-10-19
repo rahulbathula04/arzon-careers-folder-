@@ -35,72 +35,72 @@ export function ChallengeFriend({
   )}`;
 
   return (
-    <section className="rounded-3xl border border-[#D0E1FD] bg-[#EEF6FF]/50 p-6 sm:p-8 shadow-sm">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#D0E1FD] pb-5">
-        <div className="flex items-center gap-2.5">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-[#1557D6] text-white">
-            <Users className="h-4 w-4" />
+    <section className="rounded-3xl border border-blue-200/80 bg-gradient-to-br from-blue-50/60 via-indigo-50/20 to-white p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-blue-200/60 pb-5">
+        <div className="flex items-center gap-3">
+          <div className="grid h-10 w-10 place-items-center rounded-2xl bg-[#081F38] text-white shadow-xs">
+            <Users className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[#1557D6] font-bold">
-              PEER COMPARISON CHALLENGE
+            <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-blue-600 font-bold block">
+              PEER COMPARISON CHALLENGE · 1-ON-1 BENCHMARK
             </span>
-            <h2 className="font-serif text-2xl font-bold text-[#071A4A]">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
               Think your friend has a different Career Identity?
             </h2>
           </div>
         </div>
 
-        <span className="text-xs font-mono font-semibold text-[#1557D6] bg-white tone-light px-3 py-1 rounded-full border border-[#D0E1FD]">
+        <span className="text-[11px] font-mono font-bold text-blue-700 bg-white px-3 py-1 rounded-full border border-blue-200/80 shadow-2xs">
           Side-by-Side Comparison
         </span>
       </div>
 
-      <p className="mt-3 text-sm text-[#3F4A60] leading-relaxed max-w-2xl">
+      <p className="mt-3 text-sm text-slate-500 leading-relaxed max-w-2xl font-sans">
         Every pharmacy and life-science student has different natural strengths. Challenge your batchmate or friend to take the assessment, compare your capability radar, and see where each of you belongs in the clinical industry.
       </p>
 
       {/* Side-by-Side Comparison Preview Cards */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         {/* Your Profile Card */}
-        <div className="rounded-2xl border border-[#D0E1FD] bg-white tone-light card-light p-5 shadow-2xs">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-[#1557D6] font-bold block">
+        <div className="rounded-2xl border border-blue-200/80 bg-white p-5 shadow-xs">
+          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-blue-600 font-bold block">
             YOUR RESULT
           </span>
           <div className="mt-2 flex items-center justify-between">
-            <h3 className="font-serif text-lg font-bold text-[#071A4A]">
+            <h3 className="font-serif text-lg font-bold text-[#081F38]">
               {roleName}
             </h3>
-            <span className="rounded-full bg-[#EEF6FF] px-2.5 py-0.5 text-xs font-bold text-[#1557D6]">
+            <span className="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-mono font-bold text-blue-700 border border-blue-200/60">
               {fitScore}% Fit
             </span>
           </div>
-          <p className="mt-2 text-xs text-[#69758A]">
+          <p className="mt-2 text-xs text-slate-500 font-sans leading-relaxed">
             {result.archetype?.tagline ?? "Your established clinical identity."}
           </p>
         </div>
 
         {/* Mystery Friend Challenge Card */}
-        <div className="rounded-2xl border border-dashed border-[#1557D6]/40 bg-[#FAFBFD] p-5 text-center flex flex-col items-center justify-center">
-          <span className="text-[10px] font-mono uppercase tracking-wider text-[#69758A] font-bold block">
+        <div className="rounded-2xl border border-dashed border-blue-300/80 bg-gradient-to-b from-white to-slate-50/50 p-5 text-center flex flex-col items-center justify-center shadow-2xs">
+          <span className="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-400 font-bold block">
             CHALLENGE A FRIEND
           </span>
-          <h3 className="mt-1 font-serif text-lg font-bold text-[#071A4A]">
+          <h3 className="mt-1 font-serif text-lg font-bold text-[#081F38]">
             What's Their Identity?
           </h3>
-          <p className="mt-1 text-xs text-[#69758A] max-w-xs">
+          <p className="mt-1 text-xs text-slate-500 max-w-xs font-sans leading-relaxed">
             Send your challenge link. Once they complete the diagnostic, your comparison unlocks.
           </p>
         </div>
       </div>
 
       {/* Action Row */}
-      <div className="mt-6 pt-5 border-t border-[#D0E1FD] flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+      <div className="mt-6 pt-5 border-t border-blue-200/60 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
         <a
           href={whatsAppChallengeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-3 text-xs sm:text-sm font-bold text-white shadow-sm hover:bg-[#1EBE5D] transition-all w-full sm:w-auto"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] px-5 py-3 text-xs sm:text-sm font-semibold text-white shadow-xs active:scale-[0.98] transition-all duration-150 cursor-pointer w-full sm:w-auto"
         >
           <MessageCircle className="h-4 w-4" />
           <span>Challenge on WhatsApp</span>
@@ -109,16 +109,16 @@ export function ChallengeFriend({
         <button
           type="button"
           onClick={onOpenSocialModal}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-white tone-light px-5 py-3 text-xs sm:text-sm font-bold text-[#071A4A] hover:bg-slate-50 transition-all w-full sm:w-auto"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-slate-200/80 bg-white hover:bg-slate-50 px-5 py-3 text-xs sm:text-sm font-semibold text-[#081F38] shadow-2xs active:scale-[0.98] transition-all duration-150 cursor-pointer w-full sm:w-auto"
         >
-          <Share2 className="h-4 w-4 text-[#1557D6]" />
+          <Share2 className="h-4 w-4 text-blue-600" />
           <span>More Share Channels</span>
         </button>
 
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-white tone-light px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-all w-full sm:w-auto sm:ml-auto"
+          className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-slate-200/80 bg-white hover:bg-slate-50 px-4 py-3 text-xs font-semibold text-slate-700 shadow-2xs active:scale-[0.98] transition-all duration-150 cursor-pointer w-full sm:w-auto sm:ml-auto"
         >
           {copied ? (
             <>

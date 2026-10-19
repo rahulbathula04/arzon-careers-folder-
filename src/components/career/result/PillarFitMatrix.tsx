@@ -1,4 +1,4 @@
-import { ShieldCheck, Target, Zap, AlertCircle, ArrowUpRight } from "lucide-react";
+import { ShieldCheck, Database, FileCode, Award, Cpu, Target, CheckCircle2, Sparkles, Layers } from "lucide-react";
 import type { CareerEngineResult, PillarResult } from "@/data/careerEngineScoring";
 
 interface Props {
@@ -76,34 +76,97 @@ export function PillarFitMatrix({ result }: Props) {
   const readiness = result.readinessScore ?? 45;
   const quadrantLabel = result.quadrantLabel ?? "Training Opportunity (High Natural Fit, Target Skill Building Needed)";
 
+  // Micro-icon mapping for each pillar
+  const getPillarIcon = (slug: string) => {
+    switch (slug) {
+      case "pharmacovigilance":
+        return <ShieldCheck className="h-4 w-4 text-blue-600" />;
+      case "clinical-data-management":
+        return <Database className="h-4 w-4 text-indigo-600" />;
+      case "medical-coding":
+        return <FileCode className="h-4 w-4 text-teal-600" />;
+      case "regulatory-affairs":
+        return <Award className="h-4 w-4 text-purple-600" />;
+      case "sas-clinical":
+      default:
+        return <Cpu className="h-4 w-4 text-sky-600" />;
+    }
+  };
+
+  // Clean, untruncated status badge mapping
+  const renderDiagnosticBadge = (quadrant: string, label?: string) => {
+    switch (quadrant) {
+      case "job_ready":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 text-[10px] font-mono font-bold shadow-2xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Job Ready
+          </span>
+        );
+      case "training_opportunity":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200/80 text-[10px] font-mono font-bold shadow-2xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+            Training Target
+          </span>
+        );
+      case "existing_skill_poor_alignment":
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-800 border border-indigo-200/80 text-[10px] font-mono font-bold shadow-2xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+            Skill Pivot
+          </span>
+        );
+      case "explore_alternatives":
+      default:
+        return (
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200/80 text-[10px] font-mono font-bold shadow-2xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+            Secondary Track
+          </span>
+        );
+    }
+  };
+
   return (
     <section className="space-y-6">
       {/* Header Banner */}
-      <div className="rounded-3xl border border-[#E4EAF2] bg-white tone-light card-light p-6 sm:p-8 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E4EAF2] pb-5">
+      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100/90 pb-5 sm:pb-6">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#1557D6] font-bold">
-                5-PILLAR HEALTHCARE MATRIX
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 shadow-2xs">
+                <Layers className="h-3.5 w-3.5 text-blue-600" />
+                <span>5-PILLAR HEALTHCARE MATRIX</span>
               </span>
-              <span className="rounded-full bg-[#EEF6FF] border border-[#D0E1FD] px-2.5 py-0.5 text-[10px] font-bold text-[#1557D6]">
-                Evidence Confidence: {confidence}
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 shadow-2xs">
+                <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />
+                <span>Evidence: {confidence}</span>
               </span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#071A4A] mt-1">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38] mt-2">
               Healthcare Career Family Breakdown
             </h2>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <span className="block text-[10px] font-mono uppercase text-[#69758A] font-bold">Overall Readiness</span>
-              <span className="font-serif text-2xl font-bold text-[#071A4A]">{readiness}%</span>
+
+          {/* Apple-grade Overall Readiness Tile */}
+          <div className="flex items-center gap-3.5 self-start sm:self-auto bg-gradient-to-br from-white to-slate-50 border border-slate-200/90 px-4.5 py-2.5 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,1)]">
+            <div className="h-10 w-10 rounded-full border-2 border-blue-600/20 bg-blue-50 flex items-center justify-center font-mono font-extrabold text-sm text-blue-700">
+              {readiness}%
+            </div>
+            <div>
+              <span className="block text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
+                Overall Readiness
+              </span>
+              <span className="text-xs font-bold text-[#081F38] font-sans">
+                Domain Exposure Index
+              </span>
             </div>
           </div>
         </div>
 
-        <p className="mt-4 text-sm text-[#3F4A60] leading-relaxed">
-          Rather than assigning a single static score, the engine measures your profile across the 5 core healthcare career pillars in India, separating your <strong className="text-[#071A4A]">Career Fit (Disposition)</strong> from your current <strong className="text-[#071A4A]">Role Readiness (Domain Exposure)</strong>.
+        <p className="mt-4 text-sm text-slate-600 leading-relaxed font-normal max-w-3xl">
+          Rather than assigning a single static score, the engine measures your profile across the 5 core healthcare career pillars in India, separating your <strong className="text-[#081F38] font-semibold">Career Fit (Disposition)</strong> from your current <strong className="text-[#081F38] font-semibold">Role Readiness (Domain Exposure)</strong>.
         </p>
 
         {/* 5-Pillar Score Cards Grid */}
@@ -113,48 +176,64 @@ export function PillarFitMatrix({ result }: Props) {
             return (
               <div
                 key={p.slug}
-                className={`relative flex flex-col justify-between rounded-2xl border p-5 transition-all ${
+                className={`relative flex flex-col justify-between rounded-2xl border p-5 transition-all duration-200 ${
                   isTop
-                    ? "border-[#1557D6] bg-[#EEF6FF]/40 ring-1 ring-[#1557D6]/20 shadow-xs"
-                    : "border-[#E4EAF2] bg-[#FAFBFD] hover:bg-white"
+                    ? "border-blue-400/90 bg-gradient-to-b from-blue-50/60 via-white to-slate-50/40 ring-1 ring-blue-500/20 shadow-[0_4px_16px_rgba(37,99,235,0.08)]"
+                    : "border-slate-200/80 bg-gradient-to-b from-white to-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-xs"
                 }`}
               >
-                {isTop && (
-                  <span className="absolute -top-3 left-4 rounded-full bg-[#071A4A] px-3 py-0.5 text-[10px] font-bold text-white uppercase tracking-wider shadow-2xs">
-                    Primary Match
-                  </span>
-                )}
                 <div>
-                  <div className="flex items-start justify-between gap-2 mt-1">
-                    <h3 className="font-serif text-lg font-bold text-[#071A4A]">{p.title}</h3>
-                    <span className="inline-flex shrink-0 items-center rounded-full bg-[#EEF6FF] px-2.5 py-1 text-xs font-bold text-[#1557D6]">
+                  {isTop ? (
+                    <div className="inline-flex items-center gap-1.5 rounded-full bg-[#081F38] text-white px-3 py-0.5 text-[10px] font-mono font-bold uppercase tracking-[0.14em] mb-2.5 shadow-2xs">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+                      <span>Primary Match</span>
+                    </div>
+                  ) : (
+                    <div className="h-5 mb-1" />
+                  )}
+
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <div className="grid h-7 w-7 place-items-center rounded-lg bg-slate-100/80 border border-slate-200/60 shrink-0">
+                        {getPillarIcon(p.slug)}
+                      </div>
+                      <h3 className="font-serif text-base sm:text-lg font-bold text-[#081F38] tracking-tight leading-snug">
+                        {p.title}
+                      </h3>
+                    </div>
+
+                    <span className="inline-flex shrink-0 items-center rounded-full border border-blue-200/80 bg-blue-50/90 px-2.5 py-1 text-xs font-bold font-mono text-blue-700 shadow-2xs">
                       {p.fitScore}% Fit
                     </span>
                   </div>
 
-                  {/* Readiness Progress Bar */}
-                  <div className="mt-4 space-y-1">
+                  {/* Readiness Progress Bar with Gradient and Value */}
+                  <div className="mt-4 space-y-1.5">
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-[#69758A] font-medium">Role Readiness</span>
-                      <span className="font-bold text-[#071A4A]">{p.readinessScore}%</span>
+                      <span className="text-slate-400 font-medium font-mono uppercase text-[10px] tracking-wider">
+                        Role Readiness
+                      </span>
+                      <span className="font-bold text-[#081F38] font-mono text-xs">
+                        {p.readinessScore}%
+                      </span>
                     </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#E4EAF2]">
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100 shadow-inner">
                       <div
-                        className="h-full rounded-full bg-[#1557D6] transition-all"
+                        className="h-full rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 shadow-xs transition-all duration-700"
                         style={{ width: `${p.readinessScore}%` }}
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-[#E4EAF2]/80 space-y-2">
+                <div className="mt-4 pt-3.5 border-t border-slate-100/90 space-y-2">
                   <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider">
-                    <span className="text-[#69758A]">Confidence</span>
-                    <span className="font-bold text-[#1557D6]">{p.confidence}</span>
+                    <span className="text-slate-400">Confidence</span>
+                    <span className="font-bold text-blue-700">{p.confidence}</span>
                   </div>
                   <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider">
-                    <span className="text-[#69758A]">Diagnostic State</span>
-                    <span className="font-bold text-[#071A4A] truncate max-w-[140px]">{p.quadrantLabel}</span>
+                    <span className="text-slate-400">Diagnostic State</span>
+                    {renderDiagnosticBadge(p.quadrant, p.quadrantLabel)}
                   </div>
                 </div>
               </div>
@@ -163,31 +242,51 @@ export function PillarFitMatrix({ result }: Props) {
         </div>
 
         {/* 2x2 Fit vs Readiness Matrix Visualizer */}
-        <div className="mt-8 rounded-2xl border border-[#D0E1FD] bg-[#EEF6FF]/60 p-5 sm:p-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Target className="h-4 w-4 text-[#1557D6]" />
-            <span className="text-xs font-bold uppercase tracking-wider text-[#071A4A]">
+        <div className="mt-8 rounded-2xl border border-blue-200/70 bg-gradient-to-br from-blue-50/50 via-indigo-50/20 to-slate-50/40 p-5 sm:p-6 shadow-2xs">
+          <div className="flex items-center gap-2 mb-3.5">
+            <Target className="h-4 w-4 text-blue-600" />
+            <span className="text-xs font-bold uppercase tracking-wider text-[#081F38] font-mono">
               Diagnostic Quadrant: {quadrantLabel}
             </span>
           </div>
-          
-          <div className="grid gap-3 sm:grid-cols-2 text-xs">
-            <div className={`rounded-xl border p-3.5 ${primaryPillar.quadrant === 'job_ready' ? 'border-emerald-500 bg-emerald-50' : 'border-[#E4EAF2] bg-white'}`}>
-              <div className="font-bold text-[#071A4A] flex items-center gap-1.5">
+
+          <div className="grid gap-3.5 sm:grid-cols-2 text-xs">
+            <div
+              className={`rounded-xl border p-4 transition-all ${
+                primaryPillar.quadrant === "job_ready"
+                  ? "border-emerald-300 bg-emerald-50/80 shadow-2xs ring-1 ring-emerald-500/20"
+                  : "border-slate-200 bg-white/90"
+              }`}
+            >
+              <div className="font-bold text-[#081F38] flex items-center gap-2">
                 <span>🎯 High Fit + High Readiness</span>
-                {primaryPillar.quadrant === 'job_ready' && <span className="text-[10px] font-mono bg-emerald-600 text-white px-2 py-0.5 rounded-full">ACTIVE</span>}
+                {primaryPillar.quadrant === "job_ready" && (
+                  <span className="text-[10px] font-mono bg-emerald-600 text-white px-2 py-0.5 rounded-full font-bold">
+                    ACTIVE
+                  </span>
+                )}
               </div>
-              <p className="mt-1 text-[#3F4A60] leading-relaxed">
+              <p className="mt-1.5 text-slate-600 leading-relaxed font-sans font-normal">
                 Ideal candidate for immediate clinical placement and fast-track recruitment.
               </p>
             </div>
 
-            <div className={`rounded-xl border p-3.5 ${primaryPillar.quadrant === 'training_opportunity' ? 'border-[#1557D6] bg-white ring-1 ring-[#1557D6]' : 'border-[#E4EAF2] bg-white'}`}>
-              <div className="font-bold text-[#071A4A] flex items-center gap-1.5">
+            <div
+              className={`rounded-xl border p-4 transition-all ${
+                primaryPillar.quadrant === "training_opportunity"
+                  ? "border-blue-400/90 bg-white ring-1 ring-blue-500/20 shadow-xs"
+                  : "border-slate-200 bg-white/90"
+              }`}
+            >
+              <div className="font-bold text-[#081F38] flex items-center gap-2">
                 <span>🚀 High Fit + Low Readiness</span>
-                {primaryPillar.quadrant === 'training_opportunity' && <span className="text-[10px] font-mono bg-[#1557D6] text-white px-2 py-0.5 rounded-full">YOUR PROFILE</span>}
+                {primaryPillar.quadrant === "training_opportunity" && (
+                  <span className="text-[10px] font-mono bg-blue-600 text-white px-2 py-0.5 rounded-full font-bold">
+                    YOUR PROFILE
+                  </span>
+                )}
               </div>
-              <p className="mt-1 text-[#3F4A60] leading-relaxed">
+              <p className="mt-1.5 text-slate-600 leading-relaxed font-sans font-normal">
                 Strong natural working style fit. Needs structured 90-day clinical tool mastery (Safety Databases / Medical Coding / EDC).
               </p>
             </div>

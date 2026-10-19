@@ -272,6 +272,19 @@ export function AdminAssessmentDossier({
               </a>
             )}
 
+            {targetId && (
+              <a
+                href={`${typeof window !== "undefined" ? window.location.origin : ""}/career-engine/result?id=${encodeURIComponent(targetId)}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-sky-400/30 bg-sky-500/10 hover:bg-sky-500/20 text-sky-200 font-mono text-xs font-bold transition shadow-xs cursor-pointer"
+                title="Open Candidate's Live Result Report"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Open Report</span>
+              </a>
+            )}
+
             <button
               type="button"
               onClick={handleToggleContacted}

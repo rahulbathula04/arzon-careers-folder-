@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Loader2, Download, Eye, MessageCircle, Mail, Phone, X, EyeOff } from "lucide-react";
+import { Loader2, Download, Eye, MessageCircle, Mail, Phone, X, EyeOff, ExternalLink, Copy, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
@@ -172,6 +172,8 @@ function AdminResults() {
     { key: "top_path_1", header: "top_path_1", accessor: (r) => topPaths(r)[0]?.slug ?? "" },
     { key: "top_path_2", header: "top_path_2", accessor: (r) => topPaths(r)[1]?.slug ?? "" },
     { key: "top_path_3", header: "top_path_3", accessor: (r) => topPaths(r)[2]?.slug ?? "" },
+    { key: "college", header: "college", accessor: (r) => (r.result_payload as any)?.profile?.college ?? "" },
+    { key: "result_url", header: "result_url", accessor: (r) => `https://arzoncareers.in/career-engine/result?id=${r.id}` },
     { key: "payment_status", header: "payment_status", accessor: (r) => r.payment?.status ?? "" },
     { key: "payment_tier", header: "payment_tier", accessor: (r) => r.payment?.tier ?? "" },
     { key: "paid_at", header: "paid_at", accessor: (r) => r.payment?.paid_at ?? "" },
@@ -348,6 +350,11 @@ function AdminResults() {
                 const paths = topPaths(r);
                 const top1 = paths[0];
                 const phoneClean = (r.phone ?? "").replace(/\D/g, "");
+                const collegeName =
+                  (r.result_payload as any)?.profile?.college ||
+                  (r.result_payload as any)?.profile?.college_name ||
+                  (r as any).college ||
+                  "";
                 return (
                   <tr key={r.id} className="border-t border-border/60 align-top hover:bg-muted/40">
                     <td className="px-4 py-3 text-muted-foreground whitespace-nowrap">
@@ -356,6 +363,15 @@ function AdminResults() {
                     <td className="px-4 py-3">
                       <div className="text-foreground font-medium">{r.name}</div>
                       <div className="text-muted-foreground text-micro">{r.email}</div>
+                      {collegeName && (
+                        <div
+                          className="mt-0.5 flex items-center gap-1 text-[11px] font-mono text-sky-400/90 truncate max-w-[220px]"
+                          title={collegeName}
+                        >
+                          <GraduationCap className="h-3 w-3 shrink-0" />
+                          <span>{collegeName}</span>
+                        </div>
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1.5">
@@ -415,13 +431,37 @@ function AdminResults() {
                         <span className="text-muted-foreground/70 text-micro">-</span>
                       )}
                     </td>
-                    <td className="px-4 py-3">
-                      <button
-                        onClick={() => openDetail(r.id)}
-                        className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2.5 py-1 text-micro text-foreground hover:bg-accent"
-                      >
-                        <Eye className="h-3.5 w-3.5" /> Detail
-                      </button>
+                    <td className="px-4 py-3 whitespace-nowrap">
+                      <div className="flex items-center gap-1.5">
+                        <a
+                          href={`/career-engine/result?id=${encodeURIComponent(r.id)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          title="Open direct candidate result page"
+                          className="inline-flex items-center gap-1 rounded-full border border-sky-400/30 bg-sky-500/10 hover:bg-sky-500/20 px-2.5 py-1 text-micro font-semibold text-sky-300 transition-colors"
+                        >
+                          <ExternalLink className="h-3 w-3" /> Result
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const url = `${window.location.origin}/career-engine/result?id=${encodeURIComponent(r.id)}`;
+                            navigator.clipboard.writeText(url);
+                            toast.success(`Result link copied for ${r.name}`);
+                          }}
+                          title="Copy result link to clipboard"
+                          className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2 py-1 text-micro text-foreground hover:bg-accent transition-colors"
+                        >
+                          <Copy className="h-3 w-3" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => openDetail(r.id)}
+                          className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2.5 py-1 text-micro text-foreground hover:bg-accent transition-colors"
+                        >
+                          <Eye className="h-3.5 w-3.5" /> Detail
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );

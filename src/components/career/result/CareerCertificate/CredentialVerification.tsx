@@ -200,14 +200,14 @@ export function CredentialVerification({ result, candidateName: initialName, lea
               <ExternalLink className="h-3 w-3 text-white opacity-80" />
             </button>
 
-            {/* 2. Share on LinkedIn Post - High contrast guaranteed */}
+            {/* 2. Share on LinkedIn Post - Protected with .arzon-btn-share-feed */}
             <button
               type="button"
               onClick={handleShareLinkedIn}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border-2 border-[#0A66C2] bg-white tone-light hover:bg-blue-50 px-5 py-3 text-sm font-bold text-[#0A66C2] shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              className="arzon-btn-share-feed inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold shadow-2xs transition active:scale-[0.98] cursor-pointer"
             >
-              <Share2 className="h-4 w-4 text-[#0A66C2]" />
-              <span className="text-[#0A66C2]">Share on Feed</span>
+              <Share2 className="h-4 w-4" />
+              <span>Share on Feed</span>
             </button>
 
             {/* 3. Share with Friends (WhatsApp) - High contrast guaranteed */}

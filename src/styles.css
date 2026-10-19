@@ -6683,6 +6683,31 @@ button[title*="Inspect" i] {
   color: #ffffff !important;
 }
 
+/* Share on LinkedIn Feed Button (Anti-Washed-Out Override) */
+.arzon-btn-share-feed {
+  background-color: #ffffff !important;
+  color: #0A66C2 !important;
+  border: 2px solid #0A66C2 !important;
+  -webkit-text-fill-color: #0A66C2 !important;
+}
+.arzon-btn-share-feed span,
+.arzon-btn-share-feed svg,
+.arzon-btn-share-feed * {
+  color: #0A66C2 !important;
+  -webkit-text-fill-color: #0A66C2 !important;
+}
+.arzon-btn-share-feed:hover {
+  background-color: #0A66C2 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.arzon-btn-share-feed:hover span,
+.arzon-btn-share-feed:hover svg,
+.arzon-btn-share-feed:hover * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   .Btn,

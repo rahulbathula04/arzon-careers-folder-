@@ -91,7 +91,7 @@ export function ArzonFooter() {
             </div>
 
             {/* Social links - Uiverse animated social suite */}
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-5 flex items-center gap-4">
               <ArzonLinkedInButton source="global_footer" />
               <ArzonInstagramButton source="global_footer" />
               <ArzonWhatsAppButton source="global_footer" />

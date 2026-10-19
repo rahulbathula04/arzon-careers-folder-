@@ -6525,6 +6525,11 @@ button[title*="Inspect" i] {
   flex-shrink: 0;
 }
 
+.Btn:hover,
+.LinkedinBtn:hover {
+  z-index: 20;
+}
+
 .LinkedinBtn:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
@@ -6590,7 +6595,7 @@ button[title*="Inspect" i] {
 .Btn:focus-visible .BG,
 .LinkedinBtn:hover .BG,
 .LinkedinBtn:focus-visible .BG {
-  transform: rotate(35deg);
+  transform: rotate(24deg);
   transform-origin: bottom;
 }
 

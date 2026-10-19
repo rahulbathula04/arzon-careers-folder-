@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { EXTERNAL_RATINGS, REVIEW_CATEGORIES, REVIEWS, type PublishedReview, type ReviewCategory } from "@/data/reviews";
 import { SITE, absUrl } from "@/components/landing/constants";
 import arzonIcon from "@/assets/arzon-icon.webp";
+import { RatingBadge } from "@/components/foundations/rating-badge";
 
 type SourceFilter = "All" | "Google" | "Justdial" | "AmbitionBox" | "LinkedIn" | "Instagram" | "Arzon";
 
@@ -301,6 +302,14 @@ function ReviewsPage() {
 
       <main className="rv3-container rv3-main">
         <section className="rv3-source-section" aria-labelledby="sources-heading">
+          <div className="flex justify-center mb-8">
+            <RatingBadge
+              rating={5}
+              title="India's Top Healthcare Career Engine"
+              subtitle="2,000+ verified learner reviews"
+            />
+          </div>
+
           <div className="rv3-section-heading">
             <div>
               <span className="rv3-kicker">PUBLIC SOURCES</span>

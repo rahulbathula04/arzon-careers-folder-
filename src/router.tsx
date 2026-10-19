@@ -10,11 +10,27 @@ function DefaultErrorComponent({ error, reset }: { error: unknown; reset: () => 
   // The reporter classifies + dedupes - generic component throws that
   // don't match any SSR pattern are dropped server-side.
   useEffect(() => {
+    const msg = error instanceof Error ? error.message : String(error);
     reportSsrError({
-      message: error instanceof Error ? error.message : String(error),
+      message: msg,
       stack: error instanceof Error ? error.stack : undefined,
       source: "errorComponent",
     });
+
+    // Auto-recover from stale dynamic module / chunk fetch failures caused by dev-server restarts or deployment hash updates
+    if (
+      typeof window !== "undefined" &&
+      (msg.includes("Failed to fetch dynamically imported module") ||
+        msg.includes("Importing a module script failed") ||
+        msg.includes("error loading dynamically imported module"))
+    ) {
+      const key = "az_chunk_reload_stamp";
+      const last = Number(sessionStorage.getItem(key) || 0);
+      if (Date.now() - last > 10000) {
+        sessionStorage.setItem(key, String(Date.now()));
+        window.location.reload();
+      }
+    }
   }, [error]);
 
   return (

@@ -152,3 +152,5 @@ export function ExitIntentQuiz() {
     </Dialog>
   );
 }
+
+export default ExitIntentQuiz;

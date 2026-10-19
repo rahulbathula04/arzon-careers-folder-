@@ -1,15 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { ArzonHomeV2 } from "@/components/home/ArzonHomeV2";
+import { ExitIntentQuiz } from "@/components/landing/ExitIntentQuiz";
 import { SITE, absUrl, LINKS } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
-
-const ExitIntentQuiz = lazy(() =>
-  import("@/components/landing/ExitIntentQuiz").then((m) => ({ default: m.ExitIntentQuiz })),
-);
 
 export const Route = createFileRoute("/")({
   head: () => {
@@ -144,9 +140,7 @@ function Index() {
       <ArzonHomeV2 />
 
       {/* Exit-intent re-engagement quiz */}
-      <Suspense fallback={null}>
-        <ExitIntentQuiz />
-      </Suspense>
+      <ExitIntentQuiz />
 
       <Toaster richColors position="top-center" theme="dark" />
     </main>

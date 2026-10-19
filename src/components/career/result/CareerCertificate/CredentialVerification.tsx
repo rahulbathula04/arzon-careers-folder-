@@ -200,13 +200,25 @@ export function CredentialVerification({ result, candidateName: initialName, lea
               <ExternalLink className="h-3 w-3 text-white opacity-80" />
             </button>
 
-            {/* 2. Share on LinkedIn Post - Protected with .arzon-btn-share-feed */}
+            {/* 2. Share on LinkedIn Post - Uiverse Fly Animation by adamgiebl */}
             <button
               type="button"
               onClick={handleShareLinkedIn}
-              className="arzon-btn-share-feed inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-bold shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              className="arzon-btn-fly inline-flex min-h-12 items-center justify-center cursor-pointer"
+              title="Share your verified credential on your LinkedIn feed"
             >
-              <Share2 className="h-4 w-4" />
+              <div className="svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-6.054-.685z" />
+                </svg>
+              </div>
               <span>Share on Feed</span>
             </button>
 

@@ -6685,29 +6685,90 @@ button[title*="Inspect" i] {
   color: #ffffff !important;
 }
 
-/* Share on LinkedIn Feed Button (Anti-Washed-Out Override) */
+/* Share on LinkedIn Feed Button (Fly Animation by adamgiebl) */
+.arzon-btn-fly,
 .arzon-btn-share-feed {
-  background-color: #ffffff !important;
-  color: #0A66C2 !important;
-  border: 2px solid #0A66C2 !important;
-  -webkit-text-fill-color: #0A66C2 !important;
-}
-.arzon-btn-share-feed span,
-.arzon-btn-share-feed svg,
-.arzon-btn-share-feed * {
-  color: #0A66C2 !important;
-  -webkit-text-fill-color: #0A66C2 !important;
-}
-.arzon-btn-share-feed:hover {
+  font-family: var(--font-sans, "Inter", sans-serif);
+  font-size: 14px;
+  font-weight: 700;
   background-color: #0A66C2 !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: #FFFFFF !important;
+  padding: 0 1.4em !important;
+  padding-left: 1.1em !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  min-height: 48px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 6px -1px rgba(10, 102, 194, 0.35) !important;
+  user-select: none;
 }
-.arzon-btn-share-feed:hover span,
-.arzon-btn-share-feed:hover svg,
-.arzon-btn-share-feed:hover * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+
+.arzon-btn-fly span,
+.arzon-btn-share-feed span {
+  display: block;
+  margin-left: 0.5em;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  transition: all 0.35s ease-in-out;
+  white-space: nowrap;
+}
+
+.arzon-btn-fly .svg-wrapper,
+.arzon-btn-share-feed .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arzon-btn-fly svg,
+.arzon-btn-share-feed svg {
+  display: block;
+  color: #FFFFFF !important;
+  fill: currentColor;
+  transform-origin: center center;
+  transition: transform 0.35s ease-in-out;
+}
+
+.arzon-btn-fly:hover,
+.arzon-btn-share-feed:hover {
+  background-color: #004182 !important;
+  box-shadow: 0 4px 12px -2px rgba(10, 102, 194, 0.45) !important;
+}
+
+.arzon-btn-fly:hover .svg-wrapper,
+.arzon-btn-share-feed:hover .svg-wrapper {
+  animation: arzon-fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.arzon-btn-fly:hover svg,
+.arzon-btn-share-feed:hover svg {
+  transform: translateX(1.4em) rotate(45deg) scale(1.15);
+}
+
+.arzon-btn-fly:hover span,
+.arzon-btn-share-feed:hover span {
+  transform: translateX(4em);
+  opacity: 0;
+}
+
+.arzon-btn-fly:active,
+.arzon-btn-share-feed:active {
+  transform: scale(0.96);
+}
+
+@keyframes arzon-fly-1 {
+  from {
+    transform: translateY(0.12em);
+  }
+  to {
+    transform: translateY(-0.12em);
+  }
 }
 
 /* Reduced motion accessibility */
@@ -7292,18 +7353,109 @@ button[title*="Inspect" i] {
   .arzon-dl-label,
   .arzon-dl-label *,
   .arzon-cube-loader,
-  .arzon-cube-loader * {
+  .arzon-cube-loader *,
+  .arzon-btn-fly,
+  .arzon-btn-fly *,
+  .arzon-btn-subscribe-expand,
+  .arzon-btn-subscribe-expand * {
     animation: none !important;
     transition: none !important;
+  }
+  .arzon-btn-fly:hover svg,
+  .arzon-btn-fly:hover span,
+  .arzon-btn-subscribe-expand:hover .icon,
+  .arzon-btn-subscribe-expand:hover .icon svg {
+    transform: none !important;
   }
 }
 html.reduce-motion .arzon-dl-label,
 html.reduce-motion .arzon-dl-label *,
 html.reduce-motion .arzon-cube-loader,
-html.reduce-motion .arzon-cube-loader * {
+html.reduce-motion .arzon-cube-loader *,
+html.reduce-motion .arzon-btn-fly,
+html.reduce-motion .arzon-btn-fly *,
+html.reduce-motion .arzon-btn-subscribe-expand,
+html.reduce-motion .arzon-btn-subscribe-expand * {
   animation: none !important;
   transition: none !important;
 }
+html.reduce-motion .arzon-btn-fly:hover svg,
+html.reduce-motion .arzon-btn-fly:hover span,
+html.reduce-motion .arzon-btn-subscribe-expand:hover .icon,
+html.reduce-motion .arzon-btn-subscribe-expand:hover .icon svg {
+  transform: none !important;
+}
+
+/* ==========================================================================
+   Arzon Global · Expanding Subscribe Button (Uiverse.io by JaydipPrajapati1910)
+   Brand Colors: #1557D6 / #2563EB (Arzon Blue)
+   ========================================================================== */
+.arzon-btn-subscribe-expand {
+  background: #1557D6 !important;
+  color: #FFFFFF !important;
+  font-family: var(--font-sans, "Inter", sans-serif);
+  padding: 0.35em 1.2em;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 9999px !important;
+  border: none !important;
+  letter-spacing: 0.02em;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  box-shadow: inset 0 0 1.6em -0.6em rgba(21, 87, 214, 0.6), 0 2px 6px rgba(21, 87, 214, 0.25);
+  overflow: hidden;
+  position: relative;
+  height: 42px;
+  width: 100%;
+  padding-right: 3.2em;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.arzon-btn-subscribe-expand span {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.arzon-btn-subscribe-expand .icon {
+  background: #FFFFFF;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  border-radius: 9999px;
+  box-shadow: 0.1em 0.1em 0.6em 0.1em rgba(21, 87, 214, 0.3);
+  right: 0.3em;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.arzon-btn-subscribe-expand:hover .icon {
+  width: calc(100% - 0.6em);
+  background: #FFFFFF;
+}
+
+.arzon-btn-subscribe-expand .icon svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+  color: #1557D6;
+}
+
+.arzon-btn-subscribe-expand:hover .icon svg {
+  transform: translateX(0.25em);
+  color: #1557D6;
+}
+
+.arzon-btn-subscribe-expand:active .icon {
+  transform: scale(0.97);
+}
+
 
 
 

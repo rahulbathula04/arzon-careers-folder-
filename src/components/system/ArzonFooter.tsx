@@ -149,8 +149,11 @@ export function ArzonFooter() {
                   />
                   <span>I agree to receive Arzon career intelligence updates.</span>
                 </label>
-                <button type="submit" className="ap-btn-primary w-full rounded-full py-2.5 text-xs">
-                  Subscribe <ArrowRight className="h-3.5 w-3.5" />
+                <button type="submit" className="arzon-btn-subscribe-expand w-full cursor-pointer" aria-label="Subscribe to updates">
+                  <span>Subscribe</span>
+                  <div className="icon" aria-hidden="true">
+                    <ArrowRight className="h-4 w-4" />
+                  </div>
                 </button>
               </form>
             )}

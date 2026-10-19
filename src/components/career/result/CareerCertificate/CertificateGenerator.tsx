@@ -1,6 +1,7 @@
 import { useState, type RefObject } from "react";
 import { Download, Edit3, FileText, Check, Award, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
+import { ArzonDownloadButton } from "@/components/ui/download-button";
 import type { CertificateData } from "./CertificatePreview";
 
 interface Props {
@@ -212,29 +213,28 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName, viewM
         </div>
       )}
 
-      {/* Primary Export Actions Bar */}
-      <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3 pt-2">
+      {/* Primary Export Actions Bar - Uiverse Animated Download Suite */}
+      <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 pt-2">
         {/* PDF Download Button */}
-        <button
-          type="button"
-          onClick={handleDownloadPdf}
+        <ArzonDownloadButton
+          label={viewMode === "certificate" ? "Download Certificate (PDF)" : "Download Result Card (PDF)"}
+          completedLabel={viewMode === "certificate" ? "Certificate Saved!" : "Result Card Saved!"}
+          onDownload={handleDownloadPdf}
           disabled={isExporting}
-          className="arzon-export-pdf-btn inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold tracking-wide shadow-md active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
-        >
-          <Download className="h-4 w-4" />
-          <span>{isExporting ? "Generating PDF..." : viewMode === "certificate" ? "Download Official Certificate (PDF)" : "Download Result Card (PDF)"}</span>
-        </button>
+          variant="primary"
+          theme="light"
+        />
 
         {/* PNG Download Button */}
-        <button
-          type="button"
-          onClick={handleDownloadPng}
+        <ArzonDownloadButton
+          label={viewMode === "certificate" ? "Save Certificate Image (PNG)" : "Save Result Card Image (PNG)"}
+          completedLabel="Image Saved!"
+          onDownload={handleDownloadPng}
           disabled={isExporting}
-          className="arzon-export-png-btn inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold shadow-md active:scale-[0.98] transition-all duration-200 disabled:opacity-50 w-full sm:w-auto cursor-pointer"
-        >
-          <ImageIcon className="h-4 w-4" />
-          <span>{isExporting ? "Rendering Image..." : viewMode === "certificate" ? "Save Certificate Image (PNG)" : "Save Result Card Image (PNG)"}</span>
-        </button>
+          variant="outline"
+          theme="light"
+          icon={<ImageIcon className="arzon-dl-icon" strokeWidth={2.2} />}
+        />
       </div>
 
       <p className="text-center font-mono text-[11px] text-slate-500">

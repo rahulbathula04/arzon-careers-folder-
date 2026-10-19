@@ -188,23 +188,26 @@ export function CredentialVerification({ result, candidateName: initialName, lea
         {/* Primary Action Suite (LinkedIn, WhatsApp, Resume, Link) */}
         <div className="mt-8 space-y-4">
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
-            {/* 1. Add to LinkedIn Profile */}
+            {/* 1. Add to LinkedIn Profile - Fly Animation */}
             <button
               type="button"
               onClick={handleAddToLinkedInProfile}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#0A66C2] hover:bg-[#004182] px-6 py-3 text-sm font-bold text-white shadow-md transition active:scale-[0.98] cursor-pointer"
+              className="arzon-btn-fly arzon-btn-fly--linkedin inline-flex min-h-12 items-center justify-center cursor-pointer"
               title="Adds verified credential directly to your LinkedIn Licenses & Certifications section"
             >
-              <Linkedin className="h-4 w-4 text-white" />
-              <span>Add to LinkedIn Profile</span>
-              <ExternalLink className="h-3 w-3 text-white opacity-80" />
+              <div className="svg-wrapper">
+                <Linkedin className="h-4 w-4" />
+              </div>
+              <span className="inline-flex items-center gap-1.5">
+                Add to LinkedIn Profile <ExternalLink className="h-3 w-3 opacity-80" />
+              </span>
             </button>
 
             {/* 2. Share on LinkedIn Post - Uiverse Fly Animation by adamgiebl */}
             <button
               type="button"
               onClick={handleShareLinkedIn}
-              className="arzon-btn-fly inline-flex min-h-12 items-center justify-center cursor-pointer"
+              className="arzon-btn-fly arzon-btn-fly--linkedin inline-flex min-h-12 items-center justify-center cursor-pointer"
               title="Share your verified credential on your LinkedIn feed"
             >
               <div className="svg-wrapper">
@@ -222,36 +225,45 @@ export function CredentialVerification({ result, candidateName: initialName, lea
               <span>Share on Feed</span>
             </button>
 
-            {/* 3. Share with Friends (WhatsApp) - High contrast guaranteed */}
+            {/* 3. Share with Friends (WhatsApp) - Fly Animation */}
             <button
               type="button"
               onClick={handleShareWhatsApp}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#00d757] hover:bg-[#00bd4d] px-5 py-3 text-sm font-bold text-white shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              className="arzon-btn-fly arzon-btn-fly--whatsapp inline-flex min-h-12 items-center justify-center cursor-pointer"
+              title="Share with study groups and peers on WhatsApp"
             >
-              <MessageCircle className="h-4 w-4 text-white" />
+              <div className="svg-wrapper">
+                <MessageCircle className="h-4 w-4" />
+              </div>
               <span>Share on WhatsApp</span>
             </button>
 
-            {/* 4. Add to Resume */}
+            {/* 4. Add to Resume - Fly Animation */}
             <button
               type="button"
               onClick={() => setResumeDrawerOpen((prev) => !prev)}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white tone-light hover:bg-slate-50 px-5 py-3 text-sm font-bold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              className="arzon-btn-fly arzon-btn-fly--ats inline-flex min-h-12 items-center justify-center cursor-pointer"
             >
-              <FileText className="h-4 w-4 text-blue-600" />
-              <span className="text-slate-800">ATS Resume Bullet</span>
-              {resumeDrawerOpen ? <ChevronUp className="h-4 w-4 text-slate-500" /> : <ChevronDown className="h-4 w-4 text-slate-500" />}
+              <div className="svg-wrapper">
+                <FileText className="h-4 w-4" />
+              </div>
+              <span className="inline-flex items-center gap-1.5">
+                ATS Resume Bullet
+                {resumeDrawerOpen ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+              </span>
             </button>
 
-            {/* 5. Copy Link */}
+            {/* 5. Copy Link - Fly Animation */}
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-300 bg-white tone-light hover:bg-slate-50 px-4 py-3 text-sm font-bold text-slate-800 shadow-2xs transition active:scale-[0.98] cursor-pointer"
+              className="arzon-btn-fly arzon-btn-fly--copy inline-flex min-h-12 items-center justify-center cursor-pointer"
               title="Copy direct verification link"
             >
-              {copiedLink ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4 text-slate-600" />}
-              <span className="text-slate-800">{copiedLink ? "Link Copied" : "Copy Link"}</span>
+              <div className="svg-wrapper">
+                {copiedLink ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+              </div>
+              <span>{copiedLink ? "Link Copied!" : "Copy Link"}</span>
             </button>
           </div>
 

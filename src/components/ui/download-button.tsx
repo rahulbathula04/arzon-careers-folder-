@@ -1,4 +1,4 @@
-import { useState, useId, type HTMLAttributes } from "react";
+import { useState, useId, type HTMLAttributes, type ReactNode } from "react";
 import { Download } from "lucide-react";
 import { cx } from "@/utils/cx";
 
@@ -15,6 +15,12 @@ export interface ArzonDownloadButtonProps extends Omit<HTMLAttributes<HTMLDivEle
   download?: string;
   /** Visual surface theme: "light" (dark text) or "dark" (white text) */
   theme?: "light" | "dark";
+  /** Button style variant: "primary" (Arzon Blue) or "outline" (Crisp Navy / Light) */
+  variant?: "primary" | "outline";
+  /** Custom icon for the circular badge (defaults to Download icon) */
+  icon?: ReactNode;
+  /** Custom pixel width override for wide text */
+  width?: number;
   /** Disabled state */
   disabled?: boolean;
 }
@@ -26,13 +32,21 @@ export function ArzonDownloadButton({
   href,
   download,
   theme = "light",
+  variant = "primary",
+  icon,
+  width,
   disabled = false,
   className,
+  style,
   ...props
 }: ArzonDownloadButtonProps) {
   const id = useId();
   const [isChecked, setIsChecked] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Compute calculated width from text length if not explicitly provided
+  const longestLabelLength = Math.max(label.length, completedLabel.length);
+  const calculatedWidth = width || Math.max(172, Math.min(360, longestLabelLength * 8.5 + 68));
 
   const handleTrigger = async () => {
     if (disabled || isChecked || isProcessing) return;
@@ -84,7 +98,12 @@ export function ArzonDownloadButton({
         htmlFor={`arzon-dl-input-${id}`}
         className="arzon-dl-label"
         data-theme={theme}
+        data-variant={variant}
         data-active={isChecked}
+        style={{
+          ...style,
+          ...(calculatedWidth ? ({ "--dl-width": `${calculatedWidth}px` } as React.CSSProperties) : {}),
+        }}
         onClick={(e) => {
           e.preventDefault();
           handleTrigger();
@@ -100,7 +119,7 @@ export function ArzonDownloadButton({
         />
 
         <div className="arzon-dl-circle" aria-hidden="true">
-          <Download className="arzon-dl-icon" strokeWidth={2.5} />
+          {icon || <Download className="arzon-dl-icon" strokeWidth={2.5} />}
           <span className="arzon-dl-square" />
         </div>
 

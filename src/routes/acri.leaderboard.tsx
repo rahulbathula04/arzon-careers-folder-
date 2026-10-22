@@ -171,6 +171,11 @@ function AcriLeaderboardPage() {
 
         {/* Leaderboard Table Card */}
         <div className="bg-white tone-light card-light rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
+          {!entries.length && (
+            <div className="px-6 py-8 text-center text-sm text-stone-600 border-b border-stone-200">
+              Verified public rankings will appear here once real assessment results are available.
+            </div>
+          )}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>

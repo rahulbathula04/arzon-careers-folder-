@@ -15,7 +15,7 @@ export function HomeAssessmentComparison() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section id="assessments" className="py-12 sm:py-16 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light">
+    <section id="assessments" className="py-10 sm:py-16 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light">
       <div className="ap-shell">
         {/* Compact Pathway Header */}
         <motion.div
@@ -23,7 +23,7 @@ export function HomeAssessmentComparison() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-10"
+          className="text-center max-w-2xl mx-auto mb-8 sm:mb-10"
         >
           <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
             <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
@@ -149,7 +149,7 @@ export function HomeAssessmentComparison() {
             </div>
 
             {/* Action Strip */}
-            <div className="pt-3.5 mt-3.5 sm:pt-4 sm:mt-4 border-t border-[#F1F5F9] flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="pt-3.5 mt-3.5 sm:pt-4 sm:mt-4 border-t border-[#F1F5F9] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <span className="text-[10.5px] sm:text-[11px] font-mono text-[#64748B] flex items-center gap-1.5">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
                 100% Free · Instant Dossier
@@ -261,7 +261,7 @@ export function HomeAssessmentComparison() {
             </div>
 
             {/* Action Strip */}
-            <div className="pt-3.5 mt-3.5 sm:pt-4 sm:mt-4 border-t border-[#F1F5F9] flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="pt-3.5 mt-3.5 sm:pt-4 sm:mt-4 border-t border-[#F1F5F9] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
               <span className="text-[10.5px] sm:text-[11px] font-mono text-[#64748B] flex items-center gap-1.5">
                 <ShieldCheck className="h-3.5 w-3.5 text-[#10B981] shrink-0" />
                 Practical Industry Curriculum

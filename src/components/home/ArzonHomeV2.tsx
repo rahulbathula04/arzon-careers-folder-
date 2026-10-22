@@ -59,12 +59,12 @@ export function ArzonHomeV2() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[20px] min-[360px]:text-[22px] min-[390px]:text-[25px] min-[420px]:text-[28px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold tracking-[-0.035em] text-[#081F38] leading-[1.18] sm:leading-[1.05] max-w-5xl mx-auto mb-4 sm:mb-6 px-0 sm:px-1"
+              className="text-[22px] min-[360px]:text-[24px] min-[390px]:text-[27px] min-[420px]:text-[30px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold tracking-[-0.03em] text-[#081F38] leading-[1.15] sm:leading-[1.05] max-w-5xl mx-auto mb-4 sm:mb-6 px-2 sm:px-1"
             >
-              <span className="block whitespace-nowrap">
+              <span className="block">
                 Turn your healthcare degree
               </span>
-              <span className="block mt-1 sm:mt-2 whitespace-nowrap">
+              <span className="block mt-1 sm:mt-2">
                 into an{" "}
                 <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
                   industry-ready career.
@@ -113,7 +113,7 @@ export function ArzonHomeV2() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-3.5 mb-6 sm:mb-8 w-full max-w-xs xs:max-w-sm sm:max-w-none mx-auto px-1 sm:px-0"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-3.5 mb-6 sm:mb-8 w-full sm:max-w-none mx-auto px-2 sm:px-0"
             >
               <motion.div
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}

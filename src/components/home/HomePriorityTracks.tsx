@@ -92,14 +92,14 @@ export function HomePriorityTracks() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10"
         >
           <div>
             <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
               <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span>CHOOSE YOUR DIRECTION</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
               Explore Career Tracks in{" "}
               <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
                 Healthcare
@@ -112,7 +112,7 @@ export function HomePriorityTracks() {
 
           <Link
             to="/courses"
-            className="inline-flex items-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto"
+            className="w-full sm:w-auto h-11 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto active:scale-[0.98]"
           >
             <span>View all programmes</span>
             <ArrowRight className="h-4 w-4" />
@@ -173,7 +173,7 @@ export function HomePriorityTracks() {
                       transition: { duration: 0.15 },
                     }
               }
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[82vw] xs:w-[80vw] max-w-[310px] shrink-0 snap-start sm:w-auto"
+              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[78vw] xs:w-[80vw] max-w-[300px] shrink-0 snap-start sm:w-auto"
             >
               <div>
                 {/* Image Thumbnail with Duration Badge */}

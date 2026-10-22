@@ -85,11 +85,11 @@ export function HomeJourneyRoadmap() {
   };
 
   return (
-    <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
+    <section className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
       <div className="ap-shell">
         {/* Header */}
         <motion.div
-          className="text-center max-w-2xl mx-auto mb-14"
+          className="text-center max-w-2xl mx-auto mb-8 sm:mb-14"
           variants={prefersReduced ? undefined : headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -99,7 +99,7 @@ export function HomeJourneyRoadmap() {
             <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
             <span>YOUR JOURNEY WITH ARZON</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
             From Guidance to{" "}
             <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
               Placement Readiness
@@ -109,7 +109,7 @@ export function HomeJourneyRoadmap() {
 
         {/* Mobile View: Apple iOS Progress Timeline */}
         <motion.div
-          className="md:hidden relative pl-4 space-y-4 before:absolute before:left-[27px] before:top-4 before:bottom-4 before:w-[2px] before:bg-gradient-to-b before:from-[#1557D6] before:via-[#1557D6]/40 before:to-slate-200"
+          className="md:hidden relative pl-3 space-y-3.5 sm:space-y-4 before:absolute before:left-[27px] before:top-4 before:bottom-4 before:w-[2px] before:bg-gradient-to-b before:from-[#1557D6] before:via-[#1557D6]/40 before:to-slate-200"
           variants={prefersReduced ? undefined : containerVariants}
           initial="hidden"
           whileInView="visible"

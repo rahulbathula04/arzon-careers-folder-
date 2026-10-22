@@ -283,7 +283,7 @@ export function HomeEmployerTrustStrip() {
   };
 
   return (
-    <section className="py-14 sm:py-20 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light" id="employer-insights">
+    <section className="py-10 sm:py-20 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light" id="employer-insights">
       <div className="ap-shell">
         {/* Header Bar */}
         <motion.div
@@ -298,7 +298,7 @@ export function HomeEmployerTrustStrip() {
               <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span>INDUSTRY BENCHMARKS · 2,000+ REAL JDs ANALYSED</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
               What Healthcare Employers Actually{" "}
               <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
                 Look For
@@ -309,7 +309,7 @@ export function HomeEmployerTrustStrip() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 self-start md:self-auto">
+          <div className="flex flex-wrap items-center gap-2 shrink-0 self-start md:self-auto w-full sm:w-auto">
             {/* Horizontal Scroll Navigation Controls */}
             <div className="flex items-center gap-1.5">
               <button
@@ -334,7 +334,7 @@ export function HomeEmployerTrustStrip() {
 
             <Link
               to={"/research" as any}
-              className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 active:scale-95"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-95"
             >
               <span>Explore full research report</span>
               <ArrowRight className="h-4 w-4" />
@@ -408,7 +408,7 @@ export function HomeEmployerTrustStrip() {
                 }
                 whileHover={prefersReduced ? undefined : { y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
                 whileTap={prefersReduced ? undefined : { scale: 0.99 }}
-                className="w-[275px] xs:w-[295px] sm:w-[325px] shrink-0 snap-start flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-4 sm:p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-xl transition-all duration-200 tone-light card-light cursor-pointer group text-left"
+                className="w-[270px] xs:w-[290px] sm:w-[320px] shrink-0 snap-start flex flex-col justify-between rounded-2xl border border-[#E2E8F0] bg-white p-4 sm:p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-xl transition-all duration-200 tone-light card-light cursor-pointer group text-left"
               >
                 <div>
                   {/* Apple-Style UI Concept Thumbnail */}

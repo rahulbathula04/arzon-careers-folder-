@@ -67,13 +67,13 @@ export function HomeInstitutionalTrust() {
   return (
     <section
       id="institutional-trust"
-      className="py-16 sm:py-24 bg-white border-b border-[#E4EAF2] tone-light card-light"
+      className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light"
       aria-labelledby="institutional-trust-heading"
     >
       <div className="ap-shell">
         {/* Header Eyebrow & Title */}
         <motion.div
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12"
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12"
           variants={prefersReduced ? undefined : headerVariants}
           initial="hidden"
           whileInView="visible"
@@ -87,7 +87,7 @@ export function HomeInstitutionalTrust() {
             </div>
             <h2
               id="institutional-trust-heading"
-              className="text-2xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight"
+              className="text-xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight"
             >
               Inaugurated with Government{" "}
               <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
@@ -125,7 +125,7 @@ export function HomeInstitutionalTrust() {
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="relative aspect-video w-full overflow-hidden rounded-[24px] border border-[#E4EAF2] bg-[#0A101D] shadow-[0_20px_50px_rgba(7,26,74,0.12)] group">
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl sm:rounded-[24px] border border-[#E4EAF2] bg-[#0A101D] shadow-[0_20px_50px_rgba(7,26,74,0.12)] group">
               {!isPlaying ? (
                 <button
                   type="button"
@@ -302,14 +302,14 @@ export function HomeInstitutionalTrust() {
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/why-arzon"
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] hover:bg-[#153270] text-white px-5 py-3 text-xs font-bold transition-all shadow-sm active:scale-95"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] hover:bg-[#153270] text-white px-5 py-3.5 sm:py-3 text-xs font-bold transition-all shadow-sm active:scale-95"
               >
                 <span>View All Verifications</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 to="/legal"
-                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-5 py-3 text-xs font-bold transition-all tone-light card-light shadow-2xs active:scale-95"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-5 py-3.5 sm:py-3 text-xs font-bold transition-all tone-light card-light shadow-2xs active:scale-95"
               >
                 <ShieldCheck className="h-3.5 w-3.5 text-[#1557D6]" />
                 <span>Statutory Hub</span>

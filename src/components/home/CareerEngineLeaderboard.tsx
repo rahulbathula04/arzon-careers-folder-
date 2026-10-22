@@ -100,7 +100,7 @@ export function CareerEngineLeaderboard() {
   ];
 
   return (
-    <section className="py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light" id="leaderboard">
+    <section className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light" id="leaderboard">
       <div className="ap-shell">
         {/* Header Bar */}
         <motion.div
@@ -115,7 +115,7 @@ export function CareerEngineLeaderboard() {
               <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
               <span>CANDIDATE HEALTHCARE ROLE READINESS ARENA · 2026</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
               Top verified candidates.<br />
               <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
                 One place to see where you stand.
@@ -128,7 +128,7 @@ export function CareerEngineLeaderboard() {
 
           <Link
             to="/career-engine/start"
-            className="inline-flex items-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto active:scale-95"
+            className="w-full sm:w-auto h-11 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto active:scale-95"
           >
             <span>Take diagnostic</span>
             <ArrowRight className="h-4 w-4" />

@@ -34,6 +34,8 @@ const ALLOWLIST = new Set([
   "/acri/invite",
   // Public leaderboard is intentionally noindex until verified public results exist.
   "/acri/leaderboard",
+  // Dynamic city-role route may emit noindex when local employer evidence is absent.
+  "/industry/$role/$city",
   "/acri/assessment/$sessionId",
   "/acri/result/$resultId",
   "/admin/leads",

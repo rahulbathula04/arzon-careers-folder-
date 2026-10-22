@@ -129,10 +129,12 @@ export function CareerRoleGrid() {
     setSortBy("ctc-high");
   };
 
+  // Salary values in careerRoles.ts are already expressed in LPA (lakhs per annum).
+  // Do not divide by 100,000: that converted valid bands such as 3.5–5 LPA into 0.0L.
   const formatSalary = (role: CareerRole) => {
-    if (!role.salary?.entry) return "₹3.5L – ₹5.0L";
-    const minL = (role.salary.entry.min / 100000).toFixed(1);
-    const maxL = (role.salary.entry.max / 100000).toFixed(1);
+    if (!role.salary?.entry) return "Salary data being sourced";
+    const minL = role.salary.entry.min.toFixed(1);
+    const maxL = role.salary.entry.max.toFixed(1);
     return `₹${minL}L – ₹${maxL}L`;
   };
 

@@ -24,8 +24,9 @@ export const Route = createFileRoute("/acri/leaderboard")({
     });
     return {
       meta: [
-        { title: "ACRI Weekly Leaders · Pharmacovigilance Certification" },
         ...ps.meta,
+        { title: "ACRI Weekly Leaders · Pharmacovigilance Certification" },
+        { name: "robots", content: "noindex,follow" },
       ],
       links: ps.links,
     };
@@ -43,23 +44,10 @@ interface LeaderboardEntry {
   college?: string;
 }
 
-const FALLBACK_LEADERBOARD: LeaderboardEntry[] = [
-  { rank: 1, name: "Ananya R.", score: 96, status: "Industry Ready", avatarColor: "bg-emerald-600", avatarImg: "/images/avatar-ananya.jpg", college: "Manipal College of Pharm Sciences" },
-  { rank: 2, name: "Rahul K.", score: 92, status: "Industry Ready", avatarColor: "bg-teal-600", avatarImg: "/images/avatar-rahul.jpg", college: "JSS College of Pharmacy" },
-  { rank: 3, name: "Priya S.", score: 91, status: "Industry Ready", avatarColor: "bg-indigo-600", avatarImg: "/images/avatar-priya.jpg", college: "NIPER Hyderabad" },
-  { rank: 4, name: "Arjun M.", score: 89, status: "Industry Ready", avatarColor: "bg-blue-600", college: "Bombay College of Pharmacy" },
-  { rank: 5, name: "Sneha P.", score: 87, status: "Industry Ready", avatarColor: "bg-purple-600", avatarImg: "/images/avatar-sneha.jpg", college: "Poona College of Pharmacy" },
-  { rank: 6, name: "Karan V.", score: 84, status: "Near Ready", avatarColor: "bg-amber-600", college: "Delhi Institute of Pharm Sciences" },
-  { rank: 7, name: "Meera T.", score: 83, status: "Near Ready", avatarColor: "bg-rose-600", college: "MS Ramaiah University" },
-  { rank: 8, name: "Vishal S.", score: 81, status: "Near Ready", avatarColor: "bg-cyan-600", college: "KLE College of Pharmacy" },
-  { rank: 9, name: "Pooja N.", score: 79, status: "Near Ready", avatarColor: "bg-emerald-700", college: "SRM College of Pharmacy" },
-  { rank: 10, name: "Aditya G.", score: 78, status: "Near Ready", avatarColor: "bg-slate-700", college: "Amrita School of Pharmacy" },
-];
-
 function AcriLeaderboardPage() {
   const [filterPeriod, setFilterPeriod] = useState<"week" | "month" | "all">("week");
-  const [entries, setEntries] = useState<LeaderboardEntry[]>(FALLBACK_LEADERBOARD);
-  const [stats, setStats] = useState({ totalCompleted: 47, averageScore: 74, industryReadyCount: 31 });
+  const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+  const [stats, setStats] = useState({ totalCompleted: 0, averageScore: 0, industryReadyCount: 0 });
 
   useEffect(() => {
     getAcriLeaderboardFn()
@@ -183,6 +171,11 @@ function AcriLeaderboardPage() {
 
         {/* Leaderboard Table Card */}
         <div className="bg-white tone-light card-light rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
+          {!entries.length && (
+            <div className="px-6 py-8 text-center text-sm text-stone-600 border-b border-stone-200">
+              Verified public rankings will appear here once real assessment results are available.
+            </div>
+          )}
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>

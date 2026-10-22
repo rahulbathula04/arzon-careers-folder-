@@ -7,7 +7,6 @@ import {
   COUNSELLOR_PHONE_DISPLAY,
 } from "../../components/landing/constants";
 import { GA4_ID, GSC_TOKEN, ga4BootScript } from "../analytics";
-import { KEYWORD_BANK_TERMS } from "../../data/keywordBank";
 
 export function getRootHead() {
   return {
@@ -20,7 +19,6 @@ export function getRootHead() {
         content:
           "Explore healthcare and life-science careers, role requirements, readiness assessment, practical programmes and career evidence with Arzon Global.",
       },
-      { name: "keywords", content: KEYWORD_BANK_TERMS.join(", ") },
       { name: "author", content: "Arzon Global" },
       { property: "og:site_name", content: "Arzon Global" },
       { property: "og:locale", content: "en_IN" },

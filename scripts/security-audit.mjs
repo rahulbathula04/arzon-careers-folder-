@@ -45,6 +45,12 @@ if (!/host:\s*"127\.0\.0\.1"/.test(vite)) fail("Vite dev server must bind to loo
 if (!/sourcemap:\s*false/.test(vite)) fail("Production source maps must not be publicly emitted.");
 
 const vercel = read("vercel.json");
+if (JSON.stringify(pkg.scripts ?? {}).includes("DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS")) {
+  fail("Build scripts must not enable the vulnerable TanStack Start XSS compatibility override.");
+}
+if (vercel.includes("DANGEROUSLY_DEPLOY_VULNERABLE_TANSTACK_START_XSS")) {
+  fail("Vercel configuration must not enable the vulnerable TanStack Start XSS compatibility override.");
+}
 for (const header of [
   "Strict-Transport-Security",
   "X-Content-Type-Options",

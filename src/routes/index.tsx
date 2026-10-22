@@ -10,9 +10,9 @@ import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "Arzon Global · Healthcare Career Intelligence & Role Readiness";
+    const title = "Arzon Global | Healthcare Career Paths & Training";
     const desc =
-      "Explore healthcare careers, understand employer requirements, assess your readiness, and build role-focused skills with Arzon Global.";
+      "Explore pharmacovigilance, medical coding, clinical data management and regulatory affairs careers. Compare role requirements and build practical skills with Arzon Global.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
 
@@ -60,8 +60,8 @@ export const Route = createFileRoute("/")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "TechArticle",
-            headline: "Arzon Global - Healthcare Career Intelligence & Role Readiness",
+            "@type": "WebPage",
+            name: "Healthcare Career Paths & Training | Arzon Global",
             description: desc,
             url: homeUrl,
             publisher: {
@@ -80,10 +80,10 @@ export const Route = createFileRoute("/")({
             mainEntity: [
               {
                 "@type": "Question",
-                name: "What is ACRI (Arzon Clinical Readiness Index)?",
+                name: "What is ACRI (Arzon Critical Research Index)?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "ACRI is a role-specific healthcare competency assessment framework that measures demonstrated capability against the workplace expectations for entry-level Pharmacovigilance, Clinical Data Management, and Medical Coding roles.",
+                  text: "ACRI (Arzon Critical Research Index) is Arzon Global’s role-specific assessment framework for evaluating selected competencies relevant to healthcare and life-sciences career paths. Results provide preparation guidance and are not a job offer or employment guarantee.",
                 },
               },
               {

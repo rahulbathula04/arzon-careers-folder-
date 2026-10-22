@@ -87,13 +87,6 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "The 9 Pharmacovigilance Competencies - Arzon Global",
   },
   {
-    path: "/acri/leaderboard",
-    priority: "0.8",
-    changefreq: "daily",
-    image: "/og/career-engine.jpg",
-    imageAlt: "ACRI Weekly Leaders - Arzon Global",
-  },
-  {
     path: "/healthcare-career-workshop",
     priority: "0.9",
     changefreq: "weekly",
@@ -488,15 +481,15 @@ export const Route = createFileRoute("/sitemap.xml")({
         }
         // Every Healthcare Career Intelligence SEO blog dossier.
         for (const post of BLOG_POSTS) {
-          entries.push(urlEntry(origin, `/blog/${post.slug}`, lastmod, "0.8", "weekly"));
+          entries.push(urlEntry(origin, `/blog/${post.slug}`, post.updatedDate, "0.8", "weekly"));
         }
         // Every Healthcare Career Role Comparison dossier.
         for (const comp of ROLE_COMPARISONS) {
-          entries.push(urlEntry(origin, `/comparisons/${comp.slug}`, lastmod, "0.8", "weekly"));
+          entries.push(urlEntry(origin, `/comparisons/${comp.slug}`, comp.updatedDate, "0.8", "weekly"));
         }
         // Every Arzon Empirical Research Report dossier.
         for (const report of RESEARCH_REPORTS) {
-          entries.push(urlEntry(origin, `/resources/${report.slug}`, lastmod, "0.8", "weekly"));
+          entries.push(urlEntry(origin, `/resources/${report.slug}`, report.updatedDate, "0.8", "weekly"));
         }
         // Every University Degree-to-Role Pathway.
         for (const deg of DEGREE_PATHWAYS) {

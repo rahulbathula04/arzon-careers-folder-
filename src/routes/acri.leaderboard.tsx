@@ -24,10 +24,10 @@ export const Route = createFileRoute("/acri/leaderboard")({
     });
     return {
       meta: [
-        { title: "ACRI Weekly Leaders · Pharmacovigilance Certification" },
         ...ps.meta,
+        { title: "ACRI Weekly Leaders · Pharmacovigilance Certification" },
+        { name: "robots", content: "noindex,follow" },
       ],
-      meta: [...ps.meta, { name: "robots", content: "noindex,follow" }],
       links: ps.links,
     };
   },

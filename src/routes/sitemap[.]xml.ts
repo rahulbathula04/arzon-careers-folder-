@@ -3,6 +3,7 @@ import { COURSES_BY_SLUG } from "@/data/courses";
 import { CITIES } from "@/data/industry/cities";
 import { ROLES_BY_SLUG } from "@/data/industry/roles";
 import { findPayBand } from "@/data/industry/cities";
+import { employersForRole } from "@/data/industry/employers";
 import { listMomentSitemap } from "@/lib/moments.functions";
 import { BLOG_POSTS } from "@/data/blogPosts";
 import { ROLE_COMPARISONS } from "@/data/roleComparisons";
@@ -504,11 +505,19 @@ export const Route = createFileRoute("/sitemap.xml")({
         for (const slug of CAREER_PATH_SLUGS) {
           entries.push(urlEntry(origin, `/career-engine/path/${slug}`, lastmod, "0.6", "weekly"));
         }
-        // Programmatic city × role landing pages (36 long-tail SEO targets).
-        // Only emit combinations that have real per-city pay data.
+        // Programmatic city × role pages are sitemap-worthy only when both
+        // a real pay band and role-matched employers in that city are present.
+        // This avoids advertising thin doorway-style pages that fall back to
+        // generic employer copy and gives crawlers a tighter, higher-value set.
         for (const role of Object.values(ROLES_BY_SLUG)) {
           for (const city of CITIES) {
             if (!findPayBand(role.pay, city)) continue;
+            const hasLocalEmployer = employersForRole(role.slug).some((employer) =>
+              employer.cities.some((employerCity) =>
+                city.matchKeys.some((matchKey) => employerCity.toLowerCase() === matchKey.toLowerCase()),
+              ),
+            );
+            if (!hasLocalEmployer) continue;
             entries.push(
               urlEntry(origin, `/industry/${role.slug}/${city.slug}`, lastmod, "0.6", "monthly"),
             );

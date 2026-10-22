@@ -32,6 +32,8 @@ const ALLOWLIST = new Set([
   "/admin/acri",
   "/admin/acri-invites",
   "/acri/invite",
+  // Public leaderboard is intentionally noindex until verified public results exist.
+  "/acri/leaderboard",
   "/acri/assessment/$sessionId",
   "/acri/result/$resultId",
   "/admin/leads",

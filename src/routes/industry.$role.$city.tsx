@@ -55,7 +55,15 @@ export const Route = createFileRoute("/industry/$role/$city")({
     const topEmployerNames = employers.slice(0, 4).map((e: any) => e.name).join(", ");
 
     return {
-      meta: [{ title }, { name: "keywords", content: keywords }, ...ps.meta],
+      meta: [
+        { title },
+        { name: "keywords", content: keywords },
+        // Do not ask search engines to index a city page that cannot name any
+        // role-matched local employers. These pages remain useful to users,
+        // but the generic fallback copy is not a strong standalone search result.
+        ...(employers.length === 0 ? [{ name: "robots", content: "noindex,follow" }] : []),
+        ...ps.meta,
+      ],
       links: ps.links,
       scripts: [
         {

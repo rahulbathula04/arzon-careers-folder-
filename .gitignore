@@ -88,3 +88,7 @@ src/assets/_originals/
 # Playwright output (never commit traces/screenshots/videos)
 test-results/
 playwright-report/
+
+# Scratch & temporary investigation artifacts
+scratch/
+

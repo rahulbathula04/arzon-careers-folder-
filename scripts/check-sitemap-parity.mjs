@@ -123,6 +123,15 @@ const ALLOWLIST = new Set([
   "/internships/pharmacovigilance",
   "/internships/medical-coding",
   "/internships/clinical-data-management",
+  // Redirect-only / alias routes kept out of the sitemap so crawlers do not waste budget:
+  "/workshop",
+  "/career-engine",
+  "/career-engine/",
+  "/research",
+  "/research/",
+  "/healthcare-careers",
+  "/training",
+  "/training/",
   // Tokenized/share-only noindex routes and recruiter candidate views.
   "/r/$id/brief",
   "/r/artifact/$token",

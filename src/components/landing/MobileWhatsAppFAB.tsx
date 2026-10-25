@@ -35,21 +35,23 @@ export function MobileWhatsAppFAB() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const hero = document.getElementById("top");
-    if (!hero) {
-      setVisible(true);
-      return;
-    }
-    const io = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), {
-      threshold: 0,
-      rootMargin: "-40px 0px 0px 0px",
-    });
-    io.observe(hero);
-    return () => io.disconnect();
+    const scrollRoot = document.getElementById("app-scroll-root");
+    const checkScroll = () => {
+      const scrollY = scrollRoot ? scrollRoot.scrollTop : window.scrollY;
+      setVisible(scrollY > 480);
+    };
+    checkScroll();
+    scrollRoot?.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("scroll", checkScroll, { passive: true });
+    return () => {
+      scrollRoot?.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("scroll", checkScroll);
+    };
   }, [loc.pathname]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const scrollRoot = document.getElementById("app-scroll-root");
     const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-fab-avoid]"));
     if (targets.length === 0) {
       setAvoiding(false);
@@ -64,7 +66,7 @@ export function MobileWhatsAppFAB() {
         }
         setAvoiding(seen.size > 0);
       },
-      { threshold: 0, rootMargin: "0px 0px -40px 0px" },
+      { root: scrollRoot || null, threshold: 0, rootMargin: "0px 0px -20px 0px" },
     );
     targets.forEach((t) => io.observe(t));
     return () => io.disconnect();

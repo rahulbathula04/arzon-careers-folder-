@@ -59,13 +59,6 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Careers JD Mirror - syllabus from real Indian JDs",
   },
   {
-    path: "/workshop",
-    priority: "0.9",
-    changefreq: "weekly",
-    image: "/og/og-inauguration.jpg",
-    imageAlt: "Free Pharmacovigilance Career Workshop - Arzon Global",
-  },
-  {
     path: "/acri/pharmacovigilance-certification",
     priority: "0.95",
     changefreq: "weekly",
@@ -213,13 +206,6 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Career Assessment · Healthcare Role Fit",
   },
   {
-    path: "/career-engine",
-    priority: "0.8",
-    changefreq: "weekly",
-    image: "/og/career-engine.jpg",
-    imageAlt: "Arzon Career Engine fit test",
-  },
-  {
     path: "/career-engine/leaderboard",
     priority: "0.85",
     changefreq: "daily",
@@ -348,27 +334,12 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Career Intelligence Resources and Research Reports",
   },
   {
-    path: "/research",
-    priority: "0.9",
-    changefreq: "weekly",
-  },
-  {
-    path: "/healthcare-careers",
-    priority: "0.9",
-    changefreq: "weekly",
-  },
-  {
     path: "/tools/cost-calculator",
     priority: "0.8",
     changefreq: "weekly",
   },
   {
     path: "/degrees",
-    priority: "0.9",
-    changefreq: "weekly",
-  },
-  {
-    path: "/training",
     priority: "0.9",
     changefreq: "weekly",
   },
@@ -407,8 +378,6 @@ const STATIC_ENTRIES: Array<{
 // Backwards-compat for existing parity check script which scans for STATIC_PATHS.
 const STATIC_PATHS = STATIC_ENTRIES.map((e) => e.path);
 void STATIC_PATHS;
-
-const CAREER_PATH_SLUGS = ["pharma", "tech", "business"] as const;
 
 // Canonical production host. Apex is the single URL identity advertised
 // to crawlers, so sitemap URLs never split between apex and www.
@@ -494,9 +463,6 @@ export const Route = createFileRoute("/sitemap.xml")({
         // Every University Degree-to-Role Pathway.
         for (const deg of DEGREE_PATHWAYS) {
           entries.push(urlEntry(origin, `/degrees/${deg.slug}`, lastmod, "0.8", "weekly"));
-        }
-        for (const slug of CAREER_PATH_SLUGS) {
-          entries.push(urlEntry(origin, `/career-engine/path/${slug}`, lastmod, "0.6", "weekly"));
         }
         // Programmatic city × role pages are sitemap-worthy only when both
         // a real pay band and role-matched employers in that city are present.

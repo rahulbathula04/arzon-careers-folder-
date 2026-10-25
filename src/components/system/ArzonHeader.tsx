@@ -227,9 +227,9 @@ export function ArzonHeader() {
                     <Search className="h-4 w-4 text-[#1557D6]" />
                     <span>Search roles, degrees, tools, JDs...</span>
                   </div>
-                  <kbd className="rounded-md bg-white border border-slate-200 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 tone-light">
-                    ⌘K
-                  </kbd>
+                  <span className="text-[11px] font-semibold text-[#1557D6] bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
+                    Search
+                  </span>
                 </button>
 
                 {/* Group 1: Core Healthcare Career Intelligence */}
@@ -287,7 +287,7 @@ export function ArzonHeader() {
                 </div>
 
                 {/* Pinned Bottom Actions */}
-                <div className="pt-2 pb-8 space-y-2.5">
+                <div className="pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+2rem)] space-y-2.5">
                   <Link
                     to="/career-assessment"
                     onClick={() => setMobileOpen(false)}

@@ -2,7 +2,6 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { Marquee } from "@/components/magicui/marquee";
-import { HealthcareHero3DCanvas } from "@/components/home/HealthcareHero3DCanvas";
 import { HomePriorityTracks } from "@/components/home/HomePriorityTracks";
 import { HomeAssessmentComparison } from "@/components/home/HomeAssessmentComparison";
 import { HomeJourneyRoadmap } from "@/components/home/HomeJourneyRoadmap";
@@ -29,8 +28,6 @@ export function ArzonHomeV2() {
     <div className="arzon-premium-home bg-white tone-light card-light">
       {/* ─── SECTION 1: HERO (HEALTHCARE CAREER READINESS & PREVIEW) ───────────── */}
       <section className="relative overflow-hidden bg-white pt-10 sm:pt-16 pb-14 sm:pb-20 border-b border-[#E4EAF2] tone-light card-light">
-        {/* Healthcare 3D Canvas Interactive Telemetry Background (Optimized with Viewport Pausing) */}
-        <HealthcareHero3DCanvas />
 
         {/* Ambient Radial Accent */}
         <div
@@ -51,7 +48,8 @@ export function ArzonHomeV2() {
                 <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
               </span>
-              <span>HEALTHCARE CAREER DISCOVERY &amp; SKILL READINESS</span>
+              <span className="hidden sm:inline">HEALTHCARE CAREER DISCOVERY &amp; SKILL READINESS</span>
+              <span className="sm:hidden">HEALTHCARE CAREER DISCOVERY</span>
             </motion.div>
 
             {/* High-Impact Typography Scale (Strict 2-Line Mobile & Large Screens) */}
@@ -59,15 +57,15 @@ export function ArzonHomeV2() {
               initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[22px] min-[360px]:text-[24px] min-[390px]:text-[27px] min-[420px]:text-[30px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold tracking-[-0.03em] text-[#081F38] leading-[1.15] sm:leading-[1.05] max-w-5xl mx-auto mb-4 sm:mb-6 px-2 sm:px-1"
+              className="text-[25px] min-[375px]:text-[28px] min-[414px]:text-[31px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold tracking-[-0.03em] text-[#081F38] leading-[1.18] sm:leading-[1.05] max-w-5xl mx-auto mb-4 sm:mb-6 px-3 sm:px-1"
             >
               <span className="block">
                 Turn your healthcare degree
               </span>
-              <span className="block mt-1 sm:mt-2">
+              <span className="block mt-1.5 sm:mt-2">
                 into an{" "}
                 <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
-                  industry-ready career.
+                  <span className="inline-block">industry-ready</span> <span className="inline-block">career.</span>
                 </span>
               </span>
             </motion.h1>
@@ -145,12 +143,12 @@ export function ArzonHomeV2() {
               </motion.div>
             </motion.div>
 
-            {/* Value Checkpoints: Strict Horizontal Layout (Identical to Desktop Image 3) */}
+            {/* Value Checkpoints: Responsive Wrapped Badges */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.34 }}
-              className="flex flex-row items-center justify-start sm:justify-center gap-3 sm:gap-8 lg:gap-10 pt-2 sm:pt-3 w-full max-w-full sm:max-w-4xl mx-auto overflow-x-auto no-scrollbar px-2 sm:px-0 -mx-2 sm:mx-auto snap-x py-1"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-6 lg:gap-8 pt-2 sm:pt-3 w-full max-w-full sm:max-w-4xl mx-auto px-2"
             >
               {[
                 "Real job description insights",
@@ -162,9 +160,9 @@ export function ArzonHomeV2() {
                   initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: 0.36 + idx * 0.08 }}
-                  className="inline-flex items-center gap-1.5 sm:gap-2.5 text-xs sm:text-[15px] font-semibold text-[#1E293B] shrink-0 whitespace-nowrap snap-center"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 text-[11.5px] sm:text-[14px] font-semibold text-[#1E293B] shrink-0 bg-slate-50 sm:bg-transparent px-2.5 sm:px-0 py-1 sm:py-0 rounded-full border border-slate-200/60 sm:border-0"
                 >
-                  <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-[#10B981] shrink-0" />
+                  <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#10B981] shrink-0" />
                   <span>{text}</span>
                 </motion.div>
               ))}

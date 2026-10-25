@@ -437,7 +437,7 @@ export function HomeEmployerTrustStrip() {
 
                   {/* CTC Band & JD Count */}
                   <div className="mt-2.5 flex items-center justify-between gap-2 text-xs font-mono">
-                    <span className="font-bold text-[#2563EB] bg-[#EEF6FF] border border-[#D0E1FD] px-2 py-0.5 rounded-md text-[11px]">
+                    <span className="font-bold text-[#2563EB] bg-[#EEF6FF] border border-[#D0E1FD] px-2 py-0.5 rounded-md text-[11px] whitespace-nowrap">
                       {item.salary}
                     </span>
                     <span className="text-[#64748B] text-[10.5px]">
@@ -467,11 +467,11 @@ export function HomeEmployerTrustStrip() {
         </div>
 
         {/* Track Footer Indicators & Minimal Prompt */}
-        <div className="mt-3 flex items-center justify-between text-xs text-[#64748B]">
-          <span className="font-mono text-[11px]">
-            Showing 6 verified healthcare tracks · Click any card to inspect full criteria
+        <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#64748B]">
+          <span className="font-mono text-[11px] text-center sm:text-left">
+            Showing 6 verified healthcare tracks · Swipe or click to inspect criteria
           </span>
-          <div className="hidden sm:flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5">
             {benchmarks.map((_, i) => (
               <button
                 key={i}
@@ -645,9 +645,15 @@ export function HomeEmployerTrustStrip() {
         </Dialog>
 
         {/* Compliance Research Disclaimer */}
-        <div className="mt-8 rounded-xl border border-[#E2E8F0] bg-white p-4 text-center text-xs text-[#64748B] tone-light card-light max-w-4xl mx-auto shadow-2xs">
-          <strong>Aggregated Market Research Methodology:</strong> Data synthesized across 2,000+ public healthcare, CRO, and life sciences job descriptions and hiring intake audits (Q1–Q4 2025/2026). Compensation bands reflect verified entry-level to mid-level CTC offerings in tier-1 Indian life sciences hubs (Hyderabad, Bengaluru, Mumbai, Pune, Chennai). All benchmarks are compiled for candidate career intelligence and curriculum alignment.
-        </div>
+        <details className="mt-6 sm:mt-8 rounded-xl border border-[#E2E8F0] bg-white p-3.5 sm:p-4 text-xs text-[#64748B] tone-light card-light max-w-4xl mx-auto shadow-2xs group cursor-pointer">
+          <summary className="font-mono text-[11px] font-semibold text-[#475569] flex items-center justify-between list-none select-none">
+            <span>RESEARCH METHODOLOGY & DATA PROVENANCE</span>
+            <span className="text-[#2563EB] text-[10px] group-open:rotate-180 transition-transform">▼</span>
+          </summary>
+          <p className="mt-2.5 pt-2.5 border-t border-slate-100 leading-relaxed text-left sm:text-center text-[#64748B]">
+            <strong>Aggregated Market Research Methodology:</strong> Data synthesized across 2,000+ public healthcare, CRO, and life sciences job descriptions and hiring intake audits (Q1–Q4 2025/2026). Compensation bands reflect verified entry-level to mid-level CTC offerings in tier-1 Indian life sciences hubs (Hyderabad, Bengaluru, Mumbai, Pune, Chennai). All benchmarks are compiled for candidate career intelligence and curriculum alignment.
+          </p>
+        </details>
       </div>
     </section>
   );

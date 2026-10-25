@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
@@ -81,6 +82,16 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
 
 export function HomePriorityTracks() {
   const shouldReduceMotion = useReducedMotion();
+  const trackScrollRef = useRef<HTMLDivElement>(null);
+  const [activeTrackIndex, setActiveTrackIndex] = useState(0);
+
+  const handleTrackScroll = () => {
+    if (!trackScrollRef.current) return;
+    const { scrollLeft } = trackScrollRef.current;
+    const cardWidth = window.innerWidth * 0.84;
+    const index = Math.round(scrollLeft / (cardWidth || 300));
+    setActiveTrackIndex(Math.min(Math.max(index, 0), PRIORITY_TRACKS.length - 1));
+  };
 
   return (
     <section id="career-paths" className="relative py-14 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light">
@@ -112,7 +123,7 @@ export function HomePriorityTracks() {
 
           <Link
             to="/courses"
-            className="w-full sm:w-auto h-11 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto active:scale-[0.98]"
+            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-sm font-bold transition-all shadow-sm shrink-0 active:scale-[0.98]"
           >
             <span>View all programmes</span>
             <ArrowRight className="h-4 w-4" />
@@ -143,6 +154,8 @@ export function HomePriorityTracks() {
               },
             },
           }}
+          ref={trackScrollRef}
+          onScroll={handleTrackScroll}
           className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6 overscroll-x-contain touch-pan-x"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
@@ -173,7 +186,7 @@ export function HomePriorityTracks() {
                       transition: { duration: 0.15 },
                     }
               }
-              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[78vw] xs:w-[80vw] max-w-[300px] shrink-0 snap-start sm:w-auto"
+              className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-colors group tone-light card-light w-[84vw] xs:w-[82vw] max-w-[320px] shrink-0 snap-start sm:w-auto"
             >
               <div>
                 {/* Image Thumbnail with Duration Badge */}
@@ -234,6 +247,17 @@ export function HomePriorityTracks() {
             </motion.article>
           ))}
         </motion.div>
+
+        {/* Mobile View All Programmes CTA (Naturally placed below cards) */}
+        <div className="mt-5 md:hidden">
+          <Link
+            to="/courses"
+            className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-sm font-bold transition-all shadow-sm active:scale-[0.98]"
+          >
+            <span>View all programmes</span>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );

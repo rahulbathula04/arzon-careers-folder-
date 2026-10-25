@@ -101,7 +101,10 @@ function CoursesIndex() {
                 <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
               </span>
-              <span>
+              <span className="sm:hidden">
+                {total} HEALTHCARE PROGRAMMES
+              </span>
+              <span className="hidden sm:inline">
                 {total} HEALTHCARE PROGRAMMES &bull; {NEXT_COHORT?.label ?? "UPCOMING"} COHORT
               </span>
             </div>
@@ -176,10 +179,10 @@ function CoursesIndex() {
               </p>
             </div>
 
-            <div className="shrink-0">
+            <div className="w-full sm:w-auto shrink-0" data-fab-avoid>
               <Link
-                to="/career-engine"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-sm font-bold shadow-md shadow-blue-600/15 transition-all"
+                to="/career-assessment"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-sm font-bold shadow-md shadow-blue-600/15 transition-all"
               >
                 <span>Find my career path</span>
                 <ArrowRight className="h-4 w-4" />

@@ -157,6 +157,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/career-assessment"
+                data-fab-avoid
                 className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white py-2.5 px-5 text-xs xs:text-[13px] sm:text-xs font-bold transition-all shadow-2xs hover:shadow-sm active:scale-[0.98]"
               >
                 <span>Start Free Assessment</span>
@@ -269,6 +270,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/pv-associate"
+                data-fab-avoid
                 className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-1.5 rounded-full border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] active:bg-[#F1F5F9] text-[#081F38] py-2.5 px-5 text-xs xs:text-[13px] sm:text-xs font-bold transition-all shadow-2xs hover:border-[#94A3B8] tone-light card-light active:scale-[0.98]"
               >
                 <span>Explore PV Track</span>

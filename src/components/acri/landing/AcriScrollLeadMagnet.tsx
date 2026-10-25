@@ -101,13 +101,16 @@ export function AcriScrollLeadMagnet() {
       const scrollRoot = document.getElementById("app-scroll-root");
       const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
 
-      // Student Acquisition Rule 5: Minimum 6s dwell time + 500px scroll depth
-      // Ensures the student is genuinely reading the curriculum, not bouncing or accidentally touching
-      if (scrollY >= 500) {
-        if (elapsedMs >= 6000) {
+      // Responsive mobile dwell & depth gating (prevents viewport trapping on mobile screens)
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      const minScroll = isMobile ? 2600 : 500;
+      const minDwell = isMobile ? 30000 : 6000;
+
+      if (scrollY >= minScroll) {
+        if (elapsedMs >= minDwell) {
           triggerCard("deep_scroll_after_dwell");
         } else {
-          const remainingMs = Math.max(1000, 6000 - elapsedMs);
+          const remainingMs = Math.max(1000, minDwell - elapsedMs);
           if (scrollTimeout) clearTimeout(scrollTimeout);
           scrollTimeout = setTimeout(() => {
             if (!hasTriggeredRef.current) {
@@ -122,8 +125,11 @@ export function AcriScrollLeadMagnet() {
     scrollRoot?.addEventListener("scroll", evaluateEngagement, { passive: true });
     window.addEventListener("scroll", evaluateEngagement, { passive: true });
 
-    // Passive observer on section 2 with 6s dwell gate
+    // Passive observer on section 2 with dwell gate (desktop only to prevent mobile reading disruption)
     const setupObserver = () => {
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      if (isMobile) return;
+
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
       ).filter((s) => s.offsetHeight > 100 && s.offsetParent !== null);

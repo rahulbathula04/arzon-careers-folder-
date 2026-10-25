@@ -275,8 +275,9 @@ function StartPage() {
         <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-snug sm:leading-tight">
           Find the healthcare role that fits your background.
         </h1>
-        <p className="text-sm sm:text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
-          Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.
+        <p className="text-xs sm:text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
+          <span className="sm:hidden">Answer 42 questions to discover your matching healthcare career path and personalised skill readiness score.</span>
+          <span className="hidden sm:inline">Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.</span>
         </p>
         <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
           <span>{TARGET_TOTAL} questions</span>
@@ -292,7 +293,7 @@ function StartPage() {
       </div>
 
       {/* What the assessment looks at */}
-      <div className="mt-4 sm:mt-6 grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="mt-4 sm:mt-6 hidden sm:grid grid-cols-3 gap-2 sm:gap-3">
         {["Role fit","Work style","Readiness"].map((label) => (
           <div
             key={label}
@@ -313,16 +314,16 @@ function StartPage() {
       </div>
 
       {/* Recruiter Benchmarked Employers Trust Banner */}
-      <div className="mt-4 rounded-2xl border border-slate-200/90 bg-white p-3.5 sm:p-4 text-center shadow-2xs">
-        <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+      <div className="mt-3.5 sm:mt-4 rounded-xl sm:rounded-2xl border border-slate-200/90 bg-white p-2.5 sm:p-4 text-center shadow-2xs">
+        <p className="font-mono text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 sm:mb-2.5">
           Scored Against Live Entry-Level Requisitions At:
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 opacity-90">
-          <CompanyBrandLogo company="cognizant" className="h-4 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="iqvia" className="h-4 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="parexel" className="h-4 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="novartis" className="h-4 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="accenture" className="h-4 sm:h-4.5 w-auto" />
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 opacity-90">
+          <CompanyBrandLogo company="cognizant" className="h-3.5 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="iqvia" className="h-3.5 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="parexel" className="h-3.5 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="novartis" className="h-3.5 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="accenture" className="h-3.5 sm:h-4.5 w-auto" />
         </div>
       </div>
 
@@ -356,7 +357,7 @@ function StartPage() {
             </span>
             <span className="font-mono text-[11px] text-slate-500 font-medium">Step 1 of 2 · Profile Setup</span>
           </div>
-          <h2 className="mt-2.5 font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#081F38]">
+          <h2 className="mt-2.5 font-sans text-xl sm:text-2xl font-bold tracking-tight text-[#081F38]">
             Enter Your Academic &amp; Contact Details
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-slate-600 font-sans">
@@ -488,6 +489,7 @@ function StartPage() {
             type="submit"
             disabled={busy}
             aria-disabled={busy}
+            data-fab-avoid
             className="inline-flex h-12 w-full sm:w-auto sm:min-w-[260px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-6 text-sm font-bold text-white shadow-[0_2px_12px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all active:scale-[0.98] cursor-pointer"
           >
             {busy ? (

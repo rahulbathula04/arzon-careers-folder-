@@ -7,6 +7,7 @@ import { EmployerGrid } from "@/components/industry/EmployerGrid";
 import { pageSeo } from "@/lib/seo";
 import { absUrl } from "@/components/landing/constants";
 import { IndustryReadinessCTA } from "@/components/industry/IndustryReadinessCTA";
+import { TopEmployersRequisitionDeck } from "@/components/industry/TopEmployersRequisitionDeck";
 
 const ALL_CITIES = Array.from(new Set(EMPLOYERS.flatMap((e) => e.cities))).sort();
 
@@ -122,8 +123,21 @@ function EmployersPage() {
           from JD scrape and Arzon alumni reports.
         </p>
 
+        {/* Featured Top 5 Healthcare Employers Requisition & Screening Hub */}
+        <TopEmployersRequisitionDeck />
+
+        {/* Directory Header & Filters */}
+        <div className="mt-12 border-t border-white/10 pt-10">
+          <p className="font-mono text-micro uppercase tracking-[0.22em] text-white/70">
+            50+ Healthcare Employers Directory
+          </p>
+          <h2 className="mt-2 text-2xl font-bold font-serif text-white">
+            Search Employers by City, Role &amp; Tier
+          </h2>
+        </div>
+
         {/* Filters */}
-        <div className="mt-8 flex flex-wrap items-end gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+        <div className="mt-6 flex flex-wrap items-end gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-4">
           <Filter
             label="City"
             value={city}

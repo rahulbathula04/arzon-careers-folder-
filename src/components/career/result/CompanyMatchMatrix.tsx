@@ -25,8 +25,9 @@ import {
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { CompanyBrandLogo } from "./CompanyLogos";
 import { LIVE_EMPLOYER_OPENINGS, type LiveEmployerOpening } from "@/data/industry/liveEmployerOpenings";
-import { EMPLOYER_WEIGHT_CONFIGS } from "@/data/employerScoringEngine";
+import { EMPLOYER_WEIGHT_CONFIGS, type EmployerName } from "@/data/employerScoringEngine";
 import type { CompetencyDimensionKey } from "@/data/employerAssessmentBank";
+import { EmployerChallengeSimulator } from "../EmployerChallengeSimulator";
 
 interface Props {
   result: CareerEngineResult;
@@ -38,6 +39,7 @@ export function CompanyMatchMatrix({ result }: Props) {
   const [showFullJd, setShowFullJd] = useState<boolean>(false);
   const [showRemediationPlan, setShowRemediationPlan] = useState<boolean>(false);
   const [showDimensionBreakdown, setShowDimensionBreakdown] = useState<boolean>(false);
+  const [showSimulator, setShowSimulator] = useState<boolean>(false);
 
   const activeOpening = LIVE_EMPLOYER_OPENINGS[selectedIdx];
   const readiness = result.employerReadiness;
@@ -758,16 +760,36 @@ export function CompanyMatchMatrix({ result }: Props) {
               Requisition source: Verified from public careers portals &amp; quarterly hiring desk filings (Q1 2026).
             </p>
           </div>
-          <a
-            href={activeOpening.activeOpenings.careersUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#0D2E54] shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_12px_rgba(8,31,56,0.15),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all shrink-0 cursor-pointer active:scale-95"
-          >
-            <span>View {activeOpening.shortName} Careers Portal</span>
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <button
+              type="button"
+              onClick={() => setShowSimulator(!showSimulator)}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-5 py-2.5 text-xs font-bold text-white shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_12px_rgba(37,99,235,0.25)] transition-all shrink-0 cursor-pointer active:scale-95"
+            >
+              <Target className="h-3.5 w-3.5" />
+              <span>{showSimulator ? "Close Simulator" : `Simulate ${activeOpening.shortName} Round 2 Scenarios`}</span>
+            </button>
+            <a
+              href={activeOpening.activeOpenings.careersUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] px-5 py-2.5 text-xs font-bold text-white hover:bg-[#0D2E54] shadow-[0_1px_2px_rgba(0,0,0,0.1),0_4px_12px_rgba(8,31,56,0.15),inset_0_1px_0_rgba(255,255,255,0.15)] transition-all shrink-0 cursor-pointer active:scale-95"
+            >
+              <span>View {activeOpening.shortName} Careers Portal</span>
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
         </div>
+
+        {/* Embedded Interactive Round 2 Simulator */}
+        {showSimulator && (
+          <div className="mt-6 pt-6 border-t border-slate-200/80">
+            <EmployerChallengeSimulator
+              initialEmployer={activeOpening.shortName as EmployerName}
+              onClose={() => setShowSimulator(false)}
+            />
+          </div>
+        )}
       </div>
     </section>
   );

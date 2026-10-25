@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { ShieldCheck, GraduationCap, Check } from "lucide-react";
+import { ShieldCheck, GraduationCap, Check, Building2, Award } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
 export interface CertificateData {
@@ -11,6 +11,11 @@ export interface CertificateData {
   referenceId: string;
   issueDate: string;
   verificationUrl?: string;
+  recruiterFitScore?: number;
+  letterGrade?: "A" | "B+" | "B" | "NA";
+  topMatchedEmployer?: string;
+  clearedEmployers?: string[];
+  dimensionScores?: { label: string; score: number }[];
 }
 
 interface Props {
@@ -100,19 +105,36 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
                 {data.fitScore}% Fit Index
               </span>
             </div>
+
+            {/* Calibrated Employer Screening Ribbon */}
+            {data.recruiterFitScore && (
+              <div className="mt-3 inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-slate-800 shadow-2xs">
+                <Building2 className="h-3.5 w-3.5 text-blue-600" />
+                <span>Top 5 Employer RFI:</span>
+                <span className="text-blue-700">{data.recruiterFitScore}% (Grade {data.letterGrade || "B+"})</span>
+                {data.topMatchedEmployer && (
+                  <span className="text-emerald-700">· {data.topMatchedEmployer} Qualified</span>
+                )}
+              </div>
+            )}
           </div>
 
-          {/* 3 Core Validated Competencies */}
+          {/* 3 Core Validated Competencies & Cleared Employers */}
           <div className="relative z-10 flex items-center justify-center gap-2 flex-wrap pt-1">
             <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold">
-              ✓ ICH-GVP Protocol Alignment
+              ✓ ICH-GVP &amp; 21 CFR 314.80
             </span>
             <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold">
-              ✓ Standardized MedDRA Triage
+              ✓ MedDRA v27.0 Hierarchy
             </span>
             <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold">
-              ✓ 21 CFR Part 11 Audit Integrity
+              ✓ 21 CFR Part 11 ALCOA+
             </span>
+            {data.clearedEmployers && data.clearedEmployers.length > 0 && (
+              <span className="px-3 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[10px] font-bold">
+                ✓ Cleared: {data.clearedEmployers.slice(0, 3).join(", ")}
+              </span>
+            )}
           </div>
 
           {/* Signatures & Scannable QR Seal */}
@@ -221,6 +243,21 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
               <Check className="h-3 w-3 text-emerald-600" /> MedDRA Precision
             </span>
           </div>
+
+          {/* Employer Calibration Tags */}
+          {data.recruiterFitScore && (
+            <div className="mt-3 flex items-center gap-2 flex-wrap">
+              <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-800 border border-blue-200/80 px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold">
+                <Building2 className="h-3 w-3 text-blue-600" />
+                <span>RFI: {data.recruiterFitScore}% (Grade {data.letterGrade || "B+"})</span>
+              </span>
+              {data.topMatchedEmployer && (
+                <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold">
+                  <span>{data.topMatchedEmployer} Qualified</span>
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Fit Score Badge */}

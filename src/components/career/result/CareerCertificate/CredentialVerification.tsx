@@ -14,6 +14,7 @@ import {
   Sparkles,
   ExternalLink,
   Linkedin,
+  Building2,
 } from "lucide-react";
 import { toast } from "sonner";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
@@ -34,9 +35,11 @@ export function CredentialVerification({ result, candidateName: initialName, lea
   const [viewMode, setViewMode] = useState<"card" | "certificate">("card");
   const [resumeDrawerOpen, setResumeDrawerOpen] = useState(false);
   const [copiedBullet, setCopiedBullet] = useState(false);
+  const [copiedPitch, setCopiedPitch] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
   const cardRef = useRef<HTMLDivElement>(null);
+  const readiness = result.employerReadiness;
 
   // Sync candidate name if prop updates
   useEffect(() => {
@@ -67,6 +70,13 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     ? `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}`
     : `${origin}/career-engine/result`;
 
+  const topMatchedEmployer = readiness?.topMatchedEmployer;
+  const recruiterFitScore = readiness?.overallReadinessScore;
+  const letterGrade = readiness?.letterGrade;
+  const clearedEmployers = readiness?.employerMatches
+    .filter((m) => m.gapFromCutoff >= 0)
+    .map((m) => m.employer);
+
   const recordData: CertificateData = {
     candidateName,
     candidateQualification: result.profile?.course ?? "Healthcare Graduate",
@@ -76,28 +86,66 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     referenceId,
     issueDate,
     verificationUrl: reportUrl,
+    recruiterFitScore,
+    letterGrade,
+    topMatchedEmployer,
+    clearedEmployers,
+    dimensionScores: readiness?.dimensionBreakdown
+      ? Object.values(readiness.dimensionBreakdown).map((d) => ({
+          label: d.label,
+          score: d.score,
+        }))
+      : undefined,
   };
 
-  const resumeBullet = `• Arzon Verified Career Evaluation: Top Match: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index, ACRI Ref: ${referenceId}). Verified ledger at: ${reportUrl}`;
+  const resumeBullet = readiness
+    ? `• Arzon Recruiter Fit Index (RFI): ${readiness.overallReadinessScore}% (Grade ${readiness.letterGrade}) · Calibrated against Top 5 Healthcare Employers; Cleared technical bar for ${readiness.topMatchedEmployer} (Ref: ${referenceId}). Verified report: ${reportUrl}`
+    : `• Arzon Verified Career Evaluation: Top Match: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index, ACRI Ref: ${referenceId}). Verified ledger at: ${reportUrl}`;
+
+  const recruiterPitch = readiness
+    ? `Healthcare Candidate Application Summary:
+Candidate: ${candidateName}
+Qualification: ${recordData.candidateQualification} (${recordData.candidateCollege})
+Arzon Role Alignment: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index)
+Recruiter Fit Index (RFI): ${readiness.overallReadinessScore}% (Grade ${readiness.letterGrade})
+Target Sponsor Calibration: Cleared ${readiness.topMatchedEmployer} entry-level technical cutoff
+Cleared Employer Bars: ${clearedEmployers?.join(", ") || "Active Pipeline"}
+Verified Competencies:
+ - ICSR Triage: ${readiness.dimensionBreakdown.icsr_triage.score}% (${readiness.dimensionBreakdown.icsr_triage.rating})
+ - Day 0 Clocks: ${readiness.dimensionBreakdown.seriousness_clocks.score}% (${readiness.dimensionBreakdown.seriousness_clocks.rating})
+ - MedDRA Coding: ${readiness.dimensionBreakdown.medical_coding.score}% (${readiness.dimensionBreakdown.medical_coding.rating})
+ - Clinical Narratives: ${readiness.dimensionBreakdown.clinical_narrative.score}% (${readiness.dimensionBreakdown.clinical_narrative.rating})
+ - GCP Data Integrity: ${readiness.dimensionBreakdown.gcp_data_integrity.score}% (${readiness.dimensionBreakdown.gcp_data_integrity.rating})
+Official Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`
+    : `Healthcare Candidate Application Summary:
+Candidate: ${candidateName}
+Primary Alignment: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index)
+Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
 
   // 1. Add Directly to LinkedIn Profile Licenses & Certifications
   const handleAddToLinkedInProfile = () => {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
-    const certName = `Arzon Certified Healthcare Career Match: ${recordData.archetypeName}`;
+    const certName = readiness
+      ? `Arzon Verified Healthcare RFI: ${recordData.archetypeName} (${readiness.topMatchedEmployer} Qualified · Grade ${readiness.letterGrade})`
+      : `Arzon Certified Healthcare Career Match: ${recordData.archetypeName}`;
+
     const linkedInAddUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(
       certName,
     )}&organizationName=Arzon%20Global&issueYear=${currentYear}&issueMonth=${currentMonth}&certUrl=${encodeURIComponent(
       reportUrl,
     )}&certId=${encodeURIComponent(referenceId)}`;
 
-    toast.success("Opening LinkedIn to add this certification to your profile!");
+    toast.success("Opening LinkedIn to add this verified certification to your profile!");
     window.open(linkedInAddUrl, "_blank", "noopener,noreferrer");
   };
 
   // 2. Share on LinkedIn Post
   const handleShareLinkedIn = () => {
-    const text = `Excited to share that I have completed the Arzon Healthcare Career Intelligence Assessment! My diagnostic mapped my profile to "${recordData.archetypeName}" with a ${recordData.fitScore}% verified role-fit index.\n\nVerify my official evaluation ledger here:`;
+    const text = readiness
+      ? `Excited to share that I completed the Arzon Healthcare Career Intelligence Assessment! My profile achieved a ${readiness.overallReadinessScore}% Recruiter Fit Index (Grade ${readiness.letterGrade}), clearing technical benchmarks for ${readiness.topMatchedEmployer} and top healthcare employers.\n\nVerify my official evaluation ledger here:`
+      : `Excited to share that I have completed the Arzon Healthcare Career Intelligence Assessment! My diagnostic mapped my profile to "${recordData.archetypeName}" with a ${recordData.fitScore}% verified role-fit index.\n\nVerify my official evaluation ledger here:`;
+
     const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(reportUrl)}`;
 
     navigator.clipboard.writeText(`${text} ${reportUrl}`);
@@ -107,7 +155,10 @@ export function CredentialVerification({ result, candidateName: initialName, lea
 
   // 3. Share with Friends on WhatsApp
   const handleShareWhatsApp = () => {
-    const text = `Hey! I took the Arzon Career Engine diagnostic and matched as "${recordData.archetypeName}" with a ${recordData.fitScore}% fit score! What role matches your healthcare background? Take the test here: ${reportUrl}`;
+    const text = readiness
+      ? `Hey! I took the Arzon Career Engine diagnostic and achieved a ${readiness.overallReadinessScore}% Recruiter Fit Index (Grade ${readiness.letterGrade}), clearing the ${readiness.topMatchedEmployer} hiring bar! What role matches your healthcare background? Take the test here: ${reportUrl}`
+      : `Hey! I took the Arzon Career Engine diagnostic and matched as "${recordData.archetypeName}" with a ${recordData.fitScore}% fit score! What role matches your healthcare background? Take the test here: ${reportUrl}`;
+
     const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
   };
@@ -120,7 +171,15 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     setTimeout(() => setCopiedBullet(false), 2500);
   };
 
-  // 5. Copy Direct Verification Link
+  // 5. Copy Recruiter Pitch
+  const handleCopyRecruiterPitch = () => {
+    navigator.clipboard.writeText(recruiterPitch);
+    setCopiedPitch(true);
+    toast.success("Recruiter application summary copied to clipboard!");
+    setTimeout(() => setCopiedPitch(false), 2500);
+  };
+
+  // 6. Copy Direct Verification Link
   const handleCopyLink = () => {
     navigator.clipboard.writeText(reportUrl);
     setCopiedLink(true);
@@ -178,45 +237,47 @@ export function CredentialVerification({ result, candidateName: initialName, lea
           Toggle between your digital Result Card and the Official Industry Readiness Certificate. Add directly to your LinkedIn licenses, append to your resume, or share with employers.
         </p>
 
-        {/* Live Card / Certificate Canvas */}
-        <div className="mt-6 sm:mt-8 flex justify-center">
-          <div className="w-full max-w-[760px] transition-all duration-300">
-            <CertificatePreview ref={cardRef} data={recordData} viewMode={viewMode} />
-          </div>
+        {/* Dynamic Credential Component (Card vs Official Certificate) */}
+        <div className="mt-6 flex justify-center overflow-x-auto py-2">
+          <CertificatePreview ref={cardRef} data={recordData} viewMode={viewMode} />
         </div>
 
-        {/* Primary Action Suite (LinkedIn, WhatsApp, Resume, Link) */}
-        <div className="mt-8 space-y-4">
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center justify-center gap-3">
+        {/* Social Sharing & Action Matrix */}
+        <div className="mt-8 border-t border-slate-100 pt-6 space-y-4">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+              SHARE &amp; ADD TO RESUME:
+            </span>
+            <span className="font-mono text-[11px] text-blue-600 font-semibold bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+              1-Click Verified Ledger Record
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             {/* 1. Add to LinkedIn Profile - Fly Animation */}
             <button
               type="button"
               onClick={handleAddToLinkedInProfile}
               className="arzon-btn-fly arzon-btn-fly--linkedin inline-flex min-h-12 items-center justify-center cursor-pointer"
-              title="Adds verified credential directly to your LinkedIn Licenses & Certifications section"
+              title="Add this certification directly to your LinkedIn profile Licenses & Certifications"
             >
               <div className="svg-wrapper">
                 <Linkedin className="h-4 w-4" />
               </div>
-              <span className="inline-flex items-center gap-1.5">
-                Add to LinkedIn Profile <ExternalLink className="h-3 w-3 opacity-80" />
-              </span>
+              <span>Add to LinkedIn</span>
             </button>
 
-            {/* 2. Share on LinkedIn Post - Uiverse Fly Animation by adamgiebl */}
+            {/* 2. Share on LinkedIn Feed - Fly Animation */}
             <button
               type="button"
               onClick={handleShareLinkedIn}
-              className="arzon-btn-fly arzon-btn-fly--linkedin inline-flex min-h-12 items-center justify-center cursor-pointer"
-              title="Share your verified credential on your LinkedIn feed"
+              className="arzon-btn-fly arzon-btn-fly--feed inline-flex min-h-12 items-center justify-center cursor-pointer"
+              title="Share your career match on LinkedIn feed"
             >
               <div className="svg-wrapper">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 fill-current"
                   viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  fill="currentColor"
                   aria-hidden="true"
                 >
                   <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-6.054-.685z" />
@@ -267,7 +328,7 @@ export function CredentialVerification({ result, candidateName: initialName, lea
             </button>
           </div>
 
-          {/* Uiverse Animated Social Command Row (LinkedIn, WhatsApp, Instagram) */}
+          {/* Social Row */}
           <div className="flex items-center justify-center gap-4 pt-1">
             <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-400">
               CONNECT &amp; TAG ARZON:
@@ -288,12 +349,13 @@ export function CredentialVerification({ result, candidateName: initialName, lea
           <div className="mt-6 rounded-2xl border border-blue-200/90 bg-blue-50/50 p-5 sm:p-6 text-slate-800 animate-in fade-in duration-200">
             <div className="flex items-center gap-2 text-blue-800 font-mono text-xs font-bold uppercase tracking-wider">
               <Sparkles className="h-4 w-4 text-blue-600" />
-              <span>Resume Placement Kit · ATS Optimized</span>
+              <span>Resume &amp; Recruiter Application Kit</span>
             </div>
             <p className="mt-1 text-xs text-slate-600 font-sans">
-              Copy this verified credential bullet into the <strong>Certifications &amp; Professional Diagnostics</strong> section of your resume:
+              Copy this verified credential bullet into your resume, or copy the complete Recruiter Pitch for job applications:
             </p>
 
+            {/* Resume Bullet */}
             <div className="mt-3 relative rounded-xl border border-slate-300 bg-white p-3.5 font-mono text-xs text-slate-800 shadow-2xs leading-relaxed">
               {resumeBullet}
             </div>
@@ -306,6 +368,15 @@ export function CredentialVerification({ result, candidateName: initialName, lea
               >
                 {copiedBullet ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                 <span>{copiedBullet ? "ATS Bullet Copied!" : "Copy ATS Resume Bullet"}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCopyRecruiterPitch}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-blue-300 bg-white hover:bg-blue-50 px-3.5 py-2 text-xs font-bold text-blue-700 transition active:scale-95 cursor-pointer shadow-2xs"
+              >
+                {copiedPitch ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5 text-blue-600" />}
+                <span>{copiedPitch ? "Recruiter Pitch Copied!" : "Copy Complete Recruiter Pitch"}</span>
               </button>
 
               <button

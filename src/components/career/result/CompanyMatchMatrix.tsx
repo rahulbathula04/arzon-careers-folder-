@@ -10,17 +10,23 @@ import {
   ShieldCheck,
   MapPin,
   Clock,
-  Award,
   Layers,
   ArrowUpRight,
   Sparkles,
   FileText,
   Check,
   Users,
+  Target,
+  BarChart3,
+  Calendar,
+  Zap,
+  HelpCircle,
 } from "lucide-react";
 import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { CompanyBrandLogo } from "./CompanyLogos";
 import { LIVE_EMPLOYER_OPENINGS, type LiveEmployerOpening } from "@/data/industry/liveEmployerOpenings";
+import { EMPLOYER_WEIGHT_CONFIGS } from "@/data/employerScoringEngine";
+import type { CompetencyDimensionKey } from "@/data/employerAssessmentBank";
 
 interface Props {
   result: CareerEngineResult;
@@ -30,17 +36,37 @@ export function CompanyMatchMatrix({ result }: Props) {
   const fitScore = Math.round(result.fitScore);
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const [showFullJd, setShowFullJd] = useState<boolean>(false);
+  const [showRemediationPlan, setShowRemediationPlan] = useState<boolean>(false);
+  const [showDimensionBreakdown, setShowDimensionBreakdown] = useState<boolean>(false);
 
   const activeOpening = LIVE_EMPLOYER_OPENINGS[selectedIdx];
+  const readiness = result.employerReadiness;
 
-  // Calibrate dynamically based on student's fitScore
-  const getDynamicScore = (idx: number) => {
+  // Retrieve employer-specific fit calibrated by the scoring engine
+  const getEmployerFit = (shortName: string) => {
+    return readiness?.employerMatches.find(
+      (m) =>
+        m.employer.toLowerCase() === shortName.toLowerCase() ||
+        shortName.toLowerCase().includes(m.employer.toLowerCase()) ||
+        m.fullCompanyName.toLowerCase().includes(shortName.toLowerCase())
+    );
+  };
+
+  // Calibrate score: use true employer scoring engine matchScore if available, else fallback
+  const getScoreForIdx = (idx: number) => {
+    const opening = LIVE_EMPLOYER_OPENINGS[idx];
+    const fit = getEmployerFit(opening.shortName);
+    if (fit) return fit.matchScore;
     const multipliers = [1.02, 0.95, 0.91, 0.84, 0.98];
     const raw = Math.round(fitScore * (multipliers[idx] ?? 0.95));
     return Math.min(97, Math.max(52, raw));
   };
 
-  const currentMatchScore = getDynamicScore(selectedIdx);
+  const currentEmployerFit = getEmployerFit(activeOpening.shortName);
+  const currentMatchScore = currentEmployerFit ? currentEmployerFit.matchScore : getScoreForIdx(selectedIdx);
+  const hiringCutoff = currentEmployerFit ? currentEmployerFit.hiringCutoff : 68;
+  const gapFromCutoff = currentEmployerFit ? currentEmployerFit.gapFromCutoff : currentMatchScore - hiringCutoff;
+  const isAboveCutoff = gapFromCutoff >= 0;
 
   // Derive candidate profile strengths based on student diagnostic
   const getCandidateStrengths = (company: LiveEmployerOpening) => {
@@ -50,6 +76,51 @@ export function CompanyMatchMatrix({ result }: Props) {
       `Regulatory Foundation: Demonstrated understanding of patient safety triage and adverse event timelines`,
     ];
   };
+
+  // Get status badge colors
+  const getStatusBadge = () => {
+    if (!currentEmployerFit) {
+      return {
+        label: currentMatchScore >= 80 ? "Exceeds Hiring Bar" : "Competitive Candidate",
+        className: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
+        dotColor: "bg-emerald-600",
+      };
+    }
+    switch (currentEmployerFit.status) {
+      case "Exceeds Hiring Bar":
+        return {
+          label: "Exceeds Hiring Bar",
+          className: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
+          dotColor: "bg-emerald-600",
+        };
+      case "Competitive Candidate":
+        return {
+          label: "Competitive Candidate",
+          className: "bg-blue-50 text-blue-800 border-blue-200/80",
+          dotColor: "bg-blue-600",
+        };
+      case "Borderline / Supervised":
+        return {
+          label: "Borderline / Supervised",
+          className: "bg-amber-50 text-amber-800 border-amber-200/80",
+          dotColor: "bg-amber-600",
+        };
+      case "Critical Skill Deficit":
+      default:
+        return {
+          label: "Disqualification Risk",
+          className: "bg-rose-50 text-rose-800 border-rose-200/80",
+          dotColor: "bg-rose-600",
+        };
+    }
+  };
+
+  const statusBadge = getStatusBadge();
+
+  // Company weight configuration for dimension breakdown
+  const employerWeights = currentEmployerFit
+    ? EMPLOYER_WEIGHT_CONFIGS[currentEmployerFit.employer]?.weights
+    : null;
 
   return (
     <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
@@ -68,16 +139,29 @@ export function CompanyMatchMatrix({ result }: Props) {
           </p>
         </div>
 
-        {/* Apple-grade Average ATS Alignment Stat Tile */}
+        {/* Recruiter Fit Index (RFI) & Calibration Grade Badge */}
         <div className="flex items-center gap-3.5 self-start md:self-auto bg-gradient-to-br from-white to-slate-50 border border-slate-200/90 px-4.5 py-3 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,1)]">
-          <div className="h-10 w-10 rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-center text-emerald-600 shrink-0 shadow-2xs">
+          <div className="h-10 w-10 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 shrink-0 shadow-2xs">
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div>
-            <p className="text-[10px] font-mono font-bold uppercase text-slate-400 tracking-wider">Average ATS Alignment</p>
+            <div className="flex items-center gap-2">
+              <p className="text-[10px] font-mono font-bold uppercase text-slate-400 tracking-wider">
+                Recruiter Fit Index
+              </p>
+              {readiness?.letterGrade && (
+                <span className="text-[10px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 border border-blue-200">
+                  Grade {readiness.letterGrade}
+                </span>
+              )}
+            </div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-lg font-bold font-mono text-[#081F38]">{fitScore}%</span>
-              <span className="text-xs text-slate-500 font-sans font-medium">Baseline Match</span>
+              <span className="text-lg font-bold font-mono text-[#081F38]">
+                {readiness ? readiness.overallReadinessScore : fitScore}%
+              </span>
+              <span className="text-xs text-slate-500 font-sans font-medium">
+                {readiness?.topMatchedEmployer ? `Best Fit: ${readiness.topMatchedEmployer}` : "Calibrated RFI"}
+              </span>
             </div>
           </div>
         </div>
@@ -90,8 +174,11 @@ export function CompanyMatchMatrix({ result }: Props) {
         </p>
         <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
           {LIVE_EMPLOYER_OPENINGS.map((emp, idx) => {
-            const score = getDynamicScore(idx);
+            const score = getScoreForIdx(idx);
             const isSelected = selectedIdx === idx;
+            const fit = getEmployerFit(emp.shortName);
+            const meetsBar = fit ? fit.gapFromCutoff >= 0 : score >= 68;
+
             return (
               <button
                 key={emp.company}
@@ -114,7 +201,14 @@ export function CompanyMatchMatrix({ result }: Props) {
                   <span className={`font-mono text-xs font-bold ${isSelected ? "text-blue-700" : "text-[#081F38]"}`}>
                     {score}%
                   </span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" title="Active Hiring" />
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      meetsBar
+                        ? "bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]"
+                        : "bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.7)]"
+                    }`}
+                    title={meetsBar ? "Clears ATS Bar" : "Needs Remediation"}
+                  />
                 </div>
               </button>
             );
@@ -124,7 +218,6 @@ export function CompanyMatchMatrix({ result }: Props) {
 
       {/* Rebuilt Requisition Deep-Dive Card: Apple Pro Layout Architecture */}
       <div className="mt-6 rounded-3xl border border-slate-200/90 bg-gradient-to-b from-white via-[#FAFBFD] to-white p-6 sm:p-8 shadow-[0_4px_24px_-4px_rgba(7,26,74,0.04)]">
-        
         {/* Requisition Header Banner (Hero Block with full horizontal breathing room) */}
         <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 pb-6 border-b border-slate-100/90">
           <div className="flex items-start gap-4 sm:gap-5 min-w-0 flex-1">
@@ -184,13 +277,17 @@ export function CompanyMatchMatrix({ result }: Props) {
                 Live ATS Alignment
               </span>
               <div className="flex items-baseline lg:justify-center gap-1 mt-0.5">
-                <span className="text-3xl sm:text-4xl font-mono font-extrabold text-blue-600">{currentMatchScore}%</span>
+                <span className="text-3xl sm:text-4xl font-mono font-extrabold text-blue-600">
+                  {currentMatchScore}%
+                </span>
                 <span className="text-xs font-mono font-bold text-slate-400">/ 100</span>
               </div>
             </div>
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 shadow-2xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-              {currentMatchScore >= 80 ? "High Pass Rate" : "Competitive Pass"}
+            <span
+              className={`inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border shadow-2xs ${statusBadge.className}`}
+            >
+              <span className={`h-1.5 w-1.5 rounded-full ${statusBadge.dotColor}`} />
+              {statusBadge.label}
             </span>
           </div>
         </div>
@@ -215,19 +312,39 @@ export function CompanyMatchMatrix({ result }: Props) {
             </p>
           </div>
 
-          {/* Tile 2: Screening Benchmark */}
-          <div className="px-3.5 py-2.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white transition-colors shadow-2xs">
+          {/* Tile 2: Screening Benchmark (Calibrated against real employer cutoff) */}
+          <div
+            className={`px-3.5 py-2.5 rounded-xl border transition-colors shadow-2xs ${
+              isAboveCutoff
+                ? "border-emerald-200/90 bg-emerald-50/30"
+                : "border-amber-200/90 bg-amber-50/30"
+            }`}
+          >
             <div className="flex items-center gap-1.5 text-slate-400">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+              <ShieldCheck
+                className={`h-3.5 w-3.5 shrink-0 ${
+                  isAboveCutoff ? "text-emerald-600" : "text-amber-600"
+                }`}
+              />
               <span className="text-[9px] font-mono uppercase font-bold tracking-wider">
                 ATS Pass Benchmark
               </span>
             </div>
-            <p className="text-sm font-bold font-mono text-emerald-700 mt-1 tracking-tight">
-              68% Cutoff Required
+            <p
+              className={`text-sm font-bold font-mono mt-1 tracking-tight ${
+                isAboveCutoff ? "text-emerald-700" : "text-amber-700"
+              }`}
+            >
+              {hiringCutoff}% Cutoff Required ({activeOpening.shortName})
             </p>
-            <p className="text-[10px] text-emerald-700/90 font-medium mt-0.5 truncate">
-              Candidate Margin: +{currentMatchScore - 68}% above filter
+            <p
+              className={`text-[10px] font-medium mt-0.5 truncate ${
+                isAboveCutoff ? "text-emerald-700/90" : "text-amber-700/90"
+              }`}
+            >
+              {isAboveCutoff
+                ? `Candidate Margin: +${gapFromCutoff}% above filter`
+                : `Candidate Deficit: ${Math.abs(gapFromCutoff)}% below cutoff`}
             </p>
           </div>
 
@@ -247,6 +364,91 @@ export function CompanyMatchMatrix({ result }: Props) {
             </p>
           </div>
         </div>
+
+        {/* 3-Stage Interview Clearance Pipeline */}
+        {currentEmployerFit && (
+          <div className="mt-6 rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs">
+            <div className="flex items-center justify-between gap-2 mb-4">
+              <div className="flex items-center gap-2">
+                <div className="h-6 w-6 rounded-lg bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shrink-0">
+                  <Target className="h-3.5 w-3.5" />
+                </div>
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#081F38]">
+                  {activeOpening.shortName} 3-Stage Interview Clearance Pipeline
+                </h4>
+              </div>
+              <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200/70 px-2.5 py-0.5 rounded-full shadow-2xs">
+                {currentEmployerFit.clearedInterviewStages.length} of 3 Stages Accessible
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {activeOpening.interviewStages.map((stage, sIdx) => {
+                const isCleared = currentEmployerFit.clearedInterviewStages.some((c) =>
+                  c.toLowerCase().includes(stage.stage.toLowerCase())
+                );
+                const isRound2 = stage.stage.includes("2");
+                const isRound3 = stage.stage.includes("3");
+                const isConditional =
+                  isRound2 &&
+                  currentEmployerFit.clearedInterviewStages.some(
+                    (c) => c.includes("Conditional") || c.includes("Borderline")
+                  );
+
+                return (
+                  <div
+                    key={stage.stage}
+                    className={`p-3.5 rounded-xl border transition-all ${
+                      isCleared
+                        ? isConditional
+                          ? "border-amber-200 bg-amber-50/40"
+                          : "border-emerald-200 bg-emerald-50/30"
+                        : "border-slate-200 bg-slate-50/60 opacity-80"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-mono font-bold uppercase text-slate-500">
+                        {stage.stage} · {stage.duration}
+                      </span>
+                      {isCleared ? (
+                        isConditional ? (
+                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">
+                            Borderline
+                          </span>
+                        ) : (
+                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 flex items-center gap-1">
+                            <Check className="h-2.5 w-2.5" /> Cleared
+                          </span>
+                        )
+                      ) : (
+                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">
+                          Gated
+                        </span>
+                      )}
+                    </div>
+                    <strong className="text-xs font-bold text-[#081F38] block mt-1.5 font-sans">
+                      {stage.name}
+                    </strong>
+                    <p className="text-[11px] text-slate-500 mt-1 leading-normal font-sans line-clamp-2">
+                      {stage.keyCheck}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Fatal Elimination Risk Callout */}
+            <div className="mt-3.5 p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-2.5 text-xs text-amber-950 font-sans">
+              <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+              <div>
+                <strong className="font-semibold text-amber-900">
+                  Primary Panel Disqualification Risk for {activeOpening.shortName}:
+                </strong>{" "}
+                <span>{currentEmployerFit.eliminationRisk}</span>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 2-Column Assessment: Passed Signals vs Disqualification Triggers */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -304,7 +506,9 @@ export function CompanyMatchMatrix({ result }: Props) {
                   <span className="h-5 w-5 rounded-full bg-amber-100/90 flex items-center justify-center text-amber-700 mt-0.5 shrink-0">
                     <AlertTriangle className="h-3 w-3" />
                   </span>
-                  <span><strong>{gap}</strong></span>
+                  <span>
+                    <strong>{gap}</strong>
+                  </span>
                 </li>
               ))}
               <li className="flex items-start gap-2.5 leading-relaxed text-amber-900/90">
@@ -316,6 +520,126 @@ export function CompanyMatchMatrix({ result }: Props) {
             </ul>
           </div>
         </div>
+
+        {/* 5 Regulatory Competency Dimensions Breakdown (Expandable Drawer) */}
+        {readiness?.dimensionBreakdown && (
+          <div className="mt-6 border-t border-slate-100 pt-5">
+            <button
+              type="button"
+              onClick={() => setShowDimensionBreakdown(!showDimensionBreakdown)}
+              className="w-full flex items-center justify-between gap-2 text-xs font-bold text-blue-700 hover:text-[#081F38] py-2 px-3 rounded-xl bg-slate-50/80 hover:bg-slate-100/80 transition-colors cursor-pointer"
+            >
+              <span className="flex items-center gap-2">
+                <BarChart3 className="h-4 w-4 text-blue-600" />
+                <span>
+                  {showDimensionBreakdown ? "Hide" : "Inspect"} 5 Regulatory Dimensions Calibration for {activeOpening.shortName}
+                </span>
+              </span>
+              {showDimensionBreakdown ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </button>
+
+            {showDimensionBreakdown && (
+              <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-3">
+                <p className="text-xs text-slate-600 font-sans">
+                  Each employer weights these 5 core regulatory dimensions differently based on their sponsor accounts and delivery model. Here is how your profile scored:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                  {Object.entries(readiness.dimensionBreakdown).map(([dimKey, dim]) => {
+                    const weightPct = employerWeights
+                      ? Math.round((employerWeights[dimKey as CompetencyDimensionKey] || 0.2) * 100)
+                      : 20;
+
+                    return (
+                      <div
+                        key={dimKey}
+                        className="p-3.5 rounded-xl border border-slate-200/80 bg-white shadow-2xs"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="text-xs font-bold text-[#081F38] font-sans">
+                            {dim.label}
+                          </span>
+                          <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
+                            {weightPct}% Weight
+                          </span>
+                        </div>
+                        <div className="mt-2 flex items-center gap-2">
+                          <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all duration-500 ${
+                                dim.score >= 80
+                                  ? "bg-emerald-500"
+                                  : dim.score >= 65
+                                  ? "bg-blue-500"
+                                  : "bg-amber-500"
+                              }`}
+                              style={{ width: `${dim.score}%` }}
+                            />
+                          </div>
+                          <span className="text-xs font-mono font-bold text-[#081F38]">
+                            {dim.score}%
+                          </span>
+                        </div>
+                        <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500 font-sans">
+                          <span>Status: <strong>{dim.rating}</strong></span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 14-Day Structured Study & Remediation Plan */}
+        {readiness?.immediateFourteenDayPlan && (
+          <div className="mt-4 border-t border-slate-100 pt-5">
+            <button
+              type="button"
+              onClick={() => setShowRemediationPlan(!showRemediationPlan)}
+              className="w-full flex items-center justify-between gap-2 text-xs font-bold text-emerald-800 hover:text-emerald-950 py-2 px-3 rounded-xl bg-emerald-50/70 hover:bg-emerald-100/70 transition-colors cursor-pointer"
+            >
+              <span className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-emerald-700" />
+                <span>
+                  {showRemediationPlan ? "Hide" : "Inspect"} 14-Day Structured Study Plan to Clear {activeOpening.shortName} Technical Bar
+                </span>
+              </span>
+              {showRemediationPlan ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+            </button>
+
+            {showRemediationPlan && (
+              <div className="mt-4 pt-4 border-t border-emerald-200/80 space-y-3">
+                <p className="text-xs text-slate-600 font-sans">
+                  Targeted four-phase curriculum designed to turn regulatory weak points into interview assets within 14 days:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                  {readiness.immediateFourteenDayPlan.map((plan, pIdx) => (
+                    <div
+                      key={pIdx}
+                      className="p-3.5 rounded-xl border border-emerald-200/80 bg-white shadow-2xs"
+                    >
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-full">
+                          {plan.dayRange}
+                        </span>
+                        <span className="text-[10px] font-mono font-bold text-slate-400">
+                          Phase 0{pIdx + 1}
+                        </span>
+                      </div>
+                      <h5 className="text-xs font-bold text-[#081F38] mt-2 font-sans">
+                        {plan.milestone}
+                      </h5>
+                      <p className="text-[11px] text-slate-600 mt-1 font-sans leading-relaxed">
+                        <strong>Target Skill:</strong> {plan.targetSkill}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Mandatory Production Software & ATS Keywords */}
         <div className="mt-6 rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs">
@@ -335,7 +659,10 @@ export function CompanyMatchMatrix({ result }: Props) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
             {activeOpening.requiredTools.map((t) => (
-              <div key={t.name} className="p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/70 hover:border-slate-300 transition-colors">
+              <div
+                key={t.name}
+                className="p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/70 hover:border-slate-300 transition-colors"
+              >
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-bold text-[#081F38] font-sans">{t.name}</span>
                   <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 shadow-2xs">
@@ -359,7 +686,9 @@ export function CompanyMatchMatrix({ result }: Props) {
           >
             <span className="flex items-center gap-2">
               <FileText className="h-4 w-4 text-blue-600" />
-              <span>{showFullJd ? "Hide" : "Inspect"} Full Verified Job Description &amp; 3-Stage Interview Rubric</span>
+              <span>
+                {showFullJd ? "Hide" : "Inspect"} Full Verified Job Description &amp; 3-Stage Interview Rubric
+              </span>
             </span>
             {showFullJd ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
           </button>

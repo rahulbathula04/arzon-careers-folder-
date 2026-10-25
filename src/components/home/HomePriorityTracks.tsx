@@ -249,7 +249,7 @@ export function HomePriorityTracks() {
         </motion.div>
 
         {/* Mobile View All Programmes CTA (Naturally placed below cards) */}
-        <div className="mt-5 md:hidden">
+        <div className="mt-5 md:hidden" data-fab-avoid>
           <Link
             to="/courses"
             className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-sm font-bold transition-all shadow-sm active:scale-[0.98]"

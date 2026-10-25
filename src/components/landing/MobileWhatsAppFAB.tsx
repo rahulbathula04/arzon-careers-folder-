@@ -36,40 +36,34 @@ export function MobileWhatsAppFAB() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const scrollRoot = document.getElementById("app-scroll-root");
-    const checkScroll = () => {
+    const updateFabState = () => {
       const scrollY = scrollRoot ? scrollRoot.scrollTop : window.scrollY;
       setVisible(scrollY > 480);
-    };
-    checkScroll();
-    scrollRoot?.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("scroll", checkScroll, { passive: true });
-    return () => {
-      scrollRoot?.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("scroll", checkScroll);
-    };
-  }, [loc.pathname]);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const scrollRoot = document.getElementById("app-scroll-root");
-    const targets = Array.from(document.querySelectorAll<HTMLElement>("[data-fab-avoid]"));
-    if (targets.length === 0) {
-      setAvoiding(false);
-      return;
-    }
-    const seen = new Set<Element>();
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) seen.add(e.target);
-          else seen.delete(e.target);
+      // Check collision with avoid targets
+      const targets = document.querySelectorAll<HTMLElement>("[data-fab-avoid]");
+      const winH = window.innerHeight;
+      let collision = false;
+      for (const t of targets) {
+        const r = t.getBoundingClientRect();
+        // Sits in bottom 120px collision zone
+        if (r.bottom > winH - 120 && r.top < winH) {
+          collision = true;
+          break;
         }
-        setAvoiding(seen.size > 0);
-      },
-      { root: scrollRoot || null, threshold: 0, rootMargin: "0px 0px -20px 0px" },
-    );
-    targets.forEach((t) => io.observe(t));
-    return () => io.disconnect();
+      }
+      setAvoiding(collision);
+    };
+
+    updateFabState();
+    scrollRoot?.addEventListener("scroll", updateFabState, { passive: true });
+    window.addEventListener("scroll", updateFabState, { passive: true });
+    window.addEventListener("resize", updateFabState, { passive: true });
+    return () => {
+      scrollRoot?.removeEventListener("scroll", updateFabState);
+      window.removeEventListener("scroll", updateFabState);
+      window.removeEventListener("resize", updateFabState);
+    };
   }, [loc.pathname]);
 
   useEffect(() => {

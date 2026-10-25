@@ -1,5 +1,9 @@
 import type { ArchetypeId, Question, QuestionKind, Trait } from "./careerEngineQuestions";
 import { QUESTIONS } from "./careerEngineQuestions";
+import {
+  evaluateEmployerHiringReadiness,
+  type EmployerReadinessReport,
+} from "./employerScoringEngine";
 
 // ─────────────────────────────────────────────
 // Public types (kept stable - DB + result page depend on these)
@@ -128,6 +132,7 @@ export interface CareerEngineResult {
     stream?: string;
     year?: string;
   };
+  employerReadiness?: EmployerReadinessReport;
 }
 
 // ─────────────────────────────────────────────
@@ -1211,6 +1216,12 @@ export function computeResult(
       answeredQuestionIds: Object.keys(answers),
       createdAt: options.meta?.createdAt ?? new Date().toISOString(),
     },
+    employerReadiness: evaluateEmployerHiringReadiness(
+      answers,
+      top.fit,
+      microPct,
+      t.norm,
+    ),
   };
 }
 

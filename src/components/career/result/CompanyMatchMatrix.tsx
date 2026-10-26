@@ -359,7 +359,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               </span>
             </div>
             <ul className="space-y-3 text-xs text-amber-950 font-sans">
-              {activeOpening.fatalGaps.slice(0, 3).map((gap, idx) => (
+              {["Review ICSR validity and seriousness criteria.", "Practise MedDRA term selection with authoritative guidance.", "Review case narrative chronology and data integrity."].map((gap, idx) => (
                 <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
                   <span className="h-5 w-5 rounded-full bg-amber-100/90 flex items-center justify-center text-amber-700 mt-0.5 shrink-0">
                     <AlertTriangle className="h-3 w-3" />

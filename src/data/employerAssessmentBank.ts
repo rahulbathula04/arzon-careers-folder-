@@ -1,8 +1,10 @@
 /**
- * Arzon Employer-Calibrated Assessment Bank v1.0
+ * Arzon Pharmacovigilance Practice Assessment Bank v1.1
  * 
- * Scenario-based assessment battery reverse-engineered from live entry-level
- * requisitions and screening rounds at:
+ * Educational scenarios authored for practice. They are not official employer questions
+ * and have not been validated as a predictor of selection outcomes. Employer names below
+ * indicate broad role relevance only, not employer endorsement or question provenance.
+ * Role areas covered:
  *  - Cognizant Life Sciences (Process Executive - PV/Coding)
  *  - IQVIA India (Safety Data Specialist 1)
  *  - Parexel International (Associate Drug Safety Scientist)
@@ -83,7 +85,7 @@ export const EMPLOYER_SCENARIO_QUESTIONS: EmployerScenarioQuestion[] = [
         isCorrect: false,
         scoreWeight: 0,
         rationale: "Safety regulations strictly prohibit discarding potential safety intelligence without audit documentation and follow-up attempts.",
-        eliminationFeedback: "Cognizant / Accenture ATS Red Flag: Safety communications can never be deleted or discarded without formal documentation.",
+        eliminationFeedback: "Practice note: Safety communications can never be deleted or discarded without formal documentation.",
       },
       {
         id: "opt_b",

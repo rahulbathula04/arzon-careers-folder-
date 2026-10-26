@@ -56,11 +56,12 @@ export function CompanyMatchMatrix({ result }: Props) {
   // Employer-specific hiring scores are not available from public job postings.
   const getScoreForIdx = (idx: number) => {
     const opening = LIVE_EMPLOYER_OPENINGS[idx];
+    if (!readiness || readiness.answeredScenarioCount === 0) return null;
     return getEmployerFit(opening.shortName)?.matchScore ?? null;
   };
 
   const currentEmployerFit = getEmployerFit(activeOpening.shortName);
-  const currentMatchScore = currentEmployerFit?.matchScore ?? null;
+  const currentMatchScore = readiness?.answeredScenarioCount ? currentEmployerFit?.matchScore ?? null : null;
 
   const getCandidateStrengths = (_company: LiveEmployerOpening) => [
     "Review your answered scenarios to see demonstrated strengths.",

@@ -34,7 +34,6 @@ interface Props {
 }
 
 export function CompanyMatchMatrix({ result }: Props) {
-  const fitScore = Math.round(result.fitScore);
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const [showFullJd, setShowFullJd] = useState<boolean>(false);
   const [showRemediationPlan, setShowRemediationPlan] = useState<boolean>(false);
@@ -54,36 +53,27 @@ export function CompanyMatchMatrix({ result }: Props) {
     );
   };
 
-  // Calibrate score: use true employer scoring engine matchScore if available, else fallback
+  // Employer-specific hiring scores are not available from public job postings.
   const getScoreForIdx = (idx: number) => {
     const opening = LIVE_EMPLOYER_OPENINGS[idx];
-    const fit = getEmployerFit(opening.shortName);
-    if (fit) return fit.matchScore;
-    const multipliers = [1.02, 0.95, 0.91, 0.84, 0.98];
-    const raw = Math.round(fitScore * (multipliers[idx] ?? 0.95));
-    return Math.min(97, Math.max(52, raw));
+    if (!readiness || readiness.answeredScenarioCount === 0) return null;
+    return getEmployerFit(opening.shortName)?.matchScore ?? null;
   };
 
   const currentEmployerFit = getEmployerFit(activeOpening.shortName);
-  const currentMatchScore = currentEmployerFit ? currentEmployerFit.matchScore : getScoreForIdx(selectedIdx);
-  const hiringCutoff = currentEmployerFit ? currentEmployerFit.hiringCutoff : 68;
-  const gapFromCutoff = currentEmployerFit ? currentEmployerFit.gapFromCutoff : currentMatchScore - hiringCutoff;
-  const isAboveCutoff = gapFromCutoff >= 0;
+  const currentMatchScore = readiness?.answeredScenarioCount ? currentEmployerFit?.matchScore ?? null : null;
 
-  // Derive candidate profile strengths based on student diagnostic
-  const getCandidateStrengths = (company: LiveEmployerOpening) => {
-    return [
-      `Degree & Domain Alignment: Matches ${company.eligibility.degrees[0].split(" ")[0]} eligibility requirements`,
-      `Clinical Trait Percentile: Strong baseline in error sensitivity and protocol rigor (${Math.max(78, fitScore)}%)`,
-      `Regulatory Foundation: Demonstrated understanding of patient safety triage and adverse event timelines`,
-    ];
-  };
+  const getCandidateStrengths = (_company: LiveEmployerOpening) => [
+    "Review your answered scenarios to see demonstrated strengths.",
+    "Use the practice feedback to identify topics to revisit.",
+    "Job eligibility depends on the requirements in each official posting.",
+  ];
 
   // Get status badge colors
   const getStatusBadge = () => {
     if (!currentEmployerFit) {
       return {
-        label: currentMatchScore >= 80 ? "Exceeds Hiring Bar" : "Competitive Candidate",
+        label: currentMatchScore === null ? "Practice score unavailable" : "Practice result",
         className: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
         dotColor: "bg-emerald-600",
       };
@@ -91,26 +81,26 @@ export function CompanyMatchMatrix({ result }: Props) {
     switch (currentEmployerFit.status) {
       case "Exceeds Hiring Bar":
         return {
-          label: "Exceeds Hiring Bar",
+          label: "Practice result",
           className: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
           dotColor: "bg-emerald-600",
         };
       case "Competitive Candidate":
         return {
-          label: "Competitive Candidate",
+          label: "Practice result",
           className: "bg-blue-50 text-blue-800 border-blue-200/80",
           dotColor: "bg-blue-600",
         };
       case "Borderline / Supervised":
         return {
-          label: "Borderline / Supervised",
+          label: "Practice result: review needed",
           className: "bg-amber-50 text-amber-800 border-amber-200/80",
           dotColor: "bg-amber-600",
         };
       case "Critical Skill Deficit":
       default:
         return {
-          label: "Disqualification Risk",
+          label: "Practice result: review needed",
           className: "bg-rose-50 text-rose-800 border-rose-200/80",
           dotColor: "bg-rose-600",
         };
@@ -131,17 +121,17 @@ export function CompanyMatchMatrix({ result }: Props) {
         <div>
           <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 mb-2.5 shadow-2xs">
             <Building2 className="h-3.5 w-3.5 text-blue-600" />
-            <span>TOP 5 HEALTHCARE EMPLOYERS · 2026 REQUISITIONS &amp; ATS MATCH</span>
+            <span>EMPLOYER RESEARCH · PRACTICE ASSESSMENT</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38]">
-            How Top Healthcare Recruiters Screen Your Profile
+            Explore PV Roles and Practice Your Skills
           </h2>
           <p className="mt-1 text-sm text-slate-600 max-w-2xl leading-relaxed font-normal font-sans">
-            We mapped your diagnostic responses against verified live job requisitions from India’s top 5 healthcare employers to reveal where you pass and where technical gaps will trigger disqualification.
+            This is a learning aid, not an employer hiring prediction. Vacancy details, salary estimates and selection criteria must be checked on each employer’s official careers site.
           </p>
         </div>
 
-        {/* Recruiter Fit Index (RFI) & Calibration Grade Badge */}
+        {/* Practice assessment (RFI) & Calibration Grade Badge */}
         <div className="flex items-center gap-3.5 self-start md:self-auto bg-gradient-to-br from-white to-slate-50 border border-slate-200/90 px-4.5 py-3 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,1)]">
           <div className="h-10 w-10 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 shrink-0 shadow-2xs">
             <ShieldCheck className="h-5 w-5" />
@@ -149,7 +139,7 @@ export function CompanyMatchMatrix({ result }: Props) {
           <div>
             <div className="flex items-center gap-2">
               <p className="text-[10px] font-mono font-bold uppercase text-slate-400 tracking-wider">
-                Recruiter Fit Index
+                Practice assessment
               </p>
               {readiness?.letterGrade && (
                 <span className="text-[10px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 border border-blue-200">
@@ -159,10 +149,10 @@ export function CompanyMatchMatrix({ result }: Props) {
             </div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-lg font-bold font-mono text-[#081F38]">
-                {readiness ? readiness.overallReadinessScore : fitScore}%
+                {readiness && readiness.answeredScenarioCount > 0 ? `${readiness.overallReadinessScore}%` : "Not assessed"}
               </span>
               <span className="text-xs text-slate-500 font-sans font-medium">
-                {readiness?.topMatchedEmployer ? `Best Fit: ${readiness.topMatchedEmployer}` : "Calibrated RFI"}
+                {readiness ? "Based on practice answers" : "Complete the practice assessment"}
               </span>
             </div>
           </div>
@@ -172,14 +162,13 @@ export function CompanyMatchMatrix({ result }: Props) {
       {/* Tactile Apple Pro Requisition Switcher Tabs */}
       <div className="mt-6">
         <p className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-3">
-          Select Employer Requisition to Inspect:
+          Explore employer information (verify openings on the official site):
         </p>
         <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
           {LIVE_EMPLOYER_OPENINGS.map((emp, idx) => {
             const score = getScoreForIdx(idx);
             const isSelected = selectedIdx === idx;
-            const fit = getEmployerFit(emp.shortName);
-            const meetsBar = fit ? fit.gapFromCutoff >= 0 : score >= 68;
+            const meetsBar = false;
 
             return (
               <button
@@ -201,7 +190,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                 </div>
                 <div className="flex items-center gap-2 pl-2.5 border-l border-slate-200">
                   <span className={`font-mono text-xs font-bold ${isSelected ? "text-blue-700" : "text-[#081F38]"}`}>
-                    {score}%
+                    {score === null ? "Practice" : `${score}%`}
                   </span>
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
@@ -209,7 +198,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                         ? "bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]"
                         : "bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.7)]"
                     }`}
-                    title={meetsBar ? "Clears ATS Bar" : "Needs Remediation"}
+                    title="No employer hiring cutoff is verified"
                   />
                 </div>
               </button>
@@ -236,10 +225,10 @@ export function CompanyMatchMatrix({ result }: Props) {
                 </h3>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-800 shadow-2xs">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
-                  {activeOpening.activeOpenings.hiringStatus}
+                  Employer information
                 </span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#D0E1FD] px-2.5 py-0.5 text-[10px] font-mono font-bold text-[#1557D6] shadow-2xs">
-                  {activeOpening.activeOpenings.reqId}
+                  Illustrative profile
                 </span>
               </div>
 
@@ -280,7 +269,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               </span>
               <div className="flex items-baseline lg:justify-center gap-1 mt-0.5">
                 <span className="text-3xl sm:text-4xl font-mono font-extrabold text-blue-600">
-                  {currentMatchScore}%
+                  {!readiness || readiness.answeredScenarioCount === 0 || currentMatchScore === null ? "Not assessed" : `${currentMatchScore}%`}
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-400">/ 100</span>
               </div>
@@ -294,152 +283,20 @@ export function CompanyMatchMatrix({ result }: Props) {
           </div>
         </div>
 
-        {/* Compact 3-Pillar Executive Compensation & Requisition Deck */}
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-          {/* Tile 1: Entry Compensation */}
-          <div className="px-3.5 py-2.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white transition-colors shadow-2xs">
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <TrendingUp className="h-3.5 w-3.5 text-blue-600 shrink-0" />
-              <span className="text-[9px] font-mono uppercase font-bold tracking-wider">
-                Entry Package (CTC)
-              </span>
+        <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 p-4 sm:p-5">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 shrink-0 text-amber-700 mt-0.5" />
+            <div>
+              <h4 className="text-sm font-semibold text-slate-900">Vacancy details need verification</h4>
+              <p className="mt-1 text-sm leading-relaxed text-slate-700">Salary ranges, vacancy counts, hiring status, eligibility details and interview stages in historical research are not verified live data. We do not estimate ATS pass probability or claim you have cleared employer interview stages.</p>
+              <a href={activeOpening.activeOpenings.careersUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900">
+                Visit {activeOpening.shortName} careers <ArrowUpRight className="h-4 w-4" />
+              </a>
             </div>
-            <p className="text-sm font-bold font-mono text-[#081F38] mt-1 tracking-tight truncate">
-              {activeOpening.activeOpenings.salaryBand.split("+")[0]?.trim()}
-            </p>
-            <p className="text-[10px] text-blue-700/90 font-medium mt-0.5 truncate">
-              {activeOpening.activeOpenings.salaryBand.includes("+")
-                ? `+ ${activeOpening.activeOpenings.salaryBand.split("+")[1]?.trim()}`
-                : `Verified Fresher Benchmark`}
-            </p>
-          </div>
-
-          {/* Tile 2: Screening Benchmark (Calibrated against real employer cutoff) */}
-          <div
-            className={`px-3.5 py-2.5 rounded-xl border transition-colors shadow-2xs ${
-              isAboveCutoff
-                ? "border-emerald-200/90 bg-emerald-50/30"
-                : "border-amber-200/90 bg-amber-50/30"
-            }`}
-          >
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <ShieldCheck
-                className={`h-3.5 w-3.5 shrink-0 ${
-                  isAboveCutoff ? "text-emerald-600" : "text-amber-600"
-                }`}
-              />
-              <span className="text-[9px] font-mono uppercase font-bold tracking-wider">
-                ATS Pass Benchmark
-              </span>
-            </div>
-            <p
-              className={`text-sm font-bold font-mono mt-1 tracking-tight ${
-                isAboveCutoff ? "text-emerald-700" : "text-amber-700"
-              }`}
-            >
-              {hiringCutoff}% Cutoff Required ({activeOpening.shortName})
-            </p>
-            <p
-              className={`text-[10px] font-medium mt-0.5 truncate ${
-                isAboveCutoff ? "text-emerald-700/90" : "text-amber-700/90"
-              }`}
-            >
-              {isAboveCutoff
-                ? `Candidate Margin: +${gapFromCutoff}% above filter`
-                : `Candidate Deficit: ${Math.abs(gapFromCutoff)}% below cutoff`}
-            </p>
-          </div>
-
-          {/* Tile 3: Active Capacity */}
-          <div className="px-3.5 py-2.5 rounded-xl border border-slate-200/80 bg-slate-50/50 hover:bg-white transition-colors shadow-2xs">
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <Users className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-              <span className="text-[9px] font-mono uppercase font-bold tracking-wider">
-                Requisition Status
-              </span>
-            </div>
-            <p className="text-sm font-bold font-mono text-[#081F38] mt-1 tracking-tight">
-              {activeOpening.activeOpenings.openPositions} Verified Seats
-            </p>
-            <p className="text-[10px] text-slate-500 font-sans mt-0.5 truncate">
-              {activeOpening.activeOpenings.postedDate.split("·")[0]?.trim()}
-            </p>
           </div>
         </div>
 
-        {/* 3-Stage Interview Clearance Pipeline */}
-        {currentEmployerFit && (
-          <div className="mt-6 rounded-2xl border border-slate-200/90 bg-white p-5 sm:p-6 shadow-2xs">
-            <div className="flex items-center justify-between gap-2 mb-4">
-              <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-lg bg-blue-50 border border-blue-200/70 flex items-center justify-center text-blue-600 shrink-0">
-                  <Target className="h-3.5 w-3.5" />
-                </div>
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#081F38]">
-                  {activeOpening.shortName} 3-Stage Interview Clearance Pipeline
-                </h4>
-              </div>
-              <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200/70 px-2.5 py-0.5 rounded-full shadow-2xs">
-                {currentEmployerFit.clearedInterviewStages.length} of 3 Stages Accessible
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {activeOpening.interviewStages.map((stage, sIdx) => {
-                const isCleared = currentEmployerFit.clearedInterviewStages.some((c) =>
-                  c.toLowerCase().includes(stage.stage.toLowerCase())
-                );
-                const isRound2 = stage.stage.includes("2");
-                const isRound3 = stage.stage.includes("3");
-                const isConditional =
-                  isRound2 &&
-                  currentEmployerFit.clearedInterviewStages.some(
-                    (c) => c.includes("Conditional") || c.includes("Borderline")
-                  );
-
-                return (
-                  <div
-                    key={stage.stage}
-                    className={`p-3.5 rounded-xl border transition-all ${
-                      isCleared
-                        ? isConditional
-                          ? "border-amber-200 bg-amber-50/40"
-                          : "border-emerald-200 bg-emerald-50/30"
-                        : "border-slate-200 bg-slate-50/60 opacity-80"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-mono font-bold uppercase text-slate-500">
-                        {stage.stage} · {stage.duration}
-                      </span>
-                      {isCleared ? (
-                        isConditional ? (
-                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">
-                            Borderline
-                          </span>
-                        ) : (
-                          <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 flex items-center gap-1">
-                            <Check className="h-2.5 w-2.5" /> Cleared
-                          </span>
-                        )
-                      ) : (
-                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">
-                          Gated
-                        </span>
-                      )}
-                    </div>
-                    <strong className="text-xs font-bold text-[#081F38] block mt-1.5 font-sans">
-                      {stage.name}
-                    </strong>
-                    <p className="text-[11px] text-slate-500 mt-1 leading-normal font-sans line-clamp-2">
-                      {stage.keyCheck}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Fatal Elimination Risk Callout */}
+        {/* Fatal Elimination Risk Callout */}
             <div className="mt-3.5 p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-2.5 text-xs text-amber-950 font-sans">
               <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
               <div>
@@ -482,7 +339,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                 <span className="h-5 w-5 rounded-full bg-emerald-100/90 flex items-center justify-center text-emerald-700 mt-0.5 shrink-0">
                   <Check className="h-3 w-3" />
                 </span>
-                <span>Graduation Year Eligibility: Validated for 2024–2026 fresher hiring cohorts</span>
+                <span>Check graduation-year eligibility in the official vacancy notice.</span>
               </li>
             </ul>
           </div>
@@ -495,15 +352,15 @@ export function CompanyMatchMatrix({ result }: Props) {
                   <AlertTriangle className="h-4 w-4" />
                 </div>
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider">
-                  Gaps That Trigger Technical Rejection
+                  Topics to Review
                 </h4>
               </div>
               <span className="text-[9px] font-mono font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-full">
-                FATAL GAPS
+                PRACTICE NOTES
               </span>
             </div>
             <ul className="space-y-3 text-xs text-amber-950 font-sans">
-              {activeOpening.fatalGaps.slice(0, 3).map((gap, idx) => (
+              {["Review ICSR validity and seriousness criteria.", "Practise MedDRA term selection with authoritative guidance.", "Review case narrative chronology and data integrity."].map((gap, idx) => (
                 <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
                   <span className="h-5 w-5 rounded-full bg-amber-100/90 flex items-center justify-center text-amber-700 mt-0.5 shrink-0">
                     <AlertTriangle className="h-3 w-3" />
@@ -543,7 +400,7 @@ export function CompanyMatchMatrix({ result }: Props) {
             {showDimensionBreakdown && (
               <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-3">
                 <p className="text-xs text-slate-600 font-sans">
-                  Each employer weights these 5 core regulatory dimensions differently based on their sponsor accounts and delivery model. Here is how your profile scored:
+                  Practice scores are calculated from answered scenarios only. Employer-specific scoring weights have not been verified.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
                   {Object.entries(readiness.dimensionBreakdown).map(([dimKey, dim]) => {
@@ -561,7 +418,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                             {dim.label}
                           </span>
                           <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
-                            {weightPct}% Weight
+                            Practice dimension
                           </span>
                         </div>
                         <div className="mt-2 flex items-center gap-2">
@@ -613,7 +470,7 @@ export function CompanyMatchMatrix({ result }: Props) {
             {showRemediationPlan && (
               <div className="mt-4 pt-4 border-t border-emerald-200/80 space-y-3">
                 <p className="text-xs text-slate-600 font-sans">
-                  Targeted four-phase curriculum designed to turn regulatory weak points into interview assets within 14 days:
+                  Suggested practice plan. Progress does not guarantee interview selection or employment.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
                   {readiness.immediateFourteenDayPlan.map((plan, pIdx) => (
@@ -651,11 +508,11 @@ export function CompanyMatchMatrix({ result }: Props) {
                 <Layers className="h-3.5 w-3.5" />
               </div>
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#081F38]">
-                Mandatory Production Software &amp; Tools Screened by {activeOpening.shortName}
+                Common PV tools and concepts (verify job requirements)
               </h4>
             </div>
             <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200/70 px-2.5 py-0.5 rounded-full shadow-2xs">
-              4 Critical Standards
+              Learning topics
             </span>
           </div>
 
@@ -700,7 +557,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               {/* Day-to-Day Operations */}
               <div>
                 <h5 className="text-xs font-mono font-bold uppercase text-[#071A4A] mb-2.5">
-                  Day-to-Day Production Responsibilities:
+                  Illustrative role activities (not verified for this vacancy):
                 </h5>
                 <ul className="space-y-2 text-xs text-[#334155] leading-relaxed font-sans">
                   {activeOpening.dayToDayDuties.map((duty, idx) => (
@@ -715,7 +572,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               {/* 3-Stage Interview Process */}
               <div>
                 <h5 className="text-xs font-mono font-bold uppercase text-[#071A4A] mb-2.5">
-                  Official Interview Evaluation Stages:
+                  Interview stages are not verified for this employer:
                 </h5>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   {activeOpening.interviewStages.map((stage) => (
@@ -735,7 +592,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               {/* ATS Keywords Cloud */}
               <div>
                 <h5 className="text-xs font-mono font-bold uppercase text-[#071A4A] mb-2">
-                  Mandatory Resume ATS Screening Tokens:
+                  Potential resume keywords to verify against the actual job description:
                 </h5>
                 <div className="flex flex-wrap gap-1.5">
                   {activeOpening.atsKeywords.map((kw) => (
@@ -757,7 +614,7 @@ export function CompanyMatchMatrix({ result }: Props) {
         <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-slate-500 font-sans">
             <p>
-              Requisition source: Verified from public careers portals &amp; quarterly hiring desk filings (Q1 2026).
+              Historical role research only. Verify current vacancies and requirements on the official careers site.
             </p>
           </div>
           <div className="flex items-center gap-2.5 flex-wrap">

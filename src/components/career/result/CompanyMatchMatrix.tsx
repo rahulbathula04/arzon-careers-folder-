@@ -80,7 +80,7 @@ export function CompanyMatchMatrix({ result }: Props) {
     switch (currentEmployerFit.status) {
       case "Exceeds Hiring Bar":
         return {
-          label: "Practice result: strong",
+          label: "Practice result",
           className: "bg-emerald-50 text-emerald-800 border-emerald-200/80",
           dotColor: "bg-emerald-600",
         };
@@ -338,7 +338,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                 <span className="h-5 w-5 rounded-full bg-emerald-100/90 flex items-center justify-center text-emerald-700 mt-0.5 shrink-0">
                   <Check className="h-3 w-3" />
                 </span>
-                <span>Graduation Year Eligibility: Validated for 2024–2026 fresher hiring cohorts</span>
+                <span>Check graduation-year eligibility in the official vacancy notice.</span>
               </li>
             </ul>
           </div>
@@ -351,11 +351,11 @@ export function CompanyMatchMatrix({ result }: Props) {
                   <AlertTriangle className="h-4 w-4" />
                 </div>
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider">
-                  Gaps That Trigger Technical Rejection
+                  Topics to Review
                 </h4>
               </div>
               <span className="text-[9px] font-mono font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-full">
-                FATAL GAPS
+                PRACTICE NOTES
               </span>
             </div>
             <ul className="space-y-3 text-xs text-amber-950 font-sans">
@@ -399,7 +399,7 @@ export function CompanyMatchMatrix({ result }: Props) {
             {showDimensionBreakdown && (
               <div className="mt-4 pt-4 border-t border-slate-200/80 space-y-3">
                 <p className="text-xs text-slate-600 font-sans">
-                  Each employer weights these 5 core regulatory dimensions differently based on their sponsor accounts and delivery model. Here is how your profile scored:
+                  Practice scores are calculated from answered scenarios only. Employer-specific scoring weights have not been verified.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
                   {Object.entries(readiness.dimensionBreakdown).map(([dimKey, dim]) => {
@@ -417,7 +417,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                             {dim.label}
                           </span>
                           <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
-                            {weightPct}% Weight
+                            Practice dimension
                           </span>
                         </div>
                         <div className="mt-2 flex items-center gap-2">
@@ -469,7 +469,7 @@ export function CompanyMatchMatrix({ result }: Props) {
             {showRemediationPlan && (
               <div className="mt-4 pt-4 border-t border-emerald-200/80 space-y-3">
                 <p className="text-xs text-slate-600 font-sans">
-                  Targeted four-phase curriculum designed to turn regulatory weak points into interview assets within 14 days:
+                  Suggested practice plan. Progress does not guarantee interview selection or employment.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
                   {readiness.immediateFourteenDayPlan.map((plan, pIdx) => (
@@ -507,11 +507,11 @@ export function CompanyMatchMatrix({ result }: Props) {
                 <Layers className="h-3.5 w-3.5" />
               </div>
               <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#081F38]">
-                Mandatory Production Software &amp; Tools Screened by {activeOpening.shortName}
+                Common PV tools and concepts (verify job requirements)
               </h4>
             </div>
             <span className="text-[10px] font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200/70 px-2.5 py-0.5 rounded-full shadow-2xs">
-              4 Critical Standards
+              Learning topics
             </span>
           </div>
 
@@ -556,7 +556,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               {/* Day-to-Day Operations */}
               <div>
                 <h5 className="text-xs font-mono font-bold uppercase text-[#071A4A] mb-2.5">
-                  Day-to-Day Production Responsibilities:
+                  Illustrative role activities (not verified for this vacancy):
                 </h5>
                 <ul className="space-y-2 text-xs text-[#334155] leading-relaxed font-sans">
                   {activeOpening.dayToDayDuties.map((duty, idx) => (
@@ -571,7 +571,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               {/* 3-Stage Interview Process */}
               <div>
                 <h5 className="text-xs font-mono font-bold uppercase text-[#071A4A] mb-2.5">
-                  Official Interview Evaluation Stages:
+                  Interview stages are not verified for this employer:
                 </h5>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   {activeOpening.interviewStages.map((stage) => (
@@ -591,7 +591,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               {/* ATS Keywords Cloud */}
               <div>
                 <h5 className="text-xs font-mono font-bold uppercase text-[#071A4A] mb-2">
-                  Mandatory Resume ATS Screening Tokens:
+                  Potential resume keywords to verify against the actual job description:
                 </h5>
                 <div className="flex flex-wrap gap-1.5">
                   {activeOpening.atsKeywords.map((kw) => (
@@ -613,7 +613,7 @@ export function CompanyMatchMatrix({ result }: Props) {
         <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs text-slate-500 font-sans">
             <p>
-              Requisition source: Verified from public careers portals &amp; quarterly hiring desk filings (Q1 2026).
+              Historical role research only. Verify current vacancies and requirements on the official careers site.
             </p>
           </div>
           <div className="flex items-center gap-2.5 flex-wrap">

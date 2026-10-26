@@ -124,6 +124,7 @@ export interface DimensionBreakdown {
 }
 
 export interface EmployerReadinessReport {
+  answeredScenarioCount: number;
   overallReadinessScore: number; // 0 to 100
   letterGrade: "A" | "B+" | "B" | "NA";
   gradeSummary: string;
@@ -160,10 +161,10 @@ export function evaluateEmployerHiringReadiness(
   for (const q of EMPLOYER_SCENARIO_QUESTIONS) {
     const selectedOptId = answers[q.id];
     if (selectedOptId) {
-      answeredScenarioCount++;
       const option = q.options.find((o) => o.id === selectedOptId);
-      const weight = option ? option.scoreWeight : 0;
-      dimensionRawScores[q.dimension].earned += weight;
+      if (!option) continue;
+      answeredScenarioCount++;
+      dimensionRawScores[q.dimension].earned += option.scoreWeight;
       dimensionRawScores[q.dimension].total += 1;
     }
   }
@@ -248,9 +249,12 @@ export function evaluateEmployerHiringReadiness(
   }
 
   // 4. Calculate Aggregate Overall Readiness Score
-  const overallReadinessScore = Math.round(
-    Object.values(dimensionScores).reduce((acc, s) => acc + s, 0) / 5
-  );
+  const assessedDimensionScores = Object.entries(dimensionRawScores)
+    .filter(([, data]) => data.total > 0)
+    .map(([key]) => dimensionScores[key as CompetencyDimensionKey]);
+  const overallReadinessScore = assessedDimensionScores.length
+    ? Math.round(assessedDimensionScores.reduce((sum, score) => sum + score, 0) / assessedDimensionScores.length)
+    : 0;
 
   let letterGrade: "A" | "B+" | "B" | "NA" = "B";
   let gradeSummary = "Standard fresher candidate profile. Recommended for structured training pods with supervised QC.";
@@ -333,6 +337,7 @@ export function evaluateEmployerHiringReadiness(
   ];
 
   return {
+    answeredScenarioCount,
     overallReadinessScore,
     letterGrade,
     gradeSummary,

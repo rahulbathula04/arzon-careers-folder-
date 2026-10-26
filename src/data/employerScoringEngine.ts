@@ -177,7 +177,7 @@ export function evaluateEmployerHiringReadiness(
   const languageTrait = traitScores?.language ?? 0;
   // Career Engine traits and micro-accuracy are intentionally not converted into PV skill scores.
 
-  const getDimensionScore = (dim: CompetencyDimensionKey, fallbackFormula: number): number => {
+  const getDimensionScore = (dim: CompetencyDimensionKey, _fallbackFormula: number): number => {
     const data = dimensionRawScores[dim];
     if (data.total > 0) {
       const directScore = (data.earned / data.total) * 100;
@@ -202,13 +202,9 @@ export function evaluateEmployerHiringReadiness(
     const config = EMPLOYER_WEIGHT_CONFIGS[empName];
     const liveProfile = LIVE_EMPLOYER_OPENINGS.find((e) => e.shortName.toLowerCase().includes(empName.toLowerCase()));
 
-    let weightedRfi = 0;
-    for (const [dimKey, dimWeight] of Object.entries(config.weights)) {
-      weightedRfi += (dimensionScores[dimKey as CompetencyDimensionKey] || 70) * dimWeight;
-    }
-
-    const matchScore = Math.round(Math.min(98, Math.max(45, weightedRfi)));
-    const gap = matchScore - config.hiringBarCutoff;
+    // Practice score only. Public job descriptions do not provide employer-specific score weights.
+    const matchScore = Math.round(Object.values(dimensionScores).reduce((sum, score) => sum + score, 0) / 5);
+    const gap = 0;
 
     let status: FitStatus = "Borderline / Supervised";
     let statusColor = "#F59E0B";
@@ -232,7 +228,7 @@ export function evaluateEmployerHiringReadiness(
       // No interview outcome is inferred from a practice assessment.
     }
 
-    const fatalGap = liveProfile?.fatalGaps[0] ?? "Inability to demonstrate hands-on case processing speed.";
+    const fatalGap = "Review the practice explanations and verify job requirements on the employer careers page.";
     const roleTitle = liveProfile?.activeOpenings.roleTitle ?? "Drug Safety Associate";
 
     employerMatches.push({

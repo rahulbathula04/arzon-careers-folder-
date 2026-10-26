@@ -31,7 +31,7 @@ export type EmployerName =
 
 export interface EmployerCalibrationWeights {
   employer: EmployerName;
-  hiringBarCutoff: number; // Minimum RFI score (0-100) to clear interview rounds
+  hiringBarCutoff: number; // Internal practice reference only; not an employer hiring threshold
   weights: Record<CompetencyDimensionKey, number>; // Sums to 1.0
 }
 
@@ -108,7 +108,7 @@ export interface EmployerFitScore {
   gapFromCutoff: number; // matchScore - hiringCutoff
   status: FitStatus;
   statusColor: string;
-  clearedInterviewStages: string[];
+  clearedInterviewStages: string[]; // Kept for compatibility; always empty because no interviews were completed
   eliminationRisk: string;
   atsReadinessSummary: string;
   recommendedPathway: string;
@@ -171,19 +171,19 @@ export function evaluateEmployerHiringReadiness(
   // 2. Synthesize baseline dimension scores (0-100)
   // If candidate answered specialized scenario items, compute direct percentage.
   // Otherwise, derive calibrated baseline from careerEngine traits (compliance, detail, logic, language).
-  const detailTrait = traitScores?.detail ?? (careerEngineFitScore * 0.95);
-  const complianceTrait = traitScores?.compliance ?? (careerEngineFitScore * 0.92);
-  const logicTrait = traitScores?.logic ?? (careerEngineFitScore * 0.94);
-  const languageTrait = traitScores?.language ?? (careerEngineFitScore * 0.90);
-  const microBonus = microAccuracy * 10;
+  const detailTrait = traitScores?.detail ?? 0;
+  const complianceTrait = traitScores?.compliance ?? 0;
+  const logicTrait = traitScores?.logic ?? 0;
+  const languageTrait = traitScores?.language ?? 0;
+  // Career Engine traits and micro-accuracy are intentionally not converted into PV skill scores.
 
   const getDimensionScore = (dim: CompetencyDimensionKey, fallbackFormula: number): number => {
     const data = dimensionRawScores[dim];
     if (data.total > 0) {
       const directScore = (data.earned / data.total) * 100;
-      return Math.round(Math.min(99, Math.max(35, directScore)));
+      return Math.round(Math.min(100, Math.max(0, directScore)));
     }
-    return Math.round(Math.min(96, Math.max(48, fallbackFormula + microBonus)));
+    return 0; // Career-fit traits are not evidence of pharmacovigilance technical skill.
   };
 
   const dimensionScores: Record<CompetencyDimensionKey, number> = {
@@ -217,24 +217,19 @@ export function evaluateEmployerHiringReadiness(
     if (gap >= 8) {
       status = "Exceeds Hiring Bar";
       statusColor = "#10B981";
-      clearedInterviewStages.push("Round 1: Talent HR Screen (Cleared with High Distinction)");
-      clearedInterviewStages.push("Round 2: Technical Domain Case Exercise (Full Pass)");
-      clearedInterviewStages.push("Round 3: Senior Safety Operations Panel (Strong Recommend)");
+      // Practice score only. This does not represent employer screening or interview results.
     } else if (gap >= 0) {
       status = "Competitive Candidate";
       statusColor = "#2563EB";
-      clearedInterviewStages.push("Round 1: Talent HR Screen (Cleared)");
-      clearedInterviewStages.push("Round 2: Technical Domain Case Exercise (Standard Pass)");
-      clearedInterviewStages.push("Round 3: Operations Manager Panel (Subject to Reviewer Pod)");
+      // No interview outcome is inferred from a practice assessment.
     } else if (gap >= -10) {
       status = "Borderline / Supervised";
       statusColor = "#F59E0B";
-      clearedInterviewStages.push("Round 1: Talent HR Screen (Cleared)");
-      clearedInterviewStages.push("Round 2: Technical Domain Assessment (Conditional / Borderline)");
+      // No interview outcome is inferred from a practice assessment.
     } else {
       status = "Critical Skill Deficit";
       statusColor = "#EF4444";
-      clearedInterviewStages.push("Round 1: Talent HR Screen (Basic Clearance Only)");
+      // No interview outcome is inferred from a practice assessment.
     }
 
     const fatalGap = liveProfile?.fatalGaps[0] ?? "Inability to demonstrate hands-on case processing speed.";
@@ -266,10 +261,10 @@ export function evaluateEmployerHiringReadiness(
 
   if (overallReadinessScore >= 90) {
     letterGrade = "A";
-    gradeSummary = "Production-grade execution. Directly deployable into live sponsor accounts (Novartis/IQVIA Day-1 standard).";
+    gradeSummary = "Strong performance on this practice question set. This is not proof of workplace readiness.";
   } else if (overallReadinessScore >= 75) {
     letterGrade = "B+";
-    gradeSummary = "Reviewer-ready candidate. Clears Parexel and Cognizant technical bars with short 4-week paired mentoring.";
+    gradeSummary = "Good practice performance. Review the recommended topics before applying.";
   } else if (overallReadinessScore < 60) {
     letterGrade = "NA";
     gradeSummary = "Critical foundational gaps in regulatory timelines or clinical coding. Certificate bar not met.";
@@ -294,10 +289,10 @@ export function evaluateEmployerHiringReadiness(
 
     if (score >= 88) {
       rating = "Production Ready";
-      rationale = "Zero-defect understanding verified against global regulatory standards.";
+      rationale = "Strong score on this practice question set; not independently validated for workplace performance.";
     } else if (score >= 74) {
       rating = "Reviewer Ready";
-      rationale = "Competent grasp of core rules; light supervisor oversight suggested.";
+      rationale = "Promising practice result; continue reviewing scenarios and source guidance.";
     } else if (score < 60) {
       rating = "Unprepared";
       rationale = "Significant risk of technical interview elimination.";
@@ -349,9 +344,9 @@ export function evaluateEmployerHiringReadiness(
     dimensionBreakdown,
     employerMatches,
     universalStrengths: [
-      "Demonstrated grasp of healthcare career taxonomy and baseline pharmacology.",
-      "Clear differentiation between post-marketing surveillance and early-phase trial monitoring.",
-      "Aptitude for structured, detail-critical analytical workflows.",
+      "Strengths are shown only for competencies with answered practice questions.",
+      "Use explanations to review pharmacovigilance concepts.",
+      "Practice results do not guarantee interview selection or job readiness.",
     ],
     criticalGapsToClose: [
       dimensionScores.seriousness_clocks < 70

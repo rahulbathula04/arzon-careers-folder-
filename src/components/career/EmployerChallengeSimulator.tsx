@@ -148,17 +148,17 @@ export function EmployerChallengeSimulator({
           <div className="flex items-center gap-2 flex-wrap mb-2">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 shadow-2xs">
               <Target className="h-3 w-3 text-blue-600" />
-              <span>ROUND 2 TECHNICAL SCREENING SIMULATOR</span>
+              <span>PHARMACOVIGILANCE PRACTICE</span>
             </span>
             <span className="text-[10px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
-              Verified 2026 Question Bank
+              Practice scenarios
             </span>
           </div>
           <h3 className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-[#081F38]">
-            Simulate Live Employer Technical Casework
+            Practice Pharmacovigilance Scenarios
           </h3>
           <p className="mt-1 text-xs sm:text-sm text-slate-600 font-sans max-w-2xl leading-relaxed">
-            Test yourself against authentic regulatory scenarios used by panels at Novartis, IQVIA, Parexel, Cognizant, and Accenture to screen candidate technical competency.
+            These educational scenarios are for practice and have not been verified as questions used by any named employer. Results indicate performance on this question set only, not interview outcomes or hiring eligibility.
           </p>
         </div>
 

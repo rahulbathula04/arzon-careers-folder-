@@ -142,8 +142,8 @@ export interface EmployerReadinessReport {
  */
 export function evaluateEmployerHiringReadiness(
   answers: Record<string, string>,
-  careerEngineFitScore = 75,
-  microAccuracy = 0.8,
+  _careerEngineFitScore = 0,
+  _microAccuracy = 0,
   traitScores?: Record<string, number>,
 ): EmployerReadinessReport {
   // 1. Calculate raw dimension scores from employer scenario questions if answered
@@ -242,7 +242,7 @@ export function evaluateEmployerHiringReadiness(
       statusColor,
       clearedInterviewStages,
       eliminationRisk: fatalGap,
-      atsReadinessSummary: `Candidate scores ${matchScore}% against ${empName}'s ${config.hiringBarCutoff}% baseline hiring benchmark for entry-level ${roleTitle}.`,
+      atsReadinessSummary: `Practice question score: ${matchScore}%. This is not an employer hiring benchmark or selection prediction.`,
       recommendedPathway: `Close the ${gap < 0 ? Math.abs(gap) : 0}% gap in ${Object.entries(config.weights).sort((a,b) => b[1]-a[1])[0][0].replace('_', ' ')} before applying.`,
     });
   }

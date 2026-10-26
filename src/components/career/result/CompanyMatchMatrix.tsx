@@ -34,7 +34,6 @@ interface Props {
 }
 
 export function CompanyMatchMatrix({ result }: Props) {
-  const fitScore = Math.round(result.fitScore);
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const [showFullJd, setShowFullJd] = useState<boolean>(false);
   const [showRemediationPlan, setShowRemediationPlan] = useState<boolean>(false);
@@ -62,9 +61,6 @@ export function CompanyMatchMatrix({ result }: Props) {
 
   const currentEmployerFit = getEmployerFit(activeOpening.shortName);
   const currentMatchScore = currentEmployerFit?.matchScore ?? null;
-  const hiringCutoff = currentEmployerFit?.hiringCutoff ?? null;
-  const gapFromCutoff = currentEmployerFit?.gapFromCutoff ?? null;
-  const isAboveCutoff = gapFromCutoff !== null && gapFromCutoff >= 0;
 
   const getCandidateStrengths = (_company: LiveEmployerOpening) => [
     "Review your answered scenarios to see demonstrated strengths.",
@@ -171,7 +167,6 @@ export function CompanyMatchMatrix({ result }: Props) {
           {LIVE_EMPLOYER_OPENINGS.map((emp, idx) => {
             const score = getScoreForIdx(idx);
             const isSelected = selectedIdx === idx;
-            const fit = getEmployerFit(emp.shortName);
             const meetsBar = false;
 
             return (

@@ -54,30 +54,23 @@ export function CompanyMatchMatrix({ result }: Props) {
     );
   };
 
-  // Calibrate score: use true employer scoring engine matchScore if available, else fallback
+  // Employer-specific hiring scores are not available from public job postings.
   const getScoreForIdx = (idx: number) => {
     const opening = LIVE_EMPLOYER_OPENINGS[idx];
-    const fit = getEmployerFit(opening.shortName);
-    if (fit) return fit.matchScore;
-    const multipliers = [1.02, 0.95, 0.91, 0.84, 0.98];
-    const raw = Math.round(fitScore * (multipliers[idx] ?? 0.95));
-    return Math.min(97, Math.max(52, raw));
+    return getEmployerFit(opening.shortName)?.matchScore ?? null;
   };
 
   const currentEmployerFit = getEmployerFit(activeOpening.shortName);
-  const currentMatchScore = currentEmployerFit ? currentEmployerFit.matchScore : getScoreForIdx(selectedIdx);
-  const hiringCutoff = currentEmployerFit ? currentEmployerFit.hiringCutoff : 68;
-  const gapFromCutoff = currentEmployerFit ? currentEmployerFit.gapFromCutoff : currentMatchScore - hiringCutoff;
-  const isAboveCutoff = gapFromCutoff >= 0;
+  const currentMatchScore = currentEmployerFit?.matchScore ?? null;
+  const hiringCutoff = currentEmployerFit?.hiringCutoff ?? null;
+  const gapFromCutoff = currentEmployerFit?.gapFromCutoff ?? null;
+  const isAboveCutoff = gapFromCutoff !== null && gapFromCutoff >= 0;
 
-  // Derive candidate profile strengths based on student diagnostic
-  const getCandidateStrengths = (company: LiveEmployerOpening) => {
-    return [
-      `Degree & Domain Alignment: Matches ${company.eligibility.degrees[0].split(" ")[0]} eligibility requirements`,
-      `Clinical Trait Percentile: Strong baseline in error sensitivity and protocol rigor (${Math.max(78, fitScore)}%)`,
-      `Regulatory Foundation: Demonstrated understanding of patient safety triage and adverse event timelines`,
-    ];
-  };
+  const getCandidateStrengths = (_company: LiveEmployerOpening) => [
+    "Review your answered scenarios to see demonstrated strengths.",
+    "Use the practice feedback to identify topics to revisit.",
+    "Job eligibility depends on the requirements in each official posting.",
+  ];
 
   // Get status badge colors
   const getStatusBadge = () => {
@@ -131,17 +124,17 @@ export function CompanyMatchMatrix({ result }: Props) {
         <div>
           <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 mb-2.5 shadow-2xs">
             <Building2 className="h-3.5 w-3.5 text-blue-600" />
-            <span>TOP 5 HEALTHCARE EMPLOYERS · 2026 REQUISITIONS &amp; ATS MATCH</span>
+            <span>EMPLOYER RESEARCH · PRACTICE ASSESSMENT</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38]">
-            How Top Healthcare Recruiters Screen Your Profile
+            Explore PV Roles and Practice Your Skills
           </h2>
           <p className="mt-1 text-sm text-slate-600 max-w-2xl leading-relaxed font-normal font-sans">
-            We mapped your diagnostic responses against verified live job requisitions from India’s top 5 healthcare employers to reveal where you pass and where technical gaps will trigger disqualification.
+            This is a learning aid, not an employer hiring prediction. Vacancy details, salary estimates and selection criteria must be checked on each employer’s official careers site.
           </p>
         </div>
 
-        {/* Recruiter Fit Index (RFI) & Calibration Grade Badge */}
+        {/* Practice assessment (RFI) & Calibration Grade Badge */}
         <div className="flex items-center gap-3.5 self-start md:self-auto bg-gradient-to-br from-white to-slate-50 border border-slate-200/90 px-4.5 py-3 rounded-2xl shadow-[0_1px_3px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,1)]">
           <div className="h-10 w-10 rounded-xl bg-blue-50 border border-blue-200/80 flex items-center justify-center text-blue-600 shrink-0 shadow-2xs">
             <ShieldCheck className="h-5 w-5" />
@@ -149,7 +142,7 @@ export function CompanyMatchMatrix({ result }: Props) {
           <div>
             <div className="flex items-center gap-2">
               <p className="text-[10px] font-mono font-bold uppercase text-slate-400 tracking-wider">
-                Recruiter Fit Index
+                Practice assessment
               </p>
               {readiness?.letterGrade && (
                 <span className="text-[10px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 border border-blue-200">
@@ -159,10 +152,10 @@ export function CompanyMatchMatrix({ result }: Props) {
             </div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-lg font-bold font-mono text-[#081F38]">
-                {readiness ? readiness.overallReadinessScore : fitScore}%
+                {readiness ? `${readiness.overallReadinessScore}%` : "Not assessed"}
               </span>
               <span className="text-xs text-slate-500 font-sans font-medium">
-                {readiness?.topMatchedEmployer ? `Best Fit: ${readiness.topMatchedEmployer}` : "Calibrated RFI"}
+                {readiness ? "Based on practice answers" : "Complete the practice assessment"}
               </span>
             </div>
           </div>
@@ -172,14 +165,14 @@ export function CompanyMatchMatrix({ result }: Props) {
       {/* Tactile Apple Pro Requisition Switcher Tabs */}
       <div className="mt-6">
         <p className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider mb-3">
-          Select Employer Requisition to Inspect:
+          Explore employer information (verify openings on the official site):
         </p>
         <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
           {LIVE_EMPLOYER_OPENINGS.map((emp, idx) => {
             const score = getScoreForIdx(idx);
             const isSelected = selectedIdx === idx;
             const fit = getEmployerFit(emp.shortName);
-            const meetsBar = fit ? fit.gapFromCutoff >= 0 : score >= 68;
+            const meetsBar = false;
 
             return (
               <button
@@ -201,7 +194,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                 </div>
                 <div className="flex items-center gap-2 pl-2.5 border-l border-slate-200">
                   <span className={`font-mono text-xs font-bold ${isSelected ? "text-blue-700" : "text-[#081F38]"}`}>
-                    {score}%
+                    {score === null ? "Practice" : `${score}%`}
                   </span>
                   <span
                     className={`h-1.5 w-1.5 rounded-full ${
@@ -209,7 +202,7 @@ export function CompanyMatchMatrix({ result }: Props) {
                         ? "bg-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]"
                         : "bg-amber-500 shadow-[0_0_6px_rgba(245,158,11,0.7)]"
                     }`}
-                    title={meetsBar ? "Clears ATS Bar" : "Needs Remediation"}
+                    title="No employer hiring cutoff is verified"
                   />
                 </div>
               </button>
@@ -236,10 +229,10 @@ export function CompanyMatchMatrix({ result }: Props) {
                 </h3>
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-800 shadow-2xs">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 motion-safe:animate-pulse" />
-                  {activeOpening.activeOpenings.hiringStatus}
+                  Employer information
                 </span>
                 <span className="inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] border border-[#D0E1FD] px-2.5 py-0.5 text-[10px] font-mono font-bold text-[#1557D6] shadow-2xs">
-                  {activeOpening.activeOpenings.reqId}
+                  Illustrative profile
                 </span>
               </div>
 

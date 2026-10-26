@@ -148,7 +148,7 @@ export function CompanyMatchMatrix({ result }: Props) {
             </div>
             <div className="flex items-baseline gap-1.5 mt-0.5">
               <span className="text-lg font-bold font-mono text-[#081F38]">
-                {readiness ? `${readiness.overallReadinessScore}%` : "Not assessed"}
+                {readiness && readiness.answeredScenarioCount > 0 ? `${readiness.overallReadinessScore}%` : "Not assessed"}
               </span>
               <span className="text-xs text-slate-500 font-sans font-medium">
                 {readiness ? "Based on practice answers" : "Complete the practice assessment"}
@@ -268,7 +268,7 @@ export function CompanyMatchMatrix({ result }: Props) {
               </span>
               <div className="flex items-baseline lg:justify-center gap-1 mt-0.5">
                 <span className="text-3xl sm:text-4xl font-mono font-extrabold text-blue-600">
-                  {currentMatchScore === null ? "Not assessed" : `${currentMatchScore}%`}
+                  {!readiness || readiness.answeredScenarioCount === 0 || currentMatchScore === null ? "Not assessed" : `${currentMatchScore}%`}
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-400">/ 100</span>
               </div>

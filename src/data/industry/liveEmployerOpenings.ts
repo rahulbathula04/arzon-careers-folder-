@@ -1,10 +1,11 @@
+/** Employer career research profiles. Unless independently verified, these records are not live vacancies. */
 export interface LiveEmployerOpening {
   company: string;
   shortName: string;
   tagline: string;
   brandColor: string;
   globalHq: string;
-  annualFresherIntake: string;
+  annualFresherIntake: string; // Historical/illustrative context only; do not present as verified intake
   activeOpenings: {
     reqId: string;
     roleTitle: string;
@@ -12,11 +13,11 @@ export interface LiveEmployerOpening {
     locations: string[];
     workModel: "Hybrid (3 Days Office)" | "Office (Security Zone)" | "Rotational Hybrid";
     experience: string;
-    openPositions: number;
-    salaryBand: string;
-    hiringStatus: "Urgent Hiring Wave" | "Active Pipeline" | "Quarterly Batch Intake";
-    postedDate: string;
-    careersUrl: string;
+    openPositions: number; // Unverified estimates; not confirmed vacancy counts
+    salaryBand: string; // Unverified estimates; not employer-confirmed pay
+    hiringStatus: "Urgent Hiring Wave" | "Active Pipeline" | "Quarterly Batch Intake"; // Not verified live status
+    postedDate: string; // Not verified live posting date
+    careersUrl: string; // Generic careers links do not verify this record
   };
   eligibility: {
     degrees: string[];

@@ -191,14 +191,14 @@ export function CareerRoadmap({ result }: Props) {
     ROADMAP_PHASES["pharmacovigilance"];
 
   return (
-    <section className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
+    <section className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-4 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] w-full max-w-full min-w-0 overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
         <div>
           <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 mb-2.5 shadow-2xs">
             <Calendar className="h-3.5 w-3.5 text-blue-600" />
-            <span>EXECUTION BLUEPRINT · 90-DAY ACCELERATION</span>
+            <span className="truncate">EXECUTION BLUEPRINT · 90-DAY ACCELERATION</span>
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
+          <h2 className="font-serif text-xl sm:text-3xl font-bold tracking-tight text-[#081F38] break-words">
             90-Day Proof-of-Work Roadmap
           </h2>
           <p className="mt-1 text-sm text-slate-600 max-w-3xl leading-relaxed font-sans">

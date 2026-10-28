@@ -35,7 +35,7 @@ export function ChallengeFriend({
   )}`;
 
   return (
-    <section className="rounded-3xl border border-blue-200/80 bg-gradient-to-br from-blue-50/60 via-indigo-50/20 to-white p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
+    <section className="rounded-3xl border border-blue-200/80 bg-gradient-to-br from-blue-50/60 via-indigo-50/20 to-white p-4 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] w-full max-w-full min-w-0 overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-blue-200/60 pb-5">
         <div className="flex items-center gap-3">
           <div className="grid h-10 w-10 place-items-center rounded-2xl bg-[#081F38] text-white shadow-xs">

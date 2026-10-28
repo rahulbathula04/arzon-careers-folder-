@@ -66,18 +66,18 @@ export function CapabilityScorecard({ result }: Props) {
   );
 
   return (
-    <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
+    <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] w-full max-w-full min-w-0 overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
-        <div className="flex items-center gap-3.5">
-          <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/80 shadow-2xs flex items-center justify-center text-blue-600 shrink-0">
-            <Activity className="h-6 w-6" />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6 w-full min-w-0">
+        <div className="flex items-center gap-3.5 min-w-0">
+          <div className="h-11 w-11 sm:h-12 sm:w-12 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/80 shadow-2xs flex items-center justify-center text-blue-600 shrink-0">
+            <Activity className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
-          <div>
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 mb-1 shadow-2xs">
-              <span>ROLE READINESS MATRIX · 6 VECTORS</span>
+          <div className="min-w-0">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-2.5 py-0.5 text-[9.5px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-blue-700 mb-1 shadow-2xs max-w-full">
+              <span className="truncate">ROLE READINESS MATRIX · 6 VECTORS</span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
+            <h2 className="font-serif text-xl sm:text-3xl font-bold tracking-tight text-[#081F38] break-words">
               Your Capability Profile
             </h2>
           </div>

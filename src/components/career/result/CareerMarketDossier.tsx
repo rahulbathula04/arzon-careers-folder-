@@ -322,20 +322,20 @@ export function CareerMarketDossier({ result }: Props) {
     MARKET_METRICS["pharmacovigilance"];
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 w-full max-w-full min-w-0">
       {/* ─── Role Reality & Executive Market Context ───────────────── */}
-      <div className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
-          <div className="flex items-center gap-3">
-            <div className="grid h-10 w-10 place-items-center rounded-2xl border border-blue-200/60 bg-gradient-to-br from-blue-50 to-indigo-50/60 text-blue-600 shadow-xs">
+      <div className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-4 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] w-full max-w-full min-w-0 overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80 w-full min-w-0">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="grid h-10 w-10 place-items-center rounded-2xl border border-blue-200/60 bg-gradient-to-br from-blue-50 to-indigo-50/60 text-blue-600 shadow-xs shrink-0">
               <Briefcase className="h-5 w-5" />
             </div>
-            <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.15em] text-blue-600 font-bold block">
-                CAREER MARKET INTELLIGENCE · 2026 INDIA BENCHMARKS
+            <div className="min-w-0">
+              <span className="text-[10px] font-mono uppercase tracking-[0.12em] sm:tracking-[0.15em] text-blue-600 font-bold block truncate">
+                CAREER MARKET INTELLIGENCE · 2026 INDIA
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
-                Target Role & Industry Market Reality
+              <h2 className="font-serif text-xl sm:text-3xl font-bold tracking-tight text-[#081F38] break-words">
+                Target Role &amp; Industry Market Reality
               </h2>
             </div>
           </div>

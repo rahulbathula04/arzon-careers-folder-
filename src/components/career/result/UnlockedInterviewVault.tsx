@@ -180,7 +180,7 @@ export function UnlockedInterviewVault({ result, candidateName = "Candidate" }: 
   };
 
   return (
-    <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.05),inset_0_1px_0_rgba(255,255,255,0.95)]">
+    <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.05),inset_0_1px_0_rgba(255,255,255,0.95)] w-full max-w-full min-w-0 overflow-hidden">
       {/* Top Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6">
         <div>
@@ -189,7 +189,7 @@ export function UnlockedInterviewVault({ result, candidateName = "Candidate" }: 
               <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
             </span>
-            <span>TOP 5 EMPLOYER TECHNICAL INTERVIEW VAULT · CALIBRATED RUBRICS</span>
+            <span className="truncate">TOP 5 EMPLOYER VAULT <span className="hidden sm:inline">· CALIBRATED RUBRICS</span></span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38]">
             Technical Interview Preparation &amp; Casework Vault
@@ -216,7 +216,7 @@ export function UnlockedInterviewVault({ result, candidateName = "Candidate" }: 
             <div className="h-7 w-7 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
               <AlertTriangle className="h-4 w-4" />
             </div>
-            <h3 className="text-xs font-bold uppercase tracking-[0.14em] font-mono text-amber-950">
+            <h3 className="text-xs font-bold uppercase tracking-[0.14em] font-mono text-amber-950 break-words">
               CONFIDENTIAL DIAGNOSTIC AUDIT: TOP 3 INTERVIEW VULNERABILITIES
             </h3>
           </div>

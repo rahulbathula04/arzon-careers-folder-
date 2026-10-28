@@ -129,15 +129,15 @@ export function PillarFitMatrix({ result }: Props) {
   };
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 w-full max-w-full min-w-0">
       {/* Header Banner */}
-      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100/90 pb-5 sm:pb-6">
-          <div>
+      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] w-full max-w-full min-w-0 overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100/90 pb-5 sm:pb-6 w-full min-w-0">
+          <div className="min-w-0">
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 shadow-2xs">
-                <Layers className="h-3.5 w-3.5 text-blue-600" />
-                <span>5-PILLAR HEALTHCARE MATRIX</span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-blue-700 shadow-2xs max-w-full">
+                <Layers className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+                <span className="truncate">5-PILLAR MATRIX <span className="hidden sm:inline">· HEALTHCARE DOMAINS</span></span>
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 shadow-2xs">
                 <ShieldCheck className="h-3.5 w-3.5 text-blue-600" />
@@ -170,13 +170,13 @@ export function PillarFitMatrix({ result }: Props) {
         </p>
 
         {/* 5-Pillar Score Cards Grid */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 w-full min-w-0">
           {pillars.map((p, idx) => {
             const isTop = idx === 0;
             return (
               <div
                 key={p.slug}
-                className={`relative flex flex-col justify-between rounded-2xl border p-5 transition-all duration-200 ${
+                className={`relative flex flex-col justify-between rounded-2xl border p-4 sm:p-5 transition-all duration-200 w-full min-w-0 overflow-hidden ${
                   isTop
                     ? "border-blue-400/90 bg-gradient-to-b from-blue-50/60 via-white to-slate-50/40 ring-1 ring-blue-500/20 shadow-[0_4px_16px_rgba(37,99,235,0.08)]"
                     : "border-slate-200/80 bg-gradient-to-b from-white to-slate-50/50 hover:bg-white hover:border-slate-300 hover:shadow-xs"

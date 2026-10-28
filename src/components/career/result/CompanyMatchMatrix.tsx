@@ -125,18 +125,18 @@ export function CompanyMatchMatrix({ result }: Props) {
     : null;
 
   return (
-    <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-6 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
+    <section className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] w-full max-w-full min-w-0 overflow-hidden">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100/90 pb-6">
-        <div>
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 mb-2.5 shadow-2xs">
-            <Building2 className="h-3.5 w-3.5 text-blue-600" />
-            <span>TOP 5 HEALTHCARE EMPLOYERS · 2026 REQUISITIONS &amp; ATS MATCH</span>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100/90 pb-6 w-full min-w-0">
+        <div className="min-w-0">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-blue-200/80 bg-blue-50/80 px-3.5 py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-blue-700 mb-2.5 shadow-2xs max-w-full">
+            <Building2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />
+            <span className="truncate">TOP 5 EMPLOYERS <span className="hidden sm:inline">· 2026 REQUISITIONS &amp; ATS MATCH</span></span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38]">
+          <h2 className="text-xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38] break-words">
             How Top Healthcare Recruiters Screen Your Profile
           </h2>
-          <p className="mt-1 text-sm text-slate-600 max-w-2xl leading-relaxed font-normal font-sans">
+          <p className="mt-1 text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed font-normal font-sans">
             We mapped your diagnostic responses against verified live job requisitions from India’s top 5 healthcare employers to reveal where you pass and where technical gaps will trigger disqualification.
           </p>
         </div>

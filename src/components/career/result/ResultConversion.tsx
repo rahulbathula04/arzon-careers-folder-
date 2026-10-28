@@ -36,10 +36,10 @@ export function ResultConversion({ result }: Props) {
   )}`;
 
   return (
-    <section className="rounded-3xl border border-slate-800 bg-gradient-to-b from-[#081F38] via-[#0B2545] to-[#081F38] text-white p-6 sm:p-10 shadow-[0_20px_50px_-10px_rgba(7,26,74,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] relative overflow-hidden">
+    <section className="rounded-3xl border border-slate-800 bg-gradient-to-b from-[#081F38] via-[#0B2545] to-[#081F38] text-white p-4 sm:p-10 shadow-[0_20px_50px_-10px_rgba(7,26,74,0.35),inset_0_1px_0_rgba(255,255,255,0.15)] relative overflow-hidden w-full max-w-full min-w-0">
       {/* Background Subtle Radial Accent */}
-      <div className="pointer-events-none absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
-      <div className="pointer-events-none absolute -left-20 -top-20 h-60 w-60 rounded-full bg-indigo-500/15 blur-3xl" />
+      <div className="pointer-events-none absolute right-0 bottom-0 translate-x-1/3 translate-y-1/3 h-72 w-72 rounded-full bg-blue-500/20 blur-3xl" />
+      <div className="pointer-events-none absolute left-0 top-0 -translate-x-1/3 -translate-y-1/3 h-60 w-60 rounded-full bg-indigo-500/15 blur-3xl" />
 
       <div className="relative z-10 max-w-3xl">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 px-3.5 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-amber-300 shadow-2xs">

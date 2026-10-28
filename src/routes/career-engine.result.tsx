@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
 import { toast } from "sonner";
-import { ShieldCheck, ArrowRight } from "lucide-react";
+import { ShieldCheck, ArrowRight, Monitor } from "lucide-react";
 import {
   ARCHETYPES,
   computeResult,
@@ -495,10 +495,10 @@ function ResultPage() {
 
   return (
     <main
-      className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans pt-3.5 pb-10 sm:pt-8 sm:pb-16"
+      className="min-h-screen bg-[#F7F9FC] text-[#071A4A] tone-light arzon-page-surface font-sans pt-3.5 pb-10 sm:pt-8 sm:pb-16 w-full max-w-full min-w-0 overflow-x-hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 2.5rem)" }}
     >
-      <div className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 space-y-4 sm:space-y-8">
+      <div className="mx-auto max-w-5xl px-3 sm:px-6 lg:px-8 space-y-4 sm:space-y-8 w-full max-w-full min-w-0">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center gap-2 text-xs font-mono text-[#69758A]">
           <Link to="/career-engine" className="hover:text-[#071A4A] transition-colors">
@@ -506,6 +506,16 @@ function ResultPage() {
           </Link>
           <span>›</span>
           <span className="text-[#071A4A] font-semibold">Career Identity Dossier</span>
+        </div>
+
+        {/* Mobile View Advisory Banner */}
+        <div className="flex sm:hidden items-center justify-between gap-2.5 rounded-2xl border border-blue-200/80 bg-gradient-to-r from-blue-50/90 to-indigo-50/70 p-3 text-xs text-blue-950 font-sans shadow-2xs">
+          <div className="flex items-center gap-2 min-w-0">
+            <Monitor className="h-4 w-4 text-blue-600 shrink-0" />
+            <span className="text-[11.5px] leading-tight">
+              <strong>Tip:</strong> For expanded multi-column matrices &amp; certificate printing, desktop view is also supported.
+            </span>
+          </div>
         </div>
 
         {/* 1. Career Identity Hero */}

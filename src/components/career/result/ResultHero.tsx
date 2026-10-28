@@ -50,10 +50,10 @@ export function ResultHero({
   const strokeDashoffset = circumference - (fitScore / 100) * circumference;
 
   return (
-    <section className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),0_28px_64px_-12px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.95)] transition-all">
+    <section className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-8 md:p-10 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),0_28px_64px_-12px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.95)] transition-all w-full max-w-full min-w-0">
       {/* Background Subtle Institutional Ambient Glow Accent */}
-      <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gradient-to-br from-blue-100/40 via-indigo-50/20 to-transparent blur-3xl" />
-      <div className="pointer-events-none absolute -left-24 -bottom-24 h-80 w-80 rounded-full bg-gradient-to-tr from-sky-50/40 via-emerald-50/20 to-transparent blur-3xl" />
+      <div className="pointer-events-none absolute right-0 top-0 translate-x-1/3 -translate-y-1/3 h-80 w-80 rounded-full bg-gradient-to-br from-blue-100/40 via-indigo-50/20 to-transparent blur-3xl" />
+      <div className="pointer-events-none absolute left-0 bottom-0 -translate-x-1/3 translate-y-1/3 h-80 w-80 rounded-full bg-gradient-to-tr from-sky-50/40 via-emerald-50/20 to-transparent blur-3xl" />
 
       {/* Top Header Row with Eyebrow and Retake Action */}
       <div className="relative flex items-center justify-between gap-2 border-b border-slate-100/90 pb-3.5 sm:pb-5">

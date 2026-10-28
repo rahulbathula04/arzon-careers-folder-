@@ -188,8 +188,8 @@ Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
   };
 
   return (
-    <section id="assessment-record" className="space-y-6">
-      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-5 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]">
+    <section id="assessment-record" className="space-y-6 w-full max-w-full min-w-0">
+      <div className="rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)] w-full max-w-full min-w-0 overflow-hidden">
         {/* Header Bar */}
         <div className="flex flex-col justify-between gap-4 border-b border-slate-100 pb-5 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3.5">

@@ -23,14 +23,14 @@ export function SalaryRoiForecaster({ result }: Props) {
   const netAdvantage = 25.4; // Lakhs
 
   return (
-    <section className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-6 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)]">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 pb-6">
-        <div>
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50/90 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-emerald-800 shadow-2xs mb-2">
-            <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
-            <span>5-YEAR SALARY TRAJECTORY &amp; CAREER ROI</span>
+    <section className="rounded-3xl border border-slate-200/80 bg-white tone-light card-light p-4 sm:p-8 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_10px_30px_-5px_rgba(7,26,74,0.04),inset_0_1px_0_rgba(255,255,255,0.9)] w-full max-w-full min-w-0 overflow-hidden">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200/80 pb-6 w-full min-w-0">
+        <div className="min-w-0">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50/90 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-[0.12em] sm:tracking-[0.15em] text-emerald-800 shadow-2xs mb-2 max-w-full">
+            <TrendingUp className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+            <span className="truncate">5-YEAR SALARY TRAJECTORY <span className="hidden sm:inline">&amp; CAREER ROI</span></span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38]">
+          <h2 className="text-xl sm:text-3xl font-serif font-bold tracking-tight text-[#081F38] break-words">
             The Cost of Unverified Job Hunting in India
           </h2>
           <p className="mt-1 text-sm text-slate-500 max-w-2xl font-sans leading-relaxed">

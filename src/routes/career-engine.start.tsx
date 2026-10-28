@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ArrowRight, ArrowLeft, ShieldCheck, CheckCircle2, GraduationCap, Mail, Phone, User, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, ShieldCheck, CheckCircle2, GraduationCap, Mail, Phone, User, Sparkles, Monitor, X, Copy } from "lucide-react";
 import { AiThinkingLoader } from "@/components/ui/AiThinkingLoader";
 import { CareerShell } from "@/components/career/CareerShell";
 import { Input } from "@/components/ui/input";
@@ -81,6 +81,8 @@ function StartPage() {
   });
   const [busy, setBusy] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showDesktopAdvisory, setShowDesktopAdvisory] = useState(false);
+  const [pendingValidData, setPendingValidData] = useState<z.infer<typeof schema> | null>(null);
   const [existingResult, setExistingResult] = useState<{
     archetype?: { name: string };
     fitScore: number;
@@ -211,6 +213,29 @@ function StartPage() {
     }
   };
 
+  const handleProceedFromAdvisory = (validData?: z.infer<typeof schema>) => {
+    if (typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("ce_desktop_advisory_seen", "true");
+      } catch {
+        /* ignore */
+      }
+    }
+    setShowDesktopAdvisory(false);
+    const dataToRun = validData || pendingValidData;
+    if (dataToRun) {
+      runFlow(dataToRun);
+    }
+  };
+
+  const handleCopyLinkForDesktop = () => {
+    const url = typeof window !== "undefined" ? window.location.href : "https://arzoncareers.in/career-engine/start";
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(url);
+      toast.success("Assessment link copied! Send it to WhatsApp or email to open on desktop.", { duration: 4000 });
+    }
+  };
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (inFlightRef.current) return;
@@ -221,6 +246,16 @@ function StartPage() {
       toast.error(msg);
       return;
     }
+
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const advisoryDismissed = typeof window !== "undefined" && sessionStorage.getItem("ce_desktop_advisory_seen");
+
+    if (isMobile && !advisoryDismissed) {
+      setPendingValidData(parsed.data);
+      setShowDesktopAdvisory(true);
+      return;
+    }
+
     await runFlow(parsed.data);
   };
 
@@ -241,45 +276,45 @@ function StartPage() {
       )}
 
       {existingResult?.archetype?.name && (
-        <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50/80 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-            <div className="text-left">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-800 font-bold block">
+        <div className="mb-4 sm:mb-6 rounded-xl sm:rounded-2xl border border-emerald-200 bg-emerald-50/90 p-3 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 shadow-2xs">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <CheckCircle2 className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600 shrink-0" />
+            <div className="text-left min-w-0">
+              <span className="text-[9.5px] sm:text-[10px] font-mono uppercase tracking-wider text-emerald-800 font-bold block truncate">
                 PREVIOUS DIAGNOSTIC ON RECORD
               </span>
-              <p className="text-sm font-bold text-emerald-950 mt-0.5">
+              <p className="text-xs sm:text-sm font-bold text-emerald-950 mt-0.5 truncate">
                 {existingResult.archetype.name} · {Math.round(existingResult.fitScore)}% Role Fit
               </p>
-              <p className="text-xs text-emerald-800/80 mt-0.5">
+              <p className="hidden sm:block text-xs text-emerald-800/80 mt-0.5">
                 Your report and official certificate are securely saved. You can view them or retake the assessment below.
               </p>
             </div>
           </div>
           <Link
             to="/career-engine/result"
-            className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-emerald-700 px-4 py-2 text-xs font-bold text-white shadow-xs hover:bg-emerald-800 transition-colors"
+            className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-full bg-emerald-700 px-3.5 sm:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-white shadow-xs hover:bg-emerald-800 transition-colors w-full sm:w-auto text-center"
           >
-            <span>View Saved Dossier & Certificate</span>
-            <ArrowRight className="h-3.5 w-3.5" />
+            <span>View Saved Dossier</span>
+            <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           </Link>
         </div>
       )}
 
-      <div className="arzon-engine-intro text-center space-y-2.5 sm:space-y-3">
+      <div className="arzon-engine-intro text-center space-y-2 sm:space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
             FREE · NO LOGIN · ABOUT 6 MINUTES
           </PremiumChip>
         </div>
-        <h1 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-snug sm:leading-tight">
+        <h1 className="font-sans text-xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-snug sm:leading-tight">
           Find the healthcare role that fits your background.
         </h1>
         <p className="text-xs sm:text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
           <span className="sm:hidden">Answer 42 questions to discover your matching healthcare career path and personalised skill readiness score.</span>
           <span className="hidden sm:inline">Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.</span>
         </p>
-        <p className="mx-auto inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
+        <p className="mx-auto hidden sm:inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
           <span>{TARGET_TOTAL} questions</span>
           <span>·</span>
           <span>~6 minutes</span>
@@ -314,23 +349,23 @@ function StartPage() {
       </div>
 
       {/* Recruiter Benchmarked Employers Trust Banner */}
-      <div className="mt-3.5 sm:mt-4 rounded-xl sm:rounded-2xl border border-slate-200/90 bg-white p-2.5 sm:p-4 text-center shadow-2xs">
-        <p className="font-mono text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2 sm:mb-2.5">
+      <div className="mt-3 sm:mt-4 rounded-xl sm:rounded-2xl border border-slate-200/90 bg-white p-2.5 sm:p-4 text-center shadow-2xs">
+        <p className="font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5 sm:mb-2.5">
           Scored Against Live Entry-Level Requisitions At:
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 opacity-90">
-          <CompanyBrandLogo company="cognizant" className="h-3.5 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="iqvia" className="h-3.5 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="parexel" className="h-3.5 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="novartis" className="h-3.5 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="accenture" className="h-3.5 sm:h-4.5 w-auto" />
+        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-6 opacity-90">
+          <CompanyBrandLogo company="cognizant" className="h-3 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="iqvia" className="h-3 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="parexel" className="h-3 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="novartis" className="h-3 sm:h-4.5 w-auto" />
+          <CompanyBrandLogo company="accenture" className="h-3 sm:h-4.5 w-auto" />
         </div>
       </div>
 
       <form
         onSubmit={onSubmit}
         aria-busy={busy}
-        className="arzon-engine-form mt-5 sm:mt-7 space-y-4 sm:space-y-6 rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-5 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]"
+        className="arzon-engine-form mt-4 sm:mt-7 space-y-3.5 sm:space-y-6 rounded-2xl sm:rounded-3xl border border-slate-200/90 bg-white tone-light card-light p-4 sm:p-9 shadow-[0_1px_3px_rgba(0,0,0,0.02),0_12px_36px_-6px_rgba(7,26,74,0.06),inset_0_1px_0_rgba(255,255,255,0.95)]"
       >
         {/* Honeypot */}
         <div
@@ -349,19 +384,19 @@ function StartPage() {
         </div>
 
         {/* Header Eyebrow */}
-        <div className="border-b border-slate-100 pb-4">
+        <div className="border-b border-slate-100 pb-3 sm:pb-4">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-50 px-3 py-1 font-mono text-[10px] font-bold text-blue-700 uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-50 px-2.5 sm:px-3 py-0.5 sm:py-1 font-mono text-[9.5px] sm:text-[10px] font-bold text-blue-700 uppercase tracking-widest">
               <Sparkles className="w-3 h-3 text-blue-600" />
               <span>CANDIDATE ONBOARDING</span>
             </span>
-            <span className="font-mono text-[11px] text-slate-500 font-medium">Step 1 of 2 · Profile Setup</span>
+            <span className="font-mono text-[10px] sm:text-[11px] text-slate-500 font-medium">Step 1 of 2</span>
           </div>
-          <h2 className="mt-2.5 font-sans text-xl sm:text-2xl font-bold tracking-tight text-[#081F38]">
+          <h2 className="mt-2 font-sans text-lg sm:text-2xl font-bold tracking-tight text-[#081F38]">
             Enter Your Academic &amp; Contact Details
           </h2>
-          <p className="mt-1 text-xs sm:text-sm text-slate-600 font-sans">
-            Your verified career fit score, benchmark analysis, and official evaluation record will be tied to this candidate profile.
+          <p className="mt-0.5 text-xs sm:text-sm text-slate-600 font-sans">
+            Your verified career fit score and benchmark analysis will be tied to this candidate profile.
           </p>
         </div>
 
@@ -513,6 +548,86 @@ function StartPage() {
           ← Back to Overview
         </Link>
       </div>
+
+      {/* ─── Desktop View Experience Advisory Modal (Mobile Only Prompt) ─── */}
+      {showDesktopAdvisory && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-4 bg-slate-950/65 backdrop-blur-xs animate-in fade-in duration-200"
+        >
+          <div className="relative w-full max-w-md rounded-3xl border border-slate-200 bg-white p-5 sm:p-6 shadow-2xl text-slate-900 overflow-hidden tone-light card-light">
+            {/* Ambient Background Accent */}
+            <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-100/50 blur-2xl" />
+
+            {/* Close / Dismiss Button */}
+            <button
+              type="button"
+              onClick={() => handleProceedFromAdvisory()}
+              className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors cursor-pointer"
+              aria-label="Close advisory and continue"
+            >
+              <X className="h-4 w-4" />
+            </button>
+
+            {/* Header with Dual Device Badges */}
+            <div className="flex items-center gap-3">
+              <div className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/80 text-blue-600 shadow-2xs shrink-0">
+                <Monitor className="h-5 w-5" />
+              </div>
+              <div className="min-w-0 pr-6">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-[0.14em] text-blue-700 block">
+                  RECOMMENDED VIEW · 2026 DOSSIER
+                </span>
+                <h3 className="font-serif text-lg font-bold text-[#081F38] tracking-tight mt-0.5 leading-snug">
+                  Desktop View Recommended
+                </h3>
+              </div>
+            </div>
+
+            <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+              This clinical diagnostic generates <strong>multi-column employer ATS matrices</strong>, <strong>6-vector capability radar charts</strong>, and an <strong>official printable verification record</strong>.
+            </p>
+
+            {/* Instructional Box */}
+            <div className="mt-3.5 rounded-2xl border border-blue-200/80 bg-blue-50/60 p-3.5 text-xs text-blue-950 font-sans space-y-2">
+              <div className="flex items-start gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
+                <span>
+                  <strong>For the richest visual experience:</strong> Open this test on a laptop/desktop, or enable <strong>&ldquo;Desktop Site&rdquo;</strong> in your mobile browser settings.
+                </span>
+              </div>
+              <div className="flex items-start gap-2 text-slate-600">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
+                <span>
+                  You can also complete the entire 6-minute diagnostic right now on mobile with zero friction.
+                </span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="mt-5 space-y-2.5">
+              <button
+                type="button"
+                onClick={() => handleProceedFromAdvisory()}
+                className="w-full inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[#081F38] hover:bg-[#0D2E54] text-white text-xs sm:text-sm font-bold tracking-wide transition-all shadow-md active:scale-[0.98] cursor-pointer"
+              >
+                <span>Continue on Mobile</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCopyLinkForDesktop}
+                className="w-full inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition-all cursor-pointer"
+              >
+                <Copy className="h-3.5 w-3.5 text-slate-500" />
+                <span>Copy Link to Open on Desktop</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </CareerShell>
   );
 }

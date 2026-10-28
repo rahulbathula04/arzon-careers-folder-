@@ -25,7 +25,6 @@ import {
   isEligibleForLeadCapture,
   markLeadAsConverted,
   markLeadAsDismissed,
-  hasStudentAlreadyConverted,
 } from "@/lib/lead-capture-rules";
 import { toast } from "sonner";
 
@@ -99,8 +98,8 @@ export function AcriScrollLeadMagnet() {
   const [consentCommunications, setConsentCommunications] = useState(true);
 
   const hasTriggeredRef = useRef(false);
+  const userDismissedThisViewRef = useRef(false);
   const autoDismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const lastScrollYRef = useRef(0);
 
   // Clean up auto-dismiss timer on unmount
   useEffect(() => {
@@ -111,11 +110,15 @@ export function AcriScrollLeadMagnet() {
     };
   }, []);
 
-  // Multi-signal acquisition trigger engine
+  // Section 2 Crossing Trigger Engine (Active for EVERY visitor on EVERY visit)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Rule check: is route eligible?
+    // Reset trigger refs on route change so returning visitors always get the prompt
+    hasTriggeredRef.current = false;
+    userDismissedThisViewRef.current = false;
+
+    // Rule check: is route eligible? (only disabled on active test exams & admin)
     if (!isEligibleForLeadCapture(pathname)) {
       return;
     }
@@ -125,139 +128,113 @@ export function AcriScrollLeadMagnet() {
       window.location.search.includes("preview=leadmagnet") ||
       (window as any).__FORCE_LEAD_MAGNET__;
 
-    const pageMountTime = Date.now();
-    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
-    let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
+    let triggerTimeout: ReturnType<typeof setTimeout> | null = null;
     let observer: IntersectionObserver | null = null;
+    let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
 
     const triggerCard = (reason: string) => {
-      if (hasTriggeredRef.current) return;
-      // Re-verify eligibility unless debug
-      if (!isDebugForce && !isEligibleForLeadCapture(pathname)) return;
-
+      if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
       hasTriggeredRef.current = true;
-      setIsOpen(true);
-      logAcriFunnelEvent("lead_magnet_triggered", {
-        trigger_reason: reason,
-        pathname,
-      });
-      cleanup();
+
+      // Small 200ms delay so scroll animation settles naturally
+      triggerTimeout = setTimeout(() => {
+        setIsOpen(true);
+        logAcriFunnelEvent("lead_magnet_triggered", {
+          trigger_reason: reason,
+          pathname,
+        });
+        cleanup();
+      }, 200);
     };
 
-    // Instant debug trigger
+    // Instant debug trigger if ?leadmagnet=1
     if (isDebugForce) {
       const debugTimer = setTimeout(() => {
         triggerCard("debug_url_parameter");
-      }, 350);
+      }, 250);
       return () => clearTimeout(debugTimer);
     }
 
-    // Signal 1: Scroll Depth + Dwell Evaluation
-    const evaluateEngagement = () => {
-      if (hasTriggeredRef.current) return;
+    // Immediate Section 2 evaluation
+    const evaluateSectionCrossing = () => {
+      if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
 
-      const elapsedMs = Date.now() - pageMountTime;
       const scrollRoot = document.getElementById("app-scroll-root");
       const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
 
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      // Generous, realistic thresholds for active engagement
-      const minScroll = isMobile ? 350 : 450;
-      const minDwell = isMobile ? 6500 : 5000;
-
-      // Mobile scroll-up re-engagement detection (user scrolled deep, then scrolls back up)
-      if (isMobile && scrollY > 400 && scrollY < lastScrollYRef.current - 90 && elapsedMs >= 4000) {
-        triggerCard("mobile_scroll_up_intent");
+      // Signal 1: Depth crossing (> 180px means user scrolled past Hero into Section 2)
+      if (scrollY >= 180) {
+        triggerCard("crossed_section_2_scroll");
         return;
       }
-      lastScrollYRef.current = scrollY;
 
-      if (scrollY >= minScroll) {
-        if (elapsedMs >= minDwell) {
-          triggerCard("deep_scroll_after_dwell");
-        } else {
-          const remainingMs = Math.max(800, minDwell - elapsedMs);
-          if (scrollTimeout) clearTimeout(scrollTimeout);
-          scrollTimeout = setTimeout(() => {
-            if (!hasTriggeredRef.current) {
-              triggerCard("deep_scroll_delayed_dwell");
-            }
-          }, remainingMs);
+      // Signal 2: Physical Section 2 viewport entry
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
+      ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
+
+      if (sections.length >= 2) {
+        const rect = sections[1].getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.9) {
+          triggerCard("crossed_section_2_view");
+          return;
         }
       }
     };
 
+    // Attach scroll listeners immediately
     const scrollRoot = document.getElementById("app-scroll-root");
-    scrollRoot?.addEventListener("scroll", evaluateEngagement, { passive: true });
-    window.addEventListener("scroll", evaluateEngagement, { passive: true });
+    scrollRoot?.addEventListener("scroll", evaluateSectionCrossing, { passive: true });
+    window.addEventListener("scroll", evaluateSectionCrossing, { passive: true });
 
-    // Signal 2: Section 2 Intersection Observer (Active on BOTH mobile and desktop)
-    const setupObserver = () => {
+    // Signal 3: Intersection Observer on Section 2 (fires the instant Section 2 touches viewport)
+    const attachObserver = () => {
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
-      ).filter((s) => s.offsetHeight > 100 && s.offsetParent !== null);
+      ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
 
       if (sections.length >= 2 && typeof IntersectionObserver !== "undefined") {
-        const section2 = sections[1];
         observer = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
-              if (entry.isIntersecting && !hasTriggeredRef.current) {
-                const elapsedMs = Date.now() - pageMountTime;
-                const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-                const requiredDwell = isMobile ? 5500 : 4000;
-                const remainingMs = Math.max(1000, requiredDwell - elapsedMs);
-                if (scrollTimeout) clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(() => {
-                  if (!hasTriggeredRef.current) {
-                    triggerCard("observer_section2_reading");
-                  }
-                }, remainingMs);
+              if (entry.isIntersecting) {
+                triggerCard("crossed_section_2_observer");
                 return;
               }
             }
           },
-          { threshold: 0.15 }
+          { threshold: 0.05 }
         );
-        observer.observe(section2);
+        observer.observe(sections[1]);
       }
     };
+    attachObserver();
 
-    // Signal 3: Desktop Exit Intent (cursor leaves top of browser after 4s dwell)
+    // Signal 4: Desktop Exit Intent (cursor leaves top of browser after 3s)
     const handleMouseOut = (e: MouseEvent) => {
-      if (hasTriggeredRef.current) return;
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      if (isMobile) return;
-
-      const elapsedMs = Date.now() - pageMountTime;
-      if (elapsedMs < 4000) return;
-
-      // Pointer exited top of viewport
+      if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
       if (e.relatedTarget === null && e.clientY <= 0) {
         triggerCard("desktop_exit_intent");
       }
     };
-
     document.addEventListener("mouseout", handleMouseOut);
 
-    // Signal 4: Polite Fallback Timer (User reading quietly for 22s without hitting scroll limit)
+    // Fallback: If user stays on page 15s without scrolling
     fallbackTimer = setTimeout(() => {
-      if (!hasTriggeredRef.current) {
-        triggerCard("reading_dwell_fallback");
+      if (!hasTriggeredRef.current && !userDismissedThisViewRef.current) {
+        triggerCard("page_dwell_fallback");
       }
-    }, 22000);
+    }, 15000);
 
-    const initialTimer = setTimeout(() => {
-      setupObserver();
-      evaluateEngagement();
-    }, 1200);
+    // Initial check on mount in case already scrolled
+    const initialCheck = setTimeout(evaluateSectionCrossing, 300);
 
     const cleanup = () => {
-      clearTimeout(initialTimer);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
+      clearTimeout(initialCheck);
+      if (triggerTimeout) clearTimeout(triggerTimeout);
       if (fallbackTimer) clearTimeout(fallbackTimer);
-      scrollRoot?.removeEventListener("scroll", evaluateEngagement);
-      window.removeEventListener("scroll", evaluateEngagement);
+      scrollRoot?.removeEventListener("scroll", evaluateSectionCrossing);
+      window.removeEventListener("scroll", evaluateSectionCrossing);
       document.removeEventListener("mouseout", handleMouseOut);
       if (observer) {
         observer.disconnect();
@@ -281,6 +258,7 @@ export function AcriScrollLeadMagnet() {
   }, [isOpen]);
 
   const handleDismiss = () => {
+    userDismissedThisViewRef.current = true;
     setIsOpen(false);
     markLeadAsDismissed();
     logAcriFunnelEvent("lead_magnet_dismissed", { pathname });
@@ -358,7 +336,7 @@ export function AcriScrollLeadMagnet() {
         console.warn("[AcriScrollLeadMagnet] Career engine leads sync notice:", err);
       }
 
-      // Mark lead as converted so they are not prompted again
+      // Mark lead as converted
       markLeadAsConverted({
         fullName: fullName.trim(),
         email: userEmail,
@@ -396,9 +374,8 @@ export function AcriScrollLeadMagnet() {
     }
   };
 
-  // If modal is not open, or student already converted (except during active success step), do not render
+  // Render when open (never permanently blocked by past conversions)
   if (!isOpen) return null;
-  if (hasStudentAlreadyConverted() && step !== "success") return null;
 
   return (
     <>

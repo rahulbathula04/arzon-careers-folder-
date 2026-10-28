@@ -68,13 +68,9 @@ export function isEligibleForLeadCapture(pathname: string): boolean {
     return false;
   }
 
-  // If already claimed on this device, do not prompt again (unless debug link)
-  if (hasStudentAlreadyConverted()) {
-    return false;
-  }
-
-  // Doctrine: "one active time one time only if its undo its done"
-  // If shown/dismissed (undone) or claimed in this active session, it is DONE for this session.
+  // Doctrine: "Any page across the website, but one active time only per session. If undo/dismissed, it's done."
+  // For each NEW session, sessionStorage is empty, so the user receives the pop-up when crossing Section 2.
+  // Once dismissed (undone) or converted within this active session, it remains done for the rest of the session.
   try {
     if (sessionStorage.getItem(STORAGE_KEYS.SESSION_DONE)) {
       return false;

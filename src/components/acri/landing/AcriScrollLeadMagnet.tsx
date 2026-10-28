@@ -290,17 +290,17 @@ export function AcriScrollLeadMagnet() {
             name: fullName.trim(),
             email: userEmail,
             phone: cleanPhone,
-            programSlug: "2026-healthcare-recruiter-playbook",
-            programName: "2026 Healthcare GCC Recruiter Playbook · Official Release",
+            programSlug: "2026-healthcare-career-intelligence-guide",
+            programName: "The Healthcare Career Intelligence Guide 2026",
             whatsappOptin: consentCommunications,
             degree: highestQualification,
             notes: JSON.stringify({
               source: "scroll_lead_magnet_v2",
-              asset: "2026_Healthcare_GCC_Recruiter_Playbook_and_Salary_Guide",
+              asset: "The_Healthcare_Career_Intelligence_Guide_2026",
               qualification: highestQualification,
               submittedAt: new Date().toISOString(),
             }),
-            utmSource: "recruiter-playbook-lead-magnet",
+            utmSource: "career-intelligence-guide-lead-magnet",
           },
         });
       } catch (err) {
@@ -334,7 +334,7 @@ export function AcriScrollLeadMagnet() {
             whatsappOptin: consentCommunications,
             sourcePath: pathname,
             clientFp,
-            utmSource: "recruiter-playbook-lead-magnet",
+            utmSource: "career-intelligence-guide-lead-magnet",
           },
         });
       } catch (err) {
@@ -352,8 +352,8 @@ export function AcriScrollLeadMagnet() {
       // Auto-trigger browser download of the verified 2026 PDF
       try {
         const downloadAnchor = document.createElement("a");
-        downloadAnchor.href = "/Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
-        downloadAnchor.download = "Arzon_2026_Healthcare_GCC_Recruiter_Playbook.pdf";
+        downloadAnchor.href = "/The_Healthcare_Career_Intelligence_Guide_2026.pdf";
+        downloadAnchor.download = "The_Healthcare_Career_Intelligence_Guide_2026.pdf";
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         document.body.removeChild(downloadAnchor);
@@ -366,7 +366,7 @@ export function AcriScrollLeadMagnet() {
         email: userEmail,
         qualification: highestQualification,
       });
-      toast.success("2026 Recruiter Playbook unlocked! Download starting.");
+      toast.success("2026 Career Intelligence Guide unlocked! Download starting.");
 
       // Auto-dismiss success card after 8s so it doesn't trap the screen
       autoDismissTimerRef.current = setTimeout(() => {
@@ -397,7 +397,7 @@ export function AcriScrollLeadMagnet() {
         data-fab-avoid="true"
         className="fixed inset-x-0 bottom-0 sm:bottom-6 sm:right-6 sm:inset-x-auto z-[99] w-full sm:w-[440px] sm:max-w-[440px] pointer-events-auto"
         role="region"
-        aria-label="2026 Healthcare GCC Recruiter Playbook Offer"
+        aria-label="The Healthcare Career Intelligence Guide 2026 Offer"
       >
         <div
           className="relative rounded-t-3xl sm:rounded-2xl bg-white card-light tone-light border border-slate-200/95 shadow-[0_-10px_40px_-5px_rgba(0,0,0,0.18),0_20px_50px_-10px_rgba(0,0,0,0.25)] overflow-hidden font-sans text-slate-900 motion-safe:animate-in motion-safe:slide-in-from-bottom-6 duration-300 max-h-[90vh] overflow-y-auto"
@@ -427,15 +427,15 @@ export function AcriScrollLeadMagnet() {
                 <div className="text-left mb-3.5 pr-8">
                   <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-2">
                     <Sparkles className="h-3 w-3 text-[#2563EB]" />
-                    <span>2026 OFFICIAL CANDIDATE RELEASE</span>
+                    <span>⭐ 2026 OFFICIAL RELEASE · FREE 21-PAGE GUIDE</span>
                   </div>
 
                   <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38] leading-tight">
-                    Healthcare GCC Recruiter Playbook &amp; Salary Guide
+                    The Healthcare Career Intelligence Guide 2026
                   </h3>
 
                   <p className="mt-1 text-xs text-[#64748B] leading-relaxed">
-                    Verified salary bands, 40+ MNC hiring directory, and the top 50 technical interview questions for Pharmacovigilance &amp; CDM.
+                    From your degree to your first industry job. 6 career pathways, 30-day action plan, and job-readiness checklist for B.Pharm, Pharm.D, M.Pharm &amp; life sciences.
                   </p>
                 </div>
 
@@ -443,18 +443,18 @@ export function AcriScrollLeadMagnet() {
                 <div className="mb-4 grid grid-cols-3 gap-1.5 rounded-xl border border-blue-100 bg-[#F8FAFC] p-2 text-center">
                   <div className="flex flex-col items-center justify-center p-1">
                     <Briefcase className="h-4 w-4 text-[#2563EB] mb-1" />
-                    <span className="text-[11px] font-bold text-[#081F38]">₹3.8L–₹7.5L</span>
-                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Salary Matrix</span>
+                    <span className="text-[11px] font-bold text-[#081F38]">6 Pathways</span>
+                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">PV, CDM, RA &amp; More</span>
                   </div>
                   <div className="flex flex-col items-center justify-center border-x border-slate-200/80 p-1">
                     <BookOpen className="h-4 w-4 text-[#10B981] mb-1" />
-                    <span className="text-[11px] font-bold text-[#081F38]">Top 50 Q&amp;As</span>
-                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Argus &amp; MedDRA</span>
+                    <span className="text-[11px] font-bold text-[#081F38]">30-Day Plan</span>
+                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Action Roadmap</span>
                   </div>
                   <div className="flex flex-col items-center justify-center p-1">
                     <ShieldCheck className="h-4 w-4 text-[#7C3AED] mb-1" />
-                    <span className="text-[11px] font-bold text-[#081F38]">40+ CROs</span>
-                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Hiring Guide</span>
+                    <span className="text-[11px] font-bold text-[#081F38]">Checklist</span>
+                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Readiness Audit</span>
                   </div>
                 </div>
 
@@ -539,10 +539,10 @@ export function AcriScrollLeadMagnet() {
                       className="w-full py-3 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-bold text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                     >
                       {isSubmitting ? (
-                        <span>Preparing 2026 Playbook…</span>
+                        <span>Preparing 2026 Guide…</span>
                       ) : (
                         <>
-                          <span>Download Free 2026 Playbook (PDF)</span>
+                          <span>Download Free 2026 Guide (PDF)</span>
                           <ArrowRight className="h-4 w-4 stroke-[2.2]" />
                         </>
                       )}
@@ -572,7 +572,7 @@ export function AcriScrollLeadMagnet() {
                   </div>
 
                   <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38]">
-                    Your 2026 Recruiter Playbook is Ready!
+                    Your 2026 Career Intelligence Guide is Ready!
                   </h3>
 
                   <p className="text-xs text-[#64748B] max-w-xs mx-auto leading-relaxed">
@@ -590,14 +590,14 @@ export function AcriScrollLeadMagnet() {
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
                         <h4 className="font-bold text-xs text-[#081F38] truncate">
-                          2026 Healthcare Recruiter Playbook
+                          The Healthcare Career Intelligence Guide 2026
                         </h4>
                         <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded shrink-0">
                           PDF
                         </span>
                       </div>
                       <p className="text-[11px] text-[#64748B] truncate mt-0.5">
-                        Salary bands · Top 50 Interview Q&amp;As · 40+ CRO directory
+                        21-page official release · 6 career pathways · 30-day action plan
                       </p>
                     </div>
                   </div>
@@ -605,8 +605,8 @@ export function AcriScrollLeadMagnet() {
                   {/* Dual Action Buttons */}
                   <div className="flex flex-col sm:flex-row items-center gap-2 pt-1">
                     <a
-                      href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                      download="Arzon_2026_Healthcare_GCC_Recruiter_Playbook.pdf"
+                      href="/The_Healthcare_Career_Intelligence_Guide_2026.pdf"
+                      download="The_Healthcare_Career_Intelligence_Guide_2026.pdf"
                       className="w-full sm:flex-1 py-2.5 px-3 rounded-full bg-[#081F38] hover:bg-[#0f2d52] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" />

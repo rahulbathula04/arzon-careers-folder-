@@ -29,12 +29,37 @@ if (typeof window !== "undefined") {
 }
 
 /**
+ * Checks if debug/testing mode is active via URL query parameters, hash, or window flag.
+ * Supports: ?debug, ?popup, ?leadmagnet, ?preview, ?guide, #debug, #popup
+ */
+export function isDebugModeActive(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    if ((window as any).__FORCE_LEAD_MAGNET__ === true) return true;
+    const search = (window.location.search || "").toLowerCase();
+    const hash = (window.location.hash || "").toLowerCase();
+    return (
+      search.includes("leadmagnet") ||
+      search.includes("debug") ||
+      search.includes("popup") ||
+      search.includes("preview") ||
+      search.includes("guide") ||
+      hash.includes("leadmagnet") ||
+      hash.includes("popup") ||
+      hash.includes("debug")
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Checks if the student has claimed this lead magnet.
  */
 export function hasStudentAlreadyConverted(): boolean {
   if (typeof window === "undefined") return false;
   try {
-    if (window.location.search.includes("leadmagnet=1") || (window as any).__FORCE_LEAD_MAGNET__) {
+    if (isDebugModeActive()) {
       return false;
     }
     return localStorage.getItem(STORAGE_KEYS.CLAIMED) === "true";
@@ -50,12 +75,8 @@ export function hasStudentAlreadyConverted(): boolean {
 export function isEligibleForLeadCapture(pathname: string): boolean {
   if (typeof window === "undefined") return false;
 
-  // Immediate preview bypass for developers and direct test links
-  if (
-    window.location.search.includes("leadmagnet=1") ||
-    window.location.search.includes("preview=leadmagnet") ||
-    (window as any).__FORCE_LEAD_MAGNET__
-  ) {
+  // Immediate preview/debug bypass for testing across any route
+  if (isDebugModeActive()) {
     return true;
   }
 
@@ -127,7 +148,7 @@ export function markLeadAsDismissed() {
 }
 
 /**
- * Developer helper to reset session state on demand in the browser console.
+ * Developer and testing helpers on window object.
  */
 if (typeof window !== "undefined") {
   (window as any).__resetLeadCapture = () => {
@@ -135,6 +156,27 @@ if (typeof window !== "undefined") {
     localStorage.removeItem(STORAGE_KEYS.CLAIMED);
     localStorage.removeItem(STORAGE_KEYS.STUDENT_CAPTURED);
     localStorage.removeItem(STORAGE_KEYS.STARTER_KIT_CLAIMED);
-    console.log("[Arzon] Lead capture active session reset. Ready to trigger on Section 2.");
+    (window as any).__FORCE_LEAD_MAGNET__ = false;
+    window.dispatchEvent(new CustomEvent("arzon:reset-lead-magnet"));
+    console.log("[Arzon Lead Magnet] Active session reset. Ready to trigger on Section 2.");
+  };
+
+  (window as any).__resetLeadMagnet = (window as any).__resetLeadCapture;
+
+  (window as any).__openLeadMagnet = () => {
+    (window as any).__FORCE_LEAD_MAGNET__ = true;
+    window.dispatchEvent(new CustomEvent("arzon:open-lead-magnet"));
+    console.log("[Arzon Lead Magnet] Force opened via window.__openLeadMagnet()");
+  };
+
+  (window as any).__debugLeadMagnet = () => {
+    console.log("[Arzon Lead Magnet Diagnostics]", {
+      pathname: window.location.pathname,
+      search: window.location.search,
+      sessionDone: sessionStorage.getItem(STORAGE_KEYS.SESSION_DONE),
+      isClaimed: localStorage.getItem(STORAGE_KEYS.CLAIMED),
+      isDebugActive: isDebugModeActive(),
+      isEligible: isEligibleForLeadCapture(window.location.pathname),
+    });
   };
 }

@@ -25,6 +25,7 @@ import {
   isEligibleForLeadCapture,
   markLeadAsConverted,
   markLeadAsDismissed,
+  isDebugModeActive,
   STORAGE_KEYS,
 } from "@/lib/lead-capture-rules";
 import { toast } from "sonner";
@@ -124,10 +125,7 @@ export function AcriScrollLeadMagnet() {
       return;
     }
 
-    const isDebugForce =
-      window.location.search.includes("leadmagnet=1") ||
-      window.location.search.includes("preview=leadmagnet") ||
-      (window as any).__FORCE_LEAD_MAGNET__;
+    const isDebugForce = isDebugModeActive();
 
     let triggerTimeout: ReturnType<typeof setTimeout> | null = null;
     let observer: IntersectionObserver | null = null;
@@ -137,62 +135,96 @@ export function AcriScrollLeadMagnet() {
       if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
       hasTriggeredRef.current = true;
 
-      // Small 200ms delay so scroll animation settles naturally
+      // Small 150ms delay so scroll animation settles naturally
       triggerTimeout = setTimeout(() => {
         setIsOpen(true);
-        try {
-          sessionStorage.setItem(STORAGE_KEYS.SESSION_DONE, "shown");
-        } catch {}
-
         logAcriFunnelEvent("lead_magnet_triggered", {
           trigger_reason: reason,
           pathname,
         });
-        cleanup();
-      }, 200);
+      }, 150);
     };
 
-    // Instant debug trigger if ?leadmagnet=1
+    // Instant debug trigger if ?debug, ?popup, ?leadmagnet etc.
     if (isDebugForce) {
       const debugTimer = setTimeout(() => {
         triggerCard("debug_url_parameter");
-      }, 250);
+      }, 150);
       return () => clearTimeout(debugTimer);
     }
 
-    // Immediate Section 2 evaluation
+    // Force-open listener for developer console helper window.__openLeadMagnet()
+    const handleForceOpen = () => {
+      hasTriggeredRef.current = false;
+      userDismissedThisViewRef.current = false;
+      triggerCard("window_helper_force_open");
+    };
+    window.addEventListener("arzon:open-lead-magnet", handleForceOpen);
+
+    // Reset listener for developer console helper window.__resetLeadMagnet()
+    const handleReset = () => {
+      hasTriggeredRef.current = false;
+      userDismissedThisViewRef.current = false;
+    };
+    window.addEventListener("arzon:reset-lead-magnet", handleReset);
+
+    // Multi-signal Section 2 crossing evaluation
     const evaluateSectionCrossing = () => {
       if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
 
       const scrollRoot = document.getElementById("app-scroll-root");
-      const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
+      const rootScroll = scrollRoot ? scrollRoot.scrollTop : 0;
+      const winScroll = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+      const effectiveScrollY = Math.max(rootScroll, winScroll);
 
-      // Signal 1: Depth crossing (> 180px means user scrolled past Hero into Section 2)
-      if (scrollY >= 180) {
+      // Signal 1: Depth crossing (> 150px means user scrolled past Hero into Section 2)
+      if (effectiveScrollY >= 150) {
         triggerCard("crossed_section_2_scroll");
         return;
       }
 
-      // Signal 2: Physical Section 2 viewport entry
+      // Signal 2: Landmark element viewport crossing (e.g. #career-paths, #priority-tracks)
+      const landmarkSelectors = [
+        "#career-paths",
+        "#priority-tracks",
+        "main section:nth-of-type(2)",
+        "#app-scroll-root section:nth-of-type(2)",
+        ".arzon-v2-container",
+      ];
+      for (const sel of landmarkSelectors) {
+        const el = document.querySelector<HTMLElement>(sel);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= window.innerHeight * 0.95 && rect.bottom > 0) {
+            triggerCard("crossed_section_2_landmark");
+            return;
+          }
+        }
+      }
+
+      // Signal 3: Physical Section 2 viewport entry via generic sections
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
       ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
 
       if (sections.length >= 2) {
         const rect = sections[1].getBoundingClientRect();
-        if (rect.top <= window.innerHeight * 0.9) {
+        if (rect.top <= window.innerHeight * 0.95) {
           triggerCard("crossed_section_2_view");
           return;
         }
       }
     };
 
-    // Attach scroll listeners immediately
+    // Attach comprehensive scroll & interaction listeners (capture phase ensures inner scrollers are caught)
     const scrollRoot = document.getElementById("app-scroll-root");
     scrollRoot?.addEventListener("scroll", evaluateSectionCrossing, { passive: true });
-    window.addEventListener("scroll", evaluateSectionCrossing, { passive: true });
+    window.addEventListener("scroll", evaluateSectionCrossing, { passive: true, capture: true });
+    document.addEventListener("scroll", evaluateSectionCrossing, { passive: true, capture: true });
+    window.addEventListener("touchmove", evaluateSectionCrossing, { passive: true });
+    window.addEventListener("wheel", evaluateSectionCrossing, { passive: true });
 
-    // Signal 3: Intersection Observer on Section 2 (fires the instant Section 2 touches viewport)
+    // Signal 4: Intersection Observer on Section 2 (fires the instant Section 2 touches viewport)
     const attachObserver = () => {
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
@@ -215,7 +247,7 @@ export function AcriScrollLeadMagnet() {
     };
     attachObserver();
 
-    // Signal 4: Desktop Exit Intent (cursor leaves top of browser after 3s)
+    // Signal 5: Desktop Exit Intent (cursor leaves top of browser after 3s)
     const handleMouseOut = (e: MouseEvent) => {
       if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
       if (e.relatedTarget === null && e.clientY <= 0) {
@@ -231,16 +263,25 @@ export function AcriScrollLeadMagnet() {
       }
     }, 15000);
 
-    // Initial check on mount in case already scrolled
-    const initialCheck = setTimeout(evaluateSectionCrossing, 300);
+    // Initial staggered checks on mount in case already scrolled
+    const timer1 = setTimeout(evaluateSectionCrossing, 200);
+    const timer2 = setTimeout(evaluateSectionCrossing, 600);
+    const timer3 = setTimeout(evaluateSectionCrossing, 1200);
 
     const cleanup = () => {
-      clearTimeout(initialCheck);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
       if (triggerTimeout) clearTimeout(triggerTimeout);
       if (fallbackTimer) clearTimeout(fallbackTimer);
       scrollRoot?.removeEventListener("scroll", evaluateSectionCrossing);
-      window.removeEventListener("scroll", evaluateSectionCrossing);
+      window.removeEventListener("scroll", evaluateSectionCrossing, true);
+      document.removeEventListener("scroll", evaluateSectionCrossing, true);
+      window.removeEventListener("touchmove", evaluateSectionCrossing);
+      window.removeEventListener("wheel", evaluateSectionCrossing);
       document.removeEventListener("mouseout", handleMouseOut);
+      window.removeEventListener("arzon:open-lead-magnet", handleForceOpen);
+      window.removeEventListener("arzon:reset-lead-magnet", handleReset);
       if (observer) {
         observer.disconnect();
         observer = null;

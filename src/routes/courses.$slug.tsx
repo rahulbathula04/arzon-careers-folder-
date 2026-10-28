@@ -36,6 +36,7 @@ import { pageSeo } from "@/lib/seo";
 import { COURSE_SEO_BOOST } from "@/data/seoBoost";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 import { ArzonDecisionHub } from "@/components/funnel/ArzonDecisionHub";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 const BRAND = "var(--arzon-blue-700)";
 const BRAND_DARK = "var(--arzon-navy-900)";
@@ -442,25 +443,24 @@ function CoursePage() {
             </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              {/* High-Intent CTA */}
-              <Link
-                to="/enrol"
-                search={{ programme: course.slug, source: "course-hero" }}
-                className="arzon-v2-button-primary"
+              {/* Primary CTA */}
+              <button
+                type="button"
+                onClick={() => openCounsellorModal({ programme: course.title, source: "course_slug_hero" })}
+                className="arzon-v2-button-primary cursor-pointer active:scale-95"
               >
-                View fees &amp; support options
+                <span>Talk to a counsellor</span>
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </button>
 
-              {/* Low-Intent CTA (Tiered CTAs Strategy) */}
-              <a
-                href={waLink(pitch)}
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border px-5 text-sm font-semibold"
+              {/* Secondary CTA */}
+              <Link
+                to="/career-assessment"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border px-5 text-sm font-semibold hover:bg-slate-50 transition-colors"
                 style={{ borderColor: BRAND, color: BRAND, background: "#FFFFFF" }}
               >
-                <MessageCircle className="h-4 w-4" /> Get programme details
-              </a>
+                Take free career assessment
+              </Link>
             </div>
             <p className="mt-3 text-xs" style={{ color: INK_SOFT }}>
               Financial aid available · Limited cohort seats · Applications close soon{" "}
@@ -810,21 +810,20 @@ function CoursePage() {
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link
-              to="/enrol"
-              search={{ programme: course.slug, source: "course-final" }}
-              className="arzon-v2-button-primary"
+            <button
+              type="button"
+              onClick={() => openCounsellorModal({ programme: course.title, source: "course_slug_final" })}
+              className="arzon-v2-button-primary cursor-pointer active:scale-95"
             >
-              View fees &amp; enrolment options
+              <span>Talk to a counsellor</span>
               <ArrowRight className="h-4 w-4" />
-            </Link>
-            <a
-              href={waLink(pitch)}
-              target="_blank" rel="noopener noreferrer"
-              className="inline-flex h-11 items-center gap-2 rounded-xl border border-emerald-400/40 bg-emerald-500/20 hover:bg-emerald-500/30 px-5 text-sm font-bold text-emerald-300 transition-colors"
+            </button>
+            <Link
+              to="/career-assessment"
+              className="inline-flex h-11 items-center gap-2 rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 px-5 text-sm font-bold text-white transition-colors"
             >
-              <MessageCircle className="h-4 w-4 text-emerald-400" /> WhatsApp Counsellor
-            </a>
+              Take free career assessment
+            </Link>
           </div>
         </div>
       </section>

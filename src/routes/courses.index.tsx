@@ -20,6 +20,7 @@ import { NEXT_COHORT, SITE } from "@/components/landing/constants";
 import { pageSeo } from "@/lib/seo";
 import { breadcrumbSchema, itemListSchema } from "@/lib/jsonLd";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 const CORE_COURSES = COURSES.filter((course) =>
   ARZON_CORE_PROGRAMME_SLUGS.includes(course.slug as (typeof ARZON_CORE_PROGRAMME_SLUGS)[number]),
@@ -273,19 +274,20 @@ function CoursesIndex() {
                   Take the free 3-minute career diagnostic or reserve your seat for the upcoming intake with mentorship from senior industry professionals.
                 </p>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
-                  <Link
-                    to="/career-engine/start"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-sm font-bold shadow-md shadow-blue-600/20 transition-all"
+                  <button
+                    type="button"
+                    onClick={() => openCounsellorModal({ source: "courses_catalog_bottom" })}
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-sm font-bold shadow-md shadow-blue-600/20 transition-all cursor-pointer active:scale-95"
                   >
-                    <span>Get my industry-fit score</span>
+                    <span>Talk to a counsellor</span>
                     <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </button>
                   <Link
-                    to="/contact"
+                    to="/career-assessment"
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 hover:bg-white/15 text-white px-6 py-3.5 text-sm font-bold transition-all"
                     style={{ color: "#FFFFFF" }}
                   >
-                    <span>Talk to a counsellor</span>
+                    <span>Take free career assessment</span>
                   </Link>
                 </div>
               </div>

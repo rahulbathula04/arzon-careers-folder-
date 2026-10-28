@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import type { Course } from "@/data/courses";
 import { getSalaryBand } from "@/data/courseExtras";
 import { thumbFor } from "@/data/courseThumbs";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 /**
  * Programme Card Blueprint aligned with Arzon Home Page Guidelines (v1.0 • 2026)
@@ -20,6 +21,7 @@ export function CourseCard({ course }: { course: Course }) {
   return (
     <article
       data-track={course.slug}
+      data-testid="course-card"
       className="flex flex-col justify-between rounded-2xl border border-[#E4EAF2] bg-white overflow-hidden shadow-xs hover:border-[#1557D6]/40 hover:shadow-lg transition-all group tone-light card-light"
     >
       <div>
@@ -96,23 +98,22 @@ export function CourseCard({ course }: { course: Course }) {
 
       {/* Card Footer Actions */}
       <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between border-t border-[#F1F5F9] bg-[#FAFCFF]">
+        <button
+          type="button"
+          onClick={() => openCounsellorModal({ programme: course.title, source: "courses_catalog_card" })}
+          aria-label={`Talk to counsellor for ${course.title}`}
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-3.5 py-1.5 text-xs font-bold transition-all shadow-xs active:scale-95 cursor-pointer"
+        >
+          <span>Talk to counsellor</span>
+        </button>
         <Link
           to="/courses/$slug"
           params={{ slug: course.slug }}
           aria-label={`See full programme - ${course.title}`}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"
         >
           <span>View details</span>
           <ArrowRight className="h-3 w-3" />
-        </Link>
-        <Link
-          to="/apply"
-          search={{ programme: course.slug, source: "courses_catalog_grid" }}
-          aria-label={`Apply for this internship - ${course.title}`}
-          className="inline-flex items-center gap-1 rounded-full bg-[#EEF6FF] hover:bg-[#1557D6] hover:text-white px-3 py-1 text-xs font-bold text-[#1557D6] transition-colors"
-        >
-          <span>Apply</span>
-          <ArrowUpRight className="h-3.5 w-3.5" />
         </Link>
       </div>
     </article>

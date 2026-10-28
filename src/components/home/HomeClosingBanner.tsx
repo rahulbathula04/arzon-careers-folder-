@@ -1,6 +1,7 @@
 import { ArrowRight, CheckCircle2, PhoneCall } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 export function HomeClosingBanner() {
   const prefersReduced = useReducedMotion();
@@ -120,25 +121,21 @@ export function HomeClosingBanner() {
                 variants={prefersReduced ? undefined : itemVariants}
                 className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
               >
-                <Link
-                  to="/career-assessment"
-                  className="btn-white card-light w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2.5 rounded-full bg-white hover:bg-slate-100 text-slate-900 px-7 text-xs sm:text-sm font-extrabold transition-all shadow-md group active:scale-[0.98]"
+                <button
+                  type="button"
+                  onClick={() => openCounsellorModal({ source: "home_closing_banner" })}
+                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 text-xs sm:text-sm font-extrabold transition-all shadow-md group active:scale-[0.98] cursor-pointer"
                 >
-                  <span
-                    className="text-slate-900 font-extrabold"
-                    style={{ color: "#081F38", WebkitTextFillColor: "#081F38" }}
-                  >
-                    Start with career guidance
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-[#1557D6] group-hover:translate-x-0.5 transition-transform" />
-                </Link>
+                  <PhoneCall className="h-4 w-4 text-white" />
+                  <span>Talk to a counsellor</span>
+                  <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
+                </button>
 
                 <Link
-                  to={"/counselling" as any}
-                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 hover:bg-white/15 text-white px-6 text-xs sm:text-sm font-semibold transition-all backdrop-blur-xs active:scale-[0.98]"
+                  to="/career-assessment"
+                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white px-6 text-xs sm:text-sm font-bold transition-all backdrop-blur-xs active:scale-[0.98]"
                 >
-                  <PhoneCall className="h-4 w-4 text-[#7DD3FC]" />
-                  <span>Speak with a Career Advisor</span>
+                  <span>Take free career assessment</span>
                 </Link>
               </motion.div>
             </motion.div>

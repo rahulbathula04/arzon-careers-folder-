@@ -4,6 +4,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, Menu, Search, X } from "lucide-react";
 import { ArzonLogo } from "../acri/ArzonLogo";
 import { GlobalSearchModal } from "./GlobalSearchModal";
+import { openCounsellorModal } from "./CounsellorLeadModal";
 
 const NAV_ITEMS = [
   { label: "Careers", to: "/careers", description: "Explore healthcare roles and job paths" },
@@ -137,14 +138,15 @@ export function ArzonHeader() {
               </Link>
 
               {/* Primary CTA */}
-              <Link
-                to="/career-assessment"
+              <button
+                type="button"
+                onClick={() => openCounsellorModal({ source: "header_desktop" })}
                 data-testid="primary-career-cta"
-                className="ap-btn-primary text-xs px-4 py-2 min-h-0 h-8 shadow-none"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold px-4 py-2 min-h-0 h-8 shadow-sm transition-all cursor-pointer active:scale-95"
               >
-                <span>Find My Career Path</span>
+                <span>Talk to a counsellor</span>
                 <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              </button>
             </div>
 
             {/* Mobile Controls */}
@@ -288,18 +290,28 @@ export function ArzonHeader() {
 
                 {/* Pinned Bottom Actions */}
                 <div className="pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+2rem)] space-y-2.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      openCounsellorModal({ source: "header_mobile_drawer" });
+                    }}
+                    className="w-full h-12 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
+                  >
+                    <span>Talk to a counsellor</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </button>
                   <Link
                     to="/career-assessment"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full h-12 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
+                    className="w-full h-11 rounded-full border border-slate-200 bg-white text-slate-800 font-bold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
                   >
-                    <span>Find My Career Path</span>
-                    <ArrowRight className="h-4 w-4" />
+                    Take Free Career Assessment
                   </Link>
                   <Link
                     to="/login"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full h-11 rounded-full border border-slate-200 bg-[#F8FAFC] text-slate-700 font-semibold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
+                    className="w-full h-10 rounded-full border border-slate-200 bg-[#F8FAFC] text-slate-600 font-semibold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
                   >
                     Candidate Portal Sign In
                   </Link>

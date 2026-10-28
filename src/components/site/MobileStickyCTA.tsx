@@ -3,7 +3,8 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   label: string;
-  to: string;
+  to?: string;
+  onClick?: () => void;
   hint?: string;
   className?: string;
 };
@@ -13,7 +14,25 @@ type Props = {
  * iOS safe area and only appears on small screens. Mount once per
  * conversion-critical route (course, pricing, proof, enrol).
  */
-export function MobileStickyCTA({ label, to, hint, className }: Props) {
+export function MobileStickyCTA({ label, to = "#", onClick, hint, className }: Props) {
+  const content = (
+    <>
+      <span>{label}</span>
+      {hint ? (
+        <span className="font-mono text-micro font-semibold uppercase tracking-[0.16em] opacity-80">
+          {hint}
+        </span>
+      ) : null}
+    </>
+  );
+
+  const sharedClasses = cn(
+    "flex h-12 w-full items-center justify-center gap-2 rounded-full",
+    "bg-[var(--cta-bg)] px-5 text-body-sm font-semibold text-[var(--cta-fg)]",
+    "shadow-[0_12px_32px_-12px_oklch(0.52_0.16_252/0.55)]",
+    "active:translate-y-[1px]",
+  );
+
   return (
     <div
       className={cn(
@@ -25,22 +44,15 @@ export function MobileStickyCTA({ label, to, hint, className }: Props) {
       role="region"
       aria-label="Primary action"
     >
-      <Link
-        to={to}
-        className={cn(
-          "flex h-12 w-full items-center justify-center gap-2 rounded-full",
-          "bg-[var(--cta-bg)] px-5 text-body-sm font-semibold text-[var(--cta-fg)]",
-          "shadow-[0_12px_32px_-12px_oklch(0.52_0.16_252/0.55)]",
-          "active:translate-y-[1px]",
-        )}
-      >
-        <span>{label}</span>
-        {hint ? (
-          <span className="font-mono text-micro font-semibold uppercase tracking-[0.16em] opacity-80">
-            {hint}
-          </span>
-        ) : null}
-      </Link>
+      {onClick ? (
+        <button type="button" onClick={onClick} className={sharedClasses}>
+          {content}
+        </button>
+      ) : (
+        <Link to={to} className={sharedClasses}>
+          {content}
+        </Link>
+      )}
     </div>
   );
 }

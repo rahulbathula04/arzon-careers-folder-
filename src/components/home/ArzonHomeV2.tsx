@@ -10,6 +10,7 @@ import { HomeInstitutionalTrust } from "@/components/home/HomeInstitutionalTrust
 import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
 import { HomeLearnerFeedback } from "@/components/home/HomeLearnerFeedback";
 import { HomeClosingBanner } from "@/components/home/HomeClosingBanner";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 const HERO_PROGRAMS = [
   "Pharmacovigilance (PV)",
@@ -119,14 +120,15 @@ export function ArzonHomeV2() {
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="w-full sm:w-auto"
               >
-                <Link
-                  to="/career-assessment"
-                  data-testid="primary-career-cta"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group"
+                <button
+                  type="button"
+                  onClick={() => openCounsellorModal({ source: "home_hero_primary" })}
+                  data-testid="primary-counsellor-cta"
+                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group cursor-pointer active:scale-95"
                 >
-                  <span>Take the free career assessment</span>
+                  <span>Talk to a counsellor</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                </button>
               </motion.div>
               <motion.div
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
@@ -134,12 +136,13 @@ export function ArzonHomeV2() {
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="w-full sm:w-auto"
               >
-                <a
-                  href="#career-paths"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-2xs"
+                <Link
+                  to="/career-assessment"
+                  data-testid="secondary-assessment-cta"
+                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-2xs group"
                 >
-                  <span>Explore career paths</span>
-                </a>
+                  <span>Take the free career assessment</span>
+                </Link>
               </motion.div>
             </motion.div>
 

@@ -27,6 +27,7 @@ import {
 import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
 import { AcriScrollLeadMagnet } from "../components/acri/landing/AcriScrollLeadMagnet";
+import { CounsellorLeadModal } from "../components/system/CounsellorLeadModal";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
@@ -671,6 +672,7 @@ function RootComponent() {
             {!pathname.startsWith("/admin") && !pathname.startsWith("/career-engine/test") && !pathname.startsWith("/acri/test") ? (
               <AcriScrollLeadMagnet />
             ) : null}
+            <CounsellorLeadModal />
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

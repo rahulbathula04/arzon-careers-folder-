@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 import thumbPV from "@/assets/thumbs/pharmacovigilance.webp";
 import thumbMC from "@/assets/thumbs/medical-coding.webp";
 import thumbCDM from "@/assets/thumbs/clinical-data-management.webp";
@@ -227,21 +228,21 @@ export function HomePriorityTracks() {
                 </div>
               </div>
 
-              {/* Card Footer Link */}
-              <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-2 flex items-center justify-between border-t border-[#F1F5F9]">
+              {/* Card Footer Actions */}
+              <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between gap-2 border-t border-[#F1F5F9]">
+                <button
+                  type="button"
+                  onClick={() => openCounsellorModal({ programme: track.title, source: "home_priority_track" })}
+                  className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-3.5 py-1.5 text-xs font-bold shadow-xs transition-all active:scale-95 cursor-pointer"
+                >
+                  <span>Talk to counsellor</span>
+                </button>
                 <Link
                   to={track.link as any}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"
                 >
-                  <span>View details</span>
+                  <span>Details</span>
                   <ArrowRight className="h-3 w-3" />
-                </Link>
-                <Link
-                  to={track.link as any}
-                  aria-label={`View details for ${track.title}`}
-                  className="grid h-7 w-7 place-items-center rounded-full bg-[#EEF6FF] text-[#1557D6] group-hover:bg-[#1557D6] group-hover:text-white transition-colors"
-                >
-                  <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
             </motion.article>

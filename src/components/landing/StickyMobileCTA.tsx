@@ -6,6 +6,7 @@ import { getScrollRoot } from "@/lib/scroll";
 import { useIntent, INTENT_CTA } from "@/lib/useIntent";
 import { assignVariant, EXPERIMENTS } from "@/lib/abTest";
 import { GOOGLE_FORM_URL } from "./constants";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 /**
  * Scroll-aware mobile CTA.
@@ -129,27 +130,19 @@ export function StickyMobileCTA() {
           <MessageCircle className="h-4 w-4" />
         </WhatsAppLink>
         {cta.to === "/apply" ? (
-          <a
-            href="#apply"
-            onClick={(e) => {
-              const applyEl = document.getElementById("apply");
-              if (applyEl) {
-                e.preventDefault();
-                applyEl.scrollIntoView({ behavior: "smooth" });
-              } else {
-                window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
-              }
-            }}
+          <button
+            type="button"
+            onClick={() => openCounsellorModal({ source: "sticky_mobile_cta" })}
             className="btn btn-gold flex-1 min-w-0"
             style={{ height: "2.75rem", minHeight: "2.75rem", padding: "0 1rem", fontSize: "13px" }}
           >
             <span className="min-w-0 truncate">
-              Register Now<span className="hidden xs:inline"> (2 Mins)</span>
+              Talk to a counsellor
             </span>
             <span data-arrow aria-hidden>
               <ArrowRight className="h-3.5 w-3.5" strokeWidth={2.5} />
             </span>
-          </a>
+          </button>
         ) : (
           <Link
             to={cta.to}

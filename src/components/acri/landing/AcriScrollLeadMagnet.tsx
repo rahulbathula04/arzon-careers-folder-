@@ -25,6 +25,7 @@ import {
   isEligibleForLeadCapture,
   markLeadAsConverted,
   markLeadAsDismissed,
+  STORAGE_KEYS,
 } from "@/lib/lead-capture-rules";
 import { toast } from "sonner";
 
@@ -139,6 +140,10 @@ export function AcriScrollLeadMagnet() {
       // Small 200ms delay so scroll animation settles naturally
       triggerTimeout = setTimeout(() => {
         setIsOpen(true);
+        try {
+          sessionStorage.setItem(STORAGE_KEYS.SESSION_DONE, "shown");
+        } catch {}
+
         logAcriFunnelEvent("lead_magnet_triggered", {
           trigger_reason: reason,
           pathname,

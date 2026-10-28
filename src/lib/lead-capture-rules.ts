@@ -1,10 +1,12 @@
 /**
  * Arzon Student Acquisition Rules Engine
  * 
+ * Doctrine: "Any page across the website, one active time only. If undone/dismissed, it's done for the session."
  * Rules:
- *  1. Immediate Section 2 Trigger: Every user (1st time or returning) crossing Section 2 gets the 2026 Recruiter Playbook offer.
- *  2. Quiet Zones: Never prompt on focus-critical test execution, exams, checkout, or admin terminals.
- *  3. In-View Courtesy: If dismissed during the current view, stay closed until next navigation or reload.
+ *  1. Universal Route Availability: Available across ANY page on the website (not just assessment or home).
+ *  2. Quiet Zones: Never prompt on focus-critical active exam simulation terminals (/career-engine/test, /acri/test) or admin.
+ *  3. One Active Time, One Time Only: Once shown and dismissed (undone) or converted, it is done for that active browsing session.
+ *  4. Instant Debug Bypass: URL parameter `?leadmagnet=1` forces preview regardless of session state.
  */
 
 export const STORAGE_KEYS = {
@@ -13,53 +15,81 @@ export const STORAGE_KEYS = {
   ACRI_PROFILE: "arzon_acri_candidate_profile",
   USER_EMAIL: "arzon_user_email",
   STARTER_KIT_CLAIMED: "arzon_starter_kit_claimed",
-  DISMISSED_UNTIL: "arzon_lead_magnet_dismissed_until",
-  SESSION_SHOWN: "arzon_lead_magnet_shown_visit",
+  SESSION_DONE: "arzon_lead_magnet_session_done",
 } as const;
 
 /**
- * Clean up any legacy suppression keys on startup so returning users and testers are never blocked.
+ * Remove legacy lockout keys from previous builds so users are never stuck in multi-day lockouts.
  */
 if (typeof window !== "undefined") {
   try {
-    localStorage.removeItem(STORAGE_KEYS.DISMISSED_UNTIL);
-    sessionStorage.removeItem(STORAGE_KEYS.SESSION_SHOWN);
+    localStorage.removeItem("arzon_lead_magnet_dismissed_until");
+    sessionStorage.removeItem("arzon_lead_magnet_shown_visit");
   } catch {}
 }
 
 /**
- * Check if candidate profile is saved for pre-filling (does not block modal).
+ * Checks if the student has claimed this lead magnet.
  */
 export function hasStudentAlreadyConverted(): boolean {
-  // Always return false so first-time and returning visitors alike receive the prompt
-  return false;
+  if (typeof window === "undefined") return false;
+  try {
+    if (window.location.search.includes("leadmagnet=1") || (window as any).__FORCE_LEAD_MAGNET__) {
+      return false;
+    }
+    return localStorage.getItem(STORAGE_KEYS.CLAIMED) === "true";
+  } catch {
+    return false;
+  }
 }
 
 /**
- * Evaluates whether the lead magnet is eligible to be shown on the current route.
+ * Evaluates whether the lead magnet is eligible to be shown right now.
+ * Available on ANY page, but ONE ACTIVE TIME ONLY per session (if undone/dismissed, it's done).
  */
 export function isEligibleForLeadCapture(pathname: string): boolean {
   if (typeof window === "undefined") return false;
 
-  // Quiet Zones: Never interrupt on active test terminal, checkout, or admin pages
+  // Immediate preview bypass for developers and direct test links
+  if (
+    window.location.search.includes("leadmagnet=1") ||
+    window.location.search.includes("preview=leadmagnet") ||
+    (window as any).__FORCE_LEAD_MAGNET__
+  ) {
+    return true;
+  }
+
+  // Quiet Zones: Never interrupt on active test terminal (/career-engine/test, /acri/test) or admin
   if (
     pathname.startsWith("/admin") ||
     pathname.startsWith("/career-engine/test") ||
-    pathname.startsWith("/acri/assessment") ||
-    pathname.startsWith("/acri/test") ||
-    pathname.startsWith("/checkout") ||
-    pathname.startsWith("/test") ||
-    pathname.startsWith("/learn/")
+    pathname.startsWith("/acri/test")
   ) {
     return false;
   }
 
-  // Active for every user across all public marketing and career pages
+  // If already claimed on this device, do not prompt again (unless debug link)
+  if (hasStudentAlreadyConverted()) {
+    return false;
+  }
+
+  // Doctrine: "one active time one time only if its undo its done"
+  // If shown/dismissed (undone) or claimed in this active session, it is DONE for this session.
+  try {
+    if (sessionStorage.getItem(STORAGE_KEYS.SESSION_DONE)) {
+      return false;
+    }
+  } catch {
+    return false;
+  }
+
+  // Eligible on ANY page across the platform
   return true;
 }
 
 /**
  * Call when a student successfully submits their details.
+ * Marks done for this session and permanent on device.
  */
 export function markLeadAsConverted(profile: {
   fullName: string;
@@ -69,6 +99,7 @@ export function markLeadAsConverted(profile: {
 }) {
   if (typeof window === "undefined") return;
   try {
+    sessionStorage.setItem(STORAGE_KEYS.SESSION_DONE, "claimed");
     localStorage.setItem(STORAGE_KEYS.CLAIMED, "true");
     localStorage.setItem(STORAGE_KEYS.STUDENT_CAPTURED, "true");
     localStorage.setItem(STORAGE_KEYS.STARTER_KIT_CLAIMED, "true");
@@ -87,22 +118,27 @@ export function markLeadAsConverted(profile: {
 }
 
 /**
- * Call when a student clicks X or "Not now".
+ * Call when a student clicks X, backdrop, or "Not now".
+ * "if its undo its done": marks it as done for this active browsing session.
  */
 export function markLeadAsDismissed() {
-  // In-memory dismissal only for the active route view
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(STORAGE_KEYS.SESSION_DONE, "dismissed");
+  } catch (err) {
+    console.warn("[leadCaptureRules] storage dismiss error:", err);
+  }
 }
 
 /**
- * Developer helper.
+ * Developer helper to reset session state on demand in the browser console.
  */
 if (typeof window !== "undefined") {
   (window as any).__resetLeadCapture = () => {
+    sessionStorage.removeItem(STORAGE_KEYS.SESSION_DONE);
     localStorage.removeItem(STORAGE_KEYS.CLAIMED);
     localStorage.removeItem(STORAGE_KEYS.STUDENT_CAPTURED);
     localStorage.removeItem(STORAGE_KEYS.STARTER_KIT_CLAIMED);
-    localStorage.removeItem(STORAGE_KEYS.DISMISSED_UNTIL);
-    sessionStorage.removeItem(STORAGE_KEYS.SESSION_SHOWN);
-    console.log("[Arzon] Lead capture storage reset. Ready to trigger.");
+    console.log("[Arzon] Lead capture active session reset. Ready to trigger on Section 2.");
   };
 }

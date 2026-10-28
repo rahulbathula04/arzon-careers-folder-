@@ -668,7 +668,9 @@ function RootComponent() {
             {!pathname.startsWith("/career-engine") && !pathname.startsWith("/acri") ? (
               <MobileWhatsAppFAB />
             ) : null}
-            {shellContext === "marketing" ? <AcriScrollLeadMagnet /> : null}
+            {!pathname.startsWith("/admin") && !pathname.startsWith("/career-engine/test") && !pathname.startsWith("/acri/test") ? (
+              <AcriScrollLeadMagnet />
+            ) : null}
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

@@ -38,6 +38,7 @@ export function ExitIntentQuiz() {
     if (!primed) return;
 
     const trigger = () => {
+      if (typeof document !== 'undefined' && document.querySelector('[data-lead-magnet-active="true"]')) return;
       setOpen(true);
       cleanup();
     };

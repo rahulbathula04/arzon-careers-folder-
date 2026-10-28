@@ -10,7 +10,10 @@ import {
   User,
   Check,
   Sparkles,
-  Laptop,
+  Briefcase,
+  CheckCircle2,
+  BookOpen,
+  ShieldCheck,
 } from "lucide-react";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { useServerFn } from "@tanstack/react-start";
@@ -33,7 +36,7 @@ const QUALIFICATIONS = [
   "MBBS / Medical Graduate",
   "BDS / Dental Graduate",
   "B.Sc / M.Sc Life Sciences / Biotechnology",
-  "B.Sc / M.Sc Nursing",
+  "B.Sc / M.Sc Nursing / Allied Health",
   "Other Healthcare / Science Degree",
 ];
 
@@ -47,16 +50,57 @@ export function AcriScrollLeadMagnet() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"form" | "success">("form");
 
-  // Form State
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  // Pre-populate if student entered details previously in this browser
+  const [fullName, setFullName] = useState(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      const p = localStorage.getItem("arzon_acri_candidate_profile");
+      if (p) {
+        const parsed = JSON.parse(p);
+        if (parsed?.fullName) return parsed.fullName;
+      }
+      const c = localStorage.getItem("arzon_candidate_profile");
+      if (c) {
+        const parsed = JSON.parse(c);
+        if (parsed?.name) return parsed.name;
+      }
+    } catch {}
+    return "";
+  });
+
+  const [email, setEmail] = useState(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      const e = localStorage.getItem("arzon_user_email");
+      if (e) return e;
+      const p = localStorage.getItem("arzon_acri_candidate_profile");
+      if (p) {
+        const parsed = JSON.parse(p);
+        if (parsed?.email) return parsed.email;
+      }
+    } catch {}
+    return "";
+  });
+
+  const [mobile, setMobile] = useState(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      const p = localStorage.getItem("arzon_acri_candidate_profile");
+      if (p) {
+        const parsed = JSON.parse(p);
+        if (parsed?.mobile) return parsed.mobile;
+      }
+    } catch {}
+    return "";
+  });
+
   const [highestQualification, setHighestQualification] = useState(QUALIFICATIONS[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [consentCommunications, setConsentCommunications] = useState(true);
 
   const hasTriggeredRef = useRef(false);
   const autoDismissTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastScrollYRef = useRef(0);
 
   // Clean up auto-dismiss timer on unmount
   useEffect(() => {
@@ -67,33 +111,48 @@ export function AcriScrollLeadMagnet() {
     };
   }, []);
 
-  // Rules-based non-intrusive acquisition trigger
+  // Multi-signal acquisition trigger engine
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Rule 1 & 2: Check global student conversion status & route quiet zones
+    // Rule check: is route eligible?
     if (!isEligibleForLeadCapture(pathname)) {
       return;
     }
 
+    const isDebugForce =
+      window.location.search.includes("leadmagnet=1") ||
+      window.location.search.includes("preview=leadmagnet") ||
+      (window as any).__FORCE_LEAD_MAGNET__;
+
     const pageMountTime = Date.now();
     let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
+    let fallbackTimer: ReturnType<typeof setTimeout> | null = null;
     let observer: IntersectionObserver | null = null;
 
     const triggerCard = (reason: string) => {
       if (hasTriggeredRef.current) return;
-      // Re-verify eligibility right before showing
-      if (!isEligibleForLeadCapture(pathname)) return;
+      // Re-verify eligibility unless debug
+      if (!isDebugForce && !isEligibleForLeadCapture(pathname)) return;
 
       hasTriggeredRef.current = true;
       setIsOpen(true);
-      logAcriFunnelEvent("lead_magnet_triggered_by_scroll", {
+      logAcriFunnelEvent("lead_magnet_triggered", {
         trigger_reason: reason,
         pathname,
       });
       cleanup();
     };
 
+    // Instant debug trigger
+    if (isDebugForce) {
+      const debugTimer = setTimeout(() => {
+        triggerCard("debug_url_parameter");
+      }, 350);
+      return () => clearTimeout(debugTimer);
+    }
+
+    // Signal 1: Scroll Depth + Dwell Evaluation
     const evaluateEngagement = () => {
       if (hasTriggeredRef.current) return;
 
@@ -101,16 +160,23 @@ export function AcriScrollLeadMagnet() {
       const scrollRoot = document.getElementById("app-scroll-root");
       const scrollY = scrollRoot ? scrollRoot.scrollTop : (window.scrollY || window.pageYOffset);
 
-      // Responsive mobile dwell & depth gating (prevents viewport trapping on mobile screens)
       const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      const minScroll = isMobile ? 2600 : 500;
-      const minDwell = isMobile ? 30000 : 6000;
+      // Generous, realistic thresholds for active engagement
+      const minScroll = isMobile ? 350 : 450;
+      const minDwell = isMobile ? 6500 : 5000;
+
+      // Mobile scroll-up re-engagement detection (user scrolled deep, then scrolls back up)
+      if (isMobile && scrollY > 400 && scrollY < lastScrollYRef.current - 90 && elapsedMs >= 4000) {
+        triggerCard("mobile_scroll_up_intent");
+        return;
+      }
+      lastScrollYRef.current = scrollY;
 
       if (scrollY >= minScroll) {
         if (elapsedMs >= minDwell) {
           triggerCard("deep_scroll_after_dwell");
         } else {
-          const remainingMs = Math.max(1000, minDwell - elapsedMs);
+          const remainingMs = Math.max(800, minDwell - elapsedMs);
           if (scrollTimeout) clearTimeout(scrollTimeout);
           scrollTimeout = setTimeout(() => {
             if (!hasTriggeredRef.current) {
@@ -125,13 +191,10 @@ export function AcriScrollLeadMagnet() {
     scrollRoot?.addEventListener("scroll", evaluateEngagement, { passive: true });
     window.addEventListener("scroll", evaluateEngagement, { passive: true });
 
-    // Passive observer on section 2 with dwell gate (desktop only to prevent mobile reading disruption)
+    // Signal 2: Section 2 Intersection Observer (Active on BOTH mobile and desktop)
     const setupObserver = () => {
-      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-      if (isMobile) return;
-
       const sections = Array.from(
-        document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section")
+        document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
       ).filter((s) => s.offsetHeight > 100 && s.offsetParent !== null);
 
       if (sections.length >= 2 && typeof IntersectionObserver !== "undefined") {
@@ -141,7 +204,9 @@ export function AcriScrollLeadMagnet() {
             for (const entry of entries) {
               if (entry.isIntersecting && !hasTriggeredRef.current) {
                 const elapsedMs = Date.now() - pageMountTime;
-                const remainingMs = Math.max(1200, 6500 - elapsedMs);
+                const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+                const requiredDwell = isMobile ? 5500 : 4000;
+                const remainingMs = Math.max(1000, requiredDwell - elapsedMs);
                 if (scrollTimeout) clearTimeout(scrollTimeout);
                 scrollTimeout = setTimeout(() => {
                   if (!hasTriggeredRef.current) {
@@ -152,22 +217,48 @@ export function AcriScrollLeadMagnet() {
               }
             }
           },
-          { threshold: 0.2 }
+          { threshold: 0.15 }
         );
         observer.observe(section2);
       }
     };
 
+    // Signal 3: Desktop Exit Intent (cursor leaves top of browser after 4s dwell)
+    const handleMouseOut = (e: MouseEvent) => {
+      if (hasTriggeredRef.current) return;
+      const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+      if (isMobile) return;
+
+      const elapsedMs = Date.now() - pageMountTime;
+      if (elapsedMs < 4000) return;
+
+      // Pointer exited top of viewport
+      if (e.relatedTarget === null && e.clientY <= 0) {
+        triggerCard("desktop_exit_intent");
+      }
+    };
+
+    document.addEventListener("mouseout", handleMouseOut);
+
+    // Signal 4: Polite Fallback Timer (User reading quietly for 22s without hitting scroll limit)
+    fallbackTimer = setTimeout(() => {
+      if (!hasTriggeredRef.current) {
+        triggerCard("reading_dwell_fallback");
+      }
+    }, 22000);
+
     const initialTimer = setTimeout(() => {
       setupObserver();
       evaluateEngagement();
-    }, 1500);
+    }, 1200);
 
     const cleanup = () => {
       clearTimeout(initialTimer);
       if (scrollTimeout) clearTimeout(scrollTimeout);
+      if (fallbackTimer) clearTimeout(fallbackTimer);
       scrollRoot?.removeEventListener("scroll", evaluateEngagement);
       window.removeEventListener("scroll", evaluateEngagement);
+      document.removeEventListener("mouseout", handleMouseOut);
       if (observer) {
         observer.disconnect();
         observer = null;
@@ -177,7 +268,7 @@ export function AcriScrollLeadMagnet() {
     return cleanup;
   }, [pathname]);
 
-  // Handle ESC key to dismiss effortlessly
+  // Handle ESC key to dismiss
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -197,8 +288,8 @@ export function AcriScrollLeadMagnet() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fullName.trim() || !email.trim() || !mobile.trim()) {
-      toast.error("Please fill in your name, email and WhatsApp number.");
+    if (!fullName.trim() || !mobile.trim()) {
+      toast.error("Please enter your name and WhatsApp number.");
       return;
     }
 
@@ -206,38 +297,39 @@ export function AcriScrollLeadMagnet() {
     try {
       const cleanPhoneDigits = mobile.replace(/\D/g, "");
       const cleanPhone = cleanPhoneDigits.length >= 10 ? cleanPhoneDigits.slice(-10) : mobile.trim();
+      const userEmail = email.trim() || `${cleanPhone}@arzoncandidate.local`;
       const clientFp = ("lead-magnet-" + Date.now() + "-" + Math.random().toString(36).substring(2)).slice(0, 32);
 
-      // 1. Attach lead to Admin Dashboard Applications Pipeline (/admin/applications)
+      // 1. Sync to Admin Applications Pipeline (/admin/applications)
       try {
         await submitApp({
           data: {
             name: fullName.trim(),
-            email: email.trim(),
+            email: userEmail,
             phone: cleanPhone,
-            programSlug: "lead-magnet-2026-pv-guide",
-            programName: "2026 PV Career Guide · Lead Magnet",
+            programSlug: "2026-healthcare-recruiter-playbook",
+            programName: "2026 Healthcare GCC Recruiter Playbook · Official Release",
             whatsappOptin: consentCommunications,
             degree: highestQualification,
             notes: JSON.stringify({
-              source: "scroll_lead_magnet",
-              trigger: "section_2_reading",
+              source: "scroll_lead_magnet_v2",
+              asset: "2026_Healthcare_GCC_Recruiter_Playbook_and_Salary_Guide",
               qualification: highestQualification,
               submittedAt: new Date().toISOString(),
             }),
-            utmSource: "scroll-lead-magnet",
+            utmSource: "recruiter-playbook-lead-magnet",
           },
         });
       } catch (err) {
         console.warn("[AcriScrollLeadMagnet] Admin applications pipeline sync notice:", err);
       }
 
-      // 2. Attach lead to Admin Dashboard ACRI Candidates (/admin/acri)
+      // 2. Sync to ACRI Candidate Store (/admin/acri)
       try {
         await applyCandidate({
           data: {
             fullName: fullName.trim(),
-            email: email.trim(),
+            email: userEmail,
             mobile: cleanPhone,
             highestQualification,
             collegeUniversity: "Lead Magnet Applicant",
@@ -248,37 +340,37 @@ export function AcriScrollLeadMagnet() {
         console.warn("[AcriScrollLeadMagnet] ACRI candidates sync notice:", err);
       }
 
-      // 3. Attach lead to Admin Dashboard Career Engine Leads (/admin/leads)
+      // 3. Sync to Career Starter Kit Leads (/admin/leads)
       try {
         await submitStarterKit({
           data: {
             name: fullName.trim(),
-            email: email.trim(),
+            email: userEmail,
             phone: cleanPhone,
             qualification: highestQualification,
             whatsappOptin: consentCommunications,
             sourcePath: pathname,
             clientFp,
-            utmSource: "scroll-lead-magnet",
+            utmSource: "recruiter-playbook-lead-magnet",
           },
         });
       } catch (err) {
         console.warn("[AcriScrollLeadMagnet] Career engine leads sync notice:", err);
       }
 
-      // Rule 1: Mark lead as permanently converted so it NEVER appears again
+      // Mark lead as converted so they are not prompted again
       markLeadAsConverted({
         fullName: fullName.trim(),
-        email: email.trim(),
+        email: userEmail,
         mobile: cleanPhone,
         qualification: highestQualification,
       });
 
-      // Auto-trigger browser download
+      // Auto-trigger browser download of the verified 2026 PDF
       try {
         const downloadAnchor = document.createElement("a");
         downloadAnchor.href = "/Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
-        downloadAnchor.download = "Arzon_2026_Healthcare_Career_Starter_Kit.pdf";
+        downloadAnchor.download = "Arzon_2026_Healthcare_GCC_Recruiter_Playbook.pdf";
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         document.body.removeChild(downloadAnchor);
@@ -288,15 +380,15 @@ export function AcriScrollLeadMagnet() {
 
       setStep("success");
       logAcriFunnelEvent("lead_magnet_submitted", {
-        email: email.trim(),
+        email: userEmail,
         qualification: highestQualification,
       });
-      toast.success("Free Guide unlocked! Your download has started.");
+      toast.success("2026 Recruiter Playbook unlocked! Download starting.");
 
-      // Student Acquisition Rule 4: Auto-dismiss success card after 6s so it doesn't linger
+      // Auto-dismiss success card after 8s so it doesn't trap the screen
       autoDismissTimerRef.current = setTimeout(() => {
         setIsOpen(false);
-      }, 6000);
+      }, 8000);
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit. Please try again.");
     } finally {
@@ -304,291 +396,299 @@ export function AcriScrollLeadMagnet() {
     }
   };
 
-  // If student has already converted or modal is not open, do not render anything
-  if (!isOpen || hasStudentAlreadyConverted()) return null;
+  // If modal is not open, or student already converted (except during active success step), do not render
+  if (!isOpen) return null;
+  if (hasStudentAlreadyConverted() && step !== "success") return null;
 
   return (
-    <div
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px] pointer-events-auto"
-      role="region"
-      aria-label="Career Field Guide Offer"
-    >
-      {/* Floating Apple Card: Non-blocking, shadow-rich, elegant */}
+    <>
+      {/* Mobile Backdrop Overlay (gentle focus on mobile, dismissible by tapping) */}
       <div
-        className="relative rounded-2xl bg-white card-light tone-light border border-slate-200/90 shadow-[0_20px_50px_-10px_rgba(0,0,0,0.22),0_0_0_1px_rgba(0,0,0,0.04)] overflow-hidden font-sans text-slate-900 motion-safe:animate-in motion-safe:slide-in-from-bottom-5 duration-300"
+        className="fixed inset-0 bg-slate-950/40 backdrop-blur-2xs z-[98] sm:hidden motion-safe:animate-in motion-safe:fade-in duration-200"
+        onClick={handleDismiss}
+        aria-hidden="true"
+      />
+
+      {/* Main Container: Mobile Bottom Drawer / Desktop Bottom-Right Card */}
+      <aside
+        data-lead-magnet-active="true"
+        data-fab-avoid="true"
+        className="fixed inset-x-0 bottom-0 sm:bottom-6 sm:right-6 sm:inset-x-auto z-[99] w-full sm:w-[440px] sm:max-w-[440px] pointer-events-auto"
+        role="region"
+        aria-label="2026 Healthcare GCC Recruiter Playbook Offer"
       >
-        {/* Subtle top indicator bar */}
-        <div className="h-1 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-500" />
-
-        {/* Circular Apple close control */}
-        <button
-          type="button"
-          onClick={handleDismiss}
-          className="absolute top-3.5 right-3.5 h-7 w-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-colors z-10 flex items-center justify-center cursor-pointer shadow-2xs"
-          aria-label="Dismiss offer for 7 days"
-          title="Not now"
+        <div
+          className="relative rounded-t-3xl sm:rounded-2xl bg-white card-light tone-light border border-slate-200/95 shadow-[0_-10px_40px_-5px_rgba(0,0,0,0.18),0_20px_50px_-10px_rgba(0,0,0,0.25)] overflow-hidden font-sans text-slate-900 motion-safe:animate-in motion-safe:slide-in-from-bottom-6 duration-300 max-h-[90vh] overflow-y-auto"
         >
-          <X className="h-3.5 w-3.5 stroke-[2.2]" />
-        </button>
+          {/* Mobile Drag Notch Indicator */}
+          <div className="w-12 h-1 bg-slate-300 rounded-full mx-auto mt-2.5 mb-1 sm:hidden" />
 
-        {/* Card Body */}
-        <div className="p-5 sm:p-6">
-          {step === "form" ? (
-            <div>
-              {/* Header */}
-              <div className="text-left mb-4 pr-6">
-                <span className="text-[10px] font-semibold text-blue-600 tracking-wider uppercase">
-                  Free Career Intelligence
-                </span>
-                <h3 className="mt-0.5 text-lg font-semibold tracking-tight text-slate-900 leading-snug">
-                  2026 Pharmacovigilance Field Guide
-                </h3>
-                <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-                  Salary benchmarks, 40+ hiring CROs directory, and complimentary clinical simulation pass.
-                </p>
-              </div>
+          {/* Top Brand Indicator Bar (Deep Navy to Arzon Blue Gradient) */}
+          <div className="h-1.5 w-full bg-gradient-to-r from-[#081F38] via-[#2563EB] to-[#10B981]" />
 
-              {/* Minimal Form */}
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <div>
-                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
-                      Full Name
-                    </label>
-                    <div className="relative">
-                      <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-                      <input
-                        type="text"
-                        required
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        placeholder="e.g. Rahul Bathula"
-                        className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all placeholder:text-slate-400"
-                      />
-                    </div>
+          {/* Circular Close Button */}
+          <button
+            type="button"
+            onClick={handleDismiss}
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors z-20 flex items-center justify-center cursor-pointer shadow-2xs"
+            aria-label="Dismiss offer"
+            title="Close"
+          >
+            <X className="h-4 w-4 stroke-[2.2]" />
+          </button>
+
+          {/* Card Body */}
+          <div className="p-5 sm:p-6">
+            {step === "form" ? (
+              <div>
+                {/* Header Badge & Title */}
+                <div className="text-left mb-3.5 pr-8">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-2">
+                    <Sparkles className="h-3 w-3 text-[#2563EB]" />
+                    <span>2026 OFFICIAL CANDIDATE RELEASE</span>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
-                      Email Address
-                    </label>
-                    <div className="relative">
-                      <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="e.g. rahul@example.com"
-                        className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all placeholder:text-slate-400"
-                      />
-                    </div>
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38] leading-tight">
+                    Healthcare GCC Recruiter Playbook &amp; Salary Guide
+                  </h3>
+
+                  <p className="mt-1 text-xs text-[#64748B] leading-relaxed">
+                    Verified salary bands, 40+ MNC hiring directory, and the top 50 technical interview questions for Pharmacovigilance &amp; CDM.
+                  </p>
+                </div>
+
+                {/* 3 High-Value Visual Proof Pillars */}
+                <div className="mb-4 grid grid-cols-3 gap-1.5 rounded-xl border border-blue-100 bg-[#F8FAFC] p-2 text-center">
+                  <div className="flex flex-col items-center justify-center p-1">
+                    <Briefcase className="h-4 w-4 text-[#2563EB] mb-1" />
+                    <span className="text-[11px] font-bold text-[#081F38]">₹3.8L–₹7.5L</span>
+                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Salary Matrix</span>
+                  </div>
+                  <div className="flex flex-col items-center justify-center border-x border-slate-200/80 p-1">
+                    <BookOpen className="h-4 w-4 text-[#10B981] mb-1" />
+                    <span className="text-[11px] font-bold text-[#081F38]">Top 50 Q&amp;As</span>
+                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Argus &amp; MedDRA</span>
+                  </div>
+                  <div className="flex flex-col items-center justify-center p-1">
+                    <ShieldCheck className="h-4 w-4 text-[#7C3AED] mb-1" />
+                    <span className="text-[11px] font-bold text-[#081F38]">40+ CROs</span>
+                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Hiring Guide</span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  <div>
-                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
-                      WhatsApp Number
-                    </label>
-                    <div className="relative">
-                      <Phone className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-                      <input
-                        type="tel"
-                        required
-                        value={mobile}
-                        onChange={(e) => setMobile(e.target.value)}
-                        placeholder="e.g. 93473 79041"
-                        className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all placeholder:text-slate-400"
-                      />
+                {/* Streamlined Capture Form */}
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                        Full Name <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                        <input
+                          type="text"
+                          required
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          placeholder="e.g. Rahul Bathula"
+                          className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                        WhatsApp Number <span className="text-red-500">*</span>
+                      </label>
+                      <div className="relative">
+                        <Phone className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                        <input
+                          type="tel"
+                          required
+                          value={mobile}
+                          onChange={(e) => setMobile(e.target.value)}
+                          placeholder="e.g. 93473 79041"
+                          className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-medium text-slate-700 mb-1">
-                      Degree
-                    </label>
-                    <select
-                      value={highestQualification}
-                      onChange={(e) => setHighestQualification(e.target.value)}
-                      className="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-3 focus:ring-blue-500/15 focus:border-blue-600 transition-all cursor-pointer"
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                        Degree / Qualification
+                      </label>
+                      <select
+                        value={highestQualification}
+                        onChange={(e) => setHighestQualification(e.target.value)}
+                        className="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all cursor-pointer"
+                      >
+                        {QUALIFICATIONS.map((q) => (
+                          <option key={q} value={q}>
+                            {q}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                        Email Address <span className="text-slate-400 font-normal">(optional)</span>
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="e.g. rahul@example.com"
+                          className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Primary High-Impact CTA Button */}
+                  <div className="pt-1.5">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-3 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-bold text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                     >
-                      {QUALIFICATIONS.map((q) => (
-                        <option key={q} value={q}>
-                          {q}
-                        </option>
-                      ))}
-                    </select>
+                      {isSubmitting ? (
+                        <span>Preparing 2026 Playbook…</span>
+                      ) : (
+                        <>
+                          <span>Download Free 2026 Playbook (PDF)</span>
+                          <ArrowRight className="h-4 w-4 stroke-[2.2]" />
+                        </>
+                      )}
+                    </button>
+
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2.5 px-1">
+                      <span className="flex items-center gap-1">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 inline" /> Instant PDF · Zero Spam
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleDismiss}
+                        className="text-slate-500 hover:text-slate-800 underline underline-offset-2 cursor-pointer transition-colors"
+                      >
+                        Not now
+                      </button>
+                    </div>
                   </div>
+                </form>
+              </div>
+            ) : (
+              /* Success / Delivery State */
+              <div className="text-center space-y-4 py-2">
+                <div className="space-y-1.5">
+                  <div className="mx-auto w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2 ring-4 ring-emerald-50/60">
+                    <Check className="w-6 h-6 stroke-[2.5]" />
+                  </div>
+
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38]">
+                    Your 2026 Recruiter Playbook is Ready!
+                  </h3>
+
+                  <p className="text-xs text-[#64748B] max-w-xs mx-auto leading-relaxed">
+                    Download has started. WhatsApp confirmation sent to{" "}
+                    <span className="font-semibold text-slate-800">{mobile || "your number"}</span>.
+                  </p>
                 </div>
 
-                <div className="pt-1.5">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    data-arzon-dark="true"
-                    style={{
-                      backgroundColor: "#0f172a",
-                      color: "#ffffff",
-                      WebkitTextFillColor: "#ffffff",
-                    }}
-                    className="w-full py-2.5 rounded-xl bg-slate-900 !bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white !text-white font-medium text-xs transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
-                        Preparing guide…
-                      </span>
-                    ) : (
-                      <>
-                        <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>
-                          Get Free Field Guide (PDF)
+                {/* Primary Asset Download Tile */}
+                <div className="rounded-xl border border-slate-200/90 bg-slate-50/80 p-3.5 text-left space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#081F38] text-white flex items-center justify-center shrink-0 shadow-xs">
+                      <FileText className="w-5 h-5 text-blue-200" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-bold text-xs text-[#081F38] truncate">
+                          2026 Healthcare Recruiter Playbook
+                        </h4>
+                        <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded shrink-0">
+                          PDF
                         </span>
-                        <ArrowRight className="h-3.5 w-3.5 stroke-[2.2]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
-                      </>
-                    )}
-                  </button>
-                  <div className="flex items-center justify-between text-[11px] text-slate-400 mt-2 px-1">
-                    <span>Instant PDF download · Zero spam</span>
+                      </div>
+                      <p className="text-[11px] text-[#64748B] truncate mt-0.5">
+                        Salary bands · Top 50 Interview Q&amp;As · 40+ CRO directory
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Dual Action Buttons */}
+                  <div className="flex flex-col sm:flex-row items-center gap-2 pt-1">
+                    <a
+                      href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
+                      download="Arzon_2026_Healthcare_GCC_Recruiter_Playbook.pdf"
+                      className="w-full sm:flex-1 py-2.5 px-3 rounded-full bg-[#081F38] hover:bg-[#0f2d52] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download PDF Again</span>
+                    </a>
+
                     <button
                       type="button"
-                      onClick={handleDismiss}
-                      className="text-slate-400 hover:text-slate-600 underline cursor-pointer"
+                      onClick={() => {
+                        try {
+                          generateStarterKitPDF({ candidateName: fullName, degree: highestQualification });
+                          toast.success("Personalized PDF stamped with your name!");
+                        } catch (e) {
+                          console.error("Personalized PDF failed", e);
+                        }
+                      }}
+                      className="w-full sm:w-auto py-2.5 px-3.5 rounded-full border border-slate-200 bg-white card-light hover:bg-slate-50 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs shrink-0"
                     >
-                      Not now
+                      <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Stamp My Name</span>
                     </button>
                   </div>
                 </div>
-              </form>
-            </div>
-          ) : (
-            /* Apple Minimalist Delivery View */
-            <div className="text-center space-y-3.5">
-              <div className="space-y-1">
-                <div className="mx-auto w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2">
-                  <Check className="w-5 h-5 stroke-[2.5]" />
-                </div>
 
-                <h3 className="text-lg font-semibold tracking-tight text-slate-900">
-                  Your Field Guide is Ready
-                </h3>
-
-                <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
-                  Download started. Backup copy sent to{" "}
-                  <span className="font-medium text-slate-800">{email}</span>.
-                </p>
-              </div>
-
-              {/* Primary Asset Card: High-contrast Apple File Tile */}
-              <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 text-left space-y-2.5">
-                <div className="flex items-center gap-2.5">
-                  <div
-                    data-arzon-dark="true"
-                    style={{ backgroundColor: "#0f172a", color: "#ffffff" }}
-                    className="w-9 h-9 rounded-lg bg-slate-900 !bg-slate-900 text-white !text-white flex items-center justify-center shrink-0 shadow-xs"
-                  >
-                    <FileText className="w-4 h-4 stroke-[1.75]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
-                      <h4 className="font-semibold text-xs text-slate-900 truncate">
-                        2026 Pharmacovigilance Field Guide
-                      </h4>
-                      <span className="text-[9px] font-medium text-slate-500 bg-slate-200/60 px-1 py-0.2 rounded shrink-0">
-                        PDF
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-500 truncate mt-0.5">
-                      40+ CRO directory · Salary benchmarks · Interview Q&amp;A
+                {/* Complimentary Role Assessment Invitation */}
+                <div className="rounded-xl border border-blue-200 bg-blue-50/70 p-3 flex items-center justify-between gap-3 text-left">
+                  <div className="min-w-0">
+                    <h5 className="font-bold text-xs text-[#081F38]">
+                      Free Role Match Assessment
+                    </h5>
+                    <p className="text-[11px] text-[#64748B]">
+                      See if your aptitude matches Pharmacovigilance or CDM
                     </p>
                   </div>
-                </div>
-
-                {/* Indestructible High-Contrast Action Buttons */}
-                <div className="flex items-center gap-2 pt-0.5">
-                  <a
-                    href="/Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                    download="Arzon_2026_Healthcare_Career_Starter_Kit.pdf"
-                    data-arzon-dark="true"
-                    style={{
-                      backgroundColor: "#0f172a",
-                      color: "#ffffff",
-                      WebkitTextFillColor: "#ffffff",
-                    }}
-                    className="flex-1 py-2 px-3 rounded-lg bg-slate-900 !bg-slate-900 hover:bg-slate-800 text-white !text-white font-medium text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
-                  >
-                    <Download className="w-3.5 h-3.5 stroke-[2.2]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
-                    <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>Download PDF</span>
-                  </a>
 
                   <button
                     type="button"
                     onClick={() => {
-                      try {
-                        generateStarterKitPDF({ candidateName: fullName, degree: highestQualification });
-                        toast.success("Personalized PDF generated!");
-                      } catch (e) {
-                        console.error("Personalized PDF failed", e);
-                      }
+                      setIsOpen(false);
+                      navigate({ to: "/career-engine/start" });
                     }}
-                    className="py-2 px-2.5 rounded-lg border border-slate-200 bg-white card-light hover:bg-slate-50 text-slate-700 font-medium text-xs flex items-center justify-center gap-1 transition-colors cursor-pointer shadow-2xs shrink-0"
-                    title="Generate custom PDF stamped with your profile"
+                    className="shrink-0 px-3 py-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                    <span>Personalized</span>
+                    <span>Start Test</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+
+                {/* Footer Controls */}
+                <div className="flex items-center justify-between pt-1 text-xs">
+                  <span className="text-[11px] text-slate-400">Auto-closing shortly</span>
+                  <button
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                    className="text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer py-1 px-3 rounded-full hover:bg-slate-100"
+                  >
+                    Done
                   </button>
                 </div>
               </div>
-
-              {/* Complimentary Simulation Pass Banner */}
-              <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-2.5 flex items-center justify-between gap-2 text-left">
-                <div className="flex items-center gap-2 min-w-0">
-                  <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                    <Laptop className="w-3.5 h-3.5" />
-                  </div>
-                  <div className="min-w-0">
-                    <h5 className="font-semibold text-xs text-slate-900 truncate">
-                      Clinical Simulation Pass
-                    </h5>
-                    <p className="text-[10px] text-slate-500 truncate">
-                      Case triage &amp; standardized coding pass
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  data-arzon-dark="true"
-                  style={{
-                    backgroundColor: "#2563eb",
-                    color: "#ffffff",
-                    WebkitTextFillColor: "#ffffff",
-                  }}
-                  onClick={() => {
-                    setIsOpen(false);
-                    navigate({ to: "/career-assessment" });
-                  }}
-                  className="shrink-0 px-2.5 py-1 rounded-md bg-blue-600 !bg-blue-600 hover:bg-blue-700 text-white !text-white font-medium text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
-                >
-                  <span style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}>Launch</span>
-                  <ArrowRight className="w-3 h-3 stroke-[2.2]" style={{ color: "#ffffff", stroke: "#ffffff" }} />
-                </button>
-              </div>
-
-              {/* Footer Dismiss Control */}
-              <div className="flex items-center justify-between pt-1 text-xs">
-                <span className="text-[11px] text-slate-400">Auto-closing in a moment</span>
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  className="text-xs font-medium text-slate-500 hover:text-slate-900 transition-colors cursor-pointer py-1 px-2.5 rounded-md hover:bg-slate-100"
-                >
-                  Done
-                </button>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      </aside>
+    </>
   );
 }

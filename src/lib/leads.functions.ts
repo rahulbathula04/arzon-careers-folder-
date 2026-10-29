@@ -85,7 +85,25 @@ export const listLeads = createServerFn({ method: "GET" })
     if (data.contacted === "no") q = q.is("contacted_at", null);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
-    return { leads: rows ?? [] };
+
+    const leads = rows ?? [];
+    const sessionIds = [...new Set(leads.flatMap((lead) => lead.session_id ? [lead.session_id] : []))];
+    const sourceBySession = new Map<string, string | null>();
+    if (sessionIds.length > 0) {
+      const { data: sessions, error: sessionsError } = await sb
+        .from("career_engine_sessions")
+        .select("id, utm_source")
+        .in("id", sessionIds);
+      if (sessionsError) throw new Error(sessionsError.message);
+      for (const session of sessions ?? []) sourceBySession.set(session.id, session.utm_source);
+    }
+
+    return {
+      leads: leads.map((lead) => ({
+        ...lead,
+        acquisition_source: lead.session_id ? sourceBySession.get(lead.session_id) ?? null : null,
+      })),
+    };
   });
 
 const MarkSchema = z.object({

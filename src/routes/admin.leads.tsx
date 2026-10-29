@@ -42,6 +42,7 @@ type Lead = {
   cohort_id: string | null;
   session_id: string | null;
   contacted_at: string | null;
+  acquisition_source: string | null;
 };
 
 type SessionInfo = {
@@ -105,7 +106,8 @@ function AdminLeads() {
       const name = (r.name ?? "").toLowerCase();
       const email = (r.email ?? "").toLowerCase();
       const fit = r.fit_score == null ? "" : String(r.fit_score);
-      return name.includes(q) || email.includes(q) || fit.includes(q);
+      const source = (r.acquisition_source ?? "unattributed").toLowerCase();
+      return name.includes(q) || email.includes(q) || fit.includes(q) || source.includes(q);
     });
   }, [rows, query]);
 
@@ -117,6 +119,7 @@ function AdminLeads() {
     { key: "whatsapp_optin", header: "whatsapp_optin" },
     { key: "archetype", header: "archetype" },
     { key: "fit_score", header: "fit_score" },
+    { key: "acquisition_source", header: "acquisition_source" },
     { key: "cohort_id", header: "cohort_id" },
     { key: "top_paths", header: "top_paths", accessor: (r) => JSON.stringify(r.top_paths ?? null) },
     { key: "contacted_at", header: "contacted_at" },
@@ -197,6 +200,11 @@ function AdminLeads() {
           <p className="mt-1 text-sm text-foreground">
             {visible.length} shown{query.trim() ? ` · filtered from ${rows.length}` : ""}
           </p>
+          <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+            A lead is a contact captured by Career Engine; an assessment may be incomplete. Source is
+            the session&apos;s UTM campaign tag. “Unattributed” means no tag was recorded, not that
+            the visit was definitely direct.
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <Input
@@ -232,6 +240,7 @@ function AdminLeads() {
               <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">Phone</th>
               <th className="px-4 py-3">Archetype</th>
+              <th className="px-4 py-3">Source</th>
               <th className="px-4 py-3">Fit</th>
               <th className="px-4 py-3">Status</th>
             </tr>
@@ -282,6 +291,12 @@ function AdminLeads() {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-foreground">{r.archetype ?? "-"}</td>
+                  <td
+                    className="max-w-40 truncate px-4 py-3 text-foreground"
+                    title={r.acquisition_source ?? "No UTM campaign tag was recorded"}
+                  >
+                    {r.acquisition_source ?? <span className="text-muted-foreground">Unattributed</span>}
+                  </td>
                   <td className="px-4 py-3 text-foreground font-semibold">
                     {r.fit_score != null ? `${r.fit_score}%` : "-"}
                   </td>
@@ -324,7 +339,7 @@ function AdminLeads() {
             })}
             {visible.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
+                <td colSpan={9} className="px-4 py-12 text-center text-muted-foreground">
                   {query.trim()
                     ? `No leads match "${query.trim()}".`
                     : "No leads match this filter."}
@@ -467,7 +482,12 @@ function LeadDetailDrawer({
                     Device: <span className="text-foreground">{session.device ?? "-"}</span>
                   </li>
                   <li>
-                    UTM source: <span className="text-foreground">{session.utm_source ?? "-"}</span>
+                    Acquisition source (UTM):{" "}
+                    <span className="text-foreground">{session.utm_source ?? "Unattributed"}</span>
+                  </li>
+                  <li className="text-muted-foreground">
+                    This is the campaign tag recorded when the session started. If it is missing, the
+                    original traffic source is unknown.
                   </li>
                   <li>
                     Started:{" "}

@@ -306,6 +306,7 @@ function AdminHome() {
           byBranch: {},
           byDegree: {},
           totalPaidRevenueInr: 0,
+          warnings: [errorMsg],
         });
       }
 
@@ -540,6 +541,9 @@ function AdminHome() {
         const matchesBranch = (r.branch || "").toLowerCase().includes(q);
         const matchesPass = (r.pass_id || "").toLowerCase().includes(q);
         const matchesArchetype = (r.archetype || "").toLowerCase().includes(q);
+        const matchesSource = (r.utm_source || "").toLowerCase().includes(q);
+        const matchesProgram = (r.program_name || "").toLowerCase().includes(q);
+        const matchesRecordType = r.kind.replace("_", " ").toLowerCase().includes(q);
         if (
           !matchesName &&
           !matchesPhone &&
@@ -547,7 +551,10 @@ function AdminHome() {
           !matchesCollege &&
           !matchesBranch &&
           !matchesPass &&
-          !matchesArchetype
+          !matchesArchetype &&
+          !matchesSource &&
+          !matchesProgram &&
+          !matchesRecordType
         ) {
           return false;
         }
@@ -877,7 +884,7 @@ function AdminHome() {
         <div className="rounded-3xl border border-white/[0.08] bg-[#0A0D18]/80 backdrop-blur-2xl p-5 shadow-xl hover:border-white/[0.15] transition-all flex flex-col justify-between space-y-3 group">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
-              TOTAL PIPELINE VOLUME
+              TOTAL INTAKE RECORDS
             </span>
             <div className="w-8 h-8 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
               <Layers className="w-4 h-4 text-sky-400" />
@@ -1239,13 +1246,32 @@ function AdminHome() {
             <div className="flex items-center justify-between text-xs text-zinc-400 font-sans pt-2 border-t border-white/[0.06]">
               <span>
                 Displaying <strong className="text-white font-mono">{filteredResponses.length}</strong> of{" "}
-                <strong className="text-white font-mono">{data?.totalCount ?? 0}</strong> verified platform records
+                <strong className="text-white font-mono">{data?.totalCount ?? 0}</strong> intake records
               </span>
               <span className="font-mono text-[10.5px] text-zinc-500 hidden sm:inline">
-                Click any row to launch Candidate Intelligence Dossier
+                Record count is submissions, not unique people. Click a row for details.
               </span>
             </div>
+            <p className="text-[11px] leading-relaxed text-zinc-400">
+              Record type is the form submitted; programme is the stated interest; traffic source is the saved UTM campaign tag.
+              “Not recorded” means no tag was saved, so direct traffic cannot be confirmed.
+            </p>
           </div>
+
+          {data?.warnings.length ? (
+            <div
+              role="alert"
+              className="flex items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100"
+            >
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />
+              <div>
+                <p className="font-semibold">Dashboard data may be incomplete</p>
+                <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-amber-100/80">
+                  {data.warnings.map((warning) => <li key={warning}>{warning}</li>)}
+                </ul>
+              </div>
+            </div>
+          ) : null}
 
           {/* ── MOBILE CANDIDATE CARDS (Sleek Apple VisionOS Style) ── */}
           <div className="block md:hidden space-y-3">
@@ -1378,7 +1404,7 @@ function AdminHome() {
                 <thead>
                   <tr className="bg-white/[0.02] border-b border-white/[0.08] font-mono text-[10.5px] uppercase tracking-wider text-zinc-400 select-none">
                     <th className="py-3.5 px-5">Candidate &amp; Channels</th>
-                    <th className="py-3.5 px-4">Origin &amp; Diagnostic</th>
+                    <th className="py-3.5 px-4">Record Type, Programme &amp; Source</th>
                     <th className="py-3.5 px-4">Academic Dossier</th>
                     <th className="py-3.5 px-4">Branch &amp; Degree</th>
                     <th className="py-3.5 px-4">Status Engine</th>
@@ -1469,15 +1495,24 @@ function AdminHome() {
                             </div>
                           </td>
 
-                          {/* Origin & Diagnostic */}
+                          {/* Record type, programme, and acquisition source */}
                           <td className="py-3.5 px-4 space-y-1">
                             <span
                               className={`inline-block font-mono text-[9px] uppercase font-bold px-2 py-0.5 rounded-full border ${kindSpec.bg} ${kindSpec.text} ${kindSpec.border}`}
+                              title="Record type: the form or workflow that created this record"
                             >
                               {kindSpec.label}
                             </span>
                             <p className="font-sans text-xs text-zinc-200 font-medium truncate max-w-[170px]" title={r.program_name || ""}>
                               {r.program_name || "Healthcare Program"}
+                            </p>
+                            <p
+                              className="max-w-[180px] truncate font-mono text-[10px] text-zinc-400"
+                              title={r.utm_source ? `Saved UTM source: ${r.utm_source}` : "No UTM source was recorded; this does not confirm direct traffic"}
+                            >
+                              Traffic source: {r.acquisition_source_status === "unavailable"
+                                ? "Unavailable"
+                                : r.utm_source || "Not recorded"}
                             </p>
                             {r.archetype && (
                               <div className="flex items-center gap-1.5 pt-0.5">
@@ -1489,6 +1524,11 @@ function AdminHome() {
                                 </span>
                               </div>
                             )}
+                            <span className="w-full text-[10px] text-zinc-400">
+                              Traffic source: {r.acquisition_source_status === "unavailable"
+                                ? "Unavailable"
+                                : r.utm_source || "Not recorded"}
+                            </span>
                             {r.amount_inr && (
                               <p className="font-mono text-[11px] font-bold text-amber-300">
                                 ₹{r.amount_inr.toLocaleString("en-IN")}
@@ -1920,9 +1960,17 @@ function AdminHome() {
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-zinc-400">Acquisition Channel:</span>
-                  <span className="font-mono text-zinc-300">{selectedCandidate.utm_source || "direct"}</span>
+                  <span className="text-zinc-400">Traffic source (UTM):</span>
+                  <span className="font-mono text-zinc-300">
+                    {selectedCandidate.acquisition_source_status === "unavailable"
+                      ? "Unavailable"
+                      : selectedCandidate.utm_source || "Not recorded"}
+                  </span>
                 </div>
+                <p className="text-[11px] leading-relaxed text-zinc-400">
+                  This is the campaign tag stored with the submission or assessment session. If it is not recorded,
+                  the original traffic source is unknown; it is not necessarily direct.
+                </p>
               </div>
             </div>
 

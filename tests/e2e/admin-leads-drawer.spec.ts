@@ -42,6 +42,8 @@ test.describe("/admin/leads dashboard", () => {
     const search = page.getByPlaceholder(/search/i).first();
     await expect(search).toBeVisible();
     await expect(search).toHaveAttribute("aria-label", /search leads/i);
+    await expect(page.getByText(/A lead is a contact captured by Career Engine/i)).toBeVisible();
+    await expect(page.getByRole("columnheader", { name: "Source" })).toBeVisible();
 
     // 2. Search is wired - typing a token either narrows the list or shows
     //    the empty state. We can't assume any real lead names so we type a
@@ -65,6 +67,8 @@ test.describe("/admin/leads dashboard", () => {
 
     const dialog = page.getByRole("dialog", { name: /lead detail/i });
     await expect(dialog).toBeVisible();
+    await expect(dialog.getByText(/Acquisition source \(UTM\)/)).toBeVisible();
+    await expect(dialog.getByText(/original traffic source is unknown/i)).toBeVisible();
 
     // 4. WhatsApp before Call, sentence-case labels.
     const whatsapp = dialog.getByRole("link", { name: /^whatsapp$/i });
@@ -92,5 +96,20 @@ test.describe("/admin/leads dashboard", () => {
 
     await expect(whatsapp).toHaveAttribute("href", /wa\.me\//);
     await expect(call).toHaveAttribute("href", /^tel:/);
+  });
+
+  test("executive dashboard explains record type and traffic source", async ({ page }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    await page.evaluate(
+      ([key, json]) => window.localStorage.setItem(key, json),
+      [STORAGE_KEY, SESSION_JSON],
+    );
+
+    await page.goto("/admin", { waitUntil: "networkidle" });
+    await expect(
+      page.getByRole("columnheader", { name: /Record Type, Programme & Source/i }),
+    ).toBeVisible();
+    await expect(page.getByText(/Record type is the form submitted/i)).toBeVisible();
+    await expect(page.getByText(/submissions, not unique people/i)).toBeVisible();
   });
 });

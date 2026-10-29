@@ -584,6 +584,7 @@ export interface UnifiedAdminResponse {
   amount_inr?: number | null;
   mentor_question?: string | null;
   utm_source?: string | null;
+  acquisition_source_status?: "captured" | "not_recorded" | "unavailable";
   notes?: string | null;
   whatsapp_link?: string | null;
   whatsapp_optin?: boolean;
@@ -608,6 +609,7 @@ export interface AllAdminResponsesResult {
   byBranch: Record<string, number>;
   byDegree: Record<string, number>;
   totalPaidRevenueInr: number;
+  warnings: string[];
 }
 
 /**
@@ -615,6 +617,14 @@ export interface AllAdminResponsesResult {
  * In production, genuine empty state or error states are surfaced instead of synthetic records.
  */
 export const FALLBACK_UNIFIED_RESPONSES: UnifiedAdminResponse[] = [];
+
+function getQueryFailure(result: PromiseSettledResult<unknown>): string | null {
+  if (result.status === "rejected") {
+    return result.reason instanceof Error ? result.reason.message : "Request failed";
+  }
+  const response = result.value as { error?: { message?: string } | null } | null;
+  return response?.error?.message ?? null;
+}
 
 export const getAllAdminResponses = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -641,7 +651,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         .limit(2000),
       sb
         .from("enrolment_intents")
-        .select("id, created_at, name, email, phone, tier, base_price_inr, status, razorpay_payment_id, program_slug")
+        .select("id, created_at, name, email, phone, tier, base_price_inr, status, razorpay_payment_id, program_slug, utm_source")
         .is("deleted_at", null)
         .order("created_at", { ascending: false })
         .limit(2000),
@@ -651,6 +661,17 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         .order("created_at", { ascending: false })
         .limit(2000),
     ]);
+
+    const warnings: string[] = [];
+    for (const [label, result] of [
+      ["Applications", appsRes],
+      ["Career Engine leads", ceRes],
+      ["Enrolments", enrolRes],
+      ["ACRI academic enrichment", acriRes],
+    ] as const) {
+      const failure = getQueryFailure(result);
+      if (failure) warnings.push(`${label} could not be loaded: ${failure}`);
+    }
 
     // Build lookup maps for ACRI candidates to enrich applications or backfill missing college data
     const acriByEmail = new Map<string, any>();
@@ -665,20 +686,42 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
     // Query answers for Career Engine leads to get their exact college and academic info
     const ceAnswersBySession = new Map<string, Record<string, string>>();
+    const ceSourceBySession = new Map<string, string | null>();
+    const queriedSessionIds = new Set<string>();
+    let careerEngineSourcesUnavailable = false;
     if (ceRes.status === "fulfilled" && Array.isArray((ceRes.value as any)?.data)) {
-      const sessionIds = ((ceRes.value as any).data as any[])
+      const sessionIds = [...new Set(((ceRes.value as any).data as any[])
         .map((r) => r.session_id)
-        .filter(Boolean);
+        .filter(Boolean))];
+      for (const sessionId of sessionIds.slice(0, 1000)) queriedSessionIds.add(sessionId);
+      if (sessionIds.length > 1000) {
+        warnings.push("Career Engine source lookup is limited to the first 1,000 linked sessions.");
+      }
 
       if (sessionIds.length > 0) {
+        const { data: sessionRows, error: sessionError } = await sb
+          .from("career_engine_sessions")
+          .select("id, utm_source")
+          .in("id", [...queriedSessionIds]);
+        if (sessionError) {
+          careerEngineSourcesUnavailable = true;
+          warnings.push(`Career Engine acquisition sources could not be loaded: ${sessionError.message}`);
+        } else {
+          for (const session of sessionRows ?? []) {
+            ceSourceBySession.set(session.id, session.utm_source);
+          }
+        }
+
         try {
-          const { data: answersData } = await sb
+          const { data: answersData, error: answersError } = await sb
             .from("career_engine_answers")
             .select("session_id, question_id, answer")
             .in("session_id", sessionIds.slice(0, 1000))
             .in("question_id", ["college_name", "college", "course", "stream", "year"]);
 
-          if (answersData) {
+          if (answersError) {
+            warnings.push(`Career Engine academic answers could not be loaded: ${answersError.message}`);
+          } else if (answersData) {
             for (const ans of answersData) {
               if (!ans.session_id) continue;
               const cur = ceAnswersBySession.get(ans.session_id) || {};
@@ -687,7 +730,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
             }
           }
         } catch (e) {
-          console.warn("[workshop] failed to query career_engine_answers:", e);
+          const message = e instanceof Error ? e.message : "Request failed";
+          warnings.push(`Career Engine academic answers could not be loaded: ${message}`);
         }
       }
     }
@@ -825,7 +869,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           program_slug: r.program_slug || (isWorkshop ? "healthcare-career-workshop" : "general-application"),
           mentor_question: mentor_question || null,
           notes: r.notes || null,
-          utm_source: r.utm_source || "direct",
+          utm_source: r.utm_source || null,
+          acquisition_source_status: r.utm_source ? "captured" : "not_recorded",
           whatsapp_link,
           whatsapp_optin: true,
         });
@@ -917,10 +962,21 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           degree: degree || null,
           grad_year: grad_year || null,
           archetype: r.archetype || null,
-          fit_score: r.fit_score || null,
+          fit_score: r.fit_score ?? null,
           top_paths: Array.isArray(r.top_paths) ? r.top_paths : null,
           program_name: "Career Engine Assessment",
           program_slug: "career-engine",
+          utm_source: r.session_id ? ceSourceBySession.get(r.session_id) ?? null : null,
+          acquisition_source_status:
+            r.session_id && (
+              careerEngineSourcesUnavailable ||
+              !queriedSessionIds.has(r.session_id) ||
+              !ceSourceBySession.has(r.session_id)
+            )
+              ? "unavailable"
+              : r.session_id && ceSourceBySession.get(r.session_id)
+                ? "captured"
+                : "not_recorded",
           whatsapp_link,
           whatsapp_optin: Boolean(r.whatsapp_optin),
           result_payload: r.result_payload || null,
@@ -969,6 +1025,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           program_name: r.tier ? `${r.tier.toUpperCase()} Mentorship Enrolment` : "Course Enrolment",
           program_slug: r.program_slug || "enrol",
           notes: r.razorpay_payment_id ? `Payment ID: ${r.razorpay_payment_id}` : null,
+          utm_source: r.utm_source || null,
+          acquisition_source_status: r.utm_source ? "captured" : "not_recorded",
           whatsapp_link,
           whatsapp_optin: true,
         });
@@ -990,6 +1048,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
       byBranch,
       byDegree,
       totalPaidRevenueInr,
+      warnings,
     };
   });
 

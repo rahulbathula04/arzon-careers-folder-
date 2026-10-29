@@ -109,6 +109,7 @@ export function CounsellorLeadModal() {
     const handleOpen = (e: Event) => {
       const customEvent = e as CustomEvent<OpenCounsellorModalOptions>;
       const detail = customEvent.detail || {};
+      setSourceTag(detail.source || "direct_counsellor_cta");
 
       if (detail.programme) {
         // Match closest programme or set directly
@@ -120,10 +121,6 @@ export function CounsellorLeadModal() {
       if (detail.degree) {
         setDegree(detail.degree);
       }
-      if (detail.source) {
-        setSourceTag(detail.source);
-      }
-
       setStep("form");
       setIsOpen(true);
     };

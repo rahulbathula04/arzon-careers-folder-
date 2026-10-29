@@ -118,6 +118,7 @@ const STATUS_SPECS: Record<string, { bg: string; text: string; border: string; g
 function getAvailableStatuses(kind: ResponseKind): { value: string; label: string }[] {
   switch (kind) {
     case "career_engine":
+    case "counsellor":
       return [
         { value: "uncontacted", label: "Uncontacted" },
         { value: "contacted", label: "Contacted" },
@@ -165,7 +166,7 @@ function AdminHome() {
 
   // Active view tab
   const [activeTab, setActiveTab] = useState<
-    "all" | "career_engine" | "application" | "workshop" | "enrolment" | "analytics" | "controls"
+    "all" | "career_engine" | "application" | "workshop" | "enrolment" | "counsellor" | "analytics" | "controls"
   >("all");
 
   // Filter & Search Controls
@@ -298,6 +299,7 @@ function AdminHome() {
             application: 0,
             career_engine: 0,
             enrolment: 0,
+            counsellor: 0,
             enrolment_paid: 0,
             enrolment_intent: 0,
           },
@@ -394,6 +396,7 @@ function AdminHome() {
         highFitUncontacted: [],
         pendingReview: [],
         pendingPayment: [],
+        pendingCounsellor: [],
         hotLeads: [],
         totalNeedsAttention: 0,
       };
@@ -410,17 +413,21 @@ function AdminHome() {
     const pendingPayment = data.responses.filter(
       (r) => r.kind === "enrolment" && r.status === "pending"
     );
+    const pendingCounsellor = data.responses.filter(
+      (r) => r.kind === "counsellor" && r.status === "uncontacted"
+    );
     const hotLeads = data.responses.filter(
       (r) => new Date(r.created_at).getTime() >= twoHoursAgo && (r.status === "uncontacted" || r.status === "submitted" || r.status === "registered")
     );
 
     const totalNeedsAttention =
-      highFitUncontacted.length + pendingReview.length + pendingPayment.length;
+      highFitUncontacted.length + pendingReview.length + pendingPayment.length + pendingCounsellor.length;
 
     return {
       highFitUncontacted,
       pendingReview,
       pendingPayment,
+      pendingCounsellor,
       hotLeads,
       totalNeedsAttention,
     };
@@ -428,7 +435,9 @@ function AdminHome() {
 
   // 1-Click WhatsApp + Auto-Mark Contacted for Next Priority Lead
   async function handleOneClickDispatchNextLead() {
-    const nextLead = attentionMetrics.highFitUncontacted[0] || attentionMetrics.hotLeads[0];
+    const nextLead =
+      attentionMetrics.highFitUncontacted.find((lead) => lead.whatsapp_link) ||
+      attentionMetrics.hotLeads.find((lead) => lead.whatsapp_link);
     if (!nextLead) {
       toast.success("Zero pending urgent leads! All queues caught up.");
       return;
@@ -543,6 +552,9 @@ function AdminHome() {
         const matchesArchetype = (r.archetype || "").toLowerCase().includes(q);
         const matchesSource = (r.utm_source || "").toLowerCase().includes(q);
         const matchesProgram = (r.program_name || "").toLowerCase().includes(q);
+        const matchesEntryAction = (r.entry_action || "").toLowerCase().includes(q);
+        const matchesEntryDetail = (r.entry_detail || "").toLowerCase().includes(q);
+        const matchesEntryPath = (r.entry_path || "").toLowerCase().includes(q);
         const matchesRecordType = r.kind.replace("_", " ").toLowerCase().includes(q);
         if (
           !matchesName &&
@@ -554,6 +566,9 @@ function AdminHome() {
           !matchesArchetype &&
           !matchesSource &&
           !matchesProgram &&
+          !matchesEntryAction &&
+          !matchesEntryDetail &&
+          !matchesEntryPath &&
           !matchesRecordType
         ) {
           return false;
@@ -628,6 +643,9 @@ function AdminHome() {
       { key: "fit_score", header: "Fit Score" },
       { key: "amount_inr", header: "Paid Amount (INR)" },
       { key: "mentor_question", header: "Question / Notes" },
+      { key: "entry_action", header: "Entry Action" },
+      { key: "entry_detail", header: "Entry Detail" },
+      { key: "entry_path", header: "Entry Page" },
       { key: "utm_source", header: "UTM Source" },
     ];
     exportCsv(dateStampedFilename("arzon-all-responses"), filteredResponses, cols);
@@ -644,7 +662,7 @@ function AdminHome() {
 
   if (loading && !data) {
     return (
-      <div className="space-y-6 text-left">
+      <div className="tone-dark space-y-6 text-left">
         {/* Shimmer Apple Glass Skeleton */}
         <div className="h-24 rounded-3xl border border-white/[0.08] bg-[#0A0D18]/70 backdrop-blur-2xl motion-safe:animate-pulse" />
         <div className="h-44 rounded-3xl border border-white/[0.08] bg-[#0A0D18]/70 backdrop-blur-2xl motion-safe:animate-pulse" />
@@ -659,7 +677,7 @@ function AdminHome() {
   }
 
   return (
-    <div className="space-y-6 text-left pb-16">
+    <div className="tone-dark space-y-6 text-left pb-16">
       {/* ── TOP TELEMETRY RADAR & COMMAND STRIP ── */}
       <header className="rounded-3xl border border-white/[0.08] bg-[#080B14]/85 backdrop-blur-2xl p-5 sm:p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] flex flex-col xl:flex-row xl:items-center justify-between gap-5 relative overflow-hidden">
         {/* Specular Ambient Glow */}
@@ -906,7 +924,9 @@ function AdminHome() {
               <span>·</span>
               <span>{data?.countsByKind.application ?? 0} apps</span>
               <span>·</span>
-              <span>{data?.countsByKind.workshop ?? 0} workshop</span>
+              <span>{data?.countsByKind.workshop ?? 0} workshops</span>
+              <span>·</span>
+              <span>{data?.countsByKind.counsellor ?? 0} counsellor requests</span>
             </div>
           </div>
         </div>
@@ -1064,6 +1084,24 @@ function AdminHome() {
 
           <button
             type="button"
+            onClick={() => setActiveTab("counsellor")}
+            className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
+              activeTab === "counsellor"
+                ? "bg-cyan-500/20 text-cyan-200 border border-cyan-500/40 shadow-sm"
+                : "text-zinc-400 hover:text-white hover:bg-white/[0.04]"
+            }`}
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-cyan-300" />
+            <span>Counsellor requests</span>
+            <span className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-bold ${
+              activeTab === "counsellor" ? "bg-cyan-500/20 text-cyan-100" : "bg-white/5 text-zinc-400"
+            }`}>
+              {data?.countsByKind.counsellor ?? 0}
+            </span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => setActiveTab("enrolment")}
             className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-sans font-semibold transition-all cursor-pointer ${
               activeTab === "enrolment"
@@ -1125,7 +1163,7 @@ function AdminHome() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search candidate name, mobile, email, college, archetype, pass ID..."
+                  placeholder="Search name, contact, programme, entry action, source..."
                   className="w-full pl-9 pr-8 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.07] focus:bg-white/[0.08] text-white text-xs sm:text-sm font-sans placeholder:text-zinc-500 focus:outline-none focus:ring-1 focus:ring-sky-400/50 focus:border-sky-400/50 transition-all"
                 />
                 {searchQuery && (
@@ -1325,7 +1363,7 @@ function AdminHome() {
                     {/* Meta Chips */}
                     <div className="flex items-center gap-2 text-xs flex-wrap">
                       <span className="font-mono text-[10px] text-zinc-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-lg">
-                        {r.kind.replace("_", " ").toUpperCase()}
+                        {r.kind === "career_engine" ? "ASSESSMENT" : r.kind.replace("_", " ").toUpperCase()}
                       </span>
                       {r.archetype && (
                         <span className="font-mono text-[10px] text-teal-300 bg-teal-500/10 border border-teal-500/20 px-2 py-0.5 rounded-lg">
@@ -1337,6 +1375,17 @@ function AdminHome() {
                           ₹{r.amount_inr.toLocaleString("en-IN")}
                         </span>
                       )}
+                    </div>
+                    <div className="space-y-0.5 border-t border-white/[0.06] pt-2">
+                      <p className="text-sm font-semibold text-slate-100">{r.entry_action || "Pipeline record"}</p>
+                      <p className="truncate text-xs text-slate-300">{r.program_name || "Programme not specified"}</p>
+                      {r.entry_detail && r.entry_detail !== r.program_name && (
+                        <p className="truncate text-[11px] text-slate-300">Detail: {r.entry_detail}</p>
+                      )}
+                      {r.entry_path && <p className="truncate text-[11px] text-slate-300">Page: {r.entry_path}</p>}
+                      <p className="truncate text-[11px] text-slate-300">
+                        Campaign (UTM): {r.acquisition_source_status === "unavailable" ? "Unavailable" : r.utm_source || "Not recorded"}
+                      </p>
                     </div>
 
                     {/* Actions Strip */}
@@ -1404,7 +1453,7 @@ function AdminHome() {
                 <thead>
                   <tr className="bg-white/[0.02] border-b border-white/[0.08] font-mono text-[10.5px] uppercase tracking-wider text-zinc-400 select-none">
                     <th className="py-3.5 px-5">Candidate &amp; Channels</th>
-                    <th className="py-3.5 px-4">Record Type, Programme &amp; Source</th>
+                    <th className="py-3.5 px-4">Entry Action &amp; Programme</th>
                     <th className="py-3.5 px-4">Academic Dossier</th>
                     <th className="py-3.5 px-4">Branch &amp; Degree</th>
                     <th className="py-3.5 px-4">Status Engine</th>
@@ -1437,9 +1486,11 @@ function AdminHome() {
                         r.kind === "career_engine"
                           ? { label: "Assessment", bg: "bg-teal-500/10", text: "text-teal-300", border: "border-teal-500/25" }
                           : r.kind === "application"
-                          ? { label: "Job App", bg: "bg-purple-500/10", text: "text-purple-300", border: "border-purple-500/25" }
+                          ? { label: "Application", bg: "bg-purple-500/10", text: "text-purple-300", border: "border-purple-500/25" }
                           : r.kind === "workshop"
                           ? { label: "Workshop", bg: "bg-sky-500/10", text: "text-sky-300", border: "border-sky-500/25" }
+                          : r.kind === "counsellor"
+                          ? { label: "Counsellor", bg: "bg-cyan-500/10", text: "text-cyan-200", border: "border-cyan-500/25" }
                           : { label: "Enrolment", bg: "bg-amber-500/10", text: "text-amber-300", border: "border-amber-500/25" };
 
                       return (
@@ -1495,7 +1546,7 @@ function AdminHome() {
                             </div>
                           </td>
 
-                          {/* Record type, programme, and acquisition source */}
+                          {/* Entry action, programme, and campaign attribution */}
                           <td className="py-3.5 px-4 space-y-1">
                             <span
                               className={`inline-block font-mono text-[9px] uppercase font-bold px-2 py-0.5 rounded-full border ${kindSpec.bg} ${kindSpec.text} ${kindSpec.border}`}
@@ -1503,14 +1554,24 @@ function AdminHome() {
                             >
                               {kindSpec.label}
                             </span>
-                            <p className="font-sans text-xs text-zinc-200 font-medium truncate max-w-[170px]" title={r.program_name || ""}>
-                              {r.program_name || "Healthcare Program"}
+                            <p className="max-w-[200px] truncate font-sans text-sm font-semibold text-slate-100" title={r.entry_action || "Pipeline record"}>
+                              {r.entry_action || "Pipeline record"}
                             </p>
-                            <p
-                              className="max-w-[180px] truncate font-mono text-[10px] text-zinc-400"
-                              title={r.utm_source ? `Saved UTM source: ${r.utm_source}` : "No UTM source was recorded; this does not confirm direct traffic"}
-                            >
-                              Traffic source: {r.acquisition_source_status === "unavailable"
+                            <p className="max-w-[200px] truncate text-xs text-slate-200" title={r.program_name || "Programme not specified"}>
+                              {r.program_name || "Programme not specified"}
+                            </p>
+                            {r.entry_detail && r.entry_detail !== r.program_name && (
+                              <p className="max-w-[200px] truncate text-[11px] text-slate-300" title={r.entry_detail}>
+                                Detail: {r.entry_detail}
+                              </p>
+                            )}
+                            {r.entry_path && (
+                              <p className="max-w-[200px] truncate text-[11px] text-slate-300" title={r.entry_path}>
+                                Page: {r.entry_path}
+                              </p>
+                            )}
+                            <p className="max-w-[200px] truncate font-mono text-[10px] text-slate-300" title={r.utm_source || "No UTM campaign tag was recorded"}>
+                              Campaign (UTM): {r.acquisition_source_status === "unavailable"
                                 ? "Unavailable"
                                 : r.utm_source || "Not recorded"}
                             </p>
@@ -1524,11 +1585,6 @@ function AdminHome() {
                                 </span>
                               </div>
                             )}
-                            <span className="w-full text-[10px] text-zinc-400">
-                              Traffic source: {r.acquisition_source_status === "unavailable"
-                                ? "Unavailable"
-                                : r.utm_source || "Not recorded"}
-                            </span>
                             {r.amount_inr && (
                               <p className="font-mono text-[11px] font-bold text-amber-300">
                                 ₹{r.amount_inr.toLocaleString("en-IN")}

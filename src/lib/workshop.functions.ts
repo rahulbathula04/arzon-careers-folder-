@@ -561,7 +561,7 @@ export const getLiveWebsiteAnalytics = createServerFn({ method: "POST" })
 // Centralizes Workshop Leads, Job/Cohort Applications, Career Engine Leads & Paid Enrolments
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ResponseKind = "workshop" | "application" | "career_engine" | "enrolment";
+export type ResponseKind = "workshop" | "application" | "career_engine" | "enrolment" | "counsellor";
 
 export interface UnifiedAdminResponse {
   id: string;
@@ -583,6 +583,9 @@ export interface UnifiedAdminResponse {
   top_paths?: (string | { slug?: string; title?: string; salary?: string })[] | null;
   amount_inr?: number | null;
   mentor_question?: string | null;
+  entry_action?: string | null;
+  entry_detail?: string | null;
+  entry_path?: string | null;
   utm_source?: string | null;
   acquisition_source_status?: "captured" | "not_recorded" | "unavailable";
   notes?: string | null;
@@ -601,6 +604,7 @@ export interface AllAdminResponsesResult {
     application: number;
     career_engine: number;
     enrolment: number;
+    counsellor: number;
     enrolment_paid: number;
     enrolment_intent: number;
   };
@@ -617,6 +621,30 @@ export interface AllAdminResponsesResult {
  * In production, genuine empty state or error states are surfaced instead of synthetic records.
  */
 export const FALLBACK_UNIFIED_RESPONSES: UnifiedAdminResponse[] = [];
+
+function parseApplicationPath(notes: string | null): string | null {
+  if (!notes) return null;
+  try {
+    const parsed: unknown = JSON.parse(notes);
+    if (!parsed || typeof parsed !== "object") return null;
+    const values = parsed as Record<string, unknown>;
+    return typeof values.pathname === "string" ? values.pathname : null;
+  } catch {
+    return null;
+  }
+}
+
+function formatEntryTag(value: string): string {
+  return value
+    .replace(/[_-]+/g, " ")
+    .replace(/\bcta\b/gi, "CTA")
+    .replace(/\b[a-z]/g, (letter) => letter.toUpperCase());
+}
+
+function counsellorCtaTag(utmSource: string | null | undefined): string | null {
+  const prefix = "counsellor-cta-";
+  return utmSource?.toLowerCase().startsWith(prefix) ? utmSource.slice(prefix.length) : null;
+}
 
 function getQueryFailure(result: PromiseSettledResult<unknown>): string | null {
   if (result.status === "rejected") {
@@ -636,7 +664,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
     todayStart.setHours(0, 0, 0, 0);
 
     // Parallel fetch from all candidate data sources including ACRI candidates
-    const [appsRes, ceRes, enrolRes, acriRes] = await Promise.allSettled([
+    const [appsRes, ceRes, enrolRes, acriRes, counsellorRes] = await Promise.allSettled([
       sb
         .from("applications")
         .select("id, created_at, name, email, phone, notes, utm_source, status, program_slug, program_name")
@@ -660,6 +688,12 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         .select("id, candidate_id, full_name, email, mobile, highest_qualification, college_university, status, created_at")
         .order("created_at", { ascending: false })
         .limit(2000),
+      sb
+        .from("counsellor_leads")
+        .select("id, name, contact, contact_type, source, created_at, contacted_at, requested_role, requested_slot_at")
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false })
+        .limit(2000),
     ]);
 
     const warnings: string[] = [];
@@ -668,6 +702,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
       ["Career Engine leads", ceRes],
       ["Enrolments", enrolRes],
       ["ACRI academic enrichment", acriRes],
+      ["Counsellor requests", counsellorRes],
     ] as const) {
       const failure = getQueryFailure(result);
       if (failure) warnings.push(`${label} could not be loaded: ${failure}`);
@@ -742,6 +777,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
       application: 0,
       career_engine: 0,
       enrolment: 0,
+      counsellor: 0,
       enrolment_paid: 0,
       enrolment_intent: 0,
     };
@@ -766,6 +802,14 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
         const kind: ResponseKind = isWorkshop ? "workshop" : "application";
         countsByKind[kind]++;
+
+        const notePath = parseApplicationPath(r.notes);
+        const counsellorTag = counsellorCtaTag(r.utm_source);
+        const entryAction = counsellorTag
+          ? "Talk to counsellor CTA"
+          : isWorkshop
+            ? "Workshop registration"
+            : "Training application";
 
         const status = (r.status || (isWorkshop ? "registered" : "submitted")).toLowerCase();
         countsByStatus[status] = (countsByStatus[status] || 0) + 1;
@@ -868,6 +912,11 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           program_name: r.program_name || (isWorkshop ? WORKSHOP_CONFIG.title : "Healthcare Program Application"),
           program_slug: r.program_slug || (isWorkshop ? "healthcare-career-workshop" : "general-application"),
           mentor_question: mentor_question || null,
+          entry_action: entryAction,
+          entry_detail: counsellorTag
+            ? formatEntryTag(counsellorTag)
+            : r.program_name || (isWorkshop ? "Workshop registration form" : "Application form"),
+          entry_path: notePath,
           notes: r.notes || null,
           utm_source: r.utm_source || null,
           acquisition_source_status: r.utm_source ? "captured" : "not_recorded",
@@ -911,6 +960,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           `Hi ${r.name || "there"}, your Career Engine assessment recommended ${r.archetype || "Pharmacovigilance"}. Would you like to review your detailed evaluation?`
         );
         const whatsapp_link = digits10 ? `https://wa.me/91${digits10}?text=${whatsappText}` : null;
+        const counsellorTag = counsellorCtaTag(ceSourceBySession.get(r.session_id));
 
         // Extract college, course/degree, stream/branch and year
         const ans = (r.session_id && ceAnswersBySession.get(r.session_id)) || {};
@@ -966,6 +1016,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           top_paths: Array.isArray(r.top_paths) ? r.top_paths : null,
           program_name: "Career Engine Assessment",
           program_slug: "career-engine",
+          entry_action: counsellorTag ? "Talk to counsellor CTA" : "Career Engine assessment",
+          entry_detail: counsellorTag ? formatEntryTag(counsellorTag) : "Career Engine contact form",
           utm_source: r.session_id ? ceSourceBySession.get(r.session_id) ?? null : null,
           acquisition_source_status:
             r.session_id && (
@@ -1024,11 +1076,49 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           amount_inr: amt || null,
           program_name: r.tier ? `${r.tier.toUpperCase()} Mentorship Enrolment` : "Course Enrolment",
           program_slug: r.program_slug || "enrol",
+          entry_action: "Course enrolment",
+          entry_detail: r.program_slug || "Enrolment form",
           notes: r.razorpay_payment_id ? `Payment ID: ${r.razorpay_payment_id}` : null,
           utm_source: r.utm_source || null,
           acquisition_source_status: r.utm_source ? "captured" : "not_recorded",
           whatsapp_link,
           whatsapp_optin: true,
+        });
+      }
+    }
+
+    if (counsellorRes.status === "fulfilled" && counsellorRes.value.data) {
+      for (const r of counsellorRes.value.data as any[]) {
+        if (new Date(r.created_at) >= todayStart) todayCount++;
+        countsByKind.counsellor++;
+        const status = r.contacted_at ? "contacted" : "uncontacted";
+        countsByStatus[status] = (countsByStatus[status] || 0) + 1;
+
+        const isScheduled = typeof r.source === "string" && r.source.startsWith("report_action_plan_scheduler");
+        const entryPath = typeof r.source === "string" && r.source.startsWith("/") ? r.source : null;
+        const phone = r.contact_type === "phone" ? r.contact || "" : "";
+        const email = r.contact_type === "email" ? r.contact || "" : "";
+
+        unifiedList.push({
+          id: r.id,
+          kind: "counsellor",
+          name: r.name || "Counsellor request",
+          email,
+          phone,
+          created_at: r.created_at,
+          status,
+          program_name: r.requested_role || "General career guidance",
+          program_slug: "counsellor-request",
+          entry_action: isScheduled ? "Booked counsellor slot" : "Counsellor callback request",
+          entry_detail: isScheduled
+            ? r.requested_slot_at
+              ? `Requested slot: ${new Date(r.requested_slot_at).toLocaleString("en-IN")}`
+              : "Scheduled counselling"
+            : "Callback form submission",
+          entry_path: entryPath,
+          notes: typeof r.source === "string" && !entryPath ? r.source : null,
+          acquisition_source_status: "not_recorded",
+          whatsapp_optin: false,
         });
       }
     }
@@ -1054,7 +1144,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
 const UpdateUnifiedStatusSchema = z.object({
   id: z.string(),
-  kind: z.enum(["workshop", "application", "career_engine", "enrolment"]),
+  kind: z.enum(["workshop", "application", "career_engine", "enrolment", "counsellor"]),
   status: z.string().min(1).max(64),
 });
 
@@ -1099,6 +1189,20 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
       if (!updatedLead) {
         throw new Error("Career Engine lead was not found or could not be updated.");
       }
+    } else if (data.kind === "counsellor") {
+      const allowed = ["contacted", "uncontacted"];
+      if (!allowed.includes(data.status)) {
+        throw new Error("Invalid status for counsellor request. Allowed: contacted, uncontacted");
+      }
+      const { data: updatedLead, error } = await sb
+        .from("counsellor_leads")
+        .update({ contacted_at: data.status === "contacted" ? new Date().toISOString() : null, contacted_by: data.status === "contacted" ? context.userId : null })
+        .eq("id", data.id)
+        .is("deleted_at", null)
+        .select("id")
+        .maybeSingle();
+      if (error) throw new Error(error.message);
+      if (!updatedLead) throw new Error("Counsellor request was not found or could not be updated.");
     } else if (data.kind === "enrolment") {
       const allowed = ["pending", "paid", "failed", "abandoned", "refunded"];
       if (!allowed.includes(data.status)) {

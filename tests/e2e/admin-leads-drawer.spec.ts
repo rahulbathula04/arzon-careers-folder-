@@ -98,7 +98,7 @@ test.describe("/admin/leads dashboard", () => {
     await expect(call).toHaveAttribute("href", /^tel:/);
   });
 
-  test("executive dashboard explains record type and traffic source", async ({ page }) => {
+  test("executive dashboard explains entry action and campaign source", async ({ page }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
     await page.evaluate(
       ([key, json]) => window.localStorage.setItem(key, json),
@@ -107,9 +107,37 @@ test.describe("/admin/leads dashboard", () => {
 
     await page.goto("/admin", { waitUntil: "networkidle" });
     await expect(
-      page.getByRole("columnheader", { name: /Record Type, Programme & Source/i }),
+      page.getByRole("columnheader", { name: /Entry Action & Programme/i }),
     ).toBeVisible();
     await expect(page.getByText(/Record type is the form submitted/i)).toBeVisible();
     await expect(page.getByText(/submissions, not unique people/i)).toBeVisible();
+    await expect(page.getByRole("button", { name: /Counsellor requests/i })).toBeVisible();
+    await expect(page.getByText(/Campaign \(UTM\):/).first()).toBeVisible();
+
+    const statusFilter = page.getByRole("combobox", { name: "Filter responses by status" });
+    await expect(statusFilter).toHaveCSS("background-color", "rgb(13, 19, 34)");
+    await expect(statusFilter).toHaveCSS("color", "rgb(255, 255, 255)");
   });
+});
+
+test("dark admin controls preserve readable foreground and background colors", async ({ page }) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const styles = await page.evaluate(() => {
+    const surface = document.createElement("section");
+    surface.className = "tone-dark";
+    surface.innerHTML = '<select><option>All statuses</option></select><p>Entry action and campaign source</p>';
+    document.body.append(surface);
+    const select = surface.querySelector("select");
+    const paragraph = surface.querySelector("p");
+    if (!select || !paragraph) throw new Error("Dark admin control fixture failed to mount");
+    return {
+      selectBackground: getComputedStyle(select).backgroundColor,
+      selectColor: getComputedStyle(select).color,
+      paragraphColor: getComputedStyle(paragraph).color,
+    };
+  });
+
+  expect(styles.selectBackground).toBe("rgb(13, 19, 34)");
+  expect(styles.selectColor).toBe("rgb(255, 255, 255)");
+  expect(styles.paragraphColor).toBe("rgba(255, 255, 255, 0.88)");
 });

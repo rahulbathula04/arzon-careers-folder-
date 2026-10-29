@@ -215,7 +215,7 @@ export function AcriCareerIntelligenceReport({
   onViewCertificate,
   onViewReport,
   mode = "certified",
-  candidateName = "Rahul Bathula",
+  candidateName = "Candidate",
   candidateCollege = "JSS College of Pharmacy",
   candidateQualification = "B.Pharm (Bachelor of Pharmacy)",
   credentialId: incomingCredId,

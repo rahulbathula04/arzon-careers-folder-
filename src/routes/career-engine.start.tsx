@@ -416,7 +416,7 @@ function StartPage() {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
-              placeholder="e.g. Rahul Bathula"
+              placeholder="Your full name"
             />
             <p className="mt-1 text-[11px] text-slate-500 font-sans">Used on your verified result card &amp; record.</p>
           </div>

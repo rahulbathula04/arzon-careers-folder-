@@ -513,7 +513,7 @@ export function AcriScrollLeadMagnet() {
                           required
                           value={fullName}
                           onChange={(e) => setFullName(e.target.value)}
-                          placeholder="e.g. Rahul Bathula"
+                          placeholder="Your full name"
                           className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
                         />
                       </div>
@@ -530,7 +530,7 @@ export function AcriScrollLeadMagnet() {
                           required
                           value={mobile}
                           onChange={(e) => setMobile(e.target.value)}
-                          placeholder="e.g. 93473 79041"
+                          placeholder="Your WhatsApp number"
                           className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
                         />
                       </div>
@@ -565,7 +565,7 @@ export function AcriScrollLeadMagnet() {
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="e.g. rahul@example.com"
+                          placeholder="you@example.com"
                           className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
                         />
                       </div>

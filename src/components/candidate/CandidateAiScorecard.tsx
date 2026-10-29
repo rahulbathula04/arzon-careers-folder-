@@ -29,7 +29,7 @@ interface CandidateAiScorecardProps {
 
 export function CandidateAiScorecard({
   initialSubmission = {
-    candidateName: "Rahul Bathula",
+    candidateName: "Sample Candidate",
     qualification: "B.Pharm / M.Pharm (Life Sciences)",
     targetTrack: "Pharmacovigilance (Drug Safety)",
     pvScore: 92,

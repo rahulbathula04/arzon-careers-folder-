@@ -1294,7 +1294,7 @@ function PVAssociateBlueprintPage() {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Rahul Bathula"
+                      placeholder="Your full name"
                       value={counsellorForm.name}
                       onChange={(e) => setCounsellorForm({ ...counsellorForm, name: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"

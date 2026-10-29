@@ -79,14 +79,14 @@ function AdminHomeError({ error, reset }: { error: unknown; reset: () => void })
     <div className="mx-auto max-w-4xl p-6">
       <div className="rounded-3xl border border-rose-500/20 bg-[#0B0F19]/90 p-8 text-center backdrop-blur-2xl shadow-2xl">
         <AlertTriangle className="mx-auto mb-3 h-10 w-10 text-rose-400" />
-        <h1 className="text-xl font-bold text-white tracking-tight">Telemetry Interface Interrupted</h1>
+        <h1 className="text-xl font-bold text-slate-100 tracking-tight">Telemetry Interface Interrupted</h1>
         <p className="mx-auto mt-2 max-w-md text-xs text-zinc-400 leading-relaxed font-mono">
           {error instanceof Error ? error.message : "An unexpected telemetry disruption occurred while loading responses."}
         </p>
         <div className="mt-6 flex justify-center gap-3">
           <button
             type="button"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white text-xs font-semibold transition cursor-pointer backdrop-blur-md active:scale-95"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-100/10 bg-slate-100/5 hover:bg-slate-100/10 text-slate-100 text-xs font-semibold transition cursor-pointer backdrop-blur-md active:scale-95"
             onClick={() => {
               router.invalidate();
               reset();
@@ -686,7 +686,7 @@ function AdminHome() {
 
         {/* Brand & Live System Status */}
         <div className="flex items-center gap-4 relative z-10">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0A2560] to-[#040E28] border border-sky-400/30 flex items-center justify-center text-white font-serif font-black text-xl shadow-[0_0_25px_rgba(56,189,248,0.25)] ring-1 ring-white/10 shrink-0">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#0A2560] to-[#040E28] border border-sky-400/30 flex items-center justify-center text-slate-100 font-serif font-black text-xl shadow-[0_0_25px_rgba(56,189,248,0.25)] ring-1 ring-white/10 shrink-0">
             A
           </div>
           <div className="space-y-1">

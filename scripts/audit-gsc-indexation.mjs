@@ -86,7 +86,10 @@ const worker = async () => {
       const html = await response.text();
       const getMeta = (name) => {
         const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        const re = new RegExp('<meta\\b(?=[^>]*(?:name|property)\\s*=\\s*["\\']' + escaped + '["\\'])[^>]*>', "i");
+        const re = new RegExp(
+          "<meta\\b(?=[^>]*(?:name|property)\\s*=\\s*[\"']" + escaped + "[\"'])[^>]*>",
+          "i",
+        );
         const tag = html.match(re)?.[0] || "";
         return tag.match(/content\s*=\s*["']([^"']*)["']/i)?.[1] || "";
       };

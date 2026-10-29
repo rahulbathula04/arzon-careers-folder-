@@ -13,9 +13,10 @@ const SUPABASE_KEY =
 test.describe("Enrolment payment RPC boundary", () => {
   test.skip(!SUPABASE_URL || !SUPABASE_KEY, "Supabase public env vars not set");
 
-  const sb = createClient(SUPABASE_URL!, SUPABASE_KEY!, { auth: { persistSession: false } });
+  const getClient = () => createClient(SUPABASE_URL!, SUPABASE_KEY!, { auth: { persistSession: false } });
 
   test("create_enrolment_intent: public callers cannot supply pricing", async () => {
+    const sb = getClient();
     const result = await sb.rpc("create_enrolment_intent", {
       p_tier: "career",
       p_name: "QA Bot",
@@ -35,6 +36,7 @@ test.describe("Enrolment payment RPC boundary", () => {
   });
 
   test("payment finalization: public callers cannot mark an intent paid", async () => {
+    const sb = getClient();
     const result = await sb.rpc("mark_enrolment_paid_with_payment", {
       p_intent_id: "00000000-0000-4000-8000-000000000001",
       p_payment_id: "pay_qa_dummy",

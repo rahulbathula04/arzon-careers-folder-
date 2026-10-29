@@ -1261,12 +1261,12 @@ function AdminHome() {
           {data?.warnings.length ? (
             <div
               role="alert"
-              className="flex items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-100"
+              className="flex items-start gap-3 rounded-xl border border-white/[0.12] bg-white/[0.04] px-4 py-3 text-sm text-zinc-200"
             >
-              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-300" />
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-zinc-300" />
               <div>
                 <p className="font-semibold">Dashboard data may be incomplete</p>
-                <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-amber-100/80">
+                <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-zinc-400">
                   {data.warnings.map((warning) => <li key={warning}>{warning}</li>)}
                 </ul>
               </div>

@@ -18,9 +18,10 @@ jobs:
   build-and-validate:
     name: Typecheck, Validate & Build
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       CI: "true"
+      NODE_OPTIONS: "--max-old-space-size=5120"
       # Public Supabase client configuration. No service-role credential is used here.
       VITE_SUPABASE_URL: "https://pcikfmhjskbffcnvxmoe.supabase.co"
       VITE_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_QoeLUPqP-vQj2nlrUTWLoQ_JqP2i92K"
@@ -69,11 +70,8 @@ jobs:
       - name: Run Prebuild Validation Gates
         run: npm run prebuild:dev
 
-      - name: Arzon Production Quality Gate
+      - name: Arzon Production Quality & Vercel Build
         run: npm run production:check
-
-      - name: Run Production Build
-        run: npm run build
 
       - name: Verify Production Health Route
         run: |

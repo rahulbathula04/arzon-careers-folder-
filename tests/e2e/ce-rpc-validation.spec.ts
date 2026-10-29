@@ -17,9 +17,10 @@ const SUPABASE_KEY =
 test.describe("Career Engine RPC validation", () => {
   test.skip(!SUPABASE_URL || !SUPABASE_KEY, "Supabase public env vars not set");
 
-  const sb = createClient(SUPABASE_URL!, SUPABASE_KEY!, { auth: { persistSession: false } });
+  const getClient = () => createClient(SUPABASE_URL!, SUPABASE_KEY!, { auth: { persistSession: false } });
 
   test("ce_start_session: honeypot rejected", async () => {
+    const sb = getClient();
     const { error } = await sb.rpc("ce_start_session", {
       p_stream: "comm",
       p_device: "test",
@@ -33,6 +34,7 @@ test.describe("Career Engine RPC validation", () => {
   });
 
   test("ce_create_lead_early: invalid name/phone/email all rejected", async () => {
+    const sb = getClient();
     const { data: started, error: startErr } = await sb.rpc("ce_start_session", {
       p_stream: "comm",
       p_device: "test",
@@ -81,6 +83,7 @@ test.describe("Career Engine RPC validation", () => {
 
 
   test("ce_start_session: different fingerprints never share an active session", async () => {
+    const sb = getClient();
     const suffix = crypto.randomUUID();
     const start = async (fp: string) => {
       const { data, error } = await sb.rpc("ce_start_session", {
@@ -106,6 +109,7 @@ test.describe("Career Engine RPC validation", () => {
   });
 
   test("ce_record_answer: tampered session token rejected", async () => {
+    const sb = getClient();
     const { data: started, error: startErr } = await sb.rpc("ce_start_session", {
       p_stream: "comm",
       p_device: "test",
@@ -128,6 +132,7 @@ test.describe("Career Engine RPC validation", () => {
   });
 
   test("ce_record_answer: invalid question_id rejected", async () => {
+    const sb = getClient();
     const { data: started } = await sb.rpc("ce_start_session", {
       p_stream: "comm",
       p_device: "test",

@@ -36,6 +36,8 @@ const PRIVATE_PREFIXES = [
   "checkin.",
   // /internships/* and /workshop routes are 301 redirect-only files now (they never render),
   // so they don't carry head() meta. Real SEO lives on /courses/* and /healthcare-career-workshop.
+  "industry-network-programme.index",
+  "industry-network.apply",
   "internships.",
   "workshop.",
   // Legacy public routes are 301 redirects and intentionally have no head().

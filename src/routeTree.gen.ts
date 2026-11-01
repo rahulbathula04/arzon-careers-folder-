@@ -36,6 +36,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as HealthcareCareerWorkshopRouteImport } from './routes/healthcare-career-workshop'
 import { Route as HealthcareCareersRouteImport } from './routes/healthcare-careers'
 import { Route as HealthcareJobsForFreshersRouteImport } from './routes/healthcare-jobs-for-freshers'
+import { Route as IndustryNetworkRouteImport } from './routes/industry-network'
 import { Route as JdMirrorRouteImport } from './routes/jd-mirror'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MedicalCodingJobsRouteImport } from './routes/medical-coding-jobs'
@@ -95,6 +96,7 @@ import { Route as AdminExperimentsRouteImport } from './routes/admin.experiments
 import { Route as AdminFunnelRouteImport } from './routes/admin.funnel'
 import { Route as AdminFunnelCeRouteImport } from './routes/admin.funnel-ce'
 import { Route as AdminFunnelTestRouteImport } from './routes/admin.funnel-test'
+import { Route as AdminIndustryNetworkRouteImport } from './routes/admin.industry-network'
 import { Route as AdminInvitesRouteImport } from './routes/admin.invites'
 import { Route as AdminLandingChangelogRouteImport } from './routes/admin.landing-changelog'
 import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
@@ -143,6 +145,9 @@ import { Route as EmployerLoginRouteImport } from './routes/employer.login'
 import { Route as EnrolIndexRouteImport } from './routes/enrol.index'
 import { Route as EnrolTierRouteImport } from './routes/enrol.$tier'
 import { Route as EnrolSuccessRouteImport } from './routes/enrol.success'
+import { Route as IndustryNetworkProgrammeIndexRouteImport } from './routes/industry-network-programme.index'
+import { Route as IndustryNetworkProgrammeApplyRouteImport } from './routes/industry-network-programme.apply'
+import { Route as IndustryNetworkApplyRouteImport } from './routes/industry-network.apply'
 import { Route as IndustryIndexRouteImport } from './routes/industry.index'
 import { Route as IndustryRoleRouteImport } from './routes/industry.$role'
 import { Route as IndustryCompareRouteImport } from './routes/industry.compare'
@@ -342,6 +347,11 @@ const HealthcareJobsForFreshersRoute =
     path: '/healthcare-jobs-for-freshers',
     getParentRoute: () => rootRouteImport,
   } as any)
+const IndustryNetworkRoute = IndustryNetworkRouteImport.update({
+  id: '/industry-network',
+  path: '/industry-network',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JdMirrorRoute = JdMirrorRouteImport.update({
   id: '/jd-mirror',
   path: '/jd-mirror',
@@ -639,6 +649,11 @@ const AdminFunnelTestRoute = AdminFunnelTestRouteImport.update({
   path: '/funnel-test',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminIndustryNetworkRoute = AdminIndustryNetworkRouteImport.update({
+  id: '/industry-network',
+  path: '/industry-network',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminInvitesRoute = AdminInvitesRouteImport.update({
   id: '/invites',
   path: '/invites',
@@ -878,6 +893,23 @@ const EnrolSuccessRoute = EnrolSuccessRouteImport.update({
   id: '/success',
   path: '/success',
   getParentRoute: () => EnrolRoute,
+} as any)
+const IndustryNetworkProgrammeIndexRoute =
+  IndustryNetworkProgrammeIndexRouteImport.update({
+    id: '/industry-network-programme/',
+    path: '/industry-network-programme/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const IndustryNetworkProgrammeApplyRoute =
+  IndustryNetworkProgrammeApplyRouteImport.update({
+    id: '/industry-network-programme/apply',
+    path: '/industry-network-programme/apply',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const IndustryNetworkApplyRoute = IndustryNetworkApplyRouteImport.update({
+  id: '/apply',
+  path: '/apply',
+  getParentRoute: () => IndustryNetworkRoute,
 } as any)
 const IndustryIndexRoute = IndustryIndexRouteImport.update({
   id: '/industry/',
@@ -1229,6 +1261,7 @@ export interface FileRoutesByFullPath {
   '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
   '/healthcare-careers': typeof HealthcareCareersRoute
   '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
+  '/industry-network': typeof IndustryNetworkRouteWithChildren
   '/jd-mirror': typeof JdMirrorRoute
   '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
@@ -1287,6 +1320,7 @@ export interface FileRoutesByFullPath {
   '/admin/funnel': typeof AdminFunnelRoute
   '/admin/funnel-ce': typeof AdminFunnelCeRoute
   '/admin/funnel-test': typeof AdminFunnelTestRoute
+  '/admin/industry-network': typeof AdminIndustryNetworkRoute
   '/admin/invites': typeof AdminInvitesRoute
   '/admin/landing-changelog': typeof AdminLandingChangelogRoute
   '/admin/leads': typeof AdminLeadsRoute
@@ -1327,6 +1361,8 @@ export interface FileRoutesByFullPath {
   '/employer/login': typeof EmployerLoginRoute
   '/enrol/$tier': typeof EnrolTierRouteWithChildren
   '/enrol/success': typeof EnrolSuccessRoute
+  '/industry-network-programme/apply': typeof IndustryNetworkProgrammeApplyRoute
+  '/industry-network/apply': typeof IndustryNetworkApplyRoute
   '/industry/$role': typeof IndustryRoleRouteWithChildren
   '/industry/compare': typeof IndustryCompareRoute
   '/industry/employers': typeof IndustryEmployersRoute
@@ -1360,6 +1396,7 @@ export interface FileRoutesByFullPath {
   '/courses/': typeof CoursesIndexRoute
   '/degrees/': typeof DegreesIndexRoute
   '/enrol/': typeof EnrolIndexRoute
+  '/industry-network-programme/': typeof IndustryNetworkProgrammeIndexRoute
   '/industry/': typeof IndustryIndexRoute
   '/internships/': typeof InternshipsIndexRoute
   '/legal/': typeof LegalIndexRoute
@@ -1421,6 +1458,7 @@ export interface FileRoutesByTo {
   '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
   '/healthcare-careers': typeof HealthcareCareersRoute
   '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
+  '/industry-network': typeof IndustryNetworkRouteWithChildren
   '/jd-mirror': typeof JdMirrorRoute
   '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
@@ -1479,6 +1517,7 @@ export interface FileRoutesByTo {
   '/admin/funnel': typeof AdminFunnelRoute
   '/admin/funnel-ce': typeof AdminFunnelCeRoute
   '/admin/funnel-test': typeof AdminFunnelTestRoute
+  '/admin/industry-network': typeof AdminIndustryNetworkRoute
   '/admin/invites': typeof AdminInvitesRoute
   '/admin/landing-changelog': typeof AdminLandingChangelogRoute
   '/admin/leads': typeof AdminLeadsRoute
@@ -1519,6 +1558,8 @@ export interface FileRoutesByTo {
   '/employer/login': typeof EmployerLoginRoute
   '/enrol/$tier': typeof EnrolTierRouteWithChildren
   '/enrol/success': typeof EnrolSuccessRoute
+  '/industry-network-programme/apply': typeof IndustryNetworkProgrammeApplyRoute
+  '/industry-network/apply': typeof IndustryNetworkApplyRoute
   '/industry/$role': typeof IndustryRoleRouteWithChildren
   '/industry/compare': typeof IndustryCompareRoute
   '/industry/employers': typeof IndustryEmployersRoute
@@ -1552,6 +1593,7 @@ export interface FileRoutesByTo {
   '/courses': typeof CoursesIndexRoute
   '/degrees': typeof DegreesIndexRoute
   '/enrol': typeof EnrolIndexRoute
+  '/industry-network-programme': typeof IndustryNetworkProgrammeIndexRoute
   '/industry': typeof IndustryIndexRoute
   '/internships': typeof InternshipsIndexRoute
   '/legal': typeof LegalIndexRoute
@@ -1619,6 +1661,7 @@ export interface FileRoutesById {
   '/healthcare-career-workshop': typeof HealthcareCareerWorkshopRoute
   '/healthcare-careers': typeof HealthcareCareersRoute
   '/healthcare-jobs-for-freshers': typeof HealthcareJobsForFreshersRoute
+  '/industry-network': typeof IndustryNetworkRouteWithChildren
   '/jd-mirror': typeof JdMirrorRoute
   '/login': typeof LoginRoute
   '/medical-coding-jobs': typeof MedicalCodingJobsRoute
@@ -1677,6 +1720,7 @@ export interface FileRoutesById {
   '/admin/funnel': typeof AdminFunnelRoute
   '/admin/funnel-ce': typeof AdminFunnelCeRoute
   '/admin/funnel-test': typeof AdminFunnelTestRoute
+  '/admin/industry-network': typeof AdminIndustryNetworkRoute
   '/admin/invites': typeof AdminInvitesRoute
   '/admin/landing-changelog': typeof AdminLandingChangelogRoute
   '/admin/leads': typeof AdminLeadsRoute
@@ -1717,6 +1761,8 @@ export interface FileRoutesById {
   '/employer/login': typeof EmployerLoginRoute
   '/enrol/$tier': typeof EnrolTierRouteWithChildren
   '/enrol/success': typeof EnrolSuccessRoute
+  '/industry-network-programme/apply': typeof IndustryNetworkProgrammeApplyRoute
+  '/industry-network/apply': typeof IndustryNetworkApplyRoute
   '/industry/$role': typeof IndustryRoleRouteWithChildren
   '/industry/compare': typeof IndustryCompareRoute
   '/industry/employers': typeof IndustryEmployersRoute
@@ -1750,6 +1796,7 @@ export interface FileRoutesById {
   '/courses/': typeof CoursesIndexRoute
   '/degrees/': typeof DegreesIndexRoute
   '/enrol/': typeof EnrolIndexRoute
+  '/industry-network-programme/': typeof IndustryNetworkProgrammeIndexRoute
   '/industry/': typeof IndustryIndexRoute
   '/internships/': typeof InternshipsIndexRoute
   '/legal/': typeof LegalIndexRoute
@@ -1817,6 +1864,7 @@ export interface FileRouteTypes {
     | '/healthcare-career-workshop'
     | '/healthcare-careers'
     | '/healthcare-jobs-for-freshers'
+    | '/industry-network'
     | '/jd-mirror'
     | '/login'
     | '/medical-coding-jobs'
@@ -1875,6 +1923,7 @@ export interface FileRouteTypes {
     | '/admin/funnel'
     | '/admin/funnel-ce'
     | '/admin/funnel-test'
+    | '/admin/industry-network'
     | '/admin/invites'
     | '/admin/landing-changelog'
     | '/admin/leads'
@@ -1915,6 +1964,8 @@ export interface FileRouteTypes {
     | '/employer/login'
     | '/enrol/$tier'
     | '/enrol/success'
+    | '/industry-network-programme/apply'
+    | '/industry-network/apply'
     | '/industry/$role'
     | '/industry/compare'
     | '/industry/employers'
@@ -1948,6 +1999,7 @@ export interface FileRouteTypes {
     | '/courses/'
     | '/degrees/'
     | '/enrol/'
+    | '/industry-network-programme/'
     | '/industry/'
     | '/internships/'
     | '/legal/'
@@ -2009,6 +2061,7 @@ export interface FileRouteTypes {
     | '/healthcare-career-workshop'
     | '/healthcare-careers'
     | '/healthcare-jobs-for-freshers'
+    | '/industry-network'
     | '/jd-mirror'
     | '/login'
     | '/medical-coding-jobs'
@@ -2067,6 +2120,7 @@ export interface FileRouteTypes {
     | '/admin/funnel'
     | '/admin/funnel-ce'
     | '/admin/funnel-test'
+    | '/admin/industry-network'
     | '/admin/invites'
     | '/admin/landing-changelog'
     | '/admin/leads'
@@ -2107,6 +2161,8 @@ export interface FileRouteTypes {
     | '/employer/login'
     | '/enrol/$tier'
     | '/enrol/success'
+    | '/industry-network-programme/apply'
+    | '/industry-network/apply'
     | '/industry/$role'
     | '/industry/compare'
     | '/industry/employers'
@@ -2140,6 +2196,7 @@ export interface FileRouteTypes {
     | '/courses'
     | '/degrees'
     | '/enrol'
+    | '/industry-network-programme'
     | '/industry'
     | '/internships'
     | '/legal'
@@ -2206,6 +2263,7 @@ export interface FileRouteTypes {
     | '/healthcare-career-workshop'
     | '/healthcare-careers'
     | '/healthcare-jobs-for-freshers'
+    | '/industry-network'
     | '/jd-mirror'
     | '/login'
     | '/medical-coding-jobs'
@@ -2264,6 +2322,7 @@ export interface FileRouteTypes {
     | '/admin/funnel'
     | '/admin/funnel-ce'
     | '/admin/funnel-test'
+    | '/admin/industry-network'
     | '/admin/invites'
     | '/admin/landing-changelog'
     | '/admin/leads'
@@ -2304,6 +2363,8 @@ export interface FileRouteTypes {
     | '/employer/login'
     | '/enrol/$tier'
     | '/enrol/success'
+    | '/industry-network-programme/apply'
+    | '/industry-network/apply'
     | '/industry/$role'
     | '/industry/compare'
     | '/industry/employers'
@@ -2337,6 +2398,7 @@ export interface FileRouteTypes {
     | '/courses/'
     | '/degrees/'
     | '/enrol/'
+    | '/industry-network-programme/'
     | '/industry/'
     | '/internships/'
     | '/legal/'
@@ -2404,6 +2466,7 @@ export interface RootRouteChildren {
   HealthcareCareerWorkshopRoute: typeof HealthcareCareerWorkshopRoute
   HealthcareCareersRoute: typeof HealthcareCareersRoute
   HealthcareJobsForFreshersRoute: typeof HealthcareJobsForFreshersRoute
+  IndustryNetworkRoute: typeof IndustryNetworkRouteWithChildren
   JdMirrorRoute: typeof JdMirrorRoute
   LoginRoute: typeof LoginRoute
   MedicalCodingJobsRoute: typeof MedicalCodingJobsRoute
@@ -2449,6 +2512,7 @@ export interface RootRouteChildren {
   DevCardsRoute: typeof DevCardsRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   EmployerLoginRoute: typeof EmployerLoginRoute
+  IndustryNetworkProgrammeApplyRoute: typeof IndustryNetworkProgrammeApplyRoute
   IndustryRoleRoute: typeof IndustryRoleRouteWithChildren
   IndustryCompareRoute: typeof IndustryCompareRoute
   IndustryEmployersRoute: typeof IndustryEmployersRoute
@@ -2477,6 +2541,7 @@ export interface RootRouteChildren {
   ComparisonsIndexRoute: typeof ComparisonsIndexRoute
   CoursesIndexRoute: typeof CoursesIndexRoute
   DegreesIndexRoute: typeof DegreesIndexRoute
+  IndustryNetworkProgrammeIndexRoute: typeof IndustryNetworkProgrammeIndexRoute
   IndustryIndexRoute: typeof IndustryIndexRoute
   InternshipsIndexRoute: typeof InternshipsIndexRoute
   LegalIndexRoute: typeof LegalIndexRoute
@@ -2693,6 +2758,13 @@ declare module '@tanstack/react-router' {
       path: '/healthcare-jobs-for-freshers'
       fullPath: '/healthcare-jobs-for-freshers'
       preLoaderRoute: typeof HealthcareJobsForFreshersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industry-network': {
+      id: '/industry-network'
+      path: '/industry-network'
+      fullPath: '/industry-network'
+      preLoaderRoute: typeof IndustryNetworkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jd-mirror': {
@@ -3108,6 +3180,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminFunnelTestRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/industry-network': {
+      id: '/admin/industry-network'
+      path: '/industry-network'
+      fullPath: '/admin/industry-network'
+      preLoaderRoute: typeof AdminIndustryNetworkRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/invites': {
       id: '/admin/invites'
       path: '/invites'
@@ -3443,6 +3522,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/enrol/success'
       preLoaderRoute: typeof EnrolSuccessRouteImport
       parentRoute: typeof EnrolRoute
+    }
+    '/industry-network-programme/': {
+      id: '/industry-network-programme/'
+      path: '/industry-network-programme'
+      fullPath: '/industry-network-programme/'
+      preLoaderRoute: typeof IndustryNetworkProgrammeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industry-network-programme/apply': {
+      id: '/industry-network-programme/apply'
+      path: '/industry-network-programme/apply'
+      fullPath: '/industry-network-programme/apply'
+      preLoaderRoute: typeof IndustryNetworkProgrammeApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industry-network/apply': {
+      id: '/industry-network/apply'
+      path: '/apply'
+      fullPath: '/industry-network/apply'
+      preLoaderRoute: typeof IndustryNetworkApplyRouteImport
+      parentRoute: typeof IndustryNetworkRoute
     }
     '/industry/': {
       id: '/industry/'
@@ -3968,6 +4068,7 @@ interface AdminRouteChildren {
   AdminFunnelRoute: typeof AdminFunnelRoute
   AdminFunnelCeRoute: typeof AdminFunnelCeRoute
   AdminFunnelTestRoute: typeof AdminFunnelTestRoute
+  AdminIndustryNetworkRoute: typeof AdminIndustryNetworkRoute
   AdminInvitesRoute: typeof AdminInvitesRoute
   AdminLandingChangelogRoute: typeof AdminLandingChangelogRoute
   AdminLeadsRoute: typeof AdminLeadsRoute
@@ -4005,6 +4106,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminFunnelRoute: AdminFunnelRoute,
   AdminFunnelCeRoute: AdminFunnelCeRoute,
   AdminFunnelTestRoute: AdminFunnelTestRoute,
+  AdminIndustryNetworkRoute: AdminIndustryNetworkRoute,
   AdminInvitesRoute: AdminInvitesRoute,
   AdminLandingChangelogRoute: AdminLandingChangelogRoute,
   AdminLeadsRoute: AdminLeadsRoute,
@@ -4106,6 +4208,18 @@ const EnrolRouteChildren: EnrolRouteChildren = {
 
 const EnrolRouteWithChildren = EnrolRoute._addFileChildren(EnrolRouteChildren)
 
+interface IndustryNetworkRouteChildren {
+  IndustryNetworkApplyRoute: typeof IndustryNetworkApplyRoute
+}
+
+const IndustryNetworkRouteChildren: IndustryNetworkRouteChildren = {
+  IndustryNetworkApplyRoute: IndustryNetworkApplyRoute,
+}
+
+const IndustryNetworkRouteWithChildren = IndustryNetworkRoute._addFileChildren(
+  IndustryNetworkRouteChildren,
+)
+
 interface RecruitersRouteChildren {
   RecruitersCandidateIdRoute: typeof RecruitersCandidateIdRoute
 }
@@ -4180,6 +4294,7 @@ const rootRouteChildren: RootRouteChildren = {
   HealthcareCareerWorkshopRoute: HealthcareCareerWorkshopRoute,
   HealthcareCareersRoute: HealthcareCareersRoute,
   HealthcareJobsForFreshersRoute: HealthcareJobsForFreshersRoute,
+  IndustryNetworkRoute: IndustryNetworkRouteWithChildren,
   JdMirrorRoute: JdMirrorRoute,
   LoginRoute: LoginRoute,
   MedicalCodingJobsRoute: MedicalCodingJobsRoute,
@@ -4225,6 +4340,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevCardsRoute: DevCardsRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   EmployerLoginRoute: EmployerLoginRoute,
+  IndustryNetworkProgrammeApplyRoute: IndustryNetworkProgrammeApplyRoute,
   IndustryRoleRoute: IndustryRoleRouteWithChildren,
   IndustryCompareRoute: IndustryCompareRoute,
   IndustryEmployersRoute: IndustryEmployersRoute,
@@ -4254,6 +4370,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComparisonsIndexRoute: ComparisonsIndexRoute,
   CoursesIndexRoute: CoursesIndexRoute,
   DegreesIndexRoute: DegreesIndexRoute,
+  IndustryNetworkProgrammeIndexRoute: IndustryNetworkProgrammeIndexRoute,
   IndustryIndexRoute: IndustryIndexRoute,
   InternshipsIndexRoute: InternshipsIndexRoute,
   LegalIndexRoute: LegalIndexRoute,

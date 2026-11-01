@@ -9,6 +9,7 @@ import { HomeEmployerTrustStrip } from "@/components/home/HomeEmployerTrustStrip
 import { HomeInstitutionalTrust } from "@/components/home/HomeInstitutionalTrust";
 import { CareerEngineLeaderboard } from "@/components/home/CareerEngineLeaderboard";
 import { HomeLearnerFeedback } from "@/components/home/HomeLearnerFeedback";
+import { HomeIndustryNetworkSection } from "@/components/home/HomeIndustryNetworkSection";
 import { HomeClosingBanner } from "@/components/home/HomeClosingBanner";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
@@ -194,6 +195,9 @@ export function ArzonHomeV2() {
 
       {/* ─── SECTION 8: LEARNER FEEDBACK (OPTION A VERIFIED TESTIMONIALS) ─────── */}
       <HomeLearnerFeedback />
+
+      {/* ─── SECTION 8.5: ARZON GLOBAL INDUSTRY NETWORK PROGRAMME ──────────── */}
+      <HomeIndustryNetworkSection />
 
       {/* ─── SECTION 9: CLOSING CTA BANNER ─────────────────────────────────── */}
       <HomeClosingBanner />

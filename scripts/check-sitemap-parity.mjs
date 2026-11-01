@@ -31,6 +31,9 @@ const ALLOWLIST = new Set([
   "/admin/invites",
   "/admin/acri",
   "/admin/acri-invites",
+  "/admin/industry-network",
+  "/industry-network-programme",
+  "/industry-network/apply",
   "/acri/invite",
   // Public leaderboard is intentionally noindex until verified public results exist.
   "/acri/leaderboard",

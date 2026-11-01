@@ -17,6 +17,7 @@ const groups = [
       ["Healthcare Jobs", "/healthcare-jobs-for-freshers"],
       ["Career Assessment", "/career-assessment"],
       ["Reviews & Feedback", "/reviews" as any],
+      ["Industry Network Programme", "/industry-network" as any],
     ],
   },
   {

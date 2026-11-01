@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { label: "Career Assessment", to: "/career-assessment", description: "Discover which roles fit you" },
   { label: "Resources", to: "/resources", description: "Role guides, research and career insights" },
   { label: "Reviews", to: "/reviews", description: "Real experiences from learners" },
+  { label: "Industry Network", to: "/industry-network", description: "Build industry connections before graduation" },
 ] as const;
 
 const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
@@ -111,7 +112,7 @@ export function ArzonHeader() {
             </nav>
 
             {/* Desktop Actions */}
-            <div className="hidden lg:flex items-center gap-2">
+            <div className="hidden lg:flex items-center gap-2 shrink-0">
               {/* Search */}
               <button
                 type="button"
@@ -142,7 +143,7 @@ export function ArzonHeader() {
                 type="button"
                 onClick={() => openCounsellorModal({ source: "header_desktop" })}
                 data-testid="primary-career-cta"
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold px-4 py-2 min-h-0 h-8 shadow-sm transition-all cursor-pointer active:scale-95"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold px-4 py-2 min-h-0 h-8 shadow-sm transition-all cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
               >
                 <span>Talk to a counsellor</span>
                 <ArrowRight className="h-3.5 w-3.5" />

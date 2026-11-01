@@ -268,6 +268,20 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "Arzon Global reviews and learner feedback",
   },
   {
+    path: "/industry-network",
+    priority: "0.8",
+    changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Arzon Global Industry Network Programme",
+  },
+  {
+    path: "/industry-network-programme/apply",
+    priority: "0.85",
+    changefreq: "monthly",
+    image: "/images/industry-network/hero-students.webp",
+    imageAlt: "Apply for Industry Network Lead",
+  },
+  {
     path: "/why-arzon",
     priority: "0.8",
     changefreq: "monthly",

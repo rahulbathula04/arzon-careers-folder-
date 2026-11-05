@@ -128,7 +128,7 @@ export function CareerEngineLeaderboard() {
 
           <Link
             to="/career-engine/start"
-            className="w-full sm:w-auto h-11 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm shrink-0 self-start md:self-auto active:scale-95"
+            className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-7 text-sm font-bold transition-all shadow-md active:scale-95 cursor-pointer shrink-0 self-start md:self-auto"
           >
             <span>Take diagnostic</span>
             <ArrowRight className="h-4 w-4" />
@@ -152,7 +152,7 @@ export function CareerEngineLeaderboard() {
                   {isActive && (
                     <motion.div
                       layoutId="activeLeaderboardTab"
-                      className="absolute inset-0 rounded-full bg-[#1557D6] shadow-xs"
+                      className="absolute inset-0 rounded-full bg-[#081F38] shadow-xs"
                       transition={
                         prefersReduced
                           ? { duration: 0 }
@@ -181,7 +181,8 @@ export function CareerEngineLeaderboard() {
 
         {/* Candidate Cards Grid */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+          className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none scrollbar-none pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 overscroll-x-contain touch-pan-x"
+          style={{ WebkitOverflowScrolling: "touch" }}
           variants={prefersReduced ? undefined : containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -192,7 +193,7 @@ export function CareerEngineLeaderboard() {
               key={c.name}
               variants={prefersReduced ? undefined : cardVariants}
               whileHover={prefersReduced ? undefined : { y: -6, transition: { duration: 0.25, ease: "easeOut" } }}
-              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all tone-light card-light flex flex-col justify-between"
+              className="w-[82vw] min-[390px]:w-[78vw] max-w-[320px] sm:w-auto shrink-0 snap-start rounded-2xl border border-[#E4EAF2] bg-white p-5 shadow-xs hover:border-[#2563EB]/40 hover:shadow-md transition-all tone-light card-light flex flex-col justify-between text-left"
             >
               <div>
                 <div className="flex items-start gap-3 mb-3">

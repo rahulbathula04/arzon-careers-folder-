@@ -16,7 +16,7 @@ export function ArzonHomeV2() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <div className="arzon-premium-home bg-white tone-light card-light">
+    <div className="arzon-premium-home bg-white tone-light card-light overflow-x-clip">
       {/* ─── SECTION 1: HERO (HEALTHCARE CAREER DISCOVERY & SKILL READINESS) ───── */}
       <section className="relative overflow-hidden bg-white pt-6 sm:pt-14 pb-10 sm:pb-20 border-b border-[#E4EAF2] tone-light card-light">
         {/* Ambient Radial Accent */}

@@ -188,7 +188,7 @@ export function HomeIndustryNetworkSection() {
           <div className="flex flex-wrap items-center gap-3 shrink-0 w-full sm:w-auto">
             <Link
               to="/industry-network-programme/apply"
-              className="w-full sm:w-auto h-11 px-6 rounded-full bg-[#0B1325] hover:bg-[#1B3F8B] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+              className="w-full sm:w-auto h-12.5 px-7 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
             >
               <span>Apply Now</span>
               <ArrowRight className="h-3.5 w-3.5 text-sky-400" />

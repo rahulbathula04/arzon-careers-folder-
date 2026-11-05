@@ -6,98 +6,58 @@ import { motion, useReducedMotion } from "framer-motion";
 export interface PriorityTrack {
   id: string;
   badge: string;
-  badgeStyle: {
-    bg: string;
-    text: string;
-    border: string;
-  };
+  dotColor: string;
   duration: string;
   feature: string;
   title: string;
   slug: string;
   image: string;
-  cardBg: string;
-  isDark?: boolean;
-  buttonBg: string;
-  buttonText: string;
   link: string;
 }
 
 export const PRIORITY_TRACKS: PriorityTrack[] = [
   {
     id: "pharmacovigilance",
-    badge: "Flagship",
-    badgeStyle: {
-      bg: "bg-white/20 backdrop-blur-md",
-      text: "text-white",
-      border: "border-white/20",
-    },
+    badge: "Flagship Track",
+    dotColor: "bg-[#2563EB]",
     duration: "12 Weeks",
     feature: "Hands-on Cases",
     title: "Pharmacovigilance & Drug Safety Monitoring",
     slug: "pharmacovigilance",
     image: "/images/bpharm-female-graduate-hero.jpg",
-    cardBg: "bg-gradient-to-r from-[#123BA5] via-[#1A4FD8] to-[#1E40AF]",
-    isDark: true,
-    buttonBg: "bg-white",
-    buttonText: "text-[#1D4ED8]",
     link: "/pv-associate",
   },
   {
     id: "medical-coding",
-    badge: "Popular",
-    badgeStyle: {
-      bg: "bg-blue-50",
-      text: "text-[#1D4ED8]",
-      border: "border-blue-200",
-    },
+    badge: "Popular Track",
+    dotColor: "bg-[#0284C7]",
     duration: "12 Weeks",
     feature: "Live Chart Audits",
     title: "Medical Coding & Clinical Informatics",
     slug: "medical-coding",
-    image: "/images/ai-coding.jpg",
-    cardBg: "bg-[#F0F6FE] border border-blue-200/80",
-    isDark: false,
-    buttonBg: "bg-[#1D4ED8]",
-    buttonText: "text-white",
+    image: "/images/pv-clinical-coding.jpg",
     link: "/courses/medical-coding",
   },
   {
     id: "cdm",
     badge: "Core Governance",
-    badgeStyle: {
-      bg: "bg-emerald-50",
-      text: "text-[#059669]",
-      border: "border-emerald-200",
-    },
+    dotColor: "bg-[#10B981]",
     duration: "12 Weeks",
     feature: "eCRF & EDC Datasets",
     title: "Clinical Data Management (CDM)",
     slug: "clinical-data-management",
-    image: "/images/ai-cdm.jpg",
-    cardBg: "bg-[#F0FDF4] border border-emerald-200/80",
-    isDark: false,
-    buttonBg: "bg-[#059669]",
-    buttonText: "text-white",
+    image: "/images/pv-clinical-workstation.jpg",
     link: "/courses/clinical-data-management",
   },
   {
     id: "clinical-sas",
-    badge: "Technical",
-    badgeStyle: {
-      bg: "bg-purple-50",
-      text: "text-[#7C3AED]",
-      border: "border-purple-200",
-    },
+    badge: "Technical Track",
+    dotColor: "bg-[#7C3AED]",
     duration: "16 Weeks",
     feature: "CDISC & TLF Macros",
     title: "Clinical SAS & Biostatistics",
     slug: "clinical-sas",
-    image: "/images/benchmarks/benchmark-clinical-sas.webp",
-    cardBg: "bg-[#FAF5FF] border border-purple-200/80",
-    isDark: false,
-    buttonBg: "bg-[#7C3AED]",
-    buttonText: "text-white",
+    image: "/images/bioinformatics-workstation.jpg",
     link: "/courses/sas-clinical",
   },
 ];
@@ -109,7 +69,7 @@ export function HomePriorityTracks() {
 
   const handleTrackScroll = () => {
     if (!trackScrollRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = trackScrollRef.current;
+    const { scrollLeft } = trackScrollRef.current;
     const cardWidth = window.innerWidth * 0.82;
     const index = Math.round(scrollLeft / (cardWidth || 300));
     setActiveTrackIndex(Math.min(Math.max(index, 0), PRIORITY_TRACKS.length - 1));
@@ -154,14 +114,14 @@ export function HomePriorityTracks() {
 
           <Link
             to="/courses"
-            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white px-6 py-3 text-sm font-bold transition-all shadow-sm shrink-0 active:scale-[0.98]"
+            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-6 py-3 text-sm font-bold transition-all shadow-md shrink-0 active:scale-[0.98] cursor-pointer"
           >
             <span>View all programmes</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </motion.div>
 
-        {/* 4 Track Cards: Mobile Horizontal Snap Rail with Peek / Desktop Grid */}
+        {/* 4 Track Cards: Dedicated Top Cover Bento Architecture */}
         <div
           ref={trackScrollRef}
           onScroll={handleTrackScroll}
@@ -175,76 +135,63 @@ export function HomePriorityTracks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: idx * 0.08 }}
-              className={`w-[84vw] min-[390px]:w-[80vw] max-w-[340px] sm:w-auto shrink-0 snap-start rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 relative group flex flex-col justify-between p-5 min-h-[200px] min-[390px]:min-h-[210px] text-left ${track.cardBg}`}
+              className="w-[84vw] min-[390px]:w-[80vw] max-w-[340px] sm:w-auto shrink-0 snap-start rounded-3xl border border-[#E2E8F0] bg-white p-3.5 sm:p-4 shadow-xs hover:shadow-xl hover:border-[#2563EB]/40 transition-all duration-300 tone-light card-light flex flex-col justify-between group text-left relative overflow-hidden"
             >
-              <Link to={track.link as any} className="absolute inset-0 z-10" aria-label={`Explore ${track.title}`}>
+              <Link to={track.link as any} className="absolute inset-0 z-20" aria-label={`Explore ${track.title}`}>
                 <span className="sr-only">Explore {track.title}</span>
               </Link>
 
-              {/* Background Image with Gradient Fade */}
-              <div className="absolute right-0 top-0 bottom-0 w-[48%] pointer-events-none overflow-hidden">
+              {/* Dedicated Top Visual Showcase */}
+              <div className="relative h-44 sm:h-48 w-full overflow-hidden rounded-2xl bg-slate-100 shrink-0">
                 <img
                   src={track.image}
                   alt={track.title}
-                  className="w-full h-full object-cover object-[center_20%] group-hover:scale-105 transition-transform duration-500 ease-out [mask-image:linear-gradient(to_left,black_60%,transparent)]"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
                   loading="lazy"
                 />
-              </div>
+                {/* Subtle Cinematic Vignette */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
-              {/* Card Content (Left Column) */}
-              <div className="relative z-10 max-w-[58%] flex flex-col justify-between h-full">
-                <div>
-                  {/* Badge */}
-                  <span
-                    className={`inline-block rounded-full px-3 py-0.5 text-[11px] font-bold tracking-wide border ${track.badgeStyle.bg} ${track.badgeStyle.text} ${track.badgeStyle.border}`}
-                  >
+                {/* Floating Glassmorphism Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="inline-flex items-center gap-1.5 rounded-full backdrop-blur-md bg-white/95 px-3 py-1 text-[11px] font-bold text-[#081F38] shadow-xs border border-white/40 tone-light card-light">
+                    <span className={`h-1.5 w-1.5 rounded-full ${track.dotColor}`} />
                     {track.badge}
                   </span>
-
-                  {/* Title */}
-                  <h3
-                    className={`font-sans text-base min-[390px]:text-[17px] font-bold leading-snug mt-2.5 mb-3 group-hover:opacity-90 transition-opacity ${
-                      track.isDark ? "text-white" : "text-[#081F38]"
-                    }`}
-                  >
-                    {track.title}
-                  </h3>
                 </div>
 
-                {/* Details */}
-                <div className="space-y-1.5 pt-1">
-                  <div
-                    className={`flex items-center gap-1.5 text-xs font-medium ${
-                      track.isDark ? "text-white/90" : "text-slate-600"
-                    }`}
-                  >
-                    <Calendar
-                      className={`h-3.5 w-3.5 shrink-0 ${
-                        track.isDark ? "text-white/80" : "text-[#2563EB]"
-                      }`}
-                    />
-                    <span>{track.duration}</span>
-                  </div>
-                  <div
-                    className={`flex items-center gap-1.5 text-xs font-medium ${
-                      track.isDark ? "text-white/90" : "text-slate-600"
-                    }`}
-                  >
-                    <Layers
-                      className={`h-3.5 w-3.5 shrink-0 ${
-                        track.isDark ? "text-white/80" : "text-[#2563EB]"
-                      }`}
-                    />
-                    <span>{track.feature}</span>
-                  </div>
+                {/* Floating Action Arrow */}
+                <div className="absolute bottom-3 right-3 z-10 h-9 w-9 rounded-full bg-white/95 text-[#081F38] shadow-md flex items-center justify-center group-hover:bg-[#081F38] group-hover:text-white group-hover:scale-110 active:scale-95 transition-all duration-300 tone-light card-light pointer-events-none">
+                  <ArrowRight className="h-4 w-4" />
                 </div>
               </div>
 
-              {/* Floating Action Circle Button */}
-              <div
-                className={`absolute bottom-4 right-4 z-20 h-10 w-10 min-[390px]:h-11 min-[390px]:w-11 rounded-full flex items-center justify-center shadow-md group-hover:scale-105 active:scale-95 transition-transform pointer-events-none ${track.buttonBg} ${track.buttonText}`}
-              >
-                <ArrowRight className="h-5 w-5" />
+              {/* Card Body (Full Width Typography - Zero Awkward Wrapping) */}
+              <div className="pt-3.5 flex flex-col justify-between flex-1">
+                <div>
+                  <h3 className="font-sans text-base sm:text-[17px] font-bold text-[#081F38] leading-snug group-hover:text-[#1D4ED8] transition-colors break-normal hyphens-none line-clamp-2 min-h-[2.8rem]">
+                    {track.title}
+                  </h3>
+
+                  {/* Micro Metadata Row */}
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-medium text-slate-600 mt-2.5">
+                    <div className="inline-flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5 text-[#1D4ED8] shrink-0" />
+                      <span>{track.duration}</span>
+                    </div>
+                    <span className="text-slate-300">•</span>
+                    <div className="inline-flex items-center gap-1.5">
+                      <Layers className="h-3.5 w-3.5 text-[#0284C7] shrink-0" />
+                      <span className="truncate">{track.feature}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Action Footer */}
+                <div className="border-t border-slate-100 pt-3 mt-3.5 flex items-center justify-between text-xs font-semibold text-[#081F38] group-hover:text-[#1D4ED8] transition-colors">
+                  <span>Explore curriculum & roles</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
             </motion.article>
           ))}
@@ -271,7 +218,7 @@ export function HomePriorityTracks() {
         <div className="mt-5 md:hidden">
           <Link
             to="/courses"
-            className="w-full h-13 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white font-bold text-base shadow-md shadow-blue-600/20 active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full h-13 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white font-bold text-base shadow-md shadow-slate-900/10 active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>View All Programmes</span>
             <ArrowRight className="h-4 w-4" />

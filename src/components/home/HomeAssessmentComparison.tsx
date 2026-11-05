@@ -23,7 +23,7 @@ import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
-export const ASSESSMENT_VIDEO_URL = "https://drive.google.com/drive/folders/1esTcihzhIPfnS95jX-pO9cK1SBYEYQJB?usp=drive_link";
+export const ASSESSMENT_VIDEO_URL = "https://drive.google.com/file/d/1PLHA9NcqVdlakysuVWckynrmwRL1xARN/view?usp=sharing";
 
 export function HomeAssessmentComparison() {
   const shouldReduceMotion = useReducedMotion();

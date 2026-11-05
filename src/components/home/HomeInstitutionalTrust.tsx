@@ -5,60 +5,108 @@ import {
   Play,
   ShieldCheck,
   ArrowRight,
+  Radio,
+  Tv,
+  Clock,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { LINKS } from "@/components/landing/constants";
 import { TaskRealLogo, HybizTvLogo, MsmeGovtLogo } from "@/components/common/TrustLogos";
 
+const CHAPTERS = [
+  {
+    time: 39,
+    timestamp: "0:39",
+    tag: "KEYNOTE",
+    mobileTag: "Address",
+    title: "Chief Guest Address",
+    speaker: "Dr. Srikanth Sinha (CEO, TASK)",
+    summary: "Addressing media on industry readiness and clinical skill gaps",
+    highlight: "Clinical workforce readiness & state skill gap",
+  },
+  {
+    time: 105,
+    timestamp: "1:45",
+    tag: "CEREMONY",
+    mobileTag: "Ribbon",
+    title: "Facility Launch",
+    speaker: "TASK & Arzon Leadership",
+    summary: "Ribbon cutting of the Hyderabad healthcare career hub",
+    highlight: "Formal ribbon cutting of Hyderabad career facility",
+  },
+  {
+    time: 252,
+    timestamp: "4:12",
+    tag: "MANDATE",
+    mobileTag: "Mandate",
+    title: "State Mandate",
+    speaker: "Dept. of ITE&C Alignment",
+    summary: "Bridging pharmacy & life sciences graduates to global clinical roles",
+    highlight: "Bridging pharmacy & life sciences graduates to global trials",
+  },
+] as const;
+
+const BROADCAST_NETWORKS = [
+  { name: "HYBIZ TV HD", tag: "697K+ Subs", short: "HYBIZ HD" },
+  { name: "ETV Telangana", tag: "Satellite", short: "ETV" },
+  { name: "TV5 News", tag: "Cable HD", short: "TV5" },
+  { name: "V5 News", tag: "Broadcast", short: "V5" },
+] as const;
+
 export function HomeInstitutionalTrust() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [activeChapter, setActiveChapter] = useState(0);
   const media = LINKS.mediaInauguration;
   const prefersReduced = useReducedMotion();
 
+  const handleSelectChapter = (index: number) => {
+    setActiveChapter(index);
+    setIsPlaying(true);
+  };
+
   const headerVariants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     },
   };
 
-  const videoVariants = {
-    hidden: { opacity: 0, y: 32, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.85,
-        ease: [0.16, 1, 0.3, 1] as const,
-      },
-    },
-  };
-
-  const cardsContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.15,
-      },
-    },
-  };
-
-  const cardVariants = {
+  const consoleVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
+        duration: 0.6,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+  };
+
+  const bladesContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const bladeVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.45,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     },
@@ -67,256 +115,489 @@ export function HomeInstitutionalTrust() {
   return (
     <section
       id="institutional-trust"
-      className="py-10 sm:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light"
+      className="py-8 sm:py-16 lg:py-20 bg-white border-b border-[#E4EAF2] tone-light card-light relative overflow-hidden"
       aria-labelledby="institutional-trust-heading"
     >
-      <div className="ap-shell">
-        {/* Header Eyebrow & Title */}
+      {/* Background Architectural Grid Pattern */}
+      <div
+        className="absolute inset-0 bg-[linear-gradient(to_right,#F1F5F9_1px,transparent_1px),linear-gradient(to_bottom,#F1F5F9_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none opacity-60"
+        aria-hidden="true"
+      />
+
+      <div className="ap-shell relative z-10">
+        {/* Minimal High-Impact Header */}
         <motion.div
-          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12"
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-10"
           variants={prefersReduced ? undefined : headerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-60px" }}
         >
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-mono font-semibold uppercase tracking-wider text-[#2563EB] mb-3 shadow-2xs tone-light card-light">
-              <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
-              <span className="sm:hidden">GOVT ALIGNMENT · PUBLIC RECORD</span>
-              <span className="hidden sm:inline">GOVERNMENT ALIGNMENT · TELEVISED PUBLIC RECORD</span>
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200/80 bg-blue-50/70 px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-[#1557D6] mb-2 sm:mb-3 shadow-2xs">
+              <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+              <span>GOVERNMENT ALIGNMENT · PUBLIC RECORD</span>
             </div>
             <h2
               id="institutional-trust-heading"
-              className="text-xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight"
+              className="text-xl sm:text-3xl lg:text-[40px] font-sans font-bold text-[#081F38] tracking-tight leading-tight"
             >
               Inaugurated with Government{" "}
               <span className="font-serif italic font-medium bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
                 Skill Leadership.
               </span>
             </h2>
-            <p className="mt-2.5 sm:mt-3 text-sm sm:text-base text-[#475569] leading-relaxed">
-              When Arzon Global expanded its healthcare career operations in Hyderabad,{" "}
-              <strong className="text-[#071A4A] font-semibold">
+            <p className="mt-2 text-xs sm:text-sm lg:text-base text-[#475569] leading-relaxed">
+              When Arzon Global expanded healthcare operations in Hyderabad,{" "}
+              <strong className="text-[#081F38] font-semibold">
                 Dr. Srikanth Sinha, CEO of TASK
               </strong>{" "}
-              (Telangana Academy for Skill and Knowledge, Department of ITE&amp;C, Government of
-              Telangana), joined as Chief Guest to inaugurate the facility — broadcast live on regional television.
+              (Govt. of Telangana), joined as Chief Guest to inaugurate the facility — broadcast
+              live across 4 regional television channels.
             </p>
           </div>
 
-          <a
-            href={media.watch}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#D0E1FD] bg-[#EEF6FF] hover:bg-[#DCEBFE] text-[#1557D6] px-5 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition-all shrink-0 self-start md:self-auto shadow-2xs active:scale-[0.98]"
-          >
-            <span>Watch Full Telecast on YouTube</span>
-            <ExternalLink className="h-3.5 w-3.5" />
-          </a>
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0 self-start lg:self-auto">
+            <a
+              href={media.watch}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-[#BFDBFE] bg-[#EFF6FF] hover:bg-[#DBEAFE] text-[#1D4ED8] px-3.5 sm:px-4.5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-2xs active:scale-[0.98]"
+            >
+              <Tv className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#2563EB]" />
+              <span>Telecast (5:36 HD)</span>
+              <ExternalLink className="h-3 w-3 opacity-70" />
+            </a>
+            <Link
+              to="/legal"
+              className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-[#E2E8F0] bg-white tone-light card-light hover:bg-slate-50 text-[#081F38] px-3 sm:px-4 py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold transition-all shadow-2xs active:scale-[0.98]"
+            >
+              <ShieldCheck className="h-3.5 w-3.5 text-[#2563EB]" />
+              <span>Statutory Hub</span>
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Video & Verification Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Interactive Video Player (Cols 1-7) */}
+        {/* Master Studio Bento Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
+          {/* ─── LEFT: CINEMATIC BROADCAST MONITOR (Cols 1-7) ─── */}
           <motion.div
-            className="lg:col-span-7 space-y-4"
-            variants={prefersReduced ? undefined : videoVariants}
+            className="lg:col-span-7 flex flex-col"
+            variants={prefersReduced ? undefined : consoleVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            <div className="relative aspect-video w-full overflow-hidden rounded-2xl sm:rounded-[24px] border border-[#E4EAF2] bg-[#0A101D] shadow-[0_20px_50px_rgba(7,26,74,0.12)] group">
-              {!isPlaying ? (
-                <button
-                  type="button"
-                  onClick={() => setIsPlaying(true)}
-                  className="relative h-full w-full cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                  aria-label="Play inauguration telecast video featuring TASK CEO Dr. Srikanth Sinha"
-                >
-                  <img
-                    src={media.poster}
-                    alt="Arzon Global Hyderabad inauguration with TASK CEO Dr. Srikanth Sinha"
-                    className="h-full w-full object-cover object-center opacity-90 transition-transform duration-500 group-hover:scale-[1.02]"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = media.fallbackPoster;
-                    }}
-                  />
-                  {/* Subtle dark gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/40" />
-
-                  {/* Top Broadcaster Chip */}
-                  <div className="absolute top-4 left-4 flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-black/60 backdrop-blur-md px-3.5 py-1 font-mono text-[11px] font-bold text-white border border-white/15 shadow-sm">
-                      <span className="h-2 w-2 rounded-full bg-red-500 motion-safe:animate-pulse" />
-                      <span>LIVE TELECAST · {media.outlet}</span>
-                    </span>
-                    <span className="hidden sm:inline-flex items-center rounded-full bg-white/15 backdrop-blur-md px-2.5 py-1 font-mono text-[10px] text-white/90">
-                      {media.outletSubscribers}
-                    </span>
+            {/* Monitor Titanium Housing */}
+            <div className="overflow-hidden rounded-xl sm:rounded-3xl border border-slate-800 bg-[#0A101D] p-2 sm:p-3 shadow-[0_15px_40px_rgba(8,31,56,0.16)]">
+              {/* Studio Telemetry Header Bar */}
+              <div className="flex items-center justify-between px-2 sm:px-3 py-1.5 sm:py-2 bg-slate-900/80 rounded-lg sm:rounded-xl mb-1.5 sm:mb-2.5 border border-slate-800/80">
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 rounded-full bg-red-500/15 border border-red-500/30 px-2 py-0.5 text-[9px] sm:text-[10px] font-mono font-bold text-red-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-red-500 motion-safe:animate-pulse" />
+                    <span>ON AIR</span>
                   </div>
+                  <span className="font-mono text-[10px] sm:text-[11px] font-semibold text-slate-300">
+                    HYBIZ TV HD
+                  </span>
+                </div>
 
-                  {/* Centered Apple-Style Frosted Glass Play Button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="grid h-16 w-16 sm:h-20 sm:w-20 place-items-center rounded-full bg-white/90 hover:bg-white text-[#071A4A] shadow-[0_20px_60px_rgba(0,0,0,0.4)] backdrop-blur-md transition-all duration-300 group-hover:scale-108 border border-white/60">
-                      <Play className="h-7 w-7 sm:h-8 sm:w-8 fill-[#071A4A] translate-x-0.5" />
+                <div className="flex items-center gap-2 sm:gap-3">
+                  {/* Subtle Audio Spectrum Equalizer */}
+                  <div
+                    className="flex items-end gap-0.5 h-2.5 sm:h-3 px-1"
+                    aria-hidden="true"
+                    title="Audio Signal"
+                  >
+                    <span
+                      className="w-0.5 h-1.5 bg-emerald-400 rounded-full motion-safe:animate-pulse"
+                      style={{ animationDuration: "0.6s" }}
+                    />
+                    <span
+                      className="w-0.5 h-2.5 sm:h-3 bg-emerald-400 rounded-full motion-safe:animate-pulse"
+                      style={{ animationDuration: "0.4s" }}
+                    />
+                    <span
+                      className="w-0.5 h-1 bg-emerald-400 rounded-full motion-safe:animate-pulse"
+                      style={{ animationDuration: "0.7s" }}
+                    />
+                    <span
+                      className="w-0.5 h-2 bg-emerald-400 rounded-full motion-safe:animate-pulse"
+                      style={{ animationDuration: "0.5s" }}
+                    />
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] font-mono font-semibold text-slate-400 bg-slate-950 px-1.5 sm:px-2 py-0.5 rounded border border-slate-800">
+                    1080p HD
+                  </span>
+                </div>
+              </div>
+
+              {/* Viewport Screen */}
+              <div className="relative aspect-video w-full overflow-hidden rounded-lg sm:rounded-xl bg-black group">
+                {!isPlaying ? (
+                  <button
+                    type="button"
+                    onClick={() => setIsPlaying(true)}
+                    className="relative h-full w-full cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                    aria-label={`Play telecast: ${CHAPTERS[activeChapter].title}`}
+                  >
+                    <img
+                      src={media.poster}
+                      alt="TASK CEO Dr. Srikanth Sinha inaugurating Arzon Global facility"
+                      className="h-full w-full object-cover object-center opacity-90 transition-transform duration-500 group-hover:scale-[1.02]"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = media.fallbackPoster;
+                      }}
+                    />
+
+                    {/* Dark Vignette Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/20 to-slate-950/40" />
+
+                    {/* Floating Telecast Metrics */}
+                    <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full bg-black/60 backdrop-blur-md px-2 sm:px-3 py-0.5 sm:py-1 font-mono text-[9px] sm:text-[10px] font-bold text-white/90 border border-white/10 shadow-sm">
+                        <Radio className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-red-400" />
+                        <span>697K+ REACH</span>
+                      </span>
                     </div>
-                  </div>
 
-                  {/* Bottom Caption Overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="inline-block rounded-full bg-white/20 backdrop-blur-md text-white border border-white/20 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider mb-1.5 shadow-xs">
-                      CHIEF GUEST ADDRESS · 0:39
-                    </span>
-                    <p className="font-sans text-sm sm:text-base font-bold text-white drop-shadow-sm leading-snug">
-                      Dr. Srikanth Sinha (CEO, TASK) addressing television media at Arzon Global
-                    </p>
-                  </div>
-                </button>
-              ) : (
-                <iframe
-                  src={`${media.embed}&autoplay=1&rel=0&modestbranding=1`}
-                  title={media.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="h-full w-full"
-                />
-              )}
+                    {/* Frosted Glass Play Hub */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <div className="grid h-12 w-12 sm:h-18 sm:w-18 place-items-center rounded-full bg-white/90 hover:bg-white text-[#081F38] shadow-[0_15px_40px_rgba(0,0,0,0.6)] backdrop-blur-md transition-all duration-300 group-hover:scale-108 border border-white/70">
+                        <Play className="h-5 w-5 sm:h-7 sm:w-7 fill-[#081F38] translate-x-0.5" />
+                      </div>
+                      <span className="hidden sm:inline-block mt-2.5 text-[10px] font-mono font-bold tracking-wider uppercase text-white/80 bg-black/40 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-white/10">
+                        Stream telecast ({CHAPTERS[activeChapter].timestamp})
+                      </span>
+                    </div>
+
+                    {/* Bottom Dynamic Headline Overlay */}
+                    <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 text-white">
+                      <div className="inline-flex items-center gap-1 rounded-full bg-white/15 backdrop-blur-md text-white border border-white/20 px-2 py-0.5 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider mb-0.5 sm:mb-1">
+                        <Clock className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-300" />
+                        <span>{CHAPTERS[activeChapter].timestamp}</span>
+                        <span className="hidden sm:inline">· {CHAPTERS[activeChapter].tag}</span>
+                      </div>
+                      <h3 className="font-sans text-xs sm:text-sm lg:text-base font-bold text-white drop-shadow-sm leading-tight line-clamp-1">
+                        {CHAPTERS[activeChapter].speaker}
+                      </h3>
+                      <p className="text-[10px] sm:text-xs text-slate-300 line-clamp-1 mt-0.5 hidden sm:block">
+                        {CHAPTERS[activeChapter].summary}
+                      </p>
+                    </div>
+                  </button>
+                ) : (
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${media.youtubeId}?start=${CHAPTERS[activeChapter].time}&autoplay=1&rel=0&modestbranding=1`}
+                    title={media.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="h-full w-full"
+                  />
+                )}
+              </div>
+
+              {/* Compact Chapter Strip (Optimized for Mobile) */}
+              <div className="mt-2 sm:mt-3 pt-2 sm:pt-2.5 border-t border-slate-800">
+                <div className="flex items-center justify-between mb-1.5 px-0.5">
+                  <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-slate-400 flex items-center gap-1">
+                    <Clock className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-blue-400" />
+                    <span>Telecast Chapters</span>
+                  </span>
+                  <span className="text-[9px] sm:text-[10px] font-mono text-slate-400">
+                    Tap to jump
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+                  {CHAPTERS.map((chapter, idx) => {
+                    const isSelected = activeChapter === idx;
+                    return (
+                      <button
+                        key={chapter.timestamp}
+                        type="button"
+                        onClick={() => handleSelectChapter(idx)}
+                        className={`group text-left p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl border transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? "bg-blue-950/70 border-blue-500/70 shadow-[0_0_12px_rgba(37,99,235,0.25)] ring-1 ring-blue-500/30"
+                            : "bg-slate-900/60 border-slate-800/90 hover:border-slate-700 hover:bg-slate-900"
+                        }`}
+                      >
+                        <div className="flex items-center justify-between gap-1 mb-0.5 sm:mb-1">
+                          <span
+                            className={`text-[9px] sm:text-[10px] font-mono font-bold px-1 sm:px-1.5 py-0.5 rounded leading-none ${
+                              isSelected
+                                ? "bg-blue-600 text-white"
+                                : "bg-slate-800 text-slate-300 group-hover:text-white"
+                            }`}
+                          >
+                            {chapter.timestamp}
+                          </span>
+                          <span className="text-[8px] sm:text-[9px] font-mono font-semibold uppercase text-slate-400 hidden sm:inline">
+                            {chapter.tag}
+                          </span>
+                        </div>
+                        <p
+                          className={`text-[11px] sm:text-xs font-bold leading-tight line-clamp-1 ${
+                            isSelected ? "text-white" : "text-slate-200 group-hover:text-white"
+                          }`}
+                        >
+                          {chapter.title}
+                        </p>
+                        <p className="text-[10px] text-slate-400 line-clamp-1 mt-0.5 hidden sm:block">
+                          {chapter.highlight}
+                        </p>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
-            {/* Media Press Footnote */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-2 text-xs text-[#64748B]">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-[11px] font-bold uppercase text-[#071A4A]">
-                  Televised Networks:
-                </span>
-                <span className="font-mono text-[11px] text-[#475569] font-semibold">
-                  {media.broadcasters}
+            {/* Micro Caption Under Monitor */}
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-1.5 px-0.5 text-[10px] sm:text-[11px] text-[#64748B]">
+              <div className="flex items-center gap-1">
+                <span className="font-mono font-semibold text-[#081F38]">Coverage:</span>
+                <span className="font-mono text-[#475569]">
+                  ETV · TV5 · V5 · HYBIZ TV HD
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-slate-400">
-                Official Broadcast · 5:36 HD Telecast
+              <span className="font-mono text-slate-400 hidden sm:inline">
+                Verified Television Record
               </span>
             </div>
           </motion.div>
 
-          {/* Right Column: 3 Apple-Style Credibility & Verification Cards (Cols 8-12) */}
+          {/* ─── RIGHT: 3 GRAPHICAL VERIFICATION BLADES (Cols 8-12) ─── */}
           <motion.div
-            className="lg:col-span-5 space-y-3.5"
-            variants={prefersReduced ? undefined : cardsContainerVariants}
+            className="lg:col-span-5 flex flex-col gap-2.5 sm:gap-3.5"
+            variants={prefersReduced ? undefined : bladesContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            {/* Card 1: TASK Alignment */}
+            {/* Blade 1: TASK Collaboration (Government Alignment) */}
             <motion.div
-              variants={prefersReduced ? undefined : cardVariants}
-              whileHover={prefersReduced ? undefined : { y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
-              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light"
+              variants={prefersReduced ? undefined : bladeVariants}
+              whileHover={
+                prefersReduced
+                  ? undefined
+                  : { y: -2, transition: { duration: 0.2, ease: "easeOut" } }
+              }
+              className="rounded-xl sm:rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-3 sm:p-4.5 shadow-2xs hover:border-emerald-300 hover:shadow-sm transition-all duration-200"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E4EAF2] p-1.5 shadow-2xs">
+              <div className="flex items-start justify-between gap-2.5 mb-1.5 sm:mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-lg sm:rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-1 shadow-2xs">
                     <TaskRealLogo className="h-full w-full object-contain" />
                   </div>
                   <div>
-                    <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[#005B4F]">
-                      TASK COLLABORATION
+                    <span className="block font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#047857]">
+                      STATE GOVERNMENT ALIGNMENT
                     </span>
-                    <h3 className="font-sans text-sm font-bold text-[#071A4A] leading-snug">
-                      Inaugurated by TASK CEO Dr. Srikanth Sinha
+                    <h3 className="font-sans text-xs sm:text-sm font-bold text-[#081F38] leading-tight">
+                      Dr. Srikanth Sinha · CEO, TASK
                     </h3>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
+                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
                   <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                   Govt. of Telangana
                 </span>
               </div>
-              <p className="text-xs text-[#64748B] leading-relaxed">
-                Telangana Academy for Skill and Knowledge (Dept of ITE&amp;C) leadership formally
-                inaugurated the Arzon training facility to accelerate industry-ready clinical hiring across the state.
-              </p>
+
+              {/* Main Bullet Points (Minimal Text) */}
+              <ul className="space-y-1 text-[11px] sm:text-xs text-[#475569]">
+                <li className="flex items-start gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>
+                    Formally inaugurated Arzon Global&apos;s healthcare training center in Hyderabad as
+                    Chief Guest.
+                  </span>
+                </li>
+                <li className="flex items-start gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                  <span>
+                    Dept. of ITE&amp;C skilling mandate to fast-track Life Sciences &amp; Pharmacy
+                    graduates into global roles.
+                  </span>
+                </li>
+              </ul>
+
+              <div className="mt-2 sm:mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#64748B]">
+                <span>Dept. of ITE&amp;C Partnership</span>
+                <span className="text-emerald-700 font-bold">State Public Record</span>
+              </div>
             </motion.div>
 
-            {/* Card 2: Televised Press Broadcast */}
+            {/* Blade 2: 4-Network Televised Telecast (Mass Media) */}
             <motion.div
-              variants={prefersReduced ? undefined : cardVariants}
-              whileHover={prefersReduced ? undefined : { y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
-              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light"
+              variants={prefersReduced ? undefined : bladeVariants}
+              whileHover={
+                prefersReduced
+                  ? undefined
+                  : { y: -2, transition: { duration: 0.2, ease: "easeOut" } }
+              }
+              className="rounded-xl sm:rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-3 sm:p-4.5 shadow-2xs hover:border-blue-300 hover:shadow-sm transition-all duration-200"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E4EAF2] p-1.5 shadow-2xs">
-                    <HybizTvLogo className="h-6 w-auto" />
+              <div className="flex items-start justify-between gap-2.5 mb-1.5 sm:mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-lg sm:rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-1 shadow-2xs">
+                    <HybizTvLogo className="h-4.5 sm:h-5 w-auto" />
                   </div>
                   <div>
-                    <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[#2563EB]">
-                      MEDIA TELECAST
+                    <span className="block font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1D4ED8]">
+                      BROADCAST TELEVISION
                     </span>
-                    <h3 className="font-sans text-sm font-bold text-[#071A4A] leading-snug">
-                      Broadcast by HYBIZ TV HD &amp; Regional Channels
+                    <h3 className="font-sans text-xs sm:text-sm font-bold text-[#081F38] leading-tight">
+                      Simulcast on 4 Networks
                     </h3>
                   </div>
                 </div>
-                <span className="inline-flex items-center text-[10px] font-mono font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full border border-slate-200 shrink-0">
-                  697K+ Subscribers
+                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 shrink-0">
+                  <Radio className="h-3 w-3 text-blue-600" />
+                  697K+ Reach
                 </span>
               </div>
-              <p className="text-xs text-[#64748B] leading-relaxed">
-                Full ceremony covered by HYBIZ TV HD alongside ETV Telangana, TV5 News, and V5
-                News. Ground truth archived on the public record.
-              </p>
+
+              {/* 4-Network Matrix Chips (Compact on Mobile) */}
+              <div className="grid grid-cols-4 sm:grid-cols-2 gap-1 sm:gap-1.5 mb-2">
+                {BROADCAST_NETWORKS.map((net) => (
+                  <div
+                    key={net.name}
+                    className="flex items-center justify-between px-1.5 sm:px-2.5 py-1 rounded-md sm:rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[10px] sm:text-[11px]"
+                  >
+                    <span className="font-semibold text-[#081F38] sm:hidden">{net.short}</span>
+                    <span className="font-semibold text-[#081F38] hidden sm:inline">{net.name}</span>
+                    <span className="font-mono text-[9px] sm:text-[10px] text-[#64748B] hidden sm:inline">{net.tag}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t border-slate-100 pt-1.5 sm:pt-2 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#64748B]">
+                <span>5:36 HD Master Telecast</span>
+                <span className="text-[#1D4ED8] font-bold">Uncut Archive</span>
+              </div>
             </motion.div>
 
-            {/* Card 3: MSME UDYAM Enterprise Registration */}
+            {/* Blade 3: MSME Sovereign Standing (Govt of India) */}
             <motion.div
-              variants={prefersReduced ? undefined : cardVariants}
-              whileHover={prefersReduced ? undefined : { y: -4, transition: { duration: 0.25, ease: "easeOut" } }}
-              className="rounded-2xl border border-[#E4EAF2] bg-white p-5 space-y-3 shadow-xs hover:border-[#1557D6]/30 hover:shadow-md transition-all duration-300 tone-light card-light"
+              variants={prefersReduced ? undefined : bladeVariants}
+              whileHover={
+                prefersReduced
+                  ? undefined
+                  : { y: -2, transition: { duration: 0.2, ease: "easeOut" } }
+              }
+              className="rounded-xl sm:rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-3 sm:p-4.5 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all duration-200"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3.5">
-                  <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E4EAF2] p-1.5 shadow-2xs">
-                    <MsmeGovtLogo className="h-6 w-auto" />
+              <div className="flex items-start justify-between gap-2.5 mb-1.5 sm:mb-2.5">
+                <div className="flex items-center gap-2.5">
+                  <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-lg sm:rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-1 shadow-2xs">
+                    <MsmeGovtLogo className="h-5 sm:h-6 w-auto" />
                   </div>
                   <div>
-                    <span className="block font-mono text-[10px] font-bold uppercase tracking-wider text-[#071A4A]">
-                      ENTERPRISE STANDING
+                    <span className="block font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#4338CA]">
+                      SOVEREIGN REGISTRATION
                     </span>
-                    <h3 className="font-sans text-sm font-bold text-[#071A4A] leading-snug">
-                      MSME Registered Enterprise · Govt. of India
+                    <h3 className="font-sans text-xs sm:text-sm font-bold text-[#081F38] leading-tight">
+                      MSME Registered Enterprise
                     </h3>
                   </div>
                 </div>
-                <span className="inline-flex items-center text-[10px] font-mono font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 shrink-0">
-                  UDYAM Registered
+                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-bold text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200 shrink-0">
+                  <ShieldCheck className="h-3 w-3 text-indigo-600" />
+                  Govt. of India
                 </span>
               </div>
-              <p className="text-xs text-[#64748B] leading-relaxed">
-                Registered under the Ministry of Micro, Small and Medium Enterprises (MSME), Government of India.
-                Verifiable enterprise standing and open-ledger transparency.
+
+              <p className="text-[11px] sm:text-xs text-[#475569] leading-relaxed line-clamp-2 sm:line-clamp-none">
+                Registered under the Ministry of Micro, Small and Medium Enterprises (MSME). Open-ledger
+                transparency and sovereign enterprise identity.
               </p>
+
+              <div className="mt-2 sm:mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#64748B]">
+                <span>Ministry of MSME</span>
+                <span className="text-[#4338CA] font-bold">UDYAM Registered</span>
+              </div>
             </motion.div>
 
-            {/* Bottom Proof Actions */}
-            <div className="pt-2 flex flex-col sm:flex-row gap-3">
+            {/* Quick Action Navigation */}
+            <div className="pt-0.5 flex flex-row gap-2">
               <Link
                 to="/why-arzon"
-                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#071A4A] hover:bg-[#153270] text-white px-5 py-3.5 sm:py-3 text-xs font-bold transition-all shadow-sm active:scale-95"
+                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#081F38] hover:bg-[#153270] text-white px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs font-bold transition-all shadow-sm active:scale-[0.98]"
               >
-                <span>View All Verifications</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                <span>All Verifications</span>
+                <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               </Link>
-              <Link
-                to="/legal"
-                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E4EAF2] bg-white hover:bg-slate-50 text-[#071A4A] px-5 py-3.5 sm:py-3 text-xs font-bold transition-all tone-light card-light shadow-2xs active:scale-95"
+              <a
+                href={media.watch}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1 rounded-full border border-[#E2E8F0] bg-white tone-light card-light hover:bg-slate-50 text-[#081F38] px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs font-bold transition-all shadow-2xs active:scale-[0.98]"
               >
-                <ShieldCheck className="h-3.5 w-3.5 text-[#1557D6]" />
-                <span>Statutory Hub</span>
-              </Link>
+                <Tv className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#2563EB]" />
+                <span className="hidden xs:inline">YouTube</span>
+                <ExternalLink className="h-3 w-3 text-[#64748B]" />
+              </a>
             </div>
           </motion.div>
         </div>
+
+        {/* ─── BOTTOM FULL-WIDTH TELEMETRY RIBBON (Compact on Mobile) ─── */}
+        <motion.div
+          className="mt-6 sm:mt-10 lg:mt-12 rounded-xl sm:rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] tone-light card-light p-3.5 sm:p-5 lg:p-6 shadow-2xs"
+          initial={prefersReduced ? undefined : { opacity: 0, y: 12 }}
+          whileInView={prefersReduced ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 divide-y-0 sm:divide-x divide-slate-200">
+            {/* Metric 1 */}
+            <div className="sm:px-3 first:sm:pl-0">
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-[#64748B] block mb-0.5">
+                CHIEF GUEST
+              </span>
+              <p className="text-xs sm:text-base font-bold text-[#081F38]">Dr. Srikanth Sinha</p>
+              <p className="text-[10px] sm:text-xs text-[#475569] mt-0.5 line-clamp-1">
+                CEO, TASK · Govt of Telangana
+              </p>
+            </div>
+
+            {/* Metric 2 */}
+            <div className="sm:px-3">
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-[#64748B] block mb-0.5">
+                TV REACH
+              </span>
+              <p className="text-xs sm:text-base font-bold text-[#081F38]">4 Channels</p>
+              <p className="text-[10px] sm:text-xs text-[#475569] mt-0.5 line-clamp-1">
+                HYBIZ, ETV, TV5, V5
+              </p>
+            </div>
+
+            {/* Metric 3 */}
+            <div className="sm:px-3">
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-[#64748B] block mb-0.5">
+                AUDIENCE
+              </span>
+              <p className="text-xs sm:text-base font-bold text-[#081F38]">697,000+</p>
+              <p className="text-[10px] sm:text-xs text-[#475569] mt-0.5 line-clamp-1">
+                Uncut 5:36 HD Telecast
+              </p>
+            </div>
+
+            {/* Metric 4 */}
+            <div className="sm:px-3">
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold tracking-wider uppercase text-[#64748B] block mb-0.5">
+                SOVEREIGN ID
+              </span>
+              <p className="text-xs sm:text-base font-bold text-[#081F38]">UDYAM Registered</p>
+              <p className="text-[10px] sm:text-xs text-[#475569] mt-0.5 line-clamp-1">
+                Ministry of MSME, Govt. of India
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

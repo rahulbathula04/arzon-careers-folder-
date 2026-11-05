@@ -349,7 +349,7 @@ function PVAssociateBlueprintPage() {
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Talk to a Career Counsellor</span>
+                  <span>Talk to Experts</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
@@ -1149,7 +1149,7 @@ function PVAssociateBlueprintPage() {
               className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
             >
               <Phone className="w-4 h-4" />
-              <span>Talk to a Career Counsellor</span>
+              <span>Talk to Experts</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -1245,7 +1245,7 @@ function PVAssociateBlueprintPage() {
             onClick={() => openCounsellor("mobile_sticky")}
             className="px-5 py-2.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-sm transition-all active:scale-[0.98] cursor-pointer shrink-0"
           >
-            Talk to a Counsellor
+            Talk to Experts
           </button>
         </div>
       </div>
@@ -1295,7 +1295,7 @@ function PVAssociateBlueprintPage() {
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] font-mono text-[10px] font-bold uppercase tracking-wider">
                     ARZON CAREER ADVISORY · 1-ON-1 GUIDANCE
                   </span>
-                  <h3 className="text-2xl font-bold text-[#081F38]">Talk to a Career Counsellor</h3>
+                  <h3 className="text-2xl font-bold text-[#081F38]">Talk to Experts</h3>
                   <p className="text-xs text-[#64748B]">
                     Discuss your eligibility, current skill gaps and the 12-week Pharmacovigilance learning pathway.
                   </p>

@@ -544,7 +544,7 @@ function IndustryNetworkLeadPage() {
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
                 >
                   <Users className="w-4 h-4" />
-                  <span>Apply for Industry Network Lead</span>
+                  <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
@@ -554,7 +554,7 @@ function IndustryNetworkLeadPage() {
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white tone-light card-light border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
                 >
                   <Play className="w-4 h-4 text-[#2563EB] fill-[#2563EB]/20" />
-                  <span>Talk to a Campus Counsellor</span>
+                  <span>Talk to Experts</span>
                 </button>
               </div>
             </div>
@@ -669,7 +669,7 @@ function IndustryNetworkLeadPage() {
                   onClick={() => openApplyModal("section_02_role")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Apply for Industry Network Lead</span>
+                  <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -1023,7 +1023,7 @@ function IndustryNetworkLeadPage() {
               onClick={() => openApplyModal("section_04_quota")}
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
             >
-              <span>Apply for Your Batch Quota</span>
+              <span>Apply Now</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -1474,7 +1474,7 @@ function IndustryNetworkLeadPage() {
                     onClick={() => openApplyModal("section_07_dossier")}
                     className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
                   >
-                    <span>Apply for Industry Network Lead</span>
+                    <span>Apply Now</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -1855,7 +1855,7 @@ function IndustryNetworkLeadPage() {
                 onClick={() => openApplyModal("directorate_banner")}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
               >
-                <span>Apply for Industry Network Lead</span>
+                <span>Apply Now</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
@@ -1864,7 +1864,7 @@ function IndustryNetworkLeadPage() {
                 className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all cursor-pointer"
               >
                 <Phone className="w-4 h-4" />
-                <span>Talk to Counsellor</span>
+                <span>Talk to Experts</span>
               </button>
             </div>
           </div>
@@ -2005,11 +2005,11 @@ function IndustryNetworkLeadPage() {
               <form onSubmit={handleCounsellorSubmit} className="space-y-5">
                 <div className="space-y-2">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] font-mono text-[10px] font-bold uppercase tracking-wider">
-                    ARZON CAMPUS ADVISORY · 1-ON-1 GUIDANCE
+                    ARZON INDUSTRY ADVISORY · TALK TO EXPERTS
                   </span>
-                  <h3 className="text-2xl font-bold text-[#081F38]">Talk to a Campus Counsellor</h3>
+                  <h3 className="text-2xl font-bold text-[#081F38]">Talk to Experts</h3>
                   <p className="text-xs text-[#64748B]">
-                    Discuss your college quota, selection timeline, and the Industry Network Lead appointment.
+                    Connect directly with senior biopharma advisors regarding role expectations, college quota, and your career roadmap.
                   </p>
                 </div>
 
@@ -2193,7 +2193,7 @@ function IndustryNetworkLeadPage() {
                     <span>APPOINTMENT COHORT 2026 · QUICK APPLY</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-[#081F38] tracking-tight">
-                    Apply for Industry Network Lead
+                    Apply Now
                   </h2>
                   <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
                     Represent your college as an Industry Network Lead. Receive official Appointment Letter, Experience Certificate &amp; Director LOR.

@@ -145,7 +145,7 @@ export function ArzonHeader() {
                 data-testid="primary-career-cta"
                 className="inline-flex items-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold px-4 py-2 min-h-0 h-8 shadow-sm transition-all cursor-pointer active:scale-95 whitespace-nowrap shrink-0"
               >
-                <span>Talk to a counsellor</span>
+                <span>Talk to Experts</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -299,7 +299,7 @@ export function ArzonHeader() {
                     }}
                     className="w-full h-12 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
                   >
-                    <span>Talk to a counsellor</span>
+                    <span>Talk to Experts</span>
                     <ArrowRight className="h-4 w-4" />
                   </button>
                   <Link

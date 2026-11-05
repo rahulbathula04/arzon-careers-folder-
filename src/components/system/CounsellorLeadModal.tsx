@@ -204,7 +204,7 @@ export function CounsellorLeadModal() {
           window.open(`https://wa.me/${COUNSELLOR_PHONE}?text=${text}`, "_blank");
         } catch {}
       }
-      toast.success("Counsellor request submitted! Connecting on WhatsApp...");
+      toast.success("Request received! Connecting with an expert on WhatsApp...");
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit request. Please try again.");
     } finally {
@@ -266,7 +266,7 @@ export function CounsellorLeadModal() {
                 </div>
 
                 <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#081F38] leading-tight">
-                  Talk to a Healthcare Career Counsellor
+                  Talk to Experts
                 </h3>
 
                 <p className="mt-1.5 text-xs sm:text-sm text-[#64748B] leading-relaxed">
@@ -398,7 +398,7 @@ export function CounsellorLeadModal() {
                       <span>Connecting with Counsellor…</span>
                     ) : (
                       <>
-                        <span>Connect with Career Counsellor</span>
+                        <span>Talk to Experts</span>
                         <ArrowRight className="h-4 w-4 stroke-[2.2]" />
                       </>
                     )}

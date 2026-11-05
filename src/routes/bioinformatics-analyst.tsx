@@ -356,7 +356,7 @@ function BioinformaticsBlueprintPage() {
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Talk to a Career Counsellor</span>
+                  <span>Talk to Experts</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
@@ -1162,7 +1162,7 @@ function BioinformaticsBlueprintPage() {
           onClick={() => openCounsellor("mobile_dock")}
           className="flex-1 py-3 px-4 rounded-full bg-[#2563EB] text-white font-bold text-xs shadow-xs text-center cursor-pointer"
         >
-          Talk to a Counsellor
+          Talk to Experts
         </button>
         <a
           href={waMsg("Hi Arzon! I want to enquire about the Bioinformatics Analyst program.")}
@@ -1218,7 +1218,7 @@ function BioinformaticsBlueprintPage() {
                     DIRECT ADMISSIONS &amp; ELIGIBILITY
                   </div>
                   <h3 className="text-xl font-bold text-[#081F38] mt-1">
-                    Talk to a Career Counsellor
+                    Talk to Experts
                   </h3>
                   <p className="text-xs text-[#64748B] mt-1">
                     Evaluate your degree and background against current clinical genomics hiring criteria.

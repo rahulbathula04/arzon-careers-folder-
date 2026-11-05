@@ -43,16 +43,16 @@ export function HomeAssessmentComparison() {
         >
           {/* Top Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 rounded-full border border-[#BFDBFE] bg-[#EEF6FF] px-4 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-[#1D4ED8] mb-4 shadow-2xs">
-            <Compass className="h-3.5 w-3.5 text-[#2563EB]" />
+            <Compass className="h-3.5 w-3.5 text-[#1D4ED8]" />
             <span>INSTITUTIONAL CAREER ASSESSMENT • 100% FREE</span>
           </div>
 
           {/* Main Title (Exact Reference Match with Apple Calligraphy Flourish) */}
           <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-[1.18]">
             Not sure which healthcare role fits your degree? <br className="hidden sm:inline" />
-            <span className="text-[#2563EB]">Find your </span>
-            <span className="font-serif italic font-normal text-[#1D4ED8]">ideal path</span>
-            <span className="text-[#6366F1]"> in 6 minutes.</span>
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+              Find your ideal path in 6 minutes.
+            </span>
           </h2>
 
           {/* Subtitle */}
@@ -63,15 +63,15 @@ export function HomeAssessmentComparison() {
           {/* 3 Value Pills */}
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-xs font-medium text-[#334155]">
             <span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#E2E8F0] px-4 py-1.5 shadow-2xs tone-light card-light font-semibold">
-              <Clock className="h-3.5 w-3.5 text-[#2563EB]" />
+              <Clock className="h-3.5 w-3.5 text-[#1D4ED8]" />
               ~6 Minutes Diagnostic
             </span>
             <span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#E2E8F0] px-4 py-1.5 shadow-2xs tone-light card-light font-semibold">
-              <FileCheck2 className="h-3.5 w-3.5 text-[#2563EB]" />
+              <FileCheck2 className="h-3.5 w-3.5 text-[#0284C7]" />
               15 Clinical Scenarios
             </span>
             <span className="inline-flex items-center gap-2 rounded-full bg-white border border-[#E2E8F0] px-4 py-1.5 shadow-2xs tone-light card-light font-semibold">
-              <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
+              <Sparkles className="h-3.5 w-3.5 text-[#7C3AED]" />
               50+ Healthcare Careers Mapped
             </span>
           </div>
@@ -98,7 +98,7 @@ export function HomeAssessmentComparison() {
                 </span>
                 <h3 className="mt-2 text-xl sm:text-2xl font-bold text-[#081F38] tracking-tight leading-snug">
                   A data-driven diagnostic built for{" "}
-                  <span className="text-[#2563EB]">
+                  <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone] font-extrabold">
                     B.Pharm, Pharm.D, MBBS, BDS &amp; Life Sciences
                   </span>{" "}
                   graduates.
@@ -110,7 +110,7 @@ export function HomeAssessmentComparison() {
                 {/* Pillar 01 */}
                 <div className="flex items-start justify-between gap-3 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#BFDBFE] transition-colors">
                   <div className="flex items-start gap-3.5 min-w-0">
-                    <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] flex items-center justify-center shrink-0 shadow-2xs">
+                    <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#1D4ED8] flex items-center justify-center shrink-0 shadow-2xs">
                       <BarChart3 className="h-5 w-5" />
                     </div>
                     <div className="min-w-0">
@@ -120,7 +120,7 @@ export function HomeAssessmentComparison() {
                       </p>
                     </div>
                   </div>
-                  <span className="h-7 w-7 rounded-lg bg-[#EEF6FF] text-[#2563EB] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#BFDBFE]/60">
+                  <span className="h-7 w-7 rounded-lg bg-[#EEF6FF] text-[#1D4ED8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#BFDBFE]/60">
                     01
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export function HomeAssessmentComparison() {
                 <Link
                   to="/career-assessment"
                   data-fab-avoid
-                  className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white px-6 text-sm sm:text-base font-bold shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] whitespace-nowrap"
+                  className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white px-6 text-sm sm:text-base font-bold shadow-md shadow-blue-600/20 transition-all active:scale-[0.98] whitespace-nowrap"
                 >
                   <span>Start Free Assessment</span>
                   <ArrowRight className="h-4 w-4" />
@@ -180,7 +180,7 @@ export function HomeAssessmentComparison() {
                   onClick={() => openCounsellorModal({ source: "home_assessment_section" })}
                   className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-full bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#081F38] px-6 text-sm font-bold shadow-2xs transition-all active:scale-[0.98] tone-light card-light cursor-pointer whitespace-nowrap"
                 >
-                  <Users className="h-4 w-4 text-[#2563EB]" />
+                  <Users className="h-4 w-4 text-[#1D4ED8]" />
                   <span>Talk to Experts</span>
                 </button>
               </div>
@@ -458,7 +458,7 @@ export function HomeAssessmentComparison() {
             {/* Bottom 2 Metric Badges */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 p-6 sm:p-8 pt-0">
               <div className="rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] p-4 flex items-center gap-3.5 shadow-2xs">
-                <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] text-[#2563EB] font-bold text-lg flex items-center justify-center shrink-0 border border-[#BFDBFE]">
+                <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] text-[#1D4ED8] font-bold text-lg flex items-center justify-center shrink-0 border border-[#BFDBFE]">
                   ₹
                 </div>
                 <div>
@@ -506,7 +506,7 @@ export function HomeAssessmentComparison() {
             {/* Pathway Card 01: Pharmacovigilance */}
             <div className="rounded-2xl border border-[#E2E8F0] bg-white p-5 sm:p-6 shadow-2xs hover:shadow-md hover:border-[#BFDBFE] transition-all tone-light card-light flex flex-col justify-between">
               <div>
-                <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] text-[#2563EB] flex items-center justify-center mb-3.5 border border-[#BFDBFE]">
+                <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] text-[#1D4ED8] flex items-center justify-center mb-3.5 border border-[#BFDBFE]">
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <h4 className="text-base font-bold text-[#081F38] leading-snug">
@@ -522,7 +522,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/career-assessment"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] hover:text-[#1D4ED8] mt-5"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D4ED8] hover:text-[#081F38] mt-5"
               >
                 <span>Check compatibility in assessment</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -548,7 +548,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/career-assessment"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] hover:text-[#1D4ED8] mt-5"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D4ED8] hover:text-[#081F38] mt-5"
               >
                 <span>Check compatibility in assessment</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -574,7 +574,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/career-assessment"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] hover:text-[#1D4ED8] mt-5"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D4ED8] hover:text-[#081F38] mt-5"
               >
                 <span>Check compatibility in assessment</span>
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -600,7 +600,7 @@ export function HomeAssessmentComparison() {
 
               <Link
                 to="/career-assessment"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2563EB] hover:text-[#1D4ED8] mt-5"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1D4ED8] hover:text-[#081F38] mt-5"
               >
                 <span>Check compatibility in assessment</span>
                 <ArrowRight className="h-3.5 w-3.5" />

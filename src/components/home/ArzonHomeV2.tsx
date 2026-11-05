@@ -49,8 +49,12 @@ export function ArzonHomeV2() {
               className="text-[34px] min-[390px]:text-[38px] sm:text-[50px] md:text-[60px] lg:text-[68px] font-extrabold tracking-[-0.03em] text-[#081F38] leading-[1.12] sm:leading-[1.08] mb-3.5 sm:mb-5"
             >
               <span className="block">From Healthcare</span>
-              <span className="block">Graduate to</span>
-              <span className="block text-[#2563EB]">Industry Ready</span>
+              <span className="block font-serif italic font-medium tracking-normal text-[#081F38]">
+                Graduate to
+              </span>
+              <span className="block bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                Industry Ready.
+              </span>
             </motion.h1>
 
             {/* 3. Subtitle */}
@@ -74,21 +78,21 @@ export function ArzonHomeV2() {
                 to="/pv-associate"
                 className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] px-3.5 py-1.5 text-xs font-semibold text-[#081F38] transition-colors shadow-2xs"
               >
-                <Pill className="h-3.5 w-3.5 text-[#2563EB] rotate-45" />
+                <Pill className="h-3.5 w-3.5 text-[#1D4ED8] rotate-45" />
                 <span>Pharmacovigilance</span>
               </Link>
               <Link
                 to={"/courses/clinical-data-management" as any}
                 className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] px-3.5 py-1.5 text-xs font-semibold text-[#081F38] transition-colors shadow-2xs"
               >
-                <Database className="h-3.5 w-3.5 text-[#2563EB]" />
+                <Database className="h-3.5 w-3.5 text-[#0284C7]" />
                 <span>CDM</span>
               </Link>
               <Link
                 to={"/courses/regulatory-affairs" as any}
                 className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] px-3.5 py-1.5 text-xs font-semibold text-[#081F38] transition-colors shadow-2xs"
               >
-                <Shield className="h-3.5 w-3.5 text-[#2563EB]" />
+                <Shield className="h-3.5 w-3.5 text-[#7C3AED]" />
                 <span>Regulatory Affairs</span>
               </Link>
             </motion.div>
@@ -133,7 +137,7 @@ export function ArzonHomeV2() {
             >
               {/* Application Deadline */}
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] flex items-center justify-center shrink-0">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#1D4ED8] flex items-center justify-center shrink-0">
                   <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
                 <div className="text-left">
@@ -151,7 +155,7 @@ export function ArzonHomeV2() {
 
               {/* Cohort Starts */}
               <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] flex items-center justify-center shrink-0">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#1D4ED8] flex items-center justify-center shrink-0">
                   <Users className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
                 <div className="text-left">

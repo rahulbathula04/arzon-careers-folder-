@@ -40,7 +40,7 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     cardBg: "bg-gradient-to-r from-[#123BA5] via-[#1A4FD8] to-[#1E40AF]",
     isDark: true,
     buttonBg: "bg-white",
-    buttonText: "text-[#1557D6]",
+    buttonText: "text-[#1D4ED8]",
     link: "/pv-associate",
   },
   {
@@ -48,7 +48,7 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     badge: "Popular",
     badgeStyle: {
       bg: "bg-blue-50",
-      text: "text-[#2563EB]",
+      text: "text-[#1D4ED8]",
       border: "border-blue-200",
     },
     duration: "12 Weeks",
@@ -58,7 +58,7 @@ export const PRIORITY_TRACKS: PriorityTrack[] = [
     image: "/images/ai-coding.jpg",
     cardBg: "bg-[#F0F6FE] border border-blue-200/80",
     isDark: false,
-    buttonBg: "bg-[#1557D6]",
+    buttonBg: "bg-[#1D4ED8]",
     buttonText: "text-white",
     link: "/courses/medical-coding",
   },
@@ -143,7 +143,7 @@ export function HomePriorityTracks() {
             </div>
             <h2 className="text-[32px] min-[390px]:text-[36px] sm:text-[42px] font-sans font-extrabold text-[#081F38] tracking-tight leading-[1.12]">
               Explore Career<br className="sm:hidden" /> Tracks in{" "}
-              <span className="text-[#2563EB]">
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
                 Healthcare
               </span>
             </h2>
@@ -154,7 +154,7 @@ export function HomePriorityTracks() {
 
           <Link
             to="/courses"
-            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white px-6 py-3 text-sm font-bold transition-all shadow-sm shrink-0 active:scale-[0.98]"
+            className="hidden md:inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white px-6 py-3 text-sm font-bold transition-all shadow-sm shrink-0 active:scale-[0.98]"
           >
             <span>View all programmes</span>
             <ArrowRight className="h-4 w-4" />
@@ -259,7 +259,7 @@ export function HomePriorityTracks() {
               onClick={() => scrollToIndex(idx)}
               className={`transition-all duration-300 rounded-full cursor-pointer ${
                 activeTrackIndex === idx
-                  ? "w-5 h-2 bg-[#2563EB]"
+                  ? "w-6 h-2 bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED]"
                   : "w-2 h-2 bg-slate-300 hover:bg-slate-400"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
@@ -271,7 +271,7 @@ export function HomePriorityTracks() {
         <div className="mt-5 md:hidden">
           <Link
             to="/courses"
-            className="w-full h-13 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-white font-bold text-base shadow-md shadow-blue-700/20 active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full h-13 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white font-bold text-base shadow-md shadow-blue-600/20 active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer"
           >
             <span>View All Programmes</span>
             <ArrowRight className="h-4 w-4" />

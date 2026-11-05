@@ -163,13 +163,13 @@ export function HomeAssessmentComparison() {
               </div>
             </div>
 
-            {/* CTAs & Trust Badges: Apple Precision Layout */}
-            <div className="pt-6 mt-6 border-t border-[#F1F5F9] space-y-3.5">
-              <div className="flex flex-col min-[420px]:flex-row lg:flex-col xl:flex-row items-stretch gap-2.5">
+            {/* CTAs & Trust Badges: Apple Precision Layout (Full-Width Anti-Wrap Stack) */}
+            <div className="pt-6 mt-6 border-t border-[#F1F5F9] space-y-3">
+              <div className="flex flex-col gap-2.5 w-full">
                 <Link
                   to="/career-assessment"
                   data-fab-avoid
-                  className="flex-1 h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white px-5 text-sm font-bold shadow-sm transition-all active:scale-[0.98] whitespace-nowrap"
+                  className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] text-white px-6 text-sm sm:text-base font-bold shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] whitespace-nowrap"
                 >
                   <span>Start Free Assessment</span>
                   <ArrowRight className="h-4 w-4" />
@@ -178,29 +178,27 @@ export function HomeAssessmentComparison() {
                 <button
                   type="button"
                   onClick={() => openCounsellorModal({ source: "home_assessment_section" })}
-                  className="h-12 inline-flex items-center justify-center gap-2 rounded-full bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#081F38] px-5 text-sm font-bold shadow-2xs transition-all active:scale-[0.98] tone-light card-light cursor-pointer whitespace-nowrap"
+                  className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-full bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#081F38] px-6 text-sm font-bold shadow-2xs transition-all active:scale-[0.98] tone-light card-light cursor-pointer whitespace-nowrap"
                 >
                   <Users className="h-4 w-4 text-[#2563EB]" />
                   <span>Talk to Experts</span>
                 </button>
               </div>
 
-              {/* Trust Indicators: Centered, Bullet-Protected, Never Orphaned */}
-              <div className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1.5 text-xs text-[#64748B] pt-1 text-center">
-                <span className="inline-flex items-center gap-1.5 font-semibold text-[#081F38]">
+              {/* Trust Indicators: 3 Clean Micro-Pill Cards (Zero Dangling Pipes, Never Wrap) */}
+              <div className="grid grid-cols-3 gap-2 pt-1 text-center">
+                <div className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-slate-50 border border-slate-200/60 text-[11px] font-semibold text-[#081F38]">
                   <CheckCircle2 className="h-3.5 w-3.5 text-[#10B981] shrink-0" />
-                  100% Free
-                </span>
-                <span className="text-slate-300 hidden sm:inline" aria-hidden="true">•</span>
-                <span className="inline-flex items-center gap-1.5 font-medium">
+                  <span className="truncate">100% Free</span>
+                </div>
+                <div className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-slate-50 border border-slate-200/60 text-[11px] font-medium text-slate-700">
                   <CreditCard className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                  No Card Required
-                </span>
-                <span className="text-slate-300 hidden sm:inline" aria-hidden="true">•</span>
-                <span className="inline-flex items-center gap-1.5 font-medium">
+                  <span className="truncate">No Card</span>
+                </div>
+                <div className="flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg bg-slate-50 border border-slate-200/60 text-[11px] font-medium text-slate-700">
                   <Download className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                  Instant PDF Report
-                </span>
+                  <span className="truncate">Instant PDF</span>
+                </div>
               </div>
             </div>
           </motion.div>

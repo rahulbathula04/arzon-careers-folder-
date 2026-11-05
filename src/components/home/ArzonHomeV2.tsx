@@ -1,7 +1,6 @@
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Calendar, CheckCircle2, Database, Pill, Shield, Users } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
-import { Marquee } from "@/components/magicui/marquee";
 import { HomePriorityTracks } from "@/components/home/HomePriorityTracks";
 import { HomeAssessmentComparison } from "@/components/home/HomeAssessmentComparison";
 import { HomeJourneyRoadmap } from "@/components/home/HomeJourneyRoadmap";
@@ -13,24 +12,13 @@ import { HomeIndustryNetworkSection } from "@/components/home/HomeIndustryNetwor
 import { HomeClosingBanner } from "@/components/home/HomeClosingBanner";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
-const HERO_PROGRAMS = [
-  "Pharmacovigilance (PV)",
-  "Clinical Data Management (CDM)",
-  "Clinical Research (CRC/CRA)",
-  "Regulatory Affairs (RA)",
-  "Medical Writing",
-  "Health Informatics",
-  "QA / QC Validation",
-];
-
 export function ArzonHomeV2() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <div className="arzon-premium-home bg-white tone-light card-light">
-      {/* ─── SECTION 1: HERO (HEALTHCARE CAREER READINESS & PREVIEW) ───────────── */}
-      <section className="relative overflow-hidden bg-white pt-10 sm:pt-16 pb-14 sm:pb-20 border-b border-[#E4EAF2] tone-light card-light">
-
+      {/* ─── SECTION 1: HERO (HEALTHCARE CAREER DISCOVERY & SKILL READINESS) ───── */}
+      <section className="relative overflow-hidden bg-white pt-6 sm:pt-14 pb-10 sm:pb-20 border-b border-[#E4EAF2] tone-light card-light">
         {/* Ambient Radial Accent */}
         <div
           className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.06),rgba(255,255,255,0))] pointer-events-none"
@@ -38,170 +26,143 @@ export function ArzonHomeV2() {
         />
 
         <div className="ap-shell relative z-10">
-          <div className="mx-auto flex max-w-5xl xl:max-w-6xl flex-col items-center text-center">
-            {/* Clear Healthcare Eyebrow */}
+          <div className="max-w-xl sm:max-w-3xl lg:max-w-4xl mx-auto flex flex-col items-start text-left sm:items-center sm:text-center px-1 sm:px-4">
+            {/* 1. Healthcare Career Discovery Eyebrow Pill */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-flex items-center gap-2 rounded-full border border-[#BFDBFE] bg-[#EEF6FF]/95 backdrop-blur-xs px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-mono font-bold tracking-wider uppercase text-[#1D4ED8] shadow-2xs mb-4 sm:mb-6"
+              className="inline-flex items-center gap-2 rounded-full border border-[#BFDBFE] bg-[#EEF6FF] px-3.5 sm:px-4 py-1.5 text-xs font-semibold text-[#1D4ED8] shadow-2xs mb-4 sm:mb-6"
             >
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
               </span>
-              <span className="hidden sm:inline">HEALTHCARE CAREER DISCOVERY &amp; SKILL READINESS</span>
-              <span className="sm:hidden">HEALTHCARE CAREER DISCOVERY</span>
+              <span>Healthcare Career Discovery</span>
             </motion.div>
 
-            {/* High-Impact Typography Scale (Strict 2-Line Mobile & Large Screens) with Apple Calligraphy Flourish */}
+            {/* 2. High-Impact Headline */}
             <motion.h1
               initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[25px] min-[375px]:text-[28px] min-[414px]:text-[31px] sm:text-[46px] md:text-[56px] lg:text-[66px] xl:text-[72px] font-extrabold tracking-[-0.03em] text-[#081F38] leading-[1.18] sm:leading-[1.05] max-w-5xl mx-auto mb-4 sm:mb-6 px-3 sm:px-1"
+              className="text-[34px] min-[390px]:text-[38px] sm:text-[50px] md:text-[60px] lg:text-[68px] font-extrabold tracking-[-0.03em] text-[#081F38] leading-[1.12] sm:leading-[1.08] mb-3.5 sm:mb-5"
             >
-              <span className="block">
-                Turn your healthcare degree
-              </span>
-              <span className="block mt-1.5 sm:mt-2">
-                into an{" "}
-                <span className="font-serif italic font-normal text-[#1D4ED8] tracking-normal">industry-ready</span>{" "}
-                <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
-                  career.
-                </span>
-              </span>
+              <span className="block">From Healthcare</span>
+              <span className="block">Graduate to</span>
+              <span className="block text-[#2563EB]">Industry Ready</span>
             </motion.h1>
 
-            {/* Arzon Slate Gray Subtitle */}
+            {/* 3. Subtitle */}
             <motion.p
               initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[15px] sm:text-lg md:text-[19px] text-[#475569] leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-8 px-2 sm:px-4 font-normal"
+              className="text-[15px] sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-5 sm:mb-7 font-normal"
             >
-              We analyse real employer job descriptions to identify your exact skill gaps, build practical work samples, and guide you into Pharmacovigilance, CDM, and Regulatory Affairs.
+              Practical training, real projects and internships in high-demand healthcare roles.
             </motion.p>
 
-            {/* Healthcare Programmes Marquee Ticker Pill */}
+            {/* 4. Three Track Pills (Pharmacovigilance, CDM, Regulatory Affairs) */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-sm sm:max-w-2xl mx-auto mb-6 sm:mb-8 px-1"
+              transition={{ duration: 0.5, delay: 0.22 }}
+              className="flex flex-wrap items-center justify-start sm:justify-center gap-2 mb-6 sm:mb-8 w-full"
             >
-              <div className="flex items-center gap-2 sm:gap-3 py-1 sm:py-1.5 px-2.5 sm:px-3 rounded-full border border-[#E2E8F0] bg-white tone-light card-light shadow-2xs overflow-hidden">
-                <span className="shrink-0 text-[9.5px] sm:text-[11px] font-mono font-bold tracking-wider uppercase text-[#2563EB] bg-[#EEF6FF] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full border border-[#D0E1FD]">
-                  PROGRAMMES
-                </span>
-                <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-                  <Marquee className="py-0 [--gap:0.75rem] [--duration:28s]" pauseOnHover repeat={4}>
-                    {HERO_PROGRAMS.map((prog) => (
-                      <span
-                        key={prog}
-                        className="inline-flex items-center text-[11px] sm:text-xs font-semibold text-[#081F38] bg-[#F8FAFC] hover:bg-[#EEF6FF] px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-[#E2E8F0] transition-colors whitespace-nowrap cursor-default"
-                      >
-                        {prog}
-                      </span>
-                    ))}
-                  </Marquee>
-                </div>
-              </div>
+              <Link
+                to="/pv-associate"
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] px-3.5 py-1.5 text-xs font-semibold text-[#081F38] transition-colors shadow-2xs"
+              >
+                <Pill className="h-3.5 w-3.5 text-[#2563EB] rotate-45" />
+                <span>Pharmacovigilance</span>
+              </Link>
+              <Link
+                to={"/courses/clinical-data-management" as any}
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] px-3.5 py-1.5 text-xs font-semibold text-[#081F38] transition-colors shadow-2xs"
+              >
+                <Database className="h-3.5 w-3.5 text-[#2563EB]" />
+                <span>CDM</span>
+              </Link>
+              <Link
+                to={"/courses/regulatory-affairs" as any}
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-[#F8FAFC] hover:bg-[#EEF6FF] hover:border-[#BFDBFE] px-3.5 py-1.5 text-xs font-semibold text-[#081F38] transition-colors shadow-2xs"
+              >
+                <Shield className="h-3.5 w-3.5 text-[#2563EB]" />
+                <span>Regulatory Affairs</span>
+              </Link>
             </motion.div>
 
-            {/* Dual-Entry Conversion Architecture (Career Intelligence + Connect With an Expert) */}
+            {/* 5. CTAs: Primary Explore My Career Path + Secondary WhatsApp Talk to Experts */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-3.5 mb-6 sm:mb-8 w-full sm:max-w-none mx-auto px-2 sm:px-0"
+              transition={{ duration: 0.5, delay: 0.28 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start sm:justify-center gap-3 w-full sm:w-auto mb-6 sm:mb-8"
             >
-              {/* Primary Visual CTA: Career Intelligence */}
-              <motion.div
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="w-full sm:w-auto"
+              {/* Primary Visual CTA */}
+              <Link
+                to="/career-assessment"
+                data-testid="primary-career-intelligence-cta"
+                className="w-full sm:w-auto h-12.5 sm:h-13 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-7 text-[15px] sm:text-base font-bold shadow-md shadow-slate-900/10 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
               >
-                <Link
-                  to="/career-assessment"
-                  data-testid="primary-career-intelligence-cta"
-                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 text-sm sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group cursor-pointer active:scale-95 whitespace-nowrap"
-                >
-                  <span>Explore My Career Path</span>
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
+                <span>Explore My Career Path</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
 
-              {/* Secondary Visual CTA: Talk to Experts */}
-              <motion.div
-                whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                className="w-full sm:w-auto"
+              {/* Secondary Visual CTA (WhatsApp Talk to Experts) */}
+              <button
+                type="button"
+                onClick={() => openCounsellorModal({ source: "home_hero_expert" })}
+                data-testid="secondary-expert-cta"
+                className="w-full sm:w-auto h-12.5 sm:h-13 inline-flex items-center justify-center gap-2.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-[#081F38] px-7 text-[15px] sm:text-base font-bold shadow-2xs active:scale-[0.98] transition-all cursor-pointer tone-light card-light whitespace-nowrap"
               >
-                <button
-                  type="button"
-                  onClick={() => openCounsellorModal({ source: "home_hero_expert" })}
-                  data-testid="secondary-expert-cta"
-                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 text-sm sm:text-base font-bold transition-all shadow-2xs group cursor-pointer active:scale-95 whitespace-nowrap"
-                >
-                  <span>Talk to Experts</span>
-                  <ArrowRight className="h-4 w-4 text-[#2563EB] group-hover:translate-x-0.5 transition-transform" />
-                </button>
-              </motion.div>
+                <svg className="h-5 w-5 text-[#25D366] shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-10.416c-5.522 0-10 4.477-10 10 0 1.76.459 3.414 1.261 4.862l-1.34 4.898 5.023-1.317c1.405.766 3.008 1.197 4.71 1.197 5.523 0 10-4.477 10-10 0-5.522-4.477-10-10-10z" />
+                </svg>
+                <span>Talk to Experts</span>
+              </button>
             </motion.div>
 
-            {/* 1-Tap Degree Relevance Selector for Healthcare Graduates */}
-            <motion.div
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.32 }}
-              className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-3.5 max-w-2xl mx-auto px-2"
-            >
-              <span className="w-full sm:w-auto text-center sm:text-left text-[11px] font-mono font-bold uppercase tracking-wider text-[#64748B] mb-0.5 sm:mb-0 sm:mr-1">
-                Select Your Degree:
-              </span>
-              {[
-                { label: "B.Pharm", to: "/degrees/bpharm" },
-                { label: "Pharm.D", to: "/degrees/pharmd" },
-                { label: "Life Sciences (B.Sc/M.Sc)", to: "/degrees/bsc-lifesciences" },
-                { label: "BDS / Allied Health", to: "/degrees/allied-health" },
-              ].map((deg) => (
-                <Link
-                  key={deg.to}
-                  to={deg.to as any}
-                  className="inline-flex items-center gap-1 rounded-full bg-white border border-[#CBD5E1] hover:border-[#2563EB] hover:text-[#2563EB] text-[#081F38] text-[11px] sm:text-xs font-bold px-3 py-1 transition-all shadow-2xs tone-light card-light active:scale-95"
-                >
-                  <span>{deg.label}</span>
-                  <ArrowRight className="h-2.5 w-2.5 opacity-60" />
-                </Link>
-              ))}
-            </motion.div>
-
-            {/* Value Checkpoints: Responsive Wrapped Badges */}
+            {/* 6. Cohort Information Metadata Row (Application Deadline & Cohort Starts) */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.34 }}
-              className="flex flex-wrap items-center justify-center gap-2 sm:gap-6 lg:gap-8 pt-2 sm:pt-3 w-full max-w-full sm:max-w-4xl mx-auto px-2"
+              className="w-full max-w-xl pt-5 sm:pt-6 border-t border-slate-100 flex items-center justify-between sm:justify-center sm:gap-10"
             >
-              {[
-                "Real job description insights",
-                "Role-specific skill gaps",
-                "Practical work samples",
-              ].map((text, idx) => (
-                <motion.div
-                  key={text}
-                  initial={shouldReduceMotion ? false : { opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: 0.36 + idx * 0.08 }}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 text-[11.5px] sm:text-[14px] font-semibold text-[#1E293B] shrink-0 bg-slate-50 sm:bg-transparent px-2.5 sm:px-0 py-1 sm:py-0 rounded-full border border-slate-200/60 sm:border-0"
-                >
-                  <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#10B981] shrink-0" />
-                  <span>{text}</span>
-                </motion.div>
-              ))}
+              {/* Application Deadline */}
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] flex items-center justify-center shrink-0">
+                  <Calendar className="h-4 w-4 sm:h-5 sm:w-5" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10.5px] sm:text-[11px] font-medium text-[#64748B] leading-tight">
+                    Application Deadline
+                  </span>
+                  <span className="block text-xs sm:text-sm font-bold text-[#081F38] mt-0.5">
+                    4 November 2026
+                  </span>
+                </div>
+              </div>
+
+              {/* Vertical Divider */}
+              <div className="h-8 w-px bg-slate-200 shrink-0" aria-hidden="true" />
+
+              {/* Cohort Starts */}
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] flex items-center justify-center shrink-0">
+                  <Users className="h-4 w-4 sm:h-5 sm:w-5" />
+                </div>
+                <div className="text-left">
+                  <span className="block text-[10.5px] sm:text-[11px] font-medium text-[#64748B] leading-tight">
+                    Cohort Starts
+                  </span>
+                  <span className="block text-xs sm:text-sm font-bold text-[#081F38] mt-0.5">
+                    11 November 2026
+                  </span>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

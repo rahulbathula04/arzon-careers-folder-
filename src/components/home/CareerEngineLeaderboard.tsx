@@ -116,8 +116,8 @@ export function CareerEngineLeaderboard() {
               <span>CANDIDATE HEALTHCARE ROLE READINESS ARENA · 2026</span>
             </div>
             <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
-              Top verified candidates.<br />
-              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+              Top verified candidates.<br className="hidden sm:inline" />{" "}
+              <span className="font-serif italic font-normal text-[#2563EB]">
                 One place to see where you stand.
               </span>
             </h2>

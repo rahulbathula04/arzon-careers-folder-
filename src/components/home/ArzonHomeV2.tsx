@@ -54,7 +54,7 @@ export function ArzonHomeV2() {
               <span className="sm:hidden">HEALTHCARE CAREER DISCOVERY</span>
             </motion.div>
 
-            {/* High-Impact Typography Scale (Strict 2-Line Mobile & Large Screens) */}
+            {/* High-Impact Typography Scale (Strict 2-Line Mobile & Large Screens) with Apple Calligraphy Flourish */}
             <motion.h1
               initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -66,8 +66,9 @@ export function ArzonHomeV2() {
               </span>
               <span className="block mt-1.5 sm:mt-2">
                 into an{" "}
+                <span className="font-serif italic font-normal text-[#1D4ED8] tracking-normal">industry-ready</span>{" "}
                 <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
-                  <span className="inline-block">industry-ready</span> <span className="inline-block">career.</span>
+                  career.
                 </span>
               </span>
             </motion.h1>
@@ -125,7 +126,7 @@ export function ArzonHomeV2() {
                 <Link
                   to="/career-assessment"
                   data-testid="primary-career-intelligence-cta"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group cursor-pointer active:scale-95"
+                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 text-sm sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group cursor-pointer active:scale-95 whitespace-nowrap"
                 >
                   <span>Explore My Career Path</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -143,7 +144,7 @@ export function ArzonHomeV2() {
                   type="button"
                   onClick={() => openCounsellorModal({ source: "home_hero_expert" })}
                   data-testid="secondary-expert-cta"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-2xs group cursor-pointer active:scale-95"
+                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 text-sm sm:text-base font-bold transition-all shadow-2xs group cursor-pointer active:scale-95 whitespace-nowrap"
                 >
                   <span>Talk to Experts</span>
                   <ArrowRight className="h-4 w-4 text-[#2563EB] group-hover:translate-x-0.5 transition-transform" />
@@ -158,7 +159,7 @@ export function ArzonHomeV2() {
               transition={{ duration: 0.5, delay: 0.32 }}
               className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-3.5 max-w-2xl mx-auto px-2"
             >
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#64748B] mr-1">
+              <span className="w-full sm:w-auto text-center sm:text-left text-[11px] font-mono font-bold uppercase tracking-wider text-[#64748B] mb-0.5 sm:mb-0 sm:mr-1">
                 Select Your Degree:
               </span>
               {[

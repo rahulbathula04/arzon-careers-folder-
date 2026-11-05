@@ -34,9 +34,9 @@ export function HomeIndustryNetworkSection() {
             <span>CAMPUS LEADERSHIP · ARZON GLOBAL INDUSTRY NETWORK</span>
           </div>
 
-          <h2 className="text-2xl min-[375px]:text-3xl sm:text-4xl lg:text-[44px] font-serif font-bold text-[#081F38] tracking-tight leading-tight">
+          <h2 className="text-2xl min-[375px]:text-3xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
             Build Your Industry Connections{" "}
-            <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+            <span className="font-serif italic font-normal text-[#2563EB]">
               Before You Graduate.
             </span>
           </h2>
@@ -107,7 +107,7 @@ export function HomeIndustryNetworkSection() {
                         {item.badge}
                       </span>
                     </div>
-                    <h3 className="font-serif text-base font-bold text-[#081F38]">
+                    <h3 className="font-sans text-base font-bold text-[#081F38]">
                       {item.title}
                     </h3>
                     <p className="text-xs text-[#64748B] leading-relaxed">
@@ -177,7 +177,7 @@ export function HomeIndustryNetworkSection() {
             <p className="font-mono text-xs font-bold uppercase tracking-wider text-[#1D4ED8]">
               REPRESENT YOUR INSTITUTION
             </p>
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#081F38]">
+            <h3 className="font-sans text-xl sm:text-2xl font-bold text-[#081F38]">
               Ready to represent your college and build your career?
             </h3>
             <p className="text-xs text-[#475569]">

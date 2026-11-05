@@ -104,7 +104,7 @@ export function HomeClosingBanner() {
                 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight sm:leading-[1.12]"
               >
                 Build Skills You Can{" "}
-                <span className="bg-gradient-to-r from-[#60A5FA] via-[#38BDF8] to-[#A78BFA] bg-clip-text text-transparent [box-decoration-break:clone]">
+                <span className="font-serif italic font-normal text-[#60A5FA]">
                   Demonstrate.
                 </span>
               </motion.h2>
@@ -116,27 +116,27 @@ export function HomeClosingBanner() {
                 Explore healthcare roles, understand the requirements and prepare with practical, role-specific learning.
               </motion.p>
 
-              {/* CTAs - Mobile full-width touch ergonomics */}
+              {/* CTAs - Apple Touch Ergonomics: Start Free Assessment (Primary) + Talk to Experts (Secondary) */}
               <motion.div
                 variants={prefersReduced ? undefined : itemVariants}
                 className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
               >
+                <Link
+                  to="/career-assessment"
+                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 text-xs sm:text-sm font-extrabold transition-all shadow-md group active:scale-[0.98]"
+                >
+                  <span>Start Free Assessment</span>
+                  <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+
                 <button
                   type="button"
                   onClick={() => openCounsellorModal({ source: "home_closing_banner" })}
-                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 text-xs sm:text-sm font-extrabold transition-all shadow-md group active:scale-[0.98] cursor-pointer"
+                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white px-6 text-xs sm:text-sm font-bold transition-all backdrop-blur-xs active:scale-[0.98] cursor-pointer"
                 >
                   <PhoneCall className="h-4 w-4 text-white" />
-                  <span>Talk to a counsellor</span>
-                  <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
+                  <span>Talk to Experts</span>
                 </button>
-
-                <Link
-                  to="/career-assessment"
-                  className="w-full sm:w-auto h-12 inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white px-6 text-xs sm:text-sm font-bold transition-all backdrop-blur-xs active:scale-[0.98]"
-                >
-                  <span>Take free career assessment</span>
-                </Link>
               </motion.div>
             </motion.div>
 

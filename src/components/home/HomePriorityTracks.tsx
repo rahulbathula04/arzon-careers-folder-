@@ -113,7 +113,7 @@ export function HomePriorityTracks() {
             </div>
             <h2 className="text-2xl sm:text-3xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
               Explore Career Tracks in{" "}
-              <span className="bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+              <span className="font-serif italic font-normal text-[#2563EB]">
                 Healthcare
               </span>
             </h2>
@@ -207,7 +207,7 @@ export function HomePriorityTracks() {
 
                 {/* Card Body */}
                 <div className="p-4 sm:p-5 space-y-2.5 sm:space-y-3">
-                  <h3 className="font-sans text-base font-bold text-[#071A4A] leading-snug group-hover:text-[#1557D6] transition-colors line-clamp-2">
+                  <h3 className="font-sans text-base font-bold text-[#071A4A] leading-snug group-hover:text-[#1557D6] transition-colors line-clamp-2 min-h-[2.5rem]">
                     {track.title}
                   </h3>
                   <p className="text-xs text-[#64748B] leading-relaxed line-clamp-3">
@@ -228,19 +228,19 @@ export function HomePriorityTracks() {
                 </div>
               </div>
 
-              {/* Card Footer Actions: Dual-Entry Conversion (Explore career fit + Ask an expert) */}
-              <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between gap-2 border-t border-[#F1F5F9]">
+              {/* Card Footer Actions: Apple Precision Dual Actions */}
+              <div className="px-3.5 pb-3.5 sm:px-4 sm:pb-4 pt-3 flex items-center gap-1.5 sm:gap-2 border-t border-[#F1F5F9]">
                 <Link
-                  to="/career-assessment"
-                  className="inline-flex items-center justify-center gap-1 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-3 sm:px-3.5 py-1.5 text-xs font-bold shadow-xs transition-all active:scale-95 whitespace-nowrap"
+                  to={track.link as any}
+                  className="flex-1 h-9 inline-flex items-center justify-center gap-1 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-[11px] sm:text-xs font-bold transition-all shadow-2xs active:scale-[0.98] whitespace-nowrap px-2 sm:px-3"
                 >
-                  <span>Explore career fit</span>
+                  <span>Explore Track</span>
                   <ArrowRight className="h-3 w-3" />
                 </Link>
                 <button
                   type="button"
                   onClick={() => openCounsellorModal({ programme: track.title, source: "track_card_ask_expert" })}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#64748B] hover:text-[#081F38] transition-colors cursor-pointer py-1.5 px-2 whitespace-nowrap"
+                  className="h-9 inline-flex items-center justify-center gap-1 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 transition-all active:scale-[0.98] tone-light card-light whitespace-nowrap shrink-0"
                 >
                   <span>Talk to Experts</span>
                 </button>

@@ -120,7 +120,7 @@ export function HomeAssessmentComparison() {
 
           {/* 7. Streamlined Dossier Outcome Card (Progressive Disclosure) */}
           <div className="rounded-2xl border border-[#E2E8F0] bg-white shadow-sm tone-light card-light overflow-hidden mt-7 text-left">
-            <div className="bg-[#2563EB] px-4 py-3 flex items-center justify-between text-white">
+            <div className="bg-gradient-to-r from-[#081F38] via-[#0D2847] to-[#1E3A8A] px-4 py-3 flex items-center justify-between text-white">
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
                 DIAGNOSTIC DOSSIER PREVIEW
               </span>
@@ -344,7 +344,7 @@ export function HomeAssessmentComparison() {
                 <Link
                   to="/career-assessment"
                   data-fab-avoid
-                  className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white px-6 text-sm sm:text-base font-bold shadow-md shadow-blue-600/20 transition-all active:scale-[0.98] whitespace-nowrap"
+                  className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-6 text-sm sm:text-base font-bold shadow-md shadow-slate-900/10 transition-all active:scale-[0.98] whitespace-nowrap cursor-pointer"
                 >
                   <span>Start Free Assessment</span>
                   <ArrowRight className="h-4 w-4" />
@@ -402,7 +402,7 @@ export function HomeAssessmentComparison() {
             className="lg:col-span-7 flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-[#E2E8F0] bg-white shadow-[0_2px_16px_rgba(8,31,56,0.04)] tone-light card-light overflow-hidden relative"
           >
             {/* Top Royal Blue Dossier Header Strip */}
-            <div className="bg-[#2563EB] px-6 py-3.5 flex items-center justify-between text-white">
+            <div className="bg-gradient-to-r from-[#081F38] via-[#0D2847] to-[#1E3A8A] px-6 py-3.5 flex items-center justify-between text-white">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-white" />
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
@@ -577,7 +577,7 @@ export function HomeAssessmentComparison() {
                         <span className="font-mono font-bold text-xs text-[#081F38] shrink-0">94%</span>
                       </div>
                       <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-[#2563EB] rounded-full transition-all duration-1000" style={{ width: "94%" }} />
+                        <div className="h-full bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] rounded-full transition-all duration-1000" style={{ width: "94%" }} />
                       </div>
                     </div>
 

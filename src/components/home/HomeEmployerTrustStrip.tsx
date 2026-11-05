@@ -334,7 +334,7 @@ export function HomeEmployerTrustStrip() {
 
             <Link
               to={"/research" as any}
-              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-95"
+              className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-5 py-2.5 text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
             >
               <span>Explore full research report</span>
               <ArrowRight className="h-4 w-4" />
@@ -634,7 +634,7 @@ export function HomeEmployerTrustStrip() {
                   <div className="pt-2 border-t border-[#F1F5F9] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                     <Link
                       to="/career-engine/start"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-6 py-3 text-xs sm:text-sm font-bold transition-all shadow-sm cursor-pointer"
                     >
                       <span>Take diagnostic assessment</span>
                       <ArrowRight className="h-4 w-4" />

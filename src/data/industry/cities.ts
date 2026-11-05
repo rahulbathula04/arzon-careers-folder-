@@ -3,9 +3,20 @@
  * living) multiplier vs Hyderabad baseline, and a hiring-density note we
  * surface on the city page.
  */
+export type CityRegion =
+  | "South India"
+  | "West India"
+  | "North India"
+  | "East India"
+  | "Central India";
+
 export type CityProfile = {
   slug: string;
   name: string;
+  state: string;
+  region: CityRegion;
+  latitude: number;
+  longitude: number;
   /** Used to match against PayBand.city in roles.ts. */
   matchKeys: string[];
   hiringDensity: "Very High" | "High" | "Moderate";
@@ -18,6 +29,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "bengaluru",
     name: "Bengaluru",
+    state: "Karnataka",
+    region: "South India",
+    latitude: 12.9716,
+    longitude: 77.5946,
     matchKeys: ["Bengaluru", "Bangalore"],
     hiringDensity: "Very High",
     hubFor: ["Pharmacovigilance", "Clinical Data Management", "AI in Healthcare"],
@@ -28,6 +43,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "hyderabad",
     name: "Hyderabad",
+    state: "Telangana",
+    region: "South India",
+    latitude: 17.385,
+    longitude: 78.4867,
     matchKeys: ["Hyderabad"],
     hiringDensity: "Very High",
     hubFor: ["Pharmacovigilance", "Regulatory Affairs", "Medical Coding"],
@@ -39,6 +58,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "mumbai",
     name: "Mumbai",
+    state: "Maharashtra",
+    region: "West India",
+    latitude: 19.076,
+    longitude: 72.8777,
     matchKeys: ["Mumbai"],
     hiringDensity: "High",
     hubFor: ["Regulatory Affairs", "Pharmacovigilance"],
@@ -49,6 +72,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "pune",
     name: "Pune",
+    state: "Maharashtra",
+    region: "West India",
+    latitude: 18.5204,
+    longitude: 73.8567,
     matchKeys: ["Pune"],
     hiringDensity: "High",
     hubFor: ["Clinical Data Management", "Pharmacovigilance"],
@@ -59,6 +86,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "chennai",
     name: "Chennai",
+    state: "Tamil Nadu",
+    region: "South India",
+    latitude: 13.0827,
+    longitude: 80.2707,
     matchKeys: ["Chennai"],
     hiringDensity: "Very High",
     hubFor: ["Medical Coding", "Pharmacovigilance"],
@@ -69,6 +100,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "delhi-ncr",
     name: "Delhi NCR",
+    state: "Delhi NCR",
+    region: "North India",
+    latitude: 28.6139,
+    longitude: 77.209,
     matchKeys: ["NCR", "Delhi", "Gurgaon", "Noida", "Delhi NCR"],
     hiringDensity: "High",
     hubFor: ["Regulatory Affairs", "Medical Coding"],
@@ -79,6 +114,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "ahmedabad",
     name: "Ahmedabad",
+    state: "Gujarat",
+    region: "West India",
+    latitude: 23.0225,
+    longitude: 72.5714,
     matchKeys: ["Ahmedabad", "Ahmadabad"],
     hiringDensity: "High",
     hubFor: ["Regulatory Affairs", "Clinical Research", "Quality Assurance"],
@@ -90,6 +129,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "kochi",
     name: "Kochi",
+    state: "Kerala",
+    region: "South India",
+    latitude: 9.9312,
+    longitude: 76.2673,
     matchKeys: ["Kochi", "Cochin", "Ernakulam"],
     hiringDensity: "High",
     hubFor: ["Pharmacovigilance", "Medical Coding", "Clinical Data Management"],
@@ -101,6 +144,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "coimbatore",
     name: "Coimbatore",
+    state: "Tamil Nadu",
+    region: "South India",
+    latitude: 11.0168,
+    longitude: 76.9558,
     matchKeys: ["Coimbatore", "Kovai"],
     hiringDensity: "High",
     hubFor: ["Medical Coding", "Revenue Cycle Management", "Health Informatics"],
@@ -112,6 +159,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "kolkata",
     name: "Kolkata",
+    state: "West Bengal",
+    region: "East India",
+    latitude: 22.5726,
+    longitude: 88.3639,
     matchKeys: ["Kolkata", "Calcutta"],
     hiringDensity: "Moderate",
     hubFor: ["Clinical Data Management", "Pharmacovigilance", "Medical Writing"],
@@ -123,6 +174,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "vijayawada",
     name: "Vijayawada",
+    state: "Andhra Pradesh",
+    region: "South India",
+    latitude: 16.5062,
+    longitude: 80.648,
     matchKeys: ["Vijayawada", "Guntur", "Amaravati"],
     hiringDensity: "Moderate",
     hubFor: ["Medical Coding", "Pharmacovigilance", "Clinical Research"],
@@ -134,6 +189,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "visakhapatnam",
     name: "Visakhapatnam",
+    state: "Andhra Pradesh",
+    region: "South India",
+    latitude: 17.6868,
+    longitude: 83.2185,
     matchKeys: ["Visakhapatnam", "Vizag"],
     hiringDensity: "Moderate",
     hubFor: ["Regulatory Affairs", "Pharmacovigilance", "Clinical Quality"],
@@ -145,6 +204,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "lucknow",
     name: "Lucknow",
+    state: "Uttar Pradesh",
+    region: "North India",
+    latitude: 26.8467,
+    longitude: 80.9462,
     matchKeys: ["Lucknow"],
     hiringDensity: "Moderate",
     hubFor: ["Clinical Research", "Pharmacovigilance", "Medical Writing"],
@@ -156,6 +219,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "jaipur",
     name: "Jaipur",
+    state: "Rajasthan",
+    region: "North India",
+    latitude: 26.9124,
+    longitude: 75.7873,
     matchKeys: ["Jaipur"],
     hiringDensity: "Moderate",
     hubFor: ["Medical Coding", "Regulatory Affairs", "Pharmacovigilance"],
@@ -167,6 +234,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "nagpur",
     name: "Nagpur",
+    state: "Maharashtra",
+    region: "Central India",
+    latitude: 21.1458,
+    longitude: 79.0882,
     matchKeys: ["Nagpur"],
     hiringDensity: "Moderate",
     hubFor: ["Medical Coding", "Clinical Data Management", "Regulatory Affairs"],
@@ -178,6 +249,10 @@ export const CITIES: CityProfile[] = [
   {
     slug: "chandigarh",
     name: "Chandigarh",
+    state: "Punjab & Chandigarh",
+    region: "North India",
+    latitude: 30.7333,
+    longitude: 76.7794,
     matchKeys: ["Chandigarh", "Mohali", "Panchkula"],
     hiringDensity: "High",
     hubFor: ["Clinical Research", "Clinical Data Management", "Pharmacovigilance"],

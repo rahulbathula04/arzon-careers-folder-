@@ -361,11 +361,15 @@ const STATIC_ENTRIES: Array<{
     path: "/locations",
     priority: "0.8",
     changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Strategic Healthcare Career Hubs in India - Arzon Global",
   },
   {
     path: "/locations/hyderabad",
     priority: "0.9",
     changefreq: "weekly",
+    image: "/og/about.jpg",
+    imageAlt: "Hyderabad Healthcare Career & Training Hub - Arzon Global",
   },
   {
     path: "/students/1st-2nd-year",

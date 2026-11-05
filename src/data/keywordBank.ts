@@ -622,6 +622,37 @@ export const KEYWORD_BANK: BankKeyword[] = [
   { term: "clinical data management edc guide", traffic: "M", route: "/blog/clinical-data-management-cdm-guide-2026", intent: "informational" },
   { term: "ectd dossier regulatory affairs guide", traffic: "M", route: "/blog/regulatory-affairs-ectd-guide-2026", intent: "informational" },
   { term: "sas clinical sdtm adam guide", traffic: "M", route: "/blog/sas-clinical-programming-sdtm-adam-guide-2026", intent: "informational" },
+  // ── Hyperlocal Hyderabad Local Geo Cluster ───────────────────────
+  { term: "pharmacovigilance course in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "medical coding course in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "clinical data management course in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "clinical sas course in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "pharmacovigilance training institute in madhapur", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "medical coding institute in madhapur hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "pharmacovigilance jobs in hyderabad for freshers", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "medical coding jobs in hyderabad walk in", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "healthcare jobs in hyderabad for freshers", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "hitec city life sciences jobs", traffic: "M", route: "/locations/hyderabad", intent: "informational" },
+  { term: "gachibowli medical coding companies", traffic: "M", route: "/locations/hyderabad", intent: "informational" },
+  { term: "genome valley pharmacovigilance jobs", traffic: "M", route: "/locations/hyderabad", intent: "informational" },
+  { term: "b pharm jobs in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "informational" },
+  { term: "pharm d jobs in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "informational" },
+  { term: "m pharm fresher jobs hyderabad", traffic: "M", route: "/locations/hyderabad", intent: "informational" },
+  { term: "life sciences internship in hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "transactional" },
+  { term: "arzon global madhapur hyderabad", traffic: "H", route: "/locations/hyderabad", intent: "navigational" },
+
+  // ── Pan-India Geo Hubs Cluster ──────────────────────────────────
+  { term: "healthcare career hubs in india", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "pharmacovigilance jobs in india", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "medical coding jobs in india for freshers", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "clinical research institutes in india", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "cro companies in india for freshers", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "life sciences careers in india", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "pharmacovigilance salary in india", traffic: "H", route: "/locations", intent: "informational" },
+  { term: "medical coding salary in chennai", traffic: "M", route: "/locations", intent: "informational" },
+  { term: "clinical data management jobs in pune", traffic: "M", route: "/locations", intent: "informational" },
+  { term: "regulatory affairs jobs in mumbai", traffic: "M", route: "/locations", intent: "informational" },
+  { term: "clinical sas programming course india", traffic: "M", route: "/locations", intent: "transactional" },
 ];
 
 /** Flat list of every keyword phrase, used by the sitewide meta tag. */

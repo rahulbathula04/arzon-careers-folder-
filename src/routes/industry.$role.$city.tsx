@@ -53,11 +53,17 @@ export const Route = createFileRoute("/industry/$role/$city")({
     });
 
     const topEmployerNames = employers.slice(0, 4).map((e: any) => e.name).join(", ");
+    const geoRegion = city.slug === "hyderabad" ? "IN-TG" : "IN";
+    const geoPlacename = `${city.name}, India`;
 
     return {
       meta: [
         { title },
         { name: "keywords", content: keywords },
+        { name: "geo.region", content: geoRegion },
+        { name: "geo.placename", content: geoPlacename },
+        { name: "geo.position", content: `${city.latitude};${city.longitude}` },
+        { name: "ICBM", content: `${city.latitude}, ${city.longitude}` },
         // Do not ask search engines to index a city page that cannot name any
         // role-matched local employers. These pages remain useful to users,
         // but the generic fallback copy is not a strong standalone search result.
@@ -66,6 +72,33 @@ export const Route = createFileRoute("/industry/$role/$city")({
       ],
       links: ps.links,
       scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://arzoncareers.in/",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Locations",
+                item: "https://arzoncareers.in/locations",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: `${city.name} ${role.shortName} Jobs`,
+                item: `https://arzoncareers.in/industry/${params.role}/${params.city}`,
+              },
+            ],
+          }),
+        },
         {
           type: "application/ld+json",
           children: JSON.stringify({
@@ -84,6 +117,7 @@ export const Route = createFileRoute("/industry/$role/$city")({
                 address: {
                   "@type": "PostalAddress",
                   addressLocality: city.name,
+                  addressRegion: city.state,
                   addressCountry: "IN",
                 },
               },

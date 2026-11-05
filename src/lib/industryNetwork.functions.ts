@@ -53,7 +53,7 @@ function getDataFilePath(): string {
   return path.resolve(process.cwd(), "src/data/industryNetworkApplications.json");
 }
 
-function readLocalApplications(): IndustryNetworkApplicationRecord[] {
+export function readLocalApplications(): IndustryNetworkApplicationRecord[] {
   try {
     const file = getDataFilePath();
     if (!fs.existsSync(file)) {
@@ -68,7 +68,7 @@ function readLocalApplications(): IndustryNetworkApplicationRecord[] {
   }
 }
 
-function writeLocalApplications(records: IndustryNetworkApplicationRecord[]): void {
+export function writeLocalApplications(records: IndustryNetworkApplicationRecord[]): void {
   try {
     const file = getDataFilePath();
     fs.writeFileSync(file, JSON.stringify(records, null, 2), "utf8");

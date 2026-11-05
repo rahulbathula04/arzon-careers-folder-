@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { ArzonHomeV2 } from "@/components/home/ArzonHomeV2";
 import { ExitIntentQuiz } from "@/components/landing/ExitIntentQuiz";
-import { SITE, absUrl, LINKS } from "@/components/landing/constants";
+import { SITE, absUrl, LINKS, ADDRESS, COUNSELLOR_PHONE_DISPLAY } from "@/components/landing/constants";
 import { seo } from "@/lib/seo";
 import { useHomeSearchSignals } from "@/hooks/useHomeSearchSignals";
 import { useFunnelTracking } from "@/hooks/useFunnelTracking";
@@ -39,10 +39,14 @@ export const Route = createFileRoute("/")({
         { name: "twitter:description", content: desc },
         { name: "twitter:image", content: og },
         { name: "twitter:image:alt", content: "Arzon Global healthcare career intelligence platform" },
+        { name: "geo.region", content: "IN-TG" },
+        { name: "geo.placename", content: "Hyderabad, Telangana, India" },
+        { name: "geo.position", content: "17.4485;78.3908" },
+        { name: "ICBM", content: "17.4485, 78.3908" },
         {
           name: "keywords",
           content:
-            "healthcare careers, life sciences careers, pharmacovigilance careers, medical coding careers, clinical data management, regulatory affairs, healthcare career assessment, role readiness programmes, Arzon Global",
+            "healthcare careers, pharmacovigilance course in hyderabad, medical coding course in hyderabad, clinical data management, regulatory affairs, clinical research training india, life sciences careers hyderabad, b pharm jobs india, healthcare career assessment, role readiness programmes, Arzon Global",
         },
       ],
       links: [...s.links],
@@ -117,10 +121,25 @@ export const Route = createFileRoute("/")({
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Organization",
+            "@type": ["EducationalOrganization", "LocalBusiness"],
             name: "Arzon Global",
             url: SITE.origin,
             logo: absUrl(SITE.ogImage.inauguration),
+            telephone: COUNSELLOR_PHONE_DISPLAY,
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: `${ADDRESS.street}, ${ADDRESS.area}`,
+              addressLocality: ADDRESS.locality,
+              addressRegion: ADDRESS.region,
+              postalCode: ADDRESS.postalCode,
+              addressCountry: ADDRESS.countryCode,
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: 17.4485,
+              longitude: 78.3908,
+            },
+            hasMap: ADDRESS.mapsUrl,
             sameAs: [LINKS.linkedin, LINKS.instagram, LINKS.website],
           }),
         },

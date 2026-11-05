@@ -1,4 +1,4 @@
-import { SITE, absUrl, NEXT_COHORT, SEAT_FEE } from "@/components/landing/constants";
+import { SITE, absUrl, NEXT_COHORT, SEAT_FEE, ADDRESS } from "@/components/landing/constants";
 
 /** Builds Course schema JSON-LD for an internship/course landing page. */
 export function courseSchema(input: {
@@ -64,7 +64,7 @@ export function breadcrumbSchema(trail: Array<{ name: string; path: string }>): 
   });
 }
 
-/** Local business schema - used on /contact and /about. */
+/** Local business schema - used on /contact, /about, and location hubs. */
 export function localBusinessSchema(input: {
   name?: string;
   telephone: string;
@@ -76,16 +76,45 @@ export function localBusinessSchema(input: {
     postalCode: string;
     addressCountry: string;
   };
+  geo?: {
+    latitude: number;
+    longitude: number;
+  };
+  hasMap?: string;
+  areaServed?: any;
 }): string {
   return JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+    "@type": ["EducationalOrganization", "LocalBusiness"],
     name: input.name ?? "Arzon Global",
     url: SITE.origin,
     telephone: input.telephone,
-    email: input.email,
+    email: input.email ?? "info@arzonglobal.com",
     address: { "@type": "PostalAddress", ...input.address },
-    areaServed: "IN",
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: input.geo?.latitude ?? 17.4485,
+      longitude: input.geo?.longitude ?? 78.3908,
+    },
+    hasMap: input.hasMap ?? ADDRESS.mapsUrl,
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "09:00",
+        closes: "19:00",
+      },
+    ],
+    priceRange: "₹₹",
+    paymentAccepted: "Cash, Credit Card, Debit Card, UPI, Net Banking",
+    currenciesAccepted: "INR",
+    areaServed: input.areaServed ?? [
+      { "@type": "City", name: "Hyderabad" },
+      { "@type": "City", name: "Secunderabad" },
+      { "@type": "AdministrativeArea", name: "Telangana" },
+      { "@type": "AdministrativeArea", name: "Andhra Pradesh" },
+      { "@type": "Country", name: "India" },
+    ],
   });
 }
 

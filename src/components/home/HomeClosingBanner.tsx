@@ -104,7 +104,7 @@ export function HomeClosingBanner() {
                 className="font-sans text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight sm:leading-[1.12]"
               >
                 Build Skills You Can{" "}
-                <span className="font-serif italic font-normal text-[#60A5FA]">
+                <span className="font-serif italic font-medium bg-gradient-to-r from-[#60A5FA] via-[#38BDF8] to-[#A78BFA] bg-clip-text text-transparent [box-decoration-break:clone]">
                   Demonstrate.
                 </span>
               </motion.h2>

@@ -210,7 +210,7 @@ export function HomeLearnerFeedback() {
 
           <h2 className="text-2xl sm:text-4xl lg:text-[44px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
             Hear It From Our{" "}
-            <span className="font-serif italic font-normal text-[#2563EB]">
+            <span className="font-serif italic font-medium bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
               Students
             </span>
           </h2>

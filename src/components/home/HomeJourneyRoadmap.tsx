@@ -101,7 +101,7 @@ export function HomeJourneyRoadmap() {
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-[42px] font-sans font-bold text-[#081F38] tracking-tight leading-tight">
             From Guidance to{" "}
-            <span className="font-serif italic font-normal text-[#2563EB]">
+            <span className="font-serif italic font-medium bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
               Placement Readiness
             </span>
           </h2>

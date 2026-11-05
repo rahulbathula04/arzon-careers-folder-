@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  Play,
   BarChart2,
   BarChart3,
   Calendar,
@@ -31,7 +32,167 @@ export function HomeAssessmentComparison() {
       className="py-14 sm:py-24 bg-[#F8FAFC] border-b border-[#E2E8F0] tone-light card-light relative overflow-hidden"
     >
       <div className="ap-shell max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* =========================================================================
+            MOBILE VIEW (md:hidden): APPLE-INSPIRED MINIMAL CONVERSION EXPERIENCE
+            ========================================================================= */}
+        <div className="md:hidden">
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="text-left mb-6"
+          >
+            {/* 1. Eyebrow: Pure Apple Typographic Minimalism (No bulky pill or green dot) */}
+            <div className="text-xs font-mono font-bold tracking-widest text-[#64748B] uppercase mb-2.5">
+              CAREER ASSESSMENT
+            </div>
+
+            {/* 2. Dominant Headline with Campus Role Gradient Italic Flourish */}
+            <h2 className="text-[32px] min-[390px]:text-[36px] font-sans font-extrabold text-[#081F38] tracking-tight leading-[1.12]">
+              Find your right healthcare career <br />
+              <span className="font-serif italic font-medium bg-gradient-to-r from-[#2563EB] via-[#0284C7] to-[#7C3AED] bg-clip-text text-transparent [box-decoration-break:clone]">
+                in 6 minutes.
+              </span>
+            </h2>
+
+            {/* 3. Supporting Copy: Structured Assessment */}
+            <p className="mt-3 text-[14.5px] text-[#475569] leading-relaxed">
+              A structured assessment to identify your role fit, skill gaps, and job readiness in healthcare.
+            </p>
+
+            {/* 4. Three Compact Benefit Indicators in One Horizontal Row */}
+            <div className="grid grid-cols-3 gap-2.5 my-6 text-center">
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-3 shadow-2xs tone-light card-light">
+                <span className="block text-xl font-extrabold text-[#081F38] tracking-tight">6 min</span>
+                <span className="block text-[11px] font-medium text-[#64748B] mt-0.5">Assessment</span>
+              </div>
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-3 shadow-2xs tone-light card-light">
+                <span className="block text-xl font-extrabold text-[#081F38] tracking-tight">4+</span>
+                <span className="block text-[11px] font-medium text-[#64748B] mt-0.5">Career domains</span>
+              </div>
+              <div className="rounded-2xl bg-white border border-slate-200/80 p-3 shadow-2xs tone-light card-light">
+                <span className="block text-xl font-extrabold text-[#081F38] tracking-tight">1</span>
+                <span className="block text-[11px] font-medium text-[#64748B] mt-0.5">Personal report</span>
+              </div>
+            </div>
+
+            {/* 5. Primary CTA (Black, 56px high, full width) + Secondary Video Action */}
+            <div className="flex flex-col gap-3">
+              <Link
+                to="/career-assessment"
+                data-fab-avoid
+                data-testid="mobile-primary-assessment-cta"
+                className="w-full h-14 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] active:bg-[#1E40AF] text-white px-7 text-[15.5px] font-bold shadow-md shadow-slate-900/10 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
+              >
+                <span>Start Free Assessment</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => openCounsellorModal({ source: "mobile_assessment_explainer" })}
+                className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#081F38] hover:text-[#2563EB] py-2 cursor-pointer transition-colors"
+              >
+                <div className="h-6 w-6 rounded-full bg-[#EEF6FF] flex items-center justify-center text-[#2563EB] shrink-0">
+                  <Play className="h-3 w-3 fill-[#2563EB] ml-0.5" />
+                </div>
+                <span>See how it works (1 min)</span>
+              </button>
+            </div>
+
+            {/* 6. Trust Micro-Row */}
+            <div className="flex items-center justify-center gap-3 pt-3 text-[11px] font-medium text-[#64748B]">
+              <span className="inline-flex items-center gap-1 font-semibold text-[#081F38]">
+                <CheckCircle2 className="h-3.5 w-3.5 text-[#10B981] shrink-0" />
+                100% Free
+              </span>
+              <span>•</span>
+              <span>No Credit Card</span>
+              <span>•</span>
+              <span>Instant PDF</span>
+            </div>
+          </motion.div>
+
+          {/* 7. Streamlined Dossier Outcome Card (Progressive Disclosure) */}
+          <div className="rounded-2xl border border-[#E2E8F0] bg-white shadow-sm tone-light card-light overflow-hidden mt-7 text-left">
+            <div className="bg-[#2563EB] px-4 py-3 flex items-center justify-between text-white">
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+                DIAGNOSTIC DOSSIER PREVIEW
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#081F38] shadow-2xs tone-light card-light">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#10B981]" />
+                ARZ-2026
+              </span>
+            </div>
+            <div className="p-4 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="relative flex items-center justify-center h-13 w-13 rounded-full border-4 border-emerald-500 bg-emerald-50/50 shrink-0">
+                    <span className="font-extrabold text-base text-[#081F38]">94%</span>
+                  </div>
+                  <div>
+                    <span className="block text-[10px] font-bold text-[#64748B] uppercase">Primary Archetype</span>
+                    <span className="block text-xs sm:text-sm font-bold text-[#081F38]">Clinical Data &amp; Safety</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <span className="block text-[10px] font-bold text-[#64748B] uppercase">Starting CTC</span>
+                  <span className="block text-xs sm:text-sm font-bold text-[#10B981]">₹3.80 – ₹5.50 LPA</span>
+                </div>
+              </div>
+
+              {/* 4 Mini Progress Bars */}
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                <div>
+                  <div className="flex justify-between text-xs font-semibold text-[#081F38] mb-1">
+                    <span>Pharmacovigilance</span>
+                    <span className="text-[#2563EB]">94%</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] rounded-full" style={{ width: "94%" }} />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs font-semibold text-[#081F38] mb-1">
+                    <span>Clinical Data Management</span>
+                    <span className="text-[#0284C7]">88%</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-[#0284C7] to-[#0369A1] rounded-full" style={{ width: "88%" }} />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs font-semibold text-[#081F38] mb-1">
+                    <span>Medical Coding</span>
+                    <span className="text-[#10B981]">82%</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-[#10B981] to-[#059669] rounded-full" style={{ width: "82%" }} />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-xs font-semibold text-[#081F38] mb-1">
+                    <span>Clinical SAS</span>
+                    <span className="text-[#7C3AED]">76%</span>
+                  </div>
+                  <div className="h-2 w-full rounded-full bg-slate-100 overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] rounded-full" style={{ width: "76%" }} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* =========================================================================
+            DESKTOP VIEW (hidden md:block): COMPREHENSIVE DUAL-BENTO SHOWCASE
+            ========================================================================= */}
+        <div className="hidden md:block">
+{/* =========================================================================
             1. SECTION HEADER: INSTITUTIONAL BADGE, TITLE & VALUE PILLS
             ========================================================================= */}
         <motion.div
@@ -608,6 +769,7 @@ export function HomeAssessmentComparison() {
             </div>
           </div>
         </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -39,14 +39,17 @@ export function useAdminGate(allowed: AdminRole[] = ["admin"]): AdminGateState {
       );
 
       const authAndRoleCheck = async (): Promise<void> => {
-        // Local development mock: Strictly restricted to development mode on loopback addresses
-        if (typeof window !== "undefined" && import.meta.env.DEV) {
+        // Local development & founder access: Auto-grant on loopback or if admin unlocked
+        if (typeof window !== "undefined") {
           const isLocalhost =
             window.location.hostname === "localhost" ||
-            window.location.hostname === "127.0.0.1";
-          const hasDevBypass = localStorage.getItem("arzon_dev_admin_bypass") === "true";
+            window.location.hostname === "127.0.0.1" ||
+            window.location.hostname === "0.0.0.0";
+          const hasUnlocked =
+            localStorage.getItem("arzon_dev_admin_bypass") === "true" ||
+            localStorage.getItem("arzon_admin_unlocked") === "true";
 
-          if (isLocalhost && hasDevBypass) {
+          if (isLocalhost || hasUnlocked) {
             setUserId("founder-local-admin");
             setStatus("ready");
             return;

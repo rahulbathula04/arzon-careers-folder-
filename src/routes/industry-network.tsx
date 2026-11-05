@@ -544,7 +544,7 @@ function IndustryNetworkLeadPage() {
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
                 >
                   <Users className="w-4 h-4" />
-                  <span>Apply Now</span>
+                  <span>Apply for Industry Network Lead</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
@@ -669,7 +669,7 @@ function IndustryNetworkLeadPage() {
                   onClick={() => openApplyModal("section_02_role")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Apply Now</span>
+                  <span>Apply for Industry Network Lead</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -1023,7 +1023,7 @@ function IndustryNetworkLeadPage() {
               onClick={() => openApplyModal("section_04_quota")}
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
             >
-              <span>Apply Now</span>
+              <span>Apply for Your Batch Quota</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -1474,7 +1474,7 @@ function IndustryNetworkLeadPage() {
                     onClick={() => openApplyModal("section_07_dossier")}
                     className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-6 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
                   >
-                    <span>Apply Now</span>
+                    <span>Apply for Industry Network Lead</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -1855,7 +1855,7 @@ function IndustryNetworkLeadPage() {
                 onClick={() => openApplyModal("directorate_banner")}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-md shadow-blue-600/15 transition-all active:scale-[0.98] cursor-pointer"
               >
-                <span>Apply Now</span>
+                <span>Apply for Industry Network Lead</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
@@ -2193,7 +2193,7 @@ function IndustryNetworkLeadPage() {
                     <span>APPOINTMENT COHORT 2026 · QUICK APPLY</span>
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-extrabold text-[#081F38] tracking-tight">
-                    Apply Now
+                    Apply for Industry Network Lead
                   </h2>
                   <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
                     Represent your college as an Industry Network Lead. Receive official Appointment Letter, Experience Certificate &amp; Director LOR.

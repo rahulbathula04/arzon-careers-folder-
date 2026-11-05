@@ -1,5 +1,6 @@
 import { forwardRef, type AnchorHTMLAttributes, type ReactNode } from "react";
 import { waLink } from "@/components/landing/constants";
+import { submitFastCounsellorLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
 import { toast } from "sonner";
 
@@ -78,6 +79,39 @@ export const WhatsAppLink = forwardRef<HTMLAnchorElement, WhatsAppLinkProps>(fun
           });
         } catch {
           /* never break the link */
+        }
+
+        // Auto-persist lead to counsellor pipeline if user profile exists locally
+        if (typeof window !== "undefined") {
+          try {
+            let storedMobile = "";
+            let storedName = "";
+            const acri = localStorage.getItem("arzon_acri_candidate_profile");
+            if (acri) {
+              const p = JSON.parse(acri);
+              if (p.mobile) storedMobile = p.mobile;
+              if (p.fullName) storedName = p.fullName;
+            }
+            if (!storedMobile) {
+              const cand = localStorage.getItem("arzon_candidate_profile");
+              if (cand) {
+                const p = JSON.parse(cand);
+                if (p.phone) storedMobile = p.phone;
+                if (p.name) storedName = p.name;
+              }
+            }
+            if (storedMobile) {
+              submitFastCounsellorLead({
+                data: {
+                  name: storedName || "WhatsApp Prospect",
+                  phone: storedMobile,
+                  source: `wa_link_${source}`,
+                  programName: program_slug || "WhatsApp Chat Inquiry",
+                  question: message,
+                },
+              }).catch(() => {});
+            }
+          } catch {}
         }
         onClick?.(e);
       }}

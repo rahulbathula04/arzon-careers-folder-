@@ -255,7 +255,15 @@ export function CounsellorLeadModal() {
       } catch {}
 
       setStep("success");
-      toast.success("Counsellor request submitted! Connect on WhatsApp below.");
+      if (preferredFormat === "whatsapp") {
+        const text = encodeURIComponent(
+          `Hi Arzon Team! My name is ${fullName.trim()}. I have completed ${degree}. I am interested in ${programme} and would like to speak with a healthcare career counsellor.`
+        );
+        try {
+          window.open(`https://wa.me/${COUNSELLOR_PHONE}?text=${text}`, "_blank");
+        } catch {}
+      }
+      toast.success("Counsellor request submitted! Connecting on WhatsApp...");
     } catch (err: any) {
       toast.error(err?.message || "Failed to submit request. Please try again.");
     } finally {

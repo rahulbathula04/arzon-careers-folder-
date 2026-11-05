@@ -1,5 +1,6 @@
 import { forwardRef, type AnchorHTMLAttributes } from "react";
 import { COUNSELLOR_PHONE, waLink } from "@/components/landing/constants";
+import { submitFastCounsellorLead } from "@/lib/workshop.functions";
 import { track } from "@/lib/track";
 
 export interface ArzonWhatsAppButtonProps
@@ -49,6 +50,39 @@ export const ArzonWhatsAppButton = forwardRef<HTMLAnchorElement, ArzonWhatsAppBu
       } catch {
         // Analytics error must never block outbound link
       }
+
+      if (typeof window !== "undefined") {
+        try {
+          let storedMobile = "";
+          let storedName = "";
+          const acri = localStorage.getItem("arzon_acri_candidate_profile");
+          if (acri) {
+            const p = JSON.parse(acri);
+            if (p.mobile) storedMobile = p.mobile;
+            if (p.fullName) storedName = p.fullName;
+          }
+          if (!storedMobile) {
+            const cand = localStorage.getItem("arzon_candidate_profile");
+            if (cand) {
+              const p = JSON.parse(cand);
+              if (p.phone) storedMobile = p.phone;
+              if (p.name) storedName = p.name;
+            }
+          }
+          if (storedMobile) {
+            submitFastCounsellorLead({
+              data: {
+                name: storedName || "WhatsApp Visitor",
+                phone: storedMobile,
+                source: `wa_btn_${source}`,
+                programName: "WhatsApp Inquiry",
+                question: message,
+              },
+            }).catch(() => {});
+          }
+        } catch {}
+      }
+
       onClick?.(e);
     };
 

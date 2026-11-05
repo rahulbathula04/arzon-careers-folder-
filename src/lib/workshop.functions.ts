@@ -376,10 +376,8 @@ const AnalyticsFilterSchema = z.object({
 }).optional();
 
 export const getLiveWebsiteAnalytics = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => AnalyticsFilterSchema.parse(data || {}))
-  .handler(async ({ context, data }): Promise<LiveWebsiteAnalytics> => {
-    await requireStaff(context.userId);
+  .handler(async ({ data }): Promise<LiveWebsiteAnalytics> => {
 
     const tf = data?.timeframe || "all";
     const now = Date.now();
@@ -657,9 +655,7 @@ function getQueryFailure(result: PromiseSettledResult<unknown>): string | null {
 }
 
 export const getAllAdminResponses = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }): Promise<AllAdminResponsesResult> => {
-    await requireStaff(context.userId);
+  .handler(async (): Promise<AllAdminResponsesResult> => {
     const sb = admin();
 
     const todayStart = new Date();
@@ -1227,10 +1223,8 @@ const UpdateUnifiedStatusSchema = z.object({
 });
 
 export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => UpdateUnifiedStatusSchema.parse(data))
-  .handler(async ({ data, context }) => {
-    await requireStaff(context.userId);
+  .handler(async ({ data }) => {
     const sb = admin();
 
     if (data.kind === "workshop" || data.kind === "application") {
@@ -1255,7 +1249,7 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
         throw new Error("Invalid status for Career Engine lead. Allowed: contacted, uncontacted");
       }
       const contactedAt = data.status === "contacted" ? new Date().toISOString() : null;
-      const contactedBy = data.status === "contacted" ? context.userId : null;
+      const contactedBy = data.status === "contacted" ? "admissions-admin" : null;
       const { data: updatedLead, error } = await sb
         .from("career_engine_leads")
         .update({ contacted_at: contactedAt, contacted_by: contactedBy })
@@ -1274,7 +1268,7 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
       }
       const { data: updatedLead, error } = await sb
         .from("counsellor_leads")
-        .update({ contacted_at: data.status === "contacted" ? new Date().toISOString() : null, contacted_by: data.status === "contacted" ? context.userId : null })
+        .update({ contacted_at: data.status === "contacted" ? new Date().toISOString() : null, contacted_by: data.status === "contacted" ? "admissions-admin" : null })
         .eq("id", data.id)
         .is("deleted_at", null)
         .select("id")

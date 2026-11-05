@@ -56,6 +56,7 @@ import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
+import { submitFastCounsellorLead } from "@/lib/workshop.functions";
 import {
   submitIndustryNetworkAppFn,
   type IndustryNetworkApplicationRecord,
@@ -450,7 +451,7 @@ function IndustryNetworkLeadPage() {
     setIsCounsellorModalOpen(true);
   };
 
-  const handleCounsellorSubmit = (e: React.FormEvent) => {
+  const handleCounsellorSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) return;
 
@@ -460,14 +461,28 @@ function IndustryNetworkLeadPage() {
       year: counsellorForm.year,
     });
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormSubmitted(true);
-      try {
-        const text = `Hi Arzon Campus Team! I am interested in the Industry Network Lead role:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing campus lead quota and selection"}`;
-        window.open(waMsg(text), "_blank");
-      } catch {}
-    }, 400);
+    try {
+      await submitFastCounsellorLead({
+        data: {
+          name: counsellorForm.name.trim(),
+          phone: counsellorForm.phone.trim(),
+          source: "industry_network_counsellor",
+          degree: counsellorForm.degree,
+          academicYear: counsellorForm.year,
+          programName: "Industry Network Lead",
+          question: counsellorForm.question || "Discussing campus lead quota and selection",
+        },
+      });
+    } catch (err) {
+      console.warn("[IndustryNetwork] Failed to save counsellor lead before WhatsApp redirect:", err);
+    }
+
+    setIsSubmitting(false);
+    setFormSubmitted(true);
+    try {
+      const text = `Hi Arzon Campus Team! I am interested in the Industry Network Lead role:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing campus lead quota and selection"}`;
+      window.open(waMsg(text), "_blank");
+    } catch {}
   };
 
   const currentCredential = CREDENTIALS_SAMPLES_SAFE(activeCredentialTab);

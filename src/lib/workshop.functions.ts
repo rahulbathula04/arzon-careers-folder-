@@ -8,6 +8,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireStaff } from "@/server/auth-guards.server";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { syncAndApproveAcriApplication } from "@/lib/acri-core.functions";
+import { readLocalApplications, writeLocalApplications } from "@/lib/industryNetwork.functions";
 
 function admin() {
   return createSafeAdminClient();
@@ -561,7 +562,7 @@ export const getLiveWebsiteAnalytics = createServerFn({ method: "POST" })
 // Centralizes Workshop Leads, Job/Cohort Applications, Career Engine Leads & Paid Enrolments
 // ─────────────────────────────────────────────────────────────────────────────
 
-export type ResponseKind = "workshop" | "application" | "career_engine" | "enrolment" | "counsellor";
+export type ResponseKind = "workshop" | "application" | "career_engine" | "enrolment" | "counsellor" | "industry_network";
 
 export interface UnifiedAdminResponse {
   id: string;
@@ -605,6 +606,7 @@ export interface AllAdminResponsesResult {
     career_engine: number;
     enrolment: number;
     counsellor: number;
+    industry_network: number;
     enrolment_paid: number;
     enrolment_intent: number;
   };
@@ -778,6 +780,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
       career_engine: 0,
       enrolment: 0,
       counsellor: 0,
+      industry_network: 0,
       enrolment_paid: 0,
       enrolment_intent: 0,
     };
@@ -1098,6 +1101,12 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         const entryPath = typeof r.source === "string" && r.source.startsWith("/") ? r.source : null;
         const phone = r.contact_type === "phone" ? r.contact || "" : "";
         const email = r.contact_type === "email" ? r.contact || "" : "";
+        const cleanPhone = (phone || "").replace(/\D/g, "");
+        const digits10 = cleanPhone.slice(-10);
+        const counsellorWaText = encodeURIComponent(
+          `Hi ${r.name || "there"}, this is Arzon Global regarding your career counselling request for ${r.requested_role || "healthcare careers"}. Would you like to connect for a quick 5-min briefing?`
+        );
+        const whatsapp_link = digits10 ? `https://wa.me/91${digits10}?text=${counsellorWaText}` : null;
 
         unifiedList.push({
           id: r.id,
@@ -1118,9 +1127,78 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           entry_path: entryPath,
           notes: typeof r.source === "string" && !entryPath ? r.source : null,
           acquisition_source_status: "not_recorded",
-          whatsapp_optin: false,
+          whatsapp_link,
+          whatsapp_optin: true,
         });
       }
+    }
+
+    // 5. Process Industry Network Campus Leads
+    try {
+      const localIndustryApps = readLocalApplications();
+      for (const app of localIndustryApps) {
+        if (new Date(app.submittedAt) >= todayStart) todayCount++;
+        countsByKind.industry_network++;
+
+        let normStatus = "uncontacted";
+        const st = (app.status || "").toLowerCase();
+        if (st === "under review" || st === "reviewing") normStatus = "reviewing";
+        else if (st === "shortlisted") normStatus = "shortlisted";
+        else if (st === "interview scheduled") normStatus = "interview_scheduled";
+        else if (st === "selected") normStatus = "enrolled";
+        else if (st === "rejected") normStatus = "rejected";
+        else normStatus = "uncontacted";
+
+        countsByStatus[normStatus] = (countsByStatus[normStatus] || 0) + 1;
+
+        if (app.collegeName) {
+          byCollege[app.collegeName] = (byCollege[app.collegeName] || 0) + 1;
+        }
+        if (app.course) {
+          byBranch[app.course] = (byBranch[app.course] || 0) + 1;
+        }
+        if (app.academicYear) {
+          byDegree[app.academicYear] = (byDegree[app.academicYear] || 0) + 1;
+        }
+
+        const cleanMobile = (app.mobileNumber || "").replace(/\D/g, "");
+        const digits10 = cleanMobile.slice(-10);
+        const waText = encodeURIComponent(
+          `Hi ${app.fullName}, regarding your Arzon Global Industry Network Lead application (${app.applicationNumber}) for ${app.collegeName}. When is a good time for a brief 10-minute introduction call?`
+        );
+        const whatsapp_link = digits10 ? `https://wa.me/91${digits10}?text=${waText}` : null;
+
+        unifiedList.push({
+          id: app.id,
+          kind: "industry_network",
+          name: app.fullName,
+          email: app.email,
+          phone: app.mobileNumber,
+          created_at: app.submittedAt,
+          status: normStatus,
+          college: app.collegeName,
+          branch: app.course,
+          degree: app.academicYear,
+          grad_year: null,
+          pass_id: app.applicationNumber,
+          program_name: "Industry Network Lead",
+          program_slug: "industry-network-lead",
+          entry_action: "Campus Lead Application",
+          entry_detail: `${app.collegeCity ? `${app.collegeCity} · ` : ""}${app.collegeName}`,
+          notes: app.motivation ? `Motivation: ${app.motivation}` : null,
+          whatsapp_link,
+          whatsapp_optin: true,
+          result_payload: {
+            applicationNumber: app.applicationNumber,
+            collegeCity: app.collegeCity,
+            photoUrl: app.photoUrl,
+            interestConfirmation: app.interestConfirmation,
+            adminRemarks: app.adminRemarks,
+          },
+        });
+      }
+    } catch (indErr) {
+      console.warn("[workshop] failed to load industry network applications:", indErr);
     }
 
     // In production, an empty database returns a clean empty list rather than synthetic records.
@@ -1144,7 +1222,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
 const UpdateUnifiedStatusSchema = z.object({
   id: z.string(),
-  kind: z.enum(["workshop", "application", "career_engine", "enrolment", "counsellor"]),
+  kind: z.enum(["workshop", "application", "career_engine", "enrolment", "counsellor", "industry_network"]),
   status: z.string().min(1).max(64),
 });
 
@@ -1213,6 +1291,27 @@ export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
         .update({ status: data.status })
         .eq("id", data.id);
       if (error) throw new Error(error.message);
+    } else if (data.kind === "industry_network") {
+      const statusMap: Record<string, any> = {
+        uncontacted: "Submitted",
+        new: "Submitted",
+        submitted: "Submitted",
+        reviewing: "Under Review",
+        shortlisted: "Shortlisted",
+        interview_scheduled: "Interview Scheduled",
+        enrolled: "Selected",
+        selected: "Selected",
+        rejected: "Rejected",
+        closed: "Rejected",
+      };
+      const targetStatus = statusMap[data.status] || "Submitted";
+      const localList = readLocalApplications();
+      const idx = localList.findIndex((a) => a.id === data.id);
+      if (idx !== -1) {
+        localList[idx].status = targetStatus;
+        localList[idx].updatedAt = new Date().toISOString();
+        writeLocalApplications(localList);
+      }
     }
 
     return { success: true, id: data.id, status: data.status };
@@ -1274,3 +1373,84 @@ export const getWorkshopSeatStats = createServerFn({ method: "GET" })
     };
   });
 
+
+
+const FastCounsellorLeadSchema = z.object({
+  name: z.string().min(2).max(100).trim(),
+  phone: z.string().min(10).max(20).trim(),
+  email: z.string().email().optional().or(z.literal("")),
+  source: z.string().max(80).optional().default("website_counsellor_cta"),
+  degree: z.string().max(120).optional().default(""),
+  academicYear: z.string().max(60).optional().default(""),
+  programName: z.string().max(120).optional().default("Career Counselling"),
+  question: z.string().max(500).optional().default(""),
+});
+
+export const submitFastCounsellorLead = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => FastCounsellorLeadSchema.parse(data))
+  .handler(async ({ data }) => {
+    const sb = admin();
+    const cleanPhone = data.phone.replace(/\D/g, "");
+    const digits10 = cleanPhone.slice(-10);
+    const effectiveEmail = data.email && data.email.trim() !== ""
+      ? data.email.trim()
+      : `${digits10}@counsellor.arzoncareers.in`;
+
+    // 1. Insert into counsellor_leads table
+    try {
+      await (sb as any).from("counsellor_leads").insert({
+        name: data.name,
+        contact: digits10,
+        contact_type: "phone",
+        source: data.source,
+        requested_role: data.programName || "Career Guidance",
+      });
+    } catch (err) {
+      console.warn("[counsellor] lead insert notice:", err);
+    }
+
+    // 2. Also register in applications table so it appears in unified admissions pipeline
+    try {
+      const { data: newId, error: appError } = await (sb as any).rpc("submit_application", {
+        p_name: data.name,
+        p_email: effectiveEmail,
+        p_phone: digits10,
+        p_program_slug: "counsellor-callback",
+        p_program_name: data.programName || "Career Counselling & Guidance",
+        p_whatsapp_optin: true,
+        p_lead_id: null,
+        p_utm_source: `counsellor-cta-${data.source}`,
+      });
+
+      if (!appError && newId) {
+        const notesObj = {
+          degree: data.degree || null,
+          academicYear: data.academicYear || null,
+          question: data.question || null,
+          source: data.source,
+          receivedAt: new Date().toISOString(),
+        };
+        await (sb as any)
+          .from("applications")
+          .update({
+            notes: JSON.stringify(notesObj),
+            status: "submitted",
+          })
+          .eq("id", newId);
+      }
+    } catch (appErr) {
+      console.warn("[counsellor] applications sync notice:", appErr);
+    }
+
+    // 3. Return pre-formatted WhatsApp link
+    const waText = encodeURIComponent(
+      `Hi Arzon Team! My name is ${data.name}. I am interested in ${data.programName || "career opportunities"}. ${data.degree ? `Qualification: ${data.degree}. ` : ""}${data.question ? `Question: ${data.question}` : "I would like to speak to a counsellor."}`
+    );
+    const whatsappLink = `https://wa.me/919121283638?text=${waText}`;
+
+    return {
+      success: true,
+      phone: digits10,
+      whatsappLink,
+    };
+  });

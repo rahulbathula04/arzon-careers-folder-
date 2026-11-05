@@ -370,7 +370,7 @@ function LocationsIndexComponent() {
                         to="/locations/hyderabad"
                         className="inline-flex items-center justify-between w-full h-10 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-mono text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
                       >
-                        <span>Explore Hyderabad Hub</span>
+                        <span>Explore Hyderabad Campus</span>
                         <ArrowRight className="h-3.5 w-3.5 text-white" />
                       </Link>
                     ) : (

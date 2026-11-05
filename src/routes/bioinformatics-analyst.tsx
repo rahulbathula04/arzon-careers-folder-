@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
+import { submitFastCounsellorLead } from "@/lib/workshop.functions";
 
 // ── Masterclass Direct Link ──────────────────────────────────────────────────
 const BIOINFO_MASTERCLASS_URL =
@@ -271,7 +272,7 @@ function BioinformaticsBlueprintPage() {
     setIsCounsellorModalOpen(true);
   };
 
-  const handleCounsellorSubmit = (e: React.FormEvent) => {
+  const handleCounsellorSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) return;
 
@@ -281,14 +282,28 @@ function BioinformaticsBlueprintPage() {
       year: counsellorForm.year,
     });
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setFormSubmitted(true);
-      try {
-        const text = `Hi Arzon Guidance Team! I would like to speak to a counsellor about the Bioinformatics & Clinical Genomics 12-Week Pathway:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing eligibility and curriculum"}`;
-        window.open(waMsg(text), "_blank");
-      } catch {}
-    }, 400);
+    try {
+      await submitFastCounsellorLead({
+        data: {
+          name: counsellorForm.name.trim(),
+          phone: counsellorForm.phone.trim(),
+          source: "bioinformatics_counsellor_modal",
+          degree: counsellorForm.degree,
+          academicYear: counsellorForm.year,
+          programName: "Bioinformatics & Clinical Genomics Pathway",
+          question: counsellorForm.question || "Discussing eligibility and curriculum",
+        },
+      });
+    } catch (err) {
+      console.warn("[Bioinformatics] Failed to save counsellor lead before WhatsApp redirect:", err);
+    }
+
+    setIsSubmitting(false);
+    setFormSubmitted(true);
+    try {
+      const text = `Hi Arzon Guidance Team! I would like to speak to a counsellor about the Bioinformatics & Clinical Genomics 12-Week Pathway:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing eligibility and curriculum"}`;
+      window.open(waMsg(text), "_blank");
+    } catch {}
   };
 
   const currentSample = WORK_SAMPLES[activeWorkSampleTab];

@@ -17,6 +17,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { submitApplication } from "@/lib/applications.functions";
 import { submitCareerStarterKitLead } from "@/lib/careerStarterKit.functions";
 import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
+import { submitFastCounsellorLead } from "@/lib/workshop.functions";
 import { COUNSELLOR_PHONE, COUNSELLOR_PHONE_DISPLAY } from "@/components/landing/constants";
 import { toast } from "sonner";
 
@@ -163,6 +164,21 @@ export function CounsellorLeadModal() {
       const userEmail = `${cleanPhone}@arzoncandidate.local`;
       const clientFp = ("counsellor-" + Date.now() + "-" + Math.random().toString(36).substring(2)).slice(0, 32);
       const programSlug = programme.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 50);
+
+      // 0. Sync to Fast Counsellor Leads Store
+      try {
+        await submitFastCounsellorLead({
+          data: {
+            name: fullName.trim(),
+            phone: cleanPhone,
+            source: sourceTag || "counsellor_modal",
+            degree,
+            programName: programme,
+          },
+        });
+      } catch (fastErr) {
+        console.warn("[CounsellorLeadModal] Fast lead notice:", fastErr);
+      }
 
       // 1. Sync to Admin Applications Pipeline (/admin/applications)
       try {

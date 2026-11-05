@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { pageSeo } from "@/lib/seo";
 import { ADDRESS, COUNSELLOR_PHONE_DISPLAY, NEXT_COHORT, waLink } from "@/components/landing/constants";
+import { HyderabadCampusScheduler } from "@/components/locations/HyderabadCampusScheduler";
 
 export const Route = createFileRoute("/locations/hyderabad")({
   head: () => {
@@ -347,6 +348,11 @@ function HyderabadLocationComponent() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Interactive Campus Walk-In & Demo Slot Booking */}
+        <section>
+          <HyderabadCampusScheduler />
         </section>
 
         {/* Local Industry Ecosystem & 5 Hyderabad Corridors */}

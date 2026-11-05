@@ -23,6 +23,8 @@ import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
+export const ASSESSMENT_VIDEO_URL = "https://drive.google.com/drive/folders/1esTcihzhIPfnS95jX-pO9cK1SBYEYQJB?usp=drive_link";
+
 export function HomeAssessmentComparison() {
   const shouldReduceMotion = useReducedMotion();
 
@@ -89,16 +91,18 @@ export function HomeAssessmentComparison() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
 
-              <button
-                type="button"
-                onClick={() => openCounsellorModal({ source: "mobile_assessment_explainer" })}
+              <a
+                href={ASSESSMENT_VIDEO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#081F38] hover:text-[#2563EB] py-2 cursor-pointer transition-colors"
+                aria-label="See how the career assessment works (1 minute video)"
               >
                 <div className="h-6 w-6 rounded-full bg-[#EEF6FF] flex items-center justify-center text-[#2563EB] shrink-0">
                   <Play className="h-3 w-3 fill-[#2563EB] ml-0.5" />
                 </div>
                 <span>See how it works (1 min)</span>
-              </button>
+              </a>
             </div>
 
             {/* 6. Trust Micro-Row */}
@@ -344,6 +348,19 @@ export function HomeAssessmentComparison() {
                   <Users className="h-4 w-4 text-[#1D4ED8]" />
                   <span>Talk to Experts</span>
                 </button>
+
+                <a
+                  href={ASSESSMENT_VIDEO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-[#081F38] hover:text-[#2563EB] pt-1 transition-colors cursor-pointer"
+                  aria-label="See how the career assessment works (1 minute video)"
+                >
+                  <div className="h-5 w-5 rounded-full bg-[#EEF6FF] flex items-center justify-center text-[#2563EB] shrink-0">
+                    <Play className="h-2.5 w-2.5 fill-[#2563EB] ml-0.5" />
+                  </div>
+                  <span>See how it works (1 min)</span>
+                </a>
               </div>
 
               {/* Trust Indicators: 3 Clean Micro-Pill Cards (Zero Dangling Pipes, Never Wrap) */}

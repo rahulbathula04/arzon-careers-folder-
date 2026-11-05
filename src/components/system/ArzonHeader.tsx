@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, Menu, Search, X } from "lucide-react";
+import { ArrowRight, Menu, MessageCircle, Search, X } from "lucide-react";
 import { ArzonLogo } from "../acri/ArzonLogo";
 import { GlobalSearchModal } from "./GlobalSearchModal";
 import { openCounsellorModal } from "./CounsellorLeadModal";
@@ -289,26 +289,39 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* Pinned Bottom Actions: Dual-Entry Conversion (Career Intelligence + Talk to Experts) */}
+                {/* Pinned Bottom Actions: Dual-Entry Conversion (Career Intelligence + WhatsApp Expert Connect) */}
                 <div className="pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+2rem)] space-y-2.5">
                   <Link
                     to="/career-assessment"
                     onClick={() => setMobileOpen(false)}
                     className="w-full h-12 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
                   >
-                    <span>Explore My Career Path</span>
+                    <span>Start Free Assessment</span>
                     <ArrowRight className="h-4 w-4" />
                   </Link>
+
+                  <a
+                    href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20want%20to%20know%20which%20healthcare%20career%20fits%20my%20degree."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full h-11 rounded-full bg-[#10B981] hover:bg-[#059669] text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-xs"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    <span>Talk to Experts on WhatsApp</span>
+                  </a>
+
                   <button
                     type="button"
                     onClick={() => {
                       setMobileOpen(false);
                       openCounsellorModal({ source: "header_mobile_drawer" });
                     }}
-                    className="w-full h-11 rounded-full border border-slate-200 bg-white text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all tone-light card-light cursor-pointer"
+                    className="w-full h-10 rounded-full border border-slate-200 bg-white text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all tone-light card-light cursor-pointer"
                   >
-                    <span>Talk to Experts</span>
+                    <span>Request Callback</span>
                   </button>
+
                   <Link
                     to="/login"
                     onClick={() => setMobileOpen(false)}

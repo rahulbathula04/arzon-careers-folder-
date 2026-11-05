@@ -17,9 +17,7 @@ import {
 } from "lucide-react";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { useServerFn } from "@tanstack/react-start";
-import { applyAcriCandidateFn } from "@/lib/acri-core.functions";
 import { logAcriFunnelEvent } from "@/lib/acri/acriCandidateStore";
-import { submitApplication } from "@/lib/applications.functions";
 import { submitCareerStarterKitLead } from "@/lib/careerStarterKit.functions";
 import {
   isEligibleForLeadCapture,
@@ -44,8 +42,6 @@ const QUALIFICATIONS = [
 export function AcriScrollLeadMagnet() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const applyCandidate = useServerFn(applyAcriCandidateFn);
-  const submitApp = useServerFn(submitApplication);
   const submitStarterKit = useServerFn(submitCareerStarterKitLead);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -324,47 +320,7 @@ export function AcriScrollLeadMagnet() {
       const userEmail = email.trim() || `${cleanPhone}@arzoncandidate.local`;
       const clientFp = ("lead-magnet-" + Date.now() + "-" + Math.random().toString(36).substring(2)).slice(0, 32);
 
-      // 1. Sync to Admin Applications Pipeline (/admin/applications)
-      try {
-        await submitApp({
-          data: {
-            name: fullName.trim(),
-            email: userEmail,
-            phone: cleanPhone,
-            programSlug: "2026-healthcare-career-intelligence-guide",
-            programName: "The Healthcare Career Intelligence Guide 2026",
-            whatsappOptin: consentCommunications,
-            degree: highestQualification,
-            notes: JSON.stringify({
-              source: "scroll_lead_magnet_v2",
-              asset: "The_Healthcare_Career_Intelligence_Guide_2026",
-              qualification: highestQualification,
-              submittedAt: new Date().toISOString(),
-            }),
-            utmSource: "career-intelligence-guide-lead-magnet",
-          },
-        });
-      } catch (err) {
-        console.warn("[AcriScrollLeadMagnet] Admin applications pipeline sync notice:", err);
-      }
-
-      // 2. Sync to ACRI Candidate Store (/admin/acri)
-      try {
-        await applyCandidate({
-          data: {
-            fullName: fullName.trim(),
-            email: userEmail,
-            mobile: cleanPhone,
-            highestQualification,
-            collegeUniversity: "Lead Magnet Applicant",
-            currentlyWorking: "no",
-          },
-        });
-      } catch (err) {
-        console.warn("[AcriScrollLeadMagnet] ACRI candidates sync notice:", err);
-      }
-
-      // 3. Sync to Career Starter Kit Leads (/admin/leads)
+      // Single Canonical Lead Write: Sync to Career Starter Kit Leads (/admin/leads)
       try {
         await submitStarterKit({
           data: {

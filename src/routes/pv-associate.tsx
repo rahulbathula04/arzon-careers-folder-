@@ -341,29 +341,25 @@ function PVAssociateBlueprintPage() {
                 Learn how drug safety teams process adverse event reports, assess safety information and document cases. Develop practical skills through structured training, case-based exercises and career preparation.
               </p>
 
-              {/* Dual CTA Actions */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+              {/* Dual CTA Actions: Clean Apply Now + Talk to Experts */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
                   onClick={() => openCounsellor("hero_primary")}
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <Phone className="w-4 h-4" />
-                  <span>Talk to Experts</span>
+                  <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <a
-                  href={PV_MASTERCLASS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackEvent("masterclass_click", { source: "hero_secondary" })}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white tone-light card-light border border-slate-200/80 hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
+                <button
+                  type="button"
+                  onClick={() => openCounsellor("hero_expert")}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white tone-light card-light border border-slate-200/80 hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <Play className="w-3.5 h-3.5 fill-current text-[#2563EB]" />
-                  <span>Watch Free Masterclass</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-[#64748B]" />
-                </a>
+                  <Phone className="w-4 h-4 text-[#2563EB]" />
+                  <span>Talk to Experts</span>
+                </button>
               </div>
 
               {/* 4 Feature Trust Badges */}

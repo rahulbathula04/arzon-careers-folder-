@@ -151,6 +151,33 @@ export function ArzonHomeV2() {
               </motion.div>
             </motion.div>
 
+            {/* 1-Tap Degree Relevance Selector for Healthcare Graduates */}
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.32 }}
+              className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-3.5 max-w-2xl mx-auto px-2"
+            >
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#64748B] mr-1">
+                Select Your Degree:
+              </span>
+              {[
+                { label: "B.Pharm", to: "/degrees/bpharm" },
+                { label: "Pharm.D", to: "/degrees/pharmd" },
+                { label: "Life Sciences (B.Sc/M.Sc)", to: "/degrees/bsc-lifesciences" },
+                { label: "BDS / Allied Health", to: "/degrees/allied-health" },
+              ].map((deg) => (
+                <Link
+                  key={deg.to}
+                  to={deg.to as any}
+                  className="inline-flex items-center gap-1 rounded-full bg-white border border-[#CBD5E1] hover:border-[#2563EB] hover:text-[#2563EB] text-[#081F38] text-[11px] sm:text-xs font-bold px-3 py-1 transition-all shadow-2xs tone-light card-light active:scale-95"
+                >
+                  <span>{deg.label}</span>
+                  <ArrowRight className="h-2.5 w-2.5 opacity-60" />
+                </Link>
+              ))}
+            </motion.div>
+
             {/* Value Checkpoints: Responsive Wrapped Badges */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 8 }}

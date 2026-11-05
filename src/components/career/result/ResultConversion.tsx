@@ -89,7 +89,7 @@ export function ResultConversion({ result }: Props) {
             className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 active:scale-[0.98] shadow-sm w-full sm:w-auto cursor-pointer"
           >
             <MessageCircle className="h-4 w-4 text-[#25D366]" />
-            <span>Consult Senior Counsellor on WhatsApp</span>
+            <span>Discuss My Results with an Expert</span>
           </a>
 
           <Link

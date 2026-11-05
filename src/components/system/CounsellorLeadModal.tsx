@@ -70,10 +70,15 @@ export function CounsellorLeadModal() {
   const [step, setStep] = useState<"form" | "success">("form");
   const [sourceTag, setSourceTag] = useState("direct_counsellor_cta");
 
-  // Candidate fields with localStorage pre-population
+  // Shared Candidate Intelligence: pre-population from Career Engine or ACRI
   const [fullName, setFullName] = useState(() => {
     if (typeof window === "undefined") return "";
     try {
+      const ce = localStorage.getItem("ce_profile") || sessionStorage.getItem("ce_profile");
+      if (ce) {
+        const parsed = JSON.parse(ce);
+        if (parsed?.name) return parsed.name;
+      }
       const p = localStorage.getItem("arzon_acri_candidate_profile");
       if (p) {
         const parsed = JSON.parse(p);
@@ -91,6 +96,11 @@ export function CounsellorLeadModal() {
   const [phone, setPhone] = useState(() => {
     if (typeof window === "undefined") return "";
     try {
+      const ce = localStorage.getItem("ce_profile") || sessionStorage.getItem("ce_profile");
+      if (ce) {
+        const parsed = JSON.parse(ce);
+        if (parsed?.phone) return parsed.phone;
+      }
       const p = localStorage.getItem("arzon_acri_candidate_profile");
       if (p) {
         const parsed = JSON.parse(p);

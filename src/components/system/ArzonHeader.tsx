@@ -289,26 +289,26 @@ export function ArzonHeader() {
                   </div>
                 </div>
 
-                {/* Pinned Bottom Actions */}
+                {/* Pinned Bottom Actions: Dual-Entry Conversion (Career Intelligence + Talk to Experts) */}
                 <div className="pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+2rem)] space-y-2.5">
+                  <Link
+                    to="/career-assessment"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full h-12 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all"
+                  >
+                    <span>Explore My Career Path</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                   <button
                     type="button"
                     onClick={() => {
                       setMobileOpen(false);
                       openCounsellorModal({ source: "header_mobile_drawer" });
                     }}
-                    className="w-full h-12 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-all cursor-pointer"
+                    className="w-full h-11 rounded-full border border-slate-200 bg-white text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all tone-light card-light cursor-pointer"
                   >
                     <span>Talk to Experts</span>
-                    <ArrowRight className="h-4 w-4" />
                   </button>
-                  <Link
-                    to="/career-assessment"
-                    onClick={() => setMobileOpen(false)}
-                    className="w-full h-11 rounded-full border border-slate-200 bg-white text-slate-800 font-bold text-xs flex items-center justify-center active:scale-[0.98] transition-all tone-light card-light"
-                  >
-                    Take Free Career Assessment
-                  </Link>
                   <Link
                     to="/login"
                     onClick={() => setMobileOpen(false)}

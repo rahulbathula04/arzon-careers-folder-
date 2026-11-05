@@ -72,17 +72,17 @@ export function StickyMobileActionBar() {
       }}
     >
       <div className="flex items-center gap-2 rounded-full border border-slate-700/60 bg-[#081F38]/92 backdrop-blur-2xl p-1.5 shadow-[0_16px_40px_rgba(7,26,74,0.45)]">
-        {/* Apple Tactile WhatsApp Counsellor Button */}
+        {/* Tactile WhatsApp Expert Connect Button */}
         <a
           href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20want%20to%20know%20which%20healthcare%20career%20fits%20my%20degree."
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleWhatsAppClick}
-          aria-label="Chat with career counsellor on WhatsApp"
+          aria-label="Talk to experts on WhatsApp"
           className="h-11 w-11 shrink-0 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 flex items-center justify-center hover:bg-emerald-500/25 active:scale-95 transition-all shadow-xs"
         >
           <MessageCircle className="h-5 w-5" />
-          <span className="sr-only">WhatsApp Counsellor</span>
+          <span className="sr-only">Talk to Experts</span>
         </a>
 
         {/* Apple Primary CTA Pill */}

@@ -228,22 +228,22 @@ export function HomePriorityTracks() {
                 </div>
               </div>
 
-              {/* Card Footer Actions */}
+              {/* Card Footer Actions: Dual-Entry Conversion (Explore career fit + Ask an expert) */}
               <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-3 flex items-center justify-between gap-2 border-t border-[#F1F5F9]">
-                <button
-                  type="button"
-                  onClick={() => openCounsellorModal({ programme: track.title, source: "home_priority_track" })}
-                  className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-3.5 py-1.5 text-xs font-bold shadow-xs transition-all active:scale-95 cursor-pointer"
-                >
-                  <span>Talk to counsellor</span>
-                </button>
                 <Link
-                  to={track.link as any}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#1557D6] hover:text-[#071A4A] transition-colors"
+                  to="/career-assessment"
+                  className="inline-flex items-center justify-center gap-1 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-3 sm:px-3.5 py-1.5 text-xs font-bold shadow-xs transition-all active:scale-95 whitespace-nowrap"
                 >
-                  <span>Details</span>
+                  <span>Explore career fit</span>
                   <ArrowRight className="h-3 w-3" />
                 </Link>
+                <button
+                  type="button"
+                  onClick={() => openCounsellorModal({ programme: track.title, source: "track_card_ask_expert" })}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#64748B] hover:text-[#081F38] transition-colors cursor-pointer py-1.5 px-2 whitespace-nowrap"
+                >
+                  <span>Talk to Experts</span>
+                </button>
               </div>
             </motion.article>
           ))}

@@ -108,42 +108,46 @@ export function ArzonHomeV2() {
               </div>
             </motion.div>
 
-            {/* Centered Dual CTAs */}
+            {/* Dual-Entry Conversion Architecture (Career Intelligence + Connect With an Expert) */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-3.5 mb-6 sm:mb-8 w-full sm:max-w-none mx-auto px-2 sm:px-0"
             >
+              {/* Primary Visual CTA: Career Intelligence */}
               <motion.div
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.02 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="w-full sm:w-auto"
               >
-                <button
-                  type="button"
-                  onClick={() => openCounsellorModal({ source: "home_hero_primary" })}
-                  data-testid="primary-counsellor-cta"
+                <Link
+                  to="/career-assessment"
+                  data-testid="primary-career-intelligence-cta"
                   className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-7 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-md shadow-blue-600/15 group cursor-pointer active:scale-95"
                 >
-                  <span>Talk to a counsellor</span>
+                  <span>Explore My Career Path</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </Link>
               </motion.div>
+
+              {/* Secondary Visual CTA: Talk to Experts */}
               <motion.div
                 whileHover={shouldReduceMotion ? undefined : { scale: 1.01 }}
                 whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="w-full sm:w-auto"
               >
-                <Link
-                  to="/career-assessment"
-                  data-testid="secondary-assessment-cta"
-                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-2xs group"
+                <button
+                  type="button"
+                  onClick={() => openCounsellorModal({ source: "home_hero_expert" })}
+                  data-testid="secondary-expert-cta"
+                  className="w-full sm:w-auto h-12 sm:h-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#CBD5E1] bg-white tone-light card-light hover:bg-[#F8FAFC] text-[#081F38] px-6 py-3.5 text-[15px] sm:text-base font-bold transition-all shadow-2xs group cursor-pointer active:scale-95"
                 >
-                  <span>Take the free career assessment</span>
-                </Link>
+                  <span>Talk to Experts</span>
+                  <ArrowRight className="h-4 w-4 text-[#2563EB] group-hover:translate-x-0.5 transition-transform" />
+                </button>
               </motion.div>
             </motion.div>
 
@@ -178,7 +182,7 @@ export function ArzonHomeV2() {
       {/* ─── SECTION 2: PRIORITY CAREER TRACKS (4-CARD GRID) ────────────────── */}
       <HomePriorityTracks />
 
-      {/* ─── SECTION 3: FROM DIAGNOSTIC TO ROLE READINESS (PV FOCUS) ──────── */}
+      {/* ─── SECTION 3: INSTITUTIONAL CAREER ASSESSMENT ENGINE SHOWCASE ──────── */}
       <HomeAssessmentComparison />
 
       {/* ─── SECTION 4: 4-STEP CAREER PATHWAY ─────────────────────────────────── */}

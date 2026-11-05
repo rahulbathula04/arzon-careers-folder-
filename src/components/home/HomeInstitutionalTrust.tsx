@@ -48,10 +48,10 @@ const CHAPTERS = [
 ] as const;
 
 const BROADCAST_NETWORKS = [
-  { name: "HYBIZ TV HD", tag: "697K+ Subs", short: "HYBIZ HD" },
-  { name: "ETV Telangana", tag: "Satellite", short: "ETV" },
-  { name: "TV5 News", tag: "Cable HD", short: "TV5" },
-  { name: "V5 News", tag: "Broadcast", short: "V5" },
+  { name: "HYBIZ TV HD", role: "Anchor Broadcaster", reach: "697K+ Subs" },
+  { name: "ETV Telangana", role: "Satellite News", reach: "Statewide" },
+  { name: "TV5 News", role: "Prime Telecast", reach: "Cable HD" },
+  { name: "V5 News", role: "Regional Channel", reach: "Broadcast" },
 ] as const;
 
 export function HomeInstitutionalTrust() {
@@ -187,7 +187,7 @@ export function HomeInstitutionalTrust() {
         </motion.div>
 
         {/* Master Studio Bento Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-6 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 items-start">
           {/* ─── LEFT: CINEMATIC BROADCAST MONITOR (Cols 1-7) ─── */}
           <motion.div
             className="lg:col-span-7 flex flex-col"
@@ -380,15 +380,15 @@ export function HomeInstitutionalTrust() {
             </div>
           </motion.div>
 
-          {/* ─── RIGHT: 3 GRAPHICAL VERIFICATION BLADES (Cols 8-12) ─── */}
+          {/* ─── RIGHT: 3 APPLE-GRADE GRAPHICAL PROOF BLADES (Cols 8-12) ─── */}
           <motion.div
-            className="lg:col-span-5 flex flex-col gap-2.5 sm:gap-3.5"
+            className="lg:col-span-5 flex flex-col gap-3 sm:gap-4"
             variants={prefersReduced ? undefined : bladesContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
           >
-            {/* Blade 1: TASK Collaboration (Government Alignment) */}
+            {/* Blade 1: TASK Collaboration (Government Leadership) */}
             <motion.div
               variants={prefersReduced ? undefined : bladeVariants}
               whileHover={
@@ -396,49 +396,65 @@ export function HomeInstitutionalTrust() {
                   ? undefined
                   : { y: -2, transition: { duration: 0.2, ease: "easeOut" } }
               }
-              className="rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-3 sm:p-4.5 shadow-2xs hover:border-emerald-300 hover:shadow-sm transition-all duration-200"
+              className="rounded-2xl sm:rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-4 sm:p-5 shadow-[0_4px_20px_-4px_rgba(8,31,56,0.06),0_1px_3px_rgba(8,31,56,0.04)] hover:border-emerald-300/80 hover:shadow-md transition-all duration-300 active:scale-[0.99]"
             >
-              <div className="flex items-start justify-between gap-2 mb-1.5 sm:mb-2.5">
-                <div className="flex items-center gap-2.5">
-                  <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-1 shadow-2xs">
+              {/* Apple-grade Header Bar */}
+              <div className="flex items-center justify-between gap-2.5 pb-3 mb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  {/* Precision Squircle Logo Well */}
+                  <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-[13px] bg-gradient-to-b from-white to-slate-50 border border-slate-200/90 p-1.5 flex items-center justify-center shrink-0 shadow-2xs">
                     <TaskRealLogo className="h-full w-full object-contain" />
                   </div>
-                  <div>
-                    <span className="block font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#047857]">
+                  <div className="min-w-0">
+                    <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-emerald-700 truncate">
                       STATE GOVERNMENT ALIGNMENT
                     </span>
-                    <h3 className="font-sans text-xs sm:text-sm font-bold text-[#081F38] leading-tight">
-                      Dr. Srikanth Sinha · CEO, TASK
-                    </h3>
+                    <span className="block font-sans text-[11px] font-medium text-slate-500 truncate">
+                      Telangana Academy for Skill &amp; Knowledge
+                    </span>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 shrink-0">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-emerald-800 bg-emerald-50/90 px-2.5 py-1 rounded-full border border-emerald-200/90 shrink-0">
                   <CheckCircle2 className="h-3 w-3 text-emerald-600" />
-                  Govt. of Telangana
+                  <span>Govt. of Telangana</span>
                 </span>
               </div>
 
-              {/* Main Bullet Points (Minimal Text) */}
-              <ul className="space-y-1 text-[11px] sm:text-xs text-[#475569]">
-                <li className="flex items-start gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>
+              {/* Uncrowded Full-Width Executive Name & Title */}
+              <div>
+                <h3 className="font-sans text-base sm:text-lg font-bold text-[#081F38] tracking-tight leading-snug">
+                  Dr. Srikanth Sinha
+                </h3>
+                <p className="text-xs font-semibold text-[#2563EB] mt-0.5">
+                  Chief Executive Officer, TASK · Dept. of ITE&amp;C
+                </p>
+              </div>
+
+              {/* High-Impact Proof Points with Balanced Geometry */}
+              <ul className="mt-3 space-y-2 text-xs text-[#475569]">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
                     Formally inaugurated Arzon Global&apos;s healthcare training center in Hyderabad as
                     Chief Guest.
                   </span>
                 </li>
-                <li className="flex items-start gap-1.5">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                  <span>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
                     Dept. of ITE&amp;C skilling mandate to fast-track Life Sciences &amp; Pharmacy
                     graduates into global roles.
                   </span>
                 </li>
               </ul>
 
-              <div className="mt-2 sm:mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#64748B]">
-                <span>Dept. of ITE&amp;C Partnership</span>
-                <span className="text-emerald-700 font-bold">State Public Record</span>
+              {/* Apple-style Micro-Divider Footer */}
+              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+                <span className="font-medium text-slate-600">Telangana Dept. of ITE&amp;C</span>
+                <span className="text-emerald-700 font-bold flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 motion-safe:animate-pulse" />
+                  <span>Public Record</span>
+                </span>
               </div>
             </motion.div>
 
@@ -450,45 +466,70 @@ export function HomeInstitutionalTrust() {
                   ? undefined
                   : { y: -2, transition: { duration: 0.2, ease: "easeOut" } }
               }
-              className="rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-3 sm:p-4.5 shadow-2xs hover:border-blue-300 hover:shadow-sm transition-all duration-200"
+              className="rounded-2xl sm:rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-4 sm:p-5 shadow-[0_4px_20px_-4px_rgba(8,31,56,0.06),0_1px_3px_rgba(8,31,56,0.04)] hover:border-blue-300/80 hover:shadow-md transition-all duration-300 active:scale-[0.99]"
             >
-              <div className="flex items-start justify-between gap-2 mb-1.5 sm:mb-2.5">
-                <div className="flex items-center gap-2.5">
-                  <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-1 shadow-2xs">
+              {/* Apple-grade Header Bar */}
+              <div className="flex items-center justify-between gap-2.5 pb-3 mb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  {/* Precision Squircle Logo Well */}
+                  <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-[13px] bg-gradient-to-b from-white to-slate-50 border border-slate-200/90 p-1.5 flex items-center justify-center shrink-0 shadow-2xs">
                     <HybizTvLogo className="h-4.5 sm:h-5 w-auto" />
                   </div>
-                  <div>
-                    <span className="block font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#1D4ED8]">
+                  <div className="min-w-0">
+                    <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-blue-700 truncate">
                       BROADCAST TELEVISION
                     </span>
-                    <h3 className="font-sans text-xs sm:text-sm font-bold text-[#081F38] leading-tight">
-                      Simulcast on 4 Networks
-                    </h3>
+                    <span className="block font-sans text-[11px] font-medium text-slate-500 truncate">
+                      Regional News Simulcast
+                    </span>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-bold text-blue-800 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200 shrink-0">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-blue-800 bg-blue-50/90 px-2.5 py-1 rounded-full border border-blue-200/90 shrink-0">
                   <Radio className="h-3 w-3 text-blue-600" />
-                  697K+ Reach
+                  <span>697K+ Reach</span>
                 </span>
               </div>
 
-              {/* 4-Network Matrix Chips (Compact on Mobile) */}
-              <div className="grid grid-cols-4 sm:grid-cols-2 gap-1 sm:gap-1.5 mb-2">
+              {/* Title & Description */}
+              <div>
+                <h3 className="font-sans text-base sm:text-lg font-bold text-[#081F38] tracking-tight leading-snug">
+                  Simulcast on 4 Regional Networks
+                </h3>
+                <p className="text-xs font-semibold text-[#2563EB] mt-0.5">
+                  Televised Ceremony Archived on Public Record
+                </p>
+              </div>
+
+              {/* Tactile 2x2 Network Badge Matrix */}
+              <div className="grid grid-cols-2 gap-2 mt-3">
                 {BROADCAST_NETWORKS.map((net) => (
                   <div
                     key={net.name}
-                    className="flex items-center justify-between px-1.5 sm:px-2.5 py-1 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[10px] sm:text-[11px]"
+                    className="flex flex-col justify-between p-2 rounded-xl bg-slate-50/90 border border-slate-200/80 hover:bg-slate-100/80 transition-colors shadow-2xs"
                   >
-                    <span className="font-semibold text-[#081F38] sm:hidden">{net.short}</span>
-                    <span className="font-semibold text-[#081F38] hidden sm:inline">{net.name}</span>
-                    <span className="font-mono text-[9px] sm:text-[10px] text-[#64748B] hidden sm:inline">{net.tag}</span>
+                    <div className="flex items-center gap-1.5 mb-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-blue-600 shrink-0" />
+                      <span className="font-sans text-xs font-bold text-[#081F38] truncate">
+                        {net.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[10px]">
+                      <span className="text-[#64748B] truncate">{net.role}</span>
+                      <span className="font-mono font-bold text-[#1D4ED8] shrink-0 ml-1">
+                        {net.reach}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t border-slate-100 pt-1.5 sm:pt-2 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#64748B]">
-                <span>5:36 HD Master Telecast</span>
-                <span className="text-[#1D4ED8] font-bold">Uncut Archive</span>
+              {/* Apple-style Micro-Divider Footer */}
+              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+                <span className="font-medium text-slate-600">5:36 HD Master Telecast</span>
+                <span className="text-[#1D4ED8] font-bold flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                  <span>Uncut Archive</span>
+                </span>
               </div>
             </motion.div>
 
@@ -500,56 +541,83 @@ export function HomeInstitutionalTrust() {
                   ? undefined
                   : { y: -2, transition: { duration: 0.2, ease: "easeOut" } }
               }
-              className="rounded-2xl border border-[#E2E8F0] bg-white tone-light card-light p-3 sm:p-4.5 shadow-2xs hover:border-indigo-300 hover:shadow-md transition-all duration-200"
+              className="rounded-2xl sm:rounded-3xl border border-[#E2E8F0] bg-white tone-light card-light p-4 sm:p-5 shadow-[0_4px_20px_-4px_rgba(8,31,56,0.06),0_1px_3px_rgba(8,31,56,0.04)] hover:border-indigo-300/80 hover:shadow-md transition-all duration-300 active:scale-[0.99]"
             >
-              <div className="flex items-start justify-between gap-2 mb-1.5 sm:mb-2.5">
-                <div className="flex items-center gap-2.5">
-                  <div className="grid h-9 w-9 sm:h-11 sm:w-11 shrink-0 place-items-center rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] p-1 shadow-2xs">
+              {/* Apple-grade Header Bar */}
+              <div className="flex items-center justify-between gap-2.5 pb-3 mb-3 border-b border-slate-100">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  {/* Precision Squircle Logo Well */}
+                  <div className="h-10 w-10 sm:h-11 sm:w-11 rounded-[13px] bg-gradient-to-b from-white to-slate-50 border border-slate-200/90 p-1.5 flex items-center justify-center shrink-0 shadow-2xs">
                     <MsmeGovtLogo className="h-5 sm:h-6 w-auto" />
                   </div>
-                  <div>
-                    <span className="block font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#4338CA]">
+                  <div className="min-w-0">
+                    <span className="block font-mono text-[10px] font-bold uppercase tracking-[0.06em] text-indigo-700 truncate">
                       SOVEREIGN REGISTRATION
                     </span>
-                    <h3 className="font-sans text-xs sm:text-sm font-bold text-[#081F38] leading-tight">
-                      MSME Registered Enterprise
-                    </h3>
+                    <span className="block font-sans text-[11px] font-medium text-slate-500 truncate">
+                      Government of India
+                    </span>
                   </div>
                 </div>
-                <span className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono font-bold text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200 shrink-0">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-indigo-800 bg-indigo-50/90 px-2.5 py-1 rounded-full border border-indigo-200/90 shrink-0">
                   <ShieldCheck className="h-3 w-3 text-indigo-600" />
-                  Govt. of India
+                  <span>UDYAM Verified</span>
                 </span>
               </div>
 
-              <p className="text-[11px] sm:text-xs text-[#475569] leading-relaxed line-clamp-2 sm:line-clamp-none">
-                Registered under the Ministry of Micro, Small and Medium Enterprises (MSME). Open-ledger
-                transparency and sovereign enterprise identity.
-              </p>
+              {/* Title & Description */}
+              <div>
+                <h3 className="font-sans text-base sm:text-lg font-bold text-[#081F38] tracking-tight leading-snug">
+                  MSME Registered Enterprise
+                </h3>
+                <p className="text-xs font-semibold text-[#2563EB] mt-0.5">
+                  Ministry of Micro, Small and Medium Enterprises
+                </p>
+              </div>
 
-              <div className="mt-2 sm:mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-[#64748B]">
-                <span>Ministry of MSME</span>
-                <span className="text-[#4338CA] font-bold">UDYAM Registered</span>
+              {/* Complete, Dignified, Un-truncated Proof Points */}
+              <ul className="mt-3 space-y-2 text-xs text-[#475569]">
+                <li className="flex items-start gap-2">
+                  <ShieldCheck className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
+                    Registered enterprise under the Ministry of MSME, Government of India.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <ShieldCheck className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">
+                    Open-ledger UDYAM verification ensuring sovereign enterprise standing and institutional operating transparency.
+                  </span>
+                </li>
+              </ul>
+
+              {/* Apple-style Micro-Divider Footer */}
+              <div className="mt-3.5 pt-2.5 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+                <span className="font-medium text-slate-600">Ministry of MSME</span>
+                <span className="text-[#4338CA] font-bold flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
+                  <span>Active Registration</span>
+                </span>
               </div>
             </motion.div>
 
             {/* Quick Action Navigation */}
-            <div className="pt-0.5 flex flex-row gap-2">
+            <div className="pt-0.5 flex flex-row gap-2.5">
               <Link
                 to="/why-arzon"
-                className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#081F38] hover:bg-[#153270] text-white px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs font-bold transition-all shadow-sm active:scale-[0.97]"
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#153270] text-white px-4 py-3 text-xs font-bold transition-all shadow-sm active:scale-[0.98]"
               >
-                <span>All Verifications</span>
-                <ArrowRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                <span>View All Verifications</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <a
                 href={media.watch}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1 rounded-full border border-[#E2E8F0] bg-white tone-light card-light hover:bg-slate-50 text-[#081F38] px-3 sm:px-4 py-2.5 sm:py-3 text-[11px] sm:text-xs font-bold transition-all shadow-2xs active:scale-[0.97]"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#E2E8F0] bg-white tone-light card-light hover:bg-slate-50 text-[#081F38] px-4 py-3 text-xs font-bold transition-all shadow-2xs active:scale-[0.98]"
               >
-                <Tv className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#2563EB]" />
-                <span>YouTube</span>
+                <Tv className="h-3.5 w-3.5 text-[#2563EB]" />
+                <span>YouTube Telecast</span>
                 <ExternalLink className="h-3 w-3 text-[#64748B]" />
               </a>
             </div>
@@ -558,7 +626,7 @@ export function HomeInstitutionalTrust() {
 
         {/* ─── BOTTOM FULL-WIDTH TELEMETRY RIBBON (Apple Spec Strip) ─── */}
         <motion.div
-          className="mt-5 sm:mt-10 lg:mt-12 rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] tone-light card-light p-3.5 sm:p-5 lg:p-6 shadow-2xs"
+          className="mt-6 sm:mt-10 lg:mt-12 rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] tone-light card-light p-3.5 sm:p-5 lg:p-6 shadow-2xs"
           initial={prefersReduced ? undefined : { opacity: 0, y: 12 }}
           whileInView={prefersReduced ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}

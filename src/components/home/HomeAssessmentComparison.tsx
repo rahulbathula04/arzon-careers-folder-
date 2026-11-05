@@ -270,58 +270,68 @@ export function HomeAssessmentComparison() {
                 </h3>
               </div>
 
-              {/* 3 Numbered Steps / Pillars */}
-              <div className="space-y-3.5">
+              {/* 3 Numbered Steps / Pillars: High-Impact Visual Badges */}
+              <div className="space-y-3">
                 {/* Pillar 01 */}
-                <div className="flex items-start justify-between gap-3 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#BFDBFE] transition-colors">
-                  <div className="flex items-start gap-3.5 min-w-0">
-                    <div className="h-10 w-10 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#1D4ED8] flex items-center justify-center shrink-0 shadow-2xs">
-                      <BarChart3 className="h-5 w-5" />
+                <div className="flex items-start justify-between gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#BFDBFE] transition-colors">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="h-9 w-9 rounded-xl bg-[#EEF6FF] border border-[#BFDBFE] text-[#1D4ED8] flex items-center justify-center shrink-0 shadow-2xs">
+                      <BarChart3 className="h-4.5 w-4.5" />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-sm font-bold text-[#081F38] leading-snug">Role Compatibility Fit Scores</h4>
-                      <p className="text-xs text-[#64748B] mt-1 leading-relaxed">
-                        Calculates your exact percentage match across PV, CDM, Medical Coding, and Clinical SAS based on your academic and analytical profile.
-                      </p>
+                      <h4 className="text-xs sm:text-sm font-bold text-[#081F38] leading-tight">Role Compatibility Fit</h4>
+                      <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#EEF6FF] border border-[#BFDBFE] text-[10.5px] font-mono font-semibold text-[#1D4ED8]">PV 94%</span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#F0F9FF] border border-[#BAE6FD] text-[10.5px] font-mono font-semibold text-[#0284C7]">CDM 88%</span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#ECFDF5] border border-[#A7F3D0] text-[10.5px] font-mono font-semibold text-[#10B981]">Coding 82%</span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#F5F3FF] border border-[#DDD6FE] text-[10.5px] font-mono font-semibold text-[#7C3AED]">SAS 76%</span>
+                      </div>
                     </div>
                   </div>
-                  <span className="h-7 w-7 rounded-lg bg-[#EEF6FF] text-[#1D4ED8] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#BFDBFE]/60">
+                  <span className="h-6 w-6 rounded-lg bg-[#EEF6FF] text-[#1D4ED8] font-mono font-bold text-[11px] flex items-center justify-center shrink-0 border border-[#BFDBFE]/60">
                     01
                   </span>
                 </div>
 
                 {/* Pillar 02 */}
-                <div className="flex items-start justify-between gap-3 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#DDD6FE] transition-colors">
-                  <div className="flex items-start gap-3.5 min-w-0">
-                    <div className="h-10 w-10 rounded-xl bg-[#F5F3FF] border border-[#DDD6FE] text-[#7C3AED] flex items-center justify-center shrink-0 shadow-2xs">
-                      <Layers className="h-5 w-5" />
+                <div className="flex items-start justify-between gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#DDD6FE] transition-colors">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="h-9 w-9 rounded-xl bg-[#F5F3FF] border border-[#DDD6FE] text-[#7C3AED] flex items-center justify-center shrink-0 shadow-2xs">
+                      <Layers className="h-4.5 w-4.5" />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-sm font-bold text-[#081F38] leading-snug">Verified Skill Gap Audit</h4>
-                      <p className="text-xs text-[#64748B] mt-1 leading-relaxed">
-                        Identifies the specific tools, technical skills, and regulatory knowledge (e.g., EDC, MedDRA, Argus, ICD-10, SAS) you need to become job-ready.
-                      </p>
+                      <h4 className="text-xs sm:text-sm font-bold text-[#081F38] leading-tight">Verified Skill Gap Audit</h4>
+                      <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-[10.5px] font-mono font-medium text-slate-700">Argus Safety</span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-[10.5px] font-mono font-medium text-slate-700">MedDRA v26</span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-[10.5px] font-mono font-medium text-slate-700">Rave EDC</span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-[10.5px] font-mono font-medium text-slate-700">ICD-10-CM</span>
+                      </div>
                     </div>
                   </div>
-                  <span className="h-7 w-7 rounded-lg bg-[#F5F3FF] text-[#7C3AED] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#DDD6FE]/60">
+                  <span className="h-6 w-6 rounded-lg bg-[#F5F3FF] text-[#7C3AED] font-mono font-bold text-[11px] flex items-center justify-center shrink-0 border border-[#DDD6FE]/60">
                     02
                   </span>
                 </div>
 
                 {/* Pillar 03 */}
-                <div className="flex items-start justify-between gap-3 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#A7F3D0] transition-colors">
-                  <div className="flex items-start gap-3.5 min-w-0">
-                    <div className="h-10 w-10 rounded-xl bg-[#ECFDF5] border border-[#A7F3D0] text-[#059669] flex items-center justify-center shrink-0 shadow-2xs">
-                      <Calendar className="h-5 w-5" />
+                <div className="flex items-start justify-between gap-3 p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#A7F3D0] transition-colors">
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="h-9 w-9 rounded-xl bg-[#ECFDF5] border border-[#A7F3D0] text-[#059669] flex items-center justify-center shrink-0 shadow-2xs">
+                      <Calendar className="h-4.5 w-4.5" />
                     </div>
                     <div className="min-w-0">
-                      <h4 className="text-sm font-bold text-[#081F38] leading-snug">12-Week Roadmap &amp; CTC Benchmark</h4>
-                      <p className="text-xs text-[#64748B] mt-1 leading-relaxed">
-                        Get a personalized 12-week skill development plan with a realistic fresher salary range of ₹3.80 – ₹5.50 LPA for your top-fit roles.
-                      </p>
+                      <h4 className="text-xs sm:text-sm font-bold text-[#081F38] leading-tight">12-Week Roadmap &amp; CTC Band</h4>
+                      <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-[#059669]">
+                          <CheckCircle2 className="h-3 w-3 text-[#10B981]" />
+                          ₹3.80 – ₹5.50 LPA
+                        </span>
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-slate-100 border border-slate-200/80 text-[10.5px] font-mono font-medium text-slate-600">Personalized PDF</span>
+                      </div>
                     </div>
                   </div>
-                  <span className="h-7 w-7 rounded-lg bg-[#ECFDF5] text-[#059669] font-mono font-bold text-xs flex items-center justify-center shrink-0 border border-[#A7F3D0]/60">
+                  <span className="h-6 w-6 rounded-lg bg-[#ECFDF5] text-[#059669] font-mono font-bold text-[11px] flex items-center justify-center shrink-0 border border-[#A7F3D0]/60">
                     03
                   </span>
                 </div>

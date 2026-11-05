@@ -450,11 +450,20 @@ export function HomeEmployerTrustStrip() {
                     <MapPin className="h-3 w-3 text-slate-400 shrink-0" />
                     <span className="truncate">{item.hub}</span>
                   </div>
+
+                  {/* 3 Visual Tool Chips: Instant High-Impact Scannability */}
+                  <div className="mt-2.5 flex flex-wrap gap-1">
+                    {item.tools.slice(0, 3).map((tool) => (
+                      <span key={tool} className="text-[10px] font-mono font-medium bg-slate-50 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200/80 truncate">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Card Bottom CTA Trigger */}
                 <div className="mt-4 pt-3 border-t border-[#F1F5F9] flex items-center justify-between">
-                  <span className="text-xs font-bold text-[#2563EB] group-hover:text-[#1D4ED8] transition-colors inline-flex items-center gap-1">
+                  <span className="text-xs font-bold text-[#1D4ED8] group-hover:text-[#081F38] transition-colors inline-flex items-center gap-1">
                     <span>View hiring criteria</span>
                   </span>
                   <span className="grid h-6 w-6 place-items-center rounded-full bg-[#EEF6FF] text-[#2563EB] group-hover:bg-[#2563EB] group-hover:text-white transition-colors shadow-2xs">

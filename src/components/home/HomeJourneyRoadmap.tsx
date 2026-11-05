@@ -8,32 +8,42 @@ export function HomeJourneyRoadmap() {
     {
       number: 1,
       icon: Search,
-      title: "Understand the Role",
-      desc: "Explore job market demand, daily responsibilities, and required competencies.",
+      action: "DISCOVER",
+      title: "Role & Market Demand",
+      desc: "Healthcare hiring landscape and required competencies.",
+      chip: "Market Mapping",
     },
     {
       number: 2,
       icon: UserCheck,
-      title: "Identify Skill Gaps",
-      desc: "Complete the 6-minute diagnostic to map your background against employer expectations.",
+      action: "BENCHMARK",
+      title: "Skills Gap Diagnostic",
+      desc: "6-minute institutional assessment across clinical scenarios.",
+      chip: "Personal Dossier",
     },
     {
       number: 3,
       icon: BookOpen,
-      title: "Build Practical Skills",
-      desc: "Hands-on training with industry platforms like enterprise safety databases, standardized clinical coding, and EDC systems.",
+      action: "BUILD",
+      title: "Hands-on Tool Sandboxes",
+      desc: "Live practice on Argus Safety, MedDRA v26 & Rave EDC.",
+      chip: "Enterprise Tools",
     },
     {
       number: 4,
       icon: Award,
-      title: "Prepare to Apply",
-      desc: "Create verifiable work samples, portfolio deliverables, and interview-ready case studies.",
+      action: "PROVE",
+      title: "Verifiable Work Samples",
+      desc: "Audit-ready ICSR cases and portfolio deliverables.",
+      chip: "Proof of Work",
     },
     {
       number: 5,
       icon: Briefcase,
-      title: "Get Hired at Top MNCs",
-      desc: "Interview with leading CROs, global pharma sponsors, and healthcare MNCs with placement assistance.",
+      action: "PLACE",
+      title: "Tier-1 Placement Drives",
+      desc: "Direct interviews with top CROs & biopharma GCCs.",
+      chip: "Placement Pool",
     },
   ];
 
@@ -128,13 +138,18 @@ export function HomeJourneyRoadmap() {
                   {step.number}
                 </div>
 
-                {/* Step Content Card */}
+                {/* Step Content Card: Apple Micro-Bento */}
                 <div className="flex-1 rounded-2xl border border-[#E4EAF2] bg-white p-3.5 shadow-2xs tone-light card-light">
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#1557D6]">
-                    <Icon className="h-3 w-3" />
-                    <span>STEP 0{step.number}</span>
+                  <div className="flex items-center justify-between gap-1.5 mb-1">
+                    <div className="flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#1D4ED8]">
+                      <Icon className="h-3 w-3" />
+                      <span>{step.action}</span>
+                    </div>
+                    <span className="text-[10px] font-mono bg-[#EEF6FF] text-[#1D4ED8] px-2 py-0.5 rounded-md font-semibold border border-[#BFDBFE]/60">
+                      {step.chip}
+                    </span>
                   </div>
-                  <h3 className="font-sans text-sm font-bold text-[#071A4A] mt-0.5">
+                  <h3 className="font-sans text-sm font-bold text-[#081F38]">
                     {step.title}
                   </h3>
                   <p className="text-xs text-[#64748B] leading-relaxed mt-1">
@@ -184,13 +199,19 @@ export function HomeJourneyRoadmap() {
                     </span>
                   </div>
 
-                  {/* Title & Description */}
-                  <h3 className="font-sans text-sm lg:text-[15px] font-bold text-[#071A4A] leading-tight mb-1.5 group-hover:text-[#1557D6] transition-colors">
+                  {/* Title & Description with Deliverable Badge */}
+                  <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-[#1D4ED8] mb-1">
+                    {step.action}
+                  </span>
+                  <h3 className="font-sans text-sm lg:text-[15px] font-bold text-[#081F38] leading-tight mb-1 group-hover:text-[#1D4ED8] transition-colors">
                     {step.title}
                   </h3>
-                  <p className="text-xs text-[#64748B] leading-relaxed max-w-[190px] mx-auto">
+                  <p className="text-xs text-[#64748B] leading-relaxed max-w-[190px] mx-auto mb-2">
                     {step.desc}
                   </p>
+                  <span className="inline-block text-[10px] font-mono font-semibold text-[#081F38] bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md">
+                    {step.chip}
+                  </span>
                 </motion.div>
               );
             })}

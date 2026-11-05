@@ -1199,15 +1199,140 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
     // In production, an empty database returns a clean empty list rather than synthetic records.
 
-    // Sort all responses chronologically descending
-    unifiedList.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    // ── DEDUPLICATION & SANITIZATION PASS ─────────────────────────────────────────
+    // 1. Filter out synthetic system emails (@counsellor..., @arzoncandidate...)
+    // 2. Clean out fake placeholder college strings ("Counselling Applicant", etc.)
+    // 3. Deduplicate multiple entries submitted for the same phone number
+    const isSyntheticEmail = (email: string | null | undefined): boolean => {
+      if (!email) return false;
+      const em = email.toLowerCase().trim();
+      return (
+        em.includes("@counsellor.arzoncareers.in") ||
+        em.includes("@arzoncandidate.local") ||
+        em.includes("@pv-masterclass.arzoncareers.in") ||
+        /^\d{10}@/.test(em)
+      );
+    };
+
+    const isFakeCollege = (col: string | null | undefined): boolean => {
+      if (!col) return true;
+      const c = col.toLowerCase().trim();
+      return (
+        c === "counselling applicant" ||
+        c === "lead magnet applicant" ||
+        c === "not specified" ||
+        c === "general"
+      );
+    };
+
+    // Sanitize individual records
+    for (const r of unifiedList) {
+      if (isSyntheticEmail(r.email)) {
+        r.email = "";
+      }
+      if (isFakeCollege(r.college)) {
+        r.college = null;
+      }
+      if (r.notes && typeof r.notes === "string" && r.notes.startsWith("{")) {
+        try {
+          const parsed = JSON.parse(r.notes);
+          if (parsed.question) {
+            r.notes = String(parsed.question);
+          } else if (parsed.mentor_question) {
+            r.notes = String(parsed.mentor_question);
+          } else if (parsed.source && typeof parsed.source === "string" && !parsed.source.startsWith("/")) {
+            r.notes = `Source: ${parsed.source}`;
+          } else {
+            r.notes = null;
+          }
+        } catch {
+          r.notes = null;
+        }
+      }
+    }
+
+    // Deduplicate responses: merge duplicate records sharing the same 10-digit phone number
+    const deduplicatedList: UnifiedAdminResponse[] = [];
+    const seenPhoneMap = new Map<string, UnifiedAdminResponse>();
+
+    for (const r of unifiedList) {
+      const cleanPhone = (r.phone || "").replace(/\D/g, "").slice(-10);
+      if (!cleanPhone) {
+        deduplicatedList.push(r);
+        continue;
+      }
+
+      const isCounsellorApp =
+        r.kind === "application" &&
+        (r.program_slug === "counsellor-callback" ||
+          (typeof r.utm_source === "string" && r.utm_source.startsWith("counsellor-cta-")) ||
+          (r.entry_action && r.entry_action.toLowerCase().includes("counsellor")));
+
+      const existing = seenPhoneMap.get(cleanPhone);
+      if (!existing) {
+        if (isCounsellorApp) {
+          r.kind = "counsellor";
+          r.program_name = r.program_name || "Career Guidance";
+        }
+        seenPhoneMap.set(cleanPhone, r);
+        deduplicatedList.push(r);
+      } else {
+        const timeDiffMinutes = Math.abs(
+          (new Date(r.created_at).getTime() - new Date(existing.created_at).getTime()) / (1000 * 60)
+        );
+
+        if (timeDiffMinutes < 240) { // Within 4 hours: merge into a single canonical record
+          if (existing.kind === "counsellor" || isCounsellorApp || r.kind === "counsellor") {
+            existing.kind = "counsellor";
+            if (!existing.college && r.college) existing.college = r.college;
+            if (!existing.degree && r.degree) existing.degree = r.degree;
+            if (!existing.branch && r.branch) existing.branch = r.branch;
+            if (!existing.email && r.email) existing.email = r.email;
+            if (!existing.notes && r.notes) existing.notes = r.notes;
+            // Suppress the duplicate row
+            continue;
+          }
+
+          if (existing.kind === r.kind && existing.program_slug === r.program_slug) {
+            if (!existing.college && r.college) existing.college = r.college;
+            if (!existing.degree && r.degree) existing.degree = r.degree;
+            continue;
+          }
+        }
+
+        deduplicatedList.push(r);
+      }
+    }
+
+    // Recompute accurate counts from deduplicated list
+    const finalCountsByKind = {
+      workshop: 0,
+      application: 0,
+      career_engine: 0,
+      enrolment: 0,
+      counsellor: 0,
+      industry_network: 0,
+      enrolment_paid: countsByKind.enrolment_paid,
+      enrolment_intent: countsByKind.enrolment_intent,
+    };
+    const finalCountsByStatus: Record<string, number> = {};
+
+    for (const r of deduplicatedList) {
+      if (r.kind in finalCountsByKind) {
+        (finalCountsByKind as any)[r.kind]++;
+      }
+      const st = r.status.toLowerCase();
+      finalCountsByStatus[st] = (finalCountsByStatus[st] || 0) + 1;
+    }
+
+    deduplicatedList.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
     return {
-      responses: unifiedList,
-      totalCount: unifiedList.length,
+      responses: deduplicatedList,
+      totalCount: deduplicatedList.length,
       todayCount,
-      countsByKind,
-      countsByStatus,
+      countsByKind: finalCountsByKind,
+      countsByStatus: finalCountsByStatus,
       byCollege,
       byBranch,
       byDegree,
@@ -1390,7 +1515,7 @@ export const submitFastCounsellorLead = createServerFn({ method: "POST" })
       ? data.email.trim()
       : `${digits10}@counsellor.arzoncareers.in`;
 
-    // 1. Insert into counsellor_leads table
+    // Insert singular canonical counsellor lead (zero duplicate records)
     try {
       await (sb as any).from("counsellor_leads").insert({
         name: data.name,
@@ -1401,39 +1526,6 @@ export const submitFastCounsellorLead = createServerFn({ method: "POST" })
       });
     } catch (err) {
       console.warn("[counsellor] lead insert notice:", err);
-    }
-
-    // 2. Also register in applications table so it appears in unified admissions pipeline
-    try {
-      const { data: newId, error: appError } = await (sb as any).rpc("submit_application", {
-        p_name: data.name,
-        p_email: effectiveEmail,
-        p_phone: digits10,
-        p_program_slug: "counsellor-callback",
-        p_program_name: data.programName || "Career Counselling & Guidance",
-        p_whatsapp_optin: true,
-        p_lead_id: null,
-        p_utm_source: `counsellor-cta-${data.source}`,
-      });
-
-      if (!appError && newId) {
-        const notesObj = {
-          degree: data.degree || null,
-          academicYear: data.academicYear || null,
-          question: data.question || null,
-          source: data.source,
-          receivedAt: new Date().toISOString(),
-        };
-        await (sb as any)
-          .from("applications")
-          .update({
-            notes: JSON.stringify(notesObj),
-            status: "submitted",
-          })
-          .eq("id", newId);
-      }
-    } catch (appErr) {
-      console.warn("[counsellor] applications sync notice:", appErr);
     }
 
     // 3. Return pre-formatted WhatsApp link

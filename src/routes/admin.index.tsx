@@ -1161,7 +1161,7 @@ function AdminHome() {
                                     <span>{r.phone}</span>
                                   </span>
                                 )}
-                                {r.email && (
+                                {r.email ? (
                                   <span
                                     onClick={(e) => {
                                       e.stopPropagation();
@@ -1173,6 +1173,8 @@ function AdminHome() {
                                     <Mail className="w-3 h-3 text-zinc-500" />
                                     <span className="truncate">{r.email}</span>
                                   </span>
+                                ) : (
+                                  <span className="text-[10px] text-zinc-500 font-mono">Phone Only</span>
                                 )}
                               </div>
                             </div>
@@ -1189,21 +1191,21 @@ function AdminHome() {
                           <p className="font-semibold text-white text-xs truncate max-w-[220px]">
                             {r.program_name || r.entry_action || "Career Guidance"}
                           </p>
-                          {r.entry_detail && r.entry_detail !== r.program_name && (
+                          {r.entry_detail && r.entry_detail !== r.program_name && !r.entry_detail.startsWith("{") && (
                             <p className="text-[11px] text-zinc-400 truncate max-w-[220px]">
                               {r.entry_detail}
                             </p>
                           )}
-                          {r.notes && (
-                            <p className="text-[10px] text-zinc-500 truncate max-w-[220px] italic">
-                              "{r.notes}"
+                          {r.notes && !r.notes.startsWith("{") && (
+                            <p className="text-[10px] text-zinc-400 truncate max-w-[220px]">
+                              {r.notes}
                             </p>
                           )}
                         </td>
 
                         {/* 3. College & Qualification */}
                         <td className="py-4 px-4 space-y-1">
-                          {r.college ? (
+                          {r.college && !["counselling applicant", "lead magnet applicant", "not specified"].includes(r.college.toLowerCase().trim()) ? (
                             <div className="flex items-start gap-1.5 max-w-[220px]">
                               <Building2 className="w-3.5 h-3.5 text-zinc-400 shrink-0 mt-0.5" />
                               <span className="font-sans text-xs text-zinc-200 leading-snug line-clamp-2">

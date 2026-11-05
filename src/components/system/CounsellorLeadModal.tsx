@@ -165,7 +165,7 @@ export function CounsellorLeadModal() {
       const clientFp = ("counsellor-" + Date.now() + "-" + Math.random().toString(36).substring(2)).slice(0, 32);
       const programSlug = programme.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 50);
 
-      // 0. Sync to Fast Counsellor Leads Store
+      // Record singular canonical counsellor lead (zero duplicates)
       try {
         await submitFastCounsellorLead({
           data: {
@@ -178,65 +178,6 @@ export function CounsellorLeadModal() {
         });
       } catch (fastErr) {
         console.warn("[CounsellorLeadModal] Fast lead notice:", fastErr);
-      }
-
-      // 1. Sync to Admin Applications Pipeline (/admin/applications)
-      try {
-        await submitApp({
-          data: {
-            name: fullName.trim(),
-            email: userEmail,
-            phone: cleanPhone,
-            programSlug,
-            programName: programme,
-            whatsappOptin: true,
-            degree,
-            notes: JSON.stringify({
-              source: sourceTag,
-              preferredFormat,
-              pathname,
-              degree,
-              submittedAt: new Date().toISOString(),
-            }),
-            utmSource: `counsellor-cta-${sourceTag}`,
-          },
-        });
-      } catch (err) {
-        console.warn("[CounsellorLeadModal] Applications pipeline notice:", err);
-      }
-
-      // 2. Sync to Career Engine Leads (/admin/leads)
-      try {
-        await submitLead({
-          data: {
-            name: fullName.trim(),
-            email: userEmail,
-            phone: cleanPhone,
-            qualification: degree,
-            whatsappOptin: true,
-            sourcePath: pathname,
-            clientFp,
-            utmSource: `counsellor-cta-${sourceTag}`,
-          },
-        });
-      } catch (err) {
-        console.warn("[CounsellorLeadModal] Leads pipeline notice:", err);
-      }
-
-      // 3. Sync to ACRI Candidate Store (/admin/acri)
-      try {
-        await applyCandidate({
-          data: {
-            fullName: fullName.trim(),
-            email: userEmail,
-            mobile: cleanPhone,
-            highestQualification: degree,
-            collegeUniversity: "Counselling Applicant",
-            currentlyWorking: "no",
-          },
-        });
-      } catch (err) {
-        console.warn("[CounsellorLeadModal] ACRI sync notice:", err);
       }
 
       // Cache profile locally

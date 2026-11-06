@@ -252,6 +252,8 @@ function BioinformaticsBlueprintPage() {
   const [counsellorForm, setCounsellorForm] = useState({
     name: "",
     phone: "",
+    email: "",
+    college: "",
     degree: DEGREES[0],
     year: PASSING_YEARS[0],
     question: "",
@@ -287,11 +289,13 @@ function BioinformaticsBlueprintPage() {
         data: {
           name: counsellorForm.name.trim(),
           phone: counsellorForm.phone.trim(),
+          email: counsellorForm.email.trim(),
+          college: counsellorForm.college.trim(),
           source: "bioinformatics_counsellor_modal",
           degree: counsellorForm.degree,
           academicYear: counsellorForm.year,
           programName: "Bioinformatics & Clinical Genomics Pathway",
-          question: counsellorForm.question || "Discussing eligibility and curriculum",
+          question: `College: ${counsellorForm.college} · Query: ${counsellorForm.question || "Discussing eligibility and curriculum"}`,
         },
       });
     } catch (err) {
@@ -1236,17 +1240,50 @@ function BioinformaticsBlueprintPage() {
                     />
                   </div>
 
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-xs font-bold text-[#081F38] mb-1">
+                        WhatsApp / Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="+91 98765 43210"
+                        value={counsellorForm.phone}
+                        onChange={(e) =>
+                          setCounsellorForm({ ...counsellorForm, phone: e.target.value })
+                        }
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-bold text-[#081F38] mb-1">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="your.email@example.com"
+                        value={counsellorForm.email}
+                        onChange={(e) =>
+                          setCounsellorForm({ ...counsellorForm, email: e.target.value })
+                        }
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
+                      />
+                    </div>
+                  </div>
+
                   <div>
                     <label className="block text-xs font-bold text-[#081F38] mb-1">
-                      WhatsApp / Phone Number *
+                      College / University Name *
                     </label>
                     <input
-                      type="tel"
+                      type="text"
                       required
-                      placeholder="+91 98765 43210"
-                      value={counsellorForm.phone}
+                      placeholder="e.g. NIPER / Osmania University"
+                      value={counsellorForm.college}
                       onChange={(e) =>
-                        setCounsellorForm({ ...counsellorForm, phone: e.target.value })
+                        setCounsellorForm({ ...counsellorForm, college: e.target.value })
                       }
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
                     />

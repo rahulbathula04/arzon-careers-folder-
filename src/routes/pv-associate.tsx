@@ -252,6 +252,8 @@ function PVAssociateBlueprintPage() {
   const [counsellorForm, setCounsellorForm] = useState({
     name: "",
     phone: "",
+    email: "",
+    college: "",
     degree: DEGREES[0],
     year: PASSING_YEARS[0],
     question: "",
@@ -287,11 +289,13 @@ function PVAssociateBlueprintPage() {
         data: {
           name: counsellorForm.name.trim(),
           phone: counsellorForm.phone.trim(),
+          email: counsellorForm.email.trim(),
+          college: counsellorForm.college.trim(),
           source: "pv_associate_counsellor_modal",
           degree: counsellorForm.degree,
           academicYear: counsellorForm.year,
           programName: "Pharmacovigilance 12-Week Pathway",
-          question: counsellorForm.question || "Discussing eligibility and curriculum",
+          question: `College: ${counsellorForm.college} · Query: ${counsellorForm.question || "Discussing eligibility and curriculum"}`,
         },
       });
     } catch (err) {
@@ -1312,16 +1316,45 @@ function PVAssociateBlueprintPage() {
                     />
                   </div>
 
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
+                        WhatsApp Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="e.g. 98765 43210"
+                        value={counsellorForm.phone}
+                        onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="your.email@example.com"
+                        value={counsellorForm.email}
+                        onChange={(e) => setCounsellorForm({ ...counsellorForm, email: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-1">
                     <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                      WhatsApp Number *
+                      College / University Name *
                     </label>
                     <input
-                      type="tel"
+                      type="text"
                       required
-                      placeholder="e.g. 98765 43210"
-                      value={counsellorForm.phone}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
+                      placeholder="e.g. NIPER / Osmania University"
+                      value={counsellorForm.college}
+                      onChange={(e) => setCounsellorForm({ ...counsellorForm, college: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
                     />
                   </div>

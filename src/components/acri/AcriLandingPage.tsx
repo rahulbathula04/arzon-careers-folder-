@@ -38,8 +38,12 @@ export function AcriLandingPage() {
   const [counsellorForm, setCounsellorForm] = useState({
     name: "",
     phone: "",
+    email: "",
+    college: "",
     degree: "B.Pharm",
-    passoutYear: "2024",
+    passoutYear: "2026",
+    interestedDomain: "Pharmacovigilance & Drug Safety",
+    city: "",
     preferredTime: "Evening (4 PM - 7 PM)",
   });
   const [dpdpConsent, setDpdpConsent] = useState(true);
@@ -127,7 +131,15 @@ export function AcriLandingPage() {
   const handleCounsellorSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) {
-      toast.error("Please enter your name and phone number");
+      toast.error("Please enter your full name and mobile number");
+      return;
+    }
+    if (!counsellorForm.email.trim() || !counsellorForm.email.includes("@")) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+    if (!counsellorForm.college.trim()) {
+      toast.error("Please enter your college name");
       return;
     }
     if (!dpdpConsent) {
@@ -141,11 +153,14 @@ export function AcriLandingPage() {
         data: {
           name: counsellorForm.name.trim(),
           phone: counsellorForm.phone.trim(),
+          email: counsellorForm.email.trim(),
+          college: counsellorForm.college.trim(),
+          city: counsellorForm.city.trim() || "India",
           source: "acri_landing_counsellor_modal",
           degree: counsellorForm.degree,
           academicYear: counsellorForm.passoutYear,
-          programName: "Pharmacovigilance & Drug Safety",
-          question: `Passout Year: ${counsellorForm.passoutYear || "N/A"}`,
+          programName: counsellorForm.interestedDomain || "Pharmacovigilance & Drug Safety",
+          question: `Passout Year: ${counsellorForm.passoutYear || "2026"} · College: ${counsellorForm.college}`,
         },
       });
     } catch (err) {
@@ -158,7 +173,7 @@ export function AcriLandingPage() {
       );
       // Redirect to WhatsApp consultation
       const msg = encodeURIComponent(
-        `Hi Arzon Career Counsellor! My name is ${counsellorForm.name} (${counsellorForm.degree}, ${counsellorForm.passoutYear}). I would like to schedule a 1-on-1 Pharmacovigilance career strategy discussion.`
+        `Hi Arzon Career Counsellor! My name is ${counsellorForm.name} from ${counsellorForm.college} (${counsellorForm.degree}, ${counsellorForm.passoutYear}). I am interested in ${counsellorForm.interestedDomain} and would like to schedule a 1-on-1 career strategy discussion.`
       );
       window.open(`https://wa.me/918977626999?text=${msg}`, "_blank");
     }
@@ -1259,7 +1274,7 @@ export function AcriLandingPage() {
             <form onSubmit={handleCounsellorSubmit} className="space-y-3.5">
               <div>
                 <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                  Full Name *
+                  Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -1271,18 +1286,65 @@ export function AcriLandingPage() {
                 />
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-xs font-semibold text-[#071A4A] mb-1">
+                    WhatsApp Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={counsellorForm.phone}
+                    onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
+                    placeholder="+91 98765 43210"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-[#071A4A] mb-1">
+                    Email Address <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={counsellorForm.email}
+                    onChange={(e) => setCounsellorForm({ ...counsellorForm, email: e.target.value })}
+                    placeholder="priya@example.com"
+                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                  WhatsApp Number *
+                  College / University Name <span className="text-red-500">*</span>
                 </label>
                 <input
-                  type="tel"
+                  type="text"
                   required
-                  value={counsellorForm.phone}
-                  onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
-                  placeholder="+91 98765 43210"
+                  value={counsellorForm.college}
+                  onChange={(e) => setCounsellorForm({ ...counsellorForm, college: e.target.value })}
+                  placeholder="e.g. NIPER Hyderabad / Osmania University"
                   className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
                 />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#071A4A] mb-1">
+                  Target Domain / Career Track <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={counsellorForm.interestedDomain}
+                  onChange={(e) => setCounsellorForm({ ...counsellorForm, interestedDomain: e.target.value })}
+                  className="w-full px-3 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A]"
+                >
+                  <option value="Pharmacovigilance & Drug Safety">Pharmacovigilance & Drug Safety</option>
+                  <option value="Clinical Data Management (CDM)">Clinical Data Management (CDM)</option>
+                  <option value="Regulatory Affairs & Documentation">Regulatory Affairs & Documentation</option>
+                  <option value="Medical Coding & Health Informatics">Medical Coding & Health Informatics</option>
+                  <option value="Clinical SAS & Biostatistics">Clinical SAS & Biostatistics</option>
+                  <option value="General Healthcare Career Guidance">General Healthcare Career Guidance (Help Me Choose)</option>
+                </select>
               </div>
 
               <div className="grid grid-cols-2 gap-3">

@@ -1499,6 +1499,8 @@ const FastCounsellorLeadSchema = z.object({
   name: z.string().min(2).max(100).trim(),
   phone: z.string().min(10).max(20).trim(),
   email: z.string().email().optional().or(z.literal("")),
+  college: z.string().max(180).optional().default(""),
+  city: z.string().max(100).optional().default(""),
   source: z.string().max(80).optional().default("website_counsellor_cta"),
   degree: z.string().max(120).optional().default(""),
   academicYear: z.string().max(60).optional().default(""),
@@ -1518,11 +1520,15 @@ export const submitFastCounsellorLead = createServerFn({ method: "POST" })
 
     // Insert singular canonical counsellor lead (zero duplicate records)
     try {
+      const sourceWithContext = data.college
+        ? `${data.source || "website"} · ${data.college}`.slice(0, 80)
+        : data.source;
+
       await (sb as any).from("counsellor_leads").insert({
         name: data.name,
         contact: digits10,
         contact_type: "phone",
-        source: data.source,
+        source: sourceWithContext,
         requested_role: data.programName || "Career Guidance",
       });
     } catch (err) {
@@ -1534,9 +1540,11 @@ export const submitFastCounsellorLead = createServerFn({ method: "POST" })
       name: data.name,
       phone: digits10,
       email: effectiveEmail,
-      degree: data.degree,
-      passoutYear: data.academicYear,
+      college: data.college || "Campus Inbound",
+      degree: data.degree || "Healthcare Graduate",
+      passoutYear: data.academicYear || "2026",
       programName: data.programName || "Career Guidance",
+      city: data.city || "India",
       source: data.source,
       question: data.question,
     }).catch(() => {});

@@ -45,61 +45,79 @@ async function run() {
 
   if (ceErr) console.error("Error fetching career engine leads:", ceErr);
 
+  // Fetch applications for matching college or details if available
+  const { data: apps } = await sb
+    .from("applications")
+    .select("phone, college, degree, city, graduation_year")
+    .order("created_at", { ascending: false })
+    .limit(300);
+
+  const appMap = new Map();
+  for (const a of apps || []) {
+    const d = cleanDigits(a.phone);
+    if (d && !appMap.has(d)) {
+      appMap.set(d, a);
+    }
+  }
+
   const rows = [];
 
-  // 1. Process counsellor_leads first (highest intent)
+  // 1. Process counsellor_leads (highest intent)
   for (const cl of counsellorLeads || []) {
     const digits = cleanDigits(cl.contact);
-    const waUrl = digits ? `https://wa.me/91${digits}?text=${encodeURIComponent(`Hi ${cl.name}, following up on your Arzon career counselling request!`)}` : "";
-    const waFormula = waUrl ? `=HYPERLINK("${waUrl}", "Chat on WhatsApp")` : "";
+    const appInfo = digits ? appMap.get(digits) : null;
+    const waUrl = digits ? `https://wa.me/91${digits}?text=${encodeURIComponent(`Hi ${cl.name}, following up on your Arzon career guidance request regarding ${cl.requested_role || "Healthcare Careers"}!`)}` : "";
+    const waFormula = waUrl ? `=HYPERLINK("${waUrl}", "💬 Chat on WhatsApp")` : "";
+
     rows.push([
       toIST(cl.created_at),
       cl.name || "Candidate",
       digits ? `'91${digits}` : (cl.contact || ""),
       "", // email
-      "", // degree
-      "", // passout year
-      cl.requested_role || "Career Counselling",
-      cl.source || "Website Counsellor CTA",
-      "Direct Counsellor Callback Request",
-      cl.contacted_at ? "Contacted" : "New Lead",
-      cl.contacted_by || "",
-      "",
-      waFormula,
+      appInfo?.college || "Inbound Lead", // College
+      appInfo?.degree || "Healthcare Graduate", // Degree
+      appInfo?.graduation_year || "2026", // Passout Year
+      cl.requested_role || "Pharmacovigilance & Drug Safety", // Interested Domain
+      appInfo?.city || "India", // Location
+      "Requested 1-on-1 Career Counselling Callback", // Query
+      cl.source || "Website Counsellor CTA", // Source
+      cl.contacted_at ? "Contacted - Call Scheduled" : "New Lead", // Status
+      cl.contacted_by || "", // Assigned
+      "", // Remarks
+      waFormula, // WhatsApp Link
     ]);
   }
 
   // 2. Process career_engine_leads
   for (const ce of ceLeads || []) {
     const digits = cleanDigits(ce.phone);
-    const waUrl = digits ? `https://wa.me/91${digits}?text=${encodeURIComponent(`Hi ${ce.name}, this is from Arzon Careers regarding your career fit assessment!`)}` : "";
-    const waFormula = waUrl ? `=HYPERLINK("${waUrl}", "Chat on WhatsApp")` : "";
+    const appInfo = digits ? appMap.get(digits) : null;
+    const waUrl = digits ? `https://wa.me/91${digits}?text=${encodeURIComponent(`Hi ${ce.name}, this is from Arzon Careers regarding your healthcare career assessment and roadmap!`)}` : "";
+    const waFormula = waUrl ? `=HYPERLINK("${waUrl}", "💬 Chat on WhatsApp")` : "";
+    const domain = ce.archetype ? `Domain: ${ce.archetype.replace(/_/g, " ").toUpperCase()}` : "Healthcare Career Exploration";
+
     rows.push([
       toIST(ce.created_at),
       ce.name || "Candidate",
       digits ? `'91${digits}` : (ce.phone || ""),
       ce.email || "",
-      "", // degree
-      "", // passout year
-      ce.archetype ? `Archetype: ${ce.archetype}` : "Career Assessment",
+      appInfo?.college || "Campus Graduate",
+      appInfo?.degree || "Pharmacy / Life Sciences",
+      appInfo?.graduation_year || "2026",
+      domain,
+      appInfo?.city || "India",
+      ce.fit_score != null ? `Assessment Fit Score: ${ce.fit_score}%` : "Inbound Assessment Inquiry",
       "Career Engine Assessment",
-      ce.fit_score != null ? `Fit Score: ${ce.fit_score}%` : "Assessment lead",
-      ce.contacted_at ? "Contacted" : "New Lead",
+      ce.contacted_at ? "Contacted - Call Scheduled" : "New Lead",
       ce.contacted_by || "",
       ce.whatsapp_optin ? "WhatsApp Opted In" : "",
       waFormula,
     ]);
   }
 
-  console.log(`Prepared ${rows.length} rows to append to Google Sheet.`);
+  console.log(`Prepared ${rows.length} rows to write to Google Sheet.`);
 
-  if (rows.length === 0) {
-    console.log("No rows to append.");
-    return;
-  }
-
-  // Write batch request to temporary file
-  const batchFile = path.resolve("./scratch-batch.json");
+  const batchFile = path.resolve("./scratch-batch-rebuilt.json");
   const batchPayload = [
     {
       op: "append",
@@ -110,7 +128,6 @@ async function run() {
 
   fs.writeFileSync(batchFile, JSON.stringify(batchPayload, null, 2), "utf8");
 
-  console.log("Running gsheets mutate batch...");
   try {
     const result = execSync(`gsheets mutate batch ${SPREADSHEET_ID} -f "${batchFile}"`, { encoding: "utf8" });
     console.log("Batch result:", result);

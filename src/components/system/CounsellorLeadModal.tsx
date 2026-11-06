@@ -12,6 +12,8 @@ import {
   Sparkles,
   PhoneCall,
   CheckCircle2,
+  Mail,
+  Building2,
 } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { submitApplication } from "@/lib/applications.functions";
@@ -110,6 +112,36 @@ export function CounsellorLeadModal() {
     return "";
   });
 
+  const [email, setEmail] = useState(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      const ce = localStorage.getItem("ce_profile") || sessionStorage.getItem("ce_profile");
+      if (ce) {
+        const parsed = JSON.parse(ce);
+        if (parsed?.email) return parsed.email;
+      }
+      const p = localStorage.getItem("arzon_acri_candidate_profile");
+      if (p) {
+        const parsed = JSON.parse(p);
+        if (parsed?.email) return parsed.email;
+      }
+    } catch {}
+    return "";
+  });
+
+  const [college, setCollege] = useState(() => {
+    if (typeof window === "undefined") return "";
+    try {
+      const p = localStorage.getItem("arzon_candidate_profile");
+      if (p) {
+        const parsed = JSON.parse(p);
+        if (parsed?.college) return parsed.college;
+      }
+    } catch {}
+    return "";
+  });
+
+  const [academicYear, setAcademicYear] = useState("2026");
   const [degree, setDegree] = useState<string>(QUALIFICATION_OPTIONS[0]);
   const [programme, setProgramme] = useState<string>(PROGRAMME_OPTIONS[0]);
   const [preferredFormat, setPreferredFormat] = useState<"whatsapp" | "call">("whatsapp");
@@ -167,13 +199,19 @@ export function CounsellorLeadModal() {
       toast.error("Please enter your full name and a valid 10-digit WhatsApp number.");
       return;
     }
+    if (!email.trim() || !email.includes("@")) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    if (!college.trim()) {
+      toast.error("Please enter your college or institution name.");
+      return;
+    }
 
     setIsSubmitting(true);
     try {
       const cleanPhone = cleanDigits.slice(-10);
-      const userEmail = `${cleanPhone}@arzoncandidate.local`;
-      const clientFp = ("counsellor-" + Date.now() + "-" + Math.random().toString(36).substring(2)).slice(0, 32);
-      const programSlug = programme.toLowerCase().replace(/[^a-z0-9]+/g, "-").slice(0, 50);
+      const userEmail = email.trim();
 
       // Record singular canonical counsellor lead (zero duplicates)
       try {
@@ -181,9 +219,13 @@ export function CounsellorLeadModal() {
           data: {
             name: fullName.trim(),
             phone: cleanPhone,
+            email: userEmail,
+            college: college.trim(),
             source: sourceTag || "counsellor_modal",
             degree,
+            academicYear,
             programName: programme,
+            question: `College: ${college.trim()} · Passout: ${academicYear}`,
           },
         });
       } catch (fastErr) {
@@ -198,6 +240,7 @@ export function CounsellorLeadModal() {
             fullName: fullName.trim(),
             email: userEmail,
             mobile: cleanPhone,
+            college: college.trim(),
             degree,
             programme,
             updatedAt: new Date().toISOString(),
@@ -208,7 +251,7 @@ export function CounsellorLeadModal() {
       setStep("success");
       if (preferredFormat === "whatsapp") {
         const text = encodeURIComponent(
-          `Hi Arzon Team! My name is ${fullName.trim()}. I have completed ${degree}. I am interested in ${programme} and would like to speak with a healthcare career counsellor.`
+          `Hi Arzon Team! My name is ${fullName.trim()} from ${college.trim()}. I have completed ${degree} (${academicYear}). I am interested in ${programme} and would like to speak with a healthcare career counsellor.`
         );
         try {
           window.open(`https://wa.me/${COUNSELLOR_PHONE}?text=${text}`, "_blank");
@@ -304,41 +347,96 @@ export function CounsellorLeadModal() {
                   </div>
                 </div>
 
-                {/* WhatsApp Number */}
+                {/* WhatsApp & Email (2-Column Grid) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      WhatsApp Number <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        placeholder="e.g. 91212 83638"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Email Address <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <input
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="your.email@example.com"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* College / University Name */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    WhatsApp Number <span className="text-red-500">*</span>
+                    College / University Name <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                     <input
-                      type="tel"
+                      type="text"
                       required
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="e.g. 91212 83638"
+                      value={college}
+                      onChange={(e) => setCollege(e.target.value)}
+                      placeholder="e.g. NIPER Hyderabad / Osmania University"
                       className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
                     />
                   </div>
                 </div>
 
-                {/* Degree / Qualification */}
-                <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Highest Qualification <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                {/* Degree / Qualification & Passout Year */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Highest Qualification <span className="text-red-500">*</span>
+                    </label>
+                    <div className="relative">
+                      <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <select
+                        value={degree}
+                        onChange={(e) => setDegree(e.target.value)}
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all cursor-pointer"
+                      >
+                        {QUALIFICATION_OPTIONS.map((q) => (
+                          <option key={q} value={q}>
+                            {q}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-700 mb-1">
+                      Year of Passing
+                    </label>
                     <select
-                      value={degree}
-                      onChange={(e) => setDegree(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all cursor-pointer"
+                      value={academicYear}
+                      onChange={(e) => setAcademicYear(e.target.value)}
+                      className="w-full px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all cursor-pointer"
                     >
-                      {QUALIFICATION_OPTIONS.map((q) => (
-                        <option key={q} value={q}>
-                          {q}
-                        </option>
-                      ))}
+                      <option value="2027">2027</option>
+                      <option value="2026">2026 (Final Year)</option>
+                      <option value="2025">2025</option>
+                      <option value="2024">2024</option>
+                      <option value="2023">2023</option>
+                      <option value="Earlier">Earlier</option>
                     </select>
                   </div>
                 </div>

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   ArrowRight,
   Play,
@@ -10,6 +11,7 @@ import {
   CreditCard,
   Database,
   Download,
+  ExternalLink,
   FileCheck2,
   FileText,
   Layers,
@@ -18,15 +20,26 @@ import {
   Sparkles,
   TrendingUp,
   Users,
+  X,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
-export const ASSESSMENT_VIDEO_URL = "https://drive.google.com/file/d/1PLHA9NcqVdlakysuVWckynrmwRL1xARN/view?usp=sharing";
+export const ASSESSMENT_VIDEO_URL = "https://drive.google.com/file/d/1PLHA9NcqVdlakysuVWckynrmwRL1xARN/preview";
 
 export function HomeAssessmentComparison() {
   const shouldReduceMotion = useReducedMotion();
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isVideoModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsVideoModalOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isVideoModalOpen]);
 
   return (
     <section
@@ -91,10 +104,9 @@ export function HomeAssessmentComparison() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
 
-              <a
-                href={ASSESSMENT_VIDEO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => setIsVideoModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-[#081F38] hover:text-[#2563EB] py-2 cursor-pointer transition-colors"
                 aria-label="See how the career assessment works (1 minute video)"
               >
@@ -102,7 +114,7 @@ export function HomeAssessmentComparison() {
                   <Play className="h-3 w-3 fill-[#2563EB] ml-0.5" />
                 </div>
                 <span>See how it works (1 min)</span>
-              </a>
+              </button>
             </div>
 
             {/* 6. Trust Micro-Row */}
@@ -359,10 +371,9 @@ export function HomeAssessmentComparison() {
                   <span>Talk to Experts</span>
                 </button>
 
-                <a
-                  href={ASSESSMENT_VIDEO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => setIsVideoModalOpen(true)}
                   className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold text-[#081F38] hover:text-[#2563EB] pt-1 transition-colors cursor-pointer"
                   aria-label="See how the career assessment works (1 minute video)"
                 >
@@ -370,7 +381,7 @@ export function HomeAssessmentComparison() {
                     <Play className="h-2.5 w-2.5 fill-[#2563EB] ml-0.5" />
                   </div>
                   <span>See how it works (1 min)</span>
-                </a>
+                </button>
               </div>
 
               {/* Trust Indicators: 3 Clean Micro-Pill Cards (Zero Dangling Pipes, Never Wrap) */}
@@ -798,6 +809,60 @@ export function HomeAssessmentComparison() {
         </motion.div>
         </div>
       </div>
+
+      {/* ─── Video Embed Modal Dialog (Apple Cinema Style) ─── */}
+      {isVideoModalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="How the assessment works video"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md"
+          onClick={() => setIsVideoModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-3xl rounded-2xl sm:rounded-3xl overflow-hidden bg-black shadow-2xl border border-white/20"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-4 sm:px-5 py-3 bg-[#081F38] text-white">
+              <div className="flex items-center gap-2">
+                <Play className="h-4 w-4 fill-white text-white" />
+                <span className="text-xs font-bold font-mono tracking-wider uppercase">
+                  How Career Assessment Works (1 Min)
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsVideoModalOpen(false)}
+                className="h-7 w-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Close video"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="relative aspect-video w-full bg-black">
+              <iframe
+                src={ASSESSMENT_VIDEO_URL}
+                className="w-full h-full border-0"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                title="Career Assessment Walkthrough"
+              />
+            </div>
+            <div className="px-4 sm:px-5 py-2.5 bg-[#081F38] flex items-center justify-between text-xs text-slate-300">
+              <span className="text-[11px] sm:text-xs text-slate-400">Arzon Diagnostic Dossier Walkthrough</span>
+              <a
+                href={ASSESSMENT_VIDEO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-white/90 hover:text-white font-semibold underline underline-offset-2"
+              >
+                <span>Open in Drive</span>
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

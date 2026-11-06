@@ -9,6 +9,7 @@ import { requireStaff } from "@/server/auth-guards.server";
 import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { syncAndApproveAcriApplication } from "@/lib/acri-core.functions";
 import { readLocalApplications, writeLocalApplications } from "@/lib/industryNetwork.functions";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 function admin() {
   return createSafeAdminClient();
@@ -1527,6 +1528,18 @@ export const submitFastCounsellorLead = createServerFn({ method: "POST" })
     } catch (err) {
       console.warn("[counsellor] lead insert notice:", err);
     }
+
+    // Direct Sync to Google Sheet (Zero Lead Loss)
+    void syncCounselorLeadToGoogleSheet({
+      name: data.name,
+      phone: digits10,
+      email: effectiveEmail,
+      degree: data.degree,
+      passoutYear: data.academicYear,
+      programName: data.programName || "Career Guidance",
+      source: data.source,
+      question: data.question,
+    }).catch(() => {});
 
     // 3. Return pre-formatted WhatsApp link
     const waText = encodeURIComponent(

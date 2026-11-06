@@ -12,6 +12,8 @@ import {
   MessageCircle,
   Mail,
   Phone,
+  FileSpreadsheet,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -228,6 +230,16 @@ function AdminLeads() {
           <Button onClick={downloadCsv} variant="secondary" className="gap-1.5">
             <Download className="h-4 w-4" /> Export CSV
           </Button>
+          <a
+            href="https://docs.google.com/spreadsheets/d/1XTwCZ_vetdPbVZGse3HK3oBdptHk8TRtzRfZyshO0J4/edit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full border border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 text-sm font-medium transition-colors"
+          >
+            <FileSpreadsheet className="h-4 w-4" />
+            Counselor Sheet
+            <ExternalLink className="h-3.5 w-3.5 opacity-70" />
+          </a>
         </div>
       </header>
 

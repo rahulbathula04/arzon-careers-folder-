@@ -8,6 +8,7 @@ import { withCache } from "@/server/cache.server";
 
 import { redis } from "@/lib/redis.server";
 import { checkRateLimit } from "@/server/ratelimit.server";
+import { syncWhatsAppClickToGoogleSheet } from "@/server/googleSheetSync.server";
 
 const TrackSchema = z.object({
   event_name: z.string().min(1).max(64),
@@ -70,6 +71,22 @@ export const trackEvent = createServerFn({ method: "POST" })
       } else {
         // Fallback to direct DB write if Redis is unavailable locally
         await supabaseAdmin.rpc("track_event", eventPayload);
+      }
+
+      // Stream WhatsApp click telemetry to Google Sheet
+      if (data.event_name === "whatsapp_click" || data.event_name === "whatsapp_message_created") {
+        const p = data.props as Record<string, unknown> | undefined;
+        void syncWhatsAppClickToGoogleSheet({
+          trigger: data.event_name,
+          path: data.path ?? undefined,
+          source: (p?.source as string) ?? "wa_link",
+          targetPhone: (p?.targetPhone as string) ?? "918977626999",
+          message: (p?.text as string) ?? (p?.message as string) ?? "Direct WhatsApp Click",
+          device: (p?.device as string) ?? undefined,
+          userId: (data.session_id || data.anon_id) ?? undefined,
+          proxy: (p?.proxy as string) ?? "click",
+          utmSource: data.utm_source ?? undefined,
+        }).catch(() => {});
       }
     } catch (err) {
       console.error("[analytics] trackEvent failed", err);

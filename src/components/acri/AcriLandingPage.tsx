@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { ArzonCareerPathGrid } from "@/components/home/ArzonCareerPathGrid";
+import { submitFastCounsellorLead } from "@/lib/workshop.functions";
 
 export function AcriLandingPage() {
   // Interactive Drawer & Modal States
@@ -123,7 +124,7 @@ export function AcriLandingPage() {
     });
   };
 
-  const handleCounsellorSubmit = (e: React.FormEvent) => {
+  const handleCounsellorSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) {
       toast.error("Please enter your name and phone number");
@@ -135,7 +136,21 @@ export function AcriLandingPage() {
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await submitFastCounsellorLead({
+        data: {
+          name: counsellorForm.name.trim(),
+          phone: counsellorForm.phone.trim(),
+          source: "acri_landing_counsellor_modal",
+          degree: counsellorForm.degree,
+          academicYear: counsellorForm.passoutYear,
+          programName: "Pharmacovigilance & Drug Safety",
+          question: `Passout Year: ${counsellorForm.passoutYear || "N/A"}`,
+        },
+      });
+    } catch (err) {
+      console.warn("Failed to submit counsellor lead:", err);
+    } finally {
       setIsSubmitting(false);
       setIsCounsellorModalOpen(false);
       toast.success(
@@ -146,7 +161,7 @@ export function AcriLandingPage() {
         `Hi Arzon Career Counsellor! My name is ${counsellorForm.name} (${counsellorForm.degree}, ${counsellorForm.passoutYear}). I would like to schedule a 1-on-1 Pharmacovigilance career strategy discussion.`
       );
       window.open(`https://wa.me/918977626999?text=${msg}`, "_blank");
-    }, 600);
+    }
   };
 
   return (

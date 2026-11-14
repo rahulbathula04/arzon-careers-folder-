@@ -37,12 +37,16 @@ interface NavItemConfig {
   };
 }
 
+/**
+ * Curated Minimal 5-Pillar Navigation Hierarchy
+ * Designed for instant clarity, zero awkward word-breaks, and Apple-grade restraint.
+ */
 const NAV_ITEMS: readonly NavItemConfig[] = [
   {
     key: "careers",
     label: "Careers",
     to: "/careers",
-    description: "Explore healthcare roles and job paths",
+    description: "Explore clinical roles, salaries & CRO requirements",
     flyout: {
       category: {
         title: "Explore Careers",
@@ -77,7 +81,7 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
     key: "degrees",
     label: "Degrees",
     to: "/degrees",
-    description: "Explore career paths by qualification",
+    description: "Match your degree to clinical industry roles",
     flyout: {
       category: {
         title: "Degree to Role Matrix",
@@ -112,7 +116,7 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
     key: "programmes",
     label: "Programmes",
     to: "/courses",
-    description: "Role-focused clinical career programmes",
+    description: "ACRI Fellowship & live trial case training",
     flyout: {
       category: {
         title: "Clinical Programmes",
@@ -143,121 +147,55 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
     },
   },
   {
-    key: "career-assessment",
-    label: "Career Assessment",
+    key: "diagnostic",
+    label: "Diagnostic",
     to: "/career-assessment",
-    description: "Discover which roles fit you",
+    description: "40-scenario technical screening diagnostic",
     flyout: {
       category: {
-        title: "Role Diagnostic",
+        title: "Clinical Diagnostic",
         to: "/career-assessment",
-        description: "Discover which healthcare career matches your clinical aptitude & degree",
+        description: "Test your casework accuracy against 2026 CRO technical interview cutoffs",
         sublinks: [
-          { label: "12-Minute Role Fit Assessment", to: "/career-assessment" },
-          { label: "Career Engine Platform", to: "/career-engine" },
+          { label: "Drug Safety Associate Diagnostic", to: "/career-engine/start" },
+          { label: "Diagnostic Scorecard & Audit", to: "/career-engine/result" },
           { label: "Assessment Methodology", to: "/acri/methodology" },
         ],
       },
       specializations: {
-        title: "Evaluation Domains",
+        title: "Tested Competencies",
         items: [
-          { label: "Drug Safety & PV Logic", to: "/career-assessment" },
-          { label: "Clinical Data & EDC Precision", to: "/career-assessment" },
-          { label: "Regulatory Compliance Mindset", to: "/career-assessment" },
-          { label: "Clinical Terminology Diagnostics", to: "/career-assessment" },
+          { label: "Day 0 Regulatory Clocks", to: "/career-assessment" },
+          { label: "ICSR 4 Minimum Criteria", to: "/career-assessment" },
+          { label: "MedDRA Hierarchy & Coding", to: "/career-assessment" },
+          { label: "SUSAR Expedited Reporting", to: "/career-assessment" },
+          { label: "WHO-UMC Causality Analysis", to: "/career-assessment" },
         ],
       },
       spotlight: {
         badge: "Free Diagnostic",
-        title: "Instant Readiness Report",
-        description: "Receive a personalized transition readiness score and role roadmap in 12 minutes.",
-        ctaText: "Start Assessment",
+        title: "Instant Diagnostic Dossier",
+        description: "Receive your objective 40-question score, 4 fatal trap breakdown, and 7-day study plan.",
+        ctaText: "Start Diagnostic",
         to: "/career-assessment",
       },
     },
   },
   {
-    key: "resources",
-    label: "Resources",
-    to: "/resources",
-    description: "Role guides, research and career insights",
-    flyout: {
-      category: {
-        title: "Career Resources",
-        to: "/resources",
-        description: "Industry guides, salary data, protocols and preparation kits",
-        sublinks: [
-          { label: "Healthcare Careers Blog", to: "/blog" },
-          { label: "Career Roadmap 2026", to: "/roadmap" },
-          { label: "Starter Kit PDF Guide", to: "/starter-kit" },
-        ],
-      },
-      specializations: {
-        title: "Interactive Tools",
-        items: [
-          { label: "2026 Industry Salary Guide", to: "/industry/salaries" },
-          { label: "Clinical Role Matrix Tool", to: "/tools/role-matrix" },
-          { label: "Skill Gap Analyzer", to: "/tools/skill-gap-analyzer" },
-          { label: "Cost of Inaction Calculator", to: "/tools/cost-calculator" },
-        ],
-      },
-      spotlight: {
-        badge: "Free Kit",
-        title: "2026 Career Starter Kit",
-        description: "Official 40-page guide covering clinical research careers, JDs, and hiring standards.",
-        ctaText: "Download Free Kit",
-        to: "/starter-kit",
-      },
-    },
-  },
-  {
-    key: "reviews",
-    label: "Reviews",
-    to: "/reviews",
-    description: "Real experiences from learners",
-    flyout: {
-      category: {
-        title: "Verified Outcomes",
-        to: "/reviews",
-        description: "Real career transition stories and verified placement proofs",
-        sublinks: [
-          { label: "Alumni Placement Reports", to: "/placements" },
-          { label: "Trust & Credibility Report", to: "/trust-report" },
-          { label: "Candidate Success Moments", to: "/moments" },
-        ],
-      },
-      specializations: {
-        title: "Transition Proofs",
-        items: [
-          { label: "Drug Safety & PV Transitions", to: "/reviews" },
-          { label: "CDM Specialist Placements", to: "/reviews" },
-          { label: "Medical Coding Certified Alumni", to: "/reviews" },
-          { label: "College & TPO Feedback", to: "/tpos" },
-        ],
-      },
-      spotlight: {
-        badge: "Audited",
-        title: "Verified Placement Data",
-        description: "94% verified transition rate into clinical research and life sciences careers.",
-        ctaText: "Explore Placements",
-        to: "/placements",
-      },
-    },
-  },
-  {
-    key: "industry-network",
-    label: "Industry Network",
+    key: "network",
+    label: "Network",
     to: "/industry-network",
-    description: "Build industry connections before graduation",
+    description: "Connect with 450+ CROs & pharma employers",
     flyout: {
       category: {
         title: "Industry Network",
         to: "/industry-network",
-        description: "Connect directly with 450+ CROs, pharma leaders and hiring directors",
+        description: "Direct connection to CRO leaders, hiring directors, and verified alumni",
         sublinks: [
           { label: "Join Industry Network", to: "/industry-network/apply" },
           { label: "For Healthcare Employers", to: "/recruiters" },
           { label: "For Colleges & TPOs", to: "/tpos" },
+          { label: "Verified Placement Proofs", to: "/reviews" },
         ],
       },
       specializations: {
@@ -281,12 +219,12 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
 ] as const;
 
 const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
-  { label: "Roles", to: "/roles" },
+  { label: "Reviews & Placements", to: "/reviews" },
+  { label: "Salary Benchmark 2026", to: "/industry/salaries" },
   { label: "For Employers", to: "/recruiters" },
-  { label: "For Colleges", to: "/tpos" },
+  { label: "For Colleges & TPOs", to: "/tpos" },
   { label: "About Arzon", to: "/about" },
-  { label: "Why Arzon", to: "/why-arzon" },
-  { label: "Verify a Credential", to: "/verify" },
+  { label: "Verify Credential", to: "/verify" },
 ] as const;
 
 export function ArzonHeader() {
@@ -325,7 +263,7 @@ export function ArzonHeader() {
   useEffect(() => {
     const root = document.getElementById("app-scroll-root");
     if (!root) return;
-    const onScroll = () => setScrolled(root.scrollTop > 20);
+    const onScroll = () => setScrolled(root.scrollTop > 15);
     root.addEventListener("scroll", onScroll, { passive: true });
     return () => root.removeEventListener("scroll", onScroll);
   }, []);
@@ -362,13 +300,13 @@ export function ArzonHeader() {
       <header
         onMouseLeave={handleMouseLeave}
         className={[
-          "arzon-site-header nav-shell sticky top-0 z-50 h-[44px] border-b transition-[background-color,border-color,box-shadow] duration-200 tone-light",
+          "arzon-site-header nav-shell sticky top-0 z-50 h-[48px] border-b transition-all duration-200 tone-light",
           scrolled
-            ? "bg-white/85 backdrop-blur-xl backdrop-saturate-150 border-black/[0.08] shadow-[0_2px_12px_rgba(0,0,0,0.04)]"
-            : "bg-white/80 backdrop-blur-xl backdrop-saturate-150 border-black/[0.06]",
+            ? "bg-white/90 backdrop-blur-xl backdrop-saturate-150 border-black/[0.08] shadow-[0_2px_12px_rgba(0,0,0,0.03)]"
+            : "bg-white/80 backdrop-blur-xl backdrop-saturate-150 border-black/[0.05]",
         ].join(" ")}
       >
-        <div className="max-w-[1024px] xl:max-w-[1080px] mx-auto px-4 h-full flex items-center justify-between">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-4">
           {/* Apple-style Brand Mark */}
           <Link
             to="/"
@@ -386,15 +324,15 @@ export function ArzonHeader() {
               loading="eager"
               draggable={false}
             />
-            <span className="text-[11px] font-semibold tracking-[0.14em] text-[#1d1d1f] whitespace-nowrap">
+            <span className="text-[11px] font-semibold tracking-[0.14em] text-[#081F38] whitespace-nowrap">
               ARZON GLOBAL
             </span>
           </Link>
 
-          {/* Desktop Nav Links (Apple SF Pro Style) */}
+          {/* Desktop Nav Links (Clean, Minimal, Curated SF Pro Style) */}
           <nav
             aria-label="Main navigation"
-            className="hidden lg:flex items-center gap-0.5 xl:gap-1"
+            className="hidden lg:flex items-center gap-1 xl:gap-2"
           >
             {NAV_ITEMS.map((item) => {
               const isCurrentRoute =
@@ -404,18 +342,18 @@ export function ArzonHeader() {
               return (
                 <div
                   key={item.key}
-                  className="relative"
+                  className="relative shrink-0"
                   onMouseEnter={() => handleMouseEnter(item.key)}
                 >
                   <Link
                     to={item.to as any}
                     className={[
-                      "inline-flex items-center px-2 xl:px-2.5 py-1 text-[12px] font-normal tracking-[-0.01em] transition-all duration-200 cursor-pointer select-none rounded",
+                      "inline-flex items-center px-3 py-1.5 text-[13px] tracking-[-0.01em] transition-all duration-150 cursor-pointer select-none rounded-full whitespace-nowrap",
                       isOpen
-                        ? "text-[#1d1d1f] opacity-100"
+                        ? "text-[#081F38] bg-black/[0.05] font-medium"
                         : isCurrentRoute
-                        ? "text-[#1d1d1f] font-medium opacity-100"
-                        : "text-[#1d1d1f]/80 hover:text-[#1d1d1f] hover:opacity-100",
+                        ? "text-[#081F38] font-semibold bg-black/[0.03]"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-black/[0.03] font-normal",
                     ].join(" ")}
                     onClick={handleNavClose}
                   >
@@ -426,8 +364,8 @@ export function ArzonHeader() {
             })}
           </nav>
 
-          {/* Desktop Utility Controls (Apple Style) */}
-          <div className="hidden lg:flex items-center gap-3 shrink-0">
+          {/* Desktop Utility Controls (Apple Minimalist Style) */}
+          <div className="hidden lg:flex items-center gap-2.5 xl:gap-3 shrink-0">
             {/* Apple Spotlight Search Trigger */}
             <button
               type="button"
@@ -435,11 +373,11 @@ export function ArzonHeader() {
                 handleNavClose();
                 setSearchOpen(true);
               }}
-              className="inline-flex h-7 items-center gap-1.5 rounded-full bg-black/[0.04] hover:bg-black/[0.07] px-2.5 text-[11px] font-normal text-slate-600 hover:text-slate-900 transition-colors cursor-pointer select-none"
+              className="inline-flex h-7 items-center gap-1.5 rounded-full bg-black/[0.03] hover:bg-black/[0.06] px-2.5 text-[11px] font-normal text-slate-500 hover:text-slate-900 transition-colors cursor-pointer select-none whitespace-nowrap"
               aria-label="Search Arzon (Cmd+K)"
             >
-              <Search className="h-3 w-3 text-slate-500" />
-              <span>Search</span>
+              <Search className="h-3 w-3 text-slate-400" />
+              <span className="hidden xl:inline">Search</span>
               <kbd className="text-[10px] text-slate-400 font-sans tracking-tight">⌘K</kbd>
             </button>
 
@@ -450,12 +388,12 @@ export function ArzonHeader() {
             <Link
               to="/login"
               onClick={handleNavClose}
-              className="inline-flex h-7 items-center px-1 text-[12px] font-normal text-[#1d1d1f]/80 hover:text-[#1d1d1f] transition-opacity select-none"
+              className="inline-flex h-7 items-center px-1 text-[12px] font-normal text-slate-600 hover:text-slate-900 transition-colors whitespace-nowrap select-none"
             >
               Sign in
             </Link>
 
-            {/* Primary CTA (Apple Blue Store Pill) */}
+            {/* Primary CTA (Apple Blue Minimal Pill) */}
             <button
               type="button"
               onClick={() => {
@@ -463,7 +401,7 @@ export function ArzonHeader() {
                 openCounsellorModal({ source: "header_desktop" });
               }}
               data-testid="primary-career-cta"
-              className="inline-flex h-[26px] items-center gap-1 rounded-full bg-[#0071E3] hover:bg-[#0077ED] active:scale-[0.98] text-white text-[12px] font-normal px-3 transition-all cursor-pointer shadow-none whitespace-nowrap shrink-0 select-none"
+              className="inline-flex h-[28px] items-center gap-1 rounded-full bg-[#0071E3] hover:bg-[#0077ED] active:scale-[0.98] text-white text-[12px] font-medium px-3.5 transition-all cursor-pointer shadow-none whitespace-nowrap shrink-0 select-none"
             >
               <span>Talk to Experts</span>
               <ArrowRight className="h-3 w-3" />
@@ -506,7 +444,7 @@ export function ArzonHeader() {
           </div>
         </div>
 
-        {/* Apple Desktop Flyout Dropdown Panel */}
+        {/* Desktop Flyout Dropdown Panel */}
         {activeItem && (
           <div
             onMouseEnter={() => {
@@ -516,18 +454,18 @@ export function ArzonHeader() {
               }
             }}
             onMouseLeave={handleMouseLeave}
-            className="hidden lg:block absolute top-[44px] inset-x-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-black/[0.08] shadow-[0_24px_48px_rgba(0,0,0,0.08)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 duration-200"
+            className="hidden lg:block absolute top-[48px] inset-x-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-black/[0.08] shadow-[0_24px_48px_rgba(0,0,0,0.06)] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-1 duration-150"
           >
-            <div className="max-w-[1024px] xl:max-w-[1080px] mx-auto px-6 py-8 grid grid-cols-12 gap-8 text-[#1d1d1f]">
+            <div className="w-full max-w-7xl mx-auto px-6 sm:px-8 py-7 grid grid-cols-12 gap-8 text-[#1d1d1f]">
               {/* Column 1: Category Overview & Sublinks */}
               <div className="col-span-4">
-                <div className="text-[10px] font-normal text-slate-400 tracking-[0.08em] uppercase mb-2">
-                  Explore {activeItem.label}
+                <div className="text-[10px] font-bold text-slate-400 tracking-[0.08em] uppercase mb-2">
+                  {activeItem.label} Overview
                 </div>
                 <Link
                   to={activeItem.flyout.category.to as any}
                   onClick={handleNavClose}
-                  className="text-[20px] font-semibold text-[#1d1d1f] hover:text-[#0071e3] tracking-tight leading-snug transition-colors block mb-1 group"
+                  className="text-[19px] font-semibold text-[#081F38] hover:text-[#0071e3] tracking-tight leading-snug transition-colors block mb-1.5 group"
                 >
                   <span>{activeItem.flyout.category.title}</span>
                   <ArrowRight className="h-4 w-4 inline-block ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -535,16 +473,16 @@ export function ArzonHeader() {
                 <p className="text-xs text-slate-500 leading-relaxed mb-4">
                   {activeItem.flyout.category.description}
                 </p>
-                <div className="space-y-1.5 pt-2 border-t border-black/[0.06]">
+                <div className="space-y-1 pt-2 border-t border-black/[0.06]">
                   {activeItem.flyout.category.sublinks.map((sub) => (
                     <Link
                       key={sub.to}
                       to={sub.to as any}
                       onClick={handleNavClose}
-                      className="text-[12px] text-[#1d1d1f]/80 hover:text-[#0071e3] transition-colors py-0.5 flex items-center justify-between group"
+                      className="text-[12.5px] text-slate-600 hover:text-[#0071e3] transition-colors py-1 flex items-center justify-between group"
                     >
                       <span>{sub.label}</span>
-                      <ChevronRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-[#0071e3] group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-[#0071e3] group-hover:translate-x-0.5 transition-all" />
                     </Link>
                   ))}
                 </div>
@@ -552,7 +490,7 @@ export function ArzonHeader() {
 
               {/* Column 2: Specializations & Domains */}
               <div className="col-span-4">
-                <div className="text-[10px] font-normal text-slate-400 tracking-[0.08em] uppercase mb-2">
+                <div className="text-[10px] font-bold text-slate-400 tracking-[0.08em] uppercase mb-2">
                   {activeItem.flyout.specializations.title}
                 </div>
                 <div className="space-y-1">
@@ -561,7 +499,7 @@ export function ArzonHeader() {
                       key={spec.label}
                       to={spec.to as any}
                       onClick={handleNavClose}
-                      className="text-[12px] text-[#1d1d1f]/90 hover:text-[#0071e3] transition-colors py-1 flex items-center justify-between rounded px-2 -mx-2 hover:bg-black/[0.02]"
+                      className="text-[12.5px] text-slate-700 hover:text-[#0071e3] transition-colors py-1.5 flex items-center justify-between rounded-lg px-2.5 -mx-2.5 hover:bg-black/[0.02]"
                     >
                       <span>{spec.label}</span>
                       <ChevronRight className="h-3 w-3 text-slate-300" />
@@ -572,24 +510,24 @@ export function ArzonHeader() {
 
               {/* Column 3: Apple Spotlight Card */}
               <div className="col-span-4">
-                <div className="text-[10px] font-normal text-slate-400 tracking-[0.08em] uppercase mb-2">
-                  Spotlight
+                <div className="text-[10px] font-bold text-slate-400 tracking-[0.08em] uppercase mb-2">
+                  Featured Focus
                 </div>
                 <Link
                   to={activeItem.flyout.spotlight.to as any}
                   onClick={handleNavClose}
-                  className="block rounded-2xl bg-black/[0.02] border border-black/[0.05] p-4 hover:bg-black/[0.04] transition-all group"
+                  className="block rounded-2xl bg-black/[0.02] border border-black/[0.05] p-5 hover:bg-black/[0.04] transition-all group"
                 >
-                  <span className="text-[10px] font-medium text-[#0071e3] bg-blue-50/80 px-2 py-0.5 rounded-full inline-block mb-2 border border-blue-100/50">
+                  <span className="text-[10px] font-bold text-[#0071e3] bg-blue-50 px-2 py-0.5 rounded-full inline-block mb-2.5 border border-blue-100">
                     {activeItem.flyout.spotlight.badge}
                   </span>
-                  <div className="text-sm font-semibold text-[#1d1d1f] mb-1 group-hover:text-[#0071e3] transition-colors">
+                  <div className="text-sm font-semibold text-[#081F38] mb-1.5 group-hover:text-[#0071e3] transition-colors">
                     {activeItem.flyout.spotlight.title}
                   </div>
-                  <p className="text-xs text-slate-500 leading-relaxed mb-3">
+                  <p className="text-xs text-slate-500 leading-relaxed mb-4">
                     {activeItem.flyout.spotlight.description}
                   </p>
-                  <div className="text-xs font-medium text-[#0071e3] inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  <div className="text-xs font-semibold text-[#0071e3] inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
                     <span>{activeItem.flyout.spotlight.ctaText}</span>
                     <ArrowRight className="h-3 w-3" />
                   </div>
@@ -600,10 +538,10 @@ export function ArzonHeader() {
         )}
       </header>
 
-      {/* Apple Backdrop Blur Overlay */}
+      {/* Backdrop Blur Overlay */}
       {activeItem && (
         <div
-          className="hidden lg:block fixed inset-0 top-[44px] bg-black/20 backdrop-blur-[2px] z-40 transition-opacity duration-300 pointer-events-auto"
+          className="hidden lg:block fixed inset-0 top-[48px] bg-black/10 backdrop-blur-[1px] z-40 transition-opacity duration-200 pointer-events-auto"
           onClick={handleNavClose}
           aria-hidden="true"
         />
@@ -613,13 +551,13 @@ export function ArzonHeader() {
       {typeof document !== "undefined" && mobileOpen
         ? createPortal(
             <div
-              className="arzon-site-mobile fixed inset-0 top-[44px] z-[100] bg-white/98 backdrop-blur-2xl lg:hidden flex flex-col motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 duration-300"
+              className="arzon-site-mobile fixed inset-0 top-[48px] z-[100] bg-white/98 backdrop-blur-2xl lg:hidden flex flex-col motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 duration-300"
               role="dialog"
               aria-modal="true"
               aria-label="Navigation Menu"
             >
               <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-6">
-                {/* Apple Spotlight Search Bar */}
+                {/* Spotlight Search Bar */}
                 <button
                   type="button"
                   onClick={() => {
@@ -635,7 +573,7 @@ export function ArzonHeader() {
                   <kbd className="text-[10px] text-slate-400 font-sans">⌘K</kbd>
                 </button>
 
-                {/* Primary Nav Links (Apple SF Pro Typography) */}
+                {/* Primary Nav Links */}
                 <div className="divide-y divide-black/[0.04]">
                   {NAV_ITEMS.map((item) => {
                     const active =
@@ -646,7 +584,7 @@ export function ArzonHeader() {
                         key={item.to}
                         to={item.to as any}
                         onClick={() => setMobileOpen(false)}
-                        className="flex items-center justify-between py-3 text-[19px] font-medium tracking-tight text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
+                        className="flex items-center justify-between py-3.5 text-[18px] font-medium tracking-tight text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
                       >
                         <span className={active ? "text-[#0071e3] font-semibold" : ""}>
                           {item.label}
@@ -659,8 +597,8 @@ export function ArzonHeader() {
 
                 {/* Secondary Institutional Links */}
                 <div className="pt-2">
-                  <div className="text-[10px] font-normal uppercase tracking-wider text-slate-400 mb-2">
-                    Programmes &amp; Institutional
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                    Institutional &amp; Outcomes
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {SECONDARY_ITEMS.map((item) => (
@@ -682,9 +620,9 @@ export function ArzonHeader() {
                   <Link
                     to="/career-assessment"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full h-11 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-normal text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
+                    className="w-full h-11 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-medium text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
                   >
-                    <span>Start Free Assessment</span>
+                    <span>Start Clinical Diagnostic</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
 
@@ -693,7 +631,7 @@ export function ArzonHeader() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full h-10 rounded-full bg-[#10B981] hover:bg-[#059669] text-white font-normal text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
+                    className="w-full h-10 rounded-full bg-[#10B981] hover:bg-[#059669] text-white font-medium text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
                   >
                     <MessageCircle className="h-3.5 w-3.5" />
                     <span>Talk to Experts on WhatsApp</span>

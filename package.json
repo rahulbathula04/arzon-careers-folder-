@@ -4,7 +4,7 @@
   "sideEffects": false,
   "type": "module",
   "engines": {
-    "node": "22.x"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "vite dev",
@@ -221,8 +221,5 @@
     "@tanstack/react-router": "1.170.41",
     "seroval": "1.6.7"
   },
-  "packageManager": "npm@11.6.2",
-  "engines": {
-    "node": ">=22.12.0"
-  }
+  "packageManager": "npm@11.6.2"
 }

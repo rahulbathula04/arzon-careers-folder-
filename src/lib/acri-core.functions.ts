@@ -8,6 +8,7 @@ import { ACRI_PV_COMPETENCIES } from "@/data/acri/acriPvStandard";
 import { evaluateCandidateResponses, type CandidateResponses } from "@/lib/acri/acriScoringEngine";
 import { assembleAssessmentForm, sanitizeAssessmentItemsForClient } from "@/lib/acri/acriQuestionBank";
 import { ACRI_PV_CURRENT_VERSION } from "@/data/acri/acriVersioning";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 // ─── Input Validation Schemas ────────────────────────────────────────────────
 
@@ -130,6 +131,20 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
       if (!row?.candidate_id || !row?.acri_candidate_id) {
         throw new Error("ACRI registration did not return a candidate record.");
       }
+
+      if (!row.existing_candidate) {
+        await syncCounselorLeadToGoogleSheet({
+          name: data.fullName,
+          phone: data.mobile,
+          email: data.email,
+          college: data.collegeUniversity,
+          degree: data.highestQualification,
+          programName: "ACRI Clinical Readiness Assessment",
+          source: data.utmSource || "acri_registration",
+          question: `Status: ${data.currentlyWorking || "Graduate"}`,
+        }).catch(() => {});
+      }
+
       return {
         success: true,
         candidateId: row.acri_candidate_id as string,

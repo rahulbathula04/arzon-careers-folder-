@@ -17,40 +17,35 @@ import { QUESTIONS, type Question, type QuestionKind, type Stream } from "./care
  *   commitment  3
  */
 
+/**
+ * CRO Technical Interview Simulator sampler (Option 2 - Streamlined Clinical Diagnostic).
+ *
+ * Each session draws a punchy, deterministic 18-question interview screening subset:
+ *   profile     4   (stream, year, course, career_goal)
+ *   scenario    8   (clinical casework dilemmas: ICSR, MedDRA, EDC, Regulatory)
+ *   micro       6   (objective clinical checks: Day 0, ICD-10, dosing outliers, seriousness)
+ *   behaviour   0
+ *   lifestyle   0
+ *   commitment  0
+ */
+
 /** Single source of truth for per-kind question quotas. */
 export const QUOTAS: Record<QuestionKind, number> = {
-  profile: 7,
-  scenario: 14,
-  behaviour: 8,
+  profile: 4,
+  scenario: 8,
   micro: 6,
-  lifestyle: 4,
-  commitment: 3,
+  behaviour: 0,
+  lifestyle: 0,
+  commitment: 0,
 };
 
-export const TARGET_TOTAL = 42;
+export const TARGET_TOTAL = 18;
 
 /** Floor below which `visible` should never drop after branching. */
-export const VISIBLE_FLOOR = 38;
+export const VISIBLE_FLOOR = 18;
 
-/**
- * Adaptive branching thresholds.
- *
- * The full assessment is 42 questions. We keep the profile (7) and commitment
- * (3) blocks as ANCHORS - they are always shown, regardless of confidence,
- * because they drive lead routing and can't be inferred from trait scores.
- *
- * The remaining 32 "pool" questions (scenario / behaviour / micro / lifestyle)
- * are where adaptive cutoff applies. Once a candidate has answered at least
- * `ADAPTIVE_MIN_POOL_ANSWERS` pool questions AND the scoring engine reports
- * a confident dominant path, the rest of the pool is dropped and the user
- * proceeds straight to the commitment anchor block. Ambiguous candidates see
- * the full 42.
- *
- * Floor: a confident adaptive run still shows at least
- * `ADAPTIVE_MIN_VISIBLE` questions (profile 7 + pool 14 + commitment 3 = 24).
- */
-export const ADAPTIVE_MIN_POOL_ANSWERS = 14;
-export const ADAPTIVE_MIN_VISIBLE = 24;
+export const ADAPTIVE_MIN_POOL_ANSWERS = 18;
+export const ADAPTIVE_MIN_VISIBLE = 18;
 
 export class SamplerError extends Error {
   constructor(message: string) {
@@ -102,7 +97,10 @@ function rngFor(seed: string, salt: string): () => number {
 
 /** Profile questions in the order they appear in the bank. */
 function profileQuestions(): Question[] {
-  return QUESTIONS.filter((q) => q.kind === "profile");
+  const essential = ["stream", "year", "course", "career_goal"];
+  return essential
+    .map((id) => QUESTIONS.find((q) => q.id === id)!)
+    .filter(Boolean);
 }
 
 /**
@@ -149,6 +147,7 @@ export function buildAssessment(seed: string, stream?: Stream | null): Question[
     .filter((k) => k !== "profile")
     .forEach((kind) => {
       const want = QUOTAS[kind];
+      if (want <= 0) return;
       const fullPool = QUESTIONS.filter((q) => q.kind === kind);
       if (fullPool.length < want) {
         throw new SamplerError(`${kind} pool has ${fullPool.length}, need ${want}`);

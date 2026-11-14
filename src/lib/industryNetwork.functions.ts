@@ -3,6 +3,9 @@ import { z } from "zod";
 import fs from "node:fs";
 import path from "node:path";
 import { createSafeAdminClient } from "@/lib/supabaseEnv";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { requireStaff } from "@/server/auth-guards.server";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 export type ApplicationStatus =
   | "Submitted"
@@ -103,8 +106,8 @@ export const submitIndustryNetworkAppFn = createServerFn({ method: "POST" })
       return {
         success: true,
         isDuplicate: true,
-        message: "An application with this email or mobile number already exists.",
-        record: duplicate,
+        message: "An application with this email or mobile number is already registered with us.",
+        record: null,
       };
     }
 
@@ -153,6 +156,19 @@ export const submitIndustryNetworkAppFn = createServerFn({ method: "POST" })
       console.warn("[IndustryNetwork] Supabase sync notice:", sbErr);
     }
 
+    await syncCounselorLeadToGoogleSheet({
+      name: data.fullName,
+      phone: cleanMobile,
+      email: cleanEmail,
+      college: data.collegeName,
+      degree: data.course,
+      passoutYear: data.academicYear,
+      programName: "Arzon Global Industry Network Programme",
+      city: data.collegeCity || "India",
+      source: "industry_network_apply_page",
+      question: data.motivation,
+    }).catch(() => {});
+
     return {
       success: true,
       isDuplicate: false,
@@ -165,6 +181,7 @@ export const submitIndustryNetworkAppFn = createServerFn({ method: "POST" })
  * Server Function: List applications for admin
  */
 export const listIndustryNetworkAppsFn = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((query: unknown) => {
     return (query as {
       search?: string;
@@ -173,7 +190,8 @@ export const listIndustryNetworkAppsFn = createServerFn({ method: "GET" })
       academicYear?: string;
     }) || {};
   })
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    await requireStaff(context.userId);
     const list = readLocalApplications();
     let filtered = [...list];
 
@@ -222,6 +240,7 @@ export const listIndustryNetworkAppsFn = createServerFn({ method: "GET" })
  * Server Function: Update status and remarks
  */
 export const updateIndustryNetworkStatusFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => {
     return z
       .object({
@@ -238,7 +257,8 @@ export const updateIndustryNetworkStatusFn = createServerFn({ method: "POST" })
       })
       .parse(data);
   })
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    await requireStaff(context.userId);
     const list = readLocalApplications();
     const index = list.findIndex((a) => a.id === data.id);
     if (index === -1) {

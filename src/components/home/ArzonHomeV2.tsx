@@ -12,8 +12,24 @@ import { HomeIndustryNetworkSection } from "@/components/home/HomeIndustryNetwor
 import { HomeClosingBanner } from "@/components/home/HomeClosingBanner";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
+function getDynamicCohortDates() {
+  const now = new Date();
+  // Rolling admissions cycle: deadline every upcoming Sunday (+1-7 days), cohort starts the following Wednesday (+3 days)
+  const day = now.getDay(); // 0=Sun..6=Sat
+  const daysUntilSunday = day === 0 ? 7 : 7 - day;
+  const deadline = new Date(now.getFullYear(), now.getMonth(), now.getDate() + Math.max(2, daysUntilSunday));
+  const cohortStart = new Date(deadline.getFullYear(), deadline.getMonth(), deadline.getDate() + 3);
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
+  return {
+    deadlineLabel: fmt(deadline),
+    cohortStartLabel: fmt(cohortStart),
+  };
+}
+
 export function ArzonHomeV2() {
   const shouldReduceMotion = useReducedMotion();
+  const { deadlineLabel, cohortStartLabel } = getDynamicCohortDates();
 
   return (
     <div className="arzon-premium-home bg-white tone-light card-light overflow-x-clip">
@@ -64,7 +80,7 @@ export function ArzonHomeV2() {
               transition={{ duration: 0.5, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
               className="text-[15px] sm:text-lg text-[#475569] leading-relaxed max-w-xl mb-5 sm:mb-7 font-normal"
             >
-              Practical training, real projects and internships in high-demand healthcare roles.
+              Practical training, real clinical case projects (Argus, MedDRA, Medidata Rave) and hiring guidance for high-demand healthcare roles.
             </motion.p>
 
             {/* 4. Three Track Pills (Pharmacovigilance, CDM, Regulatory Affairs) */}
@@ -97,35 +113,36 @@ export function ArzonHomeV2() {
               </Link>
             </motion.div>
 
-            {/* 5. CTAs: Primary Explore My Career Path + Secondary WhatsApp Talk to Experts */}
+            {/* 5. CTAs: Primary WhatsApp Talk to Experts + Secondary Explore My Career Path */}
             <motion.div
               initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.28 }}
               className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start sm:justify-center gap-3 w-full sm:w-auto mb-6 sm:mb-8"
             >
-              {/* Primary Visual CTA */}
+              {/* Primary Visual CTA (Direct WhatsApp 1-Field Bridge) */}
+              <button
+                type="button"
+                onClick={() => openCounsellorModal({ source: "home_hero_primary_whatsapp" })}
+                data-testid="primary-career-intelligence-cta"
+                className="w-full sm:w-auto h-12.5 sm:h-13 inline-flex items-center justify-center gap-2.5 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-7 text-[15px] sm:text-base font-bold shadow-md shadow-slate-900/10 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
+              >
+                <svg className="h-5 w-5 text-[#25D366] shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-10.416c-5.522 0-10 4.477-10 10 0 1.76.459 3.414 1.261 4.862l-1.34 4.898 5.023-1.317c1.405.766 3.008 1.197 4.71 1.197 5.523 0 10-4.477 10-10 0-5.522-4.477-10-10-10z" />
+                </svg>
+                <span>Talk to Experts</span>
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              {/* Secondary Visual CTA */}
               <Link
                 to="/career-assessment"
-                data-testid="primary-career-intelligence-cta"
-                className="w-full sm:w-auto h-12.5 sm:h-13 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-7 text-[15px] sm:text-base font-bold shadow-md shadow-slate-900/10 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
+                data-testid="secondary-expert-cta"
+                className="w-full sm:w-auto h-12.5 sm:h-13 inline-flex items-center justify-center gap-2 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-[#081F38] px-7 text-[15px] sm:text-base font-bold shadow-2xs active:scale-[0.98] transition-all cursor-pointer tone-light card-light whitespace-nowrap"
               >
                 <span>Explore My Career Path</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
-
-              {/* Secondary Visual CTA (WhatsApp Talk to Experts) */}
-              <button
-                type="button"
-                onClick={() => openCounsellorModal({ source: "home_hero_expert" })}
-                data-testid="secondary-expert-cta"
-                className="w-full sm:w-auto h-12.5 sm:h-13 inline-flex items-center justify-center gap-2.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-[#081F38] px-7 text-[15px] sm:text-base font-bold shadow-2xs active:scale-[0.98] transition-all cursor-pointer tone-light card-light whitespace-nowrap"
-              >
-                <svg className="h-5 w-5 text-[#25D366] shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-10.416c-5.522 0-10 4.477-10 10 0 1.76.459 3.414 1.261 4.862l-1.34 4.898 5.023-1.317c1.405.766 3.008 1.197 4.71 1.197 5.523 0 10-4.477 10-10 0-5.522-4.477-10-10-10z" />
-                </svg>
-                <span>Talk to Experts</span>
-              </button>
             </motion.div>
 
             {/* 6. Cohort Information Metadata Row (Application Deadline & Cohort Starts) */}
@@ -145,7 +162,7 @@ export function ArzonHomeV2() {
                     Application Deadline
                   </span>
                   <span className="block text-xs sm:text-sm font-bold text-[#081F38] mt-0.5">
-                    4 November 2026
+                    {deadlineLabel}
                   </span>
                 </div>
               </div>
@@ -163,7 +180,7 @@ export function ArzonHomeV2() {
                     Cohort Starts
                   </span>
                   <span className="block text-xs sm:text-sm font-bold text-[#081F38] mt-0.5">
-                    11 November 2026
+                    {cohortStartLabel}
                   </span>
                 </div>
               </div>

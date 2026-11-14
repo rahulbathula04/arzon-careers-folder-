@@ -116,27 +116,28 @@ export function HomeClosingBanner() {
                 Explore healthcare roles, understand the requirements and prepare with practical, role-specific learning.
               </motion.p>
 
-              {/* CTAs - Apple Touch Ergonomics: Start Free Assessment (Primary) + Talk to Experts (Secondary) */}
+              {/* CTAs - Direct WhatsApp Primary + Assessment Secondary */}
               <motion.div
                 variants={prefersReduced ? undefined : itemVariants}
                 className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2"
               >
-                <Link
-                  to="/career-assessment"
-                  className="w-full sm:w-auto h-13 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white px-7 text-sm font-bold transition-all shadow-md shadow-blue-600/25 group active:scale-[0.98] cursor-pointer"
-                >
-                  <span>Start Free Assessment</span>
-                  <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
-                </Link>
-
                 <button
                   type="button"
                   onClick={() => openCounsellorModal({ source: "home_closing_banner" })}
-                  className="w-full sm:w-auto h-13 inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white px-6 text-sm font-bold transition-all backdrop-blur-xs active:scale-[0.98] cursor-pointer"
+                  className="w-full sm:w-auto h-13 inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] hover:from-[#1D4ED8] hover:to-[#1E40AF] text-white px-7 text-sm font-bold transition-all shadow-md shadow-blue-600/25 group active:scale-[0.98] cursor-pointer"
                 >
                   <PhoneCall className="h-4 w-4 text-white" />
-                  <span>Talk to Experts</span>
+                  <span>Talk to Experts on WhatsApp</span>
+                  <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
                 </button>
+
+                <Link
+                  to="/career-assessment"
+                  className="w-full sm:w-auto h-13 inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 text-white px-6 text-sm font-bold transition-all backdrop-blur-xs active:scale-[0.98] cursor-pointer"
+                >
+                  <span>Start Free Assessment</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </motion.div>
             </motion.div>
 

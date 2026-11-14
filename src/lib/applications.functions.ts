@@ -5,6 +5,7 @@ import { recordServerEvent } from "@/server/analytics.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { requireRole, requireStaff } from "@/server/auth-guards.server";
 import { syncAndApproveAcriApplication } from "@/lib/acri-core.functions";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 const SubmitSchema = z.object({
   name: z.string().min(2).max(80),
@@ -76,6 +77,18 @@ export const submitApplication = createServerFn({ method: "POST" })
     }).catch(() => {
       /* non-blocking log */
     });
+
+    // Real-time sync to Google Sheet
+    await syncCounselorLeadToGoogleSheet({
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      college: data.college || "Admissions Portal",
+      degree: data.degree || "Healthcare Graduate",
+      programName: data.programName || data.programSlug || "Healthcare Programme",
+      source: data.utmSource || "application_form",
+      question: data.notes || "Programme Application Submitted",
+    }).catch(() => {});
 
     return {
       applicationId: id as string,

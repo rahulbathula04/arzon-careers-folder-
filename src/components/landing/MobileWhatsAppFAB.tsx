@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "@tanstack/react-router";
 import { MessageCircle } from "lucide-react";
-import { WhatsAppLink } from "@/components/common/WhatsAppLink";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
+import { track } from "@/lib/track";
 
 function stickyActionBarIsVisible() {
   if (typeof document === "undefined") return false;
@@ -104,13 +105,18 @@ export function MobileWhatsAppFAB() {
     : "calc(env(safe-area-inset-bottom) + 1.25rem)";
 
   return (
-    <WhatsAppLink
-      source="mobile_fab"
-      message="Hi Arzon, I have a quick question before applying."
+    <button
+      type="button"
+      onClick={() => {
+        try {
+          track("whatsapp_click", { props: { source: "mobile_fab", pathname: p } });
+        } catch {}
+        openCounsellorModal({ source: "mobile_fab" });
+      }}
       aria-label="Chat with an Arzon counsellor on WhatsApp"
       data-event="wa_fab_click"
       data-testid="mobile-sticky-cta"
-      className={`fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--arzon-navy-950)] text-slate-50 shadow-[0_10px_30px_-6px_rgba(7,26,74,0.35)] ring-1 ring-white/15 transition-all duration-300 md:hidden max-[430px]:right-3 sm:h-14 sm:w-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 ${
+      className={`fixed right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--arzon-navy-950)] text-slate-50 shadow-[0_10px_30px_-6px_rgba(7,26,74,0.35)] ring-1 ring-white/15 transition-all duration-300 md:hidden max-[430px]:right-3 sm:h-14 sm:w-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 cursor-pointer ${
         shown ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"
       } ${liftForBar ? "bottom-20" : ""}`}
       style={{ bottom }}
@@ -126,6 +132,6 @@ export function MobileWhatsAppFAB() {
       />
       <MessageCircle className="relative h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2.25} />
       <span className="sr-only">WhatsApp counsellor</span>
-    </WhatsAppLink>
+    </button>
   );
 }

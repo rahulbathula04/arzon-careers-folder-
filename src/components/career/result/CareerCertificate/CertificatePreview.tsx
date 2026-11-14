@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { ShieldCheck, GraduationCap, Check, Building2, Award } from "lucide-react";
+import { ShieldCheck, GraduationCap, Check } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
 export interface CertificateData {
@@ -11,11 +11,6 @@ export interface CertificateData {
   referenceId: string;
   issueDate: string;
   verificationUrl?: string;
-  recruiterFitScore?: number;
-  letterGrade?: "A" | "B+" | "B" | "NA";
-  topMatchedEmployer?: string;
-  clearedEmployers?: string[];
-  dimensionScores?: { label: string; score: number }[];
 }
 
 interface Props {
@@ -74,7 +69,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
           {/* Certificate Title & Presentation */}
           <div className="relative z-10 space-y-2 pt-2">
             <span className="inline-block font-mono text-[10px] font-extrabold tracking-[0.24em] text-[#071A4A] uppercase bg-slate-100 px-3.5 py-1 rounded-full border border-slate-200">
-              CERTIFICATE OF CLINICAL READINESS
+              CAREER INTELLIGENCE ASSESSMENT RECORD
             </span>
             <p className="font-serif italic text-sm text-slate-500 font-medium pt-1">
               This is to certify that
@@ -95,7 +90,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
           {/* Citation of Verified Achievement */}
           <div className="relative z-10 max-w-xl mx-auto py-1">
             <p className="text-xs sm:text-[13px] text-slate-600 font-sans leading-relaxed">
-              Has completed the diagnostic multi-vector assessment through the Arzon Career Engine, proving verified clinical cognitive aptitude, terminology precision, and certified industry calibration for appointment as:
+              Has completed the diagnostic multi-vector assessment through the Arzon Career Engine, establishing verified clinical cognitive aptitude, terminology precision, and baseline industry alignment for:
             </p>
             <div className="mt-3.5 inline-flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-[#071A4A] text-white shadow-sm">
               <span className="font-serif text-lg sm:text-xl font-bold tracking-tight text-white">
@@ -105,36 +100,19 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
                 {data.fitScore}% Fit Index
               </span>
             </div>
-
-            {/* Calibrated Employer Screening Ribbon */}
-            {data.recruiterFitScore && (
-              <div className="mt-3 inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono font-bold text-slate-800 shadow-2xs">
-                <Building2 className="h-3.5 w-3.5 text-blue-600" />
-                <span>Top 5 Employer RFI:</span>
-                <span className="text-blue-700">{data.recruiterFitScore}% (Grade {data.letterGrade || "B+"})</span>
-                {data.topMatchedEmployer && (
-                  <span className="text-emerald-700">· {data.topMatchedEmployer} Qualified</span>
-                )}
-              </div>
-            )}
           </div>
 
-          {/* 3 Core Validated Competencies & Cleared Employers */}
+          {/* 3 Core Validated Competencies */}
           <div className="relative z-10 flex items-center justify-center gap-2 flex-wrap pt-1">
             <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold">
-              ✓ ICH-GVP &amp; 21 CFR 314.80
+              ✓ Clinical Scenario Reasoning
             </span>
             <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold">
-              ✓ MedDRA v27.0 Hierarchy
+              ✓ Standardized Terminology Accuracy
             </span>
             <span className="px-3 py-1 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-mono text-[10px] font-bold">
-              ✓ 21 CFR Part 11 ALCOA+
+              ✓ Regulatory &amp; Data Integrity Compliance
             </span>
-            {data.clearedEmployers && data.clearedEmployers.length > 0 && (
-              <span className="px-3 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-mono text-[10px] font-bold">
-                ✓ Cleared: {data.clearedEmployers.slice(0, 3).join(", ")}
-              </span>
-            )}
           </div>
 
           {/* Signatures & Scannable QR Seal */}
@@ -199,7 +177,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
               ARZON GLOBAL
             </p>
             <p className="text-xs font-bold text-[#071A4A] font-sans">
-              Executive Career Credential
+              Career Assessment Record
             </p>
           </div>
         </div>
@@ -207,7 +185,7 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
         {/* Minimal Verified Pill */}
         <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 px-3 py-1 font-mono text-[9.5px] font-bold uppercase tracking-wider text-emerald-800">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
-          <span>Verified Record</span>
+          <span>Diagnostic Record</span>
         </span>
       </div>
 
@@ -243,21 +221,6 @@ export const CertificatePreview = forwardRef<HTMLDivElement, Props>(({ data, vie
               <Check className="h-3 w-3 text-emerald-600" /> MedDRA Precision
             </span>
           </div>
-
-          {/* Employer Calibration Tags */}
-          {data.recruiterFitScore && (
-            <div className="mt-3 flex items-center gap-2 flex-wrap">
-              <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-800 border border-blue-200/80 px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold">
-                <Building2 className="h-3 w-3 text-blue-600" />
-                <span>RFI: {data.recruiterFitScore}% (Grade {data.letterGrade || "B+"})</span>
-              </span>
-              {data.topMatchedEmployer && (
-                <span className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-800 border border-emerald-200/80 px-2.5 py-0.5 rounded-md font-mono text-[10px] font-bold">
-                  <span>{data.topMatchedEmployer} Qualified</span>
-                </span>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Fit Score Badge */}

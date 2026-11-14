@@ -10,12 +10,13 @@ import {
   MessageCircle,
   Sparkles,
   Target,
+  ShieldCheck,
+  Award,
 } from "lucide-react";
 import { CareerShell } from "@/components/career/CareerShell";
 import { ARCHETYPES } from "@/data/careerEngineScoring";
 import type { ArchetypeId } from "@/data/careerEngineQuestions";
 import { getResult } from "@/lib/careerEngineApi";
-import { waLink } from "@/components/landing/constants";
 import { CTAButton } from "@/components/landing/CTAButton";
 import { pageSeo } from "@/lib/seo";
 
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/career-engine/plan")({
       path: "/career-engine/plan",
       title: "Your free 7-day learning plan · Arzon Global",
       description:
-        "A free, personalised 7-day learning plan based on your ACRI assessment. No payment, no login.",
+        "A free, personalised 7-day learning plan based on your Career Intelligence Assessment. No payment, no login.",
       image: "/og/career-engine.jpg",
       noindex: true,
     });
@@ -45,6 +46,8 @@ type PlanContext = {
   archetypeName: string;
   primaryTrack: string;
   primarySlug: string;
+  gaps: string[];
+  fitScore: number;
 };
 
 const TRACK_BY_ARCHETYPE: Record<ArchetypeId, { title: string; slug: string }> = {
@@ -63,6 +66,8 @@ function PlanPage() {
     archetypeName: "Healthcare Graduate",
     primaryTrack: "Pharmacovigilance",
     primarySlug: "pharmacovigilance",
+    gaps: [],
+    fitScore: 78,
   });
 
   // Try sessionStorage first, then RPC by leadId.
@@ -71,7 +76,19 @@ function PlanPage() {
     try {
       const cached = JSON.parse(sessionStorage.getItem("ce_result") || "null");
       if (cached?.archetypeId && ARCHETYPES[cached.archetypeId as ArchetypeId]) {
-        applyArchetype(cached.archetypeId as ArchetypeId);
+        const aId = cached.archetypeId as ArchetypeId;
+        const arche = ARCHETYPES[aId];
+        const t = TRACK_BY_ARCHETYPE[aId];
+        const pillarGaps =
+          cached.pillarResults?.[t.slug]?.gaps || cached.aiAnalysis?.skillGaps || [];
+        setCtx({
+          archetypeId: aId,
+          archetypeName: arche.name,
+          primaryTrack: t.title,
+          primarySlug: t.slug,
+          gaps: pillarGaps,
+          fitScore: Math.round(cached.fitScore || 78),
+        });
         return;
       }
     } catch {
@@ -79,28 +96,41 @@ function PlanPage() {
     }
     if (id) {
       getResult(id)
-        .then((row: { archetype?: string } | null) => {
+        .then((row: { archetype?: string; result_payload?: unknown; fit_score?: number } | null) => {
           if (row?.archetype && ARCHETYPES[row.archetype as ArchetypeId]) {
-            applyArchetype(row.archetype as ArchetypeId);
+            const aId = row.archetype as ArchetypeId;
+            const arche = ARCHETYPES[aId];
+            const t = TRACK_BY_ARCHETYPE[aId];
+            const payload = (row.result_payload || {}) as {
+              pillarResults?: Record<string, { gaps?: string[] }>;
+              aiAnalysis?: { skillGaps?: string[] };
+            };
+            const pillarGaps =
+              payload.pillarResults?.[t.slug]?.gaps || payload.aiAnalysis?.skillGaps || [];
+            setCtx({
+              archetypeId: aId,
+              archetypeName: arche.name,
+              primaryTrack: t.title,
+              primarySlug: t.slug,
+              gaps: pillarGaps,
+              fitScore: Math.round(row.fit_score || 78),
+            });
           }
         })
         .catch(() => {
           /* noop */
         });
     }
-    function applyArchetype(aId: ArchetypeId) {
-      const arche = ARCHETYPES[aId];
-      const t = TRACK_BY_ARCHETYPE[aId];
-      setCtx({
-        archetypeId: aId,
-        archetypeName: arche.name,
-        primaryTrack: t.title,
-        primarySlug: t.slug,
-      });
-    }
   }, [id]);
 
   const days = buildDays(ctx);
+
+  const certWhatsappMessage = `Hello Arzon Admissions Team,
+
+I am working through my personalised 7-day learning plan for ${ctx.primaryTrack} (${ctx.fitScore}% Fit Index).
+
+I would like to request official certification review, verify my academic eligibility, and explore upcoming cohort enrolment.`;
+  const certWhatsappUrl = `https://wa.me/919121283638?text=${encodeURIComponent(certWhatsappMessage)}`;
 
   return (
     <CareerShell>
@@ -109,26 +139,45 @@ function PlanPage() {
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-primary-glow" />
           <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-primary-glow">
-            Your free 7-day plan
+            Your personalised 7-day action plan
           </p>
         </div>
         <h1 className="mt-3 font-display text-h1 text-white">
-          Seven days to confirm <span className="italic-accent not-italic">{ctx.primaryTrack}</span>{" "}
-          is the right fit.
+          Seven days to close gaps and confirm{" "}
+          <span className="italic-accent not-italic">{ctx.primaryTrack}</span> fit.
         </h1>
         <p className="mt-3 max-w-xl text-sm text-white/70">
-          A short, honest plan based on your ACRI result. ~20 minutes a day. No payment. By day 7
-          you'll know whether to enrol - or whether a different path fits you better.
+          A focused, self-paced learning roadmap based on your Career Intelligence Assessment. ~20
+          minutes a day. No payment required. Complete these action items to turn your baseline
+          aptitude into verified operational mastery.
         </p>
+
+        {/* Dynamic Gaps Surfacing */}
+        {ctx.gaps.length > 0 && (
+          <div className="mt-5 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-4">
+            <p className="font-mono text-[10px] uppercase tracking-wider text-amber-300 font-bold mb-2">
+              Priority Competency Gaps Targeted In This Plan:
+            </p>
+            <div className="grid gap-2 sm:grid-cols-2 text-xs text-amber-100">
+              {ctx.gaps.slice(0, 4).map((gap, i) => (
+                <div key={i} className="flex items-start gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-0.5" />
+                  <span>{gap}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="mt-5 flex flex-wrap items-center gap-3 text-micro text-white/80">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5 text-primary-glow" /> 7 days · ~20 min/day
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Target className="h-3.5 w-3.5 text-gold" /> Tuned for {ctx.archetypeName}
+            <Target className="h-3.5 w-3.5 text-gold" /> Calibrated for {ctx.archetypeName} ({ctx.fitScore}% Fit)
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <ClipboardList className="h-3.5 w-3.5 text-eyebrow" /> No login required
+            <ClipboardList className="h-3.5 w-3.5 text-eyebrow" /> No fee or login required
           </span>
         </div>
       </div>
@@ -140,33 +189,45 @@ function PlanPage() {
         ))}
       </ol>
 
-      {/* Closing CTA */}
+      {/* Closing CTA Hub: Request Certification */}
       <div className="mt-10 rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/[0.08] to-transparent p-6">
-        <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold">
-          When you're ready
-        </p>
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4 text-gold" />
+          <p className="font-mono text-micro font-semibold uppercase tracking-[0.22em] text-gold">
+            OPTION 02 · REQUEST CERTIFICATION
+          </p>
+        </div>
         <h2 className="mt-2 font-display text-h3 text-white">
-          Skip ahead. Lock your seat in the next {ctx.primaryTrack} cohort.
+          Ready to Get Certified in {ctx.primaryTrack}?
         </h2>
-        <p className="mt-2 text-sm text-white/65">
-          Most students who finish day 3 of the plan apply by day 5. Counsellors hold launch codes
-          for graduates who've actually engaged.
+        <p className="mt-2 text-sm text-white/65 max-w-2xl">
+          Submit your diagnostic results to the Arzon Academic Board to verify your clinical prerequisites, review casework portfolio requirements, and secure cohort admission.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
+          <a
+            href={certWhatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-[#25D366] hover:bg-[#20bd5a] px-5 py-2.5 text-sm font-bold text-slate-950 shadow-sm transition active:scale-95"
+          >
+            <MessageCircle className="h-4 w-4" />
+            <span>Request Certification via WhatsApp</span>
+          </a>
           <CTAButton asChild variant="gold" size="md">
             <Link to="/courses/$slug" params={{ slug: ctx.primarySlug }}>
-              View programme <ArrowRight className="ml-1 h-4 w-4" />
+              View Full {ctx.primaryTrack} Curriculum <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </CTAButton>
-          <a
-            href={waLink(
-              `Hi Arzon, I'm working through the 7-day plan for ${ctx.primaryTrack}. Can you walk me through what's next?`,
-            )}
-            target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-accent-glow/30 bg-accent-glow/10 px-4 py-2 text-sm font-semibold text-eyebrow-strong hover:bg-accent-glow/15"
-          >
-            <MessageCircle className="h-4 w-4" /> Ask my counsellor
-          </a>
+          {id && (
+            <Link
+              to="/career-engine/result"
+              search={{ id }}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition"
+            >
+              <Award className="h-3.5 w-3.5 text-amber-300" />
+              <span>Back to Assessment Dossier</span>
+            </Link>
+          )}
         </div>
       </div>
     </CareerShell>
@@ -183,6 +244,60 @@ type Day = {
 
 function buildDays(ctx: PlanContext): Day[] {
   const track = ctx.primaryTrack;
+
+  if (track === "Pharmacovigilance" || !track) {
+    return [
+      {
+        day: 1,
+        title: "ICSR Validity & The 4 Mandatory Minimum Criteria",
+        why: "In CRO technical screening, failing to correctly evaluate whether an adverse event report meets the 4 minimum validity criteria leads to instant disqualification.",
+        action: "Analyze 3 sample raw clinical intake emails. Identify which contain the 4 mandatory elements (identifiable patient, reporter, suspect product, adverse reaction) and formulate queries for missing criteria.",
+        minutes: 25,
+      },
+      {
+        day: 2,
+        title: "Day 0 Regulatory Clock Calculation & Source Triage",
+        why: "Confusing calendar days with business days or calculating Day 0 from partner receipt rather than first company knowledge violates global compliance.",
+        action: "Calculate Day 0 across 4 realistic case timelines (including third-party market research vendor handoffs, hospital weekend admissions, and partner safety exchange agreements).",
+        minutes: 20,
+      },
+      {
+        day: 3,
+        title: "ICH E2A Seriousness Triage & Expedited Reporting Rules",
+        why: "Expedited reporting does not mean 15 days universally. Under ICH E2A Section III.A, fatal or life-threatening SUSARs require expedited notification within 7 calendar days.",
+        action: "Review the 6 ICH E2A seriousness criteria (Death, Life-threatening, Inpatient Hospitalisation, Disability, Congenital Anomaly, Medically Important Event) and classify 6 complex clinical case scenarios.",
+        minutes: 25,
+      },
+      {
+        day: 4,
+        title: "MedDRA 5-Level Hierarchy & MSSO 'Diagnosis vs Symptoms' Rule",
+        why: "MedDRA coding tests whether you understand that a confirmed clinical diagnosis supersedes individual signs and symptoms (MSSO Points to Consider Section 1.3).",
+        action: "Map 5 verbatim medical summaries to the correct Low Level Term (LLT) and Preferred Term (PT) without redundant coding of transient individual symptoms.",
+        minutes: 30,
+      },
+      {
+        day: 5,
+        title: "Special Safety Scenarios: Pregnancy Without AE, Digital Media & Overdose",
+        why: "Special safety situations test operational composure. Pregnancy exposure without adverse event is logged for prospective follow-up, not discarded or coded as an injury.",
+        action: "Review regulatory guidance for 3 special scenarios: maternal drug exposure with normal ultrasound, patient social media post with unverified handle, and intentional drug overdose.",
+        minutes: 25,
+      },
+      {
+        day: 6,
+        title: "Chronological SBAR Case Narrative Writing & Targeted Queries",
+        why: "CRO medical reviewers require concise, chronological narratives following Situation-Background-Assessment-Recommendation, avoiding unneeded clarification queries that stall processing.",
+        action: "Draft a 150-word standardized clinical narrative from an unstructured emergency room report and formulate 1 targeted query for missing batch/lot information.",
+        minutes: 25,
+      },
+      {
+        day: 7,
+        title: "Prioritisation Dilemmas & Investigator-Sponsor Causality Resolution",
+        why: "Tests senior regulatory ethics when the clinical investigator claims 'Unrelated' but the sponsor pharmacovigilance physician determines reasonable possibility of causality.",
+        action: "Review ICH E2A causality reporting principles and write a brief justification on how divergent investigator vs sponsor causality determinations must be reported to health authorities.",
+        minutes: 20,
+      },
+    ];
+  }
 
   // Archetype-specific workflow and tools content
   type WorkflowMap = { workflow: string; tool: string; toolAction: string };
@@ -259,15 +374,15 @@ function buildDays(ctx: PlanContext): Day[] {
     {
       day: 6,
       title: "Stress-test the fit",
-      why: "Re-read your ACRI honesty section. Is anything still bothering you?",
+      why: "Re-read your assessment diagnostic report. Is anything still bothering you?",
       action: "List your 3 biggest doubts. Bring them to your counsellor call.",
       minutes: 15,
     },
     {
       day: 7,
-      title: "Decide",
+      title: "Decide your next milestone",
       why: "By now you have data, not vibes. Make the call.",
-      action: "Pick one: apply for the cohort, ask for a launch code, or save the plan for later.",
+      action: "Pick one: request certification via WhatsApp, explore the cohort syllabus, or bookmark this plan.",
       minutes: 10,
     },
   ];

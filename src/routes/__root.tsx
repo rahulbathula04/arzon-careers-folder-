@@ -656,7 +656,7 @@ function RootComponent() {
               id="app-scroll-root"
               tabIndex={-1}
               className="app-scroll-root arzon-app-shell flex flex-col min-h-screen bg-white tone-light"
-              style={{ "--nav-h": "4rem" } as React.CSSProperties}
+              style={{ "--nav-h": "44px" } as React.CSSProperties}
             >
               {shellContext === "marketing" && <ArzonHeader />}
               <main className="flex-grow">
@@ -669,7 +669,7 @@ function RootComponent() {
             {!pathname.startsWith("/career-engine") && !pathname.startsWith("/acri") ? (
               <MobileWhatsAppFAB />
             ) : null}
-            {!pathname.startsWith("/admin") && !pathname.startsWith("/career-engine/test") && !pathname.startsWith("/acri/test") ? (
+            {!pathname.startsWith("/admin") && !pathname.startsWith("/career-engine") && !pathname.startsWith("/acri/test") ? (
               <AcriScrollLeadMagnet />
             ) : null}
             <CounsellorLeadModal />

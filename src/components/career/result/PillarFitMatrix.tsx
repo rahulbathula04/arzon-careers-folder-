@@ -1,4 +1,4 @@
-import { ShieldCheck, Database, FileCode, Award, Cpu, Target, CheckCircle2, Sparkles, Layers } from "lucide-react";
+import { ShieldCheck, Database, FileCode, Award, Cpu, Target, AlertCircle, CheckCircle2, Sparkles, Layers } from "lucide-react";
 import type { CareerEngineResult, PillarResult } from "@/data/careerEngineScoring";
 
 interface Props {
@@ -6,70 +6,37 @@ interface Props {
 }
 
 export function PillarFitMatrix({ result }: Props) {
+  // Never fabricate fallback scores. Use actual calculated pillar results sorted:
+  // 1. Eligible pillars first
+  // 2. Descending by true calculated fit score
   const pillars: PillarResult[] = result.pillarResults
-    ? Object.values(result.pillarResults)
-    : [
-        {
-          slug: "pharmacovigilance",
-          title: "Pharmacovigilance",
-          fitScore: Math.round(result.fitScore),
-          readinessScore: result.readinessScore ?? 45,
-          confidence: result.evidenceConfidence ?? "High",
-          evidenceCoverage: 88,
-          quadrant: result.quadrant ?? "training_opportunity",
-          quadrantLabel: result.quadrantLabel ?? "Training Opportunity",
-          topDrivers: ["Precision Detail", "Regulatory Rigor", "Patient Safety Concern"],
-          gaps: ["Standardized Medical Coding", "Enterprise Safety Database Workflows"],
-        },
-        {
-          slug: "clinical-data-management",
-          title: "Clinical Data Management",
-          fitScore: Math.max(30, Math.round(result.fitScore * 0.88)),
-          readinessScore: Math.round((result.readinessScore ?? 45) * 0.9),
-          confidence: "High",
-          evidenceCoverage: 85,
-          quadrant: "training_opportunity",
-          quadrantLabel: "Training Opportunity",
-          topDrivers: ["Data Accuracy", "Protocol Compliance"],
-          gaps: ["Electronic Data Capture (EDC)", "eCRF Validation Specs"],
-        },
-        {
-          slug: "medical-coding",
-          title: "Medical Coding",
-          fitScore: Math.max(30, Math.round(result.fitScore * 0.82)),
-          readinessScore: Math.round((result.readinessScore ?? 45) * 0.85),
-          confidence: "Moderate",
-          evidenceCoverage: 80,
-          quadrant: "training_opportunity",
-          quadrantLabel: "Training Opportunity",
-          topDrivers: ["Document Screening", "Pattern Matching"],
-          gaps: ["ICD-10-CM Guidelines", "CPT Procedure Modifiers"],
-        },
-        {
-          slug: "regulatory-affairs",
-          title: "Regulatory Affairs",
-          fitScore: Math.max(30, Math.round(result.fitScore * 0.78)),
-          readinessScore: Math.round((result.readinessScore ?? 45) * 0.8),
-          confidence: "Moderate",
-          evidenceCoverage: 75,
-          quadrant: "explore_alternatives",
-          quadrantLabel: "Explore Alternatives",
-          topDrivers: ["Long-form Reading", "Submission Discipline"],
-          gaps: ["eCTD Dossier Module 1-5", "USFDA 505(b)(2) Filings"],
-        },
-        {
-          slug: "sas-clinical",
-          title: "SAS Clinical Programming",
-          fitScore: Math.max(30, Math.round(result.fitScore * 0.72)),
-          readinessScore: Math.round((result.readinessScore ?? 45) * 0.75),
-          confidence: "Moderate",
-          evidenceCoverage: 70,
-          quadrant: "explore_alternatives",
-          quadrantLabel: "Explore Alternatives",
-          topDrivers: ["Analytical Logic", "Structured Data Thinking"],
-          gaps: ["SAS PROC SQL", "CDISC SDTM / ADaM Standards"],
-        },
-      ];
+    ? Object.values(result.pillarResults).sort((a, b) => {
+        const aEligible = a.eligible ?? true;
+        const bEligible = b.eligible ?? true;
+        if (aEligible !== bEligible) {
+          return aEligible ? -1 : 1;
+        }
+        return b.fitScore - a.fitScore;
+      })
+    : [];
+
+  if (pillars.length === 0) {
+    return (
+      <section className="w-full max-w-full min-w-0">
+        <div className="rounded-3xl border border-amber-200/80 bg-amber-50/70 tone-light card-light p-6 sm:p-8 text-center shadow-xs">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-700 mb-4">
+            <AlertCircle className="h-6 w-6" />
+          </div>
+          <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#081F38]">
+            Assessment Evidence Incomplete
+          </h3>
+          <p className="mt-2 text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+            Insufficient question responses were recorded to calculate your verified 5-Pillar healthcare fit. Arzon does not generate fabricated career scores. Complete the full assessment to unlock your verified career alignment.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   const primaryPillar = pillars[0];
   const confidence = result.evidenceConfidence ?? "High";
@@ -225,6 +192,13 @@ export function PillarFitMatrix({ result }: Props) {
                     </div>
                   </div>
                 </div>
+
+                {p.eligible === false && (
+                  <div className="mt-3 text-[11px] text-amber-800 bg-amber-50/90 border border-amber-200/80 rounded-xl p-2.5 font-sans leading-snug">
+                    <span className="font-bold block mb-0.5 text-amber-900">Academic Prerequisite</span>
+                    {p.eligibilityNote || "Degree prerequisite required for regulated clinical entry."}
+                  </div>
+                )}
 
                 <div className="mt-4 pt-3.5 border-t border-slate-100/90 space-y-2">
                   <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-wider">

@@ -20,34 +20,16 @@ import {
   X,
   ExternalLink,
   MessageSquare,
-  Lock,
 } from "lucide-react";
-import { toast } from "sonner";
 import { ArzonCareerPathGrid } from "@/components/home/ArzonCareerPathGrid";
-import { submitFastCounsellorLead } from "@/lib/workshop.functions";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 export function AcriLandingPage() {
   // Interactive Drawer & Modal States
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
-  const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
   const [selectedSkillModal, setSelectedSkillModal] = useState<string | null>(null);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-
-  // Counsellor Form State
-  const [counsellorForm, setCounsellorForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    college: "",
-    degree: "B.Pharm",
-    passoutYear: "2026",
-    interestedDomain: "Pharmacovigilance & Drug Safety",
-    city: "",
-    preferredTime: "Evening (4 PM - 7 PM)",
-  });
-  const [dpdpConsent, setDpdpConsent] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Career Fit Interactive State
   const [matchedTraits, setMatchedTraits] = useState<Set<number>>(new Set([0, 1, 2]));
@@ -109,13 +91,6 @@ export function AcriLandingPage() {
     };
   }, [isVideoModalOpen]);
 
-  // Listen for global counsellor modal dispatch
-  useEffect(() => {
-    const handleOpen = () => setIsCounsellorModalOpen(true);
-    window.addEventListener("arzon:open-counsellor-modal", handleOpen);
-    return () => window.removeEventListener("arzon:open-counsellor-modal", handleOpen);
-  }, []);
-
   const toggleTrait = (index: number) => {
     setMatchedTraits((prev) => {
       const next = new Set(prev);
@@ -126,57 +101,6 @@ export function AcriLandingPage() {
       }
       return next;
     });
-  };
-
-  const handleCounsellorSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) {
-      toast.error("Please enter your full name and mobile number");
-      return;
-    }
-    if (!counsellorForm.email.trim() || !counsellorForm.email.includes("@")) {
-      toast.error("Please enter a valid email address");
-      return;
-    }
-    if (!counsellorForm.college.trim()) {
-      toast.error("Please enter your college name");
-      return;
-    }
-    if (!dpdpConsent) {
-      toast.error("Please provide consent to proceed with counselling");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      await submitFastCounsellorLead({
-        data: {
-          name: counsellorForm.name.trim(),
-          phone: counsellorForm.phone.trim(),
-          email: counsellorForm.email.trim(),
-          college: counsellorForm.college.trim(),
-          city: counsellorForm.city.trim() || "India",
-          source: "acri_landing_counsellor_modal",
-          degree: counsellorForm.degree,
-          academicYear: counsellorForm.passoutYear,
-          programName: counsellorForm.interestedDomain || "Pharmacovigilance & Drug Safety",
-          question: `Passout Year: ${counsellorForm.passoutYear || "2026"} · College: ${counsellorForm.college}`,
-        },
-      });
-    } catch (err) {
-      console.warn("Failed to submit counsellor lead:", err);
-    } finally {
-      setIsSubmitting(false);
-      setIsCounsellorModalOpen(false);
-      toast.success(
-        "Counsellor consultation request received! An Arzon Career Specialist will contact you within 2 business hours."
-      );
-      // Redirect to WhatsApp consultation
-      const msg = encodeURIComponent(
-        `Hi Arzon Career Counsellor! My name is ${counsellorForm.name} from ${counsellorForm.college} (${counsellorForm.degree}, ${counsellorForm.passoutYear}). I am interested in ${counsellorForm.interestedDomain} and would like to schedule a 1-on-1 career strategy discussion.`
-      );
-      window.open(`https://wa.me/918977626999?text=${msg}`, "_blank");
-    }
   };
 
   return (
@@ -792,8 +716,8 @@ export function AcriLandingPage() {
                 <div className="pt-2">
                   <button
                     type="button"
-                    onClick={() => setIsCounsellorModalOpen(true)}
-                    className="w-full py-3 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                    onClick={() => openCounsellorModal({ source: "acri_fit_card_whatsapp" })}
+                    className="w-full py-3 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <span>Discuss Your Fit with a Counsellor</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -1006,23 +930,21 @@ export function AcriLandingPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <button
               type="button"
-              onClick={() => setIsCounsellorModalOpen(true)}
+              onClick={() => openCounsellorModal({ source: "acri_landing_whatsapp_primary" })}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-full bg-white text-[#071A4A] hover:bg-[#EEF6FF] px-8 py-4 text-sm sm:text-base font-bold transition-all shadow-xl hover:scale-[1.02] cursor-pointer tone-light"
             >
               <MessageSquare className="h-4 w-4 text-[#1557D6]" />
-              <span>TALK TO A CAREER COUNSELLOR</span>
+              <span>TALK TO EXPERTS ON WHATSAPP</span>
               <ArrowRight className="h-4 w-4 text-[#1557D6]" />
             </button>
 
-            <a
-              href="https://wa.me/918977626999?text=Hello%20Arzon%2C%20I%20would%20like%20to%20talk%20to%20a%20career%20counsellor"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/career-assessment"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/5 hover:bg-white/10 px-7 py-4 text-sm font-semibold text-white transition-colors tone-light"
             >
-              <span>DIRECT WHATSAPP CHAT</span>
-              <ExternalLink className="h-4 w-4 text-slate-300" />
-            </a>
+              <span>START CAREER ASSESSMENT</span>
+              <ArrowRight className="h-4 w-4 text-slate-300" />
+            </Link>
           </div>
 
           <p className="text-xs text-slate-400 pt-2">
@@ -1092,9 +1014,9 @@ export function AcriLandingPage() {
                 type="button"
                 onClick={() => {
                   setIsCaseModalOpen(false);
-                  setIsCounsellorModalOpen(true);
+                  openCounsellorModal({ source: "acri_case_drawer_whatsapp" });
                 }}
-                className="px-5 py-2.5 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold"
+                className="px-5 py-2.5 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold cursor-pointer"
               >
                 Practice Similar Cases &rarr;
               </button>
@@ -1185,7 +1107,7 @@ export function AcriLandingPage() {
                   type="button"
                   onClick={() => {
                     setIsVideoModalOpen(false);
-                    setIsCounsellorModalOpen(true);
+                    openCounsellorModal({ source: "acri_video_modal_expert" });
                   }}
                   className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#071A4A] px-5 text-xs font-bold text-white transition-colors hover:bg-[#1557D6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1557D6] focus-visible:ring-offset-2"
                 >
@@ -1240,174 +1162,6 @@ export function AcriLandingPage() {
                 Understood
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* MODAL 4: COUNSELLOR CONSULTATION SCHEDULER (WITH DPDP 2023 CONSENT) */}
-      {/* ========================================================================= */}
-      {isCounsellorModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="bg-white tone-light card-light border border-[#E4EAF2] rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl relative max-h-[95vh] overflow-y-auto">
-            <button
-              type="button"
-              onClick={() => setIsCounsellorModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full hover:bg-slate-100 text-[#69758A]"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#1557D6] uppercase">
-              <MessageSquare className="h-4 w-4 text-emerald-500" />
-              <span>CAREER COUNSELLOR SESSION</span>
-            </div>
-
-            <h3 className="font-serif text-2xl font-bold text-[#071A4A]">
-              Schedule a 1-on-1 Consultation
-            </h3>
-
-            <p className="text-xs text-[#69758A] leading-relaxed">
-              Discuss your pharmacy/life-science background, target CRO salaries, and whether Pharmacovigilance is the right career for you.
-            </p>
-
-            <form onSubmit={handleCounsellorSubmit} className="space-y-3.5">
-              <div>
-                <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                  Full Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={counsellorForm.name}
-                  onChange={(e) => setCounsellorForm({ ...counsellorForm, name: e.target.value })}
-                  placeholder="e.g. Priya Sharma"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                    WhatsApp Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={counsellorForm.phone}
-                    onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
-                    placeholder="+91 98765 43210"
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={counsellorForm.email}
-                    onChange={(e) => setCounsellorForm({ ...counsellorForm, email: e.target.value })}
-                    placeholder="priya@example.com"
-                    className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                  College / University Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={counsellorForm.college}
-                  onChange={(e) => setCounsellorForm({ ...counsellorForm, college: e.target.value })}
-                  placeholder="e.g. NIPER Hyderabad / Osmania University"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A] focus:outline-none focus:ring-1 focus:ring-[#1557D6]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                  Target Domain / Career Track <span className="text-red-500">*</span>
-                </label>
-                <select
-                  value={counsellorForm.interestedDomain}
-                  onChange={(e) => setCounsellorForm({ ...counsellorForm, interestedDomain: e.target.value })}
-                  className="w-full px-3 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A]"
-                >
-                  <option value="Pharmacovigilance & Drug Safety">Pharmacovigilance & Drug Safety</option>
-                  <option value="Clinical Data Management (CDM)">Clinical Data Management (CDM)</option>
-                  <option value="Regulatory Affairs & Documentation">Regulatory Affairs & Documentation</option>
-                  <option value="Medical Coding & Health Informatics">Medical Coding & Health Informatics</option>
-                  <option value="Clinical SAS & Biostatistics">Clinical SAS & Biostatistics</option>
-                  <option value="General Healthcare Career Guidance">General Healthcare Career Guidance (Help Me Choose)</option>
-                </select>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                    Degree
-                  </label>
-                  <select
-                    value={counsellorForm.degree}
-                    onChange={(e) => setCounsellorForm({ ...counsellorForm, degree: e.target.value })}
-                    className="w-full px-3 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A]"
-                  >
-                    <option value="B.Pharm">B.Pharm</option>
-                    <option value="M.Pharm">M.Pharm</option>
-                    <option value="Pharm.D">Pharm.D</option>
-                    <option value="BDS/MBBS">BDS / MBBS</option>
-                    <option value="B.Sc/M.Sc Life Sciences">B.Sc / M.Sc Life Sciences</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold text-[#071A4A] mb-1">
-                    Passout Year
-                  </label>
-                  <select
-                    value={counsellorForm.passoutYear}
-                    onChange={(e) => setCounsellorForm({ ...counsellorForm, passoutYear: e.target.value })}
-                    className="w-full px-3 py-2.5 text-xs rounded-xl border border-[#E4EAF2] bg-slate-50 tone-light text-[#071A4A]"
-                  >
-                    <option value="2026">2026 (Final Year)</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="Earlier">Earlier</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* DPDP Act 2023 Legal Consent Checkbox */}
-              <div className="pt-2 flex items-start gap-2.5 text-[11px] text-[#69758A]">
-                <input
-                  type="checkbox"
-                  id="dpdp-consent-home"
-                  checked={dpdpConsent}
-                  onChange={(e) => setDpdpConsent(e.target.checked)}
-                  className="mt-0.5 h-3.5 w-3.5 rounded border-[#E4EAF2] text-[#1557D6] focus:ring-[#1557D6]"
-                />
-                <label htmlFor="dpdp-consent-home" className="leading-tight">
-                  I consent to Arzon Global contacting me via WhatsApp/Phone for career counselling in accordance with the Digital Personal Data Protection (DPDP) Act, 2023.
-                </label>
-              </div>
-
-              <div className="pt-2">
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-full bg-[#071A4A] hover:bg-[#1557D6] text-white text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  <Lock className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>{isSubmitting ? "Connecting..." : "CONFIRM & CONNECT WITH COUNSELLOR"}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}

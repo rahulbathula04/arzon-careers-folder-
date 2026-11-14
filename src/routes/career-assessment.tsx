@@ -8,20 +8,20 @@ export const Route = createFileRoute("/career-assessment")({
   head: () => {
     const ps = pageSeo({
       path: "/career-assessment",
-      title: "Career Assessment · Healthcare Role Fit | Arzon Global",
+      title: "Clinical Interview Diagnostic · Drug Safety | Arzon Global",
       description:
-        "Understand which healthcare careers fit your background, interests and current strengths before committing time and money to a programme.",
+        "Complete 40 realistic clinical interview scenarios to identify your knowledge, decision-making, and technical gaps against published CRO industry requirements.",
       image: SITE.ogImages.careerEngine,
     });
     return {
-      meta: [{ title: "Career Assessment | Arzon Global" }, ...ps.meta],
+      meta: [{ title: "Clinical Interview Diagnostic | Arzon Global" }, ...ps.meta],
       links: ps.links,
       scripts: [
         {
           type: "application/ld+json",
           children: breadcrumbSchema([
             { name: "Home", path: "/" },
-            { name: "Career Assessment", path: "/career-assessment" },
+            { name: "Clinical Interview Diagnostic", path: "/career-assessment" },
           ]),
         },
       ],

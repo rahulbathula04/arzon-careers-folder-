@@ -56,7 +56,7 @@ import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { submitFastCounsellorLead } from "@/lib/workshop.functions";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 import {
   submitIndustryNetworkAppFn,
   type IndustryNetworkApplicationRecord,
@@ -345,7 +345,6 @@ const DISCIPLINE_DATA: Record<
 
 // ── Main Component ───────────────────────────────────────────────────────────
 function IndustryNetworkLeadPage() {
-  const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
   const [activeCredentialTab, setActiveCredentialTab] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [selectedDiscipline, setSelectedDiscipline] = useState<string>("B.Pharm");
@@ -411,7 +410,10 @@ function IndustryNetworkLeadPage() {
         },
       });
 
-      if (res.success && res.record) {
+      if (res.success && res.isDuplicate) {
+        toast.info(res.message || "Your application is already registered with us.");
+        setIsApplyModalOpen(false);
+      } else if (res.success && res.record) {
         setApplySuccessRecord(res.record);
         toast.success("Application submitted successfully!");
         trackEvent("quick_apply_success", {
@@ -427,19 +429,6 @@ function IndustryNetworkLeadPage() {
     }
   };
 
-  // Counsellor Form State
-  const [counsellorForm, setCounsellorForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    college: "",
-    degree: DEGREES[0],
-    year: PASSING_YEARS[0],
-    question: "",
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   useEffect(() => {
     trackEvent("industry_network_page_view", {
       path: "/industry-network",
@@ -449,44 +438,10 @@ function IndustryNetworkLeadPage() {
 
   const openCounsellor = (triggerSource = "direct") => {
     trackEvent("counsellor_modal_open", { source: triggerSource });
-    setFormSubmitted(false);
-    setIsCounsellorModalOpen(true);
-  };
-
-  const handleCounsellorSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) return;
-
-    setIsSubmitting(true);
-    trackEvent("counsellor_form_submit", {
-      degree: counsellorForm.degree,
-      year: counsellorForm.year,
+    openCounsellorModal({
+      programme: "Arzon Global Industry Network Programme",
+      source: `industry_network_${triggerSource}`,
     });
-
-    try {
-      await submitFastCounsellorLead({
-        data: {
-          name: counsellorForm.name.trim(),
-          phone: counsellorForm.phone.trim(),
-          email: counsellorForm.email.trim(),
-          college: counsellorForm.college.trim(),
-          source: "industry_network_counsellor",
-          degree: counsellorForm.degree,
-          academicYear: counsellorForm.year,
-          programName: "Industry Network Lead",
-          question: `College: ${counsellorForm.college} · Query: ${counsellorForm.question || "Discussing campus lead quota and selection"}`,
-        },
-      });
-    } catch (err) {
-      console.warn("[IndustryNetwork] Failed to save counsellor lead before WhatsApp redirect:", err);
-    }
-
-    setIsSubmitting(false);
-    setFormSubmitted(true);
-    try {
-      const text = `Hi Arzon Campus Team! I am interested in the Industry Network Lead role:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing campus lead quota and selection"}`;
-      window.open(waMsg(text), "_blank");
-    } catch {}
   };
 
   const currentCredential = CREDENTIALS_SAMPLES_SAFE(activeCredentialTab);
@@ -1965,180 +1920,6 @@ function IndustryNetworkLeadPage() {
           </button>
         </div>
       </div>
-
-      {/* ── QUALIFIED COUNSELLOR CALLBACK MODAL ───────────────────────────────── */}
-      {isCounsellorModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsCounsellorModalOpen(false);
-          }}
-        >
-          <div className="relative w-full max-w-lg rounded-3xl bg-white tone-light card-light p-6 sm:p-8 shadow-2xl border border-slate-200/80 space-y-6 my-auto text-left">
-            <button
-              type="button"
-              onClick={() => setIsCounsellorModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-              aria-label="Close modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {formSubmitted ? (
-              <div className="text-center py-8 space-y-4">
-                <div className="w-14 h-14 rounded-full bg-[#E6F7F1] border border-[#10B981]/30 flex items-center justify-center text-[#10B981] mx-auto">
-                  <Check className="w-7 h-7" />
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-xl font-bold text-[#081F38]">Guidance Request Received</h3>
-                  <p className="text-xs sm:text-sm text-[#64748B]">
-                    Thank you, {counsellorForm.name}. An Arzon campus advisor will connect with you via WhatsApp/phone to discuss your eligibility, quota, and selection process.
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsCounsellorModalOpen(false)}
-                    className="px-6 py-2.5 rounded-full bg-[#2563EB] text-white font-bold text-xs hover:bg-[#1D4ED8] transition-colors cursor-pointer"
-                  >
-                    Done
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleCounsellorSubmit} className="space-y-5">
-                <div className="space-y-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] font-mono text-[10px] font-bold uppercase tracking-wider">
-                    ARZON INDUSTRY ADVISORY · TALK TO EXPERTS
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#081F38]">Talk to Experts</h3>
-                  <p className="text-xs text-[#64748B]">
-                    Connect directly with senior biopharma advisors regarding role expectations, college quota, and your career roadmap.
-                  </p>
-                </div>
-
-                <div className="space-y-3.5">
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Rahul Bathula"
-                      value={counsellorForm.name}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        WhatsApp Number *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="e.g. 98765 43210"
-                        value={counsellorForm.phone}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="your.email@example.com"
-                        value={counsellorForm.email}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                      College / University Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. NIPER / Osmania University"
-                      value={counsellorForm.college}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, college: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        Degree Background *
-                      </label>
-                      <select
-                        value={counsellorForm.degree}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, degree: e.target.value })}
-                        className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      >
-                        {DEGREES.map((deg, dIdx) => (
-                          <option key={dIdx} value={deg}>{deg}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        Academic Year *
-                      </label>
-                      <select
-                        value={counsellorForm.year}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, year: e.target.value })}
-                        className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      >
-                        {PASSING_YEARS.map((yr, yIdx) => (
-                          <option key={yIdx} value={yr}>{yr}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-mono font-bold text-[#64748B] uppercase block">
-                      College Name / Question
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Bombay College of Pharmacy · When do selections close?"
-                      value={counsellorForm.question}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, question: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-2 space-y-3">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer shadow-sm"
-                  >
-                    {isSubmitting ? "Submitting Request..." : "Request Free Campus Call →"}
-                  </button>
-
-                  <p className="text-[10px] text-center text-[#64748B]">
-                    Zero spam. We only contact you to discuss your college quota and selection.
-                  </p>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* ── FRICTIONLESS QUICK APPLY MODAL (4 FIELDS ONLY) ────────────────────── */}
       {isApplyModalOpen && (

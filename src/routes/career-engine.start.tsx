@@ -28,7 +28,6 @@ import {
 import { trackEvent } from "@/lib/analytics";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { TARGET_TOTAL } from "@/data/careerEngineSampler";
-import { CompanyBrandLogo } from "@/components/career/result/CompanyLogos";
 
 export const Route = createFileRoute("/career-engine/start")({
   head: () => ({
@@ -63,6 +62,10 @@ const schema = z.object({
     .regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile number"),
   email: z.string().trim().email("Please enter a valid email address"),
   whatsappOptin: z.boolean().default(true),
+  qualification: z.string().min(1, "Please select your academic qualification").default("B.Pharm"),
+  graduationYear: z.string().min(1, "Please select your graduation year").default("2026"),
+  currentStatus: z.string().min(1, "Please select your current status").default("Actively Job Hunting (Fresher)"),
+  targetRole: z.string().default("Drug Safety Associate"),
   // Honeypot: must stay empty. Real users never see or fill this.
   website: z.string().max(0, "request rejected").optional().default(""),
 });
@@ -77,6 +80,10 @@ function StartPage() {
     phone: existing?.phone ?? "",
     email: existing?.email && !existing.email.includes("@arzon.local") ? existing.email : "",
     whatsappOptin: existing?.whatsappOptin ?? true,
+    qualification: existing?.qualification ?? "B.Pharm",
+    graduationYear: existing?.graduationYear ?? "2026",
+    currentStatus: existing?.currentStatus ?? "Actively Job Hunting (Fresher)",
+    targetRole: existing?.targetRole ?? "Drug Safety Associate",
     website: "",
   });
   const [busy, setBusy] = useState(false);
@@ -126,6 +133,10 @@ function StartPage() {
         phone: validData.phone,
         email: validData.email,
         whatsappOptin: validData.whatsappOptin,
+        qualification: validData.qualification,
+        graduationYear: validData.graduationYear,
+        currentStatus: validData.currentStatus,
+        targetRole: validData.targetRole,
       });
 
       markReadinessStarted();
@@ -247,15 +258,7 @@ function StartPage() {
       return;
     }
 
-    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const advisoryDismissed = typeof window !== "undefined" && sessionStorage.getItem("ce_desktop_advisory_seen");
-
-    if (isMobile && !advisoryDismissed) {
-      setPendingValidData(parsed.data);
-      setShowDesktopAdvisory(true);
-      return;
-    }
-
+    // Direct mobile-first launch without obstructive desktop advisories
     await runFlow(parsed.data);
   };
 
@@ -304,62 +307,74 @@ function StartPage() {
       <div className="arzon-engine-intro text-center space-y-2 sm:space-y-3">
         <div>
           <PremiumChip variant="gold" size="sm">
-            FREE · NO LOGIN · ABOUT 6 MINUTES
+            FREE · 40 CLINICAL CASE QUESTIONS · ~15 MINUTES
           </PremiumChip>
         </div>
-        <h1 className="font-sans text-xl sm:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight leading-snug sm:leading-tight">
-          Find the healthcare role that fits your background.
+        <h1 className="font-sans text-xl sm:text-4xl lg:text-5xl font-bold text-[#081F38] tracking-tight leading-snug sm:leading-tight">
+          Drug Safety Associate Clinical Interview Diagnostic
         </h1>
-        <p className="text-xs sm:text-base text-[var(--arzon-ink-soft)] mx-auto max-w-md font-sans leading-relaxed">
-          <span className="sm:hidden">Answer 42 questions to discover your matching healthcare career path and personalised skill readiness score.</span>
-          <span className="hidden sm:inline">Answer {TARGET_TOTAL} questions across your interests, skills, work preferences and career goals. We’ll compare your responses with healthcare role families and show the paths worth exploring next.</span>
+        <p className="text-xs sm:text-base text-slate-600 mx-auto max-w-xl font-sans leading-relaxed">
+          Test your technical interview readiness across 40 realistic ICSR casework scenarios, MedDRA coding dilemmas, and regulatory clock decisions evaluated against published CRO entry standards.
         </p>
-        <p className="mx-auto hidden sm:inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[var(--arzon-ink-muted)] font-bold">
-          <span>{TARGET_TOTAL} questions</span>
+        <p className="mx-auto hidden sm:inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-400 font-bold">
+          <span>40 Casework Scenarios</span>
           <span>·</span>
-          <span>~6 minutes</span>
+          <span>~15 Minutes</span>
           <span>·</span>
-          <span>13 traits</span>
+          <span>8 Core PV Competencies</span>
           <span>·</span>
-          <span>6 paths</span>
-          <span>·</span>
-          <span>Role readiness signal</span>
+          <span>Instant Recruiter Feedback</span>
         </p>
       </div>
 
-      {/* What the assessment looks at */}
-      <div className="mt-4 sm:mt-6 hidden sm:grid grid-cols-3 gap-2 sm:gap-3">
-        {["Role fit","Work style","Readiness"].map((label) => (
+      {/* Target Role Selector Ribbon */}
+      <div className="mt-4 sm:mt-6 rounded-2xl border border-slate-200/90 bg-slate-50/70 p-3 sm:p-4 text-left">
+        <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">
+          Selected Target Job Track:
+        </p>
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#081F38] text-white text-xs font-bold shadow-xs">
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <span>Drug Safety Associate (PV / ICSR) · Active Diagnostic</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs font-medium">
+            <span>Clinical Data Management (EDC) · Coming Soon</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs font-medium">
+            <span>Medical Coding (ICD-10) · Coming Soon</span>
+          </span>
+        </div>
+      </div>
+
+      {/* Core Competencies Tested */}
+      <div className="mt-3 sm:mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+        {[
+          { label: "ICSR Validity", sub: "ICH E2D & GVP Module VI (4 Mandatory Elements)" },
+          { label: "MedDRA Hierarchy", sub: "MSSO PTC Diagnosis vs Symptoms Supersession" },
+          { label: "Regulatory Clocks", sub: "ICH E2A SUSAR Clocks & Day 0 Identification" },
+        ].map((item) => (
           <div
-            key={label}
-            className="rounded-xl border border-[var(--arzon-border)] bg-white tone-light card-light p-2.5 sm:p-3.5 text-center shadow-xs transition-colors hover:border-[#1B3F8B]/40"
+            key={item.label}
+            className="rounded-xl border border-slate-200 bg-white tone-light card-light p-3 text-left shadow-2xs transition-colors hover:border-blue-400"
           >
-            <ShieldCheck className="mx-auto h-3.5 w-3.5 sm:h-4 sm:w-4 text-[var(--arzon-blue-700)]" />
-            <p className="mt-1.5 sm:mt-2 font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[var(--arzon-ink-soft)] truncate">
-              {label}
-            </p>
-            <div className="mx-auto mt-1.5 sm:mt-2 h-1 w-full max-w-[48px] sm:max-w-[60px] rounded-full bg-[var(--arzon-blue-100)]">
-              <div className="h-full w-1/3 rounded-full bg-[var(--arzon-navy-950)]" />
+            <div className="flex items-center gap-1.5 text-blue-700">
+              <ShieldCheck className="h-4 w-4 shrink-0" />
+              <p className="font-mono text-[10px] font-bold uppercase tracking-wider truncate">
+                {item.label}
+              </p>
             </div>
-            <p className="mt-1 sm:mt-1.5 font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-wider text-[var(--arzon-ink-muted)]">
-              Locked
+            <p className="mt-1 text-[11px] text-slate-500 font-sans leading-tight">
+              {item.sub}
             </p>
           </div>
         ))}
       </div>
 
-      {/* Recruiter Benchmarked Employers Trust Banner */}
-      <div className="mt-3 sm:mt-4 rounded-xl sm:rounded-2xl border border-slate-200/90 bg-white p-2.5 sm:p-4 text-center shadow-2xs">
-        <p className="font-mono text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5 sm:mb-2.5">
-          Scored Against Live Entry-Level Requisitions At:
+      {/* Published Guidelines Trust Banner */}
+      <div className="mt-3 rounded-xl border border-slate-200/90 bg-white p-2.5 sm:p-3 text-center shadow-2xs">
+        <p className="font-mono text-[9.5px] sm:text-[10px] text-slate-500 font-medium">
+          Evaluated under published clinical safety standards: <strong>ICH E2A / E2D</strong> · <strong>ICH-GCP E6(R2)</strong> · <strong>EMA GVP Module VI</strong> · <strong>MedDRA MSSO PTC</strong>
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-6 opacity-90">
-          <CompanyBrandLogo company="cognizant" className="h-3 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="iqvia" className="h-3 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="parexel" className="h-3 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="novartis" className="h-3 sm:h-4.5 w-auto" />
-          <CompanyBrandLogo company="accenture" className="h-3 sm:h-4.5 w-auto" />
-        </div>
       </div>
 
       <form
@@ -415,7 +430,7 @@ function StartPage() {
               autoFocus
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
+              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans text-base sm:text-sm"
               placeholder="Your full name"
             />
             <p className="mt-1 text-[11px] text-slate-500 font-sans">Used on your verified result card &amp; record.</p>
@@ -433,7 +448,7 @@ function StartPage() {
               required
               value={form.college}
               onChange={(e) => setForm({ ...form, college: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
+              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans text-base sm:text-sm"
               placeholder="e.g. Osmania Medical College / JNTUH"
             />
             <p className="mt-1 text-[11px] text-slate-500 font-sans">Current institute or graduating college.</p>
@@ -459,7 +474,7 @@ function StartPage() {
                 onChange={(e) =>
                   setForm({ ...form, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })
                 }
-                className="h-12 rounded-l-none rounded-r-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans font-mono"
+                className="h-12 rounded-l-none rounded-r-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans font-mono text-base sm:text-sm"
                 placeholder="98765 43210"
               />
             </div>
@@ -479,10 +494,96 @@ function StartPage() {
               required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans"
+              className="mt-1.5 h-12 rounded-xl border border-slate-300 bg-slate-50/50 text-[#081F38] placeholder:text-slate-400 focus:bg-white focus-visible:border-blue-600 focus-visible:ring-1 focus-visible:ring-blue-600 transition-all font-sans text-base sm:text-sm"
               placeholder="e.g. rahul@gmail.com"
             />
             <p className="mt-1 text-[11px] text-slate-500 font-sans">For official assessment summary and PDF copy.</p>
+          </div>
+        </div>
+
+        {/* Academic & Professional Status Details */}
+        <div className="border-t border-slate-100 pt-4 mt-1">
+          <p className="text-xs font-mono font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
+            <GraduationCap className="w-3.5 h-3.5 text-blue-600" />
+            <span>Academic &amp; Clinical Background</span>
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+            {/* Qualification */}
+            <div>
+              <Label htmlFor="qualification" className="text-xs font-bold text-slate-700 block mb-1.5">
+                Qualification *
+              </Label>
+              <select
+                id="qualification"
+                value={form.qualification}
+                onChange={(e) => setForm({ ...form, qualification: e.target.value })}
+                className="h-12 w-full rounded-xl border border-slate-300 bg-slate-50/70 px-3 text-base sm:text-xs font-semibold text-[#081F38] focus:bg-white focus:border-blue-600 focus:outline-none transition cursor-pointer"
+              >
+                <option value="B.Pharm">B.Pharm (Bachelor of Pharmacy)</option>
+                <option value="Pharm.D">Pharm.D (Doctor of Pharmacy)</option>
+                <option value="M.Pharm">M.Pharm (Pharmacology / Clinical / Other)</option>
+                <option value="BDS">BDS (Dental Surgery)</option>
+                <option value="MBBS">MBBS / MD</option>
+                <option value="M.Sc Life Sciences">M.Sc Life Sciences / Biotech / Biochem</option>
+                <option value="B.Sc Life Sciences">B.Sc Life Sciences / Chemistry</option>
+                <option value="Nursing / Allied Health">Nursing / Allied Health Sciences</option>
+              </select>
+            </div>
+
+            {/* Graduation Year */}
+            <div>
+              <Label htmlFor="graduationYear" className="text-xs font-bold text-slate-700 block mb-1.5">
+                Graduation Year *
+              </Label>
+              <select
+                id="graduationYear"
+                value={form.graduationYear}
+                onChange={(e) => setForm({ ...form, graduationYear: e.target.value })}
+                className="h-12 w-full rounded-xl border border-slate-300 bg-slate-50/70 px-3 text-base sm:text-xs font-semibold text-[#081F38] focus:bg-white focus:border-blue-600 focus:outline-none transition cursor-pointer"
+              >
+                <option value="2026">2026 (Final Year Student)</option>
+                <option value="2025">2025 (Recent Graduate)</option>
+                <option value="2024">2024 (Batch)</option>
+                <option value="2023 or Prior">2023 or Prior (Experienced / Gap)</option>
+              </select>
+            </div>
+
+            {/* Current Status */}
+            <div>
+              <Label htmlFor="currentStatus" className="text-xs font-bold text-slate-700 block mb-1.5">
+                Current Status *
+              </Label>
+              <select
+                id="currentStatus"
+                value={form.currentStatus}
+                onChange={(e) => setForm({ ...form, currentStatus: e.target.value })}
+                className="h-12 w-full rounded-xl border border-slate-300 bg-slate-50/70 px-3 text-base sm:text-xs font-semibold text-[#081F38] focus:bg-white focus:border-blue-600 focus:outline-none transition cursor-pointer"
+              >
+                <option value="Actively Job Hunting (Fresher)">Actively Job Hunting (Fresher)</option>
+                <option value="Currently Studying (Final Year)">Currently Studying (Final Year)</option>
+                <option value="Currently Employed (0-1 Year)">Currently Employed (0–1 Year)</option>
+                <option value="Working Professional Transitioning">Working Professional Transitioning</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Target Job Role Badge */}
+          <div className="mt-3.5 rounded-xl border border-blue-200/90 bg-gradient-to-r from-blue-50/80 to-indigo-50/50 p-3 flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <span className="h-2 w-2 rounded-full bg-blue-600 motion-safe:animate-pulse" />
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 block">
+                  Target Clinical Diagnostic Track
+                </span>
+                <strong className="text-xs font-bold text-[#081F38] font-sans">
+                  Drug Safety Associate (PV / ICSR)
+                </strong>
+              </div>
+            </div>
+            <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 border border-emerald-200 px-2.5 py-0.5 rounded-full shrink-0">
+              40-Question Casework Simulator
+            </span>
           </div>
         </div>
 
@@ -525,13 +626,13 @@ function StartPage() {
             disabled={busy}
             aria-disabled={busy}
             data-fab-avoid
-            className="inline-flex h-12 w-full sm:w-auto sm:min-w-[260px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-6 text-sm font-bold text-white shadow-[0_2px_12px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all active:scale-[0.98] cursor-pointer"
+            className="inline-flex h-13 sm:h-12 w-full sm:w-auto sm:min-w-[280px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 px-6 text-sm sm:text-base font-bold text-white shadow-[0_4px_16px_rgba(37,99,235,0.4),inset_0_1px_0_rgba(255,255,255,0.3)] transition-all active:scale-[0.98] cursor-pointer"
           >
             {busy ? (
               <AiThinkingLoader label="Initializing Diagnostic…" size="sm" textClassName="text-white" />
             ) : (
               <>
-                <span>Begin Career Assessment (10 Mins)</span>
+                <span>Start Clinical Diagnostic (40 Qs · 15 Mins)</span>
                 <ArrowRight className="h-4 w-4 text-white" />
               </>
             )}

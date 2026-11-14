@@ -32,7 +32,7 @@ import {
 } from "lucide-react";
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
-import { submitFastCounsellorLead } from "@/lib/workshop.functions";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 // ── Masterclass Direct Link ──────────────────────────────────────────────────
 const BIOINFO_MASTERCLASS_URL =
@@ -244,22 +244,8 @@ const BLUEPRINT_FAQS = [
 
 // ── Main Component ───────────────────────────────────────────────────────────
 function BioinformaticsBlueprintPage() {
-  const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
   const [activeWorkSampleTab, setActiveWorkSampleTab] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-
-  // Counsellor Form State
-  const [counsellorForm, setCounsellorForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    college: "",
-    degree: DEGREES[0],
-    year: PASSING_YEARS[0],
-    question: "",
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     trackEvent("bioinfo_page_view", {
@@ -270,44 +256,10 @@ function BioinformaticsBlueprintPage() {
 
   const openCounsellor = (triggerSource = "direct") => {
     trackEvent("counsellor_modal_open", { source: triggerSource });
-    setFormSubmitted(false);
-    setIsCounsellorModalOpen(true);
-  };
-
-  const handleCounsellorSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) return;
-
-    setIsSubmitting(true);
-    trackEvent("counsellor_form_submit", {
-      degree: counsellorForm.degree,
-      year: counsellorForm.year,
+    openCounsellorModal({
+      programme: "Bioinformatics & Genomics",
+      source: `bioinfo_${triggerSource}`,
     });
-
-    try {
-      await submitFastCounsellorLead({
-        data: {
-          name: counsellorForm.name.trim(),
-          phone: counsellorForm.phone.trim(),
-          email: counsellorForm.email.trim(),
-          college: counsellorForm.college.trim(),
-          source: "bioinformatics_counsellor_modal",
-          degree: counsellorForm.degree,
-          academicYear: counsellorForm.year,
-          programName: "Bioinformatics & Clinical Genomics Pathway",
-          question: `College: ${counsellorForm.college} · Query: ${counsellorForm.question || "Discussing eligibility and curriculum"}`,
-        },
-      });
-    } catch (err) {
-      console.warn("[Bioinformatics] Failed to save counsellor lead before WhatsApp redirect:", err);
-    }
-
-    setIsSubmitting(false);
-    setFormSubmitted(true);
-    try {
-      const text = `Hi Arzon Guidance Team! I would like to speak to a counsellor about the Bioinformatics & Clinical Genomics 12-Week Pathway:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing eligibility and curriculum"}`;
-      window.open(waMsg(text), "_blank");
-    } catch {}
   };
 
   const currentSample = WORK_SAMPLES[activeWorkSampleTab];
@@ -352,25 +304,24 @@ function BioinformaticsBlueprintPage() {
                 Learn how diagnostic genomics labs process Next-Generation Sequencing (NGS) data, call genetic variants with GATK, and curate clinical molecular reports to ACMG/AMP guidelines. Develop practical skills through structured training, case-based exercises and reproducible pipeline workflows.
               </p>
 
-              {/* Dual CTA Actions: Clean Apply Now + Talk to Experts */}
+              {/* Dual CTA Actions: Direct WhatsApp Experts + Apply / Fit */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
                   onClick={() => openCounsellor("hero_primary")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <span>Apply Now</span>
+                  <Phone className="w-4 h-4" />
+                  <span>Talk to Experts on WhatsApp</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => openCounsellor("hero_expert")}
+                <Link
+                  to="/career-assessment"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white tone-light card-light border border-slate-200/80 hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <Phone className="w-4 h-4 text-[#2563EB]" />
-                  <span>Talk to Experts</span>
-                </button>
+                  <span>Check My Fit Score</span>
+                </Link>
               </div>
 
               {/* 4 Feature Trust Badges */}
@@ -1160,209 +1111,17 @@ function BioinformaticsBlueprintPage() {
           onClick={() => openCounsellor("mobile_dock")}
           className="flex-1 py-3 px-4 rounded-full bg-[#2563EB] text-white font-bold text-xs shadow-xs text-center cursor-pointer"
         >
-          Talk to Experts
+          Talk to Experts on WhatsApp
         </button>
-        <a
-          href={waMsg("Hi Arzon! I want to enquire about the Bioinformatics Analyst program.")}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-3 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 shrink-0"
+        <button
+          type="button"
+          onClick={() => openCounsellor("mobile_dock_whatsapp")}
+          className="p-3 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 shrink-0 cursor-pointer"
           aria-label="Chat on WhatsApp"
         >
           <Phone className="w-4 h-4" />
-        </a>
+        </button>
       </div>
-
-      {/* ── QUALIFIED COUNSELLOR CALLBACK MODAL ───────────────────────────────── */}
-      {isCounsellorModalOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
-        >
-          <div className="bg-white tone-light card-light rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 text-left shadow-2xl relative border border-slate-200/90 my-8">
-            <button
-              type="button"
-              onClick={() => setIsCounsellorModalOpen(false)}
-              className="absolute top-5 right-5 p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-              aria-label="Close dialog"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {formSubmitted ? (
-              <div className="text-center py-6 space-y-4">
-                <div className="w-14 h-14 bg-[#E6F7F1] text-[#10B981] rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8" />
-                </div>
-                <h3 className="text-xl font-bold text-[#081F38]">Request Received!</h3>
-                <p className="text-xs sm:text-sm text-[#64748B] max-w-sm mx-auto">
-                  Thank you, <span className="font-bold text-[#081F38]">{counsellorForm.name}</span>. An Arzon Career Advisor will reach out via WhatsApp/phone within 24 hours.
-                </p>
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsCounsellorModalOpen(false)}
-                    className="px-6 py-2.5 rounded-full bg-[#2563EB] text-white text-xs font-bold shadow-xs cursor-pointer"
-                  >
-                    Close Window
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleCounsellorSubmit} className="space-y-4">
-                <div>
-                  <div className="text-[10px] font-mono font-bold text-[#2563EB] uppercase tracking-wider">
-                    DIRECT ADMISSIONS &amp; ELIGIBILITY
-                  </div>
-                  <h3 className="text-xl font-bold text-[#081F38] mt-1">
-                    Talk to Experts
-                  </h3>
-                  <p className="text-xs text-[#64748B] mt-1">
-                    Evaluate your degree and background against current clinical genomics hiring criteria.
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-xs font-bold text-[#081F38] mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Dr. Ayesha Khan / R. Sharma"
-                      value={counsellorForm.name}
-                      onChange={(e) =>
-                        setCounsellorForm({ ...counsellorForm, name: e.target.value })
-                      }
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-bold text-[#081F38] mb-1">
-                        WhatsApp / Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="+91 98765 43210"
-                        value={counsellorForm.phone}
-                        onChange={(e) =>
-                          setCounsellorForm({ ...counsellorForm, phone: e.target.value })
-                        }
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-[#081F38] mb-1">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="your.email@example.com"
-                        value={counsellorForm.email}
-                        onChange={(e) =>
-                          setCounsellorForm({ ...counsellorForm, email: e.target.value })
-                        }
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#081F38] mb-1">
-                      College / University Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. NIPER / Osmania University"
-                      value={counsellorForm.college}
-                      onChange={(e) =>
-                        setCounsellorForm({ ...counsellorForm, college: e.target.value })
-                      }
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-bold text-[#081F38] mb-1">
-                        Degree / Specialization
-                      </label>
-                      <select
-                        value={counsellorForm.degree}
-                        onChange={(e) =>
-                          setCounsellorForm({ ...counsellorForm, degree: e.target.value })
-                        }
-                        className="w-full px-3 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB] bg-white tone-light card-light"
-                      >
-                        {DEGREES.map((d, dIdx) => (
-                          <option key={dIdx} value={d}>
-                            {d}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-[#081F38] mb-1">
-                        Passing Year
-                      </label>
-                      <select
-                        value={counsellorForm.year}
-                        onChange={(e) =>
-                          setCounsellorForm({ ...counsellorForm, year: e.target.value })
-                        }
-                        className="w-full px-3 py-2.5 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB] bg-white tone-light card-light"
-                      >
-                        {PASSING_YEARS.map((y, yIdx) => (
-                          <option key={yIdx} value={y}>
-                            {y}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#081F38] mb-1">
-                      Specific Question or Career Goal (Optional)
-                    </label>
-                    <textarea
-                      rows={2}
-                      placeholder="e.g. Can I transition from B.Tech Biotech into NGS data analysis?"
-                      value={counsellorForm.question}
-                      onChange={(e) =>
-                        setCounsellorForm({ ...counsellorForm, question: e.target.value })
-                      }
-                      className="w-full px-3.5 py-2 rounded-xl border border-slate-200/90 text-xs text-[#081F38] focus:outline-none focus:border-[#2563EB]"
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                  >
-                    <span>Request Free 15-Min Diagnostic Call</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                  <p className="text-[10px] text-center text-[#64748B] mt-2">
-                    Zero spam guarantee. Directly routed to an Arzon Career Advisor.
-                  </p>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,9 +1,5 @@
 import type { ArchetypeId, Question, QuestionKind, Trait } from "./careerEngineQuestions";
 import { QUESTIONS } from "./careerEngineQuestions";
-import {
-  evaluateEmployerHiringReadiness,
-  type EmployerReadinessReport,
-} from "./employerScoringEngine";
 
 // ─────────────────────────────────────────────
 // Public types (kept stable - DB + result page depend on these)
@@ -97,6 +93,8 @@ export interface PillarResult {
   quadrantLabel: string;
   topDrivers: string[];
   gaps: string[];
+  eligible?: boolean;
+  eligibilityNote?: string;
 }
 
 export interface CareerEngineResult {
@@ -132,7 +130,6 @@ export interface CareerEngineResult {
     stream?: string;
     year?: string;
   };
-  employerReadiness?: EmployerReadinessReport;
 }
 
 // ─────────────────────────────────────────────
@@ -337,11 +334,33 @@ const COURSE_TO_DOMAIN: Record<string, Domain> = {
   pharma: "healthcare",
   lifesci: "healthcare",
   med: "healthcare",
+  allied: "healthcare",
   engg: "tech",
   comm: "business",
   agri: "agri",
   arts: "comm-services",
+  other: "business",
 };
+
+const STREAM_TO_DOMAIN: Record<string, Domain> = {
+  BiPC: "healthcare",
+  Pharma: "healthcare",
+  LifeSciences: "healthcare",
+  Medical: "healthcare",
+  MPC: "tech",
+  Commerce: "business",
+  Arts: "comm-services",
+};
+
+export function getCandidateDomain(answers: Record<string, string>): Domain {
+  if (answers.course && COURSE_TO_DOMAIN[answers.course]) {
+    return COURSE_TO_DOMAIN[answers.course];
+  }
+  if (answers.stream && STREAM_TO_DOMAIN[answers.stream]) {
+    return STREAM_TO_DOMAIN[answers.stream];
+  }
+  return "healthcare";
+}
 
 const DOMAIN_PATHS: Record<Domain, string[]> = {
   healthcare: [
@@ -350,11 +369,13 @@ const DOMAIN_PATHS: Record<Domain, string[]> = {
     "clinical-data-management",
     "regulatory-affairs",
     "sas-clinical",
+    "ai-intelligence",
+    "clinical-saas",
   ],
-  tech: ["software-engineer", "ai-intelligence", "sas-clinical", "business-analyst"],
-  business: ["b2b-saas-sales", "clinical-saas", "business-analyst", "regulatory-affairs"],
+  tech: ["software-engineer", "ai-intelligence", "sas-clinical", "business-analyst", "clinical-data-management"],
+  business: ["b2b-saas-sales", "clinical-saas", "business-analyst", "clinical-data-management"],
   agri: ["agri-tech-ops", "business-analyst", "b2b-saas-sales"],
-  "comm-services": ["b2b-saas-sales", "clinical-saas", "pharmacovigilance"],
+  "comm-services": ["b2b-saas-sales", "clinical-saas", "business-analyst"],
 };
 
 const CROSS_DOMAIN_CAP = 42;
@@ -431,7 +452,7 @@ export const ARCHETYPES: Record<ArchetypeId, Archetype> = {
     pathSlug: "business",
     needs: ["Comfort talking to strangers", "Pressure tolerance", "Has organised people before"],
     dealbreakers: ["Drained by phone calls", "Has never led anything"],
-    topPaths: [path("clinical-saas"), path("regulatory-affairs"), path("pharmacovigilance")],
+    topPaths: [path("clinical-saas"), path("business-analyst"), path("b2b-saas-sales")],
   },
   ai_builder: {
     id: "ai_builder",
@@ -488,6 +509,7 @@ interface Tally {
   microTotal: number;
   microCorrect: number;
   answered: number;
+  missedMicroQuestionIds: string[];
 }
 
 /** Maximum positive weight available per trait across the entire bank (used to normalise). */
@@ -514,6 +536,7 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
   let microTotal = 0;
   let microCorrect = 0;
   let answered = 0;
+  const missedMicroQuestionIds: string[] = [];
 
   // Use the questions in the attempt if provided, otherwise the questions actually answered
   const targetQuestions = sampledQuestions?.length
@@ -549,7 +572,11 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
     }
     if (q.kind === "micro") {
       microTotal += 1;
-      if (opt.correct) microCorrect += 1;
+      if (opt.correct) {
+        microCorrect += 1;
+      } else {
+        missedMicroQuestionIds.push(q.id);
+      }
     }
   }
 
@@ -562,7 +589,7 @@ function tally(answers: Record<string, string>, sampledQuestions?: Question[]): 
       norm[t] = Math.max(-10, Math.min(10, Math.round(((raw[t] / maxAttempt[t]) * 10) * 10) / 10));
     }
   }
-  return { raw, norm, microTotal, microCorrect, answered };
+  return { raw, norm, microTotal, microCorrect, answered, missedMicroQuestionIds };
 }
 
 const clamp = (n: number, lo = 0, hi = 100) => Math.max(lo, Math.min(hi, Math.round(n)));
@@ -576,6 +603,8 @@ interface PathScore {
   path: PathDef;
   fit: number;
   reasons: string[];
+  eligible?: boolean;
+  eligibilityNote?: string;
 }
 
 function pathImpactForAnswer(pdef: PathDef, q: Question, chosen: string): number {
@@ -656,6 +685,8 @@ function scorePath(
   const isPharma = answers.course === "pharma" || answers.stream === "Pharma";
   const isLifeSci = answers.course === "lifesci" || answers.stream === "LifeSciences";
   const isAllied = answers.course === "allied";
+  const isCommerce = answers.course === "comm" || answers.stream === "Commerce";
+  const isTechOrMath = answers.course === "engg" || answers.stream === "MPC";
 
   if (isMedOrClinical) {
     // Physiotherapy (BPT/MPT), BDS, MBBS, Nursing have peak clinical anatomy/pathology mastery -> #1 for Medical Coding
@@ -663,11 +694,14 @@ function scorePath(
     else if (pdef.slug === "clinical-data-management") score += 6;
     else if (pdef.slug === "pharmacovigilance") score += 4;
   } else if (isPharma) {
-    // Pharmacy graduates (B.Pharm/Pharm.D) have deep drug safety & pharmacology mechanisms -> #1 for PV & Regulatory
-    if (pdef.slug === "pharmacovigilance") score += 10;
-    else if (pdef.slug === "regulatory-affairs") score += 8;
+    // Pharmacy graduates (B.Pharm/Pharm.D) have deep drug safety & pharmacology mechanisms
+    if (pdef.slug === "pharmacovigilance") score += 7;
+    else if (pdef.slug === "regulatory-affairs") score += 6;
     else if (pdef.slug === "clinical-data-management") score += 6;
-    else if (pdef.slug === "medical-coding") score += 4;
+    else if (pdef.slug === "sas-clinical") score += 5;
+    else if (pdef.slug === "medical-coding") score += 5;
+    else if (pdef.slug === "clinical-saas") score += 4;
+    else if (pdef.slug === "ai-intelligence") score += 4;
   } else if (isLifeSci) {
     // Life sciences (Biotech, Biochem, Micro) -> strong data & clinical trial workflows
     if (pdef.slug === "clinical-data-management") score += 8;
@@ -676,6 +710,15 @@ function scorePath(
   } else if (isAllied) {
     if (pdef.slug === "medical-coding") score += 8;
     else if (pdef.slug === "clinical-data-management") score += 7;
+  } else if (isCommerce) {
+    if (pdef.slug === "business-analyst") score += 10;
+    else if (pdef.slug === "b2b-saas-sales") score += 10;
+    else if (pdef.slug === "clinical-saas") score += 8;
+  } else if (isTechOrMath) {
+    if (pdef.slug === "software-engineer") score += 10;
+    else if (pdef.slug === "ai-intelligence") score += 8;
+    else if (pdef.slug === "sas-clinical") score += 8;
+    else if (pdef.slug === "business-analyst") score += 6;
   }
 
   // Direct career goal alignment multiplier
@@ -689,6 +732,24 @@ function scorePath(
     score += 8;
   } else if (answers.career_goal === "sas_ai" && (pdef.slug === "sas-clinical" || pdef.slug === "ai-intelligence")) {
     score += 8;
+  } else if (answers.career_goal === "tech" && (pdef.slug === "software-engineer" || pdef.slug === "ai-intelligence")) {
+    score += 8;
+  } else if (answers.career_goal === "business" && (pdef.slug === "business-analyst" || pdef.slug === "b2b-saas-sales" || pdef.slug === "clinical-saas")) {
+    score += 8;
+  }
+
+  // Cross-domain eligibility protection:
+  // If candidate's declared domain does not include this path, cap score at CROSS_DOMAIN_CAP (42)
+  const candidateDomain = getCandidateDomain(answers);
+  const isAllowedPath = DOMAIN_PATHS[candidateDomain]?.includes(pdef.slug) ?? true;
+
+  let eligible = true;
+  let eligibilityNote: string | undefined = undefined;
+
+  if (!isAllowedPath) {
+    score = Math.min(CROSS_DOMAIN_CAP, score);
+    eligible = false;
+    eligibilityNote = "Prerequisite: Requires Pharmacy, Medical, or Life Sciences qualification.";
   }
 
   // Reasons (top 3 strongest weighted contributions)
@@ -702,7 +763,7 @@ function scorePath(
     .slice(0, 3)
     .map((c) => `Strong ${c.trait}`);
 
-  return { slug: pdef.slug, path: pdef, fit: clamp(score), reasons };
+  return { slug: pdef.slug, path: pdef, fit: clamp(score), reasons, eligible, eligibilityNote };
 }
 
 // ─────────────────────────────────────────────
@@ -711,9 +772,14 @@ function scorePath(
 
 function archetypeFitFromPaths(id: ArchetypeId, pathScores: Record<string, PathScore>): number {
   const owned = ARCHETYPE_PRIMARY_PATHS[id];
-  const ownedScores = owned.map((s) => pathScores[s]?.fit ?? 50).sort((a, b) => b - a);
-  const top = ownedScores[0] ?? 50;
-  const second = ownedScores[1] ?? top;
+  // Prioritize eligible paths so an ineligible cross-domain path doesn't artificially pull down archetype fit
+  const eligibleScores = owned
+    .filter((s) => pathScores[s]?.eligible !== false)
+    .map((s) => pathScores[s]?.fit ?? 50)
+    .sort((a, b) => b - a);
+  const scores = eligibleScores.length > 0 ? eligibleScores : owned.map((s) => pathScores[s]?.fit ?? 50).sort((a, b) => b - a);
+  const top = scores[0] ?? 50;
+  const second = scores[1] ?? top;
   return clamp(top * 0.85 + second * 0.15);
 }
 
@@ -745,34 +811,194 @@ function backgroundScore(a: Record<string, string>): number {
     a.internship === "paid"
       ? 35
       : a.internship === "paid_other"
-        ? 22
+        ? 24
         : a.internship === "unpaid"
           ? 18
           : 10;
   const english =
     a.english_self === "fluent"
-      ? 28
+      ? 25
       : a.english_self === "good"
-        ? 20
+        ? 18
         : a.english_self === "okay"
           ? 12
           : 4;
-  const year = a.year && a.year !== "1" ? 22 : 12;
-  const courseFit = a.course === "pharma" || a.course === "med" || a.course === "lifesci" ? 12 : 6;
+  const year = a.year === "graduated" ? 22 : a.year === "4" ? 20 : a.year === "3" ? 16 : 10;
+  const courseFit =
+    a.course === "pharma" || a.course === "med" || a.course === "lifesci" || a.course === "allied"
+      ? 18
+      : 8;
   return clamp(internship + english + year + courseFit);
 }
+
 function commitmentScore(a: Record<string, string>): number {
+  // Purged sales telemarketing bias (budget & start_when). Measures learning dedication & upskilling commitment.
   const hours =
     a.study_hours === "20p"
-      ? 45
+      ? 40
       : a.study_hours === "10_20"
-        ? 35
+        ? 32
         : a.study_hours === "5_10"
           ? 22
-          : 8;
-  const start = a.start_when === "now" ? 30 : a.start_when === "next" ? 22 : 10;
-  const budget = a.budget === "30p" ? 22 : a.budget === "15_30" ? 16 : a.budget === "emi" ? 14 : 8;
-  return clamp(hours + start + budget);
+          : 10;
+  const english =
+    a.english_invest === "yes"
+      ? 25
+      : a.english_invest === "alt"
+        ? 18
+        : a.english_invest === "min"
+          ? 10
+          : 5;
+  const technical =
+    a.code_invest === "love"
+      ? 20
+      : a.code_invest === "ok"
+        ? 16
+        : a.code_invest === "min"
+          ? 8
+          : 2;
+  const mentorship =
+    a.mentor_open === "yes"
+      ? 15
+      : a.mentor_open === "wk"
+        ? 12
+        : a.mentor_open === "mo"
+          ? 8
+          : 4;
+  return clamp(hours + english + technical + mentorship);
+}
+
+export function getPillarGaps(
+  pillarSlug: string,
+  missedQuestionIds: string[] = [],
+  norm: Partial<Record<Trait, number>> = {},
+  _fitScore: number = 70,
+): string[] {
+  const gaps: string[] = [];
+
+  if (pillarSlug === "pharmacovigilance") {
+    if (missedQuestionIds.includes("micro_pv")) {
+      gaps.push("Adverse Event Chronology & ICSR Onset Identification");
+    }
+    if (missedQuestionIds.includes("micro_seriousness")) {
+      gaps.push("ICH E2A Seriousness Criteria & 15-Day Expedited Clocks");
+    }
+    if (missedQuestionIds.includes("micro_priority")) {
+      gaps.push("Safety Case Intake Triage & Regulatory Queue Priority");
+    }
+    if (missedQuestionIds.includes("micro_typo") || missedQuestionIds.includes("micro_english")) {
+      gaps.push("Medical Narrative Writing & Clinical Case Causality Documentation");
+    }
+    if (missedQuestionIds.includes("micro_anatomy")) {
+      gaps.push("Human Anatomy & Organ-Specific Adverse Reaction Terminology");
+    }
+    const defaults = [
+      "MedDRA 5-Tier Coding Hierarchy & Terminology Conventions",
+      "Enterprise Safety Database Workflows & E2B(R3) XML Standards",
+      "Periodic Safety Update Reporting (PSUR / PBRER) Frameworks",
+    ];
+    for (const d of defaults) {
+      if (gaps.length < 3 && !gaps.includes(d)) gaps.push(d);
+    }
+  } else if (pillarSlug === "clinical-data-management") {
+    if (missedQuestionIds.includes("micro_data")) {
+      gaps.push("EDC Clinical Trial Data Discrepancy & Range Check Identification");
+    }
+    if (missedQuestionIds.includes("micro_excel")) {
+      gaps.push("Trial Master Spreadsheet Cleaning, VLOOKUPs & Reconciliation");
+    }
+    if (missedQuestionIds.includes("micro_sql")) {
+      gaps.push("Relational Clinical Database Queries & SQL Data Extraction");
+    }
+    if (missedQuestionIds.includes("micro_table") || missedQuestionIds.includes("micro_chart_read")) {
+      gaps.push("Clinical Site Data Adherence & Patient Visit Tracking");
+    }
+    if (missedQuestionIds.includes("micro_logic") || missedQuestionIds.includes("micro_truth")) {
+      gaps.push("Trial Protocol Deductive Logic & Discrepancy Management");
+    }
+    const defaults = [
+      "eCRF Specification Design & Electronic Data Capture Navigation",
+      "SAE Reconciliation & Clinical Trial Database Lock Protocol",
+      "ICH-GCP Data Integrity & 21 CFR Part 11 Electronic Records",
+    ];
+    for (const d of defaults) {
+      if (gaps.length < 3 && !gaps.includes(d)) gaps.push(d);
+    }
+  } else if (pillarSlug === "medical-coding") {
+    if (missedQuestionIds.includes("micro_code")) {
+      gaps.push("ICD-10-CM Coding Guidelines & Tabular vs Alphabetic Indexing");
+    }
+    if (missedQuestionIds.includes("micro_age_group")) {
+      gaps.push("Perinatal & Pediatric ICD-10 Chapter Specific Rules (P-Codes)");
+    }
+    if (missedQuestionIds.includes("micro_anatomy")) {
+      gaps.push("Clinical Anatomy & Surgical Organ Site Specificity");
+    }
+    if (missedQuestionIds.includes("micro_typo")) {
+      gaps.push("Medical Chart Documentation Precision & Provider Query Protocol");
+    }
+    const defaults = [
+      "CPT-4 Procedure Coding & Modifier Application (-25, -59)",
+      "Evaluation & Management (E/M) Clinical Chart Auditing",
+      "Payer Medical Necessity Verification & Denial Prevention",
+    ];
+    for (const d of defaults) {
+      if (gaps.length < 3 && !gaps.includes(d)) gaps.push(d);
+    }
+  } else if (pillarSlug === "regulatory-affairs") {
+    if (missedQuestionIds.includes("micro_seriousness") || missedQuestionIds.includes("micro_priority")) {
+      gaps.push("Regulatory Compliance Timelines & Expedited Submission Filing");
+    }
+    if (missedQuestionIds.includes("micro_truth")) {
+      gaps.push("Clinical Study Report (CSR) Interpretation & Efficacy Data Analysis");
+    }
+    if (missedQuestionIds.includes("micro_english") || missedQuestionIds.includes("micro_grammar")) {
+      gaps.push("Technical Dossier Narrative & Regulatory Justification Syntax");
+    }
+    if (missedQuestionIds.includes("micro_logic")) {
+      gaps.push("Health Authority Query Response Deductive Structuring");
+    }
+    const defaults = [
+      "eCTD Modules 1–5 Granularity & Technical Dossier Assembly",
+      "Global Regulatory Submissions (US FDA IND/NDA & EMA MAA)",
+      "Post-Approval Lifecycle Management & Regulatory Variation Filing",
+    ];
+    for (const d of defaults) {
+      if (gaps.length < 3 && !gaps.includes(d)) gaps.push(d);
+    }
+  } else if (pillarSlug === "sas-clinical" || pillarSlug === "ai-intelligence") {
+    if (missedQuestionIds.includes("micro_sql")) {
+      gaps.push("SQL Querying for Clinical Dataset Extraction");
+    }
+    if (missedQuestionIds.includes("micro_excel")) {
+      gaps.push("Clinical Trial Data Wrangling & Formats");
+    }
+    if (missedQuestionIds.includes("micro_truth") || missedQuestionIds.includes("micro_ratio")) {
+      gaps.push("Biostatistical Hypothesis Testing & p-Value Interpretation");
+    }
+    if (missedQuestionIds.includes("micro_pattern") || missedQuestionIds.includes("micro_logic")) {
+      gaps.push("Algorithmic Sequence Analysis & SAS Macro Logic");
+    }
+    const defaults = [
+      "CDISC SDTM Domain Mapping (DM, AE, LB) & ADaM Standards",
+      "Clinical Tables, Figures, and Listings (TFLs) Production Automation",
+      "Statistical Programming Validation & Double Programming Protocols",
+    ];
+    for (const d of defaults) {
+      if (gaps.length < 3 && !gaps.includes(d)) gaps.push(d);
+    }
+  } else {
+    const defaults = [
+      "Industry Workflow Simulation & Technical Tool Mastery",
+      "Domain Documentation & Standard Operating Procedures",
+      "Professional Technical Interview Problem Solving",
+    ];
+    for (const d of defaults) {
+      if (gaps.length < 3 && !gaps.includes(d)) gaps.push(d);
+    }
+  }
+
+  return gaps.slice(0, 4);
 }
 
 // ─────────────────────────────────────────────
@@ -1072,6 +1298,12 @@ export function computeResult(
   // 4) Build top 3 paths from PATH ranking, biased toward the winning archetype
   const archOwned = new Set(ARCHETYPE_PRIMARY_PATHS[top.id]);
   const sortedForUser = [...pathRanking].sort((a, b) => {
+    // Eligible paths strictly prioritize over ineligible paths
+    const aEligible = a.eligible ?? true;
+    const bEligible = b.eligible ?? true;
+    if (aEligible !== bEligible) {
+      return aEligible ? -1 : 1;
+    }
     const ba = archOwned.has(a.slug) ? 5 : 0;
     const bb = archOwned.has(b.slug) ? 5 : 0;
     return b.fit + bb - (a.fit + ba);
@@ -1109,7 +1341,11 @@ export function computeResult(
     coveragePct >= 80 && gap >= 10 ? "High" : coveragePct >= 50 ? "Moderate" : "Limited";
 
   // Role Readiness score combines micro-accuracy, background/degree alignment, and domain exposure
-  const baseReadiness = Math.round(microPct * 0.45 + (backgroundScore(answers) * 0.35) + ((t.norm.compliance ?? 0) + (t.norm.detail ?? 0) > 5 ? 20 : 10));
+  const baseReadiness = Math.round(
+    microPct * 0.50 +
+    backgroundScore(answers) * 0.30 +
+    ((t.norm.compliance ?? 0) + (t.norm.detail ?? 0) > 4 ? 20 : 10),
+  );
   const readinessScore = clamp(baseReadiness);
 
   // Map to 2x2 Fit vs Readiness Matrix
@@ -1176,7 +1412,9 @@ export function computeResult(
       quadrant: pQuad,
       quadrantLabel: pQuadLabel,
       topDrivers: pScore.reasons,
-      gaps: pFit < 75 ? ["Domain terminology exposure", "Structured workflow simulation"] : [],
+      gaps: getPillarGaps(pillarSlug, t.missedMicroQuestionIds, t.norm, pFit),
+      eligible: pScore.eligible ?? true,
+      eligibilityNote: pScore.eligibilityNote,
     };
   }
 
@@ -1204,6 +1442,35 @@ export function computeResult(
     risks: buildRisks(t.norm, answers, top.id, microPct),
     traitScores: t.norm,
     evidence,
+    aiAnalysis: {
+      skillGaps:
+        pillarResults[topPathsForUser[0]?.slug ?? "pharmacovigilance"]?.gaps ??
+        getPillarGaps(topPathsForUser[0]?.slug ?? "pharmacovigilance", t.missedMicroQuestionIds, t.norm, top.fit),
+      studyPlan: [
+        {
+          week: 1,
+          focus: "Foundations & Vocabulary",
+          description: `Master the essential nomenclature, guidelines, and core concepts for ${personalisedArch.name}.`,
+        },
+        {
+          week: 2,
+          focus: "Hands-on Production Workflows",
+          description: "Walk through end-to-end casework scenarios and live platform operations.",
+        },
+        {
+          week: 3,
+          focus: "Quality Assurance & Documentation",
+          description: "Formulate audit-proof case narratives, discrepancy reports, and compliance tracking.",
+        },
+        {
+          week: 4,
+          focus: "Portfolio Assembly & Interview Prep",
+          description: "Consolidate practical case proof-of-work for employer technical reviews.",
+        },
+      ],
+      estimatedSalary: topPathsForUser[0]?.salary ?? "₹4 – 7 LPA",
+      industryReadiness: readinessScore,
+    },
     profile: {
       college: answers.college_name || answers.college || undefined,
       course: answers.course,
@@ -1216,12 +1483,6 @@ export function computeResult(
       answeredQuestionIds: Object.keys(answers),
       createdAt: options.meta?.createdAt ?? new Date().toISOString(),
     },
-    employerReadiness: evaluateEmployerHiringReadiness(
-      answers,
-      top.fit,
-      microPct,
-      t.norm,
-    ),
   };
 }
 

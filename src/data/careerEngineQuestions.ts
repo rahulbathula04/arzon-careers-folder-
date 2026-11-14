@@ -106,6 +106,9 @@ export const QUESTIONS: Question[] = [
       { value: "Pharma", label: "Pharmacy (B.Pharm / M.Pharm / Pharm.D)" },
       { value: "LifeSciences", label: "Life Sciences (B.Sc / M.Sc Biotech, Biochem, Micro)" },
       { value: "Medical", label: "Clinical & Allied Health (MBBS, BDS, Nursing, BPT, Allied)" },
+      { value: "Commerce", label: "Commerce & Business Management (BBA, B.Com, MBA)" },
+      { value: "MPC", label: "Engineering, Mathematics & Tech (B.Tech, BCA, Data Science, MPC)" },
+      { value: "Arts", label: "Humanities & Social Sciences (BA, Journalism, Arts)" },
     ],
   },
   {
@@ -122,12 +125,15 @@ export const QUESTIONS: Question[] = [
   {
     id: "course",
     kind: "profile",
-    prompt: "What is your primary healthcare / life sciences degree?",
+    prompt: "What is your primary academic degree or qualification?",
     options: [
       { value: "pharma", label: "B.Pharm / Pharm.D / M.Pharm" },
       { value: "lifesci", label: "B.Sc / M.Sc Life Sciences, Biotech, Microbiology, Biochem" },
       { value: "med", label: "BDS / MBBS / BHMS / BAMS / Nursing / Physiotherapy" },
       { value: "allied", label: "Allied Health Sciences / MLT / Clinical Research Diploma" },
+      { value: "comm", label: "BBA / B.Com / MBA / Healthcare Management" },
+      { value: "engg", label: "B.Tech / B.E / BCA / MCA / Computer Science" },
+      { value: "other", label: "Other Graduate Degree" },
     ],
   },
   {

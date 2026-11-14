@@ -39,7 +39,6 @@ export function CredentialVerification({ result, candidateName: initialName, lea
   const [copiedLink, setCopiedLink] = useState(false);
 
   const cardRef = useRef<HTMLDivElement>(null);
-  const readiness = result.employerReadiness;
 
   // Sync candidate name if prop updates
   useEffect(() => {
@@ -70,13 +69,6 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     ? `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}`
     : `${origin}/career-engine/result`;
 
-  const topMatchedEmployer = readiness?.topMatchedEmployer;
-  const recruiterFitScore = readiness?.overallReadinessScore;
-  const letterGrade = readiness?.letterGrade;
-  const clearedEmployers = readiness?.employerMatches
-    .filter((m) => m.gapFromCutoff >= 0)
-    .map((m) => m.employer);
-
   const recordData: CertificateData = {
     candidateName,
     candidateQualification: result.profile?.course ?? "Healthcare Graduate",
@@ -86,49 +78,24 @@ export function CredentialVerification({ result, candidateName: initialName, lea
     referenceId,
     issueDate,
     verificationUrl: reportUrl,
-    recruiterFitScore,
-    letterGrade,
-    topMatchedEmployer,
-    clearedEmployers,
-    dimensionScores: readiness?.dimensionBreakdown
-      ? Object.values(readiness.dimensionBreakdown).map((d) => ({
-          label: d.label,
-          score: d.score,
-        }))
-      : undefined,
   };
 
-  const resumeBullet = readiness
-    ? `• Arzon Recruiter Fit Index (RFI): ${readiness.overallReadinessScore}% (Grade ${readiness.letterGrade}) · Calibrated against Top 5 Healthcare Employers; Cleared technical bar for ${readiness.topMatchedEmployer} (Ref: ${referenceId}). Verified report: ${reportUrl}`
-    : `• Arzon Verified Career Evaluation: Top Match: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index, ACRI Ref: ${referenceId}). Verified ledger at: ${reportUrl}`;
+  const resumeBullet = `• Arzon Healthcare Career Intelligence Assessment: Primary Track Alignment in ${recordData.archetypeName} (${recordData.fitScore}% Fit Index · Ref: ${referenceId}). Verified diagnostic record: ${reportUrl}`;
 
-  const recruiterPitch = readiness
-    ? `Healthcare Candidate Application Summary:
+  const recruiterPitch = `Healthcare Candidate Diagnostic Evaluation:
 Candidate: ${candidateName}
 Qualification: ${recordData.candidateQualification} (${recordData.candidateCollege})
-Arzon Role Alignment: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index)
-Recruiter Fit Index (RFI): ${readiness.overallReadinessScore}% (Grade ${readiness.letterGrade})
-Target Sponsor Calibration: Cleared ${readiness.topMatchedEmployer} entry-level technical cutoff
-Cleared Employer Bars: ${clearedEmployers?.join(", ") || "Active Pipeline"}
-Verified Competencies:
- - ICSR Triage: ${readiness.dimensionBreakdown.icsr_triage.score}% (${readiness.dimensionBreakdown.icsr_triage.rating})
- - Day 0 Clocks: ${readiness.dimensionBreakdown.seriousness_clocks.score}% (${readiness.dimensionBreakdown.seriousness_clocks.rating})
- - MedDRA Coding: ${readiness.dimensionBreakdown.medical_coding.score}% (${readiness.dimensionBreakdown.medical_coding.rating})
- - Clinical Narratives: ${readiness.dimensionBreakdown.clinical_narrative.score}% (${readiness.dimensionBreakdown.clinical_narrative.rating})
- - GCP Data Integrity: ${readiness.dimensionBreakdown.gcp_data_integrity.score}% (${readiness.dimensionBreakdown.gcp_data_integrity.rating})
-Official Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`
-    : `Healthcare Candidate Application Summary:
-Candidate: ${candidateName}
-Primary Alignment: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index)
-Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
+Primary Career Alignment: ${recordData.archetypeName} (${recordData.fitScore}% Fit Index)
+Diagnostic Confidence: ${result.evidenceConfidence || "High"}
+Verified Cognitive Drivers: ${result.evidence?.topDrivers?.slice(0, 3).map((d) => d.chosenLabel || d.chosenValue).join("; ") || "Demonstrated clinical scenario alignment"}
+Target Competencies to Close: ${result.pillarResults?.[result.archetype?.topPaths?.[0]?.slug ?? "pharmacovigilance"]?.gaps?.join("; ") || "Domain terminology & workflow simulation"}
+Official Verification Record: ${reportUrl} (Reference ID: ${referenceId})`;
 
   // 1. Add Directly to LinkedIn Profile Licenses & Certifications
   const handleAddToLinkedInProfile = () => {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth() + 1;
-    const certName = readiness
-      ? `Arzon Verified Healthcare RFI: ${recordData.archetypeName} (${readiness.topMatchedEmployer} Qualified · Grade ${readiness.letterGrade})`
-      : `Arzon Certified Healthcare Career Match: ${recordData.archetypeName}`;
+    const certName = `Arzon Healthcare Career Intelligence: ${recordData.archetypeName}`;
 
     const linkedInAddUrl = `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${encodeURIComponent(
       certName,
@@ -136,15 +103,13 @@ Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
       reportUrl,
     )}&certId=${encodeURIComponent(referenceId)}`;
 
-    toast.success("Opening LinkedIn to add this verified certification to your profile!");
+    toast.success("Opening LinkedIn to add this diagnostic assessment to your profile!");
     window.open(linkedInAddUrl, "_blank", "noopener,noreferrer");
   };
 
   // 2. Share on LinkedIn Post
   const handleShareLinkedIn = () => {
-    const text = readiness
-      ? `Excited to share that I completed the Arzon Healthcare Career Intelligence Assessment! My profile achieved a ${readiness.overallReadinessScore}% Recruiter Fit Index (Grade ${readiness.letterGrade}), clearing technical benchmarks for ${readiness.topMatchedEmployer} and top healthcare employers.\n\nVerify my official evaluation ledger here:`
-      : `Excited to share that I have completed the Arzon Healthcare Career Intelligence Assessment! My diagnostic mapped my profile to "${recordData.archetypeName}" with a ${recordData.fitScore}% verified role-fit index.\n\nVerify my official evaluation ledger here:`;
+    const text = `Excited to share that I completed the Arzon Healthcare Career Intelligence Assessment! My diagnostic mapped my profile to "${recordData.archetypeName}" with a ${recordData.fitScore}% verified role-fit index.\n\nVerify my official evaluation record here:`;
 
     const shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(reportUrl)}`;
 
@@ -155,9 +120,7 @@ Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
 
   // 3. Share with Friends on WhatsApp
   const handleShareWhatsApp = () => {
-    const text = readiness
-      ? `Hey! I took the Arzon Career Engine diagnostic and achieved a ${readiness.overallReadinessScore}% Recruiter Fit Index (Grade ${readiness.letterGrade}), clearing the ${readiness.topMatchedEmployer} hiring bar! What role matches your healthcare background? Take the test here: ${reportUrl}`
-      : `Hey! I took the Arzon Career Engine diagnostic and matched as "${recordData.archetypeName}" with a ${recordData.fitScore}% fit score! What role matches your healthcare background? Take the test here: ${reportUrl}`;
+    const text = `Hey! I took the Arzon Healthcare Career Intelligence Assessment and matched as "${recordData.archetypeName}" with a ${recordData.fitScore}% fit score! What role matches your healthcare background? Take the test here: ${reportUrl}`;
 
     const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
     window.open(waUrl, "_blank", "noopener,noreferrer");
@@ -198,10 +161,10 @@ Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
             </div>
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-blue-600 block">
-                CAREER IDENTITY &amp; OFFICIAL CREDENTIAL
+                CAREER IDENTITY &amp; ASSESSMENT RECORD
               </span>
               <h2 className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#081F38]">
-                Your Verified Career Credential
+                Your Verified Assessment Record
               </h2>
             </div>
           </div>
@@ -228,13 +191,13 @@ Verification Ledger: ${reportUrl} (Reference ID: ${referenceId})`;
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              🎓 Official Certificate
+              🎓 Assessment Record
             </button>
           </div>
         </div>
 
         <p className="mt-3.5 max-w-2xl text-sm leading-relaxed text-slate-600 font-sans">
-          Toggle between your digital Result Card and the Official Industry Readiness Certificate. Add directly to your LinkedIn licenses, append to your resume, or share with employers.
+          Toggle between your digital Result Card and the Official Career Assessment Record. Add directly to your professional profile, append the verification reference to your resume, or share with admissions counsellors.
         </p>
 
         {/* Dynamic Credential Component (Card vs Official Certificate) */}

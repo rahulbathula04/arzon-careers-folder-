@@ -62,23 +62,12 @@ function AdminLayout() {
           <div>
             <h1 className="text-xl font-bold text-slate-900 tracking-tight">Admissions Command Center</h1>
             <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-              Arzon Global Executive & Admissions workspace. Sign in with your staff account or unlock founder access.
+              Arzon Global Executive & Admissions workspace. Please sign in with an authorized staff account to continue.
             </p>
           </div>
           <div className="pt-2 flex flex-col gap-2.5">
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.setItem("arzon_admin_unlocked", "true");
-                localStorage.setItem("arzon_dev_admin_bypass", "true");
-                window.location.reload();
-              }}
-              className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition cursor-pointer"
-            >
-              ⚡ Enter Admissions Console (Founder Unlock)
-            </button>
-            <Button asChild variant="outline" className="w-full text-xs">
-              <Link to="/admin/login">Sign in with Supabase Staff Email →</Link>
+            <Button asChild className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition">
+              <Link to="/admin/login">Sign in with Supabase Staff Account →</Link>
             </Button>
             <Button asChild variant="ghost" className="w-full text-xs text-slate-500">
               <Link to="/">← Back to Arzon Homepage</Link>
@@ -99,21 +88,13 @@ function AdminLayout() {
           <div>
             <h1 className="text-xl font-bold text-slate-900 tracking-tight">Executive Access Required</h1>
             <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-              This area is restricted to Arzon admissions directors. You can unlock your founder workspace directly.
+              This area is restricted to authorized Arzon staff accounts with admin, reviewer, or support roles.
             </p>
           </div>
           <div className="pt-2 flex flex-col gap-2.5">
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.setItem("arzon_admin_unlocked", "true");
-                localStorage.setItem("arzon_dev_admin_bypass", "true");
-                window.location.reload();
-              }}
-              className="w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition cursor-pointer"
-            >
-              ⚡ Unlock Founder Access
-            </button>
+            <Button asChild className="w-full text-xs">
+              <Link to="/admin/login">Switch Account</Link>
+            </Button>
             <Button asChild variant="outline" className="w-full text-xs">
               <Link to="/">Back to site</Link>
             </Button>

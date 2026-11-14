@@ -122,8 +122,10 @@ export function IndustryNetworkApplyPage() {
         toast.info(res.message);
       } else {
         toast.success(res.message || "Application submitted successfully!");
+        if (res.record) {
+          setSubmittedRecord(res.record);
+        }
       }
-      setSubmittedRecord(res.record);
     } catch (err: any) {
       console.error("[ApplyPage] Submission error:", err);
       toast.error(err.message || "Failed to submit application. Please try again.");

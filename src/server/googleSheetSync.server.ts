@@ -67,12 +67,18 @@ function cleanDigits(phone: string | null | undefined): string {
  * 15. Counselor Remarks
  * 16. 1-Click WhatsApp Chat
  */
+function sanitizeSheetCell(value: string | null | undefined, fallback = ""): string {
+  const raw = (value ?? fallback).trim();
+  if (!raw) return fallback;
+  return /^[=+\-@\t\r]/.test(raw) ? `'${raw}` : raw;
+}
+
 export function formatMasterLeadRow(lead: CounselorLeadSyncPayload, leadNumber?: string): string[] {
   const digits = cleanDigits(lead.phone);
-  const candidateName = lead.name?.trim() || "Candidate";
+  const candidateName = sanitizeSheetCell(lead.name, "WhatsApp Direct Lead");
   const timestamp = getFormattedISTDate();
-  const domain = lead.programName || "Pharmacovigilance & Drug Safety";
-  const source = lead.source || "Website Inbound";
+  const domain = sanitizeSheetCell(lead.programName, "Pharmacovigilance & Drug Safety");
+  const source = sanitizeSheetCell(lead.source, "Website Inbound");
 
   const waUrl = digits
     ? `https://wa.me/91${digits}?text=${encodeURIComponent(
@@ -85,18 +91,18 @@ export function formatMasterLeadRow(lead: CounselorLeadSyncPayload, leadNumber?:
     leadNumber || "AUTO",
     timestamp,
     candidateName,
-    digits ? `'91${digits}` : lead.phone,
-    lead.email,
-    lead.college,
+    digits ? `'91${digits}` : sanitizeSheetCell(lead.phone),
+    sanitizeSheetCell(lead.email),
+    sanitizeSheetCell(lead.college, "Direct WhatsApp CTA"),
     domain,
-    lead.degree || "Healthcare Graduate",
-    lead.passoutYear || "2026",
-    lead.city || "India",
-    lead.question || "Requested 1-on-1 Career Counselling Callback",
+    sanitizeSheetCell(lead.degree, "Healthcare Graduate"),
+    sanitizeSheetCell(lead.passoutYear, "2026"),
+    sanitizeSheetCell(lead.city, "India"),
+    sanitizeSheetCell(lead.question, "Direct WhatsApp Expert Inquiry"),
     source,
-    lead.status || "New Lead",
-    lead.assignedCounselor || "",
-    lead.remarks || "",
+    sanitizeSheetCell(lead.status, "New Lead"),
+    sanitizeSheetCell(lead.assignedCounselor),
+    sanitizeSheetCell(lead.remarks),
     waFormula,
   ];
 }
@@ -115,7 +121,7 @@ export async function syncCounselorLeadToGoogleSheet(
   if (webhookUrl) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 1500);
 
       const res = await fetch(webhookUrl, {
         method: "POST",

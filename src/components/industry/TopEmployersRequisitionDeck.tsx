@@ -13,14 +13,11 @@ import {
   Target,
 } from "lucide-react";
 import { LIVE_EMPLOYER_OPENINGS } from "@/data/industry/liveEmployerOpenings";
-import { EMPLOYER_WEIGHT_CONFIGS } from "@/data/employerScoringEngine";
 import { CompanyBrandLogo } from "@/components/career/result/CompanyLogos";
 
 export function TopEmployersRequisitionDeck() {
   const [selectedIdx, setSelectedIdx] = useState<number>(0);
   const activeOpening = LIVE_EMPLOYER_OPENINGS[selectedIdx];
-  const cutoffConfig = EMPLOYER_WEIGHT_CONFIGS[activeOpening.shortName as keyof typeof EMPLOYER_WEIGHT_CONFIGS];
-  const hiringCutoff = cutoffConfig?.hiringBarCutoff ?? 68;
 
   return (
     <section className="mt-8 rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] via-white/[0.01] to-transparent p-5 sm:p-8 backdrop-blur-md">
@@ -35,7 +32,7 @@ export function TopEmployersRequisitionDeck() {
             India’s Top 5 Healthcare Employers Hiring Freshers
           </h2>
           <p className="mt-1 text-sm text-white/70 max-w-2xl leading-relaxed font-sans">
-            Verified hiring standards, screening cutoffs, and entry packages across India's largest healthcare and life-science employers.
+            Verified hiring requirements, qualifications, and fresher entry packages across India's premier life sciences and healthcare employers.
           </p>
         </div>
 
@@ -45,7 +42,7 @@ export function TopEmployersRequisitionDeck() {
           className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--arzon-blue-600)] hover:bg-[var(--arzon-blue-700)] text-white px-5 py-2.5 text-xs font-bold transition-all shadow-[0_0_20px_rgba(21,87,214,0.35)] active:scale-95 shrink-0 self-start md:self-auto cursor-pointer"
         >
           <Target className="h-4 w-4" />
-          <span>Screen Your Profile Against Cutoffs</span>
+          <span>Take Clinical Interview Diagnostic</span>
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
@@ -58,7 +55,6 @@ export function TopEmployersRequisitionDeck() {
         <div className="flex items-center gap-2.5 overflow-x-auto pb-2 scrollbar-none">
           {LIVE_EMPLOYER_OPENINGS.map((emp, idx) => {
             const isSelected = selectedIdx === idx;
-            const cutoff = EMPLOYER_WEIGHT_CONFIGS[emp.shortName as keyof typeof EMPLOYER_WEIGHT_CONFIGS]?.hiringBarCutoff ?? 68;
 
             return (
               <button
@@ -76,7 +72,7 @@ export function TopEmployersRequisitionDeck() {
                 </div>
                 <div className="flex items-center gap-2 pl-2.5 border-l border-white/15">
                   <span className="font-mono text-xs font-bold text-white/90">
-                    {cutoff}% Bar
+                    {emp.activeOpenings.department.split("·")[0]?.trim() || emp.shortName}
                   </span>
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--arzon-teal-500)] shadow-[0_0_6px_rgba(52,211,153,0.7)]" />
                 </div>
@@ -131,22 +127,21 @@ export function TopEmployersRequisitionDeck() {
             </div>
           </div>
 
-          {/* Screening Cutoff Stat Box */}
-          <div className="lg:w-52 rounded-2xl border border-white/15 bg-white/[0.02] p-4 flex flex-row lg:flex-col items-center justify-between lg:justify-center gap-2 shrink-0">
+          {/* Assessment Preparation Gateway */}
+          <div className="lg:w-56 rounded-2xl border border-white/15 bg-white/[0.02] p-4 flex flex-row lg:flex-col items-center justify-between lg:justify-center gap-2.5 shrink-0">
             <div className="text-left lg:text-center">
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-white/50 block">
-                Screening Cutoff Bar
+                Target Department
               </span>
-              <div className="flex items-baseline lg:justify-center gap-1 mt-0.5">
-                <span className="text-3xl font-mono font-extrabold text-[var(--arzon-blue-500)]">{hiringCutoff}%</span>
-                <span className="text-xs font-mono font-bold text-white/50">/ 100</span>
-              </div>
+              <p className="text-xs font-bold text-white mt-0.5 line-clamp-1">
+                {activeOpening.activeOpenings.department.split("·")[0]?.trim()}
+              </p>
             </div>
             <Link
               to="/career-engine/start"
-              className="inline-flex items-center gap-1.5 text-[11px] font-bold text-white bg-[var(--arzon-blue-600)] hover:bg-[var(--arzon-blue-700)] px-3 py-1 rounded-full shadow-xs transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-[var(--arzon-blue-600)] hover:bg-[var(--arzon-blue-700)] px-3.5 py-1.5 rounded-full shadow-xs transition-colors"
             >
-              <span>Test Fit Now</span>
+              <span>Test Technical Readiness</span>
               <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
@@ -220,7 +215,7 @@ export function TopEmployersRequisitionDeck() {
           </div>
         </div>
 
-        {/* Fatal Gaps & ATS Filter Tokens */}
+        {/* Key Screening Domain & Diagnostic Gateway */}
         <div className="mt-5 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs text-gold font-sans">
             <AlertTriangle className="h-4 w-4 shrink-0 text-gold" />
@@ -233,7 +228,7 @@ export function TopEmployersRequisitionDeck() {
             to="/career-engine/start"
             className="inline-flex items-center gap-2 text-xs font-bold text-white bg-[var(--arzon-blue-600)] hover:bg-[var(--arzon-blue-700)] px-4 py-2 rounded-xl transition-all shadow-xs cursor-pointer shrink-0"
           >
-            <span>Take {activeOpening.shortName} Diagnostic</span>
+            <span>Take Drug Safety Diagnostic</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>

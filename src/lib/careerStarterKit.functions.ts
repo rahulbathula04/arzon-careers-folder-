@@ -3,6 +3,7 @@ import { getRequestIP } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { createSafeAdminClient } from "@/lib/supabaseEnv";
 import { checkRateLimit } from "@/server/ratelimit.server";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 const LeadMagnetSchema = z.object({
   name: z.string().trim().min(2).max(80),
@@ -80,6 +81,17 @@ export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
       })
       .eq("id", leadId as string);
     if (profileError) throw new Error(profileError.message);
+
+    await syncCounselorLeadToGoogleSheet({
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      college: "Career Starter Kit",
+      degree: data.qualification,
+      programName: "2026 Healthcare Career Starter Kit",
+      source: data.utmSource || "career_starter_kit",
+      question: `Path: ${data.sourcePath || "/careers"}`,
+    }).catch(() => {});
 
     return { leadId: leadId as string, sessionId };
   });

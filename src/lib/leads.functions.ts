@@ -5,6 +5,7 @@ import { z } from "zod";
 import { recordServerEvent, supabaseAdmin } from "@/server/analytics.server";
 import { checkRateLimit } from "@/server/ratelimit.server";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 import {
   requireStaff,
   requireAdmin,
@@ -476,6 +477,16 @@ export const submitLeadEndpoint = createServerFn({ method: "POST" })
       console.error("[leads] submitLeadEndpoint failed", error);
       throw new Error(error.message);
     }
+
+    await syncCounselorLeadToGoogleSheet({
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      college: "Career Engine Assessment",
+      programName: data.archetypeId ? data.archetypeId.replace(/_/g, " ").toUpperCase() : "Career Fit Assessment",
+      source: "Career Engine",
+      question: `Fit Score: ${data.fitScore}%`,
+    }).catch(() => {});
 
     return { data: result };
   });

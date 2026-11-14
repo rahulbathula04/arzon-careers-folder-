@@ -177,6 +177,32 @@ export function CompetencyGapCard({ result }: Props) {
           </ul>
         </div>
       </div>
+
+      {/* Direct Action Link to Personalised Learning Plan */}
+      <div className="rounded-2xl border border-blue-200/90 bg-gradient-to-r from-blue-50/90 via-indigo-50/50 to-white p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-2xs">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-blue-600 shrink-0" />
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-900">
+              Personalised Remediation Path
+            </span>
+          </div>
+          <p className="text-xs text-slate-600 font-sans">
+            Target these exact gaps in a free, 7-day guided learning plan (~20 minutes/day).
+          </p>
+        </div>
+        <a
+          href="#post-assessment-hub"
+          onClick={(e) => {
+            e.preventDefault();
+            document.querySelector("section.bg-gradient-to-b")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="inline-flex min-h-10 items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-5 py-2 text-xs font-bold text-white shadow-xs transition-all shrink-0 cursor-pointer"
+        >
+          <span>View 7-Day Plan Options</span>
+          <ArrowRight className="h-3.5 w-3.5" />
+        </a>
+      </div>
     </section>
   );
 }

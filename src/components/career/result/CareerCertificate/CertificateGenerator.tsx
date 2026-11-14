@@ -81,13 +81,13 @@ export function CertificateGenerator({ data, certificateRef, onUpdateName, viewM
       pdf.addImage(imgData, "PNG", x, y, renderWidth, renderHeight, undefined, "FAST");
 
       const cleanName = (data.candidateName || "Candidate").replace(/\s+/g, "_");
-      const prefix = viewMode === "certificate" ? "Arzon_Official_Certificate" : "Arzon_Career_Result_Card";
+      const prefix = viewMode === "certificate" ? "Arzon_Assessment_Record" : "Arzon_Career_Result_Card";
       const filename = `${prefix}_${cleanName}_${data.referenceId}.pdf`;
       pdf.save(filename);
 
       toast.success(
         viewMode === "certificate"
-          ? "Official Certificate PDF downloaded!"
+          ? "Assessment Record PDF downloaded!"
           : "Result Card PDF downloaded!",
         { id: "ce-cert-pdf" }
       );

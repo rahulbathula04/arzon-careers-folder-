@@ -221,6 +221,10 @@ export interface CareerEngineProfile {
   email: string;
   college?: string;
   whatsappOptin: boolean;
+  qualification?: string;
+  graduationYear?: string;
+  currentStatus?: string;
+  targetRole?: string;
 }
 
 export function getProfile(): CareerEngineProfile | null {

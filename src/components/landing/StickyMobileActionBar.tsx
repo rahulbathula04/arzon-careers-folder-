@@ -3,6 +3,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle, Compass } from "lucide-react";
 import { track } from "@/lib/track";
 import { trackEvent } from "@/lib/analytics";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 
 export function StickyMobileActionBar() {
   const location = useLocation();
@@ -60,6 +61,7 @@ export function StickyMobileActionBar() {
   const handleWhatsAppClick = () => {
     track("whatsapp_click", { props: { source: "sticky_mobile_bar", path: location.pathname } });
     trackEvent("whatsapp_click", { source: "sticky_mobile_bar" });
+    openCounsellorModal({ source: "sticky_mobile_bar" });
   };
 
   return (
@@ -72,36 +74,34 @@ export function StickyMobileActionBar() {
       }}
     >
       <div className="flex items-center gap-2 rounded-full border border-slate-700/60 bg-[#081F38]/92 backdrop-blur-2xl p-1.5 shadow-[0_16px_40px_rgba(7,26,74,0.45)]">
-        {/* Tactile WhatsApp Expert Connect Button */}
-        <a
-          href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20want%20to%20know%20which%20healthcare%20career%20fits%20my%20degree."
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Primary CTA Pill: Talk to Experts Directly on WhatsApp (1-Field Fast Bridge) */}
+        <button
+          type="button"
           onClick={handleWhatsAppClick}
-          aria-label="Talk to experts on WhatsApp"
-          className="h-11 w-11 shrink-0 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 flex items-center justify-center hover:bg-emerald-500/25 active:scale-95 transition-all shadow-xs"
-        >
-          <MessageCircle className="h-5 w-5" />
-          <span className="sr-only">Talk to Experts</span>
-        </a>
-
-        {/* Apple Primary CTA Pill */}
-        <Link
-          to="/career-assessment"
-          onClick={handleCtaClick}
-          className="flex-1 h-11 px-4 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-slate-50 font-sans text-xs font-bold flex items-center justify-between transition-all shadow-md active:scale-[0.98]"
+          className="flex-1 h-11 px-4 rounded-full bg-[#1557D6] hover:bg-[#1044A5] text-slate-50 font-sans text-xs font-bold flex items-center justify-between transition-all shadow-md active:scale-[0.98] cursor-pointer"
         >
           <span className="flex items-center gap-2 truncate">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
             </span>
-            <span className="truncate">Find My Career Path</span>
+            <span className="truncate">Talk to Experts · WhatsApp</span>
           </span>
           <span className="flex items-center gap-1 shrink-0 pl-1 text-slate-100">
-            <Compass className="h-3.5 w-3.5" />
+            <MessageCircle className="h-3.5 w-3.5" />
             <ArrowRight className="h-3.5 w-3.5" />
           </span>
+        </button>
+
+        {/* Secondary Compact Career Assessment Shortcut */}
+        <Link
+          to="/career-assessment"
+          onClick={handleCtaClick}
+          aria-label="Explore my career path assessment"
+          className="h-11 w-11 shrink-0 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 flex items-center justify-center hover:bg-emerald-500/25 active:scale-95 transition-all shadow-xs"
+        >
+          <Compass className="h-5 w-5" />
+          <span className="sr-only">Find My Career Path</span>
         </Link>
       </div>
     </aside>

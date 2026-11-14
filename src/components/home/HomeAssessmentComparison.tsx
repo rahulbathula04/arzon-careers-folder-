@@ -15,6 +15,7 @@ import {
   FileCheck2,
   FileText,
   Layers,
+  MessageCircle,
   PlusSquare,
   ShieldCheck,
   Sparkles,
@@ -350,26 +351,27 @@ export function HomeAssessmentComparison() {
               </div>
             </div>
 
-            {/* CTAs & Trust Badges: Apple Precision Layout (Full-Width Anti-Wrap Stack) */}
+            {/* CTAs & Trust Badges: Direct WhatsApp Primary + Assessment Secondary */}
             <div className="pt-6 mt-6 border-t border-[#F1F5F9] space-y-3">
               <div className="flex flex-col gap-2.5 w-full">
-                <Link
-                  to="/career-assessment"
+                <button
+                  type="button"
+                  onClick={() => openCounsellorModal({ source: "home_assessment_section" })}
                   data-fab-avoid
                   className="w-full h-12 inline-flex items-center justify-center gap-2 rounded-full bg-[#081F38] hover:bg-[#1557D6] text-white px-6 text-sm sm:text-base font-bold shadow-md shadow-slate-900/10 transition-all active:scale-[0.98] whitespace-nowrap cursor-pointer"
+                >
+                  <MessageCircle className="h-4 w-4 text-[#25D366] fill-current" />
+                  <span>Talk to Experts on WhatsApp</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+
+                <Link
+                  to="/career-assessment"
+                  className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-full bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#081F38] px-6 text-sm font-bold shadow-2xs transition-all active:scale-[0.98] tone-light card-light cursor-pointer whitespace-nowrap"
                 >
                   <span>Start Free Assessment</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-
-                <button
-                  type="button"
-                  onClick={() => openCounsellorModal({ source: "home_assessment_section" })}
-                  className="w-full h-11 inline-flex items-center justify-center gap-2 rounded-full bg-white border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[#081F38] px-6 text-sm font-bold shadow-2xs transition-all active:scale-[0.98] tone-light card-light cursor-pointer whitespace-nowrap"
-                >
-                  <Users className="h-4 w-4 text-[#1D4ED8]" />
-                  <span>Talk to Experts</span>
-                </button>
 
                 <button
                   type="button"

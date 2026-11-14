@@ -39,23 +39,6 @@ export function useAdminGate(allowed: AdminRole[] = ["admin"]): AdminGateState {
       );
 
       const authAndRoleCheck = async (): Promise<void> => {
-        // Local development & founder access: Auto-grant on loopback or if admin unlocked
-        if (typeof window !== "undefined") {
-          const isLocalhost =
-            window.location.hostname === "localhost" ||
-            window.location.hostname === "127.0.0.1" ||
-            window.location.hostname === "0.0.0.0";
-          const hasUnlocked =
-            localStorage.getItem("arzon_dev_admin_bypass") === "true" ||
-            localStorage.getItem("arzon_admin_unlocked") === "true";
-
-          if (isLocalhost || hasUnlocked) {
-            setUserId("founder-local-admin");
-            setStatus("ready");
-            return;
-          }
-        }
-
         const { data: userData, error: userErr } = await supabase.auth.getUser();
         if (cancelled) return;
         if (userErr || !userData.user) {

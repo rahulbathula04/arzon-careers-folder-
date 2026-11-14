@@ -10,6 +10,7 @@ import { WORKSHOP_CONFIG } from "@/data/workshopConfig";
 import { syncAndApproveAcriApplication } from "@/lib/acri-core.functions";
 import { readLocalApplications, writeLocalApplications } from "@/lib/industryNetwork.functions";
 import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
+import { COUNSELLOR_PHONE } from "@/components/landing/constants";
 
 function admin() {
   return createSafeAdminClient();
@@ -152,6 +153,20 @@ export const submitWorkshopLead = createServerFn({ method: "POST" })
         /* non-blocking */
       });
     }
+
+    // 4. Real-time sync to Google Sheet
+    await syncCounselorLeadToGoogleSheet({
+      name: data.name,
+      phone: digits10,
+      email: effectiveEmail,
+      college: data.college || "Workshop Applicant",
+      degree: effectiveDegree,
+      passoutYear: data.graduationYear || "2026",
+      programName: "Pharmacovigilance Masterclass",
+      city: "India",
+      source: data.source || "workshop-landing-page",
+      question: data.learningGoal || "Pharmacovigilance Masterclass Registration",
+    }).catch(() => {});
 
     return {
       applicationId: id as string,
@@ -377,8 +392,10 @@ const AnalyticsFilterSchema = z.object({
 }).optional();
 
 export const getLiveWebsiteAnalytics = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => AnalyticsFilterSchema.parse(data || {}))
-  .handler(async ({ data }): Promise<LiveWebsiteAnalytics> => {
+  .handler(async ({ data, context }): Promise<LiveWebsiteAnalytics> => {
+    await requireStaff(context.userId);
 
     const tf = data?.timeframe || "all";
     const now = Date.now();
@@ -656,7 +673,9 @@ function getQueryFailure(result: PromiseSettledResult<unknown>): string | null {
 }
 
 export const getAllAdminResponses = createServerFn({ method: "GET" })
-  .handler(async (): Promise<AllAdminResponsesResult> => {
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<AllAdminResponsesResult> => {
+    await requireStaff(context.userId);
     const sb = admin();
 
     const todayStart = new Date();
@@ -1349,8 +1368,10 @@ const UpdateUnifiedStatusSchema = z.object({
 });
 
 export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => UpdateUnifiedStatusSchema.parse(data))
-  .handler(async ({ data }) => {
+  .handler(async ({ data, context }) => {
+    await requireStaff(context.userId);
     const sb = admin();
 
     if (data.kind === "workshop" || data.kind === "application") {
@@ -1496,36 +1517,47 @@ export const getWorkshopSeatStats = createServerFn({ method: "GET" })
 
 
 const FastCounsellorLeadSchema = z.object({
-  name: z.string().min(2).max(100).trim(),
-  phone: z.string().min(10).max(20).trim(),
+  name: z.string().max(100).trim().optional().default("WhatsApp Direct Lead"),
+  phone: z.string().min(10).max(24).trim(),
   email: z.string().email().optional().or(z.literal("")),
   college: z.string().max(180).optional().default(""),
   city: z.string().max(100).optional().default(""),
   source: z.string().max(80).optional().default("website_counsellor_cta"),
   degree: z.string().max(120).optional().default(""),
   academicYear: z.string().max(60).optional().default(""),
-  programName: z.string().max(120).optional().default("Career Counselling"),
+  programName: z.string().max(120).optional().default("Healthcare Career Guidance"),
   question: z.string().max(500).optional().default(""),
 });
 
 export const submitFastCounsellorLead = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => FastCounsellorLeadSchema.parse(data))
   .handler(async ({ data }) => {
+    const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
+    const rl = await checkRateLimit(ip, "fast_counsellor_lead", 12, 60, true);
+    if (!rl.success) {
+      throw new Error("Too many WhatsApp connection attempts. Please wait a minute and try again.");
+    }
+
     const sb = admin();
     const cleanPhone = data.phone.replace(/\D/g, "");
+    if (cleanPhone.length < 10) {
+      throw new Error("Please enter a valid 10-digit WhatsApp mobile number.");
+    }
     const digits10 = cleanPhone.slice(-10);
-    const effectiveEmail = data.email && data.email.trim() !== ""
-      ? data.email.trim()
-      : `${digits10}@counsellor.arzoncareers.in`;
+    const candidateName = data.name && data.name.trim().length >= 2 ? data.name.trim() : "WhatsApp Direct Lead";
+    const effectiveEmail =
+      data.email && data.email.trim() !== ""
+        ? data.email.trim()
+        : `${digits10}@whatsapp.arzoncareers.in`;
 
-    // Insert singular canonical counsellor lead (zero duplicate records)
+    // 1. Insert canonical counsellor lead into Supabase
     try {
       const sourceWithContext = data.college
         ? `${data.source || "website"} · ${data.college}`.slice(0, 80)
         : data.source;
 
       await (sb as any).from("counsellor_leads").insert({
-        name: data.name,
+        name: candidateName,
         contact: digits10,
         contact_type: "phone",
         source: sourceWithContext,
@@ -1535,28 +1567,30 @@ export const submitFastCounsellorLead = createServerFn({ method: "POST" })
       console.warn("[counsellor] lead insert notice:", err);
     }
 
-    // Direct Sync to Google Sheet (Zero Lead Loss)
-    void syncCounselorLeadToGoogleSheet({
-      name: data.name,
+    // 2. Direct synchronous sync to Google Sheet (capped at 1500ms so redirect completes < 2s)
+    const sheetSynced = await syncCounselorLeadToGoogleSheet({
+      name: candidateName,
       phone: digits10,
       email: effectiveEmail,
-      college: data.college || "Campus Inbound",
+      college: data.college || "Direct WhatsApp CTA",
       degree: data.degree || "Healthcare Graduate",
       passoutYear: data.academicYear || "2026",
-      programName: data.programName || "Career Guidance",
+      programName: data.programName || "Healthcare Career Guidance",
       city: data.city || "India",
-      source: data.source,
-      question: data.question,
-    }).catch(() => {});
+      source: data.source || "whatsapp_direct_bridge",
+      question: data.question || `Direct WhatsApp Expert Inquiry (+91 ${digits10})`,
+    }).catch(() => false);
 
-    // 3. Return pre-formatted WhatsApp link
+    // 3. Return pre-formatted WhatsApp link using canonical COUNSELLOR_PHONE
+    const greetingName = candidateName !== "WhatsApp Direct Lead" ? `My name is ${candidateName} and my ` : "My ";
     const waText = encodeURIComponent(
-      `Hi Arzon Team! My name is ${data.name}. I am interested in ${data.programName || "career opportunities"}. ${data.degree ? `Qualification: ${data.degree}. ` : ""}${data.question ? `Question: ${data.question}` : "I would like to speak to a counsellor."}`
+      `Hi Arzon Team! ${greetingName}WhatsApp number is +91 ${digits10}. I am interested in ${data.programName || "healthcare career guidance"} and would like to talk to an expert.`
     );
-    const whatsappLink = `https://wa.me/919121283638?text=${waText}`;
+    const whatsappLink = `https://wa.me/${COUNSELLOR_PHONE}?text=${waText}`;
 
     return {
       success: true,
+      sheetSynced,
       phone: digits10,
       whatsappLink,
     };

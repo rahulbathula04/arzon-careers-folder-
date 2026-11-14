@@ -38,7 +38,7 @@ import {
 } from "lucide-react";
 import { COUNSELLOR_PHONE, SITE, absUrl } from "@/components/landing/constants";
 import { trackEvent } from "@/lib/analytics";
-import { submitFastCounsellorLead } from "@/lib/workshop.functions";
+import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 import mentorKumailImg from "@/assets/mentor-kumail.jpg";
 
 // ── Masterclass Direct Link ──────────────────────────────────────────────────
@@ -244,22 +244,8 @@ const BLUEPRINT_FAQS = [
 
 // ── Main Component ───────────────────────────────────────────────────────────
 function PVAssociateBlueprintPage() {
-  const [isCounsellorModalOpen, setIsCounsellorModalOpen] = useState(false);
   const [activeWorkSampleTab, setActiveWorkSampleTab] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
-
-  // Counsellor Form State
-  const [counsellorForm, setCounsellorForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    college: "",
-    degree: DEGREES[0],
-    year: PASSING_YEARS[0],
-    question: "",
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     trackEvent("pv_page_view", {
@@ -270,44 +256,10 @@ function PVAssociateBlueprintPage() {
 
   const openCounsellor = (triggerSource = "direct") => {
     trackEvent("counsellor_modal_open", { source: triggerSource });
-    setFormSubmitted(false);
-    setIsCounsellorModalOpen(true);
-  };
-
-  const handleCounsellorSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!counsellorForm.name.trim() || !counsellorForm.phone.trim()) return;
-
-    setIsSubmitting(true);
-    trackEvent("counsellor_form_submit", {
-      degree: counsellorForm.degree,
-      year: counsellorForm.year,
+    openCounsellorModal({
+      programme: "Pharmacovigilance & Drug Safety",
+      source: `pv_associate_${triggerSource}`,
     });
-
-    try {
-      await submitFastCounsellorLead({
-        data: {
-          name: counsellorForm.name.trim(),
-          phone: counsellorForm.phone.trim(),
-          email: counsellorForm.email.trim(),
-          college: counsellorForm.college.trim(),
-          source: "pv_associate_counsellor_modal",
-          degree: counsellorForm.degree,
-          academicYear: counsellorForm.year,
-          programName: "Pharmacovigilance 12-Week Pathway",
-          question: `College: ${counsellorForm.college} · Query: ${counsellorForm.question || "Discussing eligibility and curriculum"}`,
-        },
-      });
-    } catch (err) {
-      console.warn("[PVAssociate] Failed to save counsellor lead before WhatsApp redirect:", err);
-    }
-
-    setIsSubmitting(false);
-    setFormSubmitted(true);
-    try {
-      const text = `Hi Arzon Guidance Team! I would like to speak to a counsellor about the Pharmacovigilance 12-Week Pathway:\nName: ${counsellorForm.name}\nPhone: ${counsellorForm.phone}\nDegree: ${counsellorForm.degree} (${counsellorForm.year})\nQuestion: ${counsellorForm.question || "Discussing eligibility and curriculum"}`;
-      window.open(waMsg(text), "_blank");
-    } catch {}
   };
 
   const currentSample = WORK_SAMPLES[activeWorkSampleTab];
@@ -345,25 +297,24 @@ function PVAssociateBlueprintPage() {
                 Learn how drug safety teams process adverse event reports, assess safety information and document cases. Develop practical skills through structured training, case-based exercises and career preparation.
               </p>
 
-              {/* Dual CTA Actions: Clean Apply Now + Talk to Experts */}
+              {/* Dual CTA Actions: Direct WhatsApp Experts + Apply Now */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
                 <button
                   type="button"
                   onClick={() => openCounsellor("hero_primary")}
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <span>Apply Now</span>
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Talk to Experts on WhatsApp</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
-                <button
-                  type="button"
-                  onClick={() => openCounsellor("hero_expert")}
+                <Link
+                  to="/career-assessment"
                   className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white tone-light card-light border border-slate-200/80 hover:bg-[#F8FAFC] text-[#081F38] font-bold text-sm shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
                 >
-                  <Phone className="w-4 h-4 text-[#2563EB]" />
-                  <span>Talk to Experts</span>
-                </button>
+                  <span>Check My Fit Score</span>
+                </Link>
               </div>
 
               {/* 4 Feature Trust Badges */}
@@ -1249,180 +1200,6 @@ function PVAssociateBlueprintPage() {
           </button>
         </div>
       </div>
-
-      {/* ── QUALIFIED COUNSELLOR CALLBACK MODAL ───────────────────────────────── */}
-      {isCounsellorModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setIsCounsellorModalOpen(false);
-          }}
-        >
-          <div className="relative w-full max-w-lg rounded-3xl bg-white tone-light card-light p-6 sm:p-8 shadow-2xl border border-slate-200/80 space-y-6 my-auto text-left">
-            <button
-              type="button"
-              onClick={() => setIsCounsellorModalOpen(false)}
-              className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
-              aria-label="Close modal"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            {formSubmitted ? (
-              <div className="text-center py-8 space-y-4">
-                <div className="w-14 h-14 rounded-full bg-[#E6F7F1] border border-[#10B981]/30 flex items-center justify-center text-[#10B981] mx-auto">
-                  <Check className="w-7 h-7" />
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-xl font-bold text-[#081F38]">Guidance Request Received</h3>
-                  <p className="text-xs sm:text-sm text-[#64748B]">
-                    Thank you, {counsellorForm.name}. An Arzon career counsellor will connect with you via WhatsApp/phone to discuss your eligibility and career transition.
-                  </p>
-                </div>
-                <div className="pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsCounsellorModalOpen(false)}
-                    className="px-6 py-2.5 rounded-full bg-[#2563EB] text-white font-bold text-xs hover:bg-[#1D4ED8] transition-colors cursor-pointer"
-                  >
-                    Done
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleCounsellorSubmit} className="space-y-5">
-                <div className="space-y-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EEF6FF] border border-[#BFDBFE] text-[#2563EB] font-mono text-[10px] font-bold uppercase tracking-wider">
-                    ARZON CAREER ADVISORY · 1-ON-1 GUIDANCE
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#081F38]">Talk to Experts</h3>
-                  <p className="text-xs text-[#64748B]">
-                    Discuss your eligibility, current skill gaps and the 12-week Pharmacovigilance learning pathway.
-                  </p>
-                </div>
-
-                <div className="space-y-3.5">
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Your full name"
-                      value={counsellorForm.name}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        WhatsApp Number *
-                      </label>
-                      <input
-                        type="tel"
-                        required
-                        placeholder="e.g. 98765 43210"
-                        value={counsellorForm.phone}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="your.email@example.com"
-                        value={counsellorForm.email}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                      College / University Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. NIPER / Osmania University"
-                      value={counsellorForm.college}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, college: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        Degree Background *
-                      </label>
-                      <select
-                        value={counsellorForm.degree}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, degree: e.target.value })}
-                        className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      >
-                        {DEGREES.map((deg, dIdx) => (
-                          <option key={dIdx} value={deg}>{deg}</option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="space-y-1">
-                      <label className="text-[11px] font-mono font-bold text-[#081F38] uppercase block">
-                        Batch / Passing Year *
-                      </label>
-                      <select
-                        value={counsellorForm.year}
-                        onChange={(e) => setCounsellorForm({ ...counsellorForm, year: e.target.value })}
-                        className="w-full px-3 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                      >
-                        {PASSING_YEARS.map((yr, yIdx) => (
-                          <option key={yIdx} value={yr}>{yr}</option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <label className="text-[11px] font-mono font-bold text-[#64748B] uppercase block">
-                      What is your main career question or goal?
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Is PV right for my B.Pharm background? When does next batch start?"
-                      value={counsellorForm.question}
-                      onChange={(e) => setCounsellorForm({ ...counsellorForm, question: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white tone-light card-light text-xs sm:text-sm text-[#081F38] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB]"
-                    />
-                  </div>
-                </div>
-
-                <div className="pt-2 space-y-3">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer shadow-sm"
-                  >
-                    {isSubmitting ? "Submitting Request..." : "Request Free Career Call →"}
-                  </button>
-
-                  <p className="text-[10px] text-center text-[#64748B]">
-                    Zero spam. We only contact you to discuss your eligibility and program pathway.
-                  </p>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -17,7 +17,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
           Two distinct products for two different questions
         </h2>
         <p className="mt-1.5 text-xs sm:text-sm text-slate-600 max-w-xl mx-auto">
-          Career Assessment helps you decide where to go. ACRI evaluates how ready you are for a specific role.
+          Clinical Interview Diagnostic reveals your technical gaps for your target role. ACRI evaluates practical workplace case-handling readiness.
         </p>
       </div>
 
@@ -36,7 +36,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
               <th className={`py-3 px-3 rounded-t-xl w-[37.5%] ${activeProduct === "assessment" ? "bg-blue-50/70 text-[#071A4A]" : "text-[#071A4A]"}`}>
                 <div className="flex items-center gap-1.5 font-bold">
                   <Compass className="h-4 w-4 text-[#1557D6]" />
-                  <span>Career Assessment</span>
+                  <span>Clinical Diagnostic</span>
                 </div>
               </th>
               <th className={`py-3 px-3 rounded-t-xl w-[37.5%] ${activeProduct === "acri" ? "bg-emerald-50/70 text-[#071A4A]" : "text-[#071A4A]"}`}>
@@ -51,7 +51,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
             <tr>
               <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Main question</td>
               <td className={`py-3 px-3 font-medium text-slate-800 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                "Which healthcare career fits me?"
+                "What are my technical gaps for my target job?"
               </td>
               <td className={`py-3 px-3 font-medium text-slate-800 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
                 "Can I demonstrate practical role readiness?"
@@ -60,7 +60,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
             <tr>
               <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Purpose</td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Career exploration & direction
+                Technical interview diagnostic & gap analysis
               </td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
                 Occupational-readiness assessment
@@ -69,7 +69,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
             <tr>
               <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Scope</td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Multiple healthcare role families
+                Drug Safety Associate (40 Casework Scenarios)
               </td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
                 Pharmacovigilance (role-specific)
@@ -78,7 +78,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
             <tr>
               <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Output</td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Career-fit report, strengths & gaps
+                Diagnostic scorecard, 8-competency audit & study guide
               </td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
                 ACRI score, competency profile & credential
@@ -87,7 +87,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
             <tr>
               <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Access</td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Free instant assessment (42 questions)
+                Free instant diagnostic (40 scenario dilemmas)
               </td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
                 Approved invite required (25-min simulation)
@@ -96,7 +96,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
             <tr>
               <td className="py-3 px-3 font-semibold text-slate-500 text-xs">Best for</td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "assessment" ? "bg-blue-50/30" : ""}`}>
-                Graduates choosing a career direction
+                Graduates preparing for CRO technical interviews
               </td>
               <td className={`py-3 px-3 text-slate-700 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
                 Candidates proving PV case handling capability
@@ -109,7 +109,7 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
                   to="/career-engine/start"
                   className="inline-flex items-center gap-1 text-xs font-bold text-[#1557D6] hover:underline"
                 >
-                  Take Free Assessment <ArrowRight className="h-3 w-3" />
+                  Start Diagnostic (40 Qs) <ArrowRight className="h-3 w-3" />
                 </Link>
               </td>
               <td className={`py-3 px-3 ${activeProduct === "acri" ? "bg-emerald-50/30" : ""}`}>
@@ -138,8 +138,8 @@ export function ProductComparisonTable({ onApplyAcri, activeProduct }: ProductCo
 
       <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200/80 p-3 text-center text-xs text-slate-700">
         <span className="font-semibold text-[#071A4A]">Not sure which to choose?</span> Start with{" "}
-        <strong className="text-[#1557D6]">Career Assessment</strong> if you're deciding where to go. Choose{" "}
-        <strong className="text-emerald-700">ACRI</strong> if you specifically want to assess your Pharmacovigilance readiness.
+        <strong className="text-[#1557D6]">Clinical Diagnostic</strong> to test your technical interview readiness across 40 clinical dilemmas. Choose{" "}
+        <strong className="text-emerald-700">ACRI</strong> to demonstrate verified workplace case handling capability.
       </div>
     </div>
   );

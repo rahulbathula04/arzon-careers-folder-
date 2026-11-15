@@ -19,10 +19,15 @@ import {
   Target,
   Layers,
   ChevronRight,
+  Maximize2,
+  Minimize2,
+  AlertTriangle,
+  Lock,
 } from "lucide-react";
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
+import { useAssessmentAntiCheat } from "@/lib/assessmentAntiCheat";
 import {
   DRUG_SAFETY_DIAGNOSTIC_QUESTIONS,
   type DsaDiagnosticQuestion,
@@ -157,6 +162,28 @@ export function CareerEngineAssessment() {
   const remainingSecs = String(remainingSecsTotal % 60).padStart(2, "0");
 
   const currentQ = questions[currentIndex] || questions[0];
+
+  const {
+    isFullscreen,
+    warning: antiCheatWarning,
+    tabSwitches,
+    focusLossCount,
+    fullscreenExits,
+    copyAttempts,
+    currentScore: integrityScore,
+    currentStatus: integrityStatus,
+    enterFullscreen,
+    dismissWarning: dismissAntiCheatWarning,
+    notifyAnswerChosen,
+    getTelemetrySnapshot,
+  } = useAssessmentAntiCheat({
+    enabled: true,
+    isCompletedView,
+    currentIndex,
+    currentQuestionId: currentQ.id,
+    totalQuestions: questions.length,
+  });
+
   const answeredCount = Object.keys(answers).filter((k) =>
     questions.some((q) => q.id === k),
   ).length;
@@ -164,6 +191,7 @@ export function CareerEngineAssessment() {
 
   const chooseOption = useCallback(
     (optionId: "A" | "B" | "C" | "D") => {
+      notifyAnswerChosen(currentQ.id);
       const updated = { ...answers, [currentQ.id]: optionId };
       setAnswers(updated);
       saveAnswers(updated);
@@ -271,10 +299,11 @@ export function CareerEngineAssessment() {
       await flushPendingAnswers();
       cacheResult(result);
 
+      const antiCheat = getTelemetrySnapshot();
       const leadId = getLeadId();
       if (leadId) {
         try {
-          await finalizeLead({ leadId, result, answers: finalAnswers });
+          await finalizeLead({ leadId, result, answers: finalAnswers, antiCheat });
         } catch (e) {
           console.warn("Finalize lead warning (cached locally):", e);
         }
@@ -371,6 +400,19 @@ export function CareerEngineAssessment() {
               </span>
               <strong className={`text-sm ${isDark ? "text-slate-200" : "text-slate-800"}`}>
                 {30 - remainingMins}m
+              </strong>
+            </div>
+            <div className={`h-6 w-px ${isDark ? "bg-slate-700" : "bg-slate-200"}`} />
+            <div>
+              <span className={`text-[10px] uppercase block font-bold ${isDark ? "text-slate-400" : "text-slate-400"}`}>
+                Proctor Status
+              </span>
+              <strong className={`text-sm ${
+                integrityScore >= 90
+                  ? isDark ? "text-emerald-400" : "text-emerald-700"
+                  : isDark ? "text-amber-400" : "text-amber-700"
+              }`}>
+                {integrityScore}% {tabSwitches === 0 ? "Clean" : `(${tabSwitches} tabs)`}
               </strong>
             </div>
           </div>
@@ -475,6 +517,40 @@ export function CareerEngineAssessment() {
 
         {/* Right: Theme Switcher, Timer & Flag Action */}
         <div className="flex items-center gap-2">
+          {/* Proctoring & Fullscreen Lockdown Mode Control */}
+          <button
+            type="button"
+            onClick={enterFullscreen}
+            title={isFullscreen ? "Browser Fullscreen Lockdown Active" : "Click to Enter Fullscreen Lockdown"}
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-xs font-mono font-bold transition-all cursor-pointer shadow-xs ${
+              isFullscreen
+                ? isDark
+                  ? "border-emerald-500/40 bg-emerald-950/40 text-emerald-300"
+                  : "border-emerald-300 bg-emerald-50 text-emerald-800"
+                : isDark
+                  ? "border-blue-500/30 bg-[#0B1E38] text-blue-300 hover:bg-[#122A4E]"
+                  : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50"
+            }`}
+          >
+            <Shield className={`h-3 w-3 ${isFullscreen ? "text-emerald-500 motion-safe:animate-pulse" : "text-blue-500"}`} />
+            <span className="hidden sm:inline">
+              {isFullscreen ? "LOCKED" : "LOCKDOWN"}
+            </span>
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold ${
+                integrityScore >= 90
+                  ? isDark
+                    ? "bg-emerald-500/20 text-emerald-300"
+                    : "bg-emerald-100 text-emerald-800"
+                  : isDark
+                    ? "bg-amber-500/20 text-yellow-300"
+                    : "bg-amber-100 text-amber-800"
+              }`}
+            >
+              {integrityScore}%
+            </span>
+          </button>
+
           {/* Apple Theme Switcher (Studio Light vs Midnight Console) */}
           <button
             type="button"
@@ -1222,6 +1298,80 @@ export function CareerEngineAssessment() {
                 className={`px-4 py-1.5 rounded-xl font-bold ${isDark ? "bg-blue-600 text-white" : "bg-[#081F38] text-white"}`}
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── ANTI-CHEAT & PROCTORING WARNING MODAL ───────────────────────────── */}
+      {antiCheatWarning && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md motion-safe:animate-fade-in">
+          <div
+            className={`w-full max-w-md rounded-3xl border p-6 sm:p-7 shadow-2xl transition-all ${
+              isDark
+                ? "bg-[#09182E] border-rose-500/40 text-white shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
+                : "bg-white border-rose-200 text-[#081F38] shadow-[0_20px_50px_rgba(8,31,56,0.18)]"
+            }`}
+          >
+            <div className="flex items-start gap-3.5 mb-4">
+              <div className="h-11 w-11 shrink-0 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500">
+                <AlertTriangle className="h-6 w-6" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-500 block mb-0.5">
+                  PROCTORING ALERT · STRIKE {antiCheatWarning.strike}/3
+                </span>
+                <h2 className="text-base sm:text-lg font-bold font-sans leading-snug">
+                  {antiCheatWarning.title}
+                </h2>
+              </div>
+            </div>
+
+            <p className={`text-xs leading-relaxed font-sans mb-5 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+              {antiCheatWarning.message}
+            </p>
+
+            <div
+              className={`p-3 rounded-2xl border text-xs font-mono mb-5 flex items-center justify-between ${
+                isDark
+                  ? "bg-[#061224] border-slate-800 text-slate-300"
+                  : "bg-slate-50 border-slate-200 text-slate-700"
+              }`}
+            >
+              <span className="text-slate-500">Integrity Telemetry:</span>
+              <span className="font-bold text-rose-500">
+                {antiCheatWarning.type.replace("_", " ")} #{antiCheatWarning.strike}
+              </span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2.5">
+              {!isFullscreen && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    void enterFullscreen();
+                    dismissAntiCheatWarning();
+                  }}
+                  className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-sm cursor-pointer"
+                >
+                  Return to Fullscreen & Resume
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={dismissAntiCheatWarning}
+                className={`w-full py-2.5 px-4 rounded-xl border text-xs font-bold transition cursor-pointer ${
+                  isFullscreen
+                    ? isDark
+                      ? "bg-blue-600 hover:bg-blue-500 text-white border-transparent"
+                      : "bg-[#081F38] hover:bg-blue-700 text-white border-transparent"
+                    : isDark
+                      ? "border-slate-700 hover:bg-slate-800 text-slate-300"
+                      : "border-slate-300 hover:bg-slate-100 text-slate-700"
+                }`}
+              >
+                I Acknowledge Proctoring Rules
               </button>
             </div>
           </div>

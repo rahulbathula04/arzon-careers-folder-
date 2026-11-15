@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createSafeAdminClient } from "@/lib/supabaseEnv";
+import type { AntiCheatTelemetry } from "@/lib/assessmentAntiCheat";
 
 function admin() {
   return createSafeAdminClient();
@@ -20,6 +21,7 @@ export interface PublicDiagnosticResultData {
   candidateCurrentStatus?: string;
   candidateTargetRole?: string;
   answers?: Record<string, string>;
+  antiCheat?: AntiCheatTelemetry;
   fitScore?: number;
   archetype?: string;
   createdAt?: string;
@@ -74,6 +76,7 @@ export const getPublicDiagnosticResult = createServerFn({ method: "GET" })
           targetRole?: string;
         };
         answers?: Record<string, string>;
+        anti_cheat?: AntiCheatTelemetry;
       };
 
       if (Object.keys(answers).length === 0 && payload.answers) {
@@ -100,6 +103,7 @@ export const getPublicDiagnosticResult = createServerFn({ method: "GET" })
             ? "Drug Safety Associate"
             : lead.archetype || "Drug Safety Associate"),
         answers,
+        antiCheat: payload.anti_cheat,
         fitScore: lead.fit_score ?? undefined,
         archetype: lead.archetype ?? undefined,
         createdAt: lead.created_at,

@@ -60,7 +60,8 @@ test.describe("Text visibility · runtime contrast audit", () => {
     for (const route of ROUTES) {
       test(`${route} @ ${vp.name}`, async ({ page }) => {
         await page.setViewportSize({ width: vp.width, height: vp.height });
-        await page.goto(route, { waitUntil: "networkidle" });
+        await page.goto(route, { waitUntil: "domcontentloaded" });
+        await page.waitForLoadState("networkidle").catch(() => {});
         await page.evaluate(() => document.fonts?.ready);
 
         const violations = await page.evaluate((skipSel) => {

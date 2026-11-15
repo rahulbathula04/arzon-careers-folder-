@@ -3,6 +3,7 @@ import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { resetSeed } from "@/data/careerEngineSampler";
 import { retryWithBackoff } from "@/lib/retryWithBackoff";
 import { submitLeadEndpoint } from "@/lib/leads.functions";
+import type { AntiCheatTelemetry } from "@/lib/assessmentAntiCheat";
 
 type Json = string | number | boolean | null | { [k: string]: Json } | Json[];
 
@@ -554,6 +555,7 @@ export async function finalizeLead(args: {
   leadId: string;
   result: CareerEngineResult;
   answers?: Record<string, string>;
+  antiCheat?: AntiCheatTelemetry;
 }) {
   try {
     const tok = getSessionToken();
@@ -578,6 +580,7 @@ export async function finalizeLead(args: {
           resultMeta: args.result.resultMeta,
           aiAnalysis: args.result.aiAnalysis,
           profile: args.result.profile,
+          anti_cheat: args.antiCheat ?? null,
           answers:
             args.answers ??
             (() => {

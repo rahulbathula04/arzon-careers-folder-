@@ -17,6 +17,7 @@ import {
   encodeCompactAnswers,
   decodeCompactAnswers,
 } from "@/lib/careerEngineDiagnostic.functions";
+import { getAntiCheatFromStorage } from "@/lib/assessmentAntiCheat";
 
 /**
  * Canonical Candidate Baseline Answers for 15% Score (6 / 40 Correct)
@@ -313,6 +314,7 @@ function ResultPage() {
           leadId={leadId}
           shareUrl={shareUrl}
           isSharedView={isSharedView}
+          antiCheat={loaderData?.serverResult?.antiCheat ?? (typeof window !== "undefined" ? getAntiCheatFromStorage() ?? undefined : undefined)}
           onRetake={retake}
         />
       </div>

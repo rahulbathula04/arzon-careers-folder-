@@ -18,6 +18,7 @@ import {
   getAttemptId,
   hasResumableAttempt,
 } from "@/lib/careerEngineApi";
+import { saveEarlyDiagnosticProfile } from "@/lib/careerEngineDiagnostic.functions";
 import { toast } from "sonner";
 import { track } from "@/lib/track";
 import { trackAttemptStarted, trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
@@ -169,7 +170,28 @@ function StartPage() {
             email: validData.email,
             phone: validData.phone,
             whatsappOptin: validData.whatsappOptin,
+            college: validData.college,
+            qualification: validData.qualification,
+            graduationYear: validData.graduationYear,
+            currentStatus: validData.currentStatus,
+            targetRole: validData.targetRole,
           });
+
+          // Persist full academic dossier to server immediately so admin dashboard shows college, degree, and year from second 1
+          if (leadId && !leadId.startsWith("lead_local_")) {
+            void saveEarlyDiagnosticProfile({
+              data: {
+                leadId,
+                college: validData.college,
+                qualification: validData.qualification,
+                graduationYear: validData.graduationYear,
+                currentStatus: validData.currentStatus,
+                targetRole: validData.targetRole,
+              },
+            }).catch((err) => {
+              console.warn("Could not persist early diagnostic profile to server:", err);
+            });
+          }
         } catch {
           // lead creation best-effort
         }

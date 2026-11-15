@@ -503,6 +503,11 @@ export async function createLeadEarly(args: {
   phone: string; // 10 digits
   email: string;
   whatsappOptin: boolean;
+  college?: string;
+  qualification?: string;
+  graduationYear?: string;
+  currentStatus?: string;
+  targetRole?: string;
 }) {
   try {
     const tok = getSessionToken();

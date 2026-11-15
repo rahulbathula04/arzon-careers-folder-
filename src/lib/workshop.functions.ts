@@ -610,6 +610,9 @@ export interface UnifiedAdminResponse {
   whatsapp_optin?: boolean;
   result_payload?: Record<string, any> | null;
   session_id?: string | null;
+  answers_count?: number;
+  target_role?: string | null;
+  anti_cheat_score?: number | null;
 }
 
 export interface AllAdminResponsesResult {
@@ -739,6 +742,7 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
 
     // Query answers for Career Engine leads to get their exact college and academic info
     const ceAnswersBySession = new Map<string, Record<string, string>>();
+    const ceAnswerCountsBySession = new Map<string, number>();
     const ceSourceBySession = new Map<string, string | null>();
     const queriedSessionIds = new Set<string>();
     let careerEngineSourcesUnavailable = false;
@@ -769,17 +773,19 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           const { data: answersData, error: answersError } = await sb
             .from("career_engine_answers")
             .select("session_id, question_id, answer")
-            .in("session_id", sessionIds.slice(0, 1000))
-            .in("question_id", ["college_name", "college", "course", "stream", "year"]);
+            .in("session_id", sessionIds.slice(0, 1000));
 
           if (answersError) {
             warnings.push(`Career Engine academic answers could not be loaded: ${answersError.message}`);
           } else if (answersData) {
             for (const ans of answersData) {
               if (!ans.session_id) continue;
-              const cur = ceAnswersBySession.get(ans.session_id) || {};
-              cur[ans.question_id] = ans.answer;
-              ceAnswersBySession.set(ans.session_id, cur);
+              ceAnswerCountsBySession.set(ans.session_id, (ceAnswerCountsBySession.get(ans.session_id) || 0) + 1);
+              if (["college_name", "college", "course", "stream", "year"].includes(ans.question_id)) {
+                const cur = ceAnswersBySession.get(ans.session_id) || {};
+                cur[ans.question_id] = ans.answer;
+                ceAnswersBySession.set(ans.session_id, cur);
+              }
             }
           }
         } catch (e) {
@@ -1002,11 +1008,14 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           }
         }
 
-        const rawCourse = profilePayload.course || ans.course || null;
+        const rawCourse = profilePayload.qualification || profilePayload.course || ans.course || null;
         const degree = rawCourse ? (DEGREE_LABELS[rawCourse] || rawCourse) : null;
         const branch = profilePayload.stream || ans.stream || null;
-        const rawYear = profilePayload.year || ans.year || null;
+        const rawYear = profilePayload.graduationYear || profilePayload.year || ans.year || null;
         const grad_year = rawYear ? (YEAR_LABELS[rawYear] || rawYear) : null;
+        const targetRole = profilePayload.targetRole || profilePayload.target_role || (r.archetype ? r.archetype : "Drug Safety Associate");
+        const answersCount = r.session_id ? (ceAnswerCountsBySession.get(r.session_id) || 0) : 0;
+        const antiCheatScore = payload.anti_cheat?.integrityScore ?? null;
 
         if (college && college !== "Not Specified") {
           byCollege[college] = (byCollege[college] || 0) + 1;
@@ -1052,6 +1061,9 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           whatsapp_optin: Boolean(r.whatsapp_optin),
           result_payload: r.result_payload || null,
           session_id: r.session_id || null,
+          answers_count: answersCount,
+          target_role: targetRole,
+          anti_cheat_score: antiCheatScore,
         });
       }
     }

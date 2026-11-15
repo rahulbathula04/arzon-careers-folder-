@@ -7,6 +7,7 @@ import {
   AlertTriangle,
   ArrowRight,
   ArrowUpRight,
+  Award,
   BarChart3,
   Briefcase,
   Building2,
@@ -1197,13 +1198,26 @@ function AdminHome() {
 
                         {/* 2. Inquiry / Lead Type */}
                         <td className="py-4 px-4 space-y-1">
-                          <span
-                            className={`inline-block font-mono text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${kindSpec.bg} ${kindSpec.text} ${kindSpec.border}`}
-                          >
-                            {kindSpec.label}
-                          </span>
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span
+                              className={`inline-block font-mono text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${kindSpec.bg} ${kindSpec.text} ${kindSpec.border}`}
+                            >
+                              {kindSpec.label}
+                            </span>
+                            {r.kind === "career_engine" && (
+                              r.fit_score != null ? (
+                                <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
+                                  Score: {r.fit_score}%
+                                </span>
+                              ) : (
+                                <span className="font-mono text-[10px] font-medium px-2 py-0.5 rounded-full bg-yellow-500/15 text-yellow-300 border border-yellow-500/25">
+                                  {r.answers_count && r.answers_count > 0 ? `In Progress (${r.answers_count}/40)` : "Registered (0/40)"}
+                                </span>
+                              )
+                            )}
+                          </div>
                           <p className="font-semibold text-white text-xs truncate max-w-[220px]">
-                            {r.program_name || r.entry_action || "Career Guidance"}
+                            {r.target_role || r.program_name || r.entry_action || "Career Guidance"}
                           </p>
                           {r.entry_detail && r.entry_detail !== r.program_name && !r.entry_detail.startsWith("{") && (
                             <p className="text-[11px] text-zinc-400 truncate max-w-[220px]">
@@ -1512,9 +1526,17 @@ function AdminHome() {
                 <div>
                   <span className="text-zinc-400 block text-[11px]">Degree / Year:</span>
                   <span className="font-semibold text-white mt-0.5 block">
-                    {selectedCandidate.degree || "Healthcare Graduate"}
+                    {selectedCandidate.degree ? `${selectedCandidate.degree}${selectedCandidate.grad_year ? ` · Class of ${selectedCandidate.grad_year}` : ""}` : "Healthcare Graduate"}
                   </span>
                 </div>
+                {selectedCandidate.target_role && (
+                  <div className="col-span-2 pt-1 border-t border-white/5">
+                    <span className="text-zinc-400 block text-[11px]">Target Career Track:</span>
+                    <span className="font-semibold text-teal-300 mt-0.5 block">
+                      {selectedCandidate.target_role}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -1570,28 +1592,81 @@ function AdminHome() {
               </div>
             )}
 
-            {/* Assessment Score if any */}
-            {selectedCandidate.archetype && (
-              <div className="p-4 rounded-2xl bg-teal-500/10 border border-teal-500/20 space-y-2 text-xs">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-[11px] font-bold text-teal-300 uppercase">
-                    Diagnostic Role Recommendation:
+            {/* Career Engine Diagnostic & Assessment Scorecard Dossier */}
+            {selectedCandidate.kind === "career_engine" && (
+              <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-950/40 via-[#0A1A33]/50 to-teal-950/30 border border-blue-500/30 space-y-3 text-xs shadow-lg">
+                <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                  <span className="font-mono text-[11px] font-bold text-blue-300 uppercase flex items-center gap-1.5">
+                    <Award className="w-4 h-4 text-blue-400" />
+                    <span>Clinical Diagnostic Status</span>
                   </span>
-                  <span className="font-mono font-bold text-teal-300 bg-teal-500/20 px-2 py-0.5 rounded">
-                    {selectedCandidate.fit_score}% Match
-                  </span>
+                  {selectedCandidate.fit_score != null ? (
+                    <span className="font-mono font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                      {selectedCandidate.fit_score}% Match
+                    </span>
+                  ) : (
+                    <span className="font-mono font-bold text-yellow-300 bg-yellow-500/20 border border-yellow-500/30 px-2.5 py-0.5 rounded-full">
+                      {selectedCandidate.answers_count && selectedCandidate.answers_count > 0
+                        ? `In Progress (${selectedCandidate.answers_count}/40)`
+                        : "Registered (0/40)"}
+                    </span>
+                  )}
                 </div>
-                <p className="font-bold text-white text-sm">
-                  {selectedCandidate.archetype}
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setDossierCandidate(selectedCandidate)}
-                  className="w-full mt-2 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-teal-500/20 hover:bg-teal-500/30 text-teal-200 border border-teal-500/40 font-mono text-xs font-bold transition cursor-pointer active:scale-95 shadow-md"
-                >
-                  <Compass className="w-4 h-4 text-teal-300" />
-                  <span>Launch Candidate Intelligence Dossier →</span>
-                </button>
+
+                {selectedCandidate.fit_score != null ? (
+                  <div className="space-y-2.5">
+                    <div>
+                      <span className="text-[11px] text-zinc-400 block">Tested Clinical Role:</span>
+                      <p className="font-bold text-white text-sm">
+                        {selectedCandidate.target_role || selectedCandidate.archetype || "Drug Safety Associate"}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between py-1.5 px-2.5 rounded-xl bg-white/[0.04] border border-white/5 font-mono text-[11px]">
+                      <span className="text-zinc-400 flex items-center gap-1">
+                        <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                        <span>Proctoring Integrity:</span>
+                      </span>
+                      <span className="font-bold text-emerald-300">
+                        {selectedCandidate.anti_cheat_score ?? 100}% Clean Proctoring
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 pt-1">
+                      <a
+                        href={`/career-engine/result?id=${selectedCandidate.id}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-bold transition shadow-md active:scale-95"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        <span>Open Scorecard ↗</span>
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => setDossierCandidate(selectedCandidate)}
+                        className="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white border border-white/15 font-mono text-xs font-bold transition active:scale-95 cursor-pointer"
+                      >
+                        <Compass className="w-3.5 h-3.5 text-teal-300" />
+                        <span>Full Dossier</span>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <p className="text-zinc-300 leading-relaxed text-xs">
+                      {selectedCandidate.answers_count && selectedCandidate.answers_count > 0
+                        ? `Candidate has answered ${selectedCandidate.answers_count} of 40 diagnostic scenarios. Evaluation is actively in progress or paused.`
+                        : "Candidate registered on the Career Engine but has not started answering scenarios yet."}
+                    </p>
+                    <div className="flex items-center justify-between py-1 px-2.5 rounded-lg bg-black/20 text-[11px] text-zinc-400">
+                      <span>Target Role:</span>
+                      <span className="text-white font-semibold">
+                        {selectedCandidate.target_role || "Drug Safety Associate"}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

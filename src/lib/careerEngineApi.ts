@@ -550,7 +550,11 @@ export async function createLeadEarly(args: {
 // Finalise lead - patch with archetype + result after test
 // ──────────────────────────────────────────────
 
-export async function finalizeLead(args: { leadId: string; result: CareerEngineResult }) {
+export async function finalizeLead(args: {
+  leadId: string;
+  result: CareerEngineResult;
+  answers?: Record<string, string>;
+}) {
   try {
     const tok = getSessionToken();
     if (!tok || tok.startsWith("tok_local_") || args.leadId.startsWith("lead_local_")) return;
@@ -574,6 +578,17 @@ export async function finalizeLead(args: { leadId: string; result: CareerEngineR
           resultMeta: args.result.resultMeta,
           aiAnalysis: args.result.aiAnalysis,
           profile: args.result.profile,
+          answers:
+            args.answers ??
+            (() => {
+              if (typeof window === "undefined") return undefined;
+              try {
+                const raw = sessionStorage.getItem(ANSWERS_KEY) || localStorage.getItem(ANSWERS_KEY);
+                return raw ? JSON.parse(raw) : undefined;
+              } catch {
+                return undefined;
+              }
+            })(),
           archetype: {
             name: args.result.archetype.name,
             tagline: args.result.archetype.tagline,

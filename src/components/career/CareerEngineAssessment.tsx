@@ -274,13 +274,16 @@ export function CareerEngineAssessment() {
       const leadId = getLeadId();
       if (leadId) {
         try {
-          await finalizeLead({ leadId, result });
+          await finalizeLead({ leadId, result, answers: finalAnswers });
         } catch (e) {
           console.warn("Finalize lead warning (cached locally):", e);
         }
       }
 
-      navigate({ to: "/career-engine/result" });
+      navigate({
+        to: "/career-engine/result",
+        search: leadId && !leadId.startsWith("lead_local_") ? { id: leadId } : undefined,
+      });
     } catch (err) {
       console.error("Diagnostic submission error:", err);
       setError("Unable to submit diagnostic right now. Please try again.");

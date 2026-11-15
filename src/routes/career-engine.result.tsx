@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { z } from "zod";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, UserCheck, ArrowRight, ExternalLink } from "lucide-react";
 import {
   getAttemptId,
   getLeadId,
@@ -12,11 +12,15 @@ import {
 import { loadSavedAnswers } from "@/lib/careerEngineRunner";
 import { trackCEFunnelStep } from "@/lib/careerEngineAnalytics";
 import { DsaDiagnosticScorecard } from "@/components/career/result/DsaDiagnosticScorecard";
+import {
+  getPublicDiagnosticResult,
+  encodeCompactAnswers,
+  decodeCompactAnswers,
+} from "@/lib/careerEngineDiagnostic.functions";
 
 /**
  * Canonical Candidate Baseline Answers for 15% Score (6 / 40 Correct)
- * Used as immediate fallback so reviewers, candidates, and direct links
- * always render the full diagnostic audit dossier without blank/loading gates.
+ * Used as fallback only when zero answer data is provided.
  */
 export const CANONICAL_DSA_15_PERCENT_ANSWERS: Record<string, string> = {
   // Q1 - Q5: PV Scope & Fundamentals (1/5 correct = 20%)
@@ -76,10 +80,31 @@ export const CANONICAL_DSA_15_PERCENT_ANSWERS: Record<string, string> = {
   dsa_q40: "A", // INCORRECT (correct: D)
 };
 
-const search = z.object({ id: z.string().optional().catch(undefined) });
+const searchSchema = z.object({
+  id: z.string().optional().catch(undefined),
+  name: z.string().optional().catch(undefined),
+  q: z.string().optional().catch(undefined),
+  c: z.string().optional().catch(undefined),
+  y: z.string().optional().catch(undefined),
+  role: z.string().optional().catch(undefined),
+  ans: z.string().optional().catch(undefined),
+});
 
 export const Route = createFileRoute("/career-engine/result")({
-  validateSearch: (s) => search.parse(s),
+  validateSearch: (s) => searchSchema.parse(s),
+  loaderDeps: ({ search: { id } }) => ({ id }),
+  loader: async ({ deps: { id } }) => {
+    if (!id || id.startsWith("lead_local_") || id.length < 10) {
+      return { serverResult: null };
+    }
+    try {
+      const serverResult = await getPublicDiagnosticResult({ data: { leadId: id } });
+      return { serverResult };
+    } catch (err) {
+      console.warn("[career-engine/result] loader lookup failed", err);
+      return { serverResult: null };
+    }
+  },
   head: () => ({
     meta: [
       { title: "Drug Safety Associate Clinical Interview Diagnostic Scorecard · Arzon Global" },
@@ -90,35 +115,114 @@ export const Route = createFileRoute("/career-engine/result")({
 });
 
 function ResultPage() {
-  const { id } = Route.useSearch();
-  const [leadId] = useState<string | null>(
-    () => id ?? (typeof window !== "undefined" ? getLeadId() : null),
-  );
+  const search = Route.useSearch();
+  const loaderData = Route.useLoaderData();
+
+  // Determine if this session is viewing a shared student link
+  const hasSharedId = Boolean(search.id && search.id.trim().length > 0);
+  const hasSharedPayload = Boolean(search.ans || search.name);
+  const isSharedView = hasSharedId || hasSharedPayload;
+
+  const leadId = search.id ?? (typeof window !== "undefined" ? getLeadId() : null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    // Only hydrate current user snapshot if NOT viewing an external shared link
+    if (!isSharedView && typeof window !== "undefined") {
       hydrateCareerEngineSnapshot();
     }
     trackCEFunnelStep({ step: "result", leadId, attemptId: getAttemptId() });
-  }, [leadId]);
+  }, [isSharedView, leadId]);
 
-  const profile = typeof window !== "undefined" ? getProfile() : null;
-  const candidateName = profile?.name || "Rahul V.";
-  const candidateQualification = profile?.qualification || "B.Pharm";
-  const candidateCollege = profile?.college || "Healthcare Graduate College";
-  const candidateGraduationYear = profile?.graduationYear || "2025";
-  const candidateCurrentStatus = profile?.currentStatus || "Actively Job Hunting";
-  const candidateTargetRole = profile?.targetRole || "Drug Safety Associate";
-
-  // Compute effective answers: prefer saved user answers, fallback to canonical 15% diagnostic answers
-  const effectiveAnswers = useMemo(() => {
-    const saved = loadSavedAnswers();
-    const dsaKeys = Object.keys(saved).filter((k) => k.startsWith("dsa_q"));
-    if (dsaKeys.length >= 5) {
-      return saved;
+  // Resolve Candidate Profile:
+  // 1. Server database record (highest priority when lead ID is provided)
+  // 2. URL parameters (instant fallback if shared with encoded meta)
+  // 3. Local candidate profile (only when viewing own local session)
+  // 4. Default baseline
+  const candidateProfile = useMemo(() => {
+    if (loaderData?.serverResult?.found) {
+      const r = loaderData.serverResult;
+      return {
+        name: r.candidateName || "Candidate",
+        qualification: r.candidateQualification || "B.Pharm",
+        college: r.candidateCollege || "Healthcare Graduate College",
+        graduationYear: r.candidateGraduationYear || "2025",
+        currentStatus: r.candidateCurrentStatus || "Actively Job Hunting",
+        targetRole: r.candidateTargetRole || "Drug Safety Associate",
+      };
     }
+
+    if (hasSharedPayload) {
+      return {
+        name: search.name ? decodeURIComponent(search.name) : "Student Candidate",
+        qualification: search.q ? decodeURIComponent(search.q) : "B.Pharm",
+        college: search.c ? decodeURIComponent(search.c) : "Pharmacy College",
+        graduationYear: search.y ? decodeURIComponent(search.y) : "2025",
+        currentStatus: "Actively Job Hunting",
+        targetRole: search.role ? decodeURIComponent(search.role) : "Drug Safety Associate",
+      };
+    }
+
+    // Only read viewer's local storage if NOT an external shared view
+    if (!isSharedView && typeof window !== "undefined") {
+      const local = getProfile();
+      if (local) {
+        return {
+          name: local.name || "Rahul V.",
+          qualification: local.qualification || "B.Pharm",
+          college: local.college || "Healthcare Graduate College",
+          graduationYear: local.graduationYear || "2025",
+          currentStatus: local.currentStatus || "Actively Job Hunting",
+          targetRole: local.targetRole || "Drug Safety Associate",
+        };
+      }
+    }
+
+    return {
+      name: "Rahul V.",
+      qualification: "B.Pharm",
+      college: "Healthcare Graduate College",
+      graduationYear: "2025",
+      currentStatus: "Actively Job Hunting",
+      targetRole: "Drug Safety Associate",
+    };
+  }, [loaderData?.serverResult, hasSharedPayload, isSharedView, search]);
+
+  // Compute effective answers:
+  // 1. Server-recorded answers for this lead
+  // 2. URL-decoded compact answers
+  // 3. Local saved answers (only for own attempt)
+  // 4. Canonical 15% diagnostic fallback
+  const effectiveAnswers = useMemo(() => {
+    // 1. Authoritative server answers
+    if (loaderData?.serverResult?.found && loaderData.serverResult.answers) {
+      const serverAns = loaderData.serverResult.answers;
+      const count = Object.keys(serverAns).filter((k) => k.startsWith("dsa_q")).length;
+      if (count >= 5) {
+        return serverAns;
+      }
+    }
+
+    // 2. URL-encoded answers
+    if (search.ans) {
+      const decoded = decodeCompactAnswers(search.ans);
+      const decodedCount = Object.keys(decoded).length;
+      if (decodedCount >= 5) {
+        return decoded;
+      }
+    }
+
+    // 3. Local browser storage (ONLY if NOT viewing another student's link)
+    if (!isSharedView && typeof window !== "undefined") {
+      const saved = loadSavedAnswers();
+      const dsaKeys = Object.keys(saved).filter((k) => k.startsWith("dsa_q"));
+      if (dsaKeys.length >= 5) {
+        return saved;
+      }
+    }
+
+    // 4. Default canonical baseline
     return CANONICAL_DSA_15_PERCENT_ANSWERS;
-  }, []);
+  }, [loaderData?.serverResult, search.ans, isSharedView]);
 
   const retake = () => {
     startFreshAttempt();
@@ -126,9 +230,16 @@ function ResultPage() {
   };
 
   const origin = typeof window !== "undefined" ? window.location.origin : "https://arzoncareers.in";
-  const shareUrl = leadId && !leadId.startsWith("lead_local_")
-    ? `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}`
-    : `${origin}/career-engine/result`;
+  const compactAns = useMemo(() => encodeCompactAnswers(effectiveAnswers), [effectiveAnswers]);
+
+  // Construct dual-mode share URL:
+  // Includes ?id=<uuid> when valid, plus compact meta so recipients without db auth can still view
+  const shareUrl = useMemo(() => {
+    if (leadId && !leadId.startsWith("lead_local_")) {
+      return `${origin}/career-engine/result?id=${encodeURIComponent(leadId)}&name=${encodeURIComponent(candidateProfile.name)}&ans=${compactAns}`;
+    }
+    return `${origin}/career-engine/result?name=${encodeURIComponent(candidateProfile.name)}&q=${encodeURIComponent(candidateProfile.qualification)}&c=${encodeURIComponent(candidateProfile.college)}&y=${encodeURIComponent(candidateProfile.graduationYear)}&ans=${compactAns}`;
+  }, [origin, leadId, candidateProfile, compactAns]);
 
   return (
     <main
@@ -154,17 +265,54 @@ function ResultPage() {
           </span>
         </div>
 
+        {/* Shared Mode Evaluator / Recipient Banner */}
+        {isSharedView && (
+          <div className="rounded-2xl border border-blue-200/90 bg-white/95 p-4 sm:p-5 shadow-sm tone-light card-light flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start sm:items-center gap-3.5">
+              <div className="h-11 w-11 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 shrink-0 mt-0.5 sm:mt-0">
+                <UserCheck className="h-5 w-5" />
+              </div>
+              <div className="space-y-0.5">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/80">
+                    Student Evaluation Dossier
+                  </span>
+                  <span className="text-[11px] text-slate-500 font-mono flex items-center gap-1">
+                    <ShieldCheck className="h-3 w-3 text-emerald-600" />
+                    Verified Arzon Assessment
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-[#071A4A] pt-0.5">
+                  Reviewing official diagnostic performance for{" "}
+                  <span className="text-blue-700 font-bold">{candidateProfile.name}</span>{" "}
+                  <span className="text-slate-500 font-normal">
+                    ({candidateProfile.qualification}, {candidateProfile.college})
+                  </span>
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/career-engine/start"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all shrink-0 active:scale-98"
+            >
+              <span>Take Diagnostic Yourself</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        )}
+
         {/* Primary Clinical Diagnostic Scorecard */}
         <DsaDiagnosticScorecard
           answers={effectiveAnswers}
-          candidateName={candidateName}
-          candidateQualification={candidateQualification}
-          candidateCollege={candidateCollege}
-          candidateGraduationYear={candidateGraduationYear}
-          candidateCurrentStatus={candidateCurrentStatus}
-          candidateTargetRole={candidateTargetRole}
+          candidateName={candidateProfile.name}
+          candidateQualification={candidateProfile.qualification}
+          candidateCollege={candidateProfile.college}
+          candidateGraduationYear={candidateProfile.graduationYear}
+          candidateCurrentStatus={candidateProfile.currentStatus}
+          candidateTargetRole={candidateProfile.targetRole}
           leadId={leadId}
           shareUrl={shareUrl}
+          isSharedView={isSharedView}
           onRetake={retake}
         />
       </div>

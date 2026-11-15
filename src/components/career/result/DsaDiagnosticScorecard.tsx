@@ -54,6 +54,7 @@ interface Props {
   candidateTargetRole?: string;
   leadId?: string | null;
   shareUrl?: string;
+  isSharedView?: boolean;
   onRetake?: () => void;
 }
 
@@ -67,6 +68,7 @@ export function DsaDiagnosticScorecard({
   candidateTargetRole = "Drug Safety Associate",
   leadId,
   shareUrl,
+  isSharedView = false,
   onRetake,
 }: Props) {
   const result: DsaDiagnosticResult = scoreDsaDiagnostic(answers);
@@ -109,7 +111,9 @@ export function DsaDiagnosticScorecard({
   const questionsShort = Math.max(0, passingTargetQs - result.totalCorrect);
 
   const handleWhatsAppShare = () => {
-    const text = `Hi Arzon Admissions Team,\n\nI just completed the Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${result.totalScore}% (${result.totalCorrect}/${result.totalQuestions} Correct)\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to review my diagnostic results with a mentor and discuss technical interview preparation.`;
+    const text = isSharedView
+      ? `Hi Arzon Admissions Team,\n\nI reviewed ${candidateName}'s Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${result.totalScore}% (${result.totalCorrect}/${result.totalQuestions} Correct)\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to discuss this candidate's evaluation.`
+      : `Hi Arzon Admissions Team,\n\nI just completed the Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${result.totalScore}% (${result.totalCorrect}/${result.totalQuestions} Correct)\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to review my diagnostic results with a mentor and discuss technical interview preparation.`;
     const url = `https://api.whatsapp.com/send?phone=919121283638&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -1189,7 +1193,7 @@ export function DsaDiagnosticScorecard({
                   className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 px-3.5 py-2.5 text-xs font-semibold transition-all cursor-pointer w-full sm:w-auto"
                 >
                   <RefreshCw className="h-3.5 w-3.5" />
-                  <span>Retake Test</span>
+                  <span>{isSharedView ? "Take Diagnostic Yourself" : "Retake Test"}</span>
                 </button>
               )}
             </div>

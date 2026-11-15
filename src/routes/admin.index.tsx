@@ -1205,7 +1205,11 @@ function AdminHome() {
                               {kindSpec.label}
                             </span>
                             {r.kind === "career_engine" && (
-                              r.fit_score != null ? (
+                              r.anti_cheat_disqualified || (r.anti_cheat_tab_switches != null && r.anti_cheat_tab_switches >= 3) ? (
+                                <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                                  🚨 FAILED: CHEATING (Strike 3)
+                                </span>
+                              ) : r.fit_score != null ? (
                                 <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/25">
                                   Score: {r.fit_score}%
                                 </span>
@@ -1600,7 +1604,11 @@ function AdminHome() {
                     <Award className="w-4 h-4 text-blue-400" />
                     <span>Clinical Diagnostic Status</span>
                   </span>
-                  {selectedCandidate.fit_score != null ? (
+                  {selectedCandidate.anti_cheat_disqualified || (selectedCandidate.anti_cheat_tab_switches != null && selectedCandidate.anti_cheat_tab_switches >= 3) ? (
+                    <span className="font-mono font-bold text-rose-300 bg-rose-500/20 border border-rose-500/40 px-2.5 py-0.5 rounded-full">
+                      🚨 FAILED: CHEATING DETECTED
+                    </span>
+                  ) : selectedCandidate.fit_score != null ? (
                     <span className="font-mono font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
                       {selectedCandidate.fit_score}% Match
                     </span>
@@ -1613,7 +1621,7 @@ function AdminHome() {
                   )}
                 </div>
 
-                {selectedCandidate.fit_score != null ? (
+                {selectedCandidate.fit_score != null || selectedCandidate.anti_cheat_disqualified ? (
                   <div className="space-y-2.5">
                     <div>
                       <span className="text-[11px] text-zinc-400 block">Tested Clinical Role:</span>
@@ -1622,15 +1630,32 @@ function AdminHome() {
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between py-1.5 px-2.5 rounded-xl bg-white/[0.04] border border-white/5 font-mono text-[11px]">
-                      <span className="text-zinc-400 flex items-center gap-1">
-                        <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
-                        <span>Proctoring Integrity:</span>
-                      </span>
-                      <span className="font-bold text-emerald-300">
-                        {selectedCandidate.anti_cheat_score ?? 100}% Clean Proctoring
-                      </span>
-                    </div>
+                    {selectedCandidate.anti_cheat_disqualified || (selectedCandidate.anti_cheat_tab_switches != null && selectedCandidate.anti_cheat_tab_switches >= 3) ? (
+                      <div className="p-3 rounded-xl bg-rose-500/15 border border-rose-500/35 space-y-1">
+                        <div className="flex items-center justify-between font-mono text-[11px]">
+                          <span className="text-rose-300 flex items-center gap-1 font-bold">
+                            <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+                            <span>Proctoring Alert:</span>
+                          </span>
+                          <span className="font-bold text-rose-300">
+                            STRIKE 3 AUTO-DISQUALIFIED
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-rose-200/90 leading-tight">
+                          Candidate switched tabs {selectedCandidate.anti_cheat_tab_switches ?? 3} times. Assessment was auto-terminated and locked at 0% (FAILED: CHEATING DETECTED).
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between py-1.5 px-2.5 rounded-xl bg-white/[0.04] border border-white/5 font-mono text-[11px]">
+                        <span className="text-zinc-400 flex items-center gap-1">
+                          <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+                          <span>Proctoring Integrity:</span>
+                        </span>
+                        <span className="font-bold text-emerald-300">
+                          {selectedCandidate.anti_cheat_score ?? 100}% Clean Proctoring
+                        </span>
+                      </div>
+                    )}
 
                     <div className="grid grid-cols-2 gap-2 pt-1">
                       <a

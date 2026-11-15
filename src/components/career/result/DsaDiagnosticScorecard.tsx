@@ -75,6 +75,9 @@ export function DsaDiagnosticScorecard({
   onRetake,
 }: Props) {
   const result: DsaDiagnosticResult = scoreDsaDiagnostic(answers);
+  const isDisqualified = Boolean(antiCheat?.disqualified || (antiCheat?.tabSwitches ?? 0) >= 3);
+  const displayScore = isDisqualified ? 0 : result.totalScore;
+  const displayCorrect = isDisqualified ? 0 : result.totalCorrect;
   const [filter, setFilter] = useState<"all" | "incorrect" | "correct">("all");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [expandAll, setExpandAll] = useState(false);
@@ -104,23 +107,25 @@ export function DsaDiagnosticScorecard({
   // Key KPI Scores
   const raiCorrect =
     comp.pv_fundamentals.correct + comp.icsr_validity.correct + comp.seriousness_expedited.correct;
-  const raiScore = Math.round((raiCorrect / 15) * 100);
+  const raiScore = isDisqualified ? 0 : Math.round((raiCorrect / 15) * 100);
 
   const ccdCorrect = comp.day0_clocks.correct + comp.seriousness_expedited.correct;
-  const ccdScore = Math.round((ccdCorrect / 10) * 100);
+  const ccdScore = isDisqualified ? 0 : Math.round((ccdCorrect / 10) * 100);
 
   // Tier-1 CRO Cutoff Logic (75% = 30 out of 40)
   const passingTargetQs = 30;
-  const questionsShort = Math.max(0, passingTargetQs - result.totalCorrect);
+  const questionsShort = Math.max(0, passingTargetQs - (isDisqualified ? 0 : result.totalCorrect));
 
   const handleWhatsAppShare = () => {
-    const integrityInfo = antiCheat
+    const integrityInfo = isDisqualified
+      ? `\n• Proctoring Integrity: 0% (FAILED: CHEATING DETECTED — Strike 3/3 auto-disqualification triggered)`
+      : antiCheat
       ? `\n• Proctoring Integrity: ${antiCheat.integrityScore}% (${antiCheat.tabSwitches === 0 ? "Clean Attempt" : `${antiCheat.tabSwitches} tab switches logged`})`
       : "";
 
     const text = isSharedView
-      ? `Hi Arzon Admissions Team,\n\nI reviewed ${candidateName}'s Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${result.totalScore}% (${result.totalCorrect}/${result.totalQuestions} Correct)\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%${integrityInfo}\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to discuss this candidate's evaluation.`
-      : `Hi Arzon Admissions Team,\n\nI just completed the Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${result.totalScore}% (${result.totalCorrect}/${result.totalQuestions} Correct)\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%${integrityInfo}\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to review my diagnostic results with a mentor and discuss technical interview preparation.`;
+      ? `Hi Arzon Admissions Team,\n\nI reviewed ${candidateName}'s Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${displayScore}% (${displayCorrect}/${result.totalQuestions} Correct)${isDisqualified ? " [FAILED: CHEATING DETECTED]" : ""}\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%${integrityInfo}\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to discuss this candidate's evaluation.`
+      : `Hi Arzon Admissions Team,\n\nI just completed the Drug Safety Associate Technical Diagnostic on Arzon Careers.\n\n• Candidate: ${candidateName}\n• Qualification: ${candidateQualification} (${candidateGraduationYear} Batch)\n• College: ${candidateCollege}\n• Score: ${displayScore}% (${displayCorrect}/${result.totalQuestions} Correct)${isDisqualified ? " [FAILED: CHEATING DETECTED]" : ""}\n• Gap to Tier-1 CRO Cutoff (75%): ${questionsShort} questions short\n• Regulatory Accuracy Index: ${raiScore}%\n• Clock Discipline: ${ccdScore}%${integrityInfo}\n• Audit Reference: ${referenceId}\n• Verification URL: ${currentShareUrl}\n\nI would like to review my diagnostic results with a mentor and discuss technical interview preparation.`;
     const url = `https://api.whatsapp.com/send?phone=919121283638&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
@@ -130,7 +135,9 @@ export function DsaDiagnosticScorecard({
       try {
         await navigator.share({
           title: "Arzon Clinical Interview Diagnostic · Drug Safety Associate",
-          text: `My Clinical Diagnostic Score: ${result.totalScore}% (${result.totalCorrect}/40 Correct) on Arzon Careers. Audit Ref: ${referenceId}`,
+          text: isDisqualified
+            ? `FAILED: CHEATING DETECTED (Strike 3 Auto-Disqualification) on Arzon Careers. Audit Ref: ${referenceId}`
+            : `My Clinical Diagnostic Score: ${result.totalScore}% (${result.totalCorrect}/40 Correct) on Arzon Careers. Audit Ref: ${referenceId}`,
           url: currentShareUrl,
         });
         return;
@@ -157,12 +164,43 @@ export function DsaDiagnosticScorecard({
   // Concentric Radial Dial
   const dialRadius = 52;
   const dialCircumference = 2 * Math.PI * dialRadius;
-  const strokeDashoffset = dialCircumference - (result.totalScore / 100) * dialCircumference;
+  const strokeDashoffset = dialCircumference - (displayScore / 100) * dialCircumference;
 
   const competencyKeys = Object.keys(result.competencyBreakdown) as DsaCompetencyKey[];
 
   return (
     <section className="space-y-6 sm:space-y-10 w-full max-w-full min-w-0 font-sans selection:bg-blue-100 selection:text-blue-900 pb-20 sm:pb-6">
+      {/* ── AUTO-DISQUALIFICATION BANNER ON STRIKE 3 ────────────────────────── */}
+      {isDisqualified && (
+        <div className="rounded-[24px] sm:rounded-[32px] border-2 border-rose-500/80 bg-rose-500/10 tone-light card-light p-5 sm:p-7 shadow-[0_8px_30px_rgba(244,63,94,0.15)] flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+          <div className="flex items-start sm:items-center gap-4">
+            <div className="h-12 w-12 rounded-2xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-lg">
+              <AlertTriangle className="h-6 w-6" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-700 bg-rose-100 px-2.5 py-0.5 rounded-full border border-rose-300">
+                  STRIKE 3/3 AUTO-DISQUALIFICATION
+                </span>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-700 bg-rose-100 px-2.5 py-0.5 rounded-full border border-rose-300">
+                  EXAM LOCKED
+                </span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold font-sans text-rose-700 tracking-tight mt-1">
+                FAILED: CHEATING DETECTED
+              </h2>
+              <p className="text-xs sm:text-sm text-rose-800/90 mt-0.5 max-w-2xl leading-relaxed">
+                Candidate exceeded the maximum allowable tab switch limit (3 violations recorded by browser lockdown proctor). This evaluation has been terminated and the final score permanently set to 0%.
+              </p>
+            </div>
+          </div>
+          <div className="shrink-0 font-mono text-center md:text-right bg-white/90 border border-rose-300 rounded-2xl px-5 py-3 shadow-sm self-stretch md:self-auto flex md:flex-col justify-between items-center md:items-end">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-rose-600 block">FINAL SCORE</span>
+            <span className="text-3xl font-black text-rose-600">0%</span>
+          </div>
+        </div>
+      )}
+
       {/* ── 01. ACETERNITY SPOTLIGHT PASS (SHADCN / LUXURY APPLE WALLET) ───────── */}
       <div className="rounded-[28px] sm:rounded-[36px] bg-gradient-to-b from-[#081F38] via-[#0A2544] to-[#071A30] text-white p-6 sm:p-9 shadow-[0_24px_60px_-12px_rgba(8,31,56,0.45)] border border-white/10 relative overflow-hidden">
         {/* Aceternity Spotlight Radial Glow */}
@@ -263,7 +301,7 @@ export function DsaDiagnosticScorecard({
                   cy="60"
                   r={dialRadius}
                   fill="none"
-                  stroke={result.totalScore >= 75 ? "#10B981" : result.totalScore >= 60 ? "#F59E0B" : "#F43F5E"}
+                  stroke={isDisqualified ? "#F43F5E" : result.totalScore >= 75 ? "#10B981" : result.totalScore >= 60 ? "#F59E0B" : "#F43F5E"}
                   strokeWidth="9"
                   strokeLinecap="round"
                   strokeDasharray={dialCircumference}
@@ -273,10 +311,10 @@ export function DsaDiagnosticScorecard({
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                 <span className="text-3xl sm:text-4xl font-mono font-black text-white tracking-tight">
-                  {result.totalScore}%
+                  {displayScore}%
                 </span>
                 <span className="text-[10px] font-mono font-bold text-slate-300 mt-0.5">
-                  {result.totalCorrect}/40 Correct
+                  {isDisqualified ? "FAILED: CHEATING" : `${result.totalCorrect}/40 Correct`}
                 </span>
               </div>
             </div>
@@ -305,12 +343,14 @@ export function DsaDiagnosticScorecard({
           <div className="flex items-center gap-3">
             <div
               className={`h-11 w-11 rounded-2xl flex items-center justify-center font-bold shrink-0 border ${
-                (antiCheat?.integrityScore ?? 100) >= 90
+                isDisqualified
+                  ? "bg-rose-50 text-rose-700 border-rose-200"
+                  : (antiCheat?.integrityScore ?? 100) >= 90
                   ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                   : "bg-amber-50 text-amber-700 border-amber-200"
               }`}
             >
-              <ShieldCheck className="h-6 w-6" />
+              {isDisqualified ? <AlertTriangle className="h-6 w-6" /> : <ShieldCheck className="h-6 w-6" />}
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -319,12 +359,16 @@ export function DsaDiagnosticScorecard({
                 </span>
                 <span
                   className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-mono text-[9.5px] font-bold border ${
-                    (antiCheat?.integrityScore ?? 100) >= 90
+                    isDisqualified
+                      ? "bg-rose-50 text-rose-800 border-rose-300"
+                      : (antiCheat?.integrityScore ?? 100) >= 90
                       ? "bg-emerald-50 text-emerald-800 border-emerald-300"
                       : "bg-amber-50 text-amber-800 border-amber-300"
                   }`}
                 >
-                  {(antiCheat?.integrityScore ?? 100) >= 90
+                  {isDisqualified
+                    ? "FAILED: CHEATING DETECTED (DISQUALIFIED)"
+                    : (antiCheat?.integrityScore ?? 100) >= 90
                     ? "VERIFIED CLEAN ATTEMPT"
                     : "REVIEW RECOMMENDED"}
                 </span>
@@ -339,10 +383,14 @@ export function DsaDiagnosticScorecard({
             <span className="text-slate-500">Integrity Index:</span>
             <strong
               className={`text-sm sm:text-base font-bold ${
-                (antiCheat?.integrityScore ?? 100) >= 90 ? "text-emerald-700" : "text-amber-700"
+                isDisqualified
+                  ? "text-rose-700"
+                  : (antiCheat?.integrityScore ?? 100) >= 90
+                  ? "text-emerald-700"
+                  : "text-amber-700"
               }`}
             >
-              {antiCheat?.integrityScore ?? 100}%
+              {isDisqualified ? "0%" : `${antiCheat?.integrityScore ?? 100}%`}
             </strong>
           </div>
         </div>
@@ -355,15 +403,21 @@ export function DsaDiagnosticScorecard({
               Tab Navigation
             </span>
             <div className="flex items-baseline gap-1.5">
-              <strong className="text-lg font-bold text-[#081F38] font-mono">
+              <strong className={`text-lg font-bold font-mono ${isDisqualified ? "text-rose-600" : "text-[#081F38]"}`}>
                 {antiCheat?.tabSwitches ?? 0}
               </strong>
-              <span className="text-[11px] text-slate-600 font-sans">
-                {(antiCheat?.tabSwitches ?? 0) === 0 ? "Switches (Clean)" : "Switches Logged"}
+              <span className={`text-[11px] font-sans ${isDisqualified ? "text-rose-700 font-semibold" : "text-slate-600"}`}>
+                {isDisqualified
+                  ? "Switches (Strike 3 Auto-Disqualified)"
+                  : (antiCheat?.tabSwitches ?? 0) === 0
+                  ? "Switches (Clean)"
+                  : "Switches Logged"}
               </span>
             </div>
             <p className="text-[10.5px] text-slate-500 font-sans leading-tight">
-              {(antiCheat?.tabSwitches ?? 0) === 0
+              {isDisqualified
+                ? "Maximum tab switch limit reached. Candidate auto-disqualified."
+                : (antiCheat?.tabSwitches ?? 0) === 0
                 ? "Candidate remained exclusively in the test viewport."
                 : "External browser navigation events were logged."}
             </p>

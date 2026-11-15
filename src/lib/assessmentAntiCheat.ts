@@ -12,7 +12,8 @@ export interface AntiCheatEvent {
     | "SHORTCUT_BLOCKED"
     | "DEVTOOLS_ATTEMPT"
     | "SPEED_ANOMALY"
-    | "FULLSCREEN_ENTER";
+    | "FULLSCREEN_ENTER"
+    | "DISQUALIFIED";
   details: string;
   questionIndex?: number;
 }
@@ -20,6 +21,8 @@ export interface AntiCheatEvent {
 export interface AntiCheatTelemetry {
   integrityScore: number;
   integrityStatus: "VERIFIED" | "REVIEW_RECOMMENDED" | "FLAGGED";
+  disqualified?: boolean;
+  disqualificationReason?: string;
   tabSwitches: number;
   focusLossCount: number;
   fullscreenExits: number;
@@ -48,7 +51,12 @@ export function calculateIntegrityScore(data: {
   pasteAttempts: number;
   devtoolsAttempts: number;
   fastAnswerFlags: number;
-}): { score: number; status: "VERIFIED" | "REVIEW_RECOMMENDED" | "FLAGGED" } {
+}): { score: number; status: "VERIFIED" | "REVIEW_RECOMMENDED" | "FLAGGED"; disqualified: boolean } {
+  // Strike 3 Auto-disqualification: immediately zero out score and flag
+  if (data.tabSwitches >= 3) {
+    return { score: 0, status: "FLAGGED", disqualified: true };
+  }
+
   let score = 100;
 
   // Tab switches have the highest penalty
@@ -72,13 +80,13 @@ export function calculateIntegrityScore(data: {
   const finalScore = Math.max(10, Math.min(100, Math.round(score)));
 
   let status: "VERIFIED" | "REVIEW_RECOMMENDED" | "FLAGGED" = "VERIFIED";
-  if (finalScore < 70 || data.tabSwitches >= 3) {
+  if (finalScore < 70) {
     status = "FLAGGED";
   } else if (finalScore < 88 || data.tabSwitches >= 1 || data.fullscreenExits >= 1) {
     status = "REVIEW_RECOMMENDED";
   }
 
-  return { score: finalScore, status };
+  return { score: finalScore, status, disqualified: false };
 }
 
 export function saveAntiCheatToStorage(telemetry: AntiCheatTelemetry): void {
@@ -116,6 +124,7 @@ interface UseAntiCheatOptions {
   currentQuestionId: string;
   totalQuestions: number;
   onRecordAnswer?: (questionId: string, secondsSpent: number) => void;
+  onDisqualify?: (telemetry: AntiCheatTelemetry) => void;
 }
 
 export function useAssessmentAntiCheat({
@@ -124,9 +133,11 @@ export function useAssessmentAntiCheat({
   currentIndex,
   currentQuestionId,
   totalQuestions,
+  onDisqualify,
 }: UseAntiCheatOptions) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [warning, setWarning] = useState<AntiCheatWarning | null>(null);
+  const [isDisqualified, setIsDisqualified] = useState(false);
   const [tabSwitches, setTabSwitches] = useState(0);
   const [focusLossCount, setFocusLossCount] = useState(0);
   const [fullscreenExits, setFullscreenExits] = useState(0);
@@ -135,6 +146,10 @@ export function useAssessmentAntiCheat({
   const [devtoolsAttempts, setDevtoolsAttempts] = useState(0);
   const [shortcutBlocks, setShortcutBlocks] = useState(0);
   const [fastAnswerFlags, setFastAnswerFlags] = useState(0);
+
+  const onDisqualifyRef = useRef(onDisqualify);
+  onDisqualifyRef.current = onDisqualify;
+  const hasDisqualifiedRef = useRef(false);
 
   const eventsRef = useRef<AntiCheatEvent[]>([]);
   const questionTimesRef = useRef<Record<string, number>>({});
@@ -199,19 +214,34 @@ export function useAssessmentAntiCheat({
       if (document.hidden) {
         setTabSwitches((prev) => {
           const next = prev + 1;
-          addEvent("TAB_SWITCH", `Tab hidden / browser minimized (Strike ${next})`);
+          addEvent("TAB_SWITCH", `Tab hidden / browser minimized (Strike ${next}/3)`);
+          if (next >= 3) {
+            setIsDisqualified(true);
+            addEvent("DISQUALIFIED", "FAILED: CHEATING DETECTED — 3 tab switch violations reached");
+          }
           return next;
         });
       } else {
-        // Returned to tab: show warning modal
+        // Returned to tab: show warning modal or auto-disqualification banner
         setTabSwitches((current) => {
-          setWarning({
-            type: "TAB_SWITCH",
-            strike: current,
-            title: "Assessment Integrity Alert: Tab Switch Detected",
-            message:
-              "Navigating away from the diagnostic or opening external windows is monitored under Arzon Proctoring standards. Repeated infractions will be flagged on your technical evaluation dossier.",
-          });
+          if (current >= 3) {
+            setIsDisqualified(true);
+            setWarning({
+              type: "TAB_SWITCH",
+              strike: 3,
+              title: "FAILED: CHEATING DETECTED · DISQUALIFIED",
+              message:
+                "You have switched tabs 3 times during this diagnostic. Your assessment has been permanently locked, your answers have been auto-submitted, and your result is marked as FAILED: CHEATING DETECTED.",
+            });
+          } else {
+            setWarning({
+              type: "TAB_SWITCH",
+              strike: current,
+              title: `Assessment Integrity Alert: Tab Switch (Strike ${current}/3)`,
+              message:
+                `Navigating away from the diagnostic or opening external windows is monitored under Arzon Proctoring standards. Warning: on Strike 3, your exam is immediately locked and marked as FAILED: CHEATING DETECTED.`,
+            });
+          }
           return current;
         });
       }
@@ -431,9 +461,14 @@ export function useAssessmentAntiCheat({
       fastAnswerFlags,
     });
 
+    const isDisq = tabSwitches >= 3;
     const snapshot: AntiCheatTelemetry = {
-      integrityScore: score,
-      integrityStatus: status,
+      integrityScore: isDisq ? 0 : score,
+      integrityStatus: isDisq ? "FLAGGED" : status,
+      disqualified: isDisq,
+      disqualificationReason: isDisq
+        ? "FAILED: CHEATING DETECTED — Strike 3 reached (3 tab switch violations)"
+        : undefined,
       tabSwitches,
       focusLossCount,
       fullscreenExits,
@@ -466,6 +501,15 @@ export function useAssessmentAntiCheat({
     totalQuestions,
   ]);
 
+  // Trigger callback upon auto-disqualification
+  useEffect(() => {
+    if (isDisqualified && !hasDisqualifiedRef.current) {
+      hasDisqualifiedRef.current = true;
+      const snapshot = getTelemetrySnapshot();
+      onDisqualifyRef.current?.(snapshot);
+    }
+  }, [isDisqualified, getTelemetrySnapshot]);
+
   const dismissWarning = () => setWarning(null);
 
   const { score: currentScore, status: currentStatus } = calculateIntegrityScore({
@@ -481,13 +525,14 @@ export function useAssessmentAntiCheat({
   return {
     isFullscreen,
     warning,
+    isDisqualified: isDisqualified || tabSwitches >= 3,
     tabSwitches,
     focusLossCount,
     fullscreenExits,
     copyAttempts,
     fastAnswerFlags,
-    currentScore,
-    currentStatus,
+    currentScore: tabSwitches >= 3 ? 0 : currentScore,
+    currentStatus: tabSwitches >= 3 ? ("FLAGGED" as const) : currentStatus,
     enterFullscreen,
     dismissWarning,
     notifyAnswerChosen,

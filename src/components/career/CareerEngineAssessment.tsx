@@ -27,7 +27,11 @@ import {
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { useNavigate } from "@tanstack/react-router";
 import { isReducedMotion } from "@/hooks/useReducedMotion";
-import { useAssessmentAntiCheat } from "@/lib/assessmentAntiCheat";
+import {
+  useAssessmentAntiCheat,
+  saveAntiCheatToStorage,
+  type AntiCheatTelemetry,
+} from "@/lib/assessmentAntiCheat";
 import {
   DRUG_SAFETY_DIAGNOSTIC_QUESTIONS,
   type DsaDiagnosticQuestion,
@@ -163,9 +167,68 @@ export function CareerEngineAssessment() {
 
   const currentQ = questions[currentIndex] || questions[0];
 
+  const handleAutoDisqualification = useCallback(
+    async (telemetry: AntiCheatTelemetry) => {
+      try {
+        const finalAnswers = {
+          ...answers,
+          ...(profile?.college ? { college_name: profile.college, college: profile.college } : {}),
+          stream: "BiPC",
+          course: profile?.qualification ?? "B.Pharm",
+          year: profile?.graduationYear ?? "2026",
+        };
+
+        const baseResult = computeResult(finalAnswers, {
+          questions: assessmentQuestions,
+          meta: {
+            attemptId: getAttemptId() ?? `att_${Date.now()}`,
+            createdAt: new Date().toISOString(),
+          },
+        });
+
+        const disqualifiedResult = {
+          ...baseResult,
+          fitScore: 0,
+          readinessScore: 0,
+          confidence: 0,
+        };
+
+        await flushPendingAnswers();
+        cacheResult(disqualifiedResult);
+
+        const disqTelemetry: AntiCheatTelemetry = {
+          ...telemetry,
+          integrityScore: 0,
+          integrityStatus: "FLAGGED",
+          disqualified: true,
+          disqualificationReason: "FAILED: CHEATING DETECTED — 3 tab switch violations",
+        };
+        saveAntiCheatToStorage(disqTelemetry);
+
+        const leadId = getLeadId();
+        if (leadId) {
+          try {
+            await finalizeLead({
+              leadId,
+              result: disqualifiedResult,
+              answers: finalAnswers,
+              antiCheat: disqTelemetry,
+            });
+          } catch (e) {
+            console.warn("Finalize lead warning upon disqualification:", e);
+          }
+        }
+      } catch (err) {
+        console.error("Auto-disqualification submission error:", err);
+      }
+    },
+    [answers, assessmentQuestions, profile],
+  );
+
   const {
     isFullscreen,
     warning: antiCheatWarning,
+    isDisqualified,
     tabSwitches,
     focusLossCount,
     fullscreenExits,
@@ -182,6 +245,7 @@ export function CareerEngineAssessment() {
     currentIndex,
     currentQuestionId: currentQ.id,
     totalQuestions: questions.length,
+    onDisqualify: handleAutoDisqualification,
   });
 
   const answeredCount = Object.keys(answers).filter((k) =>
@@ -191,6 +255,7 @@ export function CareerEngineAssessment() {
 
   const chooseOption = useCallback(
     (optionId: "A" | "B" | "C" | "D") => {
+      if (isDisqualified) return;
       notifyAnswerChosen(currentQ.id);
       const updated = { ...answers, [currentQ.id]: optionId };
       setAnswers(updated);
@@ -216,14 +281,16 @@ export function CareerEngineAssessment() {
         }
       }
     },
-    [answers, currentQ.id, currentIndex, questions],
+    [answers, currentQ.id, currentIndex, isDisqualified, notifyAnswerChosen, questions],
   );
 
   const toggleFlag = () => {
+    if (isDisqualified) return;
     setFlagged((prev) => ({ ...prev, [currentQ.id]: !prev[currentQ.id] }));
   };
 
   const handleNext = () => {
+    if (isDisqualified) return;
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
@@ -232,6 +299,7 @@ export function CareerEngineAssessment() {
   };
 
   const handlePrev = () => {
+    if (isDisqualified) return;
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
     }
@@ -240,7 +308,7 @@ export function CareerEngineAssessment() {
   // Keyboard navigation support ([1-4] or [A-D], Enter/Right, Left, F)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (isCompletedView || submitting) return;
+      if (isCompletedView || submitting || isDisqualified) return;
 
       const target = e.target as HTMLElement | null;
       if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA") return;
@@ -1304,36 +1372,46 @@ export function CareerEngineAssessment() {
         </div>
       )}
 
-      {/* ── ANTI-CHEAT & PROCTORING WARNING MODAL ───────────────────────────── */}
-      {antiCheatWarning && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md motion-safe:animate-fade-in">
+      {/* ── ANTI-CHEAT & PROCTORING WARNING / DISQUALIFICATION MODAL ───────────── */}
+      {(antiCheatWarning || isDisqualified) && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md motion-safe:animate-fade-in">
           <div
             className={`w-full max-w-md rounded-3xl border p-6 sm:p-7 shadow-2xl transition-all ${
-              isDark
-                ? "bg-[#09182E] border-rose-500/40 text-white shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
-                : "bg-white border-rose-200 text-[#081F38] shadow-[0_20px_50px_rgba(8,31,56,0.18)]"
+              isDisqualified || (antiCheatWarning && antiCheatWarning.strike >= 3)
+                ? isDark
+                  ? "bg-[#180A12] border-rose-500/60 text-white shadow-[0_20px_60px_rgba(244,63,94,0.3)]"
+                  : "bg-white border-rose-300 text-[#081F38] shadow-[0_20px_50px_rgba(244,63,94,0.2)]"
+                : isDark
+                  ? "bg-[#09182E] border-rose-500/40 text-white shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
+                  : "bg-white border-rose-200 text-[#081F38] shadow-[0_20px_50px_rgba(8,31,56,0.18)]"
             }`}
           >
             <div className="flex items-start gap-3.5 mb-4">
-              <div className="h-11 w-11 shrink-0 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-500">
-                <AlertTriangle className="h-6 w-6" />
+              <div className="h-12 w-12 shrink-0 rounded-2xl bg-rose-500/15 border border-rose-500/40 flex items-center justify-center text-rose-500 shadow-sm">
+                <AlertTriangle className="h-7 w-7" />
               </div>
               <div className="min-w-0">
                 <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-500 block mb-0.5">
-                  PROCTORING ALERT · STRIKE {antiCheatWarning.strike}/3
+                  {isDisqualified || (antiCheatWarning && antiCheatWarning.strike >= 3)
+                    ? "🚨 CRITICAL PROCTORING VIOLATION · STRIKE 3/3"
+                    : `PROCTORING ALERT · STRIKE ${antiCheatWarning?.strike ?? 1}/3`}
                 </span>
                 <h2 className="text-base sm:text-lg font-bold font-sans leading-snug">
-                  {antiCheatWarning.title}
+                  {isDisqualified || (antiCheatWarning && antiCheatWarning.strike >= 3)
+                    ? "FAILED: CHEATING DETECTED"
+                    : antiCheatWarning?.title}
                 </h2>
               </div>
             </div>
 
             <p className={`text-xs leading-relaxed font-sans mb-5 ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-              {antiCheatWarning.message}
+              {isDisqualified || (antiCheatWarning && antiCheatWarning.strike >= 3)
+                ? "You have switched tabs or minimized the browser 3 times during this diagnostic. In accordance with Arzon clinical proctoring guidelines, this assessment has been immediately terminated, answers locked, and your dossier marked as FAILED: CHEATING DETECTED with an integrity score of 0%."
+                : antiCheatWarning?.message}
             </p>
 
             <div
-              className={`p-3 rounded-2xl border text-xs font-mono mb-5 flex items-center justify-between ${
+              className={`p-3.5 rounded-2xl border text-xs font-mono mb-5 flex items-center justify-between ${
                 isDark
                   ? "bg-[#061224] border-slate-800 text-slate-300"
                   : "bg-slate-50 border-slate-200 text-slate-700"
@@ -1341,39 +1419,63 @@ export function CareerEngineAssessment() {
             >
               <span className="text-slate-500">Integrity Telemetry:</span>
               <span className="font-bold text-rose-500">
-                {antiCheatWarning.type.replace("_", " ")} #{antiCheatWarning.strike}
+                {isDisqualified || (antiCheatWarning && antiCheatWarning.strike >= 3)
+                  ? "STRIKE 3 · AUTO-DISQUALIFIED"
+                  : `${antiCheatWarning?.type.replace("_", " ")} #${antiCheatWarning?.strike}`}
               </span>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2.5">
-              {!isFullscreen && (
+            {isDisqualified || (antiCheatWarning && antiCheatWarning.strike >= 3) ? (
+              <div className="space-y-2">
                 <button
                   type="button"
                   onClick={() => {
-                    void enterFullscreen();
-                    dismissAntiCheatWarning();
+                    const leadId = getLeadId();
+                    navigate({
+                      to: "/career-engine/result",
+                      search: leadId && !leadId.startsWith("lead_local_") ? { id: leadId } : undefined,
+                    });
                   }}
-                  className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-sm cursor-pointer"
+                  className="w-full py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-mono font-bold tracking-wide transition shadow-lg flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Return to Fullscreen & Resume
+                  <span>View Proctoring Audit Scorecard</span>
+                  <ChevronRight className="h-4 w-4" />
                 </button>
-              )}
-              <button
-                type="button"
-                onClick={dismissAntiCheatWarning}
-                className={`w-full py-2.5 px-4 rounded-xl border text-xs font-bold transition cursor-pointer ${
-                  isFullscreen
-                    ? isDark
-                      ? "bg-blue-600 hover:bg-blue-500 text-white border-transparent"
-                      : "bg-[#081F38] hover:bg-blue-700 text-white border-transparent"
-                    : isDark
-                      ? "border-slate-700 hover:bg-slate-800 text-slate-300"
-                      : "border-slate-300 hover:bg-slate-100 text-slate-700"
-                }`}
-              >
-                I Acknowledge Proctoring Rules
-              </button>
-            </div>
+                <p className="text-[10px] text-center text-slate-400 font-mono">
+                  Assessment session permanently closed · Proctoring record logged
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                {!isFullscreen && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void enterFullscreen();
+                      dismissAntiCheatWarning();
+                    }}
+                    className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-sm cursor-pointer"
+                  >
+                    Return to Fullscreen & Resume
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={dismissAntiCheatWarning}
+                  className={`w-full py-2.5 px-4 rounded-xl border text-xs font-bold transition cursor-pointer ${
+                    isFullscreen
+                      ? isDark
+                        ? "bg-blue-600 hover:bg-blue-500 text-white border-transparent"
+                        : "bg-[#081F38] hover:bg-blue-700 text-white border-transparent"
+                      : isDark
+                        ? "border-slate-700 hover:bg-slate-800 text-slate-300"
+                        : "border-slate-300 hover:bg-slate-100 text-slate-700"
+                  }`}
+                >
+                  I Acknowledge Proctoring Rules
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

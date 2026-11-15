@@ -613,6 +613,8 @@ export interface UnifiedAdminResponse {
   answers_count?: number;
   target_role?: string | null;
   anti_cheat_score?: number | null;
+  anti_cheat_disqualified?: boolean;
+  anti_cheat_tab_switches?: number | null;
 }
 
 export interface AllAdminResponsesResult {
@@ -1015,7 +1017,12 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
         const grad_year = rawYear ? (YEAR_LABELS[rawYear] || rawYear) : null;
         const targetRole = profilePayload.targetRole || profilePayload.target_role || (r.archetype ? r.archetype : "Drug Safety Associate");
         const answersCount = r.session_id ? (ceAnswerCountsBySession.get(r.session_id) || 0) : 0;
-        const antiCheatScore = payload.anti_cheat?.integrityScore ?? null;
+        const antiCheatData = (payload.anti_cheat || payload.antiCheat || null) as Record<string, any> | null;
+        const antiCheatTabSwitches = typeof antiCheatData?.tabSwitches === "number" ? antiCheatData.tabSwitches : null;
+        const isDisqualified = Boolean(
+          antiCheatData?.disqualified || (antiCheatTabSwitches != null && antiCheatTabSwitches >= 3)
+        );
+        const antiCheatScore = isDisqualified ? 0 : (antiCheatData?.integrityScore ?? null);
 
         if (college && college !== "Not Specified") {
           byCollege[college] = (byCollege[college] || 0) + 1;
@@ -1064,6 +1071,8 @@ export const getAllAdminResponses = createServerFn({ method: "GET" })
           answers_count: answersCount,
           target_role: targetRole,
           anti_cheat_score: antiCheatScore,
+          anti_cheat_disqualified: isDisqualified,
+          anti_cheat_tab_switches: antiCheatTabSwitches,
         });
       }
     }

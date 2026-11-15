@@ -566,7 +566,7 @@ function CoursePage() {
             The tools and workflows recruiters actually screen for - pulled from live JDs.
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
-            {[...course.jd.topSkills, ...course.tools].map((s) => (
+            {Array.from(new Set([...course.jd.topSkills, ...course.tools])).map((s) => (
               <span
                 key={s}
                 className="rounded-full border bg-white px-3 py-1.5 text-sm"

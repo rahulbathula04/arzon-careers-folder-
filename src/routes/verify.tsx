@@ -158,6 +158,16 @@ function VerifyPage() {
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
               <span className="font-mono font-semibold">{result.id}</span> is a reference for an informational career-fit report, not a registered professional credential. The report score is a guidance estimate based on assessment responses and does not prove role-specific skill or industry readiness. ACRI work-simulation credentials are checked separately against their assessment records.
             </p>
+            <div className="mt-4">
+              <Link
+                to="/career-engine/result"
+                search={{ id: result.id }}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:text-blue-900 underline"
+              >
+                <span>View Diagnostic Report Dossier</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
           </div>
         )}
 
@@ -378,6 +388,7 @@ function VerifyPage() {
             <VerificationAuditTrail candidateRef={result.id} tone="light" />
           </div>
         )}
+
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <Link

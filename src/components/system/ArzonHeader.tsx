@@ -182,6 +182,42 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
     },
   },
   {
+    key: "reviews",
+    label: "Reviews",
+    to: "/reviews",
+    description: "Verified Google reviews, TASK launch & credentials",
+    flyout: {
+      category: {
+        title: "Credibility & Reviews",
+        to: "/reviews",
+        description: "Explore verified Google feedback, state accreditations & campus visits",
+        sublinks: [
+          { label: "Google & Public Reviews", to: "/reviews#reviews" },
+          { label: "TASK State Partnership", to: "/reviews#institutional" },
+          { label: "College Partnerships & Drives", to: "/reviews#colleges" },
+          { label: "ISO & MSME Certifications", to: "/reviews#certifications" },
+        ],
+      },
+      specializations: {
+        title: "Evidence & Accreditations",
+        items: [
+          { label: "Google Business (4.5★ · 447 reviews)", to: "/reviews#reviews" },
+          { label: "TASK Healthcare Initiative", to: "/reviews#institutional" },
+          { label: "Malla Reddy & Campus Visits", to: "/reviews#colleges" },
+          { label: "Phase Connect Healthcare Summit", to: "/reviews#events" },
+          { label: "Verify an Arzon Credential", to: "/reviews#certifications" },
+        ],
+      },
+      spotlight: {
+        badge: "Verified Proof",
+        title: "Trust Built Through Work",
+        description: "Explore 447+ verified Google reviews, ISO 9001:2015 certificates, and role curricula.",
+        ctaText: "Explore Credibility Hub",
+        to: "/reviews",
+      },
+    },
+  },
+  {
     key: "network",
     label: "Network",
     to: "/industry-network",

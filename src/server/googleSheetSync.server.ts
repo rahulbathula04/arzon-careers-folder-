@@ -27,12 +27,21 @@ export interface CounselorLeadSyncPayload {
   remarks?: string;
 }
 
+let hasLoggedMissingWebhookWarning = false;
+
 function getWebhookUrl(): string | null {
-  return (
+  const url =
     process.env.GOOGLE_SHEET_WEBHOOK_URL ||
     process.env.VITE_GOOGLE_SHEET_WEBHOOK_URL ||
-    null
-  );
+    null;
+
+  if (!url && !hasLoggedMissingWebhookWarning) {
+    hasLoggedMissingWebhookWarning = true;
+    console.warn(
+      "[GoogleSheetSync] GOOGLE_SHEET_WEBHOOK_URL is not set. Google Sheet live webhook sync is idle. Set GOOGLE_SHEET_WEBHOOK_URL in environment or Vercel dashboard to enable 24/7 automated sync."
+    );
+  }
+  return url;
 }
 
 function getFormattedISTDate(): string {

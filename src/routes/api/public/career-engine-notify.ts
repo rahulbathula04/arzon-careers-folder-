@@ -5,6 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { TEMPLATES } from "@/lib/email-templates/registry";
 import { verifyHookSecret } from "@/lib/hook-auth.server";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 const SITE_NAME = "arzoncareers";
 const SENDER_DOMAIN = "info.arzoncareers.in";
@@ -70,6 +71,37 @@ export const Route = createFileRoute("/api/public/career-engine-notify")({
           return ack();
         }
 
+        // Sync final evaluation status to Google Sheet
+        const rp = (lead.result_payload || {}) as Record<string, any>;
+        const prof = rp.profile || {};
+        const isDisqualified = Boolean(rp.anti_cheat?.disqualified);
+        const disqReason = rp.anti_cheat?.disqualificationReason;
+
+        let note = "";
+        let status = "Assessment Completed";
+        if (isDisqualified) {
+          status = "FLAGGED / CHEATING";
+          note = disqReason || "FAILED: CHEATING DETECTED - Tab switch violation (Score: 0%)";
+        } else {
+          const score = lead.fit_score ?? 0;
+          const arch = (typeof lead.archetype === "string" ? lead.archetype : "Specialist");
+          note = `Completed DSA Diagnostic - Fit Score: ${score}%, Archetype: ${arch}`;
+        }
+
+        void syncCounselorLeadToGoogleSheet({
+          name: lead.name,
+          phone: lead.phone,
+          email: lead.email || "",
+          college: prof.college || prof.college_name || "Admissions Candidate",
+          degree: prof.qualification || prof.course || "Healthcare Graduate",
+          passoutYear: prof.graduationYear || prof.year || "2026",
+          programName: prof.targetRole || "Drug Safety Associate",
+          city: "India",
+          source: "career_engine_diagnostic",
+          status,
+          question: note,
+        }).catch(() => {});
+
         const template = TEMPLATES[TEMPLATE_NAME];
         if (!template) {
           console.error("[career-engine-notify] template misconfigured");
@@ -97,7 +129,6 @@ export const Route = createFileRoute("/api/public/career-engine-notify")({
         }
 
         // Build template props from lead row
-        const rp = (lead.result_payload || {}) as any;
         const archetype = rp.archetype || {};
         const props = {
           name: lead.name,

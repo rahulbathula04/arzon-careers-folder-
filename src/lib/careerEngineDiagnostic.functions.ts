@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createSafeAdminClient } from "@/lib/supabaseEnv";
 import type { AntiCheatTelemetry } from "@/lib/assessmentAntiCheat";
+import { syncCounselorLeadToGoogleSheet } from "@/server/googleSheetSync.server";
 
 function admin() {
   return createSafeAdminClient();
@@ -136,7 +137,7 @@ export const saveEarlyDiagnosticProfile = createServerFn({ method: "POST" })
       const sb = admin();
       const { data: existing } = await sb
         .from("career_engine_leads")
-        .select("result_payload, session_id")
+        .select("result_payload, session_id, name, phone, email")
         .eq("id", data.leadId)
         .maybeSingle();
 
@@ -166,6 +167,22 @@ export const saveEarlyDiagnosticProfile = createServerFn({ method: "POST" })
         .update({ result_payload: updatedPayload })
         .eq("id", data.leadId);
 
+      // Real-time sync to Google Sheets
+      if (existing?.name && existing?.phone) {
+        void syncCounselorLeadToGoogleSheet({
+          name: existing.name,
+          phone: existing.phone,
+          email: existing.email || "",
+          college: data.college?.trim() || "Admissions Candidate",
+          degree: data.qualification?.trim() || "Healthcare Graduate",
+          passoutYear: data.graduationYear?.trim() || "2026",
+          programName: data.targetRole?.trim() || "Drug Safety Associate",
+          city: "India",
+          source: "career_engine_diagnostic",
+          question: "Diagnostic Assessment Started",
+        }).catch(() => {});
+      }
+
       // Also upsert into career_engine_answers so queries relying on the answers table immediately find them
       if (existing?.session_id && (data.college || data.qualification || data.graduationYear)) {
         const rowsToUpsert: Array<{ session_id: string; question_id: string; answer: string }> = [];
@@ -191,6 +208,66 @@ export const saveEarlyDiagnosticProfile = createServerFn({ method: "POST" })
       return { ok: true };
     } catch (err) {
       console.warn("[saveEarlyDiagnosticProfile] error persisting early profile:", err);
+      return { ok: false };
+    }
+  });
+
+const FinalizeDiagnosticSyncInput = z.object({
+  leadId: z.string().min(10).max(64),
+  fitScore: z.number().optional(),
+  archetypeName: z.string().optional(),
+  disqualified: z.boolean().optional(),
+  disqualificationReason: z.string().optional(),
+});
+
+/**
+ * Server Function: Syncs completed or auto-disqualified diagnostic test results
+ * to the master Google Sheet so counselors see the live fit score and anti-cheat status.
+ */
+export const syncCompletedDiagnosticToSheet = createServerFn({ method: "POST" })
+  .inputValidator((d: unknown) => FinalizeDiagnosticSyncInput.parse(d))
+  .handler(async ({ data }) => {
+    try {
+      const sb = admin();
+      const { data: lead } = await sb
+        .from("career_engine_leads")
+        .select("name, phone, email, archetype, fit_score, result_payload")
+        .eq("id", data.leadId)
+        .maybeSingle();
+
+      if (!lead?.name || !lead?.phone) return { ok: false };
+
+      const rp = (lead.result_payload || {}) as Record<string, any>;
+      const prof = rp.profile || {};
+
+      let note = "";
+      let status = "Assessment Completed";
+      if (data.disqualified) {
+        status = "FLAGGED / CHEATING";
+        note = data.disqualificationReason || "FAILED: CHEATING DETECTED - Tab switch violation (Score: 0%)";
+      } else {
+        const score = data.fitScore ?? lead.fit_score ?? 0;
+        const arch = data.archetypeName || (typeof lead.archetype === "string" ? lead.archetype : "Specialist");
+        note = `Completed DSA Diagnostic - Fit Score: ${score}%, Archetype: ${arch}`;
+      }
+
+      await syncCounselorLeadToGoogleSheet({
+        name: lead.name,
+        phone: lead.phone,
+        email: lead.email || "",
+        college: prof.college || prof.college_name || "Admissions Candidate",
+        degree: prof.qualification || prof.course || "Healthcare Graduate",
+        passoutYear: prof.graduationYear || prof.year || "2026",
+        programName: prof.targetRole || "Drug Safety Associate",
+        city: "India",
+        source: "career_engine_diagnostic",
+        status,
+        question: note,
+      });
+
+      return { ok: true };
+    } catch (err) {
+      console.warn("[syncCompletedDiagnosticToSheet] error syncing to sheet:", err);
       return { ok: false };
     }
   });

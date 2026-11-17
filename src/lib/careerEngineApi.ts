@@ -3,6 +3,7 @@ import type { CareerEngineResult } from "@/data/careerEngineScoring";
 import { resetSeed } from "@/data/careerEngineSampler";
 import { retryWithBackoff } from "@/lib/retryWithBackoff";
 import { submitLeadEndpoint } from "@/lib/leads.functions";
+import { syncCompletedDiagnosticToSheet } from "@/lib/careerEngineDiagnostic.functions";
 import type { AntiCheatTelemetry } from "@/lib/assessmentAntiCheat";
 
 type Json = string | number | boolean | null | { [k: string]: Json } | Json[];
@@ -608,6 +609,17 @@ export async function finalizeLead(args: {
       });
       if (error) throw new Error(error.message || "Could not save result");
     });
+    // Fire-and-forget Google Sheet live sync with final fit score & anti-cheat status
+    void syncCompletedDiagnosticToSheet({
+      data: {
+        leadId: args.leadId,
+        fitScore: args.result.fitScore,
+        archetypeName: args.result.archetype?.name,
+        disqualified: args.antiCheat?.disqualified,
+        disqualificationReason: args.antiCheat?.disqualificationReason,
+      },
+    }).catch(() => {});
+
     // Fire-and-forget admin notification email
     try {
       void fetch("/api/public/career-engine-notify", {

@@ -70,7 +70,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     platform: "Instagram",
     author: "@arzonglobal_careers",
     authorTitle: "Official Instagram Channel",
-    avatarUrl: "/brand/arzon-logo-icon.png",
+    avatarUrl: "/brand/arzon-icon.webp",
     date: "Recent Reel & Story",
     postSnippet:
       "Highlights from our recent campus drive and practical workshop at Malla Reddy Pharmacy College! 350+ future healthcare changemakers diving into clinical research.",
@@ -84,7 +84,7 @@ export const SOCIAL_POSTS: SocialPost[] = [
     platform: "Instagram",
     author: "@arzonglobal_careers",
     authorTitle: "Official Instagram Channel",
-    avatarUrl: "/brand/arzon-logo-icon.png",
+    avatarUrl: "/brand/arzon-icon.webp",
     date: "Community Spotlight",
     postSnippet:
       "Behind the scenes at our Hyderabad Madhapur training lab. Hands-on case processing session with our active Pharmacovigilance cohort.",

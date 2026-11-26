@@ -283,28 +283,29 @@ export function ArzonHomeIntelligence() {
 
           {/* Grid Layout: Award Flagship Showcase in Slot 1 & former TASK Slot (lg:col-span-8), Malla Reddy untouched (lg:col-span-4) */}
           <div className="grid gap-4 lg:grid-cols-12 items-stretch">
-            {/* Card 1: 2026 Global Impact Award Showcase (lg:col-span-8 — spanning Slot 1 + former TASK Slot) */}
+            {/* Card 1: 2026 Global Impact Award Showcase (lg:col-span-8 — in Arzon signature Deep Forest Teal branding) */}
             <a
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.12] bg-[#05090C] p-6 sm:p-7 text-white shadow-[0_16px_40px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-[#F59E0B]/40 hover:shadow-[0_20px_50px_rgba(217,119,6,0.16)] lg:col-span-8"
+              className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.14] bg-[#073F39] p-6 sm:p-7 text-white shadow-[0_20px_50px_rgba(0,75,69,0.22)] ring-1 ring-inset ring-white/[0.08] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_24px_60px_rgba(0,75,69,0.30)] lg:col-span-8"
             >
-              {/* Ethereal Ambient Studio Glow */}
+              {/* Arzon Seafoam & Emerald Ambient Glow */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.14)_0%,rgba(217,119,6,0.03)_50%,transparent_75%)] blur-2xl"
+                className="pointer-events-none absolute -right-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(120,189,187,0.20)_0%,rgba(0,143,131,0.06)_50%,transparent_75%)] blur-2xl"
               />
               <div className="pointer-events-none absolute -right-12 -top-14 h-56 w-56 rounded-full border border-white/10" />
+              <div className="pointer-events-none absolute -right-2 top-2 h-40 w-40 rounded-full border border-white/10" />
 
               <div>
                 {/* Header Utility Rail */}
                 <div className="relative z-10 flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/10 px-2.5 py-0.5 text-[9px] font-mono font-semibold uppercase tracking-wider text-[#FDE68A]">
-                    <Trophy className="h-2.5 w-2.5 text-[#F59E0B] shrink-0" />
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#9BD8D0]/30 bg-white/10 px-2.5 py-0.5 text-[9px] font-mono font-semibold uppercase tracking-wider text-[#9BD8D0]">
+                    <Award className="h-3 w-3 text-[#E7C982] shrink-0" />
                     Recognition · 04-05 Nov 2026
                   </span>
-                  <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/50">
+                  <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/70">
                     SARSD · New Delhi
                   </span>
                 </div>
@@ -319,44 +320,44 @@ export function ArzonHomeIntelligence() {
                     <h3 className="mt-2 text-[22px] sm:text-[25px] font-bold leading-[1.08] tracking-[-0.04em] text-white">
                       Global Impact Award
                     </h3>
-                    <p className="mt-2 text-[12px] leading-relaxed text-slate-300 font-normal">
+                    <p className="mt-2 text-[12px] leading-relaxed text-white/80 font-normal">
                       Conferred to <strong className="text-white font-semibold">Arzon Global Labs</strong> by the Society of Applied Research and Social Development (SARSD) at the 8th ICAATAS International Conference, Malla Reddy University.
                     </p>
 
                     {/* Institutional Breakdown Box */}
-                    <div className="mt-3.5 rounded-[14px] border border-white/10 bg-white/[0.04] p-3 text-[10.5px]">
-                      <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2">
+                    <div className="mt-3.5 rounded-[14px] border border-white/15 bg-white/[0.07] p-3 text-[10.5px] backdrop-blur-sm">
+                      <div className="grid grid-cols-2 gap-2 border-b border-white/15 pb-2">
                         <div>
-                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Host Venue</span>
+                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0]">Host Venue</span>
                           <span className="font-semibold text-white">Malla Reddy University</span>
                         </div>
                         <div>
-                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Conferring Body</span>
+                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0]">Conferring Body</span>
                           <span className="font-semibold text-white">SARSD (Regd. Govt. of India)</span>
                         </div>
                       </div>
                       <div className="pt-2">
-                        <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Scope of Award</span>
-                        <span className="text-slate-300">Workforce Development & Practical Healthcare Skilling Model</span>
+                        <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0]">Scope of Award</span>
+                        <span className="text-white/90">Workforce Development & Practical Healthcare Skilling Model</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Right Column: Physical Award Plaque Proof (Directly placed in former TASK slot space) */}
+                  {/* Right Column: Physical Award Plaque Proof (Positioned in former TASK slot space) */}
                   <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[230px] xl:w-[250px]">
-                    <div className="relative h-[230px] sm:h-[245px] w-full max-w-[220px] overflow-hidden rounded-[16px] border border-white/10 bg-[#080E13] p-2 flex items-center justify-center shadow-inner group-hover:border-white/20 transition-colors">
+                    <div className="relative h-[230px] sm:h-[245px] w-full max-w-[220px] overflow-hidden rounded-[16px] border border-white/15 bg-[#052F2B] p-2 flex items-center justify-center shadow-inner group-hover:border-white/25 transition-colors">
                       {/* Radial spotlight behind plaque */}
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.20)_0%,rgba(217,119,6,0.05)_55%,transparent_75%)] blur-md"
+                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,143,131,0.32)_0%,rgba(7,63,57,0.10)_60%,transparent_80%)] blur-md"
                       />
                       <img
                         src="/images/credentials/trophy-master-black.jpg"
                         alt="Official 2026 Global Impact Award Plaque presented to Arzon Global Labs"
-                        className="relative z-10 h-full w-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        className="relative z-10 h-full w-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                         loading="lazy"
                       />
-                      <span className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap rounded-full bg-black/80 backdrop-blur-md border border-white/15 px-2.5 py-0.5 text-[8.5px] font-mono font-medium text-[#FDE68A] shadow-md">
+                      <span className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap rounded-full bg-[#032622]/90 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[8.5px] font-mono font-medium text-[#A9E0D8] shadow-md">
                         Official Award Trophy Plaque
                       </span>
                     </div>
@@ -365,12 +366,12 @@ export function ArzonHomeIntelligence() {
               </div>
 
               {/* Action Link Rail */}
-              <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-[11px] font-semibold text-white">
-                <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-[#FDE68A]">
+              <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/15 pt-3 text-[11px] font-semibold text-[#A9E0D8]">
+                <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-white">
                   View public announcement
                   <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
-                <span className="font-mono text-[9px] text-white/50">LinkedIn Verified</span>
+                <span className="font-mono text-[9px] text-white/60">LinkedIn Verified</span>
               </div>
             </a>
 

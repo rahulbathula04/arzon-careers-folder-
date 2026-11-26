@@ -28,6 +28,13 @@ html {
   --font-handwriting: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
+  /* Original Arzon Global teal / seafoam brand utilities */
+  --color-arzon-deep-teal: var(--arzon-brand-deep-teal);
+  --color-arzon-teal: var(--arzon-brand-teal);
+  --color-arzon-seafoam: var(--arzon-brand-seafoam);
+  --color-arzon-mint: var(--arzon-brand-mint);
+  --color-arzon-ice: var(--arzon-brand-ice);
+
   /* Arzon Healthcare Career Intelligence Palette */
   --color-arzon-ink: var(--arzon-navy-950);
   --color-warm-paper: var(--arzon-surface);

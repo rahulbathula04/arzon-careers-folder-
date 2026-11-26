@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUpRight,
-  BookOpen,
   BriefcaseBusiness,
   Check,
   CheckCircle2,
@@ -11,14 +10,11 @@ import {
   ClipboardCheck,
   FileCheck2,
   FileSearch,
-  GraduationCap,
   Layers3,
   Microscope,
   Search,
   ShieldCheck,
-  Stethoscope,
   UserRound,
-  Workflow,
 } from "lucide-react";
 import { LINKS } from "@/components/landing/constants";
 
@@ -268,7 +264,7 @@ export function ArzonHomeIntelligence() {
 
           <div className="relative z-10 min-w-0">
             <ProductPreview compact />
-            <p className="mt-3 text-center type-caption text-ink-muted">
+            <p className="mt-3 text-center type-caption text-ink-mute">
               Product preview · Synthetic training data · Interface shown for illustration
             </p>
           </div>
@@ -308,7 +304,7 @@ export function ArzonHomeIntelligence() {
           />
           <div className="grid gap-4 lg:grid-cols-2">
             <article className="rounded-3xl border border-arzon-seafoam/30 bg-white p-6 sm:p-8">
-              <p className="type-meta text-ink-muted">WHAT A PROFILE CAN TELL YOU</p>
+              <p className="type-meta text-ink-mute">WHAT A PROFILE CAN TELL YOU</p>
               <h3 className="type-h2 mt-3 text-arzon-deep-teal">Your background</h3>
               <p className="type-body-sm mt-2 text-ink-soft">Education, specialisation, projects, internships, certifications and the skills you report having.</p>
               <ul className="mt-6 space-y-3">
@@ -332,7 +328,7 @@ export function ArzonHomeIntelligence() {
               </ul>
             </article>
           </div>
-          <p className="mx-auto mt-6 max-w-3xl text-center type-caption text-ink-muted">
+          <p className="mx-auto mt-6 max-w-3xl text-center type-caption text-ink-mute">
             Neither a degree nor a single simulation tells the whole story. Arzon brings profile information and task-specific evidence together, with the limits of each made clear.
           </p>
         </div>
@@ -390,7 +386,7 @@ export function ArzonHomeIntelligence() {
                   </div>
                 ))}
               </div>
-              <p className="mt-6 type-caption text-ink-muted">
+              <p className="mt-6 type-caption text-ink-mute">
                 The simulator is an educational assessment environment. It is not a production safety database, regulatory submission system or professional certification.
               </p>
               <Link to={"/career-assessment" as any} className="mt-7 inline-flex items-center gap-2 rounded-full bg-arzon-deep-teal px-6 py-3 type-label text-white transition hover:bg-arzon-teal">
@@ -500,10 +496,10 @@ export function ArzonHomeIntelligence() {
                   <p className="type-meta text-arzon-teal">ILLUSTRATIVE REPORT LAYOUT</p>
                   <h3 className="type-h3 mt-1 text-arzon-deep-teal">Candidate Capability Dossier</h3>
                 </div>
-                <span className="rounded-full bg-white px-3 py-1 type-caption text-ink-muted">Sample structure</span>
+                <span className="rounded-full bg-white px-3 py-1 type-caption text-ink-mute">Sample structure</span>
               </div>
               <div className="mt-4 rounded-2xl border border-border bg-white p-4">
-                <p className="type-meta text-ink-muted">TARGET ROLE</p>
+                <p className="type-meta text-ink-mute">TARGET ROLE</p>
                 <p className="type-label mt-1 text-arzon-deep-teal">Pharmacovigilance Associate</p>
                 <p className="type-caption mt-1 text-ink-soft">The benchmark version and research period appear on the actual report.</p>
               </div>
@@ -525,7 +521,7 @@ export function ArzonHomeIntelligence() {
                   </div>
                 ))}
               </div>
-              <p className="mt-4 type-caption text-ink-muted">Illustrative labels only. Actual results depend on the candidate's submitted profile and completed assessment.</p>
+              <p className="mt-4 type-caption text-ink-mute">Illustrative labels only. Actual results depend on the candidate's submitted profile and completed assessment.</p>
             </div>
           </div>
         </div>

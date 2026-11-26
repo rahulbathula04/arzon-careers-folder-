@@ -6,7 +6,6 @@ import {
   ArrowUpRight,
   Award,
   Building2,
-  Check,
   ChevronRight,
   CirclePlay,
   ClipboardCheck,
@@ -479,13 +478,13 @@ export function ArzonHomeIntelligence() {
 
                 <div className="mt-4 grid gap-2 sm:grid-cols-3">
                   {[
-                    [Layers3, "Role context"],
-                    [ClipboardCheck, "Practical task"],
-                    [FileCheck2, "Evidence report"],
-                  ].map(([Icon, label]) => (
-                    <div key={String(label)} className="flex items-center gap-2 rounded-xl border border-[#E5EEEB] bg-[#FAFCFB] px-3 py-3">
+                    { icon: Layers3, label: "Role context" },
+                    { icon: ClipboardCheck, label: "Practical task" },
+                    { icon: FileCheck2, label: "Evidence report" },
+                  ].map(({ icon: Icon, label }) => (
+                    <div key={label} className="flex items-center gap-2 rounded-xl border border-[#E5EEEB] bg-[#FAFCFB] px-3 py-3">
                       <Icon className="h-4 w-4 shrink-0 text-[#008F83]" />
-                      <span className="text-[10px] font-medium text-[#58736D]">{String(label)}</span>
+                      <span className="text-[10px] font-medium text-[#58736D]">{label}</span>
                     </div>
                   ))}
                 </div>

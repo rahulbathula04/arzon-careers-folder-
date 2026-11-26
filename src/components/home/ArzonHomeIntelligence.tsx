@@ -262,127 +262,128 @@ export function ArzonHomeIntelligence() {
       {/* 02 / RECOGNITIONS & INSTITUTIONAL ENGAGEMENTS */}
       <section
         id="proof"
-        className="relative bg-[#F8FAFC] py-16 sm:py-20 lg:py-24 overflow-hidden border-t border-slate-100"
+        className="relative bg-[#FAFAF9] py-16 sm:py-20 lg:py-24 border-t border-slate-200/60"
       >
-        {/* Soft Ambient Radial Light matching Apple design system */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-24 top-0 h-[540px] w-[580px] rounded-full bg-[radial-gradient(ellipse_at_top_right,rgba(224,242,254,0.5),transparent_65%)]"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -left-20 bottom-0 h-[440px] w-[480px] rounded-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(236,253,245,0.4),transparent_65%)]"
-        />
-
-        <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
-          {/* Eyebrow badge pill */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-slate-200/90 bg-white/95 px-3.5 py-1 text-[11px] font-semibold text-slate-800 shadow-sm backdrop-blur-md">
-            <Trophy className="h-3.5 w-3.5 text-amber-500" />
-            <span>Recognitions & Institutional Engagements</span>
-          </div>
-
-          {/* Heading + Description Split */}
-          <div className="mb-10 flex flex-col justify-between gap-6 sm:mb-12 lg:flex-row lg:items-end">
-            <div>
-              <h2 className="text-[clamp(2.3rem,4vw,3.4rem)] font-extrabold leading-[1.04] tracking-[-0.04em] text-slate-900">
-                Credibility Built Through<br />
-                Real-World Impact
+        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+          {/* Minimal, High-Value Section Header */}
+          <div className="mb-10 sm:mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-[620px]">
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white px-3 py-1 text-[11px] font-mono font-medium uppercase tracking-[0.16em] text-slate-600 shadow-2xs">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#008F83]" />
+                Institutional Engagements & Recognition
+              </div>
+              <h2 className="text-[32px] sm:text-[42px] font-bold tracking-tight text-slate-900 leading-[1.08]">
+                Credibility built through real-world impact.
               </h2>
             </div>
-            <p className="max-w-[480px] text-[13.5px] sm:text-[14px] leading-relaxed text-slate-500 font-normal">
-              Industry recognition, academic partnerships, and global participation that validate our mission to build industry-ready talent in healthcare and life sciences.
+            <p className="max-w-[460px] text-[14px] leading-relaxed text-slate-600">
+              Every partnership, conference presence, and institutional dialogue is documented with public records to maintain our high standard of transparency.
             </p>
           </div>
 
-          <div className="grid gap-5 sm:gap-6 lg:grid-cols-12">
+          {/* Clean 2x2 High-Value Grid */}
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-7">
             {/* Card 1: 2026 Global Impact Award */}
             <a
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
-              rel="noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[28px] border border-white/10 bg-[#0B0F15] p-6 sm:p-8 text-white shadow-[0_20px_50px_rgba(0,0,0,0.22)] ring-1 ring-inset ring-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] lg:col-span-7 min-h-[380px]"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col justify-between rounded-[22px] border border-slate-900 bg-[#0B0F15] p-7 sm:p-8 text-white shadow-[0_12px_36px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-700"
             >
-              {/* Full Card Ambient Background Image with Stage Lighting & Laurel Trophy */}
-              <div className="pointer-events-none absolute inset-0 overflow-hidden">
-                <img
-                  src="/images/credentials/card1-stage-flawless.jpg"
-                  alt="2026 Global Impact Award official trophy on illuminated pedestal"
-                  className="h-full w-full object-cover object-right md:object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                  loading="eager"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F15]/90 via-[#0B0F15]/40 to-transparent md:via-[#0B0F15]/20" />
-              </div>
-
-              {/* Left Content Column */}
-              <div className="relative z-10 flex h-full flex-col justify-between max-w-full md:max-w-[52%]">
-                <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/[0.1] px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#F5DEB3] backdrop-blur-md">
-                    <Trophy className="h-3 w-3 text-[#F5DEB3]" />
-                    RECOGNITION · 04-05 NOV 2026
+              <div>
+                <div className="flex items-center justify-between gap-3 pb-5 border-b border-white/10">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-amber-300">
+                    <Trophy className="h-3 w-3 text-amber-400" />
+                    Recognition · 04-05 Nov 2026
                   </span>
+                  <span className="text-[11px] font-mono text-slate-400">
+                    SARSD · New Delhi
+                  </span>
+                </div>
 
-                  <h3 className="mt-5 text-[28px] sm:text-[34px] font-bold tracking-[-0.035em] text-white leading-[1.08]">
-                    2026 Global<br />
-                    Impact Award
+                <div className="mt-6">
+                  <h3 className="text-[24px] sm:text-[28px] font-bold tracking-tight text-white leading-snug">
+                    2026 Global Impact Award
                   </h3>
-
-                  <p className="mt-3.5 text-[12.5px] sm:text-[13px] leading-relaxed text-slate-200/90 font-normal">
-                    Presented by SARSD at the 8th ICAATAS International Conference, Malla Reddy University, recognizing Arzon's practical healthcare skilling model.
+                  <p className="mt-3 text-[13.5px] leading-relaxed text-slate-300 font-normal">
+                    Conferred by the Society of Applied Research and Social Development (SARSD) at the 8th ICAATAS International Conference, Malla Reddy University.
                   </p>
                 </div>
 
-                <div className="mt-8">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-[12px] font-bold text-slate-900 shadow-md transition group-hover:bg-slate-100 group-hover:gap-2.5 active:scale-[0.98]">
-                    <span>View public announcement</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
+                {/* Institutional Citation Sheet */}
+                <div className="mt-6 grid grid-cols-2 gap-3 rounded-[14px] border border-white/10 bg-white/[0.04] p-4 text-[11.5px]">
+                  <div>
+                    <span className="block font-mono text-[9.5px] uppercase tracking-wider text-slate-400">Host Venue</span>
+                    <span className="mt-0.5 block font-semibold text-white/90">Malla Reddy University</span>
+                  </div>
+                  <div>
+                    <span className="block font-mono text-[9.5px] uppercase tracking-wider text-slate-400">Conferring Body</span>
+                    <span className="mt-0.5 block font-semibold text-white/90">SARSD (Regd. Govt. of India)</span>
+                  </div>
+                  <div className="col-span-2 pt-2 border-t border-white/[0.08]">
+                    <span className="block font-mono text-[9.5px] uppercase tracking-wider text-slate-400">Scope of Award</span>
+                    <span className="mt-0.5 block text-slate-200">Workforce Development & Practical Healthcare Skilling Model</span>
+                  </div>
                 </div>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between pt-4 border-t border-white/10">
+                <span className="inline-flex items-center gap-2 text-[12.5px] font-semibold text-white group-hover:text-amber-300 transition-colors">
+                  View public announcement
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  LinkedIn Verified
+                </span>
               </div>
             </a>
 
-            {/* Card 2: Campus Outreach — Malla Reddy University */}
+            {/* Card 2: Malla Reddy University (Authentic Table Photo) */}
             <a
               href={MALLA_REDDY_LINKEDIN}
               target="_blank"
-              rel="noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-5 min-h-[380px]"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col justify-between rounded-[22px] border border-slate-200/90 bg-white p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
             >
               <div>
-                {/* Header Utility Rail */}
-                <div className="flex items-center justify-between gap-2 pb-3.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EBF5F3] px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
+                <div className="flex items-center justify-between gap-3 pb-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#EBF5F3] px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
                     <GraduationCap className="h-3.5 w-3.5 text-[#008F83]" />
-                    CAMPUS OUTREACH · HYDERABAD
+                    Campus Outreach · Hyderabad
                   </span>
                   <span className="text-[11px] font-mono text-slate-400 font-medium">
                     Academic Session
                   </span>
                 </div>
 
-                {/* Media Viewport - Authentic High Quality Meeting Photo */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[16px] sm:rounded-[18px] border border-slate-200/80 bg-slate-100 mt-1">
+                {/* Authentic Conference Table Photo */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[14px] border border-slate-200/80 bg-slate-100">
                   <img
-                    src="/images/credentials/malla-reddy-session-hq.jpg"
+                    src="/images/credentials/malla-reddy-authentic-table.jpg"
                     alt="Arzon Global leadership meeting with Malla Reddy University Dean and academic faculty"
-                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     loading="lazy"
                   />
                 </div>
-              </div>
 
-              {/* Bottom Content Body */}
-              <div className="pt-4">
-                <h3 className="text-[20px] sm:text-[22px] font-bold text-slate-900 tracking-[-0.03em] leading-tight">
-                  Malla Reddy University
-                </h3>
-                <div className="mt-2.5 flex items-end justify-between gap-3">
-                  <p className="text-[12px] sm:text-[12.5px] leading-relaxed text-slate-500 line-clamp-3">
+                <div className="mt-5">
+                  <h3 className="text-[21px] sm:text-[23px] font-bold text-slate-900 tracking-tight leading-tight">
+                    Malla Reddy University
+                  </h3>
+                  <p className="mt-2 text-[13px] leading-relaxed text-slate-600">
                     Arzon met with the Dean and academic faculty to present its skills assessment architecture, aligning campus curricula with verified clinical role expectations.
                   </p>
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-slate-50 text-slate-700 shadow-sm transition group-hover:bg-slate-900 group-hover:text-white group-hover:border-slate-900">
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
                 </div>
+              </div>
+
+              <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="inline-flex items-center gap-2 text-[12.5px] font-semibold text-[#00796F] group-hover:text-[#004B45] transition-colors">
+                  Read the campus briefing
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  Public Briefing
+                </span>
               </div>
             </a>
 
@@ -390,77 +391,102 @@ export function ArzonHomeIntelligence() {
             <a
               href={LINKEDIN}
               target="_blank"
-              rel="noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-6"
+              rel="noopener noreferrer"
+              className="group relative flex flex-col justify-between rounded-[22px] border border-slate-200/90 bg-white p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.06)]"
             >
               <div>
-                {/* Header Utility Rail */}
-                <div className="flex items-center justify-between gap-2 pb-3.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700 border border-slate-200">
+                <div className="flex items-center justify-between gap-3 pb-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-700 border border-slate-200">
                     <Users className="h-3.5 w-3.5 text-slate-600" />
-                    INDUSTRY PARTICIPATION · 2026
+                    Industry Forum · 2026
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-400 font-medium">
+                    Clinical Data Science
                   </span>
                 </div>
 
-                {/* Split Content: Left Text / Right Minister Card */}
-                <div className="mt-2 grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-5 items-center">
+                {/* Minimal Split: Left Narrative + Right Clean Card */}
+                <div className="grid grid-cols-1 sm:grid-cols-[1.2fr_1fr] gap-4 items-center mt-2">
                   <div>
-                    <h3 className="text-[19px] sm:text-[21px] font-bold text-slate-900 tracking-tight leading-snug">
+                    <h3 className="text-[20px] sm:text-[22px] font-bold text-slate-900 tracking-tight leading-snug">
                       PHUSE APAC Connect
                     </h3>
-                    <p className="mt-2 text-[12px] sm:text-[12.5px] text-slate-500 leading-relaxed">
-                      Arzon participated in the premier clinical data science assembly, engaging with global leaders to ensure candidate simulations mirror live CDISC standards.
+                    <p className="mt-2 text-[12.5px] text-slate-600 leading-relaxed">
+                      Participated in the premier clinical data science assembly, ensuring Arzon candidate simulations mirror live CDISC standards.
                     </p>
-                    <div className="mt-4 inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-[10.5px] font-medium text-slate-600 border border-slate-200/80">
-                      <span>Keynote: D. Sridhar Babu (IT Minister)</span>
+                    <div className="mt-3.5 inline-flex items-center rounded-md bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-700 border border-slate-200/70">
+                      Keynote: Shri D. Sridhar Babu (IT Minister)
                     </div>
                   </div>
 
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[16px] sm:rounded-[18px] border border-blue-900/30 bg-[#091E5A] shadow-sm">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] border border-blue-900/20 bg-[#091E5A] shadow-2xs">
                     <img
                       src="/images/credentials/phuse-minister-portrait.jpg"
                       alt="PHUSE APAC Connect 2026 with Shri D. Sridhar Babu"
-                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                       loading="lazy"
                     />
-                    <div className="absolute bottom-2.5 right-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-white text-slate-900 shadow-md transition group-hover:scale-105">
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </div>
                   </div>
                 </div>
               </div>
+
+              <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="inline-flex items-center gap-2 text-[12.5px] font-semibold text-slate-800 group-hover:text-slate-950 transition-colors">
+                  View industry participation
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  Global Standards
+                </span>
+              </div>
             </a>
 
-            {/* Card 4: Institutional Integrity Standard */}
-            <div className="flex flex-col justify-between rounded-[26px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-6">
+            {/* Card 4: Institutional Governance Standard */}
+            <div className="flex flex-col justify-between rounded-[22px] border border-emerald-900/10 bg-white p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.03)]">
               <div>
-                <div className="flex items-center justify-between gap-2 pb-3.5">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">
+                <div className="flex items-center justify-between gap-3 pb-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">
                     <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                    INSTITUTIONAL GOVERNANCE
-                  </span>
-                  <span className="text-[11px] font-mono text-slate-400 font-medium">
                     Public Standard
                   </span>
+                  <span className="text-[11px] font-mono text-slate-400 font-medium">
+                    Integrity Policy
+                  </span>
                 </div>
 
-                <h3 className="mt-2 text-[18px] sm:text-[20px] font-bold text-slate-900 tracking-tight leading-snug">
-                  Engagement is not the same as endorsement.
-                </h3>
-                <p className="mt-2 text-[12px] sm:text-[12.5px] text-slate-500 leading-relaxed">
-                  We publish the exact scope of every event clearly. A university visit, conference presence, or public facility launch is never represented as an exclusive hiring guarantee or government accreditation.
-                </p>
+                <div className="mt-2">
+                  <h3 className="text-[20px] sm:text-[22px] font-bold text-slate-900 tracking-tight leading-snug">
+                    Engagement is not the same as endorsement.
+                  </h3>
+                  <p className="mt-2 text-[12.5px] text-slate-600 leading-relaxed">
+                    We publish the exact scope of every event clearly. A university visit, conference presence, or public facility launch is never represented as an exclusive hiring guarantee or government accreditation.
+                  </p>
+                </div>
+
+                {/* Audit Checklist */}
+                <div className="mt-4 space-y-2 rounded-[12px] bg-slate-50/80 p-3.5 border border-slate-100">
+                  <div className="flex items-center gap-2 text-[12px] font-medium text-slate-700">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
+                    <span>Public sources linked for every milestone</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px] font-medium text-slate-700">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
+                    <span>Objective capability evidence over marketing claims</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[12px] font-medium text-slate-700">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
+                    <span>Clinical data simulations governed by CDISC & SDTM guidelines</span>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-slate-100">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span className="text-[12px] font-medium text-slate-700">Public sources linked for every milestone</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span className="text-[12px] font-medium text-slate-700">Objective capability evidence over marketing claims</span>
-                </div>
+              <div className="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
+                <span className="text-[12px] font-semibold text-emerald-800">
+                  Arzon Public Transparency Charter
+                </span>
+                <span className="text-[10px] font-mono text-slate-400">
+                  Verified Audit
+                </span>
               </div>
             </div>
           </div>

@@ -79,7 +79,7 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
   {
     key: "candidates",
     label: "For Candidates",
-    to: "/careers",
+    to: "/career-engine/start",
     description: "Explore healthcare careers and understand your role alignment",
     flyout: {
       category: {

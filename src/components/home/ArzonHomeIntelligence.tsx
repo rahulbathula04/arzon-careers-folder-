@@ -262,12 +262,16 @@ export function ArzonHomeIntelligence() {
       {/* 02 / RECOGNITIONS & INSTITUTIONAL ENGAGEMENTS */}
       <section
         id="proof"
-        className="relative bg-white py-16 sm:py-20 lg:py-24 overflow-hidden"
+        className="relative bg-[#F8FAFC] py-16 sm:py-20 lg:py-24 overflow-hidden border-t border-slate-100"
       >
-        {/* Soft Ambient Radial Light at top right */}
+        {/* Soft Ambient Radial Light matching Apple design system */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-24 top-0 h-[480px] w-[540px] rounded-full bg-[radial-gradient(ellipse_at_top_right,rgba(224,242,254,0.45),transparent_65%)]"
+          className="pointer-events-none absolute -right-24 top-0 h-[540px] w-[580px] rounded-full bg-[radial-gradient(ellipse_at_top_right,rgba(224,242,254,0.5),transparent_65%)]"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -left-20 bottom-0 h-[440px] w-[480px] rounded-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(236,253,245,0.4),transparent_65%)]"
         />
 
         <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
@@ -296,23 +300,23 @@ export function ArzonHomeIntelligence() {
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] sm:rounded-[28px] border border-white/10 bg-[#0B1015] p-6 sm:p-8 text-white shadow-[0_20px_50px_rgba(0,0,0,0.22)] ring-1 ring-inset ring-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] lg:col-span-7 min-h-[380px]"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[28px] border border-white/10 bg-[#0B0F15] p-6 sm:p-8 text-white shadow-[0_20px_50px_rgba(0,0,0,0.22)] ring-1 ring-inset ring-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_28px_60px_rgba(0,0,0,0.32)] lg:col-span-7 min-h-[380px]"
             >
-              {/* Background Trophy Visual on the right */}
-              <div className="pointer-events-none md:absolute md:inset-y-0 md:right-0 md:w-[50%] flex items-center justify-center overflow-hidden">
+              {/* Full Card Ambient Background Image with Stage Lighting & Laurel Trophy */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden">
                 <img
-                  src="/images/credentials/trophy-apple-pedestal.jpg"
-                  alt="2026 Global Impact Award crystal trophy on illuminated pedestal"
-                  className="h-full w-full object-contain object-right md:scale-[1.04] transition-transform duration-700 ease-out group-hover:scale-[1.08]"
-                  loading="lazy"
+                  src="/images/credentials/card1-stage-flawless.jpg"
+                  alt="2026 Global Impact Award official trophy on illuminated pedestal"
+                  className="h-full w-full object-cover object-right md:object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                  loading="eager"
                 />
-                <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#0B1015] to-transparent hidden md:block" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0F15]/90 via-[#0B0F15]/40 to-transparent md:via-[#0B0F15]/20" />
               </div>
 
               {/* Left Content Column */}
-              <div className="relative z-10 flex h-full flex-col justify-between max-w-full md:max-w-[54%]">
+              <div className="relative z-10 flex h-full flex-col justify-between max-w-full md:max-w-[52%]">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#F5DEB3]">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/[0.1] px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#F5DEB3] backdrop-blur-md">
                     <Trophy className="h-3 w-3 text-[#F5DEB3]" />
                     RECOGNITION · 04-05 NOV 2026
                   </span>
@@ -322,7 +326,7 @@ export function ArzonHomeIntelligence() {
                     Impact Award
                   </h3>
 
-                  <p className="mt-3 text-[12.5px] sm:text-[13px] leading-relaxed text-slate-300">
+                  <p className="mt-3.5 text-[12.5px] sm:text-[13px] leading-relaxed text-slate-200/90 font-normal">
                     Presented by SARSD at the 8th ICAATAS International Conference, Malla Reddy University, recognizing Arzon's practical healthcare skilling model.
                   </p>
                 </div>
@@ -341,7 +345,7 @@ export function ArzonHomeIntelligence() {
               href={MALLA_REDDY_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-5 min-h-[380px]"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-5 min-h-[380px]"
             >
               <div>
                 {/* Header Utility Rail */}
@@ -355,18 +359,14 @@ export function ArzonHomeIntelligence() {
                   </span>
                 </div>
 
-                {/* Media Viewport */}
+                {/* Media Viewport - Authentic High Quality Meeting Photo */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[16px] sm:rounded-[18px] border border-slate-200/80 bg-slate-100 mt-1">
                   <img
-                    src="/images/credentials/card-mallareddy-apple.jpg"
+                    src="/images/credentials/malla-reddy-session-hq.jpg"
                     alt="Arzon Global leadership meeting with Malla Reddy University Dean and academic faculty"
                     className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-                  <span className="absolute bottom-2.5 left-2.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-0.5 text-[9.5px] font-mono text-white">
-                    Dean & Faculty Academic Session
-                  </span>
                 </div>
               </div>
 
@@ -375,7 +375,7 @@ export function ArzonHomeIntelligence() {
                 <h3 className="text-[20px] sm:text-[22px] font-bold text-slate-900 tracking-[-0.03em] leading-tight">
                   Malla Reddy University
                 </h3>
-                <div className="mt-2 flex items-end justify-between gap-3">
+                <div className="mt-2.5 flex items-end justify-between gap-3">
                   <p className="text-[12px] sm:text-[12.5px] leading-relaxed text-slate-500 line-clamp-3">
                     Arzon met with the Dean and academic faculty to present its skills assessment architecture, aligning campus curricula with verified clinical role expectations.
                   </p>
@@ -391,7 +391,7 @@ export function ArzonHomeIntelligence() {
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[24px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-6"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-6"
             >
               <div>
                 {/* Header Utility Rail */}
@@ -416,9 +416,9 @@ export function ArzonHomeIntelligence() {
                     </div>
                   </div>
 
-                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[16px] border border-blue-900/30 bg-[#091E5A] shadow-sm">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[16px] sm:rounded-[18px] border border-blue-900/30 bg-[#091E5A] shadow-sm">
                     <img
-                      src="/images/credentials/phuse-minister-card.jpg"
+                      src="/images/credentials/phuse-minister-portrait.jpg"
                       alt="PHUSE APAC Connect 2026 with Shri D. Sridhar Babu"
                       className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       loading="lazy"
@@ -432,7 +432,7 @@ export function ArzonHomeIntelligence() {
             </a>
 
             {/* Card 4: Institutional Integrity Standard */}
-            <div className="flex flex-col justify-between rounded-[24px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-6">
+            <div className="flex flex-col justify-between rounded-[26px] sm:rounded-[28px] border border-slate-200/90 bg-white p-5 sm:p-6 shadow-[0_10px_35px_rgba(0,0,0,0.04)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)] lg:col-span-6">
               <div>
                 <div className="flex items-center justify-between gap-2 pb-3.5">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">

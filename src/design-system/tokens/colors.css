@@ -7,6 +7,14 @@
  */
 
 :root {
+
+  /* Original Arzon Global teal / seafoam identity, retained from the legacy site */
+  --arzon-brand-deep-teal: #004B45;
+  --arzon-brand-teal: #008F83;
+  --arzon-brand-seafoam: #78BDBB;
+  --arzon-brand-mint: #DFF1EF;
+  --arzon-brand-ice: #F4FAF9;
+
   /* Brand */
   --arzon-navy-950: #071A4A;
   --arzon-navy-900: #0B255A;

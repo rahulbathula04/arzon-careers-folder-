@@ -48,7 +48,7 @@ const WorkshopLeadSchema = z.object({
 export type WorkshopLeadInput = z.infer<typeof WorkshopLeadSchema>;
 
 export const submitWorkshopLead = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => WorkshopLeadSchema.parse(data))
+  .validator((data: unknown) => WorkshopLeadSchema.parse(data))
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 
@@ -393,7 +393,7 @@ const AnalyticsFilterSchema = z.object({
 
 export const getLiveWebsiteAnalytics = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => AnalyticsFilterSchema.parse(data || {}))
+  .validator((data: unknown) => AnalyticsFilterSchema.parse(data || {}))
   .handler(async ({ data, context }): Promise<LiveWebsiteAnalytics> => {
     await requireStaff(context.userId);
 
@@ -1390,7 +1390,7 @@ const UpdateUnifiedStatusSchema = z.object({
 
 export const updateUnifiedResponseStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => UpdateUnifiedStatusSchema.parse(data))
+  .validator((data: unknown) => UpdateUnifiedStatusSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -1551,7 +1551,7 @@ const FastCounsellorLeadSchema = z.object({
 });
 
 export const submitFastCounsellorLead = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => FastCounsellorLeadSchema.parse(data))
+  .validator((data: unknown) => FastCounsellorLeadSchema.parse(data))
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
     const rl = await checkRateLimit(ip, "fast_counsellor_lead", 12, 60, true);

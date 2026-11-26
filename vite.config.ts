@@ -26,7 +26,20 @@ export default defineConfig({
     },
     build: {
       sourcemap: false,
-      chunkSizeWarningLimit: 1500,
+      chunkSizeWarningLimit: 3000,
+      rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          if (
+            warning.code === "MODULE_LEVEL_DIRECTIVE" ||
+            warning.code === "DYNAMIC_IMPORT_WILL_NOT_MOVE" ||
+            warning.message?.includes("Module level directives cause errors when bundled") ||
+            warning.message?.includes("dynamic import will not move module into another chunk")
+          ) {
+            return;
+          }
+          defaultHandler(warning);
+        },
+      },
     },
   },
 });

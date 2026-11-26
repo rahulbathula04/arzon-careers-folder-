@@ -31,7 +31,7 @@ const RecordSchema = z.object({
 
 export const recordLandingCopyChange = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => RecordSchema.parse(data))
+  .validator((data: unknown) => RecordSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const { data: userRow } = await supabaseAdmin.auth.admin.getUserById(context.userId);

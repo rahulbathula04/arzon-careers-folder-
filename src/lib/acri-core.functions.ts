@@ -111,7 +111,7 @@ function getAcriAdminDb(): any {
 // ─── 1. Apply Candidate (Pending Admissions Review) ──────────────────────────
 
 export const applyAcriCandidateFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => ApplyCandidateSchema.parse(data))
+  .validator((data: unknown) => ApplyCandidateSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     try {
@@ -170,7 +170,7 @@ export const applyAcriCandidateFn = createServerFn({ method: "POST" })
 
 export const approveAcriCandidateFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ApproveCandidateSchema.parse(data))
+  .validator((data: unknown) => ApproveCandidateSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
@@ -340,7 +340,7 @@ export async function syncAndApproveAcriApplication(
  * and retrieves their live ACRI invite code if accepted.
  */
 export const checkAcriCandidateStatusFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => CheckCandidateStatusSchema.parse(data))
+  .validator((data: unknown) => CheckCandidateStatusSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     const cleanEmail = (data.email || "").toLowerCase().trim();
@@ -520,7 +520,7 @@ export const getAcriAdminCohortFn = createServerFn({ method: "GET" })
 
 export const setAcriCohortCapacityFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ capacity: z.number().int().min(10).max(100000) }).parse(data))
+  .validator((data: unknown) => z.object({ capacity: z.number().int().min(10).max(100000) }).parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = getAcriAdminDb();
@@ -544,7 +544,7 @@ export const setAcriCohortCapacityFn = createServerFn({ method: "POST" })
 // ─── 2. Verify Invite Code ───────────────────────────────────────────────────
 
 export const verifyAcriInviteFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => VerifyInviteSchema.parse(data))
+  .validator((data: unknown) => VerifyInviteSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     const cleanCode = data.code.trim().toUpperCase();
@@ -582,7 +582,7 @@ export const verifyAcriInviteFn = createServerFn({ method: "POST" })
   });
 
 export const startAcriSessionFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => StartSessionSchema.parse(data))
+  .validator((data: unknown) => StartSessionSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     const { data: rows, error } = await sb.rpc("acri_start_session", {
@@ -619,7 +619,7 @@ export const startAcriSessionFn = createServerFn({ method: "POST" })
   });
 
 export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => AutosaveSessionSchema.parse(data))
+  .validator((data: unknown) => AutosaveSessionSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     try {
@@ -653,7 +653,7 @@ export const autosaveAcriSessionFn = createServerFn({ method: "POST" })
 // ─── 5. Server-Side Assessment Evaluation & Credential Issuance ──────────────
 
 export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => SubmitAssessmentSchema.parse(data))
+  .validator((data: unknown) => SubmitAssessmentSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     const { data: session, error: sessionError } = await sb.from("acri_sessions")
@@ -822,7 +822,7 @@ export const submitAcriAssessmentFn = createServerFn({ method: "POST" })
 // ─── 6. Get Result Dossier ───────────────────────────────────────────────────
 
 export const getAcriResultFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => GetResultSchema.parse(data))
+  .validator((data: unknown) => GetResultSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
 
@@ -872,7 +872,7 @@ export const getAcriResultFn = createServerFn({ method: "POST" })
 // ─── 7. Public Credential Verification ───────────────────────────────────────
 
 export const verifyAcriCredentialFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => VerifyCredentialSchema.parse(data))
+  .validator((data: unknown) => VerifyCredentialSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = getAcriAdminDb();
     const cleanId = data.credentialId.trim();

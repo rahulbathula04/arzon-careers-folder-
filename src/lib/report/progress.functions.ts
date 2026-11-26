@@ -30,7 +30,7 @@ export const getReportProgress = createServerFn({ method: "GET" })
 
 export const upsertReportProgress = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { quizProfile: any; employerTracker: Record<string, any> }) => {
+  .validator((input: { quizProfile: any; employerTracker: Record<string, any> }) => {
     if (!input || typeof input !== "object") throw new Error("Invalid payload");
     const tracker = input.employerTracker;
     if (tracker && typeof tracker !== "object") throw new Error("Invalid tracker");

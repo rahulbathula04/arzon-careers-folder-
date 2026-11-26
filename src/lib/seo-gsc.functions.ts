@@ -105,7 +105,7 @@ export type GscOverview = {
 
 export const getGscOverview = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ days: z.number().int().min(7).max(90).default(28) }).parse)
+  .validator(z.object({ days: z.number().int().min(7).max(90).default(28) }).parse)
   .handler(async ({ data, context }): Promise<GscOverview> => {
     await requireAdmin(context.userId);
 
@@ -303,7 +303,7 @@ export const pingGsc = createServerFn({ method: "POST" })
 
 export const listSeoAlerts = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ includeAcknowledged: z.boolean().default(false) }).parse)
+  .validator(z.object({ includeAcknowledged: z.boolean().default(false) }).parse)
   .handler(async ({ data, context }): Promise<{ alerts: SeoAlert[]; config: SeoAlertConfig }> => {
     await requireAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -333,7 +333,7 @@ export const listSeoAlerts = createServerFn({ method: "POST" })
 
 export const acknowledgeSeoAlert = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ id: z.string().uuid() }).parse)
+  .validator(z.object({ id: z.string().uuid() }).parse)
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -347,7 +347,7 @@ export const acknowledgeSeoAlert = createServerFn({ method: "POST" })
 
 export const updateSeoAlertConfig = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(
+  .validator(
     z.object({
       min_impressions: z.number().int().min(1).max(10000),
       drop_pct: z.number().min(5).max(95),
@@ -399,7 +399,7 @@ export type SitemapSubmitResult = {
 /** Submit (or re-submit) the sitemap to Google Search Console, then read back its status. */
 export const submitSitemap = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ feedpath: z.string().url().optional() }).parse)
+  .validator(z.object({ feedpath: z.string().url().optional() }).parse)
   .handler(async ({ data, context }): Promise<SitemapSubmitResult> => {
     await requireAdmin(context.userId);
     const siteUrl = await getConfiguredSiteUrl();
@@ -465,7 +465,7 @@ export type UrlInspectionResult = {
 /** Query the URL Inspection API for a single URL on the connected property. */
 export const inspectUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ inspectionUrl: z.string().url() }).parse)
+  .validator(z.object({ inspectionUrl: z.string().url() }).parse)
   .handler(async ({ data, context }): Promise<UrlInspectionResult> => {
     await requireAdmin(context.userId);
     const siteUrl = await getConfiguredSiteUrl();
@@ -555,7 +555,7 @@ export const getGscSettings = createServerFn({ method: "POST" })
 
 export const saveGscSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(z.object({ site_url: z.string().min(4).max(255) }).parse)
+  .validator(z.object({ site_url: z.string().min(4).max(255) }).parse)
   .handler(async ({ data, context }): Promise<GscSettings> => {
     await requireAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");

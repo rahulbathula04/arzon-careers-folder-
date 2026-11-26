@@ -12,7 +12,7 @@ import { requireResultsExport } from "@/server/auth-guards.server";
  */
 export const recordAdminExport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator(
+  .validator(
     (input: { resource: string; rowCount: number; details?: Record<string, unknown> }) =>
       z
         .object({

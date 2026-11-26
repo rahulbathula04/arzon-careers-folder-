@@ -71,7 +71,7 @@ function serverPublicClient() {
 }
 
 export const getPercentileBenchmark = createServerFn({ method: "POST" })
-  .inputValidator((input: { stream: string | null; traitScores: Record<string, number> }) => input)
+  .validator((input: { stream: string | null; traitScores: Record<string, number> }) => input)
   .handler(async ({ data }): Promise<{ rows: BenchmarkRow[]; hidden: boolean }> => {
     const supabase = serverPublicClient();
     const streamKey = (data.stream ?? "all").trim() || "all";

@@ -106,7 +106,7 @@ export const listPublishedMoments = createServerFn({ method: "GET" }).handler(as
 
 /** Public single moment by slug. */
 export const getMomentBySlug = createServerFn({ method: "GET" })
-  .inputValidator((data: unknown) => z.object({ slug: z.string().min(1).max(120) }).parse(data))
+  .validator((data: unknown) => z.object({ slug: z.string().min(1).max(120) }).parse(data))
   .handler(async ({ data }) => {
     const sb = pub();
     const { data: m, error } = await sb
@@ -189,7 +189,7 @@ export const listMomentsAdmin = createServerFn({ method: "GET" })
 
 export const getMomentAdmin = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .validator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -244,7 +244,7 @@ const MomentInputSchema = z.object({
 
 export const createMoment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => MomentInputSchema.parse(data))
+  .validator((data: unknown) => MomentInputSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -272,7 +272,7 @@ const MomentUpdateSchema = MomentInputSchema.partial().extend({
 
 export const updateMoment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => MomentUpdateSchema.parse(data))
+  .validator((data: unknown) => MomentUpdateSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -307,7 +307,7 @@ export const updateMoment = createServerFn({ method: "POST" })
 
 export const deleteMoment = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .validator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -337,7 +337,7 @@ const AddImageSchema = z.object({
 
 export const addMomentImage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => AddImageSchema.parse(data))
+  .validator((data: unknown) => AddImageSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -379,7 +379,7 @@ export const addMomentImage = createServerFn({ method: "POST" })
 
 export const removeMomentImage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
+  .validator((data: unknown) => z.object({ id: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -418,7 +418,7 @@ export const removeMomentImage = createServerFn({ method: "POST" })
 
 export const setMomentCover = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) =>
+  .validator((data: unknown) =>
     z.object({ moment_id: z.string().uuid(), image_id: z.string().uuid() }).parse(data),
   )
   .handler(async ({ data, context }) => {
@@ -434,7 +434,7 @@ export const setMomentCover = createServerFn({ method: "POST" })
 
 export const updateMomentImage = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) =>
+  .validator((data: unknown) =>
     z
       .object({
         id: z.string().uuid(),

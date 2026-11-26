@@ -82,7 +82,7 @@ const JobUpsertSchema = z
 
 export const listJobs = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ employerId: z.string().uuid() }).parse(data))
+  .validator((data: unknown) => z.object({ employerId: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("employer_jobs")
@@ -97,7 +97,7 @@ export const listJobs = createServerFn({ method: "GET" })
 
 export const upsertJob = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => JobUpsertSchema.parse(data))
+  .validator((data: unknown) => JobUpsertSchema.parse(data))
   .handler(async ({ data, context }) => {
     const row = {
       employer_id: data.employerId,
@@ -135,7 +135,7 @@ export const upsertJob = createServerFn({ method: "POST" })
 
 export const deleteJob = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ jobId: z.string().uuid() }).parse(data))
+  .validator((data: unknown) => z.object({ jobId: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase.from("employer_jobs").delete().eq("id", data.jobId);
     if (error) throw new Error(error.message);
@@ -167,7 +167,7 @@ const ShortlistCreateSchema = z.object({
 
 export const listShortlists = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) =>
+  .validator((data: unknown) =>
     z
       .object({
         employerId: z.string().uuid(),
@@ -191,7 +191,7 @@ export const listShortlists = createServerFn({ method: "GET" })
 
 export const addShortlistCandidate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ShortlistCreateSchema.parse(data))
+  .validator((data: unknown) => ShortlistCreateSchema.parse(data))
   .handler(async ({ data, context }) => {
     const { data: inserted, error } = await context.supabase
       .from("job_shortlists")
@@ -213,7 +213,7 @@ export const addShortlistCandidate = createServerFn({ method: "POST" })
 
 export const updateShortlistStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) =>
+  .validator((data: unknown) =>
     z
       .object({
         shortlistId: z.string().uuid(),
@@ -232,7 +232,7 @@ export const updateShortlistStatus = createServerFn({ method: "POST" })
 
 export const deleteShortlist = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ shortlistId: z.string().uuid() }).parse(data))
+  .validator((data: unknown) => z.object({ shortlistId: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     const { error } = await context.supabase
       .from("job_shortlists")
@@ -268,7 +268,7 @@ const EvidenceSchema = z.object({
 
 export const submitPlacementEvidence = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => EvidenceSchema.parse(data))
+  .validator((data: unknown) => EvidenceSchema.parse(data))
   .handler(async ({ data, context }) => {
     const { data: placementId, error } = await context.supabase.rpc(
       "employer_submit_placement_evidence",
@@ -294,7 +294,7 @@ export const submitPlacementEvidence = createServerFn({ method: "POST" })
 
 export const generateDeploymentScore = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ result: z.any() }).parse(data))
+  .validator((data: unknown) => z.object({ result: z.any() }).parse(data))
   .handler(async ({ data }) => {
     const result = data.result as CareerEngineResult;
 

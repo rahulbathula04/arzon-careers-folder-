@@ -72,7 +72,7 @@ export type Prime60FunnelResult = {
 
 export const getArzonPrime60Funnel = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => Input.parse(data ?? {}))
+  .validator((data: unknown) => Input.parse(data ?? {}))
   .handler(async ({ data, context }): Promise<Prime60FunnelResult> => {
     await requireStaff(context.userId);
 

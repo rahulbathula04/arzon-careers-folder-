@@ -9,7 +9,7 @@ const inputSchema = z.object({
 });
 
 export const getAIAnalysis = createServerFn({ method: "POST" })
-  .inputValidator((i: unknown) => inputSchema.parse(i))
+  .validator((i: unknown) => inputSchema.parse(i))
   .handler(async ({ data }) => {
     try {
       const { generateAIAnalysis } = await import("./careerEngine/llm.server");

@@ -44,7 +44,7 @@ type CreateRazorpayOrderResult =
  * Reads the canonical price from the DB / fallback intent engine.
  */
 export const createRazorpayOrder = createServerFn({ method: "POST" })
-  .inputValidator((i: unknown) => inputSchema.parse(i))
+  .validator((i: unknown) => inputSchema.parse(i))
   .handler(async ({ data }): Promise<CreateRazorpayOrderResult> => {
     const correlationId = newCorrelationId();
     const allowed = await enforcePublicRateLimit("razorpay_order", 5, 60);

@@ -31,7 +31,7 @@ export type ActivityRow = {
 
 export const listAdminActivity = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ActivitySchema.parse(data ?? {}))
+  .validator((data: unknown) => ActivitySchema.parse(data ?? {}))
   .handler(
     async ({
       data,

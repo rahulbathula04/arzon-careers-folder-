@@ -21,7 +21,7 @@ const LeadMagnetSchema = z.object({
 });
 
 export const submitCareerStarterKitLead = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => LeadMagnetSchema.parse(data))
+  .validator((data: unknown) => LeadMagnetSchema.parse(data))
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
     const rl = await checkRateLimit(ip, "career_starter_kit", 5, 60, false);

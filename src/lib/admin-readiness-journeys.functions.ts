@@ -35,7 +35,7 @@ export type ReadinessJourneyRow = {
 
 export const listReadinessJourneys = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => Schema.parse(data ?? {}))
+  .validator((data: unknown) => Schema.parse(data ?? {}))
   .handler(async ({ data, context }): Promise<{ rows: ReadinessJourneyRow[] }> => {
     await requireAdmin(context.userId);
 

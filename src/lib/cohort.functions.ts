@@ -43,7 +43,7 @@ async function assertAdmin(ctx: { supabase: unknown; userId: string }): Promise<
  * Implements Upstash Redis cache-aside pattern (15s TTL) for 100x traffic scaling.
  */
 export const getCohortStatus = createServerFn({ method: "GET" })
-  .inputValidator((i: unknown) => idSchema.parse(i))
+  .validator((i: unknown) => idSchema.parse(i))
   .handler(async ({ data }): Promise<CohortStatus | null> => {
     try {
       const cacheKey = `cohort:status:${data.id}`;
@@ -133,7 +133,7 @@ const setLockSchema = z.object({
 
 export const adminSetCohortCapacity = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((i: unknown) => setCapSchema.parse(i))
+  .validator((i: unknown) => setCapSchema.parse(i))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
 
@@ -153,7 +153,7 @@ export const adminSetCohortCapacity = createServerFn({ method: "POST" })
 
 export const adminSetCohortLock = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((i: unknown) => setLockSchema.parse(i))
+  .validator((i: unknown) => setLockSchema.parse(i))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
 
@@ -198,7 +198,7 @@ const auditSchema = z.object({
 
 export const adminCohortAudit = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((i: unknown) => auditSchema.parse(i))
+  .validator((i: unknown) => auditSchema.parse(i))
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
 

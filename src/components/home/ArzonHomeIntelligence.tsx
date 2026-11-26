@@ -22,6 +22,8 @@ import {
 import { LINKS } from "@/components/landing/constants";
 
 const LINKEDIN = LINKS.linkedin;
+const MALLA_REDDY_LINKEDIN =
+  "https://www.linkedin.com/posts/arzonglobal-campusvisit-presentation-ugcPost-7459179713735995394-_bmu/?highlightedUpdateUrn=urn%3Ali%3AugcPost%3A7459179713735995394&highlightedUpdateType=SOCIAL_SHARE&origin=SOCIAL_SHARE&utm_source=social_share_send&utm_medium=android_app&rcm=ACoAAEnmUHsBc7DzVndPmNWZqFqDa73sXe72aMI&utm_campaign=whatsapp";
 
 const CAREER_PATHS = [
   {
@@ -322,7 +324,7 @@ export function ArzonHomeIntelligence() {
 
             {/* Card 2: Campus Outreach — Malla Reddy University */}
             <a
-              href={LINKEDIN}
+              href={MALLA_REDDY_LINKEDIN}
               target="_blank"
               rel="noreferrer"
               className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] sm:rounded-[26px] border border-[#E2EBE8] bg-white p-4 sm:p-5 ring-1 ring-inset ring-black/[0.02] shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_40px_rgba(0,75,69,0.10)] lg:col-span-6"
@@ -341,8 +343,8 @@ export function ArzonHomeIntelligence() {
               {/* Media Viewport (Using User-Provided Authentic Photo) */}
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[14px] sm:rounded-[16px] border border-[#E2EBE8] bg-[#F1F7F5]">
                 <img
-                  src="/images/credentials/mallareddy-university-meeting.jpg"
-                  alt="Arzon Global leadership meeting with Malla Reddy University Dean and academic faculty"
+                  src="/images/credentials/mallareddy-presentation-campus.jpg"
+                  alt="Arzon Global leadership campus visit and presentation at Malla Reddy University"
                   className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                   loading="lazy"
                 />

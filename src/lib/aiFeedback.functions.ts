@@ -16,7 +16,7 @@ const SubmitSchema = z.object({
  * No PII is collected; note field is bounded and user-controlled.
  */
 export const submitAiFeedback = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => SubmitSchema.parse(d ?? {}))
+  .validator((d: unknown) => SubmitSchema.parse(d ?? {}))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("ai_feedback").insert({

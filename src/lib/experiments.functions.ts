@@ -23,7 +23,7 @@ const Schema = z.object({
 import { createSafePublicClient } from "@/lib/supabaseEnv";
 
 export const logExperimentEvent = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => Schema.parse(data))
+  .validator((data: unknown) => Schema.parse(data))
   .handler(async ({ data }) => {
     try {
       const sb = createSafePublicClient();

@@ -23,7 +23,7 @@ const CreateSchema = z.object({
 
 export const createAdminInvite = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => CreateSchema.parse(d))
+  .validator((d: unknown) => CreateSchema.parse(d))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = supabaseAdmin;
@@ -57,7 +57,7 @@ export const listAdminInvites = createServerFn({ method: "GET" })
 
 export const revokeAdminInvite = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
+  .validator((d: unknown) => z.object({ id: z.string().uuid() }).parse(d))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = supabaseAdmin;
@@ -72,7 +72,7 @@ export const revokeAdminInvite = createServerFn({ method: "POST" })
 const LookupSchema = z.object({ token: z.string().min(8).max(128) });
 
 export const lookupAdminInvite = createServerFn({ method: "GET" })
-  .inputValidator((d: unknown) => LookupSchema.parse(d))
+  .validator((d: unknown) => LookupSchema.parse(d))
   .handler(async ({ data }) => {
     const sb = admin();
     const { data: rows, error } = await sb.rpc("lookup_admin_invite", { p_token: data.token });

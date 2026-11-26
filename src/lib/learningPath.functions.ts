@@ -97,7 +97,7 @@ export const getLearningPath = createServerFn({ method: "GET" })
 
 export const markModuleComplete = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { moduleId: string }) => input)
+  .validator((input: { moduleId: string }) => input)
   .handler(async ({ context, data }): Promise<LearningPathPayload> => {
     const { supabase, userId } = context;
     const { error } = await supabase.from("student_module_progress").upsert(

@@ -20,7 +20,7 @@ const ListSchema = z
 
 export const getAnalyticsAlerts = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ListSchema.parse(data ?? {}))
+  .validator((data: unknown) => ListSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const limit = data?.limit ?? 50;

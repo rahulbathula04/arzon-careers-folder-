@@ -25,7 +25,7 @@ const ListSchema = z.object({
 
 export const listAuditLog = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => ListSchema.parse(d ?? {}))
+  .validator((d: unknown) => ListSchema.parse(d ?? {}))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     let q = supabaseAdmin
@@ -47,7 +47,7 @@ const RestoreSchema = z.object({
 
 export const restoreRecord = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d: unknown) => RestoreSchema.parse(d))
+  .validator((d: unknown) => RestoreSchema.parse(d))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     // Table is validated against SOFT_DELETE_TABLES above; cast for the

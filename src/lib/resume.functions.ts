@@ -5,7 +5,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 export const generateAtsResume = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => z.object({ result: z.any() }).parse(data))
+  .validator((data: unknown) => z.object({ result: z.any() }).parse(data))
   .handler(async ({ data }) => {
     const result = data.result as CareerEngineResult;
 

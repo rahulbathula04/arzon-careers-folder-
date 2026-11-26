@@ -103,7 +103,7 @@ export const getWeeklyGoal = createServerFn({ method: "GET" })
 
 export const toggleWeeklyGoal = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { done: boolean }) => input)
+  .validator((input: { done: boolean }) => input)
   .handler(async ({ context, data }) => {
     const { supabase, userId } = context;
     const weekStart = currentWeekStart();

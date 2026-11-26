@@ -70,7 +70,7 @@ const ListSchema = z.object({
 
 export const listLeads = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ListSchema.parse(data ?? {}))
+  .validator((data: unknown) => ListSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -117,7 +117,7 @@ const LeadDetailSchema = z.object({ id: z.string().uuid() });
 
 export const getLeadDetail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => LeadDetailSchema.parse(data))
+  .validator((data: unknown) => LeadDetailSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -166,7 +166,7 @@ export const getLeadDetail = createServerFn({ method: "GET" })
 /** /admin/results detail drawer - gated by results-view, PII masked unless permitted, audited. */
 export const getResultDetail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => LeadDetailSchema.parse(data))
+  .validator((data: unknown) => LeadDetailSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireResultsView(context.userId);
     const roles = await loadUserRoles(context.userId);
@@ -240,7 +240,7 @@ const LookupSchema = z.object({ email: z.string().email() });
 /** Test helper - fetch the most recent lead for an email. Staff-only. */
 export const getLatestLeadByEmail = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => LookupSchema.parse(data))
+  .validator((data: unknown) => LookupSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -270,7 +270,7 @@ const ResultsListSchema = z.object({
 
 export const listResults = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ResultsListSchema.parse(data ?? {}))
+  .validator((data: unknown) => ResultsListSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireResultsView(context.userId);
     const roles = await loadUserRoles(context.userId);
@@ -399,7 +399,7 @@ export const listResults = createServerFn({ method: "GET" })
 
 export const markLeadContacted = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => MarkSchema.parse(data))
+  .validator((data: unknown) => MarkSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -418,7 +418,7 @@ export const markLeadContacted = createServerFn({ method: "POST" })
 
 export const deleteLead = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => MarkSchema.parse(data))
+  .validator((data: unknown) => MarkSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -450,7 +450,7 @@ const SubmitLeadSchema = z.object({
 });
 
 export const submitLeadEndpoint = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => SubmitLeadSchema.parse(data))
+  .validator((data: unknown) => SubmitLeadSchema.parse(data))
   .handler(async ({ data }) => {
     const ip = getRequestIP({ xForwardedFor: true }) || "unknown";
 

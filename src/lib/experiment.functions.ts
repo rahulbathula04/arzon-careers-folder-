@@ -64,7 +64,7 @@ function twoProportionTest(successA: number, trialsA: number, successB: number, 
 
 export const getExperimentResults = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => Schema.parse(data ?? {}))
+  .validator((data: unknown) => Schema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const since = new Date(Date.now() - data.windowDays * 86_400_000).toISOString();

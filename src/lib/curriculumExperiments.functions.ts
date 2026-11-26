@@ -62,7 +62,7 @@ function twoProp(a: number, na: number, b: number, nb: number) {
 
 export const getCurriculumExperimentResults = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => Schema.parse(data ?? {}))
+  .validator((data: unknown) => Schema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const since = new Date(Date.now() - data.windowDays * 86_400_000).toISOString();

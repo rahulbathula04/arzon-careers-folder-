@@ -14,7 +14,7 @@ const Schema = z.object({
 // can be diagnosed from Server Logs. Unauthenticated on purpose - payload
 // is bounded and contains no PII.
 export const logClientError = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => Schema.parse(d ?? {}))
+  .validator((d: unknown) => Schema.parse(d ?? {}))
   .handler(async ({ data }) => {
     console.error(
       `[client-error] kind=${data.kind} route=${data.route ?? "?"} url=${data.url ?? "?"} :: ${data.message}` +

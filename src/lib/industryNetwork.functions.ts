@@ -90,7 +90,7 @@ function generateApplicationNumber(): string {
  * Server Function: Submit application
  */
 export const submitIndustryNetworkAppFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => SubmitSchema.parse(data))
+  .validator((data: unknown) => SubmitSchema.parse(data))
   .handler(async ({ data }) => {
     const cleanMobile = data.mobileNumber.replace(/^(\+91|91)/, "");
     const cleanEmail = data.email.toLowerCase().trim();
@@ -182,7 +182,7 @@ export const submitIndustryNetworkAppFn = createServerFn({ method: "POST" })
  */
 export const listIndustryNetworkAppsFn = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((query: unknown) => {
+  .validator((query: unknown) => {
     return (query as {
       search?: string;
       status?: string;
@@ -241,7 +241,7 @@ export const listIndustryNetworkAppsFn = createServerFn({ method: "GET" })
  */
 export const updateIndustryNetworkStatusFn = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => {
+  .validator((data: unknown) => {
     return z
       .object({
         id: z.string(),

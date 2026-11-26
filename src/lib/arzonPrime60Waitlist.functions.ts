@@ -30,7 +30,7 @@ const JoinSchema = z.object({
 });
 
 export const joinPrime60Waitlist = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => JoinSchema.parse(data))
+  .validator((data: unknown) => JoinSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = admin();
     const userAgent = getRequestHeader("user-agent") ?? null;

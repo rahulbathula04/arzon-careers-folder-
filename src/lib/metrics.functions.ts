@@ -120,7 +120,7 @@ function variantBucket(rows: Row[], experiment: string) {
 
 export const getDomainGridMetrics = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => Schema.parse(data ?? {}))
+  .validator((data: unknown) => Schema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const cutover = new Date(data.cutoverISO);
@@ -166,7 +166,7 @@ const FunnelSchema = z.object({
 
 export const getApplyFunnel = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => FunnelSchema.parse(data))
+  .validator((data: unknown) => FunnelSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const { data: rows, error } = await supabaseAdmin

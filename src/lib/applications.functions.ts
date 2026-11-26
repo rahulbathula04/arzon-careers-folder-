@@ -30,7 +30,7 @@ function admin() {
 }
 
 export const submitApplication = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => SubmitSchema.parse(data))
+  .validator((data: unknown) => SubmitSchema.parse(data))
   .handler(async ({ data }) => {
     const sb = admin();
     const { data: id, error } = await (sb as any).rpc("submit_application", {
@@ -107,7 +107,7 @@ const ListSchema = z.object({
 
 export const listApplications = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ListSchema.parse(data ?? {}))
+  .validator((data: unknown) => ListSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const sb = admin();
@@ -146,7 +146,7 @@ const UpdateStatusSchema = z.object({
 
 export const updateApplicationStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => UpdateStatusSchema.parse(data))
+  .validator((data: unknown) => UpdateStatusSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireRole(context.userId, ["admin", "reviewer"]);
     const sb = admin();

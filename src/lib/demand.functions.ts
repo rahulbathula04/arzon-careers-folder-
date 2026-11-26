@@ -119,7 +119,7 @@ export const listFeaturedDemandTracks = createServerFn({ method: "GET" }).handle
 
 /** Track + milestones + partners for a single slug. */
 export const getDemandTrackBySlug = createServerFn({ method: "GET" })
-  .inputValidator((input) => z.object({ slug: z.string().min(1).max(120) }).parse(input))
+  .validator((input) => z.object({ slug: z.string().min(1).max(120) }).parse(input))
   .handler(async ({ data }) => {
     const { data: track, error: te } = await supabaseAdmin
       .from("demand_tracks")
@@ -169,7 +169,7 @@ const VoteInput = z.object({
 });
 
 export const castDemandVote = createServerFn({ method: "POST" })
-  .inputValidator((input) => VoteInput.parse(input))
+  .validator((input) => VoteInput.parse(input))
   .handler(async ({ data }) => {
     const { data: track, error: te } = await supabaseAdmin
       .from("demand_tracks")
@@ -260,7 +260,7 @@ function slugify(input: string): string {
 }
 
 export const requestDemandTrack = createServerFn({ method: "POST" })
-  .inputValidator((input) => RequestInput.parse(input))
+  .validator((input) => RequestInput.parse(input))
   .handler(async ({ data }) => {
     // Route through the SECURITY DEFINER RPC that enforces rate limits and
     // column-level validation server-side, instead of using the service-role

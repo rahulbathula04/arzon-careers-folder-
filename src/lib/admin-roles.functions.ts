@@ -50,7 +50,7 @@ async function findUserIdByEmail(email: string): Promise<string | null> {
 
 export const grantAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data) => z.object({ email: z.string().email().max(254) }).parse(data))
+  .validator((data) => z.object({ email: z.string().email().max(254) }).parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const userId = await findUserIdByEmail(data.email);
@@ -71,7 +71,7 @@ export const grantAdmin = createServerFn({ method: "POST" })
 
 export const revokeAdmin = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data) => z.object({ userId: z.string().uuid() }).parse(data))
+  .validator((data) => z.object({ userId: z.string().uuid() }).parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     if (data.userId === context.userId) {

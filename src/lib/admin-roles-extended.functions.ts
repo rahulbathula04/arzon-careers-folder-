@@ -56,7 +56,7 @@ async function findUserIdByEmail(email: string): Promise<string | null> {
 
 export const grantWorkspaceRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data) =>
+  .validator((data) =>
     z
       .object({
         email: z.string().email().max(254),
@@ -94,7 +94,7 @@ export const grantWorkspaceRole = createServerFn({ method: "POST" })
 
 export const revokeWorkspaceRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data) =>
+  .validator((data) =>
     z
       .object({
         userId: z.string().uuid(),

@@ -28,7 +28,7 @@ const TrackSchema = z.object({
  * Public tracker. Always returns ok:true so analytics never breaks the UX.
  */
 export const trackEvent = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => {
+  .validator((data: unknown) => {
     const r = TrackSchema.safeParse(data);
     return r.success ? r.data : null;
   })
@@ -125,7 +125,7 @@ function countEvents(rows: EventRow[], event: string): number {
 
 export const getFunnel = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
+  .validator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
 
@@ -245,7 +245,7 @@ const CONVERSION_STEPS = [
 
 export const getConversionFunnel = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
+  .validator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
@@ -310,7 +310,7 @@ function propString(p: Record<string, unknown> | null, k: string): string | null
  */
 export const getExperimentLift = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => ExperimentSchema.parse(data ?? {}))
+  .validator((data: unknown) => ExperimentSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
 
@@ -426,7 +426,7 @@ type DropoffStep = (typeof DROPOFF_STEPS)[number];
 
 export const getFunnelDropoff = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
+  .validator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
 
@@ -546,7 +546,7 @@ export const getFunnelDropoff = createServerFn({ method: "GET" })
 
 export const getWhatsAppConversion = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
+  .validator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const since = new Date(Date.now() - (data.fromDays ?? 30) * 86_400_000).toISOString();
@@ -660,7 +660,7 @@ const SsrErrorsSchema = z.object({
 
 export const getSsrErrors = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => SsrErrorsSchema.parse(data ?? {}))
+  .validator((data: unknown) => SsrErrorsSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
     const days = data.fromDays ?? 7;
@@ -782,7 +782,7 @@ const CE_FAILURE_EVENTS = [
 
 export const getCareerEngineFunnel = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => FunnelSchema.parse(data ?? {}))
+  .validator((data: unknown) => FunnelSchema.parse(data ?? {}))
   .handler(async ({ data, context }) => {
     await requireStaff(context.userId);
 

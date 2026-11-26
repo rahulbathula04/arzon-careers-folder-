@@ -27,7 +27,7 @@ const CreateInput = z.object({
 });
 
 export const createShareCard = createServerFn({ method: "POST" })
-  .inputValidator((d: z.infer<typeof CreateInput>) => CreateInput.parse(d))
+  .validator((d: z.infer<typeof CreateInput>) => CreateInput.parse(d))
   .handler(async ({ data }) => {
     const sb = admin();
     // 5 attempts to find a free slug; collision odds are vanishing for 7 chars.
@@ -60,7 +60,7 @@ export const createShareCard = createServerFn({ method: "POST" })
 const GetInput = z.object({ slug: z.string().min(3).max(32) });
 
 export const getShareCard = createServerFn({ method: "GET" })
-  .inputValidator((d: z.infer<typeof GetInput>) => GetInput.parse(d))
+  .validator((d: z.infer<typeof GetInput>) => GetInput.parse(d))
   .handler(async ({ data }) => {
     const sb = admin();
     const { data: row } = await sb
@@ -86,7 +86,7 @@ const RefInput = z.object({
 });
 
 export const recordReferralVisit = createServerFn({ method: "POST" })
-  .inputValidator((d: z.infer<typeof RefInput>) => RefInput.parse(d))
+  .validator((d: z.infer<typeof RefInput>) => RefInput.parse(d))
   .handler(async ({ data }) => {
     const sb = admin();
     await sb.from("referral_attributions").insert({

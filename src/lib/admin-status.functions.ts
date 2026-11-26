@@ -36,7 +36,7 @@ export const listAdminStatusComponents = createServerFn({ method: "GET" })
 
 export const updateAdminStatusComponent = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => UpdateStatusSchema.parse(data))
+  .validator((data: unknown) => UpdateStatusSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = createSafeAdminClient();

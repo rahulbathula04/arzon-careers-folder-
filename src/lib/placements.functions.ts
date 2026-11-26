@@ -29,7 +29,7 @@ const ListPublicSchema = z.object({
 });
 
 export const listPublicPlacements = createServerFn({ method: "GET" })
-  .inputValidator((data: unknown) => ListPublicSchema.parse(data ?? {}))
+  .validator((data: unknown) => ListPublicSchema.parse(data ?? {}))
   .handler(async ({ data }) => {
     try {
       const sb = createSafeAdminClient();
@@ -78,7 +78,7 @@ export const listEmployers = createServerFn({ method: "GET" })
 
 export const createEmployer = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => EmployerCreateSchema.parse(data))
+  .validator((data: unknown) => EmployerCreateSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -151,7 +151,7 @@ export const listPlacementsAdmin = createServerFn({ method: "GET" })
 
 export const createPlacement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => PlacementCreateSchema.parse(data))
+  .validator((data: unknown) => PlacementCreateSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();
@@ -184,7 +184,7 @@ const RetractSchema = z.object({
 
 export const retractPlacement = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => RetractSchema.parse(data))
+  .validator((data: unknown) => RetractSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const sb = admin();

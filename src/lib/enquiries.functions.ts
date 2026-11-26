@@ -17,7 +17,7 @@ const Schema = z.object({
 });
 
 export const submitCourseEnquiry = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => Schema.parse(data))
+  .validator((data: unknown) => Schema.parse(data))
   .handler(async ({ data }) => {
     const allowed = await enforcePublicRateLimit("course_enquiry", 5, 600);
     if (!allowed) return { ok: false as const, rateLimited: true as const };

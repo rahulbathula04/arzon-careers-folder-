@@ -22,7 +22,7 @@ interface ChosenRolePayload {
 }
 
 export const recordChosenRole = createServerFn({ method: "POST" })
-  .inputValidator((data: ChosenRolePayload) => {
+  .validator((data: ChosenRolePayload) => {
     if (
       !data ||
       typeof data.leadId !== "string" ||
@@ -57,7 +57,7 @@ interface RecordRecommendedPayload {
 }
 
 export const recordRecommendation = createServerFn({ method: "POST" })
-  .inputValidator((data: RecordRecommendedPayload) => {
+  .validator((data: RecordRecommendedPayload) => {
     if (
       !data ||
       typeof data.leadId !== "string" ||

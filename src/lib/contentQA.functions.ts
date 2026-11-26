@@ -29,7 +29,7 @@ const UpsertSchema = z.object({
 
 export const upsertContentQAReview = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((data: unknown) => UpsertSchema.parse(data))
+  .validator((data: unknown) => UpsertSchema.parse(data))
   .handler(async ({ data, context }) => {
     await requireAdmin(context.userId);
     const { error } = await supabaseAdmin.from("content_qa_reviews").upsert(

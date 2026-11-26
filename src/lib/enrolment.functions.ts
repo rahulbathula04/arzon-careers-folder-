@@ -73,7 +73,7 @@ function isSupabaseConfigured(): boolean {
 }
 
 export const createEnrolmentIntent = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => createSchema.parse(input))
+  .validator((input: unknown) => createSchema.parse(input))
   .handler(async ({ data }) => {
     const canonicalPrice = TIER_META[data.tier].mrpInr;
 
@@ -173,7 +173,7 @@ type ApplyCouponResult =
     };
 
 export const applyEnrolmentCoupon = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => applySchema.parse(input))
+  .validator((input: unknown) => applySchema.parse(input))
   .handler(async ({ data }): Promise<ApplyCouponResult> => {
     if (isSupabaseConfigured()) {
       try {
@@ -241,7 +241,7 @@ const idSchema = z.object({
 });
 
 export const getEnrolmentIntent = createServerFn({ method: "GET" })
-  .inputValidator((input: unknown) => idSchema.parse(input))
+  .validator((input: unknown) => idSchema.parse(input))
   .handler(async ({ data }) => {
     // 1. Check fallback store first
     if (fallbackIntentStore.has(data.intentId)) {
@@ -323,7 +323,7 @@ export const getEnrolmentIntent = createServerFn({ method: "GET" })
   });
 
 export const expireEnrolmentCoupon = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => idSchema.parse(input))
+  .validator((input: unknown) => idSchema.parse(input))
   .handler(async ({ data }) => {
     if (isSupabaseConfigured()) {
       try {
@@ -399,7 +399,7 @@ type PreRegResult =
     };
 
 export const markPreRegistrationInitiated = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown) => preregSchema.parse(input))
+  .validator((input: unknown) => preregSchema.parse(input))
   .handler(async ({ data }): Promise<PreRegResult> => {
     if (isSupabaseConfigured()) {
       try {

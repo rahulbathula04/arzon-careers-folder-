@@ -16,7 +16,7 @@ const submissionSchema = z.object({
 });
 
 export const evaluateCandidateFn = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => submissionSchema.parse(data))
+  .validator((data: unknown) => submissionSchema.parse(data))
   .handler(async ({ data }): Promise<AiAssessmentResult> => {
     // Run automated deterministic & AI evaluation heuristics
     return evaluateCandidatePortfolio(data as CandidateSubmission);

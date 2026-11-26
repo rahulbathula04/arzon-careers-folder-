@@ -34,7 +34,7 @@ export interface PublicDiagnosticResultData {
  * so mentors, counsellors, and evaluators can view the student's authentic results.
  */
 export const getPublicDiagnosticResult = createServerFn({ method: "GET" })
-  .inputValidator((d: unknown) => GetDiagnosticResultInput.parse(d))
+  .validator((d: unknown) => GetDiagnosticResultInput.parse(d))
   .handler(async ({ data }): Promise<PublicDiagnosticResultData> => {
     try {
       const sb = admin();
@@ -131,7 +131,7 @@ const SaveEarlyProfileInput = z.object({
  * even if the student is still taking the assessment or drops off.
  */
 export const saveEarlyDiagnosticProfile = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => SaveEarlyProfileInput.parse(d))
+  .validator((d: unknown) => SaveEarlyProfileInput.parse(d))
   .handler(async ({ data }) => {
     try {
       const sb = admin();
@@ -225,7 +225,7 @@ const FinalizeDiagnosticSyncInput = z.object({
  * to the master Google Sheet so counselors see the live fit score and anti-cheat status.
  */
 export const syncCompletedDiagnosticToSheet = createServerFn({ method: "POST" })
-  .inputValidator((d: unknown) => FinalizeDiagnosticSyncInput.parse(d))
+  .validator((d: unknown) => FinalizeDiagnosticSyncInput.parse(d))
   .handler(async ({ data }) => {
     try {
       const sb = admin();

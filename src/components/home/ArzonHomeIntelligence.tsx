@@ -376,7 +376,7 @@ export function ArzonHomeIntelligence() {
                   <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
                 <span className="inline-flex items-center gap-1.5 font-mono text-[9px] text-white/60">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] motion-safe:animate-pulse" />
                   LinkedIn Verified
                 </span>
               </div>

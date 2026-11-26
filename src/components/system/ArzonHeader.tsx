@@ -224,13 +224,6 @@ const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
 ] as const;
 
 
-  { label: "Reviews & Placements", to: "/reviews" },
-  { label: "Salary Benchmark 2026", to: "/industry/salaries" },
-  { label: "For Employers", to: "/recruiters" },
-  { label: "For Colleges & TPOs", to: "/tpos" },
-  { label: "About Arzon", to: "/about" },
-  { label: "Verify Credential", to: "/verify" },
-] as const
 
 export function ArzonHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);

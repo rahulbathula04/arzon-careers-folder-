@@ -344,8 +344,8 @@ export function ArzonHomeIntelligence() {
               {/* Media Viewport (Using User-Provided Authentic Photo) */}
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[14px] sm:rounded-[16px] border border-[#E2EBE8] bg-[#F1F7F5]">
                 <img
-                  src="/images/credentials/mallareddy-presentation-campus.jpg"
-                  alt="Arzon Global leadership campus visit and presentation at Malla Reddy University"
+                  src="/images/credentials/mallareddy-university-meeting.jpg"
+                  alt="Arzon Global leadership meeting with Malla Reddy University Dean and academic faculty"
                   className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                   loading="lazy"
                 />

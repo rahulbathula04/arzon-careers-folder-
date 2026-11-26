@@ -343,23 +343,27 @@ export function ArzonHomeIntelligence() {
                     </div>
                   </div>
 
-                  {/* Right Column: Physical Award Plaque Proof (Positioned in former TASK slot space) */}
-                  <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[230px] xl:w-[250px]">
-                    <div className="relative h-[230px] sm:h-[245px] w-full max-w-[220px] overflow-hidden rounded-[16px] border border-white/15 bg-[#052F2B] p-2 flex items-center justify-center shadow-inner group-hover:border-white/25 transition-colors">
-                      {/* Radial spotlight behind plaque */}
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,143,131,0.32)_0%,rgba(7,63,57,0.10)_60%,transparent_80%)] blur-md"
-                      />
+                  {/* Right Column: Physical Award Plaque with luminous white fade spotlight (Positioned in former TASK slot space) */}
+                  <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[240px] xl:w-[270px] py-1">
+                    {/* Luminous soft white-to-transparent studio fade */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-3 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_45%,transparent_72%)] blur-xl"
+                    />
+
+                    {/* Floating Transparent Cutout Plaque with Soft Ground Reflection */}
+                    <div className="relative flex flex-col items-center justify-center">
                       <img
-                        src="/images/credentials/trophy-master-black.jpg"
+                        src="/images/credentials/global-impact-trophy-transparent.png"
                         alt="Official 2026 Global Impact Award Plaque presented to Arzon Global Labs"
-                        className="relative z-10 h-full w-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        className="relative z-10 max-h-[240px] sm:max-h-[255px] w-auto object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                         loading="lazy"
                       />
-                      <span className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap rounded-full bg-[#032622]/90 backdrop-blur-md border border-white/20 px-2.5 py-0.5 text-[8.5px] font-mono font-medium text-[#A9E0D8] shadow-md">
-                        Official Award Trophy Plaque
-                      </span>
+                      {/* Soft white ground reflection / pedestal fade */}
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none -mt-3.5 h-5 w-40 rounded-[100%] bg-white/20 blur-md"
+                      />
                     </div>
                   </div>
                 </div>

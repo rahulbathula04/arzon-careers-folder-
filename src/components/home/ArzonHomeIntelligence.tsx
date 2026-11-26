@@ -281,14 +281,14 @@ export function ArzonHomeIntelligence() {
             </p>
           </div>
 
-          {/* Modern Asymmetric Bento Grid (Row 1: 7+5, Row 2: 6+6) */}
-          <div className="grid gap-2.5 sm:gap-3 lg:grid-cols-12">
-            {/* Card 1: 2026 Global Impact Award (7 of 12 - Ultra Compact) */}
+          {/* Modern Asymmetric Bento Grid (Row 1: 7+5, Row 2: 5+7) with Synchronized Media Rails */}
+          <div className="grid gap-3 sm:gap-3.5 lg:grid-cols-12 items-stretch">
+            {/* Card 1: 2026 Global Impact Award (7 of 12) */}
             <a
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[16px] sm:rounded-[18px] border border-white/[0.12] bg-[#05090C] p-3 sm:p-3.5 text-white shadow-[0_10px_30px_rgba(0,0,0,0.25)] ring-1 ring-inset ring-white/[0.04] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#F59E0B]/40 hover:shadow-[0_14px_36px_rgba(217,119,6,0.16)] lg:col-span-7"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[18px] sm:rounded-[20px] border border-white/[0.12] bg-[#05090C] p-3.5 sm:p-4 text-white shadow-[0_12px_36px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-white/[0.04] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#F59E0B]/40 hover:shadow-[0_16px_40px_rgba(217,119,6,0.16)] lg:col-span-7"
             >
               {/* Ethereal Ambient Studio Glow */}
               <div
@@ -296,20 +296,20 @@ export function ArzonHomeIntelligence() {
                 className="pointer-events-none absolute -right-6 top-1/2 -translate-y-1/2 h-[180px] w-[180px] rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.12)_0%,rgba(217,119,6,0.03)_50%,transparent_75%)] blur-2xl"
               />
 
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-[1.3fr_0.7fr] gap-2.5 items-center">
+              <div className="relative z-10 flex items-center justify-between gap-3 min-h-[118px]">
                 {/* Left Column: Authority Narrative */}
-                <div>
+                <div className="flex-1 min-w-0 pr-1">
                   <div className="inline-flex items-center gap-1 rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/[0.08] px-2 py-0.5 text-[8.5px] font-mono font-semibold uppercase tracking-wider text-[#FDE68A]">
                     <Trophy className="h-2.5 w-2.5 text-[#F59E0B] shrink-0" />
                     <span>Recognition · 04-05 Nov 2026</span>
                   </div>
 
-                  <h3 className="mt-1 text-[16px] sm:text-[17px] font-extrabold tracking-[-0.025em] text-white leading-tight">
+                  <h3 className="mt-1 text-[15px] sm:text-[17px] font-extrabold tracking-[-0.025em] text-white leading-tight">
                     2026 Global Impact Award
                   </h3>
 
-                  <p className="mt-1 text-[10.5px] sm:text-[11px] leading-relaxed text-slate-300 font-normal">
-                    Conferred to <strong className="text-white font-semibold">Arzon Global Labs</strong> by SARSD at the 8th ICAATAS International Conference, Malla Reddy University.
+                  <p className="mt-1 text-[10.5px] sm:text-[11px] leading-relaxed text-slate-300 font-normal line-clamp-2">
+                    Conferred to <strong className="text-white font-semibold">Arzon Global Labs</strong> by SARSD at 8th ICAATAS, Malla Reddy University.
                   </p>
 
                   <div className="mt-1.5 inline-flex items-center gap-1 rounded-[6px] border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[8.5px] font-mono text-slate-300">
@@ -317,12 +317,12 @@ export function ArzonHomeIntelligence() {
                   </div>
                 </div>
 
-                {/* Right Column: Trophy Display */}
-                <div className="relative flex items-center justify-center py-0.5">
+                {/* Right Column: Trophy Display (Fixed Dimension Aligned Rail) */}
+                <div className="relative h-[115px] sm:h-[120px] w-[135px] sm:w-[155px] shrink-0 overflow-hidden rounded-[10px] border border-white/10 bg-[#080E13] flex items-center justify-center p-1 shadow-inner">
                   <img
                     src="/images/credentials/trophy-master-black.jpg"
                     alt="Official 2026 Global Impact Award Plaque presented to Arzon Global Labs"
-                    className="max-h-[125px] sm:max-h-[135px] w-auto object-contain rounded-[8px] shadow-lg transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                    className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
                   />
                 </div>
@@ -338,46 +338,42 @@ export function ArzonHomeIntelligence() {
               </div>
             </a>
 
-            {/* Card 2: Campus Outreach — Malla Reddy University (5 of 12 - Ultra Compact) */}
+            {/* Card 2: Campus Outreach — Malla Reddy University (5 of 12) */}
             <a
               href={MALLA_REDDY_LINKEDIN}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[16px] sm:rounded-[18px] border border-slate-200/90 bg-white p-3 sm:p-3.5 shadow-[0_6px_24px_rgba(0,0,0,0.025)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(0,75,69,0.06)] lg:col-span-5"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[18px] sm:rounded-[20px] border border-slate-200/90 bg-white p-3.5 sm:p-4 shadow-[0_6px_24px_rgba(0,0,0,0.025)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(0,75,69,0.06)] lg:col-span-5"
             >
-              <div>
-                {/* Header Utility Rail */}
-                <div className="flex items-center justify-between gap-2 pb-1.5">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#EBF5F3] px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
+              <div className="flex items-center justify-between gap-3 min-h-[118px]">
+                {/* Left Column: Campus Narrative */}
+                <div className="flex-1 min-w-0 pr-1">
+                  <div className="inline-flex items-center gap-1 rounded-full bg-[#EBF5F3] px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
                     <GraduationCap className="h-2.5 w-2.5 text-[#008F83]" />
                     Campus Outreach · Hyderabad
-                  </span>
-                  <span className="text-[9px] font-mono text-slate-400">
-                    Academic Session
-                  </span>
+                  </div>
+
+                  <h3 className="mt-1 text-[15px] sm:text-[17px] font-bold leading-tight tracking-tight text-slate-900">
+                    Malla Reddy University
+                  </h3>
+
+                  <p className="mt-1 text-[10.5px] sm:text-[11px] leading-relaxed text-slate-600 line-clamp-2">
+                    Presented skills assessment architecture to Dean and academic faculty for curriculum alignment.
+                  </p>
+
+                  <div className="mt-1.5 inline-flex items-center gap-1 rounded-md bg-slate-50 px-1.5 py-0.5 text-[8.5px] font-mono text-slate-700 border border-slate-200/80">
+                    Pharmacovigilance & CDM
+                  </div>
                 </div>
 
-                {/* Authentic Conference Table Photo (Compact Widescreen) */}
-                <div className="relative h-[85px] sm:h-[95px] w-full overflow-hidden rounded-[8px] border border-slate-200/80 bg-slate-100">
+                {/* Right Column: Authentic Conference Table Photo (Identical Aligned Frame) */}
+                <div className="relative h-[115px] sm:h-[120px] w-[135px] sm:w-[155px] shrink-0 overflow-hidden rounded-[10px] border border-slate-200/80 bg-slate-100 shadow-2xs">
                   <img
                     src="/images/credentials/malla-reddy-authentic-table.jpg"
                     alt="Arzon Global leadership meeting with Malla Reddy University Dean and academic faculty"
-                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                </div>
-
-                {/* Content Body */}
-                <div className="pt-1.5">
-                  <h3 className="text-[14px] sm:text-[15px] font-bold leading-tight tracking-tight text-slate-900">
-                    Malla Reddy University
-                  </h3>
-                  <p className="mt-0.5 text-[10.5px] leading-relaxed text-slate-600 line-clamp-2">
-                    Arzon met with the Dean and academic faculty to present its skills assessment architecture and clinical role alignment.
-                  </p>
-                  <div className="mt-1 inline-flex items-center gap-1 rounded-md bg-slate-50 px-1.5 py-0.5 text-[8.5px] font-mono text-slate-700 border border-slate-200/80">
-                    Curriculum Alignment: Pharmacovigilance & CDM
-                  </div>
                 </div>
               </div>
 
@@ -391,47 +387,42 @@ export function ArzonHomeIntelligence() {
               </div>
             </a>
 
-            {/* Card 3: PHUSE APAC Connect 2026 (6 of 12 - Ultra Compact) */}
+            {/* Card 3: PHUSE APAC Connect 2026 (5 of 12) */}
             <a
               href={LINKEDIN}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[16px] sm:rounded-[18px] border border-slate-200/90 bg-white p-3 sm:p-3.5 shadow-[0_6px_24px_rgba(0,0,0,0.025)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(0,75,69,0.06)] lg:col-span-6"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-[18px] sm:rounded-[20px] border border-slate-200/90 bg-white p-3.5 sm:p-4 shadow-[0_6px_24px_rgba(0,0,0,0.025)] ring-1 ring-inset ring-black/[0.02] transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_12px_32px_rgba(0,75,69,0.06)] lg:col-span-5"
             >
-              <div>
-                {/* Header Utility Rail */}
-                <div className="flex items-center justify-between gap-2 pb-1.5">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-wider text-slate-700 border border-slate-200">
+              <div className="flex items-center justify-between gap-3 min-h-[118px]">
+                {/* Left Column: Summit Narrative */}
+                <div className="flex-1 min-w-0 pr-1">
+                  <div className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-wider text-slate-700 border border-slate-200">
                     <Users className="h-2.5 w-2.5 text-slate-600" />
                     Industry Forum · 2026
-                  </span>
-                  <span className="text-[9px] font-mono text-slate-400">
-                    Clinical Data Science
-                  </span>
+                  </div>
+
+                  <h3 className="mt-1 text-[15px] sm:text-[17px] font-bold text-slate-900 tracking-tight leading-tight">
+                    PHUSE APAC Connect
+                  </h3>
+
+                  <p className="mt-1 text-[10.5px] sm:text-[11px] text-slate-600 leading-relaxed line-clamp-2">
+                    Participated in clinical data assembly ensuring candidate simulations mirror live CDISC standards.
+                  </p>
+
+                  <div className="mt-1.5 inline-flex items-center rounded-md bg-slate-50 px-1.5 py-0.5 text-[8.5px] font-mono text-slate-700 border border-slate-200/80">
+                    Keynote: Shri D. Sridhar Babu
+                  </div>
                 </div>
 
-                {/* Minimal Split: Left Narrative + Right Clean Card */}
-                <div className="grid grid-cols-[1fr_auto] gap-2.5 items-center">
-                  <div>
-                    <h3 className="text-[14px] sm:text-[15px] font-bold text-slate-900 tracking-tight leading-tight">
-                      PHUSE APAC Connect
-                    </h3>
-                    <p className="mt-0.5 text-[10.5px] text-slate-600 leading-relaxed line-clamp-2">
-                      Participated in the premier clinical data science assembly, ensuring candidate simulations mirror live CDISC standards.
-                    </p>
-                    <div className="mt-1.5 inline-flex items-center rounded-md bg-slate-50 px-1.5 py-0.5 text-[8.5px] font-mono text-slate-700 border border-slate-200/80">
-                      Keynote: Shri D. Sridhar Babu (IT Minister)
-                    </div>
-                  </div>
-
-                  <div className="relative h-[75px] sm:h-[82px] w-[100px] sm:w-[110px] shrink-0 overflow-hidden rounded-[8px] border border-blue-900/20 bg-[#091E5A] shadow-2xs">
-                    <img
-                      src="/images/credentials/phuse-minister-portrait.jpg"
-                      alt="PHUSE APAC 2026 keynote by Shri D. Sridhar Babu"
-                      className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                      loading="lazy"
-                    />
-                  </div>
+                {/* Right Column: Minister Portrait (Identical Aligned Frame) */}
+                <div className="relative h-[115px] sm:h-[120px] w-[135px] sm:w-[155px] shrink-0 overflow-hidden rounded-[10px] border border-blue-900/20 bg-[#091E5A] shadow-2xs">
+                  <img
+                    src="/images/credentials/phuse-minister-portrait.jpg"
+                    alt="PHUSE APAC 2026 keynote by Shri D. Sridhar Babu"
+                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
@@ -445,35 +436,47 @@ export function ArzonHomeIntelligence() {
               </div>
             </a>
 
-            {/* Card 4: Institutional Governance Standard (6 of 12 - Ultra Compact) */}
-            <div className="flex flex-col justify-between rounded-[16px] sm:rounded-[18px] border border-emerald-900/10 bg-white p-3 sm:p-3.5 shadow-[0_6px_24px_rgba(0,0,0,0.025)] ring-1 ring-inset ring-black/[0.02] lg:col-span-6">
-              <div>
-                <div className="flex items-center justify-between gap-2 pb-1.5">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">
+            {/* Card 4: Institutional Governance Standard (7 of 12) */}
+            <div className="flex flex-col justify-between rounded-[18px] sm:rounded-[20px] border border-emerald-900/10 bg-white p-3.5 sm:p-4 shadow-[0_6px_24px_rgba(0,0,0,0.025)] ring-1 ring-inset ring-black/[0.02] lg:col-span-7">
+              <div className="flex items-center justify-between gap-3 min-h-[118px]">
+                {/* Left Column: Governance Charter */}
+                <div className="flex-1 min-w-0 pr-1">
+                  <div className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">
                     <ShieldCheck className="h-2.5 w-2.5 text-emerald-600" />
-                    Public Standard
-                  </span>
-                  <span className="text-[9px] font-mono text-slate-400">
-                    Integrity Policy
-                  </span>
+                    Public Standard · Integrity Policy
+                  </div>
+
+                  <h3 className="mt-1 text-[15px] sm:text-[17px] font-bold text-slate-900 tracking-tight leading-tight">
+                    Engagement is not the same as endorsement.
+                  </h3>
+
+                  <p className="mt-1 text-[10.5px] sm:text-[11px] text-slate-600 leading-relaxed line-clamp-2">
+                    Every event scope is disclosed. Engagements are never represented as exclusive hiring guarantees or accreditation.
+                  </p>
+
+                  <div className="mt-1.5 flex items-center gap-3 text-[9px] font-mono text-slate-600">
+                    <span className="inline-flex items-center gap-1 text-emerald-700">
+                      <CheckCircle2 className="h-3 w-3 text-emerald-600" /> Primary Sources Linked
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-emerald-700">
+                      <CheckCircle2 className="h-3 w-3 text-emerald-600" /> CDISC Governed
+                    </span>
+                  </div>
                 </div>
 
-                <h3 className="text-[14px] sm:text-[15px] font-bold text-slate-900 tracking-tight leading-tight">
-                  Engagement is not the same as endorsement.
-                </h3>
-                <p className="mt-0.5 text-[10.5px] text-slate-600 leading-relaxed line-clamp-2">
-                  We publish the exact scope of every event clearly. Engagements are never represented as exclusive hiring guarantees or accreditation.
-                </p>
-
-                {/* Audit Checklist */}
-                <div className="mt-1.5 space-y-0.5 rounded-[8px] bg-slate-50/80 p-1.5 border border-slate-100">
-                  <div className="flex items-center gap-1.5 text-[9.5px] font-medium text-slate-700">
-                    <CheckCircle2 className="h-3 w-3 shrink-0 text-emerald-600" />
-                    <span>Public sources linked for every milestone</span>
+                {/* Right Column: Official Governance Visual Credential (Identical Aligned Frame) */}
+                <div className="relative h-[115px] sm:h-[120px] w-[135px] sm:w-[155px] shrink-0 overflow-hidden rounded-[10px] border border-emerald-500/25 bg-gradient-to-br from-[#063F39] via-[#032B27] to-[#011C19] p-2.5 text-white flex flex-col justify-between shadow-2xs">
+                  <div className="flex items-center justify-between">
+                    <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                    <span className="text-[8px] font-mono uppercase tracking-wider text-emerald-300 bg-emerald-500/20 px-1 py-0.5 rounded border border-emerald-400/30">Verified</span>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[9.5px] font-medium text-slate-700">
-                    <CheckCircle2 className="h-3 w-3 shrink-0 text-emerald-600" />
-                    <span>Clinical data simulations governed by CDISC & SDTM guidelines</span>
+                  <div>
+                    <div className="text-[10px] font-bold text-white leading-tight">Public Standard</div>
+                    <div className="text-[8px] text-emerald-200/80 font-mono mt-0.5">CDISC & SDTM Validated</div>
+                  </div>
+                  <div className="flex items-center gap-1 text-[8px] font-mono text-emerald-300/90 border-t border-emerald-400/20 pt-1">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    <span>Primary Public Record</span>
                   </div>
                 </div>
               </div>

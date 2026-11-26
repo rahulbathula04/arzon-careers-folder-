@@ -259,25 +259,25 @@ export function ArzonHomeIntelligence() {
         </div>
       </section>
 
-      {/* 02 / RECOGNITIONS & INSTITUTIONAL ENGAGEMENTS (Layout extracted from master reference, current content & styles) */}
+      {/* 02 / RECOGNITIONS & INSTITUTIONAL ENGAGEMENTS (Peak Minimal Apple-Grade Detailing) */}
       <section
         id="proof"
-        className="relative bg-white py-10 sm:py-12 border-t border-[#EAEFEF]"
+        className="relative bg-[#FAFCFB] py-12 sm:py-16 border-t border-[#E8EFEB]"
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <div className="mb-6 flex flex-col justify-between gap-3 sm:mb-7 sm:flex-row sm:items-end">
+          <div className="mb-7 sm:mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-slate-200/90 bg-[#F8FAF9] px-2.5 py-0.5 text-[9.5px] font-mono font-medium tracking-[0.12em] text-slate-700 shadow-2xs">
+              <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#CFE3DE] bg-[#F0F7F5] px-2.5 py-0.5 text-[9.5px] font-mono font-semibold tracking-[0.12em] text-[#00796F] shadow-2xs">
                 <Trophy className="h-3 w-3 text-[#D97706]" />
                 <span>Recognitions & Institutional Engagements</span>
               </div>
-              <h2 className="text-[22px] sm:text-[28px] font-bold tracking-tight text-[#063F39] leading-tight">
+              <h2 className="text-[24px] sm:text-[30px] font-bold tracking-[-0.04em] text-[#063F39] leading-[1.08]">
                 Credibility Built Through Real-World Impact
               </h2>
             </div>
-            <p className="max-w-[420px] text-[12px] sm:text-[13px] leading-relaxed text-[#5C756F]">
-              Industry recognition, academic partnerships, and global participation directly linked to public primary records.
+            <p className="max-w-[420px] text-[12.5px] sm:text-[13px] leading-relaxed text-[#5C756F]">
+              Verified milestones, academic outreach, and industry participation — each linked to its official public source.
             </p>
           </div>
 
@@ -375,19 +375,22 @@ export function ArzonHomeIntelligence() {
                   View public announcement
                   <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
-                <span className="font-mono text-[9px] text-white/60">LinkedIn Verified</span>
+                <span className="inline-flex items-center gap-1.5 font-mono text-[9px] text-white/60">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] animate-pulse" />
+                  LinkedIn Verified
+                </span>
               </div>
             </a>
 
-            {/* Card 3: Campus Outreach — Malla Reddy University (lg:col-span-4) */}
+            {/* Card 2: Campus Outreach — Malla Reddy University (lg:col-span-4) */}
             <a
               href={MALLA_REDDY_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group flex min-h-[300px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-[#FCFEFD] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-4"
+              className="group flex min-h-[320px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-white p-6 shadow-[0_10px_30px_rgba(0,75,69,0.04)] ring-1 ring-inset ring-black/[0.02] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-4"
             >
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#EBF5F3] px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#EBF5F3] px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
                   <GraduationCap className="h-3 w-3 text-[#008F83]" />
                   Campus Outreach
                 </span>
@@ -414,7 +417,7 @@ export function ArzonHomeIntelligence() {
                 <p className="mt-1 text-[11.5px] leading-relaxed text-[#5C756F]">
                   Presented skills assessment architecture to Dean and academic faculty for curriculum alignment.
                 </p>
-                <div className="mt-2 inline-flex items-center gap-1 rounded-md bg-slate-50 px-2 py-0.5 text-[9px] font-mono text-slate-700 border border-slate-200/80">
+                <div className="mt-2 inline-flex items-center gap-1 rounded-md bg-[#F4FAF8] px-2 py-0.5 text-[9px] font-mono text-[#00796F] border border-[#CFE3DE]">
                   Pharmacovigilance & CDM
                 </div>
               </div>
@@ -513,7 +516,10 @@ export function ArzonHomeIntelligence() {
 
               <div className="flex items-center justify-between border-t border-[#CFE3DE] pt-3 text-[11px] font-semibold text-emerald-800">
                 <span>Arzon Public Transparency Charter</span>
-                <span className="text-[9px] font-mono text-emerald-700/60">Verified Audit</span>
+                <span className="inline-flex items-center gap-1.5 font-mono text-[9px] text-emerald-700/70">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+                  Verified Audit
+                </span>
               </div>
             </div>
           </div>

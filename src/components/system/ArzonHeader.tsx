@@ -311,7 +311,7 @@ export function ArzonHeader() {
             aria-label="Arzon Global home"
             data-testid="arzon-global-logo"
             onClick={handleNavClose}
-            className="flex items-center gap-2 shrink-0 py-1 rounded focus:outline-none focus-visible:ring-1 focus-visible:ring-[#0071e3] transition-opacity hover:opacity-75 select-none"
+            className="flex items-center gap-2 shrink-0 py-1 rounded focus:outline-none focus-visible:ring-1 focus-visible:ring-arzon-teal transition-opacity hover:opacity-75 select-none"
           >
             <img
               src="/brand/arzon-icon.webp"
@@ -322,7 +322,7 @@ export function ArzonHeader() {
               loading="eager"
               draggable={false}
             />
-            <span className="text-[11px] font-semibold tracking-[0.14em] text-[#081F38] whitespace-nowrap">
+            <span className="text-[11px] font-semibold tracking-[0.14em] text-arzon-deep-teal whitespace-nowrap">
               ARZON GLOBAL
             </span>
           </Link>
@@ -348,9 +348,9 @@ export function ArzonHeader() {
                     className={[
                       "inline-flex items-center px-3 py-1.5 text-[13px] tracking-[-0.01em] transition-all duration-150 cursor-pointer select-none rounded-full whitespace-nowrap",
                       isOpen
-                        ? "text-[#081F38] bg-black/[0.05] font-medium"
+                        ? "text-arzon-deep-teal bg-black/[0.05] font-medium"
                         : isCurrentRoute
-                        ? "text-[#081F38] font-semibold bg-black/[0.03]"
+                        ? "text-arzon-deep-teal font-semibold bg-black/[0.03]"
                         : "text-slate-600 hover:text-slate-900 hover:bg-black/[0.03] font-normal",
                     ].join(" ")}
                     onClick={handleNavClose}
@@ -399,7 +399,7 @@ export function ArzonHeader() {
                 openCounsellorModal({ source: "header_desktop" });
               }}
               data-testid="primary-career-cta"
-              className="inline-flex h-[28px] items-center gap-1 rounded-full bg-[#0071E3] hover:bg-[#0077ED] active:scale-[0.98] text-white text-[12px] font-medium px-3.5 transition-all cursor-pointer shadow-none whitespace-nowrap shrink-0 select-none"
+              className="inline-flex h-[28px] items-center gap-1 rounded-full bg-arzon-teal hover:bg-arzon-deep-teal active:scale-[0.98] text-white text-[12px] font-medium px-3.5 transition-all cursor-pointer shadow-none whitespace-nowrap shrink-0 select-none"
             >
               <span>Talk to Experts</span>
               <ArrowRight className="h-3 w-3" />
@@ -412,7 +412,7 @@ export function ArzonHeader() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="grid h-8 w-8 place-items-center rounded-full text-slate-600 hover:text-[#1d1d1f] hover:bg-black/[0.04] active:scale-95 transition-transform"
+              className="grid h-8 w-8 place-items-center rounded-full text-slate-600 hover:text-arzon-deep-teal hover:bg-black/[0.04] active:scale-95 transition-transform"
               aria-label="Search Arzon"
             >
               <Search className="h-4 w-4" />
@@ -463,7 +463,7 @@ export function ArzonHeader() {
                 <Link
                   to={activeItem.flyout.category.to as any}
                   onClick={handleNavClose}
-                  className="text-[19px] font-semibold text-[#081F38] hover:text-[#0071e3] tracking-tight leading-snug transition-colors block mb-1.5 group"
+                  className="text-[19px] font-semibold text-arzon-deep-teal hover:text-arzon-teal tracking-tight leading-snug transition-colors block mb-1.5 group"
                 >
                   <span>{activeItem.flyout.category.title}</span>
                   <ArrowRight className="h-4 w-4 inline-block ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -477,10 +477,10 @@ export function ArzonHeader() {
                       key={sub.to}
                       to={sub.to as any}
                       onClick={handleNavClose}
-                      className="text-[12.5px] text-slate-600 hover:text-[#0071e3] transition-colors py-1 flex items-center justify-between group"
+                      className="text-[12.5px] text-slate-600 hover:text-arzon-teal transition-colors py-1 flex items-center justify-between group"
                     >
                       <span>{sub.label}</span>
-                      <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-[#0071e3] group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-arzon-teal group-hover:translate-x-0.5 transition-all" />
                     </Link>
                   ))}
                 </div>
@@ -497,7 +497,7 @@ export function ArzonHeader() {
                       key={spec.label}
                       to={spec.to as any}
                       onClick={handleNavClose}
-                      className="text-[12.5px] text-slate-700 hover:text-[#0071e3] transition-colors py-1.5 flex items-center justify-between rounded-lg px-2.5 -mx-2.5 hover:bg-black/[0.02]"
+                      className="text-[12.5px] text-slate-700 hover:text-arzon-teal transition-colors py-1.5 flex items-center justify-between rounded-lg px-2.5 -mx-2.5 hover:bg-black/[0.02]"
                     >
                       <span>{spec.label}</span>
                       <ChevronRight className="h-3 w-3 text-slate-300" />
@@ -516,16 +516,16 @@ export function ArzonHeader() {
                   onClick={handleNavClose}
                   className="block rounded-2xl bg-black/[0.02] border border-black/[0.05] p-5 hover:bg-black/[0.04] transition-all group"
                 >
-                  <span className="text-[10px] font-bold text-[#0071e3] bg-blue-50 px-2 py-0.5 rounded-full inline-block mb-2.5 border border-blue-100">
+                  <span className="text-[10px] font-bold text-arzon-teal bg-blue-50 px-2 py-0.5 rounded-full inline-block mb-2.5 border border-blue-100">
                     {activeItem.flyout.spotlight.badge}
                   </span>
-                  <div className="text-sm font-semibold text-[#081F38] mb-1.5 group-hover:text-[#0071e3] transition-colors">
+                  <div className="text-sm font-semibold text-arzon-deep-teal mb-1.5 group-hover:text-arzon-teal transition-colors">
                     {activeItem.flyout.spotlight.title}
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed mb-4">
                     {activeItem.flyout.spotlight.description}
                   </p>
-                  <div className="text-xs font-semibold text-[#0071e3] inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  <div className="text-xs font-semibold text-arzon-teal inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
                     <span>{activeItem.flyout.spotlight.ctaText}</span>
                     <ArrowRight className="h-3 w-3" />
                   </div>
@@ -582,9 +582,9 @@ export function ArzonHeader() {
                         key={item.to}
                         to={item.to as any}
                         onClick={() => setMobileOpen(false)}
-                        className="flex items-center justify-between py-3.5 text-[18px] font-medium tracking-tight text-[#1d1d1f] hover:text-[#0071e3] transition-colors"
+                        className="flex items-center justify-between py-3.5 text-[18px] font-medium tracking-tight text-[#1d1d1f] hover:text-arzon-teal transition-colors"
                       >
-                        <span className={active ? "text-[#0071e3] font-semibold" : ""}>
+                        <span className={active ? "text-arzon-teal font-semibold" : ""}>
                           {item.label}
                         </span>
                         <ChevronRight className="h-4 w-4 text-slate-300" />
@@ -618,7 +618,7 @@ export function ArzonHeader() {
                   <Link
                     to="/career-assessment"
                     onClick={() => setMobileOpen(false)}
-                    className="w-full h-11 rounded-full bg-[#0071E3] hover:bg-[#0077ED] text-white font-medium text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
+                    className="w-full h-11 rounded-full bg-arzon-teal hover:bg-arzon-deep-teal text-white font-medium text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
                   >
                     <span>Start Clinical Diagnostic</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -639,7 +639,7 @@ export function ArzonHeader() {
                     <Link
                       to="/login"
                       onClick={() => setMobileOpen(false)}
-                      className="text-xs text-slate-500 hover:text-[#1d1d1f] transition-colors"
+                      className="text-xs text-slate-500 hover:text-arzon-deep-teal transition-colors"
                     >
                       Sign in to Candidate Portal
                     </Link>

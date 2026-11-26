@@ -1,703 +1,586 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
-  BriefcaseBusiness,
+  Award,
+  Building2,
   Check,
-  CheckCircle2,
-  ChevronDown,
+  ChevronRight,
+  CirclePlay,
   ClipboardCheck,
   FileCheck2,
-  FileSearch,
+  Globe2,
+  GraduationCap,
   Layers3,
   Microscope,
-  Search,
   ShieldCheck,
-  UserRound,
+  Users,
 } from "lucide-react";
 import { LINKS } from "@/components/landing/constants";
 
-type SimulationTask = "intake" | "criteria" | "timeline" | "narrative";
-
-const SIMULATION_TASKS: Array<{
-  id: SimulationTask;
-  number: string;
-  label: string;
-  description: string;
-  prompts: string[];
-}> = [
-  {
-    id: "intake",
-    number: "01",
-    label: "Case intake",
-    description: "Review a synthetic report and identify the information supplied by the reporter.",
-    prompts: ["Reporter information", "Suspect product details", "Reported event", "Relevant dates"],
-  },
-  {
-    id: "criteria",
-    number: "02",
-    label: "Minimum criteria",
-    description: "Check whether the information in the scenario is sufficient for the defined case-validity exercise.",
-    prompts: ["Identifiable patient", "Identifiable reporter", "Suspect product", "Adverse event"],
-  },
-  {
-    id: "timeline",
-    number: "03",
-    label: "Timeline review",
-    description: "Review the dates in the scenario and explain which reporting-clock rule applies to the stated context.",
-    prompts: ["Initial receipt date", "Follow-up information", "Applicable jurisdiction", "Reasoning recorded"],
-  },
-  {
-    id: "narrative",
-    number: "04",
-    label: "Narrative & QC",
-    description: "Review the case summary for clarity, chronology, missing information and internal consistency.",
-    prompts: ["Chronological sequence", "Relevant clinical details", "Missing information", "Quality review notes"],
-  },
-];
+const LINKEDIN = LINKS.linkedin;
 
 const CAREER_PATHS = [
   {
     title: "Pharmacovigilance",
-    role: "PV Associate · Drug Safety Associate",
-    description: "Adverse event reporting, case processing, safety documentation and quality review.",
-    image: "/images/pv-clinical-workstation.jpg",
+    subtitle: "Medicine safety and case processing",
+    image: "/images/pv-workstation-realistic.jpg",
     href: "/pv-associate",
-    label: "Initial assessment focus",
+    tag: "Drug safety",
   },
   {
     title: "Clinical Data Management",
-    role: "Clinical Data Coordinator · CDM Associate",
-    description: "Clinical data review, discrepancy handling, query workflows and data quality.",
+    subtitle: "Clinical data review and quality",
     image: "/images/pv-clinical-collaboration.jpg",
     href: "/courses/clinical-data-management",
-    label: "Explore role area",
+    tag: "Clinical operations",
   },
   {
     title: "Medical Coding",
-    role: "Medical Coding Specialist",
-    description: "Medical terminology, clinical documentation and role-specific coding systems.",
+    subtitle: "Clinical documentation and coding",
     image: "/images/pv-clinical-coding.jpg",
     href: "/courses/medical-coding",
-    label: "Explore role area",
+    tag: "Healthcare operations",
   },
   {
     title: "Regulatory Affairs",
-    role: "Regulatory Operations Associate",
-    description: "Regulatory documentation, submission processes and product information workflows.",
+    subtitle: "Regulatory information and submissions",
     image: "/images/pv-regulatory-audit.jpg",
     href: "/courses/regulatory-affairs",
-    label: "Explore role area",
+    tag: "Regulatory",
   },
-];
+] as const;
 
-const DEGREE_OPTIONS = [
-  { label: "B.Pharm", detail: "Explore pharmacovigilance, medical coding and selected clinical operations roles, subject to each employer's criteria." },
-  { label: "Pharm.D", detail: "Explore drug safety, clinical research and other healthcare roles where the employer's qualification criteria include Pharm.D." },
-  { label: "M.Pharm", detail: "Explore role requirements relevant to your specialisation, experience and preferred area of work." },
-  { label: "Life Sciences", detail: "Explore clinical data, research operations and other roles where the published qualification criteria match your degree." },
-  { label: "MBBS / BDS", detail: "Explore relevant clinical research, safety and healthcare operations roles, subject to role-specific requirements." },
-];
+const TRACK_PREVIEWS = {
+  pv: {
+    label: "Pharmacovigilance",
+    task: "Review a synthetic safety case",
+    detail: "Check the four minimum case elements, review the chronology and document what is missing.",
+    stages: ["Case intake", "Validity check", "Timeline review", "Narrative quality"],
+  },
+  cdm: {
+    label: "Clinical Data Management",
+    task: "Resolve a sample data query",
+    detail: "Review an eCRF discrepancy, assess the supporting information and record a clear query outcome.",
+    stages: ["Data review", "Query raised", "Response review", "Closure check"],
+  },
+  coding: {
+    label: "Medical Coding",
+    task: "Review a clinical note",
+    detail: "Identify the documented condition, check the coding reference and record the rationale for the selected code.",
+    stages: ["Read the note", "Identify concepts", "Check references", "Record rationale"],
+  },
+} as const;
 
-function SectionIntro({
-  eyebrow,
-  title,
-  description,
-  align = "left",
-}: {
-  eyebrow: string;
-  title: string;
-  description?: string;
-  align?: "left" | "center";
-}) {
+type TrackKey = keyof typeof TRACK_PREVIEWS;
+
+function SectionLabel({ children }: { children: string }) {
   return (
-    <div className={align === "center" ? "mx-auto mb-9 max-w-3xl text-center sm:mb-12" : "mb-8 max-w-2xl sm:mb-10"}>
-      <p className="type-eyebrow text-arzon-teal">{eyebrow}</p>
-      <h2 className="type-h1 mt-3 text-arzon-deep-teal">{title}</h2>
-      {description ? <p className="type-body mt-4 text-ink-soft">{description}</p> : null}
-    </div>
-  );
-}
-
-function ProductPreview({ compact = false }: { compact?: boolean }) {
-  const [activeTask, setActiveTask] = useState<SimulationTask>("intake");
-  const task = SIMULATION_TASKS.find((item) => item.id === activeTask) ?? SIMULATION_TASKS[0];
-
-  return (
-    <div className={compact ? "rounded-3xl border border-arzon-seafoam/40 bg-white p-3 shadow-[0_18px_55px_rgba(0,75,69,0.10)]" : "rounded-3xl border border-arzon-seafoam/40 bg-white p-4 shadow-[0_18px_55px_rgba(0,75,69,0.08)] sm:p-6"}>
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-4">
-        <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-arzon-mint text-arzon-teal">
-            <ClipboardCheck className="h-5 w-5" />
-          </div>
-          <div>
-            <p className="type-label text-arzon-deep-teal">Clinical Simulation Engine</p>
-            <p className="type-caption mt-0.5 text-ink-soft">Pharmacovigilance · Sample assessment</p>
-          </div>
-        </div>
-        <span className="rounded-full bg-arzon-ice px-3 py-1 type-meta text-arzon-deep-teal">SYNTHETIC CASE</span>
-      </div>
-
-      <div className="grid gap-4 pt-4 md:grid-cols-[minmax(0,1fr)_11rem]">
-        <div className="min-w-0">
-          <div className="flex gap-1 overflow-x-auto pb-2" role="tablist" aria-label="Sample simulation tasks">
-            {SIMULATION_TASKS.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                role="tab"
-                aria-selected={activeTask === item.id}
-                onClick={() => setActiveTask(item.id)}
-                className={activeTask === item.id
-                  ? "shrink-0 rounded-full bg-arzon-deep-teal px-3 py-2 type-caption font-semibold text-white"
-                  : "shrink-0 rounded-full border border-border bg-white px-3 py-2 type-caption font-medium text-ink-soft transition-colors hover:border-arzon-seafoam hover:text-arzon-deep-teal"}
-              >
-                {item.number} · {item.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="rounded-2xl border border-border bg-arzon-ice p-4 sm:p-5">
-            <div className="flex items-center justify-between gap-3">
-              <p className="type-meta text-arzon-teal">TASK {task.number}</p>
-              <span className="rounded-full border border-arzon-seafoam/50 bg-white px-2.5 py-1 type-caption text-arzon-deep-teal">Training environment</span>
-            </div>
-            <h3 className="type-h3 mt-2 text-arzon-deep-teal">{task.label}</h3>
-            <p className="type-body-sm mt-2 text-ink-soft">{task.description}</p>
-
-            <div className="mt-4 rounded-xl border border-arzon-seafoam/50 bg-white p-4">
-              <div className="flex items-center gap-2">
-                <FileSearch className="h-4 w-4 text-arzon-teal" />
-                <p className="type-label text-arzon-deep-teal">Synthetic case record</p>
-              </div>
-              <p className="type-caption mt-2 text-ink-soft">
-                Fictional training scenario. No real patient information or production safety database is used.
-              </p>
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                {task.prompts.map((prompt, index) => (
-                  <div key={prompt} className="flex items-center gap-2 rounded-lg bg-arzon-ice px-3 py-2.5">
-                    <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-arzon-mint type-meta text-arzon-deep-teal">{index + 1}</span>
-                    <span className="type-caption text-ink">{prompt}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <aside className="rounded-2xl bg-arzon-mint/70 p-4">
-          <p className="type-meta text-arzon-teal">WHAT THIS CAN ASSESS</p>
-          <div className="mt-4 space-y-3">
-            {["Information review", "Workflow understanding", "Reasoning and documentation", "Recognition of missing details"].map((item) => (
-              <div key={item} className="flex items-start gap-2">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-arzon-teal" />
-                <span className="type-caption text-arzon-deep-teal">{item}</span>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 border-t border-arzon-seafoam/50 pt-4">
-            <p className="type-caption text-ink-soft">Assessment results describe performance on the stated tasks. They are not a professional licence or employment guarantee.</p>
-          </div>
-        </aside>
-      </div>
-    </div>
+    <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#008F83]">
+      {children}
+    </p>
   );
 }
 
 export function ArzonHomeIntelligence() {
-  const [degree, setDegree] = useState("B.Pharm");
-  const selectedDegree = DEGREE_OPTIONS.find((item) => item.label === degree) ?? DEGREE_OPTIONS[0];
+  const [activeTrack, setActiveTrack] = useState<TrackKey>("pv");
+  const prefersReducedMotion = useReducedMotion();
+  const preview = TRACK_PREVIEWS[activeTrack];
+
+  const enter = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 16 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, amount: 0.18 },
+        transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
+      };
 
   return (
-    <div className="arzon-home-intelligence overflow-x-clip bg-white text-ink">
-      <section id="platform" className="relative isolate overflow-hidden bg-gradient-to-br from-arzon-ice via-white to-arzon-mint/70">
-        <div className="pointer-events-none absolute -right-40 -top-48 h-[34rem] w-[34rem] rounded-full bg-arzon-seafoam/20 blur-3xl" aria-hidden="true" />
-        <div className="ap-shell relative grid items-center gap-10 py-12 sm:py-16 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12 lg:py-20">
-          <div className="relative z-10 max-w-2xl">
-            <p className="type-eyebrow text-arzon-teal">Healthcare talent intelligence</p>
-            <h1 className="type-display mt-5 max-w-3xl text-arzon-deep-teal">
-              Know what the industry requires.{" "}
-              <span className="text-arzon-teal">Show what you can do.</span>
+    <main className="arzon-home-intelligence overflow-x-clip bg-[#F7FAF9] text-[#102A28]">
+      {/* 01 / HERO */}
+      <section
+        id="platform"
+        className="relative flex min-h-[calc(100svh-48px)] items-center overflow-hidden bg-[#F5FAF8]"
+      >
+        <div className="pointer-events-none absolute -right-40 -top-44 h-[36rem] w-[36rem] rounded-full bg-[#DFF1EF] blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-52 -left-36 h-[28rem] w-[28rem] rounded-full bg-[#E8F2EF] blur-3xl" />
+
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-10 sm:px-8 lg:min-h-[calc(100svh-48px)] lg:grid-cols-[0.92fr_1.08fr] lg:gap-14 lg:px-10 lg:py-8">
+          <motion.div {...enter} className="relative z-10 max-w-[590px]">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#CBE3DF] bg-white/80 px-3.5 py-2 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#42645F] shadow-[0_3px_14px_rgba(9,58,51,0.04)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#008F83]" />
+              Arzon Global · Skills and career intelligence
+            </div>
+
+            <h1 className="max-w-[620px] text-[clamp(2.65rem,5.2vw,4.65rem)] font-semibold leading-[0.99] tracking-[-0.065em] text-[#063F39]">
+              Build capability.
+              <span className="mt-1 block text-[#008F83]">Show the work.</span>
             </h1>
-            <p className="type-body mt-6 max-w-xl text-ink-soft">
-              Explore healthcare roles, understand the requirements behind them and demonstrate your knowledge through practical, role-based assessments.
-            </p>
-            <p className="type-body-sm mt-3 max-w-xl text-ink-soft">
-              Arzon helps you connect your education and experience with the work a role involves, then understand what may be worth developing next.
+
+            <p className="mt-6 max-w-[490px] text-[15px] leading-7 text-[#526B67] sm:text-[17px]">
+              We connect role requirements, practical learning and evidence of skill - helping students make clearer career decisions.
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to={"/career-engine/start" as any}
-                data-testid="primary-career-intelligence-cta"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-arzon-deep-teal px-7 py-3 type-label text-white shadow-[0_8px_22px_rgba(0,75,69,0.16)] transition hover:bg-arzon-teal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-arzon-teal"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#004B45] px-6 text-[13px] font-semibold text-white shadow-[0_8px_22px_rgba(0,75,69,0.16)] transition hover:-translate-y-0.5 hover:bg-[#00675D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83]"
               >
-                Build My Profile <ArrowRight className="h-4 w-4" />
+                Build my profile <ArrowRight className="h-4 w-4" />
               </Link>
               <a
-                href="#clinical-simulation"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-arzon-seafoam/60 bg-white px-7 py-3 type-label text-arzon-deep-teal transition hover:bg-arzon-mint/50"
+                href="#proof"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-[#C7DAD6] bg-white/80 px-6 text-[13px] font-semibold text-[#174D47] transition hover:border-[#008F83] hover:bg-white"
               >
-                Explore a Sample Assessment <ArrowUpRight className="h-4 w-4" />
+                See our work <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-arzon-seafoam/40 pt-5">
-              {[
-                "Industry-informed role requirements",
-                "Practical clinical simulations",
-                "Clear candidate reports",
-              ].map((item) => (
-                <span key={item} className="inline-flex items-center gap-2 type-caption text-ink-soft">
-                  <span className="h-1.5 w-1.5 rounded-full bg-arzon-teal" />
-                  {item}
-                </span>
-              ))}
+            <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[#DCE9E6] pt-5">
+              <div className="flex items-center gap-2 text-[11px] font-medium text-[#56716C]">
+                <ShieldCheck className="h-4 w-4 text-[#008F83]" />
+                Student-first
+              </div>
+              <div className="flex items-center gap-2 text-[11px] font-medium text-[#56716C]">
+                <ClipboardCheck className="h-4 w-4 text-[#008F83]" />
+                Practical assessment
+              </div>
+              <div className="flex items-center gap-2 text-[11px] font-medium text-[#56716C]">
+                <FileCheck2 className="h-4 w-4 text-[#008F83]" />
+                Evidence-led reports
+              </div>
             </div>
-            <div className="mt-5">
-              <Link to={"/recruiters" as any} className="inline-flex items-center gap-1.5 type-caption font-semibold text-arzon-teal hover:text-arzon-deep-teal">
-                Hiring or assessing early-career talent? Explore Arzon for Employers <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
+          </motion.div>
 
-          <div className="relative z-10 min-w-0">
-            <ProductPreview compact />
-            <p className="mt-3 text-center type-caption text-ink-mute">
-              Product preview · Synthetic training data · Interface shown for illustration
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-arzon-seafoam/30 bg-white">
-        <div className="ap-shell grid gap-4 py-5 sm:grid-cols-3 sm:gap-6">
-          {[
-            { icon: Search, title: "Understand the role", copy: "Start with published requirements and role context." },
-            { icon: ClipboardCheck, title: "Demonstrate capability", copy: "Work through relevant tasks in a synthetic environment." },
-            { icon: FileCheck2, title: "See your next step", copy: "Review what was shown, what is unverified and what to work on." },
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.title} className="flex items-start gap-3">
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-arzon-mint text-arzon-teal">
-                  <Icon className="h-5 w-5" />
+          <motion.div
+            {...(prefersReducedMotion
+              ? {}
+              : {
+                  initial: { opacity: 0, scale: 0.975 },
+                  animate: { opacity: 1, scale: 1 },
+                  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+                })}
+            className="relative mx-auto w-full max-w-[690px] lg:ml-auto"
+          >
+            <div className="absolute -inset-5 rounded-[36px] bg-[#D9ECE8]/70 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[26px] border border-white/80 bg-[#082F2C] p-2 shadow-[0_28px_80px_rgba(4,45,40,0.18)] sm:rounded-[30px] sm:p-3">
+              <div className="relative aspect-[1.34/1] overflow-hidden rounded-[20px] bg-[#0B3934] sm:rounded-[23px]">
+                <img
+                  src={LINKS.mediaInauguration.fallbackPoster}
+                  alt="Frame from the Arzon Global Hyderabad centre inauguration telecast"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#031B19]/95 via-[#031B19]/10 to-[#031B19]/10" />
+                <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/20 bg-black/25 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.16em] text-white/90 backdrop-blur-md sm:left-7 sm:top-7">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#7BD3C6]" />
+                  Public event record
                 </div>
-                <div>
-                  <p className="type-label text-arzon-deep-teal">{item.title}</p>
-                  <p className="type-caption mt-1 text-ink-soft">{item.copy}</p>
+                <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#9EDAD2]">
+                    Hyderabad · 30 July 2025
+                  </p>
+                  <h2 className="mt-2 max-w-[450px] text-[clamp(1.45rem,3vw,2.4rem)] font-semibold leading-[1.05] tracking-[-0.045em] text-white">
+                    A public launch with TASK leadership.
+                  </h2>
+                  <a
+                    href={LINKS.mediaInauguration.watch}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex h-10 items-center gap-2 rounded-full bg-white px-4 text-[11px] font-semibold text-[#073F39] transition hover:bg-[#DFF1EF]"
+                  >
+                    <CirclePlay className="h-4 w-4" />
+                    Watch the official telecast
+                  </a>
                 </div>
               </div>
-            );
-          })}
+              <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-1 pt-3 text-[10px] text-white/65 sm:px-3">
+                <span>Dr. Srikanth Sinha · CEO, TASK · Chief Guest</span>
+                <span>HYBIZ TV HD · Event video</span>
+              </div>
+            </div>
+
+            <div className="absolute -left-3 top-[13%] hidden rounded-2xl border border-[#E8D9B1] bg-[#FFFCF4] p-4 shadow-[0_14px_40px_rgba(67,52,16,0.12)] sm:block lg:-left-8">
+              <div className="flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#F4E6BE] text-[#876A27]">
+                  <Award className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#91783E]">Recognition · 2026</p>
+                  <p className="mt-0.5 text-[13px] font-semibold text-[#4E4125]">Global Impact Award</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -bottom-4 right-4 hidden rounded-2xl border border-[#CDE2DE] bg-white/95 px-4 py-3 shadow-[0_12px_34px_rgba(6,57,51,0.10)] backdrop-blur sm:block lg:-right-5">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#71908A]">Industry engagement</p>
+              <p className="mt-1 text-[12px] font-semibold text-[#174D47]">PHUSE APAC · 2026</p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      <section id="why-arzon" className="bg-arzon-ice py-14 sm:py-20">
-        <div className="ap-shell">
-          <SectionIntro
-            eyebrow="The gap between education and work"
-            title="Knowing the subject is one thing. Applying it is another."
-            description="Your degree and resume are important parts of your story. Practical work can show additional things: how you review information, follow a process, explain a decision and document what you found."
-            align="center"
-          />
-          <div className="grid gap-4 lg:grid-cols-2">
-            <article className="rounded-3xl border border-arzon-seafoam/30 bg-white p-6 sm:p-8">
-              <p className="type-meta text-ink-mute">WHAT A PROFILE CAN TELL YOU</p>
-              <h3 className="type-h2 mt-3 text-arzon-deep-teal">Your background</h3>
-              <p className="type-body-sm mt-2 text-ink-soft">Education, specialisation, projects, internships, certifications and the skills you report having.</p>
-              <ul className="mt-6 space-y-3">
-                {["What you studied", "Where you have gained experience", "Which roles interest you", "Which skills you say you have"].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 type-body-sm text-ink-soft">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-arzon-teal" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
-            <article className="rounded-3xl border border-arzon-seafoam/50 bg-arzon-mint/55 p-6 sm:p-8">
-              <p className="type-meta text-arzon-teal">WHAT A PRACTICAL TASK CAN ADD</p>
-              <h3 className="type-h2 mt-3 text-arzon-deep-teal">Your demonstrated work</h3>
-              <p className="type-body-sm mt-2 text-ink-soft">A structured view of how you approached a defined scenario and which parts of the task you completed.</p>
-              <ul className="mt-6 space-y-3">
-                {["Identify information in a case", "Recognise missing details", "Follow the stated workflow", "Explain and document your reasoning"].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 type-body-sm text-arzon-deep-teal">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-arzon-teal" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </article>
+      {/* 02 / PUBLIC PROOF */}
+      <section
+        id="proof"
+        className="flex min-h-[calc(100svh-48px)] items-center bg-white py-12 sm:py-14 lg:py-8"
+      >
+        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-7 flex flex-col justify-between gap-4 sm:mb-8 sm:flex-row sm:items-end">
+            <div>
+              <SectionLabel>Proof in the public record</SectionLabel>
+              <h2 className="text-[clamp(2rem,3.6vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-[#063F39]">
+                Work worth showing.
+              </h2>
+            </div>
+            <p className="max-w-[390px] text-[13px] leading-6 text-[#617873]">
+              Milestones, campus conversations and industry participation - each linked to its public source.
+            </p>
           </div>
-          <p className="mx-auto mt-6 max-w-3xl text-center type-caption text-ink-mute">
-            Neither a degree nor a single simulation tells the whole story. Arzon brings profile information and task-specific evidence together, with the limits of each made clear.
+
+          <div className="grid gap-4 lg:grid-cols-12">
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative flex min-h-[260px] flex-col justify-between overflow-hidden rounded-[24px] bg-[#073F39] p-6 text-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,75,69,0.16)] sm:min-h-[300px] lg:col-span-5 lg:p-8"
+            >
+              <div className="absolute -right-12 -top-14 h-56 w-56 rounded-full border border-white/10" />
+              <div className="absolute -right-2 top-2 h-40 w-40 rounded-full border border-white/10" />
+              <div className="relative flex items-start justify-between gap-4">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#9BD8D0]">
+                  Recognition · 04-05 November 2026
+                </span>
+                <Award className="h-6 w-6 shrink-0 text-[#E7C982]" />
+              </div>
+              <div className="relative">
+                <p className="text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-none tracking-[-0.07em] text-[#F3D99D]">
+                  2026
+                </p>
+                <h3 className="mt-2 max-w-sm text-[24px] font-semibold leading-[1.08] tracking-[-0.045em] text-white">
+                  Global Impact Award
+                </h3>
+                <p className="mt-3 max-w-[380px] text-[12px] leading-5 text-white/70">
+                  Presented by SARSD at the 8th ICAATAS conference, Malla Reddy University, Hyderabad.
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold text-[#A9E0D8]">
+                  View Arzon's public update <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </span>
+              </div>
+            </a>
+
+            <a
+              href={LINKS.mediaInauguration.watch}
+              target="_blank"
+              rel="noreferrer"
+              className="group relative flex min-h-[260px] flex-col justify-between overflow-hidden rounded-[24px] bg-[#F1F7F5] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(0,75,69,0.10)] sm:min-h-[300px] lg:col-span-3"
+            >
+              <div className="absolute inset-0 opacity-[0.11]">
+                <img src={LINKS.mediaInauguration.fallbackPoster} alt="" className="h-full w-full object-cover" loading="lazy" />
+              </div>
+              <div className="relative flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#64827C]">Hyderabad · 2025</span>
+                <CirclePlay className="h-6 w-6 text-[#008F83]" />
+              </div>
+              <div className="relative">
+                <h3 className="text-[22px] font-semibold leading-[1.08] tracking-[-0.045em] text-[#063F39]">
+                  TASK chief guest at the centre inauguration.
+                </h3>
+                <p className="mt-3 text-[12px] leading-5 text-[#5C756F]">
+                  Dr. Srikanth Sinha, CEO of TASK, attended the public launch on 30 July 2025.
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold text-[#00796F]">
+                  Watch event footage <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </span>
+              </div>
+            </a>
+
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex min-h-[260px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-[#FCFEFD] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] sm:min-h-[300px] lg:col-span-4"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#64827C]">Campus outreach</span>
+                <GraduationCap className="h-6 w-6 text-[#008F83]" />
+              </div>
+              <div>
+                <h3 className="text-[22px] font-semibold leading-[1.08] tracking-[-0.045em] text-[#063F39]">
+                  Malla Reddy University
+                </h3>
+                <p className="mt-3 text-[12px] leading-5 text-[#5C756F]">
+                  Arzon's team met the Dean and faculty to present its vision and discuss student development opportunities.
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 text-[11px] font-semibold text-[#00796F]">
+                  Read the campus update <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </span>
+              </div>
+              <div className="mt-5 flex items-center gap-2 border-t border-[#E5EEEB] pt-4 text-[10px] font-medium text-[#78918B]">
+                <Building2 className="h-3.5 w-3.5" />
+                Campus visit · Dean and faculty discussion
+              </div>
+            </a>
+
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex min-h-[210px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-[#F7FAF9] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-7"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#64827C]">Industry participation · 2026</span>
+                <Globe2 className="h-6 w-6 text-[#008F83]" />
+              </div>
+              <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                  <h3 className="text-[clamp(1.6rem,2.7vw,2.25rem)] font-semibold leading-[1.06] tracking-[-0.05em] text-[#063F39]">
+                    PHUSE APAC
+                  </h3>
+                  <p className="mt-2 max-w-[500px] text-[12px] leading-5 text-[#5C756F]">
+                    Arzon shared its participation in the clinical research, data science and biostatistics community at PHUSE APAC 2026.
+                  </p>
+                </div>
+                <span className="inline-flex shrink-0 items-center gap-2 text-[11px] font-semibold text-[#00796F]">
+                  Read the update <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </span>
+              </div>
+            </a>
+
+            <div className="flex min-h-[210px] flex-col justify-between rounded-[24px] bg-[#E4F1EE] p-6 lg:col-span-5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#64827C]">How we work</span>
+                <ShieldCheck className="h-6 w-6 text-[#008F83]" />
+              </div>
+              <div>
+                <h3 className="text-[22px] font-semibold leading-[1.08] tracking-[-0.045em] text-[#063F39]">
+                  Engagement is not the same as endorsement.
+                </h3>
+                <p className="mt-3 text-[12px] leading-5 text-[#5C756F]">
+                  We show the context of each event clearly. A campus visit, conference participation or public inauguration is not presented as a hiring partnership or government accreditation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 03 / THE PRODUCT */}
+      <section
+        id="how-it-works"
+        className="flex min-h-[calc(100svh-48px)] items-center bg-[#F2F8F6] py-12 sm:py-14 lg:py-8"
+      >
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14 lg:px-10">
+          <motion.div {...enter} className="max-w-[440px]">
+            <SectionLabel>A clearer way to prepare</SectionLabel>
+            <h2 className="text-[clamp(2rem,3.8vw,3.35rem)] font-semibold leading-[1.02] tracking-[-0.06em] text-[#063F39]">
+              Understand the role.
+              <span className="block text-[#008F83]">Show your capability.</span>
+            </h2>
+            <p className="mt-5 text-[14px] leading-7 text-[#5B746E]">
+              Start with what employers ask for, practise the work in a structured environment and review what you have demonstrated.
+            </p>
+
+            <div className="mt-8 space-y-4">
+              {[
+                ["01", "Understand", "Review role responsibilities and published requirements."],
+                ["02", "Practise", "Work through relevant tasks using synthetic training scenarios."],
+                ["03", "Evidence", "See what was demonstrated, what is missing and what to improve."],
+              ].map(([number, title, description]) => (
+                <div key={number} className="flex gap-4 border-t border-[#D9E7E3] pt-4">
+                  <span className="pt-0.5 text-[11px] font-semibold tracking-[0.12em] text-[#008F83]">{number}</span>
+                  <div>
+                    <h3 className="text-[14px] font-semibold text-[#174D47]">{title}</h3>
+                    <p className="mt-1 text-[12px] leading-5 text-[#6B817C]">{description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              to={"/career-assessment" as any}
+              className="mt-7 inline-flex items-center gap-2 text-[12px] font-semibold text-[#00796F] transition hover:gap-3"
+            >
+              Explore the assessment <ArrowRight className="h-4 w-4" />
+            </Link>
+          </motion.div>
+
+          <motion.div
+            {...enter}
+            className="relative overflow-hidden rounded-[26px] border border-[#D7E6E2] bg-white p-3 shadow-[0_24px_70px_rgba(3,55,48,0.10)] sm:rounded-[30px] sm:p-5"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E8EFED] px-2 pb-4">
+              <div>
+                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#82A099]">Interactive product sample</p>
+                <h3 className="mt-1 text-[16px] font-semibold tracking-[-0.03em] text-[#0B3934]">Role readiness workspace</h3>
+              </div>
+              <span className="rounded-full border border-[#CFE3DE] bg-[#F1F8F6] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#39736A]">
+                Synthetic training data
+              </span>
+            </div>
+
+            <div className="grid gap-3 pt-4 md:grid-cols-[190px_1fr]">
+              <div className="rounded-[18px] bg-[#F3F8F6] p-3">
+                <p className="px-2 pb-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#819A94]">Choose a role</p>
+                {([
+                  ["pv", "Pharmacovigilance"],
+                  ["cdm", "Clinical data"],
+                  ["coding", "Medical coding"],
+                ] as const).map(([key, label]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    aria-pressed={activeTrack === key}
+                    onClick={() => setActiveTrack(key)}
+                    className={[
+                      "mb-1 flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-[11px] font-medium transition",
+                      activeTrack === key
+                        ? "bg-[#004B45] text-white shadow-[0_5px_14px_rgba(0,75,69,0.14)]"
+                        : "text-[#58736D] hover:bg-white",
+                    ].join(" ")}
+                  >
+                    {label}
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </button>
+                ))}
+                <div className="mt-4 rounded-xl border border-[#DCE9E5] bg-white p-3">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#88A29B]">Assessment scope</p>
+                  <p className="mt-1.5 text-[11px] leading-5 text-[#56716B]">Task-specific feedback, not a job guarantee or professional certification.</p>
+                </div>
+              </div>
+
+              <div className="min-w-0 rounded-[18px] border border-[#E3ECE9] bg-white p-4 sm:p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#85A099]">Selected role</p>
+                    <h4 className="mt-1 text-[19px] font-semibold tracking-[-0.04em] text-[#0B3934]">{preview.label}</h4>
+                  </div>
+                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#E4F2EF] text-[#008F83]">
+                    <Microscope className="h-5 w-5" />
+                  </div>
+                </div>
+
+                <div className="mt-5 rounded-2xl bg-[#073F39] p-4 text-white sm:p-5">
+                  <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9CD8D0]">Sample task</p>
+                  <p className="mt-2 text-[16px] font-semibold tracking-[-0.025em]">{preview.task}</p>
+                  <p className="mt-2 max-w-[520px] text-[11px] leading-5 text-white/70">{preview.detail}</p>
+                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                    {preview.stages.map((stage, index) => (
+                      <div key={stage} className="rounded-xl border border-white/10 bg-white/[0.06] p-3">
+                        <span className="text-[9px] font-semibold text-[#A6DDD5]">0{index + 1}</span>
+                        <p className="mt-2 text-[10px] font-medium leading-4 text-white/90">{stage}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                  {[
+                    [Layers3, "Role context"],
+                    [ClipboardCheck, "Practical task"],
+                    [FileCheck2, "Evidence report"],
+                  ].map(([Icon, label]) => (
+                    <div key={String(label)} className="flex items-center gap-2 rounded-xl border border-[#E5EEEB] bg-[#FAFCFB] px-3 py-3">
+                      <Icon className="h-4 w-4 shrink-0 text-[#008F83]" />
+                      <span className="text-[10px] font-medium text-[#58736D]">{String(label)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <p className="px-2 pt-3 text-[9px] leading-4 text-[#8AA19B]">
+              Interface preview only. The cases and examples shown here are synthetic and are not live patient or employer records.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 04 / CAREER PATHS */}
+      <section
+        id="career-paths"
+        className="flex min-h-[calc(100svh-48px)] items-center bg-white py-12 sm:py-14 lg:py-8"
+      >
+        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="mb-7 flex flex-col justify-between gap-3 sm:mb-8 sm:flex-row sm:items-end">
+            <div>
+              <SectionLabel>Explore career directions</SectionLabel>
+              <h2 className="text-[clamp(2rem,3.6vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-[#063F39]">
+                Start with the work you want to do.
+              </h2>
+            </div>
+            <p className="max-w-[350px] text-[12px] leading-5 text-[#6B817C]">
+              Explore role expectations before choosing what to learn next.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {CAREER_PATHS.map((path, index) => (
+              <motion.div
+                key={path.title}
+                {...(prefersReducedMotion
+                  ? {}
+                  : {
+                      initial: { opacity: 0, y: 14 },
+                      whileInView: { opacity: 1, y: 0 },
+                      viewport: { once: true, amount: 0.15 },
+                      transition: { duration: 0.45, delay: index * 0.06 },
+                    })}
+              >
+                <Link
+                  to={path.href as any}
+                  className="group block overflow-hidden rounded-[22px] border border-[#E1EBE8] bg-[#F8FBFA] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.10)]"
+                >
+                  <div className="relative aspect-[1.22/1] overflow-hidden bg-[#E6F0ED]">
+                    <img
+                      src={path.image}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#052E2A]/75 via-transparent to-transparent" />
+                    <span className="absolute bottom-4 left-4 rounded-full border border-white/25 bg-[#062E2B]/50 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.13em] text-white backdrop-blur">
+                      {path.tag}
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="text-[17px] font-semibold tracking-[-0.035em] text-[#0B3934]">{path.title}</h3>
+                    <p className="mt-2 min-h-[34px] text-[11px] leading-5 text-[#718781]">{path.subtitle}</p>
+                    <span className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold text-[#00796F]">
+                      Explore path <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-6 flex flex-col justify-between gap-4 rounded-[22px] bg-[#073F39] p-5 text-white sm:flex-row sm:items-center sm:px-7">
+            <div className="flex items-center gap-3">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-[#A6DDD5]">
+                <Users className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-[13px] font-semibold">For colleges, TPOs and hiring teams</p>
+                <p className="mt-1 text-[10px] text-white/65">Discuss campus engagement, assessment and role requirements.</p>
+              </div>
+            </div>
+            <Link
+              to={"/contact" as any}
+              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-white px-5 text-[11px] font-semibold text-[#06463F] transition hover:bg-[#DFF1EF]"
+            >
+              Talk to Arzon <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+
+          <p className="mt-4 text-[9px] leading-4 text-[#9AAEA9]">
+            Career-path images are illustrative. Programme scope, eligibility and outcomes depend on the relevant role and published programme details.
           </p>
         </div>
       </section>
-
-      <section id="how-it-works" className="bg-white py-14 sm:py-20">
-        <div className="ap-shell">
-          <SectionIntro
-            eyebrow="How Arzon works"
-            title="From industry requirements to your next step."
-            description="A clear process connects the role you are exploring with your background, the tasks you complete and the information in your report."
-            align="center"
-          />
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { number: "01", icon: FileSearch, title: "Understand the role", copy: "Review role requirements, qualifications and the responsibilities described by employers." },
-              { number: "02", icon: UserRound, title: "Build your profile", copy: "Share your education, experience, skills and the career areas you want to explore." },
-              { number: "03", icon: Microscope, title: "Demonstrate capability", copy: "Complete relevant knowledge checks and synthetic, role-based practical tasks." },
-              { number: "04", icon: ClipboardCheck, title: "Review your next step", copy: "See demonstrated areas, gaps, unknowns and practical development options." },
-            ].map((step) => {
-              const Icon = step.icon;
-              return (
-                <article key={step.number} className="rounded-2xl border border-border bg-white p-5 transition hover:border-arzon-seafoam hover:shadow-[0_10px_28px_rgba(0,75,69,0.07)]">
-                  <div className="flex items-center justify-between">
-                    <span className="type-meta text-arzon-teal">{step.number}</span>
-                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-arzon-mint text-arzon-teal"><Icon className="h-5 w-5" /></span>
-                  </div>
-                  <h3 className="type-h3 mt-5 text-arzon-deep-teal">{step.title}</h3>
-                  <p className="type-body-sm mt-2 text-ink-soft">{step.copy}</p>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section id="clinical-simulation" className="bg-arzon-ice py-14 sm:py-20">
-        <div className="ap-shell">
-          <div className="grid items-center gap-9 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
-            <div>
-              <p className="type-eyebrow text-arzon-teal">See the product in action</p>
-              <h2 className="type-h1 mt-3 text-arzon-deep-teal">Work through a case. Understand the task.</h2>
-              <p className="type-body mt-4 text-ink-soft">
-                The Clinical Simulation Engine gives candidates a place to practise selected pharmacovigilance workflows using fictional training scenarios. Assessment criteria are defined for the task and the result explains what was reviewed.
-              </p>
-              <div className="mt-6 space-y-3">
-                {[
-                  "ICSR intake and information review",
-                  "Case validity and missing information",
-                  "Timeline reasoning in a stated regulatory context",
-                  "Narrative clarity and quality review",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-2.5 type-body-sm text-ink-soft">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-arzon-teal" /> {item}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-6 type-caption text-ink-mute">
-                The simulator is an educational assessment environment. It is not a production safety database, regulatory submission system or professional certification.
-              </p>
-              <Link to={"/career-assessment" as any} className="mt-7 inline-flex items-center gap-2 rounded-full bg-arzon-deep-teal px-6 py-3 type-label text-white transition hover:bg-arzon-teal">
-                Explore the assessment <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div className="min-w-0">
-              <ProductPreview />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="career-paths" className="bg-white py-14 sm:py-20">
-        <div className="ap-shell">
-          <SectionIntro
-            eyebrow="Explore healthcare career paths"
-            title="Start with the work you want to understand."
-            description="Explore selected healthcare and life-sciences role families. Requirements vary by employer, location, qualification and experience."
-          />
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {CAREER_PATHS.map((career) => (
-              <article key={career.title} className="group overflow-hidden rounded-2xl border border-border bg-white transition hover:-translate-y-1 hover:border-arzon-seafoam hover:shadow-[0_12px_32px_rgba(0,75,69,0.08)]">
-                <div className="relative aspect-[16/10] overflow-hidden bg-arzon-mint">
-                  <img src={career.image} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3 py-1 type-caption font-semibold text-arzon-deep-teal">{career.label}</span>
-                </div>
-                <div className="p-5">
-                  <h3 className="type-h3 text-arzon-deep-teal">{career.title}</h3>
-                  <p className="type-caption mt-1 font-medium text-arzon-teal">{career.role}</p>
-                  <p className="type-body-sm mt-3 text-ink-soft">{career.description}</p>
-                  <Link to={career.href as any} className="mt-5 inline-flex items-center gap-1.5 type-label text-arzon-teal hover:text-arzon-deep-teal">
-                    Explore this role <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="degree-alignment" className="bg-arzon-ice py-14 sm:py-20">
-        <div className="ap-shell grid items-center gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-          <div className="overflow-hidden rounded-3xl">
-            <img src="/images/bpharm-students-group.jpg" alt="Healthcare and pharmacy students together" loading="lazy" className="aspect-[5/4] h-full w-full object-cover" />
-          </div>
-          <div>
-            <p className="type-eyebrow text-arzon-teal">Degree and role exploration</p>
-            <h2 className="type-h1 mt-3 text-arzon-deep-teal">See how your qualification relates to different roles.</h2>
-            <p className="type-body mt-4 text-ink-soft">
-              Choose your academic background to explore role families and the requirements worth checking. A degree selector is a starting point, not an automatic eligibility decision.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Choose your qualification">
-              {DEGREE_OPTIONS.map((item) => (
-                <button
-                  key={item.label}
-                  type="button"
-                  onClick={() => setDegree(item.label)}
-                  aria-pressed={degree === item.label}
-                  className={degree === item.label
-                    ? "rounded-full bg-arzon-deep-teal px-4 py-2 type-caption font-semibold text-white"
-                    : "rounded-full border border-arzon-seafoam/50 bg-white px-4 py-2 type-caption font-medium text-arzon-deep-teal transition hover:bg-arzon-mint"}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-            <div className="mt-4 rounded-2xl border border-arzon-seafoam/40 bg-white p-5" aria-live="polite">
-              <p className="type-meta text-arzon-teal">SELECTED QUALIFICATION</p>
-              <h3 className="type-h3 mt-2 text-arzon-deep-teal">{selectedDegree.label}</h3>
-              <p className="type-body-sm mt-2 text-ink-soft">{selectedDegree.detail}</p>
-              <Link to={"/career-engine/start" as any} className="mt-4 inline-flex items-center gap-2 type-label text-arzon-teal hover:text-arzon-deep-teal">
-                Start with my profile <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="candidate-report" className="bg-white py-14 sm:py-20">
-        <div className="ap-shell">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.88fr_1.12fr]">
-            <div>
-              <p className="type-eyebrow text-arzon-teal">Your candidate report</p>
-              <h2 className="type-h1 mt-3 text-arzon-deep-teal">A clearer view of where you stand.</h2>
-              <p className="type-body mt-4 text-ink-soft">
-                A useful report should explain the information it used, what was assessed and what remains unknown. It should not hide everything behind one unexplained score.
-              </p>
-              <ul className="mt-6 space-y-3">
-                {[
-                  "Your education, experience and target role",
-                  "Role requirements relevant to your chosen path",
-                  "Competencies demonstrated in the assessment",
-                  "Areas that are partial, unverified or not assessed",
-                  "Practical suggestions for what to do next",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 type-body-sm text-ink-soft">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-arzon-teal" /> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="rounded-3xl border border-arzon-seafoam/40 bg-arzon-ice p-4 shadow-[0_14px_42px_rgba(0,75,69,0.07)] sm:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-arzon-seafoam/40 pb-4">
-                <div>
-                  <p className="type-meta text-arzon-teal">ILLUSTRATIVE REPORT LAYOUT</p>
-                  <h3 className="type-h3 mt-1 text-arzon-deep-teal">Candidate Capability Dossier</h3>
-                </div>
-                <span className="rounded-full bg-white px-3 py-1 type-caption text-ink-mute">Sample structure</span>
-              </div>
-              <div className="mt-4 rounded-2xl border border-border bg-white p-4">
-                <p className="type-meta text-ink-mute">TARGET ROLE</p>
-                <p className="type-label mt-1 text-arzon-deep-teal">Pharmacovigilance Associate</p>
-                <p className="type-caption mt-1 text-ink-soft">The benchmark version and research period appear on the actual report.</p>
-              </div>
-              <div className="mt-3 space-y-2">
-                {[
-                  { label: "ICSR workflow understanding", state: "Demonstrated", kind: "good" },
-                  { label: "Medical terminology task", state: "Partially demonstrated", kind: "partial" },
-                  { label: "Regulatory timeline task", state: "Not yet assessed", kind: "unknown" },
-                  { label: "Narrative writing", state: "Development suggested", kind: "action" },
-                ].map((item) => (
-                  <div key={item.label} className="flex flex-col gap-2 rounded-xl border border-border bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="type-body-sm font-medium text-ink">{item.label}</span>
-                    <span className={
-                      item.kind === "good" ? "w-fit rounded-full bg-arzon-mint px-3 py-1 type-caption font-semibold text-arzon-deep-teal"
-                        : item.kind === "partial" ? "w-fit rounded-full bg-amber-50 px-3 py-1 type-caption font-semibold text-amber-800"
-                        : item.kind === "action" ? "w-fit rounded-full bg-arzon-ice px-3 py-1 type-caption font-semibold text-arzon-teal"
-                        : "w-fit rounded-full bg-slate-100 px-3 py-1 type-caption font-medium text-slate-600"
-                    }>{item.state}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-4 type-caption text-ink-mute">Illustrative labels only. Actual results depend on the candidate's submitted profile and completed assessment.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="industry-intelligence" className="bg-arzon-ice py-14 sm:py-20">
-        <div className="ap-shell">
-          <SectionIntro
-            eyebrow="Industry research and methodology"
-            title="Know where the requirements come from."
-            description="Arzon's role intelligence is designed to draw on multiple evidence sources. Each published benchmark should show its scope, research window, source references and limitations."
-            align="center"
-          />
-          <div className="grid gap-4 md:grid-cols-3">
-            {[
-              { icon: FileSearch, title: "Job descriptions", copy: "Review published qualifications, experience, skills, tools and responsibilities for relevant roles." },
-              { icon: BriefcaseBusiness, title: "Employer input", copy: "Use conversations with employers and experienced professionals to add context about actual work expectations." },
-              { icon: Layers3, title: "Market information", copy: "Use available hiring and labour-market information to understand where role requirements may be changing." },
-            ].map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.title} className="rounded-2xl border border-arzon-seafoam/30 bg-white p-6">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-arzon-mint text-arzon-teal"><Icon className="h-5 w-5" /></span>
-                  <h3 className="type-h3 mt-5 text-arzon-deep-teal">{item.title}</h3>
-                  <p className="type-body-sm mt-2 text-ink-soft">{item.copy}</p>
-                </article>
-              );
-            })}
-          </div>
-          <div className="mt-6 rounded-2xl border border-arzon-seafoam/40 bg-white p-5 sm:flex sm:items-center sm:justify-between sm:gap-6">
-            <div>
-              <p className="type-label text-arzon-deep-teal">Scheduled research, transparent scope</p>
-              <p className="type-body-sm mt-1 text-ink-soft">Research reports should display the collection period, role, location, experience group, source list and known limitations. Published job descriptions are not universal industry standards.</p>
-            </div>
-            <Link to={"/resources" as any} className="mt-4 inline-flex shrink-0 items-center gap-2 type-label text-arzon-teal hover:text-arzon-deep-teal sm:mt-0">
-              Explore Arzon resources <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section id="institutional-engagement" className="bg-white py-14 sm:py-20">
-        <div className="ap-shell grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
-          <div className="overflow-hidden rounded-3xl border border-arzon-seafoam/30 bg-arzon-ice">
-            <img
-              src="/images/arzon-task-inauguration.png"
-              alt="Photograph from the Arzon Global Hyderabad centre inauguration"
-              loading="lazy"
-              className="aspect-[16/10] w-full object-cover"
-            />
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border bg-white px-5 py-4">
-              <div>
-                <p className="type-label text-arzon-deep-teal">Hyderabad centre inauguration</p>
-                <p className="type-caption mt-1 text-ink-soft">July 2025 · Event record</p>
-              </div>
-              <a href={LINKS.mediaInauguration.watch} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 type-caption font-semibold text-arzon-teal hover:text-arzon-deep-teal">
-                Watch recording <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
-            </div>
-          </div>
-          <div>
-            <p className="type-eyebrow text-arzon-teal">Institutional engagement</p>
-            <h2 className="type-h1 mt-3 text-arzon-deep-teal">Our work is shaped by academic and industry engagement.</h2>
-            <p className="type-body mt-4 text-ink-soft">
-              Arzon Global's Hyderabad training centre was inaugurated in July 2025 in the presence of Dr. Srikanth Sinha, CEO of the Telangana Academy for Skill and Knowledge (TASK).
-            </p>
-            <p className="type-body-sm mt-3 text-ink-soft">
-              We share the event record so students can see the context behind this engagement. Participation in an event does not imply government accreditation, regulatory approval or endorsement of Arzon's assessments.
-            </p>
-            <a href={LINKS.mediaInauguration.watch} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 type-label text-arzon-teal hover:text-arzon-deep-teal">
-              View the event recording <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section id="learning-in-practice" className="bg-arzon-ice py-14 sm:py-20">
-        <div className="ap-shell">
-          <SectionIntro
-            eyebrow="Learning in practice"
-            title="See the people and work behind the programme."
-            description="A look at the learning environments, sessions and practical activities that form part of Arzon's healthcare career work."
-            align="center"
-          />
-          <div className="grid gap-4 md:grid-cols-3">
-            <figure className="overflow-hidden rounded-2xl border border-border bg-white">
-              <img src="/images/pv-masterclass-live-session.jpg" alt="A live pharmacovigilance learning session" loading="lazy" className="aspect-[4/3] w-full object-cover" />
-              <figcaption className="p-4">
-                <p className="type-label text-arzon-deep-teal">Mentor-led sessions</p>
-                <p className="type-caption mt-1 text-ink-soft">Expert discussions and guided learning.</p>
-              </figcaption>
-            </figure>
-            <figure className="overflow-hidden rounded-2xl border border-border bg-white">
-              <img src="/images/bpharm-students-group.jpg" alt="Pharmacy students at an academic gathering" loading="lazy" className="aspect-[4/3] w-full object-cover" />
-              <figcaption className="p-4">
-                <p className="type-label text-arzon-deep-teal">Student community</p>
-                <p className="type-caption mt-1 text-ink-soft">Connecting learners around healthcare careers.</p>
-              </figcaption>
-            </figure>
-            <figure className="overflow-hidden rounded-2xl border border-border bg-white">
-              <img src="/images/pv-workstation-realistic.jpg" alt="A pharmacovigilance workstation used as a learning reference" loading="lazy" className="aspect-[4/3] w-full object-cover" />
-              <figcaption className="p-4">
-                <p className="type-label text-arzon-deep-teal">Practical workflows</p>
-                <p className="type-caption mt-1 text-ink-soft">Learning around structured casework and documentation.</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <section id="student-commitment" className="bg-arzon-deep-teal py-14 text-white sm:py-20">
-        <div className="ap-shell grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-center">
-          <div>
-            <p className="type-eyebrow text-arzon-seafoam">Our commitment to students</p>
-            <h2 className="type-display mt-4 text-white">Your assessment comes first. A course comes second.</h2>
-            <p className="type-body mt-5 max-w-2xl text-white/80">
-              We begin by understanding your background and the role you are exploring. A learning recommendation should follow only when there is a genuine reason for it.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-white/20 bg-white/10 p-6">
-            {[
-              "No artificial skill gaps to sell a programme",
-              "No paid changes to assessment outcomes",
-              "Clear distinction between claimed and demonstrated skills",
-              "No promise of interviews, jobs or salaries",
-              "External learning resources can be appropriate too",
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-3 border-b border-white/10 py-3 last:border-b-0">
-                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-arzon-seafoam" />
-                <p className="type-body-sm text-white/90">{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="faq" className="bg-white py-14 sm:py-20">
-        <div className="ap-shell grid gap-9 lg:grid-cols-[0.7fr_1.3fr]">
-          <div>
-            <p className="type-eyebrow text-arzon-teal">Frequently asked questions</p>
-            <h2 className="type-h1 mt-3 text-arzon-deep-teal">A few things worth knowing.</h2>
-            <p className="type-body-sm mt-3 text-ink-soft">Clear answers about profile assessment, simulations and what the results mean.</p>
-          </div>
-          <div className="divide-y divide-border border-y border-border">
-            {[
-              ["What is Arzon Global?", "Arzon Global is a healthcare talent intelligence platform. It helps candidates understand role requirements, review their profile against those requirements and demonstrate selected capabilities through practical assessments."],
-              ["Does an assessment result guarantee a job?", "No. Assessment results describe performance on the specified tasks and conditions. Employers make their own recruitment decisions, and Arzon does not guarantee interviews, offers or employment."],
-              ["Are the clinical cases real patient cases?", "No. The educational simulator uses synthetic training scenarios. Candidates should never enter real patient information into the training environment."],
-              ["Does Arzon always recommend its own programmes?", "No. Recommendations should reflect the candidate's identified needs. Independent study, external resources, practical experience or further assessment may be more appropriate than an Arzon programme."],
-              ["How does Arzon understand role requirements?", "The research approach draws on relevant job descriptions, employer and professional input, and available market information. Each published research report should state its source coverage and collection period."],
-              ["Is a role match an official industry certification?", "No. Role comparisons are guidance based on available evidence and stated assessment methods. They are not a statutory qualification, regulatory approval or universal industry standard."],
-            ].map(([question, answer]) => (
-              <details key={question} className="group py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 type-label text-arzon-deep-teal">
-                  {question}
-                  <ChevronDown className="h-4 w-4 shrink-0 text-arzon-teal transition group-open:rotate-180" />
-                </summary>
-                <p className="type-body-sm mt-3 max-w-3xl text-ink-soft">{answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gradient-to-r from-arzon-mint via-white to-arzon-ice py-12 sm:py-16">
-        <div className="ap-shell flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-          <div className="max-w-2xl">
-            <p className="type-eyebrow text-arzon-teal">Your next step</p>
-            <h2 className="type-h1 mt-2 text-arzon-deep-teal">Start with your profile. Understand the role.</h2>
-            <p className="type-body-sm mt-3 text-ink-soft">Explore healthcare careers, review the requirements and see which areas may be worth developing.</p>
-          </div>
-          <Link to={"/career-engine/start" as any} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-arzon-deep-teal px-7 py-3 type-label text-white transition hover:bg-arzon-teal">
-            Build My Profile <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }

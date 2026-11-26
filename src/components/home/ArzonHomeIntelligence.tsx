@@ -281,23 +281,24 @@ export function ArzonHomeIntelligence() {
             </p>
           </div>
 
-          {/* Grid Layout: Extracted 1:1 from Reference (Row 1: 5 + 3 + 4, Row 2: 7 + 5) */}
+          {/* Grid Layout: Award Flagship Showcase in Slot 1 & former TASK Slot (lg:col-span-8), Malla Reddy untouched (lg:col-span-4) */}
           <div className="grid gap-4 lg:grid-cols-12 items-stretch">
-            {/* Card 1: 2026 Global Impact Award (lg:col-span-5) */}
+            {/* Card 1: 2026 Global Impact Award Showcase (lg:col-span-8 — spanning Slot 1 + former TASK Slot) */}
             <a
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.12] bg-[#05090C] p-6 sm:p-7 text-white shadow-[0_16px_40px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-[#F59E0B]/40 hover:shadow-[0_20px_50px_rgba(217,119,6,0.16)] lg:col-span-5"
+              className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.12] bg-[#05090C] p-6 sm:p-7 text-white shadow-[0_16px_40px_rgba(0,0,0,0.28)] ring-1 ring-inset ring-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-[#F59E0B]/40 hover:shadow-[0_20px_50px_rgba(217,119,6,0.16)] lg:col-span-8"
             >
               {/* Ethereal Ambient Studio Glow */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-10 top-0 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.14)_0%,rgba(217,119,6,0.03)_50%,transparent_75%)] blur-2xl"
+                className="pointer-events-none absolute -right-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.14)_0%,rgba(217,119,6,0.03)_50%,transparent_75%)] blur-2xl"
               />
               <div className="pointer-events-none absolute -right-12 -top-14 h-56 w-56 rounded-full border border-white/10" />
 
               <div>
+                {/* Header Utility Rail */}
                 <div className="relative z-10 flex items-center justify-between gap-3">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-[#F59E0B]/30 bg-[#F59E0B]/10 px-2.5 py-0.5 text-[9px] font-mono font-semibold uppercase tracking-wider text-[#FDE68A]">
                     <Trophy className="h-2.5 w-2.5 text-[#F59E0B] shrink-0" />
@@ -308,32 +309,56 @@ export function ArzonHomeIntelligence() {
                   </span>
                 </div>
 
-                <div className="relative z-10 mt-5">
-                  <p className="text-[clamp(2.5rem,4.8vw,3.6rem)] font-bold leading-none tracking-[-0.06em] text-[#F3D99D]">
-                    2026
-                  </p>
-                  <h3 className="mt-2 text-[22px] sm:text-[24px] font-bold leading-[1.08] tracking-[-0.04em] text-white">
-                    Global Impact Award
-                  </h3>
-                  <p className="mt-2 text-[12px] leading-relaxed text-slate-300 font-normal">
-                    Conferred to <strong className="text-white font-semibold">Arzon Global Labs</strong> by the Society of Applied Research and Social Development (SARSD) at the 8th ICAATAS International Conference, Malla Reddy University.
-                  </p>
+                {/* 2-Column Split: Narrative on Left (~60%), Physical Trophy Proof in former TASK slot (~40%) */}
+                <div className="relative z-10 mt-5 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+                  {/* Left Column: Official Narrative & Institutional Breakdown */}
+                  <div className="flex-1 min-w-0 pr-0 lg:pr-3">
+                    <p className="text-[clamp(2.5rem,4.5vw,3.6rem)] font-bold leading-none tracking-[-0.06em] text-[#F3D99D]">
+                      2026
+                    </p>
+                    <h3 className="mt-2 text-[22px] sm:text-[25px] font-bold leading-[1.08] tracking-[-0.04em] text-white">
+                      Global Impact Award
+                    </h3>
+                    <p className="mt-2 text-[12px] leading-relaxed text-slate-300 font-normal">
+                      Conferred to <strong className="text-white font-semibold">Arzon Global Labs</strong> by the Society of Applied Research and Social Development (SARSD) at the 8th ICAATAS International Conference, Malla Reddy University.
+                    </p>
 
-                  {/* Institutional Breakdown Box */}
-                  <div className="mt-4 rounded-[14px] border border-white/10 bg-white/[0.04] p-3 text-[10.5px]">
-                    <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2">
-                      <div>
-                        <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Host Venue</span>
-                        <span className="font-semibold text-white">Malla Reddy University</span>
+                    {/* Institutional Breakdown Box */}
+                    <div className="mt-3.5 rounded-[14px] border border-white/10 bg-white/[0.04] p-3 text-[10.5px]">
+                      <div className="grid grid-cols-2 gap-2 border-b border-white/10 pb-2">
+                        <div>
+                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Host Venue</span>
+                          <span className="font-semibold text-white">Malla Reddy University</span>
+                        </div>
+                        <div>
+                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Conferring Body</span>
+                          <span className="font-semibold text-white">SARSD (Regd. Govt. of India)</span>
+                        </div>
                       </div>
-                      <div>
-                        <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Conferring Body</span>
-                        <span className="font-semibold text-white">SARSD (Regd. Govt. of India)</span>
+                      <div className="pt-2">
+                        <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Scope of Award</span>
+                        <span className="text-slate-300">Workforce Development & Practical Healthcare Skilling Model</span>
                       </div>
                     </div>
-                    <div className="pt-2">
-                      <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#FDE68A]">Scope of Award</span>
-                      <span className="text-slate-300">Workforce Development & Practical Healthcare Skilling Model</span>
+                  </div>
+
+                  {/* Right Column: Physical Award Plaque Proof (Directly placed in former TASK slot space) */}
+                  <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[230px] xl:w-[250px]">
+                    <div className="relative h-[230px] sm:h-[245px] w-full max-w-[220px] overflow-hidden rounded-[16px] border border-white/10 bg-[#080E13] p-2 flex items-center justify-center shadow-inner group-hover:border-white/20 transition-colors">
+                      {/* Radial spotlight behind plaque */}
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.20)_0%,rgba(217,119,6,0.05)_55%,transparent_75%)] blur-md"
+                      />
+                      <img
+                        src="/images/credentials/trophy-master-black.jpg"
+                        alt="Official 2026 Global Impact Award Plaque presented to Arzon Global Labs"
+                        className="relative z-10 h-full w-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        loading="lazy"
+                      />
+                      <span className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 whitespace-nowrap rounded-full bg-black/80 backdrop-blur-md border border-white/15 px-2.5 py-0.5 text-[8.5px] font-mono font-medium text-[#FDE68A] shadow-md">
+                        Official Award Trophy Plaque
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -346,44 +371,6 @@ export function ArzonHomeIntelligence() {
                   <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
                 <span className="font-mono text-[9px] text-white/50">LinkedIn Verified</span>
-              </div>
-            </a>
-
-            {/* Card 2: Centre Inauguration — Dr. Srikanth Sinha / TASK (lg:col-span-3) */}
-            <a
-              href={LINKS.mediaInauguration.watch}
-              target="_blank"
-              rel="noreferrer"
-              className="group relative flex min-h-[300px] flex-col justify-between overflow-hidden rounded-[24px] border border-[#DCE9E6] bg-[#F1F7F5] p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(0,75,69,0.10)] lg:col-span-3"
-            >
-              <div className="absolute inset-0 opacity-[0.14] pointer-events-none">
-                <img src={LINKS.mediaInauguration.fallbackPoster} alt="" className="h-full w-full object-cover" loading="lazy" />
-              </div>
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#00796F]">
-                  Hyderabad · 2025
-                </span>
-                <CirclePlay className="h-6 w-6 text-[#008F83] transition-transform group-hover:scale-110" />
-              </div>
-
-              <div className="relative z-10 my-auto py-3">
-                <h3 className="text-[20px] font-bold leading-[1.12] tracking-[-0.04em] text-[#063F39]">
-                  TASK chief guest at the centre inauguration.
-                </h3>
-                <p className="mt-2.5 text-[12px] leading-relaxed text-[#5C756F]">
-                  Dr. Srikanth Sinha, CEO of TASK, attended the public launch on 30 July 2025.
-                </p>
-                <div className="mt-3 inline-flex items-center rounded-md bg-white/70 px-2 py-0.5 text-[9px] font-mono font-medium text-[#00796F] border border-[#CFE3DE]">
-                  Official Launch Assembly
-                </div>
-              </div>
-
-              <div className="relative z-10 flex items-center justify-between border-t border-[#DCE9E6] pt-3 text-[11px] font-semibold text-[#00796F]">
-                <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-[#004B45]">
-                  Watch event footage
-                  <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </span>
-                <span className="font-mono text-[9px] text-[#718781]">Video Archive</span>
               </div>
             </a>
 

@@ -175,7 +175,7 @@ export function ArzonHomeIntelligence() {
               <div className="flex items-center justify-between px-3.5 py-2 border-b border-white/[0.08] text-[9.5px] font-mono tracking-tight">
                 <div className="flex items-center gap-1.5">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
+                    <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#10B981]" />
                   </span>
                   <span className="font-semibold text-white/90">Hyderabad · 30 July 2025</span>

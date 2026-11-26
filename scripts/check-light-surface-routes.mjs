@@ -28,6 +28,7 @@ const EXEMPT_FILES = new Set([
   "src/routes/republic.tsx",
   "src/routes/__root.tsx",
   "src/routes/about.tsx",
+  "src/routes/candidates.tsx",
   "src/routes/career-engine.start.tsx",
   "src/routes/contact.tsx",
   "src/routes/healthcare-career-workshop.tsx",

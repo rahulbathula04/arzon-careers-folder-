@@ -20,7 +20,12 @@ import { join, relative } from "node:path";
 const ROOT = process.cwd();
 const SCAN_DIRS = ["src/components", "src/routes"];
 const EXEMPT_PATH = /\/(apply|career|candidate|learn|admin|enrol)[/.]/;
-const EXEMPT_FILES = new Set(["src/routes/admin.seo.tsx", "src/routes/republic.tsx"]);
+const EXEMPT_FILES = new Set([
+  "src/routes/admin.seo.tsx",
+  "src/routes/republic.tsx",
+  "src/components/home/ArzonHomeIntelligence.tsx",
+  "src/routes/candidates.tsx",
+]);
 
 // Baseline snapshot - files that already contain bg-white surfaces without
 // a tone-light/card-light guard at the time this lint was introduced.

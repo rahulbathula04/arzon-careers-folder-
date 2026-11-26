@@ -38,6 +38,13 @@ const STATIC_ENTRIES: Array<{
     imageAlt: "About Arzon Global",
   },
   {
+    path: "/candidates",
+    priority: "0.9",
+    changefreq: "weekly",
+    image: "/og/internships.jpg",
+    imageAlt: "For Candidates - Healthcare Career Programmes & Intelligence",
+  },
+  {
     path: "/contact",
     priority: "0.6",
     changefreq: "monthly",

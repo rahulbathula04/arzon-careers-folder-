@@ -31,26 +31,22 @@ import { COURSES, type Course } from "@/data/courses";
 import { thumbFor } from "@/data/courseThumbs";
 import { openCounsellorModal } from "@/components/system/CounsellorLeadModal";
 import { SITE, absUrl } from "@/components/landing/constants";
+import { pageSeo } from "@/lib/seo";
 
 export const Route = createFileRoute("/candidates")({
-  head: () => ({
-    meta: [
-      { title: "For Candidates · Career Programmes, Transformation & Outcomes | Arzon Global" },
-      {
-        name: "description",
-        content:
-          "Transform from an academic graduate into an audit-ready healthcare professional. Explore Pharmacovigilance, Clinical SAS, Medical Coding, and CDM role tracks with real case labs.",
-      },
-      { property: "og:title", content: "For Candidates · Healthcare Career Intelligence | Arzon Global" },
-      {
-        property: "og:description",
-        content:
-          "Bridge the gap between your degree and CRO hiring requirements. Explore our verified clinical role programmes, starting compensation benchmarks, and enrolment options.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE.origin}/candidates` },
-    ],
-  }),
+  head: () => {
+    const seo = pageSeo({
+      path: "/candidates",
+      title: "For Candidates · Career Programmes & Pathways",
+      description:
+        "Transform from an academic graduate into an audit-ready clinical professional with practical CRO casework, tool labs, and recruiter introduction.",
+      image: "/og/internships.jpg",
+    });
+    return {
+      meta: [{ title: "For Candidates · Career Programmes & Pathways" }, ...seo.meta],
+      links: seo.links,
+    };
+  },
   component: CandidatesPage,
 });
 
@@ -182,7 +178,7 @@ function CandidatesPage() {
           <motion.div {...enter} className="mx-auto max-w-4xl text-center">
             {/* Pill Eyebrow */}
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#C7E0DC] bg-white/90 backdrop-blur-md px-4 py-1.5 text-[10.5px] font-mono font-bold uppercase tracking-[0.16em] text-[#00796F] shadow-[0_2px_10px_rgba(0,75,69,0.04)]">
-              <span className="h-2 w-2 rounded-full bg-[#008F83] animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-[#008F83] motion-safe:animate-pulse" />
               For Students & Fresh Graduates
             </div>
 

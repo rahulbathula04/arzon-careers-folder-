@@ -22,6 +22,7 @@ import {
 import { LINKS } from "@/components/landing/constants";
 
 const LINKEDIN = LINKS.linkedin;
+const GLOBAL_IMPACT_AWARD_LINKEDIN = "https://lnkd.in/p/dxSyrMUb";
 const MALLA_REDDY_LINKEDIN =
   "https://www.linkedin.com/posts/arzonglobal-campusvisit-presentation-ugcPost-7459179713735995394-_bmu/?highlightedUpdateUrn=urn%3Ali%3AugcPost%3A7459179713735995394&highlightedUpdateType=SOCIAL_SHARE&origin=SOCIAL_SHARE&utm_source=social_share_send&utm_medium=android_app&rcm=ACoAAEnmUHsBc7DzVndPmNWZqFqDa73sXe72aMI&utm_campaign=whatsapp";
 
@@ -277,7 +278,7 @@ export function ArzonHomeIntelligence() {
           <div className="grid gap-5 sm:gap-6 lg:grid-cols-12">
             {/* Card 1: 2026 Global Impact Award */}
             <a
-              href={LINKEDIN}
+              href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noreferrer"
               className="group relative flex flex-col justify-between overflow-hidden rounded-[22px] sm:rounded-[26px] border border-white/[0.09] bg-[#022320] p-4 sm:p-5 text-white ring-1 ring-inset ring-white/[0.04] shadow-[0_16px_44px_rgba(0,35,30,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-[#107066] hover:shadow-[0_24px_56px_rgba(0,35,30,0.26)] lg:col-span-6"

@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
     const og = absUrl(SITE.ogImage.inauguration);
     const title = "Arzon Global | Healthcare Talent Intelligence";
     const desc =
-      "Explore pharmacovigilance, medical coding, clinical data management and regulatory affairs careers. Compare role requirements and build practical skills with Arzon Global.";
+      "Understand healthcare role requirements, explore clinical career paths and demonstrate selected capabilities through practical, synthetic assessments with Arzon Global.";
     const s = seo("/");
     const homeUrl = `${SITE.origin}/`;
 

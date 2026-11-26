@@ -10,7 +10,7 @@ import { useFunnelTracking } from "@/hooks/useFunnelTracking";
 export const Route = createFileRoute("/")({
   head: () => {
     const og = absUrl(SITE.ogImage.inauguration);
-    const title = "Arzon Global | Healthcare Career Paths & Training";
+    const title = "Arzon Global | Healthcare Talent Intelligence";
     const desc =
       "Explore pharmacovigilance, medical coding, clinical data management and regulatory affairs careers. Compare role requirements and build practical skills with Arzon Global.";
     const s = seo("/");
@@ -65,7 +65,7 @@ export const Route = createFileRoute("/")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: "Healthcare Career Paths & Training | Arzon Global",
+            name: "Healthcare Talent Intelligence | Arzon Global",
             description: desc,
             url: homeUrl,
             publisher: {
@@ -84,34 +84,34 @@ export const Route = createFileRoute("/")({
             mainEntity: [
               {
                 "@type": "Question",
-                name: "What is ACRI (Arzon Critical Research Index)?",
+                name: "What is Arzon Global?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "ACRI (Arzon Critical Research Index) is Arzon Global’s role-specific assessment framework for evaluating selected competencies relevant to healthcare and life-sciences career paths. Results provide preparation guidance and are not a job offer or employment guarantee.",
+                  text: "Arzon Global is a healthcare talent intelligence platform. It helps candidates understand role requirements, review their profile against those requirements and demonstrate selected capabilities through practical assessments.",
                 },
               },
               {
                 "@type": "Question",
-                name: "How does the Pharmacovigilance Associate assessment work?",
+                name: "Does an assessment result guarantee a job?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The assessment presents 40 calibrated scenario-based questions and practical case-processing challenges grounded in ICH E2B(R3), CIOMS, WHO-UMC, and US FDA/EMA expedited reporting standards.",
+                  text: "No. Assessment results describe performance on specified tasks and conditions. Employers make their own recruitment decisions, and Arzon does not guarantee interviews, offers or employment.",
                 },
               },
               {
                 "@type": "Question",
-                name: "What is the Arzon career assessment?",
+                name: "Are the clinical cases real patient cases?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "The assessment compares candidate responses with defined role competency areas and returns a structured career readiness report. Assessment results are separate from programme enrolment.",
+                  text: "No. The educational simulator uses synthetic training scenarios. Candidates should not enter real patient information into the training environment.",
                 },
               },
               {
                 "@type": "Question",
-                name: "How can employers verify an ACRI certificate?",
+                name: "Does Arzon always recommend its own programmes?",
                 acceptedAnswer: {
                   "@type": "Answer",
-                  text: "Each certificate carries a unique ACRI credential ID and QR code verifiable in real-time at arzoncareers.in/verify.",
+                  text: "No. Recommendations should reflect the candidate's identified needs. Independent study, external resources, practical experience or further assessment may be more appropriate than an Arzon programme.",
                 },
               },
             ],

@@ -50,7 +50,7 @@ export function ArzonLogo({
       {showWordmark && (
         <span
           className={`font-extrabold tracking-[0.1em] ${dims.text} ${
-            isDark ? "text-white" : "text-[#071A4A]"
+            isDark ? "text-white" : "text-arzon-deep-teal"
           }`}
         >
           ARZON GLOBAL
@@ -66,7 +66,7 @@ export function ArzonLogo({
               : "border-slate-300 text-[#69758A]"
           }`}
         >
-          Your career. Our commitment.
+          Guiding healthcare talent to meaningful careers.
         </span>
       )}
     </span>

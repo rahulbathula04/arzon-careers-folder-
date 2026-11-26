@@ -175,7 +175,7 @@ export function ArzonFooter() {
         {/* Statutory Compliance & Regulatory Disclaimers */}
         <div className="mt-6 pt-6 border-t border-arzon-seafoam/30 text-[10.5px] leading-relaxed text-ink-mute space-y-1.5 font-sans">
           <p>
-            <strong>Statutory Notice:</strong> Arzon Global is an independent healthcare workforce intelligence and skill enablement platform (MSME UDYAM Registered · ISO 9001:2015). Arzon Global is not a university or degree-granting body; programmes do not confer statutory academic degrees governed by UGC/AICTE.
+            <strong>Statutory Notice:</strong> Arzon Global is an independent healthcare talent intelligence and skill development platform. Arzon Global is not a university or degree-granting body; its programmes do not confer statutory academic degrees governed by UGC/AICTE.
           </p>
           <p>
             <strong>ASCI Compliance & Trademark Notice:</strong> In adherence to ASCI advertising guidelines, Arzon does not offer guaranteed jobs or fixed salaries. All third-party company names, trademarks, and software logos remain the exclusive property of their respective owners and are referenced under Section 30 of the Indian Trade Marks Act, 1999 solely for nominative identification and educational context without implied endorsement.

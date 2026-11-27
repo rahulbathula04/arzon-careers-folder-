@@ -247,6 +247,7 @@ function PVAssociateBlueprintPage() {
   const [activeWorkSampleTab, setActiveWorkSampleTab] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [comparisonTab, setComparisonTab] = useState<"retail" | "pv">("pv");
 
   useEffect(() => {
     trackEvent("pv_page_view", {
@@ -255,7 +256,7 @@ function PVAssociateBlueprintPage() {
     });
 
     const handleScroll = () => {
-      setShowStickyBar(window.scrollY > 400);
+      setShowStickyBar(window.scrollY > 380);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -272,53 +273,50 @@ function PVAssociateBlueprintPage() {
   const currentSample = WORK_SAMPLES[activeWorkSampleTab];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#081F38] font-sans antialiased selection:bg-[#008F83] selection:text-white pb-24 sm:pb-0">
-      {/* ── 01. HERO (ABOVE THE FOLD) ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-white tone-light card-light border-b border-slate-200/80 pt-8 pb-14 sm:pt-16 sm:pb-24">
+    <div className="min-h-screen bg-[#F8FAFC] text-[#081F38] font-sans antialiased selection:bg-[#008F83] selection:text-white pb-20 sm:pb-0">
+      {/* ── 01. HERO (MOBILE FIRST COCKPIT) ─────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-white tone-light card-light border-b border-slate-200/80 pt-6 pb-10 sm:pt-14 sm:pb-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb Navigation (Mobile-safe scrollbar hidden) */}
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-[11px] sm:text-xs font-mono text-[#526B67] mb-4 sm:mb-8 overflow-x-auto whitespace-nowrap [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] pb-1"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            <Link to="/" className="hover:text-[#063F39] transition-colors shrink-0">Home</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <Link to="/courses" className="hover:text-[#063F39] transition-colors shrink-0">Programmes</Link>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <span className="text-[#063F39] font-bold shrink-0">Pharmacovigilance Associate</span>
-          </nav>
+          {/* Top Category Indicator (Mobile native capsule, zero desktop clutter) */}
+          <div className="flex items-center justify-between gap-3 mb-4 sm:mb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EBF5F3] border border-[#C2DDD7] text-[#004B45] font-semibold text-[10.5px] sm:text-xs tracking-wide shadow-2xs whitespace-nowrap shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#008F83] shrink-0" />
+              <span>DRUG SAFETY · 12-WEEK CLINICAL PATHWAY</span>
+            </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <Link
+              to="/courses"
+              className="text-[11px] sm:text-xs font-mono font-medium text-[#526B67] hover:text-[#063F39] transition-colors inline-flex items-center gap-1 shrink-0"
+            >
+              <span>All tracks</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF5F3] border border-[#C2DDD7] text-[#004B45] font-semibold text-[10.5px] sm:text-xs tracking-wide shadow-2xs whitespace-nowrap shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#008F83] shrink-0" />
-                <span className="sm:hidden">DRUG SAFETY · 12-WEEK PATHWAY</span>
-                <span className="hidden sm:inline">PHARMACOVIGILANCE · 12-WEEK CLINICAL PATHWAY</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-[#063F39] leading-[1.12]">
+            <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
+              <h1 className="text-[28px] sm:text-5xl lg:text-[54px] font-bold tracking-tight text-[#063F39] leading-[1.14]">
                 Build the Skills to Start Your Career in{" "}
                 <span className="text-[#008F83]">
                   Pharmacovigilance.
                 </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-[#526B67] font-normal leading-relaxed">
-                Learn how drug safety teams process adverse event reports, assess safety information and document cases. Develop practical skills through structured training, case-based exercises and career preparation.
+              <p className="text-[14px] sm:text-lg text-[#526B67] font-normal leading-relaxed">
+                Learn how drug safety teams process adverse event reports, apply MedDRA terminology, and document cases for global pharma employers.
               </p>
 
-              {/* Direct 2 CTAs: Side-by-side Apple-grade ergonomics */}
-              <div className="flex flex-row items-center gap-2.5 sm:gap-3 pt-2">
+              {/* Direct 2 CTAs: Side-by-side Apple-grade thumb zone */}
+              <div className="flex flex-row items-center gap-2.5 sm:gap-3 pt-1">
                 <button
                   type="button"
                   onClick={() => openCounsellor("hero_whatsapp")}
                   className="inline-flex h-11 flex-1 sm:flex-initial items-center justify-center gap-2 px-4 sm:px-6 rounded-full bg-[#004B45] hover:bg-[#00675D] text-white font-bold text-[12.5px] sm:text-sm shadow-[0_6px_20px_rgba(0,75,69,0.18)] transition-all active:scale-[0.98] cursor-pointer whitespace-nowrap"
                 >
-                  <MessageCircle className="w-4 h-4 shrink-0" />
+                  <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                   <span>Talk to Experts</span>
-                  <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 </button>
 
                 <Link
@@ -329,58 +327,61 @@ function PVAssociateBlueprintPage() {
                 </Link>
               </div>
 
-              {/* 4 Feature Trust Badges */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-200/80 text-xs text-[#526B67]">
-                <div className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4 text-[#008F83] shrink-0" />
-                  <span className="font-medium text-[#063F39] leading-tight">Guided by Industry Professionals</span>
+              {/* 4 Trust Micro Badges: Smooth swipeable row on mobile, grid on desktop */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-2 sm:grid sm:grid-cols-4 sm:gap-3 sm:pt-6 sm:border-t sm:border-slate-200/80 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F4FAF8] border border-[#C2DDD7] text-[11px] font-medium text-[#063F39] shrink-0">
+                  <Briefcase className="w-3.5 h-3.5 text-[#008F83] shrink-0" />
+                  <span>Industry Led</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-[#008F83] shrink-0" />
-                  <span className="font-medium text-[#063F39] leading-tight">Practical Case Exercises</span>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F4FAF8] border border-[#C2DDD7] text-[11px] font-medium text-[#063F39] shrink-0">
+                  <FileText className="w-3.5 h-3.5 text-[#008F83] shrink-0" />
+                  <span>Practical Case Labs</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <GraduationCap className="w-4 h-4 text-[#008F83] shrink-0" />
-                  <span className="font-medium text-[#063F39] leading-tight">Designed for Healthcare Graduates</span>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F4FAF8] border border-[#C2DDD7] text-[11px] font-medium text-[#063F39] shrink-0">
+                  <GraduationCap className="w-3.5 h-3.5 text-[#008F83] shrink-0" />
+                  <span>Healthcare Grads</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#10B981] shrink-0" />
-                  <span className="font-medium text-[#063F39] leading-tight">Transparent Guidance (No Guarantee)</span>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F4FAF8] border border-[#C2DDD7] text-[11px] font-medium text-[#063F39] shrink-0">
+                  <ShieldCheck className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
+                  <span>100% Transparent</span>
                 </div>
               </div>
             </div>
 
             {/* Right Workstation Visual Column */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl overflow-hidden border border-slate-200/80 bg-white tone-light card-light shadow-xl">
-                <img
-                  src="/images/pv-clinical-workstation.jpg"
-                  alt="Pharmacovigilance specialist analyzing case data at dual-monitor workstation"
-                  className="w-full h-80 sm:h-96 object-cover object-center"
-                />
+            <div className="lg:col-span-5 relative mt-2 lg:mt-0">
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#C2DDD7] bg-white tone-light card-light shadow-md">
+                <div className="relative aspect-[16/10] sm:h-96">
+                  <img
+                    src="/images/pv-clinical-workstation.jpg"
+                    alt="Pharmacovigilance specialist analyzing case data at dual-monitor workstation"
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-                {/* Floating Walkthrough Badge */}
-                <a
-                  href={PV_MASTERCLASS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute bottom-4 inset-x-4 p-3.5 rounded-2xl bg-white/95 tone-light card-light backdrop-blur-md border border-slate-200/90 shadow-lg flex items-center justify-between gap-3 transition-transform hover:scale-[1.01] cursor-pointer"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-[#004B45] flex items-center justify-center text-white shrink-0 shadow-xs">
-                      <Play className="w-4 h-4 fill-current ml-0.5" />
+                  {/* Floating Apple-Style Watch Case Capsule */}
+                  <a
+                    href={PV_MASTERCLASS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-3 inset-x-3 sm:bottom-4 sm:inset-x-4 p-2.5 sm:p-3 rounded-xl sm:rounded-2xl bg-white/95 backdrop-blur-md border border-white/80 shadow-lg flex items-center justify-between gap-3 transition-transform hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#004B45] flex items-center justify-center text-white shrink-0 shadow-xs">
+                        <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                      </div>
+                      <div className="text-left">
+                        <strong className="text-[12px] sm:text-xs font-bold text-[#063F39] block leading-tight">
+                          See Real Case Walkthrough
+                        </strong>
+                        <span className="text-[10.5px] sm:text-[11px] text-[#526B67] block leading-tight">
+                          Intake to regulatory reporting (24 min)
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-left">
-                      <strong className="text-xs font-bold text-[#063F39] block leading-tight">
-                        See a Real Case Walkthrough
-                      </strong>
-                      <span className="text-[11px] text-[#526B67] block leading-tight">
-                        From intake to regulatory reporting.
-                      </span>
-                    </div>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-[#008F83] shrink-0" />
-                </a>
+                    <ChevronRight className="w-4 h-4 text-[#008F83] shrink-0" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -388,11 +389,11 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 02. UNDERSTAND THE CAREER (WHAT IS PHARMACOVIGILANCE?) ─────────────── */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <section className="py-10 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
             {/* Left Narrative */}
-            <div className="lg:col-span-5 space-y-4 text-left">
+            <div className="lg:col-span-5 space-y-3 sm:space-y-4 text-left">
               <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
                 <span>02 · UNDERSTAND THE CAREER</span>
@@ -406,7 +407,7 @@ function PVAssociateBlueprintPage() {
               <p className="text-sm sm:text-base text-[#526B67] leading-relaxed">
                 Pharmacovigilance is the field responsible for detecting, assessing, understanding and preventing adverse effects and other medicine-related problems. It helps ensure patient safety throughout the lifecycle of a medicine.
               </p>
-              <div className="pt-2">
+              <div className="pt-1 flex items-center justify-between sm:block">
                 <button
                   type="button"
                   onClick={() => openCounsellor("section_02_explore")}
@@ -415,66 +416,72 @@ function PVAssociateBlueprintPage() {
                   <span>Explore the Career Path</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
+                <span className="text-[11px] font-mono text-[#008F83] font-semibold sm:hidden flex items-center gap-1">
+                  <span>Swipe cards</span>
+                  <ArrowRight className="w-3 h-3" />
+                </span>
               </div>
             </div>
 
-            {/* Right 6 Modular Icon Cards */}
-            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-              {[
-                {
-                  icon: Pill,
-                  title: "Monitor Medicine Safety",
-                  desc: "Review and assess adverse event reports from patients, HCPs and clinical trials.",
-                },
-                {
-                  icon: FileCheck,
-                  title: "Evaluate Case Information",
-                  desc: "Assess seriousness, expectedness, causality and relevant safety information.",
-                },
-                {
-                  icon: FileText,
-                  title: "Document and Report",
-                  desc: "Prepare clear, structured case narratives and submit reports to regulatory authorities.",
-                },
-                {
-                  icon: Database,
-                  title: "Use Standardized Terminology",
-                  desc: "Apply Standardized Medical Coding, WHO-UMC, CIOMS and other international standards.",
-                },
-                {
-                  icon: ShieldCheck,
-                  title: "Ensure Quality and Compliance",
-                  desc: "Follow defined procedures and quality checks in line with global regulatory requirements.",
-                },
-                {
-                  icon: Globe,
-                  title: "Work with Global Teams",
-                  desc: "Collaborate with clinical, medical and regulatory teams across different locations.",
-                },
-              ].map((card, idx) => {
-                const IconComponent = card.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="p-5 rounded-2xl bg-white tone-light card-light border border-slate-200/80 shadow-2xs space-y-2.5 transition-all hover:border-[#C2DDD7]"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-[#EBF5F3] flex items-center justify-center text-[#004B45]">
-                      <IconComponent className="w-4 h-4" />
+            {/* Right 6 Modular Icon Cards: Swipeable snap rail on mobile, grid on desktop */}
+            <div className="lg:col-span-7">
+              <div className="flex sm:grid sm:grid-cols-2 gap-3 sm:gap-4 text-left overflow-x-auto snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 pb-3 sm:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                {[
+                  {
+                    icon: Pill,
+                    title: "Monitor Medicine Safety",
+                    desc: "Review and assess adverse event reports from patients, HCPs and clinical trials.",
+                  },
+                  {
+                    icon: FileCheck,
+                    title: "Evaluate Case Information",
+                    desc: "Assess seriousness, expectedness, causality and relevant safety information.",
+                  },
+                  {
+                    icon: FileText,
+                    title: "Document and Report",
+                    desc: "Prepare clear, structured case narratives and submit reports to regulatory authorities.",
+                  },
+                  {
+                    icon: Database,
+                    title: "Use Standardized Terminology",
+                    desc: "Apply Standardized Medical Coding, WHO-UMC, CIOMS and other international standards.",
+                  },
+                  {
+                    icon: ShieldCheck,
+                    title: "Ensure Quality and Compliance",
+                    desc: "Follow defined procedures and quality checks in line with global regulatory requirements.",
+                  },
+                  {
+                    icon: Globe,
+                    title: "Work with Global Teams",
+                    desc: "Collaborate with clinical, medical and regulatory teams across different locations.",
+                  },
+                ].map((card, idx) => {
+                  const IconComponent = card.icon;
+                  return (
+                    <div
+                      key={idx}
+                      className="w-[260px] sm:w-auto shrink-0 snap-start p-4 sm:p-5 rounded-2xl bg-white tone-light card-light border border-[#C2DDD7] shadow-2xs space-y-2 transition-all hover:border-[#008F83]"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-[#EBF5F3] flex items-center justify-center text-[#004B45]">
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+                      <h3 className="text-sm font-bold text-[#063F39]">{card.title}</h3>
+                      <p className="text-xs text-[#526B67] leading-relaxed">{card.desc}</p>
                     </div>
-                    <h3 className="text-sm font-bold text-[#063F39]">{card.title}</h3>
-                    <p className="text-xs text-[#526B67] leading-relaxed">{card.desc}</p>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ── 03. CAREER OPPORTUNITIES (COMPARE PATHS) ──────────────────────────── */}
-      <section className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
-          <div className="space-y-4 max-w-3xl">
+      <section className="py-10 sm:py-20 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 text-left">
+          <div className="space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
               <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
               <span>03 · CAREER OPPORTUNITIES</span>
@@ -490,10 +497,92 @@ function PVAssociateBlueprintPage() {
             </p>
           </div>
 
-          {/* Comparison Split Cards with Center Arrow */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+          {/* Mobile Segmented Switcher */}
+          <div className="sm:hidden p-1 rounded-full bg-[#EBF5F3] border border-[#C2DDD7] flex items-center">
+            <button
+              type="button"
+              onClick={() => setComparisonTab("retail")}
+              className={`flex-1 py-2 text-center text-xs font-bold rounded-full transition-all cursor-pointer ${
+                comparisonTab === "retail"
+                  ? "bg-white text-[#063F39] shadow-xs"
+                  : "text-[#526B67]"
+              }`}
+            >
+              Academic Default (Retail)
+            </button>
+            <button
+              type="button"
+              onClick={() => setComparisonTab("pv")}
+              className={`flex-1 py-2 text-center text-xs font-bold rounded-full transition-all cursor-pointer ${
+                comparisonTab === "pv"
+                  ? "bg-[#004B45] text-white shadow-xs"
+                  : "text-[#526B67]"
+              }`}
+            >
+              Corporate Track (PV)
+            </button>
+          </div>
+
+          {/* Mobile Single Card View */}
+          <div className="sm:hidden">
+            {comparisonTab === "retail" ? (
+              <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-[#C2DDD7] space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[11px] font-bold text-[#526B67] uppercase">Academic Default</span>
+                  <span className="text-xs font-mono text-[#526B67]">Retail &amp; Sales</span>
+                </div>
+                <h3 className="text-lg font-bold text-[#063F39]">Retail Pharmacy &amp; Field Sales</h3>
+
+                <div className="space-y-3 text-xs text-[#526B67]">
+                  <div className="flex items-baseline justify-between py-2 border-b border-slate-200/60">
+                    <span className="text-slate-500">Typical Starting Salary:</span>
+                    <strong className="text-[#063F39] font-bold">₹1.80 – ₹2.50 LPA</strong>
+                  </div>
+                  <div className="flex items-baseline justify-between py-2 border-b border-slate-200/60">
+                    <span className="text-slate-500">Work Environment:</span>
+                    <span className="text-[#063F39] text-right">Retail pharmacy, field visits</span>
+                  </div>
+                  <div className="flex items-baseline justify-between py-2">
+                    <span className="text-slate-500">Long-Term Growth:</span>
+                    <span className="text-[#063F39] text-right">Limited growth after 3–5 years</span>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="p-6 rounded-2xl bg-[#EBF5F3] border border-[#C2DDD7] space-y-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[11px] font-bold text-[#004B45] uppercase">Specialized Track</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#004B45] text-white">Corporate MNC</span>
+                </div>
+                <h3 className="text-lg font-bold text-[#063F39]">Corporate Drug Safety Associate</h3>
+
+                <div className="space-y-3 text-xs text-[#063F39]">
+                  <div className="flex items-baseline justify-between py-2 border-b border-[#C2DDD7]/60">
+                    <span className="text-slate-600">Typical Starting Salary:</span>
+                    <strong className="text-[#004B45] font-bold text-sm">₹4.20 – ₹6.00 LPA</strong>
+                  </div>
+                  <div className="flex items-baseline justify-between py-2 border-b border-[#C2DDD7]/60">
+                    <span className="text-slate-600">Work Environment:</span>
+                    <span className="font-medium text-right">Global pharma GCCs, CROs</span>
+                  </div>
+                  <div className="flex items-baseline justify-between py-2">
+                    <span className="text-slate-600">Long-Term Growth:</span>
+                    <span className="font-medium text-right">Senior PV Analyst &amp; Ops Lead</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-[#C2DDD7]/60 flex items-center gap-2 text-xs text-[#004B45] font-medium">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-[#10B981]" />
+                  <span>Analytical desk environment · 5-day corporate schedule</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Dual Comparison View */}
+          <div className="hidden sm:grid sm:grid-cols-12 gap-6 items-stretch">
             {/* Card A: Academic Default */}
-            <div className="md:col-span-5 p-7 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-5 flex flex-col justify-between">
+            <div className="sm:col-span-5 p-7 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-5 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] font-bold text-[#526B67] uppercase">Academic Default</span>
@@ -519,14 +608,14 @@ function PVAssociateBlueprintPage() {
             </div>
 
             {/* Center Connective Indicator */}
-            <div className="md:col-span-2 hidden md:flex items-center justify-center">
+            <div className="sm:col-span-2 hidden sm:flex items-center justify-center">
               <div className="w-10 h-10 rounded-full bg-[#EBF5F3] border border-[#C2DDD7] flex items-center justify-center text-[#004B45] shadow-xs">
                 <ArrowRight className="w-5 h-5" />
               </div>
             </div>
 
             {/* Card B: Specialized Corporate Track */}
-            <div className="md:col-span-5 p-7 rounded-2xl bg-[#EBF5F3] border border-[#C2DDD7] space-y-5 flex flex-col justify-between shadow-sm">
+            <div className="sm:col-span-5 p-7 rounded-2xl bg-[#EBF5F3] border border-[#C2DDD7] space-y-5 flex flex-col justify-between shadow-sm">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-[11px] font-bold text-[#004B45] uppercase">Specialized Track</span>
@@ -560,10 +649,10 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 04. SEE THE WORK (REAL CASE WORKFLOW) ─────────────────────────────── */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-3 max-w-3xl">
+      <section className="py-10 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 text-left">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+            <div className="space-y-2 sm:space-y-3 max-w-3xl">
               <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
                 <span>04 · SEE THE WORK</span>
@@ -579,17 +668,23 @@ function PVAssociateBlueprintPage() {
               </p>
             </div>
 
-            <a
-              href="#work-samples"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#004B45] hover:text-[#00675D] transition-colors shrink-0"
-            >
-              <span>See a Detailed Case Example</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            <div className="flex items-center justify-between sm:justify-end gap-2">
+              <span className="text-[11px] font-mono text-[#008F83] font-semibold sm:hidden flex items-center gap-1">
+                <span>Swipe 6 steps</span>
+                <ArrowRight className="w-3 h-3" />
+              </span>
+              <a
+                href="#work-samples"
+                className="inline-flex items-center gap-1 text-xs font-bold text-[#004B45] hover:text-[#00675D] transition-colors shrink-0"
+              >
+                <span>View Sample Dossier</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </div>
 
-          {/* 6 Connected Steps Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+          {/* 6 Connected Steps: Swipeable snap rail on mobile, 6-col grid on desktop */}
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-6 gap-3 overflow-x-auto snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 pb-3 sm:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[
               {
                 num: "01",
@@ -605,7 +700,7 @@ function PVAssociateBlueprintPage() {
               },
               {
                 num: "03",
-                title: "Standardized Medical Coding",
+                title: "MedDRA",
                 desc: "Apply standardized medical terminology.",
                 icon: Tag,
               },
@@ -623,7 +718,7 @@ function PVAssociateBlueprintPage() {
               },
               {
                 num: "06",
-                title: "Regulatory Reporting",
+                title: "Reporting",
                 desc: "Submit to regulatory authorities as required.",
                 icon: Globe,
               },
@@ -632,7 +727,7 @@ function PVAssociateBlueprintPage() {
               return (
                 <div
                   key={idx}
-                  className="p-5 rounded-2xl bg-white tone-light card-light border border-slate-200/80 shadow-2xs space-y-3 flex flex-col justify-between"
+                  className="w-[210px] sm:w-auto shrink-0 snap-start p-4 sm:p-5 rounded-2xl bg-white tone-light card-light border border-[#C2DDD7] shadow-2xs space-y-3 flex flex-col justify-between"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
@@ -765,9 +860,9 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 06. THE 12-WEEK LEARNING PATHWAY ─────────────────────────────────── */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-left">
-          <div className="space-y-3 max-w-3xl">
+      <section className="py-10 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10 text-left">
+          <div className="space-y-2 sm:space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
               <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
               <span>06 · THE 12-WEEK LEARNING PATHWAY</span>
@@ -784,16 +879,16 @@ function PVAssociateBlueprintPage() {
           </div>
 
           {/* Live Employer Research Benchmark Banner */}
-          <div className="p-5 sm:p-6 rounded-2xl bg-white tone-light card-light border border-[#C2DDD7] shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-            <div className="space-y-1.5">
+          <div className="p-4 sm:p-6 rounded-2xl bg-white tone-light card-light border border-[#C2DDD7] shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+            <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-[#008F83]" />
-                <span className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#004B45]">
-                  Trailing 12-Month Employer Hiring Benchmark (Audited for Every Batch)
+                <Building2 className="w-4 h-4 text-[#008F83] shrink-0" />
+                <span className="font-mono text-[10px] sm:text-[10.5px] font-bold uppercase tracking-wider text-[#004B45]">
+                  12-Month Employer Hiring Benchmark (Every Batch Audited)
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-[#526B67] leading-relaxed max-w-3xl">
-                Curriculum, case sandboxes, and interview screening elimination gates calibrated directly against active job requisitions from <strong>Novartis, Sun Pharma, Dr. Reddy’s Laboratories, Amgen, Parexel, and Cognizant</strong>.
+                Curriculum, case sandboxes, and interview elimination gates calibrated against active job requisitions from <strong>Novartis, Sun Pharma, Dr. Reddy’s Laboratories, Amgen, Parexel, and Cognizant</strong>.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-1.5 shrink-0">
@@ -809,9 +904,18 @@ function PVAssociateBlueprintPage() {
             </div>
           </div>
 
-          {/* 3 Phased Cards with Arrows */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-7 rounded-3xl bg-white tone-light card-light border border-slate-200/80 shadow-2xs space-y-4 flex flex-col justify-between">
+          {/* Mobile Swipe Hint */}
+          <div className="flex sm:hidden items-center justify-between text-[11px] font-mono text-[#526B67] px-1 -mb-4">
+            <span>Curriculum Progression</span>
+            <span className="flex items-center gap-1 text-[#008F83] font-semibold">
+              <span>Swipe 3 phases</span>
+              <ArrowRight className="w-3 h-3" />
+            </span>
+          </div>
+
+          {/* 3 Phased Cards: Swipeable snap rail on mobile, 3-col grid on desktop */}
+          <div className="flex sm:grid sm:grid-cols-3 gap-3.5 sm:gap-6 overflow-x-auto snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 pb-3 sm:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="w-[285px] sm:w-auto shrink-0 snap-start p-5 sm:p-7 rounded-3xl bg-white tone-light card-light border border-[#C2DDD7] shadow-2xs space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="font-mono text-xs font-bold text-[#008F83]">WEEKS 1–4</span>
                 <h3 className="text-lg font-bold text-[#063F39]">Build Your Drug Safety Foundations</h3>
@@ -827,7 +931,7 @@ function PVAssociateBlueprintPage() {
               </div>
             </div>
 
-            <div className="p-7 rounded-3xl bg-white tone-light card-light border border-slate-200/80 shadow-2xs space-y-4 flex flex-col justify-between">
+            <div className="w-[285px] sm:w-auto shrink-0 snap-start p-5 sm:p-7 rounded-3xl bg-white tone-light card-light border border-[#C2DDD7] shadow-2xs space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="font-mono text-xs font-bold text-[#008F83]">WEEKS 5–8</span>
                 <h3 className="text-lg font-bold text-[#063F39]">Learn the Case-Processing Workflow</h3>
@@ -843,7 +947,7 @@ function PVAssociateBlueprintPage() {
               </div>
             </div>
 
-            <div className="p-7 rounded-3xl bg-white tone-light card-light border border-slate-200/80 shadow-2xs space-y-4 flex flex-col justify-between">
+            <div className="w-[285px] sm:w-auto shrink-0 snap-start p-5 sm:p-7 rounded-3xl bg-white tone-light card-light border border-[#C2DDD7] shadow-2xs space-y-4 flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="font-mono text-xs font-bold text-[#008F83]">WEEKS 9–12</span>
                 <h3 className="text-lg font-bold text-[#063F39]">Apply Your Knowledge &amp; Prepare</h3>
@@ -863,9 +967,9 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 07. WORK SAMPLES (REAL OUTPUT & EVIDENCE) ─────────────────────────── */}
-      <section id="work-samples" className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
-          <div className="space-y-4 max-w-3xl">
+      <section id="work-samples" className="py-10 sm:py-20 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 text-left">
+          <div className="space-y-2 sm:space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
               <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
               <span>07 · WORK SAMPLES</span>
@@ -1009,9 +1113,9 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 08. MENTOR AND MASTERCLASS (LEARN FROM EXPERTS) ───────────────────── */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
-          <div className="space-y-4 max-w-3xl">
+      <section className="py-10 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-12 text-left">
+          <div className="space-y-2 sm:space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
               <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
               <span>08 · MENTOR AND MASTERCLASS</span>
@@ -1025,23 +1129,23 @@ function PVAssociateBlueprintPage() {
           </div>
 
           {/* 3-Column Horizontal Card Layout */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-white tone-light card-light border border-slate-200/80 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="p-5 sm:p-10 rounded-2xl sm:rounded-3xl bg-white tone-light card-light border border-[#C2DDD7] shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
             {/* Left: Mentor Profile */}
-            <div className="lg:col-span-4 flex items-center gap-4">
+            <div className="lg:col-span-4 flex items-center gap-3.5 sm:gap-4">
               <img
                 src={mentorKumailImg}
                 alt="Mohamed Kumail Abbas"
-                className="w-20 h-20 rounded-2xl object-cover object-top border border-slate-200 shrink-0"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border border-[#C2DDD7] shrink-0"
               />
-              <div className="space-y-1">
-                <h3 className="font-bold text-base text-[#063F39]">Mohamed Kumail Abbas</h3>
+              <div className="space-y-0.5 sm:space-y-1">
+                <h3 className="font-bold text-sm sm:text-base text-[#063F39]">Mohamed Kumail Abbas</h3>
                 <p className="text-xs font-semibold text-[#008F83]">Manager - Pharmacovigilance</p>
                 <p className="text-[11px] text-[#526B67]">Ex-Cognizant, Quintiles, Accenture</p>
               </div>
             </div>
 
             {/* Middle: Mentor Direct Quote */}
-            <div className="lg:col-span-4 py-4 lg:py-0 lg:px-6 lg:border-x lg:border-slate-200">
+            <div className="lg:col-span-4 py-2 sm:py-0 lg:px-6 lg:border-x lg:border-slate-200">
               <p className="text-xs sm:text-sm text-[#063F39] italic leading-relaxed">
                 "Understanding pharmacovigilance means more than knowing the terminology. You need to understand how information moves through a safety workflow and how accuracy affects the quality of the final case."
               </p>
@@ -1054,7 +1158,7 @@ function PVAssociateBlueprintPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent("masterclass_click", { source: "section_08_card" })}
-                className="group block p-4 rounded-2xl bg-[#F8FAFC] border border-slate-200 hover:border-[#C2DDD7] transition-all cursor-pointer"
+                className="group block p-3.5 sm:p-4 rounded-2xl bg-[#F8FAFC] border border-[#C2DDD7] hover:border-[#008F83] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-[#004B45] flex items-center justify-center text-white shrink-0 group-hover:scale-105 transition-transform shadow-xs">
@@ -1076,9 +1180,9 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 09. CAREER GUIDANCE & NEXT STEPS ─────────────────────────────────── */}
-      <section id="counselling" className="py-16 sm:py-24 bg-white tone-light card-light border-b border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 text-left">
-          <div className="space-y-4 max-w-3xl">
+      <section id="counselling" className="py-10 sm:py-20 bg-white tone-light card-light border-b border-slate-200/80">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-14 text-left">
+          <div className="space-y-2 sm:space-y-3 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">
               <span className="w-1.5 h-1.5 rounded-full bg-[#008F83]" />
               <span>09 · CAREER GUIDANCE</span>
@@ -1095,26 +1199,26 @@ function PVAssociateBlueprintPage() {
           </div>
 
           {/* 3-Step Guidance Timeline */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#F8FAFC] border border-[#C2DDD7] space-y-2">
               <span className="font-mono text-xs font-bold text-[#008F83]">STEP 01</span>
-              <h3 className="font-bold text-base text-[#063F39]">Profile &amp; Degree Diagnostic</h3>
+              <h3 className="font-bold text-sm sm:text-base text-[#063F39]">Profile &amp; Degree Diagnostic</h3>
               <p className="text-xs text-[#526B67] leading-relaxed">
                 Review your background, degree, and graduation year to confirm clinical eligibility for corporate drug safety roles.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-2">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#F8FAFC] border border-[#C2DDD7] space-y-2">
               <span className="font-mono text-xs font-bold text-[#008F83]">STEP 02</span>
-              <h3 className="font-bold text-base text-[#063F39]">Role &amp; Skill Gap Analysis</h3>
+              <h3 className="font-bold text-sm sm:text-base text-[#063F39]">Role &amp; Skill Gap Analysis</h3>
               <p className="text-xs text-[#526B67] leading-relaxed">
                 Compare your current pharmacological profile against the practical requirements of Tier-1 CROs and MNCs.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#F8FAFC] border border-slate-200/80 space-y-2">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#F8FAFC] border border-[#C2DDD7] space-y-2">
               <span className="font-mono text-xs font-bold text-[#008F83]">STEP 03</span>
-              <h3 className="font-bold text-base text-[#063F39]">Personalized Career Plan</h3>
+              <h3 className="font-bold text-sm sm:text-base text-[#063F39]">Personalized Career Plan</h3>
               <p className="text-xs text-[#526B67] leading-relaxed">
                 Get clear information on the 12-week schedule, portfolio deliverables, and cohort options to decide with confidence.
               </p>
@@ -1122,9 +1226,9 @@ function PVAssociateBlueprintPage() {
           </div>
 
           {/* Decisive CTA Conversion Banner */}
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#063F39] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl">
+          <div className="p-6 sm:p-12 rounded-2xl sm:rounded-3xl bg-[#063F39] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl">
             <div className="space-y-2 max-w-xl">
-              <h3 className="text-2xl font-bold text-white">
+              <h3 className="text-xl sm:text-2xl font-bold text-white">
                 Ready to explore your{" "}
                 <span className="text-[#008F83]">
                   pharmacovigilance fit?
@@ -1138,7 +1242,7 @@ function PVAssociateBlueprintPage() {
             <button
               type="button"
               onClick={() => openCounsellor("counselling_banner")}
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-[#008F83] hover:bg-[#00675D] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
+              className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#008F83] hover:bg-[#00675D] text-white font-bold text-sm shadow-sm transition-all active:scale-[0.99] cursor-pointer shrink-0"
             >
               <Phone className="w-4 h-4" />
               <span>Talk to Experts</span>
@@ -1149,7 +1253,7 @@ function PVAssociateBlueprintPage() {
       </section>
 
       {/* ── 10. FREQUENTLY ASKED QUESTIONS ────────────────────────────────────── */}
-      <section className="py-16 sm:py-24 bg-[#F8FAFC] border-b border-slate-200/80">
+      <section className="py-10 sm:py-20 bg-[#F8FAFC] border-b border-slate-200/80">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
           <div className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C2DDD7] bg-[#EBF5F3] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-[#004B45] shadow-2xs tone-light card-light">

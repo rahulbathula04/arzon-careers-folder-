@@ -84,7 +84,7 @@ type TrackKey = keyof typeof TRACK_PREVIEWS;
 
 function SectionLabel({ children }: { children: string }) {
   return (
-    <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#008F83]">
+    <p className="mb-2 text-[10px] sm:text-[10.5px] font-mono font-bold uppercase tracking-[0.16em] text-[#008F83]">
       {children}
     </p>
   );
@@ -114,49 +114,52 @@ export function ArzonHomeIntelligence() {
         <div className="pointer-events-none absolute -right-40 -top-44 h-[36rem] w-[36rem] rounded-full bg-[#DFF1EF] blur-3xl" />
         <div className="pointer-events-none absolute -bottom-52 -left-36 h-[28rem] w-[28rem] rounded-full bg-[#E8F2EF] blur-3xl" />
 
-        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-8 sm:px-8 lg:min-h-[calc(100svh-48px)] lg:grid-cols-[1.28fr_0.72fr] lg:gap-12 lg:px-10 lg:py-6">
+        <div className="relative mx-auto grid w-full max-w-7xl items-center gap-8 px-4 pt-6 pb-10 sm:px-8 sm:py-10 lg:min-h-[calc(100svh-48px)] lg:grid-cols-[1.28fr_0.72fr] lg:gap-12 lg:px-10 lg:py-6">
           <motion.div {...enter} className="relative z-10 max-w-[620px]">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#CBE3DF] bg-white/80 px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-[#42645F] shadow-[0_3px_14px_rgba(9,58,51,0.04)]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#008F83]" />
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#CBE3DF] bg-white/90 backdrop-blur-md px-3.5 py-1.5 text-[10px] sm:text-[10.5px] font-mono font-medium tracking-[0.12em] text-[#345953] shadow-[0_2px_10px_rgba(9,58,51,0.04)]">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#008F83] opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#008F83]" />
+              </span>
               Arzon Global · Skills and career intelligence
             </div>
 
-            <h1 className="max-w-[620px] text-[clamp(2.5rem,4.8vw,4.4rem)] font-semibold leading-[0.99] tracking-[-0.065em] text-[#063F39]">
+            <h1 className="max-w-[620px] text-[34px] sm:text-[46px] lg:text-[56px] font-bold leading-[1.04] tracking-[-0.045em] text-[#063F39]">
               Build capability.
               <span className="mt-1 block text-[#008F83]">Show the work.</span>
             </h1>
 
-            <p className="mt-5 max-w-[490px] text-[15px] leading-7 text-[#526B67] sm:text-[16px]">
-              We connect role requirements, practical learning and evidence of skill - helping students make clearer career decisions.
+            <p className="mt-4 max-w-[500px] text-[14px] leading-relaxed text-[#526B67] sm:text-[16px]">
+              We connect role requirements, practical learning and evidence of skill — helping students make clearer career decisions.
             </p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
               <Link
                 to={"/career-engine/start" as any}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#004B45] px-5 text-[12.5px] font-semibold text-white shadow-[0_8px_22px_rgba(0,75,69,0.16)] transition hover:-translate-y-0.5 hover:bg-[#00675D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83]"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#004B45] px-6 text-[13px] font-bold text-white shadow-[0_8px_22px_rgba(0,75,69,0.18)] transition-all hover:-translate-y-0.5 hover:bg-[#00675D] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83]"
               >
                 Build my profile <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#proof"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#C7DAD6] bg-white/80 px-5 text-[12.5px] font-semibold text-[#174D47] transition hover:border-[#008F83] hover:bg-white"
+                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#C2D6D2] bg-white/90 backdrop-blur px-6 text-[13px] font-bold text-[#174D47] transition-all hover:border-[#008F83] hover:bg-white active:scale-[0.98] shadow-2xs"
               >
                 See our work <ArrowUpRight className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-[#DCE9E6] pt-4">
-              <div className="flex items-center gap-2 text-[11px] font-medium text-[#56716C]">
-                <ShieldCheck className="h-4 w-4 text-[#008F83]" />
-                Student-first
+            <div className="mt-7 sm:mt-8 grid grid-cols-3 gap-2 border-t border-[#DCE9E6] pt-4 text-center sm:text-left sm:flex sm:items-center sm:gap-6">
+              <div className="flex flex-col sm:flex-row items-center gap-1.5 text-[10.5px] sm:text-[11.5px] font-medium text-[#56716C]">
+                <ShieldCheck className="h-4 w-4 text-[#008F83] shrink-0" />
+                <span>Student-first</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-medium text-[#56716C]">
-                <ClipboardCheck className="h-4 w-4 text-[#008F83]" />
-                Practical assessment
+              <div className="flex flex-col sm:flex-row items-center gap-1.5 text-[10.5px] sm:text-[11.5px] font-medium text-[#56716C]">
+                <ClipboardCheck className="h-4 w-4 text-[#008F83] shrink-0" />
+                <span>Practical assessment</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-medium text-[#56716C]">
-                <FileCheck2 className="h-4 w-4 text-[#008F83]" />
-                Evidence-led reports
+              <div className="flex flex-col sm:flex-row items-center gap-1.5 text-[10.5px] sm:text-[11.5px] font-medium text-[#56716C]">
+                <FileCheck2 className="h-4 w-4 text-[#008F83] shrink-0" />
+                <span>Evidence reports</span>
               </div>
             </div>
           </motion.div>
@@ -169,15 +172,15 @@ export function ArzonHomeIntelligence() {
                   animate: { opacity: 1, scale: 1 },
                   transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const },
                 })}
-            className="relative mx-auto w-full max-w-[390px] lg:ml-auto lg:mr-0"
+            className="relative mx-auto w-full max-w-[420px] lg:ml-auto lg:mr-0"
           >
             {/* Ambient emerald backlight */}
             <div className="absolute -inset-3 rounded-[30px] bg-[#008F83]/12 blur-xl pointer-events-none" aria-hidden="true" />
 
             {/* Apple Unibody Event Terminal (Compact Sleek Dimension) */}
-            <div className="relative overflow-hidden rounded-[20px] sm:rounded-[24px] border border-white/10 bg-[#02201D] shadow-[0_20px_50px_-12px_rgba(0,35,30,0.5),0_0_0_1px_rgba(255,255,255,0.06)_inset]">
+            <div className="relative overflow-hidden rounded-[22px] sm:rounded-[26px] border border-white/10 bg-[#02201D] shadow-[0_24px_60px_-12px_rgba(0,35,30,0.5),0_0_0_1px_rgba(255,255,255,0.06)_inset]">
               {/* Minimalist Top Utility Bar */}
-              <div className="flex items-center justify-between px-3.5 py-2 border-b border-white/[0.08] text-[9.5px] font-mono tracking-tight">
+              <div className="flex items-center justify-between px-3.5 sm:px-4 py-2 sm:py-2.5 border-b border-white/[0.08] text-[9.5px] sm:text-[10px] font-mono tracking-tight">
                 <div className="flex items-center gap-1.5">
                   <span className="relative flex h-1.5 w-1.5">
                     <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
@@ -219,7 +222,7 @@ export function ArzonHomeIntelligence() {
               </div>
 
               {/* Solid High-Contrast Intelligence Dock */}
-              <div className="p-3.5 sm:p-4 text-left bg-[#02201D]">
+              <div className="p-4 sm:p-4.5 text-left bg-[#02201D]">
                 <div className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#00A896]">
                   State Skilling & Leadership
                 </div>
@@ -228,18 +231,18 @@ export function ArzonHomeIntelligence() {
                   A public launch with TASK leadership.
                 </h2>
 
-                <p className="mt-1 text-[11px] leading-relaxed text-[#A8D3CD] max-w-[360px] line-clamp-2">
+                <p className="mt-1 text-[11.5px] leading-relaxed text-[#A8D3CD] max-w-[360px]">
                   Dr. Srikanth Sinha (CEO, TASK) formally inaugurated the Arzon Global facility to align healthcare role readiness with state initiatives.
                 </p>
 
                 {/* Action Bar + Dignitary Attribution */}
-                <div className="mt-3 flex items-center justify-between gap-2 pt-2.5 border-t border-white/[0.08]">
+                <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2.5 pt-2.5 border-t border-white/[0.08]">
                   <a
                     href={LINKS.mediaInauguration.watch}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ color: "#004B45" }}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white hover:bg-[#DFF1EF] !text-[#004B45] px-3 py-1.5 text-[10.5px] font-bold shadow-md shadow-black/20 transition-all hover:scale-[1.02] active:scale-[0.98] group/btn cursor-pointer"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-white hover:bg-[#DFF1EF] !text-[#004B45] px-3.5 py-1.5 text-[10.5px] font-bold shadow-md shadow-black/20 transition-all hover:scale-[1.02] active:scale-[0.98] group/btn cursor-pointer"
                   >
                     <span className="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#008F83] text-white group-hover/btn:bg-[#00736A] transition-colors">
                       <Play className="h-1.5 w-1.5 fill-white ml-0.5" />
@@ -248,9 +251,9 @@ export function ArzonHomeIntelligence() {
                     <ArrowUpRight className="h-2.5 w-2.5 !text-[#008F83]" style={{ color: "#008F83" }} />
                   </a>
 
-                  <div className="flex items-center gap-1 text-[9.5px] font-mono text-[#78BDBB]/85">
-                    <ShieldCheck className="h-3 w-3 text-[#10B981] shrink-0" />
-                    <span className="truncate max-w-[160px] sm:max-w-none">Chief Guest: Dr. Srikanth Sinha</span>
+                  <div className="flex items-center gap-1 text-[9.5px] font-mono text-[#78BDBB]/90">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#10B981] shrink-0" />
+                    <span className="truncate max-w-[170px] sm:max-w-none">Chief Guest: Dr. Srikanth Sinha</span>
                   </div>
                 </div>
               </div>
@@ -262,22 +265,22 @@ export function ArzonHomeIntelligence() {
       {/* 02 / RECOGNITIONS & INSTITUTIONAL ENGAGEMENTS (Peak Minimal Apple-Grade Detailing) */}
       <section
         id="proof"
-        className="relative bg-[#FAFCFB] py-12 sm:py-16 border-t border-[#E8EFEB]"
+        className="relative bg-[#FAFCFB] py-10 sm:py-16 border-t border-[#E8EFEB]"
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <div className="mb-7 sm:mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div className="mb-6 sm:mb-8 flex flex-col justify-between gap-2.5 sm:flex-row sm:items-end">
             <div>
               <div className="mb-2 inline-flex items-center gap-1.5 rounded-full border border-[#CFE3DE] bg-[#F0F7F5] px-2.5 py-0.5 text-[9.5px] font-mono font-semibold tracking-[0.12em] text-[#00796F] shadow-2xs">
                 <Trophy className="h-3 w-3 text-[#D97706]" />
-                <span>Recognitions & Institutional Engagements</span>
+                <span>Proof in the Public Record</span>
               </div>
-              <h2 className="text-[24px] sm:text-[30px] font-bold tracking-[-0.04em] text-[#063F39] leading-[1.08]">
-                Credibility Built Through Real-World Impact
+              <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.04em] text-[#063F39] leading-[1.08]">
+                Work worth showing.
               </h2>
             </div>
-            <p className="max-w-[420px] text-[12.5px] sm:text-[13px] leading-relaxed text-[#5C756F]">
-              Verified milestones, academic outreach, and industry participation — each linked to its official public source.
+            <p className="max-w-[460px] text-[13px] sm:text-[13.5px] leading-relaxed text-[#5C756F]">
+              Verified milestones, academic outreach, and industry participation — each directly linked to primary public sources.
             </p>
           </div>
 
@@ -288,7 +291,7 @@ export function ArzonHomeIntelligence() {
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.14] bg-[#073F39] p-6 sm:p-7 text-white shadow-[0_20px_50px_rgba(0,75,69,0.22)] ring-1 ring-inset ring-white/[0.08] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_24px_60px_rgba(0,75,69,0.30)] lg:col-span-8"
+              className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.14] bg-[#073F39] p-5 sm:p-7 text-white shadow-[0_20px_50px_rgba(0,75,69,0.22)] ring-1 ring-inset ring-white/[0.08] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_24px_60px_rgba(0,75,69,0.30)] lg:col-span-8"
             >
               {/* Arzon Seafoam & Emerald Ambient Glow */}
               <div
@@ -311,10 +314,10 @@ export function ArzonHomeIntelligence() {
                 </div>
 
                 {/* 2-Column Split: Narrative on Left (~60%), Physical Trophy Proof in former TASK slot (~40%) */}
-                <div className="relative z-10 mt-5 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+                <div className="relative z-10 mt-5 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
                   {/* Left Column: Official Narrative & Institutional Breakdown */}
                   <div className="flex-1 min-w-0 pr-0 lg:pr-3">
-                    <p className="text-[clamp(2.5rem,4.5vw,3.6rem)] font-bold leading-none tracking-[-0.06em] text-[#F3D99D]">
+                    <p className="text-[40px] sm:text-[52px] font-bold leading-none tracking-[-0.06em] text-[#F3D99D]">
                       2026
                     </p>
                     <h3 className="mt-2 text-[22px] sm:text-[25px] font-bold leading-[1.08] tracking-[-0.04em] text-white">
@@ -344,7 +347,7 @@ export function ArzonHomeIntelligence() {
                   </div>
 
                   {/* Right Column: Physical Award Plaque with luminous white fade spotlight (Positioned in former TASK slot space) */}
-                  <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[240px] xl:w-[270px] py-1">
+                  <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[240px] xl:w-[270px] py-2 sm:py-1">
                     {/* Luminous soft white-to-transparent studio fade */}
                     <div
                       aria-hidden="true"
@@ -356,13 +359,13 @@ export function ArzonHomeIntelligence() {
                       <img
                         src="/images/credentials/global-impact-trophy-transparent.png"
                         alt="Official 2026 Global Impact Award Plaque presented to Arzon Global Labs"
-                        className="relative z-10 max-h-[240px] sm:max-h-[255px] w-auto object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        className="relative z-10 max-h-[210px] sm:max-h-[255px] w-auto object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
                         loading="lazy"
                       />
                       {/* Soft white ground reflection / pedestal fade */}
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none -mt-3.5 h-5 w-40 rounded-[100%] bg-white/20 blur-md"
+                        className="pointer-events-none -mt-3.5 h-4 w-36 sm:w-44 rounded-[100%] bg-white/20 blur-md"
                       />
                     </div>
                   </div>
@@ -387,7 +390,7 @@ export function ArzonHomeIntelligence() {
               href={MALLA_REDDY_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group flex min-h-[320px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-white p-6 shadow-[0_10px_30px_rgba(0,75,69,0.04)] ring-1 ring-inset ring-black/[0.02] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-4"
+              className="group flex min-h-[320px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-white p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,75,69,0.04)] ring-1 ring-inset ring-black/[0.02] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-4"
             >
               <div className="flex items-center justify-between">
                 <span className="inline-flex items-center gap-1 rounded-full bg-[#EBF5F3] px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-[#00796F] border border-[#CFE3DE]">
@@ -399,7 +402,7 @@ export function ArzonHomeIntelligence() {
 
               <div className="my-auto py-2">
                 {/* Authentic Faculty Meeting Photo */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[12px] border border-slate-200/80 bg-slate-100 shadow-2xs">
+                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-[14px] border border-slate-200/80 bg-slate-100 shadow-2xs">
                   <img
                     src="/images/credentials/malla-reddy-authentic-table.jpg"
                     alt="Arzon Global leadership meeting with Malla Reddy University Dean and academic faculty"
@@ -431,12 +434,12 @@ export function ArzonHomeIntelligence() {
               </div>
             </a>
 
-            {/* Card 4: Industry Participation — PHUSE APAC (lg:col-span-7) */}
+            {/* Card 3: Industry Participation — PHUSE APAC (lg:col-span-7) */}
             <a
               href={LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group flex min-h-[220px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-[#F7FAF9] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-7"
+              className="group flex min-h-[220px] flex-col justify-between rounded-[24px] border border-[#DCE9E6] bg-[#F7FAF9] p-5 sm:p-6 transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.08)] lg:col-span-7"
             >
               <div className="flex items-center justify-between gap-3">
                 <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-slate-700 border border-slate-200">
@@ -447,44 +450,47 @@ export function ArzonHomeIntelligence() {
               </div>
 
               <div className="my-auto flex flex-col justify-between gap-4 py-2 sm:flex-row sm:items-center">
-                <div className="flex-1 min-w-0 pr-2">
-                  <h3 className="text-[clamp(1.5rem,2.5vw,2rem)] font-bold leading-[1.08] tracking-[-0.045em] text-[#063F39]">
+                <div className="flex-1 min-w-0 pr-0 sm:pr-2">
+                  <h3 className="text-[20px] sm:text-[22px] font-bold leading-[1.12] tracking-[-0.04em] text-[#063F39]">
                     PHUSE APAC Connect
                   </h3>
                   <p className="mt-1.5 text-[12px] leading-relaxed text-[#5C756F]">
-                    Participated in the premier clinical data science assembly, ensuring Arzon candidate simulations mirror live CDISC standards.
+                    Participated in the premier clinical data science assembly, engaging with global leaders to ensure candidate simulations mirror live CDISC standards.
                   </p>
-                  <div className="mt-2.5 inline-flex items-center rounded-md bg-white px-2 py-0.5 text-[9.5px] font-mono text-slate-700 border border-slate-200/90 shadow-2xs">
+                  <div className="mt-2.5 inline-flex items-center rounded-md bg-white px-2.5 py-1 text-[9.5px] font-mono text-slate-700 border border-slate-200/90 shadow-2xs">
                     Keynote: Shri D. Sridhar Babu (IT Minister)
                   </div>
                 </div>
 
                 {/* Minister Keynote Portrait Frame */}
-                <div className="relative h-[105px] w-[135px] shrink-0 overflow-hidden rounded-[12px] border border-blue-900/20 bg-[#091E5A] shadow-2xs">
+                <div className="relative h-[115px] w-full sm:w-[135px] shrink-0 overflow-hidden rounded-[14px] border border-blue-900/20 bg-[#091E5A] shadow-2xs">
                   <img
                     src="/images/credentials/phuse-minister-portrait.jpg"
                     alt="PHUSE APAC 2026 keynote by Shri D. Sridhar Babu"
-                    className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                     loading="lazy"
                   />
+                  <span className="absolute bottom-1.5 left-1.5 rounded-full bg-black/60 backdrop-blur-md px-2 py-0.5 text-[8.5px] font-mono text-white">
+                    Official Summit Record
+                  </span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between border-t border-[#E5EEEB] pt-3 text-[11px] font-semibold text-[#00796F]">
                 <span className="inline-flex items-center gap-1 transition-colors group-hover:text-[#004B45]">
-                  View industry participation
+                  Read conference overview
                   <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
                 <span className="text-[9px] font-mono text-slate-400">Global Standards</span>
               </div>
             </a>
 
-            {/* Card 5: How We Work — Institutional Governance Standard (lg:col-span-5) */}
-            <div className="flex min-h-[220px] flex-col justify-between rounded-[24px] bg-[#E4F1EE] border border-emerald-900/10 p-6 lg:col-span-5">
+            {/* Card 4: How We Work — Institutional Governance Standard (lg:col-span-5) */}
+            <div className="flex min-h-[220px] flex-col justify-between rounded-[24px] bg-[#E7F3F0] border border-[#CDE3DD] p-5 sm:p-6 lg:col-span-5">
               <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-800 border border-emerald-200/70">
                   <ShieldCheck className="h-3 w-3 text-emerald-600" />
-                  Public Standard · Integrity Policy
+                  Institutional Governance · Public Standard
                 </span>
                 <span className="text-[10px] font-mono text-[#5C756F]">Integrity Policy</span>
               </div>
@@ -494,21 +500,21 @@ export function ArzonHomeIntelligence() {
                   Engagement is not the same as endorsement.
                 </h3>
                 <p className="mt-1.5 text-[11.5px] leading-relaxed text-[#5C756F]">
-                  We publish the exact scope of every event clearly. Engagements are never represented as exclusive hiring guarantees or government accreditation.
+                  We publish the exact scope of every event clearly. A university visit, conference presence, or public facility launch is never represented as an exclusive hiring guarantee or government accreditation.
                 </p>
 
                 {/* Transparency Validation Checklist */}
-                <div className="mt-3 space-y-1 text-[10px] font-medium text-[#40615A]">
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
+                <div className="mt-3.5 space-y-1.5 text-[10.5px] font-medium text-[#40615A]">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                     <span>Public sources linked for every milestone</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                     <span>Objective capability evidence over marketing claims</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3 w-3 text-emerald-600 shrink-0" />
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
                     <span>Clinical data simulations governed by CDISC & SDTM guidelines</span>
                   </div>
                 </div>
@@ -529,30 +535,35 @@ export function ArzonHomeIntelligence() {
       {/* 03 / THE PRODUCT */}
       <section
         id="how-it-works"
-        className="flex min-h-[calc(100svh-48px)] items-center bg-[#F2F8F6] py-12 sm:py-14 lg:py-8"
+        className="flex min-h-[calc(100svh-48px)] items-center bg-[#F2F8F6] py-10 sm:py-16"
       >
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.78fr_1.22fr] lg:gap-14 lg:px-10">
-          <motion.div {...enter} className="max-w-[440px]">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-8 px-4 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14 lg:px-10">
+          <motion.div {...enter} className="max-w-[460px]">
             <SectionLabel>A clearer way to prepare</SectionLabel>
-            <h2 className="text-[clamp(2rem,3.8vw,3.35rem)] font-semibold leading-[1.02] tracking-[-0.06em] text-[#063F39]">
+            <h2 className="text-[26px] sm:text-[34px] lg:text-[40px] font-bold leading-[1.06] tracking-[-0.045em] text-[#063F39]">
               Understand the role.
               <span className="block text-[#008F83]">Show your capability.</span>
             </h2>
-            <p className="mt-5 text-[14px] leading-7 text-[#5B746E]">
+            <p className="mt-3.5 text-[13.5px] sm:text-[14.5px] leading-relaxed text-[#5B746E]">
               Start with what employers ask for, practise the work in a structured environment and review what you have demonstrated.
             </p>
 
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 sm:mt-8 space-y-2.5">
               {[
                 ["01", "Understand", "Review role responsibilities and published requirements."],
                 ["02", "Practise", "Work through relevant tasks using synthetic training scenarios."],
                 ["03", "Evidence", "See what was demonstrated, what is missing and what to improve."],
               ].map(([number, title, description]) => (
-                <div key={number} className="flex gap-4 border-t border-[#D9E7E3] pt-4">
-                  <span className="pt-0.5 text-[11px] font-semibold tracking-[0.12em] text-[#008F83]">{number}</span>
+                <div
+                  key={number}
+                  className="flex items-start gap-3.5 rounded-[16px] border border-[#DCE8E4] bg-white/75 p-3.5 transition hover:bg-white hover:border-[#A9D1CB]"
+                >
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#E4F2EF] font-mono text-[11px] font-bold text-[#008F83]">
+                    {number}
+                  </span>
                   <div>
-                    <h3 className="text-[14px] font-semibold text-[#174D47]">{title}</h3>
-                    <p className="mt-1 text-[12px] leading-5 text-[#6B817C]">{description}</p>
+                    <h3 className="text-[13.5px] sm:text-[14px] font-bold text-[#063F39]">{title}</h3>
+                    <p className="mt-0.5 text-[11.5px] sm:text-[12px] leading-relaxed text-[#5C756F]">{description}</p>
                   </div>
                 </div>
               ))}
@@ -560,7 +571,7 @@ export function ArzonHomeIntelligence() {
 
             <Link
               to={"/career-assessment" as any}
-              className="mt-7 inline-flex items-center gap-2 text-[12px] font-semibold text-[#00796F] transition hover:gap-3"
+              className="mt-6 inline-flex items-center gap-2 text-[12.5px] font-bold text-[#00796F] transition hover:gap-3"
             >
               Explore the assessment <ArrowRight className="h-4 w-4" />
             </Link>
@@ -568,91 +579,89 @@ export function ArzonHomeIntelligence() {
 
           <motion.div
             {...enter}
-            className="relative overflow-hidden rounded-[26px] border border-[#D7E6E2] bg-white p-3 shadow-[0_24px_70px_rgba(3,55,48,0.10)] sm:rounded-[30px] sm:p-5"
+            className="relative overflow-hidden rounded-[24px] sm:rounded-[30px] border border-[#D7E6E2] bg-white p-4 sm:p-6 shadow-[0_24px_70px_rgba(3,55,48,0.10)]"
           >
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E8EFED] px-2 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-[#E8EFED] pb-3 sm:pb-4">
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#82A099]">Interactive product sample</p>
-                <h3 className="mt-1 text-[16px] font-semibold tracking-[-0.03em] text-[#0B3934]">Role readiness workspace</h3>
+                <p className="text-[9px] font-mono font-bold uppercase tracking-[0.16em] text-[#82A099]">Interactive product sample</p>
+                <h3 className="mt-0.5 text-[16px] sm:text-[17px] font-bold tracking-tight text-[#0B3934]">Role readiness workspace</h3>
               </div>
-              <span className="rounded-full border border-[#CFE3DE] bg-[#F1F8F6] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[#39736A]">
+              <span className="rounded-full border border-[#CFE3DE] bg-[#F1F8F6] px-2.5 py-1 text-[8.5px] sm:text-[9px] font-mono font-semibold uppercase tracking-[0.12em] text-[#39736A]">
                 Synthetic training data
               </span>
             </div>
 
-            <div className="grid gap-3 pt-4 md:grid-cols-[190px_1fr]">
-              <div className="rounded-[18px] bg-[#F3F8F6] p-3">
-                <p className="px-2 pb-2 text-[9px] font-semibold uppercase tracking-[0.16em] text-[#819A94]">Choose a role</p>
-                {([
-                  ["pv", "Pharmacovigilance"],
-                  ["cdm", "Clinical data"],
-                  ["coding", "Medical coding"],
-                ] as const).map(([key, label]) => (
-                  <button
-                    key={key}
-                    type="button"
-                    aria-pressed={activeTrack === key}
-                    onClick={() => setActiveTrack(key)}
-                    className={[
-                      "mb-1 flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-[11px] font-medium transition",
-                      activeTrack === key
-                        ? "bg-[#004B45] text-white shadow-[0_5px_14px_rgba(0,75,69,0.14)]"
-                        : "text-[#58736D] hover:bg-white",
-                    ].join(" ")}
-                  >
-                    {label}
-                    <ChevronRight className="h-3.5 w-3.5" />
-                  </button>
-                ))}
-                <div className="mt-4 rounded-xl border border-[#DCE9E5] bg-white p-3">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#88A29B]">Assessment scope</p>
-                  <p className="mt-1.5 text-[11px] leading-5 text-[#56716B]">Task-specific feedback, not a job guarantee or professional certification.</p>
+            {/* Apple iOS Segmented Role Switcher (Compact, responsive, zero vertical waste) */}
+            <div className="mt-4 rounded-xl sm:rounded-2xl bg-[#EBF3F0] p-1 grid grid-cols-3 gap-1">
+              {([
+                ["pv", "Pharmacovigilance", "PV"],
+                ["cdm", "Clinical Data", "CDM"],
+                ["coding", "Medical Coding", "Coding"],
+              ] as const).map(([key, label, shortLabel]) => (
+                <button
+                  key={key}
+                  type="button"
+                  aria-pressed={activeTrack === key}
+                  onClick={() => setActiveTrack(key)}
+                  className={[
+                    "rounded-lg sm:rounded-xl py-2 px-1 text-center text-[11px] sm:text-[12px] font-bold transition-all duration-200 cursor-pointer active:scale-[0.98]",
+                    activeTrack === key
+                      ? "bg-[#004B45] text-white shadow-[0_3px_10px_rgba(0,75,69,0.20)]"
+                      : "text-[#58736D] hover:text-[#063F39] hover:bg-white/60",
+                  ].join(" ")}
+                >
+                  <span className="hidden sm:inline">{label}</span>
+                  <span className="sm:hidden">{shortLabel}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Role Content Display */}
+            <div className="mt-4 rounded-[20px] border border-[#E3ECE9] bg-white p-4 sm:p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[9px] font-mono font-semibold uppercase tracking-[0.16em] text-[#85A099]">Selected role</p>
+                  <h4 className="mt-0.5 text-[18px] sm:text-[20px] font-bold tracking-tight text-[#0B3934]">{preview.label}</h4>
+                </div>
+                <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#E4F2EF] text-[#008F83]">
+                  <Microscope className="h-4.5 w-4.5" />
                 </div>
               </div>
 
-              <div className="min-w-0 rounded-[18px] border border-[#E3ECE9] bg-white p-4 sm:p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[9px] font-semibold uppercase tracking-[0.16em] text-[#85A099]">Selected role</p>
-                    <h4 className="mt-1 text-[19px] font-semibold tracking-[-0.04em] text-[#0B3934]">{preview.label}</h4>
-                  </div>
-                  <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#E4F2EF] text-[#008F83]">
-                    <Microscope className="h-5 w-5" />
-                  </div>
-                </div>
-
-                <div className="mt-5 rounded-2xl bg-[#073F39] p-4 text-white sm:p-5">
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-[#9CD8D0]">Sample task</p>
-                  <p className="mt-2 text-[16px] font-semibold tracking-[-0.025em]">{preview.task}</p>
-                  <p className="mt-2 max-w-[520px] text-[11px] leading-5 text-white/70">{preview.detail}</p>
-                  <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-                    {preview.stages.map((stage, index) => (
-                      <div key={stage} className="rounded-xl border border-white/10 bg-white/[0.06] p-3">
-                        <span className="text-[9px] font-semibold text-[#A6DDD5]">0{index + 1}</span>
-                        <p className="mt-2 text-[10px] font-medium leading-4 text-white/90">{stage}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="mt-4 grid gap-2 sm:grid-cols-3">
-                  {[
-                    { icon: Layers3, label: "Role context" },
-                    { icon: ClipboardCheck, label: "Practical task" },
-                    { icon: FileCheck2, label: "Evidence report" },
-                  ].map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex items-center gap-2 rounded-xl border border-[#E5EEEB] bg-[#FAFCFB] px-3 py-3">
-                      <Icon className="h-4 w-4 shrink-0 text-[#008F83]" />
-                      <span className="text-[10px] font-medium text-[#58736D]">{label}</span>
+              {/* Sample Task Highlight Card */}
+              <div className="mt-3.5 rounded-[18px] bg-[#073F39] p-4 text-white sm:p-5">
+                <p className="text-[9px] font-mono font-bold uppercase tracking-[0.18em] text-[#9CD8D0]">Sample task</p>
+                <p className="mt-1 text-[15px] sm:text-[16px] font-bold tracking-tight text-white">{preview.task}</p>
+                <p className="mt-1.5 text-[11.5px] leading-relaxed text-white/75">{preview.detail}</p>
+                <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  {preview.stages.map((stage, index) => (
+                    <div key={stage} className="rounded-xl border border-white/10 bg-white/[0.06] p-2.5">
+                      <span className="font-mono text-[9px] font-bold text-[#A6DDD5]">0{index + 1}</span>
+                      <p className="mt-1 text-[10.5px] font-medium leading-tight text-white/95">{stage}</p>
                     </div>
                   ))}
                 </div>
               </div>
+
+              {/* 3 Verification Pillars in Compact Grid */}
+              <div className="mt-3.5 grid grid-cols-3 gap-2">
+                {[
+                  { icon: Layers3, label: "Role context" },
+                  { icon: ClipboardCheck, label: "Practical task" },
+                  { icon: FileCheck2, label: "Evidence report" },
+                ].map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex flex-col sm:flex-row items-center justify-center gap-1.5 rounded-xl border border-[#E5EEEB] bg-[#FAFCFB] p-2.5 text-center sm:text-left">
+                    <Icon className="h-3.5 w-3.5 shrink-0 text-[#008F83]" />
+                    <span className="text-[10px] font-medium text-[#58736D]">{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <p className="px-2 pt-3 text-[9px] leading-4 text-[#8AA19B]">
-              Interface preview only. The cases and examples shown here are synthetic and are not live patient or employer records.
-            </p>
+            <div className="mt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-[9px] text-[#8AA19B]">
+              <span>Assessment scope: Task-specific feedback, not a job guarantee or professional certification.</span>
+              <span className="text-slate-400">Synthetic training data</span>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -660,17 +669,17 @@ export function ArzonHomeIntelligence() {
       {/* 04 / CAREER PATHS */}
       <section
         id="career-paths"
-        className="flex min-h-[calc(100svh-48px)] items-center bg-white py-12 sm:py-14 lg:py-8"
+        className="flex min-h-[calc(100svh-48px)] items-center bg-white py-10 sm:py-16"
       >
-        <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
-          <div className="mb-7 flex flex-col justify-between gap-3 sm:mb-8 sm:flex-row sm:items-end">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-10">
+          <div className="mb-6 sm:mb-8 flex flex-col justify-between gap-2.5 sm:flex-row sm:items-end">
             <div>
               <SectionLabel>Explore career directions</SectionLabel>
-              <h2 className="text-[clamp(2rem,3.6vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.055em] text-[#063F39]">
+              <h2 className="text-[26px] sm:text-[34px] font-bold tracking-tight text-[#063F39] leading-[1.08]">
                 Start with the work you want to do.
               </h2>
             </div>
-            <p className="max-w-[350px] text-[12px] leading-5 text-[#6B817C]">
+            <p className="max-w-[360px] text-[12.5px] sm:text-[13px] leading-relaxed text-[#6B817C]">
               Explore role expectations before choosing what to learn next.
             </p>
           </div>
@@ -690,24 +699,24 @@ export function ArzonHomeIntelligence() {
               >
                 <Link
                   to={path.href as any}
-                  className="group block overflow-hidden rounded-[22px] border border-[#E1EBE8] bg-[#F8FBFA] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.10)]"
+                  className="group block overflow-hidden rounded-[22px] border border-[#E1EBE8] bg-[#F8FBFA] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.10)] active:scale-[0.98]"
                 >
-                  <div className="relative aspect-[1.22/1] overflow-hidden bg-[#E6F0ED]">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#E6F0ED]">
                     <img
                       src={path.image}
                       alt=""
                       loading="lazy"
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#052E2A]/75 via-transparent to-transparent" />
-                    <span className="absolute bottom-4 left-4 rounded-full border border-white/25 bg-[#062E2B]/50 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.13em] text-white backdrop-blur">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#052E2A]/70 via-transparent to-transparent" />
+                    <span className="absolute bottom-3 left-3 rounded-full border border-white/20 bg-[#062E2B]/60 px-2.5 py-1 text-[8.5px] sm:text-[9px] font-mono font-semibold uppercase tracking-[0.13em] text-white backdrop-blur-md">
                       {path.tag}
                     </span>
                   </div>
-                  <div className="p-5">
-                    <h3 className="text-[17px] font-semibold tracking-[-0.035em] text-[#0B3934]">{path.title}</h3>
-                    <p className="mt-2 min-h-[34px] text-[11px] leading-5 text-[#718781]">{path.subtitle}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 text-[11px] font-semibold text-[#00796F]">
+                  <div className="p-4 sm:p-5">
+                    <h3 className="text-[17px] font-bold tracking-tight text-[#0B3934]">{path.title}</h3>
+                    <p className="mt-1.5 min-h-[32px] text-[11.5px] leading-relaxed text-[#718781]">{path.subtitle}</p>
+                    <span className="mt-3 inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[#00796F] group-hover:text-[#004B45]">
                       Explore path <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
                     </span>
                   </div>
@@ -716,20 +725,20 @@ export function ArzonHomeIntelligence() {
             ))}
           </div>
 
-          <div className="mt-6 flex flex-col justify-between gap-4 rounded-[22px] bg-[#073F39] p-5 text-white sm:flex-row sm:items-center sm:px-7">
-            <div className="flex items-center gap-3">
+          <div className="mt-6 sm:mt-8 flex flex-col justify-between gap-4 rounded-[22px] bg-[#073F39] p-5 sm:p-6 text-white sm:flex-row sm:items-center">
+            <div className="flex items-center gap-3.5">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-[#A6DDD5]">
                 <Users className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-[13px] font-semibold">For colleges, TPOs and hiring teams</p>
-                <p className="mt-1 text-[10px] text-white/65">Discuss campus engagement, assessment and role requirements.</p>
+                <p className="text-[14px] font-bold text-white">For colleges, TPOs and hiring teams</p>
+                <p className="mt-0.5 text-[11px] text-white/70">Discuss campus engagement, assessment and role requirements.</p>
               </div>
             </div>
             <Link
               to={"/contact" as any}
               style={{ color: "#004B45" }}
-              className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-full bg-white hover:bg-[#DFF1EF] px-5 text-[12px] font-bold !text-[#004B45] shadow-sm transition active:scale-[0.98] tone-light card-light cursor-pointer"
+              className="inline-flex h-11 w-full sm:w-auto shrink-0 items-center justify-center gap-2 rounded-full bg-white hover:bg-[#DFF1EF] px-6 text-[12.5px] font-bold !text-[#004B45] shadow-sm transition active:scale-[0.98] tone-light card-light cursor-pointer"
             >
               <span style={{ color: "#004B45" }} className="!text-[#004B45] font-bold">
                 Talk to Arzon

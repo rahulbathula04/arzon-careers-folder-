@@ -116,12 +116,12 @@ export function ArzonHomeIntelligence() {
 
         <div className="relative mx-auto grid w-full max-w-7xl items-center gap-8 px-4 pt-6 pb-10 sm:px-8 sm:py-10 lg:min-h-[calc(100svh-48px)] lg:grid-cols-[1.28fr_0.72fr] lg:gap-12 lg:px-10 lg:py-6">
           <motion.div {...enter} className="relative z-10 max-w-[620px]">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#CBE3DF] bg-white/90 backdrop-blur-md px-3.5 py-1.5 text-[10px] sm:text-[10.5px] font-mono font-medium tracking-[0.12em] text-[#345953] shadow-[0_2px_10px_rgba(9,58,51,0.04)]">
-              <span className="relative flex h-1.5 w-1.5">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#C2DDD7] bg-white/90 backdrop-blur-md px-3 py-1 text-[11px] sm:text-[11.5px] font-medium tracking-wide text-[#234C46] shadow-[0_2px_8px_rgba(9,58,51,0.04)] whitespace-nowrap">
+              <span className="relative flex h-1.5 w-1.5 shrink-0">
                 <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#008F83] opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#008F83]" />
               </span>
-              Arzon Global · Skills and career intelligence
+              <span>Healthcare Talent Intelligence</span>
             </div>
 
             <h1 className="max-w-[620px] text-[34px] sm:text-[46px] lg:text-[56px] font-bold leading-[1.04] tracking-[-0.045em] text-[#063F39]">
@@ -129,22 +129,22 @@ export function ArzonHomeIntelligence() {
               <span className="mt-1 block text-[#008F83]">Show the work.</span>
             </h1>
 
-            <p className="mt-4 max-w-[500px] text-[14px] leading-relaxed text-[#526B67] sm:text-[16px]">
+            <p className="mt-3.5 max-w-[500px] text-[14px] leading-relaxed text-[#526B67] sm:text-[16px]">
               We connect role requirements, practical learning and evidence of skill — helping students make clearer career decisions.
             </p>
 
-            <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
+            <div className="mt-6 flex flex-row items-center gap-2.5 sm:gap-3">
               <Link
                 to={"/career-engine/start" as any}
-                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#004B45] px-6 text-[13px] font-bold text-white shadow-[0_8px_22px_rgba(0,75,69,0.18)] transition-all hover:-translate-y-0.5 hover:bg-[#00675D] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83]"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#004B45] px-5 text-[12.5px] sm:text-[13px] font-bold text-white shadow-[0_6px_18px_rgba(0,75,69,0.18)] transition-all hover:bg-[#00675D] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83]"
               >
-                Build my profile <ArrowRight className="h-4 w-4" />
+                Build my profile <ArrowRight className="h-3.5 w-3.5" />
               </Link>
               <a
                 href="#proof"
-                className="inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#C2D6D2] bg-white/90 backdrop-blur px-6 text-[13px] font-bold text-[#174D47] transition-all hover:border-[#008F83] hover:bg-white active:scale-[0.98] shadow-2xs"
+                className="inline-flex h-11 items-center justify-center gap-1.5 rounded-full border border-[#BFD5D0] bg-white/90 backdrop-blur px-4 sm:px-5 text-[12.5px] sm:text-[13px] font-bold text-[#174D47] transition-all hover:border-[#008F83] hover:bg-white active:scale-[0.98] shadow-2xs"
               >
-                See our work <ArrowUpRight className="h-4 w-4" />
+                See our work <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             </div>
 

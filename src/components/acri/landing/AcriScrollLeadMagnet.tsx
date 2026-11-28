@@ -5,15 +5,9 @@ import {
   Download,
   ArrowRight,
   FileText,
-  Mail,
-  Phone,
-  User,
   Check,
   Sparkles,
-  Briefcase,
   CheckCircle2,
-  BookOpen,
-  ShieldCheck,
 } from "lucide-react";
 import { generateStarterKitPDF } from "@/lib/starter-kit-pdf";
 import { useServerFn } from "@tanstack/react-start";
@@ -39,6 +33,22 @@ const QUALIFICATIONS = [
   "Other Healthcare / Science Degree",
 ];
 
+export interface OpenLeadMagnetOptions {
+  roleTitle?: string;
+  source?: string;
+}
+
+/**
+ * Universal programmatic helper to trigger the lead magnet / role blueprint modal.
+ */
+export function openLeadMagnetModal(options?: OpenLeadMagnetOptions) {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(
+      new CustomEvent("arzon:open-lead-magnet", { detail: options || {} })
+    );
+  }
+}
+
 export function AcriScrollLeadMagnet() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -46,6 +56,7 @@ export function AcriScrollLeadMagnet() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState<"form" | "success">("form");
+  const [targetRole, setTargetRole] = useState<string | null>(null);
 
   // Pre-populate if student entered details previously in this browser
   const [fullName, setFullName] = useState(() => {
@@ -108,7 +119,42 @@ export function AcriScrollLeadMagnet() {
     };
   }, []);
 
-  // Section 2 Crossing Trigger Engine (Active for EVERY visitor on EVERY visit)
+  // 1. Permanent User-Action Trigger Engine (Always Active for button clicks across ANY route/session)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleForceOpen = (e?: Event) => {
+      const detail = (e as CustomEvent)?.detail;
+      setTargetRole(detail?.roleTitle || null);
+      setStep("form");
+      setIsOpen(true);
+      userDismissedThisViewRef.current = false;
+      hasTriggeredRef.current = true;
+      logAcriFunnelEvent("lead_magnet_triggered", {
+        trigger_reason: detail?.source || "user_action_button",
+        pathname,
+      });
+    };
+
+    const handleReset = () => {
+      hasTriggeredRef.current = false;
+      userDismissedThisViewRef.current = false;
+    };
+
+    window.addEventListener("arzon:open-lead-magnet", handleForceOpen);
+    window.addEventListener("arzon:reset-lead-magnet", handleReset);
+    (window as any).__openLeadMagnet = (roleTitle?: string) => {
+      handleForceOpen({ detail: { roleTitle, source: "window_helper" } } as any);
+    };
+
+    return () => {
+      window.removeEventListener("arzon:open-lead-magnet", handleForceOpen);
+      window.removeEventListener("arzon:reset-lead-magnet", handleReset);
+      delete (window as any).__openLeadMagnet;
+    };
+  }, [pathname]);
+
+  // 2. Section 2 Crossing Trigger Engine (Active for EVERY visitor on EVERY visit)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -149,21 +195,6 @@ export function AcriScrollLeadMagnet() {
       return () => clearTimeout(debugTimer);
     }
 
-    // Force-open listener for developer console helper window.__openLeadMagnet()
-    const handleForceOpen = () => {
-      hasTriggeredRef.current = false;
-      userDismissedThisViewRef.current = false;
-      triggerCard("window_helper_force_open");
-    };
-    window.addEventListener("arzon:open-lead-magnet", handleForceOpen);
-
-    // Reset listener for developer console helper window.__resetLeadMagnet()
-    const handleReset = () => {
-      hasTriggeredRef.current = false;
-      userDismissedThisViewRef.current = false;
-    };
-    window.addEventListener("arzon:reset-lead-magnet", handleReset);
-
     // Multi-signal Section 2 crossing evaluation
     const evaluateSectionCrossing = () => {
       if (hasTriggeredRef.current || userDismissedThisViewRef.current) return;
@@ -189,7 +220,7 @@ export function AcriScrollLeadMagnet() {
       ];
       for (const sel of landmarkSelectors) {
         const el = document.querySelector<HTMLElement>(sel);
-        if (el) {
+        if (el && effectiveScrollY >= 100) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= window.innerHeight * 0.95 && rect.bottom > 0) {
             triggerCard("crossed_section_2_landmark");
@@ -203,7 +234,7 @@ export function AcriScrollLeadMagnet() {
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
       ).filter((s) => s.offsetHeight > 80 && s.offsetParent !== null);
 
-      if (sections.length >= 2) {
+      if (sections.length >= 2 && effectiveScrollY >= 100) {
         const rect = sections[1].getBoundingClientRect();
         if (rect.top <= window.innerHeight * 0.95) {
           triggerCard("crossed_section_2_view");
@@ -220,7 +251,7 @@ export function AcriScrollLeadMagnet() {
     window.addEventListener("touchmove", evaluateSectionCrossing, { passive: true });
     window.addEventListener("wheel", evaluateSectionCrossing, { passive: true });
 
-    // Signal 4: Intersection Observer on Section 2 (fires the instant Section 2 touches viewport)
+    // Signal 4: Intersection Observer on Section 2 (fires when user scrolls into Section 2)
     const attachObserver = () => {
       const sections = Array.from(
         document.querySelectorAll<HTMLElement>("main section, #app-scroll-root section, section, .arzon-v2-container")
@@ -231,8 +262,15 @@ export function AcriScrollLeadMagnet() {
           (entries) => {
             for (const entry of entries) {
               if (entry.isIntersecting) {
-                triggerCard("crossed_section_2_observer");
-                return;
+                const scrollRoot = document.getElementById("app-scroll-root");
+                const rootScroll = scrollRoot ? scrollRoot.scrollTop : 0;
+                const winScroll = window.scrollY || window.pageYOffset || document.documentElement.scrollTop || 0;
+                const effectiveScrollY = Math.max(rootScroll, winScroll);
+                // Require active scroll past top of hero before observer triggers
+                if (effectiveScrollY >= 100) {
+                  triggerCard("crossed_section_2_observer");
+                  return;
+                }
               }
             }
           },
@@ -276,8 +314,6 @@ export function AcriScrollLeadMagnet() {
       window.removeEventListener("touchmove", evaluateSectionCrossing);
       window.removeEventListener("wheel", evaluateSectionCrossing);
       document.removeEventListener("mouseout", handleMouseOut);
-      window.removeEventListener("arzon:open-lead-magnet", handleForceOpen);
-      window.removeEventListener("arzon:reset-lead-magnet", handleReset);
       if (observer) {
         observer.disconnect();
         observer = null;
@@ -328,10 +364,13 @@ export function AcriScrollLeadMagnet() {
             email: userEmail,
             phone: cleanPhone,
             qualification: highestQualification,
+            targetRole: targetRole || undefined,
             whatsappOptin: consentCommunications,
             sourcePath: pathname,
             clientFp,
-            utmSource: "career-intelligence-guide-lead-magnet",
+            utmSource: targetRole
+              ? `role-${targetRole.toLowerCase().replace(/\s+/g, "-")}`
+              : "career-intelligence-guide-lead-magnet",
           },
         });
       } catch (err) {
@@ -350,7 +389,9 @@ export function AcriScrollLeadMagnet() {
       try {
         const downloadAnchor = document.createElement("a");
         downloadAnchor.href = "/The_Healthcare_Career_Intelligence_Guide_2026.pdf";
-        downloadAnchor.download = "The_Healthcare_Career_Intelligence_Guide_2026.pdf";
+        downloadAnchor.download = targetRole
+          ? `${targetRole.replace(/\s+/g, "_")}_Blueprint_2026.pdf`
+          : "The_Healthcare_Career_Intelligence_Guide_2026.pdf";
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         document.body.removeChild(downloadAnchor);
@@ -363,7 +404,11 @@ export function AcriScrollLeadMagnet() {
         email: userEmail,
         qualification: highestQualification,
       });
-      toast.success("2026 Career Intelligence Guide unlocked! Download starting.");
+      toast.success(
+        targetRole
+          ? `${targetRole} Blueprint unlocked! Download starting.`
+          : "2026 Career Intelligence Guide unlocked! Download starting."
+      );
 
       // Auto-dismiss success card after 8s so it doesn't trap the screen
       autoDismissTimerRef.current = setTimeout(() => {
@@ -392,116 +437,106 @@ export function AcriScrollLeadMagnet() {
       <aside
         data-lead-magnet-active="true"
         data-fab-avoid="true"
-        className="fixed inset-x-0 bottom-0 sm:bottom-6 sm:right-6 sm:inset-x-auto z-[99] w-full sm:w-[440px] sm:max-w-[440px] pointer-events-auto"
+        className="fixed inset-x-0 bottom-0 sm:bottom-6 sm:right-6 sm:inset-x-auto z-[99] w-full sm:w-[420px] sm:max-w-[420px] pointer-events-auto"
         role="region"
         aria-label="The Healthcare Career Intelligence Guide 2026 Offer"
       >
         <div
-          className="relative rounded-t-3xl sm:rounded-2xl bg-white card-light tone-light border border-slate-200/95 shadow-[0_-10px_40px_-5px_rgba(0,0,0,0.18),0_20px_50px_-10px_rgba(0,0,0,0.25)] overflow-hidden font-sans text-slate-900 motion-safe:animate-in motion-safe:slide-in-from-bottom-6 duration-300 max-h-[90vh] overflow-y-auto"
+          className="relative rounded-t-2xl sm:rounded-2xl bg-white card-light tone-light border border-slate-200/90 shadow-[0_-8px_30px_rgba(0,0,0,0.12),0_16px_40px_rgba(0,0,0,0.16)] overflow-hidden font-sans text-slate-900 motion-safe:animate-in motion-safe:slide-in-from-bottom-4 duration-300 max-h-[92vh] overflow-y-auto"
         >
           {/* Mobile Drag Notch Indicator */}
-          <div className="w-12 h-1 bg-slate-300 rounded-full mx-auto mt-2.5 mb-1 sm:hidden" />
+          <div className="w-10 h-1 bg-slate-200 rounded-full mx-auto mt-2.5 mb-0.5 sm:hidden" />
 
-          {/* Top Brand Indicator Bar (Deep Navy to Arzon Blue Gradient) */}
-          <div className="h-1.5 w-full bg-gradient-to-r from-[#081F38] via-[#2563EB] to-[#10B981]" />
-
-          {/* Circular Close Button */}
+          {/* Minimal Close Button */}
           <button
             type="button"
             onClick={handleDismiss}
-            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 h-8 w-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 transition-colors z-20 flex items-center justify-center cursor-pointer shadow-2xs"
+            className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors z-20 flex items-center justify-center cursor-pointer"
             aria-label="Dismiss offer"
             title="Close"
           >
-            <X className="h-4 w-4 stroke-[2.2]" />
+            <X className="h-4 w-4 stroke-[2]" />
           </button>
 
           {/* Card Body */}
           <div className="p-5 sm:p-6">
             {step === "form" ? (
               <div>
-                {/* Header Badge & Title */}
-                <div className="text-left mb-3.5 pr-8">
-                  <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200/80 px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider text-[#2563EB] mb-2">
-                    <Sparkles className="h-3 w-3 text-[#2563EB]" />
-                    <span>⭐ 2026 OFFICIAL RELEASE · FREE 21-PAGE GUIDE</span>
+                {/* Minimal Header Badge & Title */}
+                <div className="text-left mb-3 pr-6">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600 mb-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                    <span>{targetRole ? "Official Role Dossier · 2026 Edition" : "Free PDF Guide · 2026 Edition"}</span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38] leading-tight">
-                    The Healthcare Career Intelligence Guide 2026
+                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38] leading-snug">
+                    {targetRole ? `${targetRole} Blueprint 2026` : "The Healthcare Career Intelligence Guide"}
                   </h3>
 
                   <p className="mt-1 text-xs text-[#64748B] leading-relaxed">
-                    From your degree to your first industry job. 6 career pathways, 30-day action plan, and job-readiness checklist for B.Pharm, Pharm.D, M.Pharm &amp; life sciences.
+                    {targetRole
+                      ? `Day-1 operational tasks, enterprise tool stack, and top 25 technical interview questions for ${targetRole}.`
+                      : "From your degree to your first industry job: 6 career pathways, a 30-day preparation roadmap, and industry readiness checklist."}
                   </p>
                 </div>
 
-                {/* 3 High-Value Visual Proof Pillars */}
-                <div className="mb-4 grid grid-cols-3 gap-1.5 rounded-xl border border-blue-100 bg-[#F8FAFC] p-2 text-center">
-                  <div className="flex flex-col items-center justify-center p-1">
-                    <Briefcase className="h-4 w-4 text-[#2563EB] mb-1" />
-                    <span className="text-[11px] font-bold text-[#081F38]">6 Pathways</span>
-                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">PV, CDM, RA &amp; More</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center border-x border-slate-200/80 p-1">
-                    <BookOpen className="h-4 w-4 text-[#10B981] mb-1" />
-                    <span className="text-[11px] font-bold text-[#081F38]">30-Day Plan</span>
-                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Action Roadmap</span>
-                  </div>
-                  <div className="flex flex-col items-center justify-center p-1">
-                    <ShieldCheck className="h-4 w-4 text-[#7C3AED] mb-1" />
-                    <span className="text-[11px] font-bold text-[#081F38]">Checklist</span>
-                    <span className="text-[9px] text-[#64748B] leading-none mt-0.5">Readiness Audit</span>
-                  </div>
+                {/* Minimal Feature Highlights */}
+                <div className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-slate-600 border-y border-slate-100 py-2.5">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 stroke-[2.5]" />
+                    <span className="font-medium text-slate-800">{targetRole ? "Day-1 Tasks" : "6 Core Pathways"}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 stroke-[2.5]" />
+                    <span className="font-medium text-slate-800">{targetRole ? "Interview Pack" : "30-Day Roadmap"}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 stroke-[2.5]" />
+                    <span className="font-medium text-slate-800">{targetRole ? "Tool Workflows" : "Readiness Audit"}</span>
+                  </span>
                 </div>
 
-                {/* Streamlined Capture Form */}
+                {/* Streamlined Clean Capture Form */}
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
-                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      <label className="block text-[11px] font-medium text-slate-700 mb-1">
                         Full Name <span className="text-red-500">*</span>
                       </label>
-                      <div className="relative">
-                        <User className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-                        <input
-                          type="text"
-                          required
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          placeholder="Your full name"
-                          className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        placeholder="Your full name"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white tone-light hover:border-slate-300 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 text-xs text-slate-900 focus:outline-none transition-all placeholder:text-slate-400"
+                      />
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      <label className="block text-[11px] font-medium text-slate-700 mb-1">
                         WhatsApp Number <span className="text-red-500">*</span>
                       </label>
-                      <div className="relative">
-                        <Phone className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-                        <input
-                          type="tel"
-                          required
-                          value={mobile}
-                          onChange={(e) => setMobile(e.target.value)}
-                          placeholder="Your WhatsApp number"
-                          className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
-                        />
-                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                        placeholder="10-digit number"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white tone-light hover:border-slate-300 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 text-xs text-slate-900 focus:outline-none transition-all placeholder:text-slate-400"
+                      />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
-                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      <label className="block text-[11px] font-medium text-slate-700 mb-1">
                         Degree / Qualification
                       </label>
                       <select
                         value={highestQualification}
                         onChange={(e) => setHighestQualification(e.target.value)}
-                        className="w-full px-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all cursor-pointer"
+                        className="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white tone-light hover:border-slate-300 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 text-xs text-slate-900 focus:outline-none transition-all cursor-pointer"
                       >
                         {QUALIFICATIONS.map((q) => (
                           <option key={q} value={q}>
@@ -512,49 +547,46 @@ export function AcriScrollLeadMagnet() {
                     </div>
 
                     <div>
-                      <label className="block text-[11px] font-semibold text-slate-700 mb-1">
+                      <label className="block text-[11px] font-medium text-slate-700 mb-1">
                         Email Address <span className="text-slate-400 font-normal">(optional)</span>
                       </label>
-                      <div className="relative">
-                        <Mail className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-                        <input
-                          type="email"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="you@example.com"
-                          className="w-full pl-8 pr-2.5 py-2 rounded-xl border border-slate-200 bg-slate-50/70 hover:bg-white focus:bg-white text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#2563EB]/20 focus:border-[#2563EB] transition-all placeholder:text-slate-400"
-                        />
-                      </div>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="you@example.com"
+                        className="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white tone-light hover:border-slate-300 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 text-xs text-slate-900 focus:outline-none transition-all placeholder:text-slate-400"
+                      />
                     </div>
                   </div>
 
-                  {/* Primary High-Impact CTA Button */}
-                  <div className="pt-1.5">
+                  {/* Primary Button */}
+                  <div className="pt-1">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-[0.99] text-white font-bold text-xs sm:text-sm transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+                      className="w-full py-2.5 sm:py-3 rounded-lg bg-[#081F38] hover:bg-[#0f2d52] active:scale-[0.99] text-white font-semibold text-xs sm:text-sm transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
                     >
                       {isSubmitting ? (
-                        <span>Preparing 2026 Guide…</span>
+                        <span>Preparing 2026 Blueprint…</span>
                       ) : (
                         <>
-                          <span>Download Free 2026 Guide (PDF)</span>
-                          <ArrowRight className="h-4 w-4 stroke-[2.2]" />
+                          <span>{targetRole ? `Get ${targetRole} Blueprint (WhatsApp)` : "Download Free Guide (PDF)"}</span>
+                          <ArrowRight className="h-4 w-4 stroke-[2]" />
                         </>
                       )}
                     </button>
 
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2.5 px-1">
-                      <span className="flex items-center gap-1">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 inline" /> Instant PDF · Zero Spam
+                    <div className="flex items-center justify-between text-[11px] text-slate-400 mt-2 px-0.5">
+                      <span className="flex items-center gap-1 text-slate-500">
+                        <CheckCircle2 className="h-3 w-3 text-emerald-600 inline" /> Instant PDF · Zero Spam
                       </span>
                       <button
                         type="button"
                         onClick={handleDismiss}
-                        className="text-slate-500 hover:text-slate-800 underline underline-offset-2 cursor-pointer transition-colors"
+                        className="text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
                       >
-                        Not now
+                        Maybe later
                       </button>
                     </div>
                   </div>
@@ -564,12 +596,12 @@ export function AcriScrollLeadMagnet() {
               /* Success / Delivery State */
               <div className="text-center space-y-4 py-2">
                 <div className="space-y-1.5">
-                  <div className="mx-auto w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-2 ring-4 ring-emerald-50/60">
-                    <Check className="w-6 h-6 stroke-[2.5]" />
+                  <div className="mx-auto w-11 h-11 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mb-1.5 ring-4 ring-emerald-50/60">
+                    <Check className="w-5 h-5 stroke-[2.5]" />
                   </div>
 
                   <h3 className="text-lg sm:text-xl font-bold tracking-tight text-[#081F38]">
-                    Your 2026 Career Intelligence Guide is Ready!
+                    Your 2026 Career Guide is Ready!
                   </h3>
 
                   <p className="text-xs text-[#64748B] max-w-xs mx-auto leading-relaxed">
@@ -581,8 +613,8 @@ export function AcriScrollLeadMagnet() {
                 {/* Primary Asset Download Tile */}
                 <div className="rounded-xl border border-slate-200/90 bg-slate-50/80 p-3.5 text-left space-y-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-[#081F38] text-white flex items-center justify-center shrink-0 shadow-xs">
-                      <FileText className="w-5 h-5 text-blue-200" />
+                    <div className="w-9 h-9 rounded-lg bg-[#081F38] text-white flex items-center justify-center shrink-0 shadow-xs">
+                      <FileText className="w-4 h-4 text-blue-200" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
@@ -594,17 +626,17 @@ export function AcriScrollLeadMagnet() {
                         </span>
                       </div>
                       <p className="text-[11px] text-[#64748B] truncate mt-0.5">
-                        21-page official release · 6 career pathways · 30-day action plan
+                        21-page release · 6 career pathways · 30-day plan
                       </p>
                     </div>
                   </div>
 
                   {/* Dual Action Buttons */}
-                  <div className="flex flex-col sm:flex-row items-center gap-2 pt-1">
+                  <div className="flex flex-col sm:flex-row items-center gap-2 pt-0.5">
                     <a
                       href="/The_Healthcare_Career_Intelligence_Guide_2026.pdf"
                       download="The_Healthcare_Career_Intelligence_Guide_2026.pdf"
-                      className="w-full sm:flex-1 py-2.5 px-3 rounded-full bg-[#081F38] hover:bg-[#0f2d52] text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
+                      className="w-full sm:flex-1 py-2 px-3 rounded-lg bg-[#081F38] hover:bg-[#0f2d52] text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-xs active:scale-[0.99] cursor-pointer"
                     >
                       <Download className="w-3.5 h-3.5" />
                       <span>Download PDF Again</span>
@@ -620,7 +652,7 @@ export function AcriScrollLeadMagnet() {
                           console.error("Personalized PDF failed", e);
                         }
                       }}
-                      className="w-full sm:w-auto py-2.5 px-3.5 rounded-full border border-slate-200 bg-white card-light hover:bg-slate-50 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs shrink-0"
+                      className="w-full sm:w-auto py-2 px-3 rounded-lg border border-slate-200 bg-white card-light hover:bg-slate-50 text-slate-800 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-2xs shrink-0"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                       <span>Stamp My Name</span>
@@ -629,13 +661,13 @@ export function AcriScrollLeadMagnet() {
                 </div>
 
                 {/* Complimentary Role Assessment Invitation */}
-                <div className="rounded-xl border border-blue-200 bg-blue-50/70 p-3 flex items-center justify-between gap-3 text-left">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 flex items-center justify-between gap-3 text-left">
                   <div className="min-w-0">
-                    <h5 className="font-bold text-xs text-[#081F38]">
+                    <h5 className="font-semibold text-xs text-[#081F38]">
                       Free Role Match Assessment
                     </h5>
                     <p className="text-[11px] text-[#64748B]">
-                      See if your aptitude matches Pharmacovigilance or CDM
+                      Identify whether your background best fits PV, CDM, or Medical Affairs
                     </p>
                   </div>
 
@@ -645,9 +677,9 @@ export function AcriScrollLeadMagnet() {
                       setIsOpen(false);
                       navigate({ to: "/career-engine/start" });
                     }}
-                    className="shrink-0 px-3 py-1.5 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
+                    className="shrink-0 px-3 py-1.5 rounded-lg bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-xs transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
                   >
-                    <span>Start Test</span>
+                    <span>Start</span>
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
@@ -658,7 +690,7 @@ export function AcriScrollLeadMagnet() {
                   <button
                     type="button"
                     onClick={() => setIsOpen(false)}
-                    className="text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors cursor-pointer py-1 px-3 rounded-full hover:bg-slate-100"
+                    className="text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors cursor-pointer py-1 px-3 rounded-lg hover:bg-slate-100"
                   >
                     Done
                   </button>

@@ -43,6 +43,7 @@ import {
 } from "@/data/drugSafetyDiagnosticQuestions";
 import { ArzonLogo } from "@/components/acri/ArzonLogo";
 import { toast } from "sonner";
+import { openExpertModal } from "@/components/system/UnifiedExpertModal";
 import type { AntiCheatTelemetry } from "@/lib/assessmentAntiCheat";
 
 interface Props {
@@ -263,6 +264,18 @@ export function DsaDiagnosticScorecard({
 
             {/* Quick Share Buttons */}
             <div className="flex items-center gap-2.5 flex-wrap pt-3">
+              <button
+                type="button"
+                onClick={() => openExpertModal({
+                  targetTrack: "Fresher PV Associate",
+                  qualification: candidateQualification,
+                  source: "diagnostic_scorecard_top",
+                })}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#008F83] hover:bg-[#00736A] text-white px-5 py-2.5 text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
+              >
+                <ShieldCheck className="h-4 w-4" />
+                <span>Talk to Experts to Review Gaps</span>
+              </button>
               <button
                 type="button"
                 onClick={handleWhatsAppShare}
@@ -1373,6 +1386,18 @@ export function DsaDiagnosticScorecard({
             </div>
 
             <div className="mt-5 pt-3.5 border-t border-blue-100 flex items-center justify-between gap-2.5 flex-wrap">
+              <button
+                type="button"
+                onClick={() => openExpertModal({
+                  targetTrack: "Fresher PV Associate",
+                  qualification: candidateQualification,
+                  source: "diagnostic_scorecard_plan_strip",
+                })}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#008F83] hover:bg-[#00736A] text-white px-5 py-2.5 text-xs font-bold transition-all shadow-xs cursor-pointer w-full sm:w-auto"
+              >
+                <ShieldCheck className="h-4 w-4" />
+                <span>Talk to Experts to Review Gaps</span>
+              </button>
               <a
                 href="/career-engine/plan"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#081F38] hover:bg-blue-700 text-white px-5 py-2.5 text-xs font-bold transition-all shadow-xs cursor-pointer w-full sm:w-auto"

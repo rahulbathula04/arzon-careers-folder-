@@ -28,6 +28,7 @@ import { ThumbnailOverridesProvider } from "../lib/ThumbnailOverridesProvider";
 import { MobileWhatsAppFAB } from "../components/landing/MobileWhatsAppFAB";
 import { AcriScrollLeadMagnet } from "../components/acri/landing/AcriScrollLeadMagnet";
 import { CounsellorLeadModal } from "../components/system/CounsellorLeadModal";
+import { UnifiedExpertModal } from "../components/system/UnifiedExpertModal";
 import { RouteLoader } from "../components/transition/RouteLoader";
 import { RouteLoaderPresenceCheck } from "../components/transition/RouteLoaderPresenceCheck";
 import { GlobalErrorFallback } from "../components/common/GlobalErrorFallback";
@@ -673,6 +674,7 @@ function RootComponent() {
               <AcriScrollLeadMagnet />
             ) : null}
             <CounsellorLeadModal />
+            <UnifiedExpertModal />
             <RouteLoader />
             <RouteLoaderPresenceCheck />
             <Analytics />

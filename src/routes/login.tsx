@@ -414,7 +414,7 @@ function LoginPage() {
                 <>
                   <span>Haven't taken the assessment?</span>
                   <Link
-                    to="/career-engine/test"
+                    to="/career-engine/start"
                     className="font-semibold text-[#005B4F] hover:underline"
                   >
                     Take Free ACRI Assessment →

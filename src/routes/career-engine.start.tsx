@@ -29,6 +29,7 @@ import {
 import { trackEvent } from "@/lib/analytics";
 import { PremiumChip } from "@/components/ui/PremiumChip";
 import { TARGET_TOTAL } from "@/data/careerEngineSampler";
+import { openExpertModal } from "@/components/system/UnifiedExpertModal";
 
 export const Route = createFileRoute("/career-engine/start")({
   head: () => ({
@@ -351,20 +352,37 @@ function StartPage() {
 
       {/* Target Role Selector Ribbon */}
       <div className="mt-4 sm:mt-6 rounded-2xl border border-slate-200/90 bg-slate-50/70 p-3 sm:p-4 text-left">
-        <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">
-          Selected Target Job Track:
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+          <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
+            Active Technical Diagnostic Domain:
+          </p>
+          <button
+            type="button"
+            onClick={() => openExpertModal({ source: "ce_start_track_switch" })}
+            className="text-[11px] font-semibold text-[#008F83] hover:text-[#004B45] hover:underline cursor-pointer inline-flex items-center gap-1"
+          >
+            <span>Targeting CDM, Medical Coding, or Regulatory instead? Talk to Experts →</span>
+          </button>
+        </div>
         <div className="flex items-center gap-2 flex-wrap">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#081F38] text-white text-xs font-bold shadow-xs">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span>Drug Safety Associate (PV / ICSR) · Active Diagnostic</span>
+            <span>Drug Safety Associate (PV / ICSR) · 40 Casework Questions</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs font-medium">
-            <span>Clinical Data Management (EDC) · Coming Soon</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs font-medium">
-            <span>Medical Coding (ICD-10) · Coming Soon</span>
-          </span>
+          <button
+            type="button"
+            onClick={() => openExpertModal({ targetTrack: "Clinical Data Associate", source: "ce_start_cdm_pill" })}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium cursor-pointer transition-colors"
+          >
+            <span>CDM · Profile Review with Expert →</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => openExpertModal({ targetTrack: "Medical Coding Specialist", source: "ce_start_coding_pill" })}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 text-xs font-medium cursor-pointer transition-colors"
+          >
+            <span>Medical Coding · Profile Review with Expert →</span>
+          </button>
         </div>
       </div>
 

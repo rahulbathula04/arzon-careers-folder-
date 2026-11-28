@@ -107,9 +107,23 @@ function AdminLeads() {
     return rows.filter((r) => {
       const name = (r.name ?? "").toLowerCase();
       const email = (r.email ?? "").toLowerCase();
+      const phone = (r.phone ?? "").toLowerCase();
+      const p = (r.result_payload && typeof r.result_payload === "object" && !Array.isArray(r.result_payload))
+        ? (r.result_payload as Record<string, any>)
+        : null;
+      const qual = String(p?.qualification ?? "").toLowerCase();
+      const target = String(p?.target_role ?? "").toLowerCase();
       const fit = r.fit_score == null ? "" : String(r.fit_score);
       const source = (r.acquisition_source ?? "unattributed").toLowerCase();
-      return name.includes(q) || email.includes(q) || fit.includes(q) || source.includes(q);
+      return (
+        name.includes(q) ||
+        email.includes(q) ||
+        phone.includes(q) ||
+        qual.includes(q) ||
+        target.includes(q) ||
+        fit.includes(q) ||
+        source.includes(q)
+      );
     });
   }, [rows, query]);
 
@@ -119,7 +133,22 @@ function AdminLeads() {
     { key: "email", header: "email" },
     { key: "phone", header: "phone" },
     { key: "whatsapp_optin", header: "whatsapp_optin" },
-    { key: "archetype", header: "archetype" },
+    {
+      key: "archetype",
+      header: "target_role",
+      accessor: (r) => {
+        const p = (r.result_payload && typeof r.result_payload === "object" && !Array.isArray(r.result_payload)) ? (r.result_payload as Record<string, any>) : null;
+        return p?.target_role || r.archetype || "";
+      },
+    },
+    {
+      key: "archetype",
+      header: "qualification",
+      accessor: (r) => {
+        const p = (r.result_payload && typeof r.result_payload === "object" && !Array.isArray(r.result_payload)) ? (r.result_payload as Record<string, any>) : null;
+        return p?.qualification || "";
+      },
+    },
     { key: "fit_score", header: "fit_score" },
     { key: "acquisition_source", header: "acquisition_source" },
     { key: "cohort_id", header: "cohort_id" },
@@ -248,10 +277,10 @@ function AdminLeads() {
           <thead className="bg-muted text-micro uppercase tracking-[0.22em] text-foreground">
             <tr>
               <th className="px-4 py-3">Date</th>
-              <th className="px-4 py-3">Name</th>
+              <th className="px-4 py-3 sticky left-0 z-10 bg-muted/95 backdrop-blur-xs">Name</th>
               <th className="px-4 py-3">Email</th>
               <th className="px-4 py-3">Phone</th>
-              <th className="px-4 py-3">Archetype</th>
+              <th className="px-4 py-3">Degree & Target Role</th>
               <th className="px-4 py-3">Source</th>
               <th className="px-4 py-3">Fit</th>
               <th className="px-4 py-3">Status</th>
@@ -261,8 +290,18 @@ function AdminLeads() {
             {visible.map((r) => {
               const minutesAgo = (Date.now() - new Date(r.created_at).getTime()) / (1000 * 60);
               const isSlaBreached = !r.contacted_at && minutesAgo > 5;
+              const payload = (r.result_payload && typeof r.result_payload === "object" && !Array.isArray(r.result_payload))
+                ? (r.result_payload as Record<string, any>)
+                : null;
+              const degree = payload?.qualification || payload?.degree || null;
+              const targetRole = payload?.target_role || r.archetype || payload?.lead_magnet || null;
+              const roleDisplay = targetRole || (r.archetype ? `Archetype: ${r.archetype}` : "Career Intelligence Lead");
+              const degreeDisplay = degree || (r.archetype ? "ACRI Assessment" : null);
+
+              const roleInfo = targetRole ? ` for ${targetRole}` : "";
+              const degreeInfo = degree ? ` (${degree})` : "";
               const waText = encodeURIComponent(
-                `Hi ${r.name}, this is your Arzon Career Counsellor regarding your ACRI assessment.`,
+                `Hi ${r.name}, this is your Arzon Career Counselor regarding your 2026 Healthcare Career Blueprint${roleInfo}. We are reviewing your background${degreeInfo} for entry-level hiring drives. Are you available for a brief discussion?`
               );
               const waUrl = `https://wa.me/${r.phone.replace(/\D/g, "")}?text=${waText}`;
 
@@ -280,7 +319,7 @@ function AdminLeads() {
                       })}
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-foreground font-medium">{r.name}</td>
+                  <td className="px-4 py-3 text-foreground font-medium sticky left-0 z-10 bg-muted/95 backdrop-blur-xs">{r.name}</td>
                   <td className="px-4 py-3 text-foreground">{r.email}</td>
                   <td className="px-4 py-3 text-foreground">
                     <div className="flex items-center gap-1.5">
@@ -302,7 +341,16 @@ function AdminLeads() {
                       </a>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-foreground">{r.archetype ?? "-"}</td>
+                  <td className="px-4 py-3 text-foreground">
+                    <div className="font-semibold text-[13px] text-foreground">
+                      {roleDisplay}
+                    </div>
+                    {degreeDisplay && (
+                      <div className="text-[11px] text-muted-foreground truncate max-w-[220px]" title={degreeDisplay}>
+                        {degreeDisplay}
+                      </div>
+                    )}
+                  </td>
                   <td
                     className="max-w-40 truncate px-4 py-3 text-foreground"
                     title={r.acquisition_source ?? "No UTM campaign tag was recorded"}

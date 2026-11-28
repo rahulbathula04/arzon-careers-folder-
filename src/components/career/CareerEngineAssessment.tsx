@@ -46,6 +46,7 @@ import {
   getSessionId,
   recordAnswersBatch,
   saveAnswers,
+  hasResumableAttempt,
 } from "@/lib/careerEngineApi";
 import {
   cacheResult,
@@ -121,6 +122,15 @@ export function CareerEngineAssessment() {
   useEffect(() => {
     setActiveClusterTab(Math.floor(currentIndex / 10));
   }, [currentIndex]);
+
+  // Ensure candidate profile is captured before taking test
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const p = getProfile();
+    if (!p?.phone && !hasResumableAttempt()) {
+      navigate({ to: "/career-engine/start" });
+    }
+  }, [navigate]);
 
   const pendingAnswersRef = useRef<Array<{ questionId: string; answer: string }>>([]);
   const flushingAnswersRef = useRef<Promise<void> | null>(null);

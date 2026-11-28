@@ -24,6 +24,7 @@ export const PRIMARY_CTA_LABELS = [
   "Apply for the next cohort",
   "Reserve my seat",
   "Talk to a counsellor",
+  "Talk to Experts",
   "Browse programmes",
   "Take the free career assessment",
   "Start with career guidance",
@@ -87,13 +88,11 @@ export type AcriDimensionId = (typeof ACRI_DIMENSIONS)[number]["id"];
 export const waLink = (text: string) =>
   `https://wa.me/${COUNSELLOR_PHONE}?text=${encodeURIComponent(text)}`;
 
-import { scrollToId } from "@/lib/scroll";
-
 export const scrollToApply = () => {
   if (typeof document === "undefined") return;
   const el = document.getElementById("apply");
   if (!el) return;
-  scrollToId("apply");
+  import("@/lib/scroll").then(({ scrollToId }) => scrollToId("apply"));
 };
 
 /**

@@ -4,6 +4,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowRight, ChevronRight, MessageCircle, Search } from "lucide-react";
 import { GlobalSearchModal } from "./GlobalSearchModal";
 import { openCounsellorModal } from "./CounsellorLeadModal";
+import { openExpertModal } from "./UnifiedExpertModal";
 
 interface NavFlyoutCategory {
   title: string;
@@ -45,169 +46,244 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
   {
     key: "platform",
     label: "Platform",
-    to: "/",
-    description: "Understand the Arzon Talent Intelligence Engine",
+    to: "/platform",
+    description: "Talent intelligence engine, benchmarks & capability matching",
     flyout: {
       category: {
-        title: "Arzon Talent Intelligence Engine",
-        to: "/",
-        description: "Connect industry requirements, candidate profiles and practical assessment evidence.",
+        title: "Talent Intelligence Engine",
+        to: "/platform",
+        description: "One system connecting industry requirements with individual capabilities",
         sublinks: [
-          { label: "How Arzon Works", to: "/#how-it-works" },
-          { label: "Clinical Simulation Engine", to: "/#clinical-simulation" },
-          { label: "Candidate Capability Dossier", to: "/#candidate-report" },
+          { label: "Platform Overview", to: "/platform" },
+          { label: "For Candidates", to: "/candidates" },
+          { label: "Industry Intelligence", to: "/industry-intelligence" },
+          { label: "Pharmacovigilance Domain", to: "/platform#initial-domain" },
         ],
       },
       specializations: {
-        title: "Platform capabilities",
+        title: "Engine Pillars",
         items: [
-          { label: "Industry Intelligence", to: "/#industry-intelligence" },
-          { label: "Candidate Profiling", to: "/career-engine/start" },
-          { label: "Practical Assessment", to: "/career-assessment" },
-          { label: "Capability Development", to: "/courses" },
+          { label: "01. Industry Research & Benchmarking", to: "/industry-intelligence" },
+          { label: "02. Candidate Profiling & Diagnostic", to: "/candidates" },
+          { label: "03. Detailed Skill Gap Report", to: "/candidates" },
+          { label: "04. Personalised Learning Pathways", to: "/courses" },
         ],
       },
       spotlight: {
-        badge: "Explore the platform",
-        title: "See how the workflow connects",
-        description: "Start with a role, build a profile and understand the evidence behind your next step.",
-        ctaText: "Explore the platform",
-        to: "/#how-it-works",
+        badge: "Intelligence · 2026",
+        title: "Arzon Talent Engine",
+        description: "Benchmark your capabilities against verified CRO hiring requirements across India.",
+        ctaText: "Explore Platform",
+        to: "/platform",
       },
     },
   },
   {
-    key: "candidates",
-    label: "For Candidates",
-    to: "/candidates",
-    description: "Explore healthcare career programmes, outcomes, and enrolment",
-    flyout: {
-      category: {
-        title: "Programmes & Career Intelligence",
-        to: "/candidates",
-        description: "Transform from an academic graduate into an audit-ready clinical professional with CRO-simulated labs.",
-        sublinks: [
-          { label: "All Role Programmes", to: "/candidates#programmes" },
-          { label: "Free Role Diagnostic", to: "/career-engine/start" },
-          { label: "Enrol in Next Cohort", to: "/enrol" },
-        ],
-      },
-      specializations: {
-        title: "Role tracks",
-        items: [
-          { label: "Pharmacovigilance (PV)", to: "/courses/pharmacovigilance" },
-          { label: "Clinical SAS Programming", to: "/courses/sas-clinical" },
-          { label: "Medical Coding & RCM", to: "/courses/medical-coding" },
-          { label: "Clinical Data Management", to: "/courses/clinical-data-management" },
-        ],
-      },
-      spotlight: {
-        badge: "Candidate Portal",
-        title: "Explore What We Offer",
-        description: "Review course syllabi, starting salary benchmarks, and practical simulation outcomes.",
-        ctaText: "Explore Programmes",
-        to: "/candidates",
-      },
-    },
-  },
-  {
-    key: "career-paths",
-    label: "Career Paths",
+    key: "careers",
+    label: "Careers",
     to: "/careers",
-    description: "Explore healthcare and life-sciences role families",
+    description: "Explore clinical roles, salaries & CRO requirements",
     flyout: {
       category: {
-        title: "Explore healthcare roles",
+        title: "Explore Careers",
         to: "/careers",
-        description: "Review role responsibilities and the requirements employers publish.",
+        description: "Verified clinical intelligence & role readiness paths",
         sublinks: [
-          { label: "Pharmacovigilance", to: "/pv-associate" },
-          { label: "Clinical Data Management", to: "/courses/clinical-data-management" },
-          { label: "Medical Coding", to: "/courses/medical-coding" },
+          { label: "All Clinical Roles", to: "/roles" },
+          { label: "Healthcare Jobs for Freshers", to: "/healthcare-jobs-for-freshers" },
+          { label: "AI in Healthcare Careers", to: "/ai-healthcare-jobs" },
         ],
       },
       specializations: {
-        title: "More role areas",
+        title: "Clinical Career Domains",
         items: [
-          { label: "Regulatory Affairs", to: "/courses/regulatory-affairs" },
-          { label: "Clinical SAS", to: "/courses/sas-clinical" },
-          { label: "Clinical Research", to: "/careers" },
-          { label: "All Healthcare Careers", to: "/careers" },
+          { label: "Pharmacovigilance (Drug Safety)", to: "/careers/pharmacovigilance" },
+          { label: "Clinical Data Management (CDM)", to: "/careers/clinical-data-management" },
+          { label: "Medical Coding & Informatics", to: "/careers/medical-coding" },
+          { label: "Regulatory Affairs", to: "/careers/regulatory-affairs" },
+          { label: "Clinical SAS & Biostatistics", to: "/careers/clinical-sas" },
         ],
       },
       spotlight: {
-        badge: "Initial assessment focus",
-        title: "Pharmacovigilance",
-        description: "Explore the first role family covered by Arzon's clinical simulation work.",
-        ctaText: "Explore Pharmacovigilance",
-        to: "/pv-associate",
+        badge: "Report · 2026",
+        title: "2026 Salary Benchmark",
+        description: "Compensation benchmarks across 450+ CROs & pharma employers in India & UAE.",
+        ctaText: "View Salary Report",
+        to: "/industry/salaries",
       },
     },
   },
   {
-    key: "industry",
-    label: "Industry Research",
-    to: "/resources",
-    description: "Understand how Arzon researches role requirements",
+    key: "degrees",
+    label: "Degrees",
+    to: "/degrees",
+    description: "Match your degree to clinical industry roles",
     flyout: {
       category: {
-        title: "Research and methodology",
-        to: "/resources",
-        description: "Read about job-description research, employer input and role competency frameworks.",
+        title: "Degree to Role Matrix",
+        to: "/degrees",
+        description: "Transition your academic degree into a high-growth clinical domain",
         sublinks: [
-          { label: "Research & Insights", to: "/resources" },
-          { label: "Role Profiles", to: "/roles" },
-          { label: "Industry Employers", to: "/industry/employers" },
+          { label: "Role Eligibility Matrix", to: "/tools/role-matrix" },
+          { label: "Skill Gap Analyzer", to: "/tools/skill-gap-analyzer" },
+          { label: "Healthcare Career Roadmap", to: "/roadmap" },
         ],
       },
       specializations: {
-        title: "What research covers",
+        title: "Degrees Supported",
         items: [
-          { label: "Qualifications and Experience", to: "/resources" },
-          { label: "Skills and Responsibilities", to: "/resources" },
-          { label: "Role-specific Competencies", to: "/resources" },
-          { label: "Research Limitations", to: "/resources" },
+          { label: "B.Pharm & M.Pharm Pathways", to: "/degrees/b-pharm" },
+          { label: "Pharm.D Clinical Careers", to: "/degrees/pharm-d" },
+          { label: "MBBS & BDS Non-Clinical Roles", to: "/degrees/mbbs" },
+          { label: "B.Sc & M.Sc Life Sciences", to: "/degrees/life-sciences" },
+          { label: "Nursing & Allied Health", to: "/degrees/nursing" },
         ],
       },
       spotlight: {
-        badge: "Transparent evidence",
-        title: "How role benchmarks are formed",
-        description: "Published findings should identify the research window, source coverage and limitations.",
-        ctaText: "Read the methodology",
-        to: "/resources",
+        badge: "Diagnostic Check",
+        title: "Degree Fit Diagnostic",
+        description: "Select your degree and graduation year to see exact clinical role fit and readiness.",
+        ctaText: "Check Your Degree Fit",
+        to: "/degrees",
       },
     },
   },
   {
-    key: "employers",
-    label: "For Employers",
-    to: "/recruiters",
-    description: "Assess early-career capabilities with structured evidence",
+    key: "programmes",
+    label: "Programmes",
+    to: "/courses",
+    description: "ACRI Fellowship & live trial case training",
     flyout: {
       category: {
-        title: "Employer overview",
-        to: "/recruiters",
-        description: "Explore candidate assessment, practical work samples and employer review.",
+        title: "Clinical Programmes",
+        to: "/courses",
+        description: "ACRI-certified industry preparation with live clinical trials protocols",
         sublinks: [
-          { label: "Employer Overview", to: "/recruiters" },
-          { label: "Candidate Dossiers", to: "/recruiters" },
-          { label: "Talk to Arzon", to: "/contact" },
+          { label: "Compare All Programmes", to: "/courses/compare" },
+          { label: "ACRI Credentialing Standard", to: "/acri" },
+          { label: "Clinical Training Methodology", to: "/methodology" },
         ],
       },
       specializations: {
-        title: "Ways to engage",
+        title: "Active Role Tracks",
         items: [
-          { label: "Role Requirement Review", to: "/recruiters" },
-          { label: "Candidate Assessment", to: "/recruiters" },
-          { label: "College and TPO Engagement", to: "/tpos" },
-          { label: "Industry Network", to: "/industry-network" },
+          { label: "Pharmacovigilance & Argus Safety", to: "/courses/pharmacovigilance" },
+          { label: "Clinical Data Management (CDM)", to: "/courses/clinical-data-management" },
+          { label: "Medical Coding (ICD-10 / CPT)", to: "/courses/medical-coding" },
+          { label: "Clinical SAS Programming", to: "/courses/clinical-sas" },
         ],
       },
       spotlight: {
-        badge: "For hiring teams",
-        title: "Review the assessment approach",
-        description: "See how practical tasks and candidate evidence can support your evaluation process.",
-        ctaText: "Explore employer access",
+        badge: "Admissions Open",
+        title: "Live Clinical Cohorts",
+        description: "Work on live Phase II-IV trial cases with senior industry clinical mentors.",
+        ctaText: "Explore Programmes",
+        to: "/courses",
+      },
+    },
+  },
+  {
+    key: "diagnostic",
+    label: "Diagnostic",
+    to: "/career-assessment",
+    description: "40-scenario technical screening diagnostic",
+    flyout: {
+      category: {
+        title: "Clinical Diagnostic",
+        to: "/career-assessment",
+        description: "Test your casework accuracy against 2026 CRO technical interview cutoffs",
+        sublinks: [
+          { label: "Drug Safety Associate Diagnostic", to: "/career-engine/start" },
+          { label: "Diagnostic Scorecard & Audit", to: "/career-engine/result" },
+          { label: "Assessment Methodology", to: "/acri/methodology" },
+        ],
+      },
+      specializations: {
+        title: "Tested Competencies",
+        items: [
+          { label: "Day 0 Regulatory Clocks", to: "/career-assessment" },
+          { label: "ICSR 4 Minimum Criteria", to: "/career-assessment" },
+          { label: "MedDRA Hierarchy & Coding", to: "/career-assessment" },
+          { label: "SUSAR Expedited Reporting", to: "/career-assessment" },
+          { label: "WHO-UMC Causality Analysis", to: "/career-assessment" },
+        ],
+      },
+      spotlight: {
+        badge: "Free Diagnostic",
+        title: "Instant Diagnostic Dossier",
+        description: "Receive your objective 40-question score, 4 fatal trap breakdown, and 7-day study plan.",
+        ctaText: "Start Diagnostic",
+        to: "/career-assessment",
+      },
+    },
+  },
+  {
+    key: "reviews",
+    label: "Reviews",
+    to: "/reviews",
+    description: "Verified Google reviews, Justdial & learner feedback",
+    flyout: {
+      category: {
+        title: "Reviews & Testimonials",
+        to: "/reviews",
+        description: "Verified feedback from graduates, interns, and healthcare professionals",
+        sublinks: [
+          { label: "Google Business (4.5★)", to: "/reviews" },
+          { label: "Justdial Reviews (4.5★)", to: "/reviews" },
+          { label: "AmbitionBox (4.8★)", to: "/reviews" },
+          { label: "LinkedIn Public Posts", to: "/reviews" },
+        ],
+      },
+      specializations: {
+        title: "Feedback Channels",
+        items: [
+          { label: "Google Business Profile · 447 reviews", to: "/reviews" },
+          { label: "Justdial Verified · 445+ reviews", to: "/reviews" },
+          { label: "LinkedIn Learner Feedback", to: "/reviews" },
+          { label: "AmbitionBox Company Rating", to: "/reviews" },
+          { label: "Arzon Careers Published Proofs", to: "/reviews" },
+        ],
+      },
+      spotlight: {
+        badge: "Verified 4.5★",
+        title: "Real Learner Feedback",
+        description: "Explore 447+ verified reviews from Pharmacovigilance and Medical Coding graduates.",
+        ctaText: "Read All Reviews",
+        to: "/reviews",
+      },
+    },
+  },
+  {
+    key: "network",
+    label: "Network",
+    to: "/industry-network",
+    description: "Connect with 450+ CROs & pharma employers",
+    flyout: {
+      category: {
+        title: "Industry Network",
+        to: "/industry-network",
+        description: "Direct connection to CRO leaders, hiring directors, and verified alumni",
+        sublinks: [
+          { label: "Join Industry Network", to: "/industry-network/apply" },
+          { label: "For Healthcare Employers", to: "/recruiters" },
+          { label: "For Colleges & TPOs", to: "/tpos" },
+          { label: "Verified Placement Proofs", to: "/reviews" },
+        ],
+      },
+      specializations: {
+        title: "Network Directory",
+        items: [
+          { label: "Clinical Research Organizations (CROs)", to: "/industry/employers" },
+          { label: "Pharma MNC Ecosystem", to: "/industry/employers" },
+          { label: "Clinical Masterclasses", to: "/workshop" },
+          { label: "Verify an Arzon Credential", to: "/verify" },
+        ],
+      },
+      spotlight: {
+        badge: "For Employers",
+        title: "Hire Pre-Trained Talent",
+        description: "Hire ACRI-verified clinical talent trained on live Phase II-IV protocols.",
+        ctaText: "Recruiter Portal",
         to: "/recruiters",
       },
     },
@@ -215,15 +291,13 @@ const NAV_ITEMS: readonly NavItemConfig[] = [
 ] as const;
 
 const SECONDARY_ITEMS: Array<{ label: string; to: any }> = [
+  { label: "Reviews & Placements", to: "/reviews" },
+  { label: "Salary Benchmark 2026", to: "/industry/salaries" },
+  { label: "For Employers", to: "/recruiters" },
+  { label: "For Colleges & TPOs", to: "/tpos" },
   { label: "About Arzon", to: "/about" },
-  { label: "Programmes", to: "/courses" },
-  { label: "Student Reviews", to: "/reviews" },
-  { label: "Workshops", to: "/workshop" },
-  { label: "Credential Verification", to: "/verify" },
-  { label: "Contact", to: "/contact" },
+  { label: "Verify Credential", to: "/verify" },
 ] as const;
-
-
 
 export function ArzonHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -311,7 +385,7 @@ export function ArzonHeader() {
             aria-label="Arzon Global home"
             data-testid="arzon-global-logo"
             onClick={handleNavClose}
-            className="flex items-center gap-2 shrink-0 py-1 rounded focus:outline-none focus-visible:ring-1 focus-visible:ring-arzon-teal transition-opacity hover:opacity-75 select-none"
+            className="flex items-center gap-2 shrink-0 py-1 rounded focus:outline-none focus-visible:ring-1 focus-visible:ring-[#008F83] transition-opacity hover:opacity-75 select-none"
           >
             <img
               src="/brand/arzon-icon.webp"
@@ -322,7 +396,7 @@ export function ArzonHeader() {
               loading="eager"
               draggable={false}
             />
-            <span className="text-[11px] font-semibold tracking-[0.14em] text-arzon-deep-teal whitespace-nowrap">
+            <span className="text-[11px] font-semibold tracking-[0.14em] text-[#004B45] whitespace-nowrap">
               ARZON GLOBAL
             </span>
           </Link>
@@ -348,10 +422,10 @@ export function ArzonHeader() {
                     className={[
                       "inline-flex items-center px-3 py-1.5 text-[13px] tracking-[-0.01em] transition-all duration-150 cursor-pointer select-none rounded-full whitespace-nowrap",
                       isOpen
-                        ? "text-arzon-deep-teal bg-black/[0.05] font-medium"
+                        ? "text-[#004B45] bg-[#DFF1EF]/60 font-medium"
                         : isCurrentRoute
-                        ? "text-arzon-deep-teal font-semibold bg-black/[0.03]"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-black/[0.03] font-normal",
+                        ? "text-[#004B45] font-semibold bg-[#DFF1EF]/40"
+                        : "text-slate-600 hover:text-[#004B45] hover:bg-[#DFF1EF]/30 font-normal",
                     ].join(" ")}
                     onClick={handleNavClose}
                   >
@@ -391,15 +465,15 @@ export function ArzonHeader() {
               Sign in
             </Link>
 
-            {/* Primary CTA (Apple Blue Minimal Pill) */}
+            {/* Primary CTA (Teal Accent Minimal Pill) */}
             <button
               type="button"
               onClick={() => {
                 handleNavClose();
-                openCounsellorModal({ source: "header_desktop" });
+                openExpertModal({ source: "header_desktop" });
               }}
               data-testid="primary-career-cta"
-              className="inline-flex h-[28px] items-center gap-1 rounded-full bg-arzon-teal hover:bg-arzon-deep-teal active:scale-[0.98] text-white text-[12px] font-medium px-3.5 transition-all cursor-pointer shadow-none whitespace-nowrap shrink-0 select-none"
+              className="inline-flex h-[28px] items-center gap-1 rounded-full bg-[#008F83] hover:bg-[#00736A] active:scale-[0.98] text-white text-[12px] font-medium px-3.5 transition-all cursor-pointer shadow-none whitespace-nowrap shrink-0 select-none"
             >
               <span>Talk to Experts</span>
               <ArrowRight className="h-3 w-3" />
@@ -412,7 +486,7 @@ export function ArzonHeader() {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="grid h-8 w-8 place-items-center rounded-full text-slate-600 hover:text-arzon-deep-teal hover:bg-black/[0.04] active:scale-95 transition-transform"
+              className="grid h-8 w-8 place-items-center rounded-full text-slate-600 hover:text-[#1d1d1f] hover:bg-black/[0.04] active:scale-95 transition-transform"
               aria-label="Search Arzon"
             >
               <Search className="h-4 w-4" />
@@ -463,7 +537,7 @@ export function ArzonHeader() {
                 <Link
                   to={activeItem.flyout.category.to as any}
                   onClick={handleNavClose}
-                  className="text-[19px] font-semibold text-arzon-deep-teal hover:text-arzon-teal tracking-tight leading-snug transition-colors block mb-1.5 group"
+                  className="text-[19px] font-semibold text-[#004B45] hover:text-[#008F83] tracking-tight leading-snug transition-colors block mb-1.5 group"
                 >
                   <span>{activeItem.flyout.category.title}</span>
                   <ArrowRight className="h-4 w-4 inline-block ml-1 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
@@ -477,10 +551,10 @@ export function ArzonHeader() {
                       key={sub.to}
                       to={sub.to as any}
                       onClick={handleNavClose}
-                      className="text-[12.5px] text-slate-600 hover:text-arzon-teal transition-colors py-1 flex items-center justify-between group"
+                      className="text-[12.5px] text-slate-600 hover:text-[#008F83] transition-colors py-1 flex items-center justify-between group"
                     >
                       <span>{sub.label}</span>
-                      <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-arzon-teal group-hover:translate-x-0.5 transition-all" />
+                      <ChevronRight className="h-3.5 w-3.5 text-slate-300 group-hover:text-[#008F83] group-hover:translate-x-0.5 transition-all" />
                     </Link>
                   ))}
                 </div>
@@ -497,7 +571,7 @@ export function ArzonHeader() {
                       key={spec.label}
                       to={spec.to as any}
                       onClick={handleNavClose}
-                      className="text-[12.5px] text-slate-700 hover:text-arzon-teal transition-colors py-1.5 flex items-center justify-between rounded-lg px-2.5 -mx-2.5 hover:bg-black/[0.02]"
+                      className="text-[12.5px] text-slate-700 hover:text-[#008F83] transition-colors py-1.5 flex items-center justify-between rounded-lg px-2.5 -mx-2.5 hover:bg-black/[0.02]"
                     >
                       <span>{spec.label}</span>
                       <ChevronRight className="h-3 w-3 text-slate-300" />
@@ -516,16 +590,16 @@ export function ArzonHeader() {
                   onClick={handleNavClose}
                   className="block rounded-2xl bg-black/[0.02] border border-black/[0.05] p-5 hover:bg-black/[0.04] transition-all group"
                 >
-                  <span className="text-[10px] font-bold text-arzon-teal bg-blue-50 px-2 py-0.5 rounded-full inline-block mb-2.5 border border-blue-100">
+                  <span className="text-[10px] font-bold text-[#004B45] bg-[#DFF1EF] px-2 py-0.5 rounded-full inline-block mb-2.5 border border-[#78BDBB]/30">
                     {activeItem.flyout.spotlight.badge}
                   </span>
-                  <div className="text-sm font-semibold text-arzon-deep-teal mb-1.5 group-hover:text-arzon-teal transition-colors">
+                  <div className="text-sm font-semibold text-[#004B45] mb-1.5 group-hover:text-[#008F83] transition-colors">
                     {activeItem.flyout.spotlight.title}
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed mb-4">
                     {activeItem.flyout.spotlight.description}
                   </p>
-                  <div className="text-xs font-semibold text-arzon-teal inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
+                  <div className="text-xs font-semibold text-[#008F83] inline-flex items-center gap-1 group-hover:gap-1.5 transition-all">
                     <span>{activeItem.flyout.spotlight.ctaText}</span>
                     <ArrowRight className="h-3 w-3" />
                   </div>
@@ -582,9 +656,9 @@ export function ArzonHeader() {
                         key={item.to}
                         to={item.to as any}
                         onClick={() => setMobileOpen(false)}
-                        className="flex items-center justify-between py-3.5 text-[18px] font-medium tracking-tight text-[#1d1d1f] hover:text-arzon-teal transition-colors"
+                        className="flex items-center justify-between py-3.5 text-[18px] font-medium tracking-tight text-[#1d1d1f] hover:text-[#008F83] transition-colors"
                       >
-                        <span className={active ? "text-arzon-teal font-semibold" : ""}>
+                        <span className={active ? "text-[#008F83] font-semibold" : ""}>
                           {item.label}
                         </span>
                         <ChevronRight className="h-4 w-4 text-slate-300" />
@@ -615,14 +689,17 @@ export function ArzonHeader() {
 
                 {/* Pinned Bottom Actions */}
                 <div className="pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+2rem)] space-y-2.5">
-                  <Link
-                    to="/career-assessment"
-                    onClick={() => setMobileOpen(false)}
-                    className="w-full h-11 rounded-full bg-arzon-teal hover:bg-arzon-deep-teal text-white font-medium text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      openExpertModal({ source: "mobile_drawer" });
+                    }}
+                    className="w-full h-11 rounded-full bg-[#008F83] hover:bg-[#00736A] text-white font-medium text-xs flex items-center justify-center gap-1.5 active:scale-[0.98] transition-all shadow-none cursor-pointer"
                   >
-                    <span>Start Clinical Diagnostic</span>
+                    <span>Talk to Experts</span>
                     <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
+                  </button>
 
                   <a
                     href="https://wa.me/919121283638?text=Hi%20Arzon%20Team%2C%20I%20want%20to%20know%20which%20healthcare%20career%20fits%20my%20degree."
@@ -639,7 +716,7 @@ export function ArzonHeader() {
                     <Link
                       to="/login"
                       onClick={() => setMobileOpen(false)}
-                      className="text-xs text-slate-500 hover:text-arzon-deep-teal transition-colors"
+                      className="text-xs text-slate-500 hover:text-[#1d1d1f] transition-colors"
                     >
                       Sign in to Candidate Portal
                     </Link>

@@ -49,11 +49,13 @@ export function ExitIntentQuiz() {
     };
 
     const onScroll = () => {
+      // Never hijack mobile reading flows on scroll depth
+      if (typeof window !== "undefined" && window.innerWidth < 1024) return;
       const h = document.documentElement;
       const max = h.scrollHeight - h.clientHeight;
       if (max <= 0) return;
       const pct = (h.scrollTop / max) * 100;
-      if (pct >= SCROLL_TRIGGER_PCT) trigger();
+      if (pct >= 90) trigger();
     };
 
     const cleanup = () => {

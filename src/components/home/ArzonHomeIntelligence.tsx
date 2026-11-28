@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "@tanstack/react-router";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
   Award,
+  Briefcase,
   Building2,
+  Check,
   CheckCircle2,
+  ChevronLeft,
   ChevronRight,
   CirclePlay,
   ClipboardCheck,
@@ -18,44 +22,83 @@ import {
   Microscope,
   Play,
   ShieldCheck,
+  Sparkles,
   Trophy,
   Users,
 } from "lucide-react";
 import { LINKS } from "@/components/landing/constants";
+import { openLeadMagnetModal } from "@/components/acri/landing/AcriScrollLeadMagnet";
+import { openExpertModal } from "@/components/system/UnifiedExpertModal";
 
 const LINKEDIN = LINKS.linkedin;
 const GLOBAL_IMPACT_AWARD_LINKEDIN = "https://lnkd.in/p/dxSyrMUb";
 const MALLA_REDDY_LINKEDIN =
   "https://www.linkedin.com/posts/arzonglobal-campusvisit-presentation-ugcPost-7459179713735995394-_bmu/?highlightedUpdateUrn=urn%3Ali%3AugcPost%3A7459179713735995394&highlightedUpdateType=SOCIAL_SHARE&origin=SOCIAL_SHARE&utm_source=social_share_send&utm_medium=android_app&rcm=ACoAAEnmUHsBc7DzVndPmNWZqFqDa73sXe72aMI&utm_campaign=whatsapp";
 
-const CAREER_PATHS = [
+const CAREER_ROLES = [
   {
-    title: "Pharmacovigilance",
-    subtitle: "Medicine safety and case processing",
+    roleTitle: "Fresher PV Associate",
+    roleDesignation: "Junior Drug Safety Associate",
+    tag: "Drug Safety Operations",
+    hiringHubs: "Cognizant · IQVIA · Accenture · Parexel",
+    dayOneTasks: [
+      "Triage spontaneous & clinical adverse event reports for 4-element validity",
+      "Assign precise MedDRA terms (LLT, PT, System Organ Class hierarchy)",
+      "Draft expedited regulatory safety narratives under 7/15-day reporting clocks",
+    ],
+    tools: ["Oracle Argus Safety", "MedDRA Browser", "WHO-DD"],
+    eligibility: "B.Pharm · Pharm.D · M.Pharm · Life Sciences",
+    practicalProof: "25+ Live ICSR Cases Processed",
     image: "/assets/thumbs/pharmacovigilance.webp",
     href: "/pv-associate",
-    tag: "Drug safety",
   },
   {
-    title: "Clinical Data Management",
-    subtitle: "Clinical data review and quality",
+    roleTitle: "Clinical Data Associate",
+    roleDesignation: "Junior Clinical Data Coordinator",
+    tag: "Clinical Operations",
+    hiringHubs: "TCS · Wipro Health · IQVIA · Syneos Health",
+    dayOneTasks: [
+      "Review Electronic Case Report Forms (eCRFs) against trial protocols",
+      "Identify protocol data discrepancies & issue hospital site queries",
+      "Execute clinical-safety Serious Adverse Event (SAE) reconciliation",
+    ],
+    tools: ["Medidata RAVE", "Oracle InForm", "eCRF Engines"],
+    eligibility: "B.Pharm · M.Pharm · B.Sc/M.Sc Life Sciences",
+    practicalProof: "50+ eCRF Discrepancies Resolved",
     image: "/assets/thumbs/clinical-data-management.webp",
     href: "/courses/clinical-data-management",
-    tag: "Clinical operations",
   },
   {
-    title: "Medical Coding",
-    subtitle: "Clinical documentation and coding",
+    roleTitle: "Medical Coding Specialist",
+    roleDesignation: "Trainee Medical Coding Analyst",
+    tag: "Clinical Informatics",
+    hiringHubs: "Optum · Omega Healthcare · CorroHealth · GeBBS",
+    dayOneTasks: [
+      "Abstract inpatient & outpatient physician clinical encounter notes",
+      "Assign accurate ICD-10-CM diagnosis & CPT procedural codes",
+      "Apply medical necessity modifiers to eliminate billing claim rejections",
+    ],
+    tools: ["ICD-10-CM", "CPT Manuals", "3M Encoder"],
+    eligibility: "Life Sciences · B.Pharm · Allied Health · Nursing",
+    practicalProof: "100+ Chart Encounters Audited",
     image: "/assets/thumbs/medical-coding.webp",
     href: "/courses/medical-coding",
-    tag: "Healthcare operations",
   },
   {
-    title: "Regulatory Affairs",
-    subtitle: "Regulatory information and submissions",
+    roleTitle: "Regulatory Affairs Trainee",
+    roleDesignation: "Documentation & Dossier Associate",
+    tag: "Regulatory Submissions",
+    hiringHubs: "Dr. Reddy's · Sun Pharma · Cipla · Global CROs",
+    dayOneTasks: [
+      "Structure & review eCTD Module 1-5 submission dossiers",
+      "Audit Certificate of Analysis (CoA) & drug substance stability files",
+      "Track Health Authority variation filings (US FDA, EMA, CDSCO)",
+    ],
+    tools: ["eCTD Compilers", "docuBridge", "FDA CDER Portal"],
+    eligibility: "B.Pharm · M.Pharm · Pharm.D",
+    practicalProof: "Complete eCTD Dossier Assembly",
     image: "/assets/thumbs/regulatory-affairs.webp",
     href: "/courses/regulatory-affairs",
-    tag: "Regulatory",
   },
 ] as const;
 
@@ -92,8 +135,52 @@ function SectionLabel({ children }: { children: string }) {
 
 export function ArzonHomeIntelligence() {
   const [activeTrack, setActiveTrack] = useState<TrackKey>("pv");
+  const [activeRoleIndex, setActiveRoleIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const preview = TRACK_PREVIEWS[activeTrack];
+  const [mounted, setMounted] = useState(false);
+  const [showStickyDock, setShowStickyDock] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window === "undefined") return;
+
+    const scrollRoot = document.getElementById("app-scroll-root");
+    const checkScroll = () => {
+      const top = scrollRoot ? scrollRoot.scrollTop : window.scrollY;
+      setShowStickyDock(top > 420);
+    };
+
+    checkScroll();
+    scrollRoot?.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("scroll", checkScroll, { passive: true });
+
+    return () => {
+      scrollRoot?.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("scroll", checkScroll);
+    };
+  }, []);
+
+  const handleCarouselScroll = () => {
+    if (!carouselRef.current) return;
+    const { scrollLeft, clientWidth } = carouselRef.current;
+    const cardWidth = clientWidth * 0.85;
+    if (cardWidth > 0) {
+      const index = Math.round(scrollLeft / cardWidth);
+      setActiveRoleIndex(Math.min(Math.max(index, 0), CAREER_ROLES.length - 1));
+    }
+  };
+
+  const scrollToRole = (idx: number) => {
+    if (!carouselRef.current) return;
+    const cardWidth = carouselRef.current.clientWidth * 0.85;
+    carouselRef.current.scrollTo({
+      left: idx * cardWidth,
+      behavior: "smooth",
+    });
+    setActiveRoleIndex(idx);
+  };
 
   const enter = prefersReducedMotion
     ? {}
@@ -124,7 +211,7 @@ export function ArzonHomeIntelligence() {
               <span>Healthcare Talent Intelligence</span>
             </div>
 
-            <h1 className="max-w-[620px] text-[34px] sm:text-[46px] lg:text-[56px] font-bold leading-[1.04] tracking-[-0.045em] text-[#063F39]">
+            <h1 className="max-w-[620px] text-[30px] xs:text-[34px] sm:text-[46px] lg:text-[56px] font-bold leading-[1.06] tracking-[-0.04em] text-[#063F39]">
               Build capability.
               <span className="mt-1 block text-[#008F83]">Show the work.</span>
             </h1>
@@ -133,22 +220,25 @@ export function ArzonHomeIntelligence() {
               We connect role requirements, practical learning and evidence of skill — helping students make clearer career decisions.
             </p>
 
-            <div className="mt-6 flex flex-row items-center gap-2.5 sm:gap-3">
-              <Link
-                to={"/career-engine/start" as any}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#004B45] px-5 text-[12.5px] sm:text-[13px] font-bold text-white shadow-[0_6px_18px_rgba(0,75,69,0.18)] transition-all hover:bg-[#00675D] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83]"
+            <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
+              <button
+                type="button"
+                onClick={() => openExpertModal({ source: "hero_primary" })}
+                className="inline-flex h-11 w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#004B45] px-6 text-[13px] font-bold text-white shadow-[0_6px_18px_rgba(0,75,69,0.18)] transition-all hover:bg-[#00675D] active:scale-[0.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#008F83] cursor-pointer whitespace-nowrap shrink-0"
               >
-                Build my profile <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+                <span>Talk to Experts</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
               <a
-                href="#proof"
-                className="inline-flex h-11 items-center justify-center gap-1.5 rounded-full border border-[#BFD5D0] bg-white/90 backdrop-blur px-4 sm:px-5 text-[12.5px] sm:text-[13px] font-bold text-[#174D47] transition-all hover:border-[#008F83] hover:bg-white active:scale-[0.98] shadow-2xs"
+                href="#career-paths"
+                className="inline-flex h-11 w-full sm:w-auto items-center justify-center gap-1.5 rounded-full border border-[#BFD5D0] bg-white/95 backdrop-blur px-5 text-[13px] font-bold text-[#174D47] transition-all hover:border-[#008F83] hover:bg-white active:scale-[0.98] shadow-2xs whitespace-nowrap shrink-0"
               >
-                See our work <ArrowUpRight className="h-3.5 w-3.5" />
+                <span>Explore 4 Role Blueprints</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             </div>
 
-            <div className="mt-7 sm:mt-8 grid grid-cols-3 gap-2 border-t border-[#DCE9E6] pt-4 text-center sm:text-left sm:flex sm:items-center sm:gap-6">
+            <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-2 border-t border-[#DCE9E6] pt-4 text-center sm:text-left sm:flex sm:items-center sm:gap-6">
               <div className="flex flex-col sm:flex-row items-center gap-1.5 text-[10.5px] sm:text-[11.5px] font-medium text-[#56716C]">
                 <ShieldCheck className="h-4 w-4 text-[#008F83] shrink-0" />
                 <span>Student-first</span>
@@ -286,30 +376,45 @@ export function ArzonHomeIntelligence() {
 
           {/* Grid Layout: Award Flagship Showcase in Slot 1 & former TASK Slot (lg:col-span-8), Malla Reddy untouched (lg:col-span-4) */}
           <div className="grid gap-4 lg:grid-cols-12 items-stretch">
-            {/* Card 1: 2026 Global Impact Award Showcase (lg:col-span-8 — in Arzon signature Deep Forest Teal branding) */}
+            {/* Card 1: 2026 Global Impact Award Showcase (lg:col-span-8 — in Arzon signature Deep Forest Teal & Champagne Gold luxury detailing) */}
             <a
               href={GLOBAL_IMPACT_AWARD_LINKEDIN}
               target="_blank"
               rel="noreferrer"
-              className="group relative flex min-h-[320px] flex-col justify-between overflow-hidden rounded-[24px] border border-white/[0.14] bg-[#073F39] p-5 sm:p-7 text-white shadow-[0_20px_50px_rgba(0,75,69,0.22)] ring-1 ring-inset ring-white/[0.08] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_24px_60px_rgba(0,75,69,0.30)] lg:col-span-8"
+              className="group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-[26px] sm:rounded-[30px] border border-amber-400/25 bg-gradient-to-br from-[#042823] via-[#021C18] to-[#011210] p-5 sm:p-7 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),inset_0_0_60px_rgba(0,143,131,0.12),0_24px_60px_-12px_rgba(0,25,22,0.6)] ring-1 ring-inset ring-white/[0.08] transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/40 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),inset_0_0_70px_rgba(0,143,131,0.18),0_30px_70px_-12px_rgba(0,25,22,0.7)] lg:col-span-8"
             >
-              {/* Arzon Seafoam & Emerald Ambient Glow */}
+              {/* Luxury Geometric Orbit Rings & Ambient Lighting */}
+              <div
+                className="pointer-events-none absolute -right-20 -top-20 h-96 w-96 rounded-full border border-amber-400/10"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute -right-12 -top-12 h-80 w-80 rounded-full border border-white/5"
+                aria-hidden="true"
+              />
+              <div
+                className="pointer-events-none absolute -right-4 -top-4 h-64 w-64 rounded-full border border-amber-400/5"
+                aria-hidden="true"
+              />
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -right-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(120,189,187,0.20)_0%,rgba(0,143,131,0.06)_50%,transparent_75%)] blur-2xl"
+                className="pointer-events-none absolute -right-10 top-0 h-80 w-80 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.16)_0%,rgba(0,143,131,0.10)_45%,transparent_75%)] blur-2xl"
               />
-              <div className="pointer-events-none absolute -right-12 -top-14 h-56 w-56 rounded-full border border-white/10" />
-              <div className="pointer-events-none absolute -right-2 top-2 h-40 w-40 rounded-full border border-white/10" />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -top-14 -left-14 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(120,189,187,0.12)_0%,transparent_70%)] blur-2xl"
+              />
 
               <div>
                 {/* Header Utility Rail */}
                 <div className="relative z-10 flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#9BD8D0]/30 bg-white/10 px-2.5 py-0.5 text-[9px] font-mono font-semibold uppercase tracking-wider text-[#9BD8D0]">
-                    <Award className="h-3 w-3 text-[#E7C982] shrink-0" />
-                    Recognition · 04-05 Nov 2026
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#E7C982]/30 bg-gradient-to-r from-[#E7C982]/15 via-[#E7C982]/5 to-white/5 px-3 py-1 text-[10px] font-mono font-medium tracking-wider text-[#F3D99D] shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] backdrop-blur-md">
+                    <Award className="h-3.5 w-3.5 text-[#E7C982] shrink-0 drop-shadow-[0_0_6px_rgba(231,201,130,0.6)]" />
+                    <span>Recognition · 04–05 Nov 2026</span>
                   </span>
-                  <span className="font-mono text-[9.5px] uppercase tracking-wider text-white/70">
-                    SARSD · New Delhi
+                  <span className="flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-[0.18em] text-white/60">
+                    <span className="h-1 w-1 rounded-full bg-[#E7C982]/80" />
+                    <span>SARSD · New Delhi</span>
                   </span>
                 </div>
 
@@ -317,41 +422,80 @@ export function ArzonHomeIntelligence() {
                 <div className="relative z-10 mt-5 flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
                   {/* Left Column: Official Narrative & Institutional Breakdown */}
                   <div className="flex-1 min-w-0 pr-0 lg:pr-3">
-                    <p className="text-[40px] sm:text-[52px] font-bold leading-none tracking-[-0.06em] text-[#F3D99D]">
-                      2026
-                    </p>
-                    <h3 className="mt-2 text-[22px] sm:text-[25px] font-bold leading-[1.08] tracking-[-0.04em] text-white">
+                    <div className="flex items-baseline gap-3">
+                      <span className="text-[44px] sm:text-[54px] font-extrabold leading-none tracking-[-0.04em] bg-gradient-to-br from-white via-[#FCE7B8] to-[#D4AF37] bg-clip-text text-transparent drop-shadow-sm">
+                        2026
+                      </span>
+                      <span className="inline-block px-2 py-0.5 rounded text-[8.5px] font-mono font-bold tracking-widest uppercase bg-[#E7C982]/15 border border-[#E7C982]/30 text-[#F3D99D]">
+                        ANNUAL CITATION
+                      </span>
+                    </div>
+
+                    <h3 className="mt-2 text-[22px] sm:text-[26px] font-bold leading-[1.1] tracking-tight text-white">
                       Global Impact Award
                     </h3>
-                    <p className="mt-2 text-[12px] leading-relaxed text-white/80 font-normal">
-                      Conferred to <strong className="text-white font-semibold">Arzon Global Labs</strong> by the Society of Applied Research and Social Development (SARSD) at the 8th ICAATAS International Conference, Malla Reddy University.
-                    </p>
 
-                    {/* Institutional Breakdown Box */}
-                    <div className="mt-3.5 rounded-[14px] border border-white/15 bg-white/[0.07] p-3 text-[10.5px] backdrop-blur-sm">
-                      <div className="grid grid-cols-2 gap-2 border-b border-white/15 pb-2">
-                        <div>
-                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0]">Host Venue</span>
-                          <span className="font-semibold text-white">Malla Reddy University</span>
+                    {/* Amber Highlight Callout */}
+                    <div className="border-l-2 border-[#E7C982]/70 pl-3 my-3">
+                      <p className="text-[12px] leading-relaxed text-slate-200/90 font-normal">
+                        Conferred to <strong className="text-white font-bold">Arzon Global Labs</strong> by the Society of Applied Research and Social Development (SARSD) at the 8th ICAATAS International Conference, Malla Reddy University.
+                      </p>
+                    </div>
+
+                    {/* Institutional Breakdown Box (Glass Citation Plaque) */}
+                    <div className="mt-3.5 rounded-2xl border border-white/15 bg-gradient-to-b from-white/[0.08] to-white/[0.02] p-3.5 text-[11px] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.12),0_8px_20px_rgba(0,0,0,0.2)]">
+                      <div className="grid grid-cols-2 gap-3 border-b border-white/10 pb-2.5">
+                        <div className="flex items-start gap-2">
+                          <div className="w-6 h-6 rounded-md bg-teal-500/15 border border-teal-400/30 flex items-center justify-center shrink-0 mt-0.5 text-[#78BDBB]">
+                            <GraduationCap className="h-3 w-3" />
+                          </div>
+                          <div>
+                            <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0] font-medium">
+                              Host Venue
+                            </span>
+                            <span className="font-bold text-white text-[11.5px] block mt-0.5">
+                              Malla Reddy University
+                            </span>
+                          </div>
                         </div>
-                        <div>
-                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0]">Conferring Body</span>
-                          <span className="font-semibold text-white">SARSD (Regd. Govt. of India)</span>
+
+                        <div className="flex items-start gap-2 border-l border-white/10 pl-3">
+                          <div className="w-6 h-6 rounded-md bg-[#E7C982]/15 border border-[#E7C982]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#E7C982]">
+                            <Users className="h-3 w-3" />
+                          </div>
+                          <div>
+                            <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0] font-medium">
+                              Conferring Body
+                            </span>
+                            <span className="font-bold text-white text-[11.5px] block mt-0.5">
+                              SARSD (Regd. Govt. of India)
+                            </span>
+                          </div>
                         </div>
                       </div>
-                      <div className="pt-2">
-                        <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0]">Scope of Award</span>
-                        <span className="text-white/90">Workforce Development & Practical Healthcare Skilling Model</span>
+
+                      <div className="flex items-start gap-2 pt-2">
+                        <div className="w-6 h-6 rounded-md bg-blue-500/15 border border-blue-400/30 flex items-center justify-center shrink-0 mt-0.5 text-blue-300">
+                          <Layers3 className="h-3 w-3" />
+                        </div>
+                        <div>
+                          <span className="block font-mono text-[8.5px] uppercase tracking-wider text-[#9BD8D0] font-medium">
+                            Scope of Award
+                          </span>
+                          <span className="text-white/90 text-[11px] block mt-0.5 font-medium">
+                            Workforce Development &amp; Practical Healthcare Skilling Model
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Right Column: Physical Award Plaque with luminous white fade spotlight (Positioned in former TASK slot space) */}
+                  {/* Right Column: Physical Award Plaque with luminous museum spotlight */}
                   <div className="relative flex items-center justify-center shrink-0 w-full lg:w-[240px] xl:w-[270px] py-2 sm:py-1">
-                    {/* Luminous soft white-to-transparent studio fade */}
+                    {/* Amber Gold & White Halo Spotlight */}
                     <div
                       aria-hidden="true"
-                      className="pointer-events-none absolute -inset-3 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.06)_45%,transparent_72%)] blur-xl"
+                      className="pointer-events-none absolute -inset-2 rounded-full bg-[radial-gradient(circle_at_center,rgba(231,201,130,0.22)_0%,rgba(255,255,255,0.06)_45%,transparent_72%)] blur-2xl"
                     />
 
                     {/* Floating Transparent Cutout Plaque with Soft Ground Reflection */}
@@ -359,13 +503,13 @@ export function ArzonHomeIntelligence() {
                       <img
                         src="/images/credentials/global-impact-trophy-transparent.png"
                         alt="Official 2026 Global Impact Award Plaque presented to Arzon Global Labs"
-                        className="relative z-10 max-h-[210px] sm:max-h-[255px] w-auto object-contain drop-shadow-[0_18px_36px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                        className="relative z-10 max-h-[220px] sm:max-h-[265px] w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.5)] drop-shadow-[0_24px_48px_rgba(0,0,0,0.6)] transition-all duration-500 ease-out group-hover:scale-[1.04] group-hover:-translate-y-1"
                         loading="lazy"
                       />
-                      {/* Soft white ground reflection / pedestal fade */}
+                      {/* Golden pedestal reflection blur */}
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none -mt-3.5 h-4 w-36 sm:w-44 rounded-[100%] bg-white/20 blur-md"
+                        className="pointer-events-none -mt-4 h-4 w-36 sm:w-48 rounded-[100%] bg-[#E7C982]/25 blur-md"
                       />
                     </div>
                   </div>
@@ -373,13 +517,18 @@ export function ArzonHomeIntelligence() {
               </div>
 
               {/* Action Link Rail */}
-              <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/15 pt-3 text-[11px] font-semibold text-[#A9E0D8]">
-                <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-white">
-                  View public announcement
-                  <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <div className="relative z-10 mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-[11px] font-semibold text-[#F3D99D]">
+                <span className="inline-flex items-center gap-1.5 transition-colors group-hover:text-amber-100">
+                  <span className="underline underline-offset-4 decoration-[#E7C982]/40 group-hover:decoration-[#E7C982]">
+                    View public announcement
+                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-[#E7C982]" />
                 </span>
-                <span className="inline-flex items-center gap-1.5 font-mono text-[9px] text-white/60">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#10B981] motion-safe:animate-pulse" />
+                <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 font-mono text-[9px] text-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+                  <span className="relative flex h-2 w-2">
+                    <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+                  </span>
                   LinkedIn Verified
                 </span>
               </div>
@@ -569,12 +718,13 @@ export function ArzonHomeIntelligence() {
               ))}
             </div>
 
-            <Link
-              to={"/career-assessment" as any}
-              className="mt-6 inline-flex items-center gap-2 text-[12.5px] font-bold text-[#00796F] transition hover:gap-3"
+            <button
+              type="button"
+              onClick={() => openExpertModal({ source: "section_03_left_cta" })}
+              className="mt-6 inline-flex items-center gap-2 text-[12.5px] font-bold text-[#00796F] hover:text-[#004B45] hover:underline transition-all cursor-pointer"
             >
-              Explore the assessment <ArrowRight className="h-4 w-4" />
-            </Link>
+              <span>Talk to an expert about your preparation</span> <ArrowRight className="h-4 w-4" />
+            </button>
           </motion.div>
 
           <motion.div
@@ -656,6 +806,26 @@ export function ArzonHomeIntelligence() {
                   </div>
                 ))}
               </div>
+
+              {/* Dedicated In-Card Expert Consultation Strip */}
+              <div className="mt-4 pt-3.5 border-t border-[#E8EFED] flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                <div className="text-left w-full sm:w-auto">
+                  <p className="text-[11.5px] font-bold text-[#063F39]">
+                    Want your profile evaluated for {preview.label}?
+                  </p>
+                  <p className="text-[10px] text-[#5C756F]">
+                    Review eligibility, corporate hiring cutoffs, and your next step with a senior counselor.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => openExpertModal({ targetTrack: preview.label, source: `interactive_${activeTrack}` })}
+                  className="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#004B45] hover:bg-[#003B35] text-white px-4 py-2 text-[11.5px] font-bold transition-all shadow-2xs cursor-pointer active:scale-95"
+                >
+                  <span>Talk to Experts</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
 
             <div className="mt-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 text-[9px] text-[#8AA19B]">
@@ -666,28 +836,65 @@ export function ArzonHomeIntelligence() {
         </div>
       </section>
 
-      {/* 04 / CAREER PATHS */}
+      {/* 04 / ROLE-SPECIFIC TRAINING SHOWCASE */}
       <section
         id="career-paths"
-        className="flex min-h-[calc(100svh-48px)] items-center bg-white py-10 sm:py-16"
+        className="flex min-h-[calc(100svh-48px)] items-center bg-white py-10 sm:py-16 overflow-hidden"
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-8 lg:px-10">
-          <div className="mb-6 sm:mb-8 flex flex-col justify-between gap-2.5 sm:flex-row sm:items-end">
+          {/* Section Header */}
+          <div className="mb-6 sm:mb-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
             <div>
-              <SectionLabel>Explore career directions</SectionLabel>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#008F83]/20 bg-[#DFF1EF]/60 px-2.5 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#004B45] mb-2">
+                <span>Role-Focused Training · Not Generic Courses</span>
+              </div>
               <h2 className="text-[26px] sm:text-[34px] font-bold tracking-tight text-[#063F39] leading-[1.08]">
-                Start with the work you want to do.
+                Start with the role you want to be hired for.
               </h2>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-[#6B817C] max-w-xl">
+                We train graduates for real-world entry designations—not abstract academic theory. Explore Day-1 responsibilities, required enterprise tools, and verified proof deliverables.
+              </p>
             </div>
-            <p className="max-w-[360px] text-[12.5px] sm:text-[13px] leading-relaxed text-[#6B817C]">
-              Explore role expectations before choosing what to learn next.
-            </p>
+
+            {/* Mobile Swipe Notice & Navigation Controls */}
+            <div className="flex items-center gap-3">
+              <span className="flex lg:hidden items-center gap-1.5 text-[11px] font-mono text-[#008F83]">
+                <span>Swipe roles ({activeRoleIndex + 1}/{CAREER_ROLES.length})</span>
+                <ArrowRight className="h-3 w-3" />
+              </span>
+              <div className="hidden sm:flex lg:hidden items-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => scrollToRole(Math.max(0, activeRoleIndex - 1))}
+                  disabled={activeRoleIndex === 0}
+                  aria-label="Previous role"
+                  className="h-8 w-8 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 disabled:opacity-40 hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToRole(Math.min(CAREER_ROLES.length - 1, activeRoleIndex + 1))}
+                  disabled={activeRoleIndex === CAREER_ROLES.length - 1}
+                  aria-label="Next role"
+                  className="h-8 w-8 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 disabled:opacity-40 hover:bg-slate-50 transition-colors cursor-pointer"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {CAREER_PATHS.map((path, index) => (
+          {/* Swipeable Snap Carousel (Mobile: 84vw peek carousel, Desktop: 4-column responsive grid) */}
+          <div
+            ref={carouselRef}
+            onScroll={handleCarouselScroll}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 px-1 -mx-1 lg:grid lg:grid-cols-4 lg:gap-4 lg:overflow-visible lg:px-0 lg:mx-0 touch-pan-x"
+          >
+            {CAREER_ROLES.map((role, index) => (
               <motion.div
-                key={path.title}
+                key={role.roleTitle}
+                className="w-[84vw] sm:w-[340px] shrink-0 snap-start lg:w-auto lg:shrink"
                 {...(prefersReducedMotion
                   ? {}
                   : {
@@ -697,42 +904,162 @@ export function ArzonHomeIntelligence() {
                       transition: { duration: 0.45, delay: index * 0.06 },
                     })}
               >
-                <Link
-                  to={path.href as any}
-                  className="group block overflow-hidden rounded-[22px] border border-[#E1EBE8] bg-[#F8FBFA] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_18px_44px_rgba(0,75,69,0.10)] active:scale-[0.98]"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#E6F0ED]">
-                    <img
-                      src={path.image}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#052E2A]/70 via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 rounded-full border border-white/20 bg-[#062E2B]/60 px-2.5 py-1 text-[8.5px] sm:text-[9px] font-mono font-semibold uppercase tracking-[0.13em] text-white backdrop-blur-md">
-                      {path.tag}
-                    </span>
+                <div className="group flex flex-col justify-between h-full overflow-hidden rounded-[22px] border border-[#E1EBE8] bg-[#F8FBFA] transition duration-300 hover:-translate-y-1 hover:border-[#A9D1CB] hover:shadow-[0_20px_48px_rgba(0,75,69,0.12)] text-left">
+                  <div>
+                    {/* Visual Card Banner */}
+                    <Link to={role.href as any} className="block relative aspect-[16/10] overflow-hidden bg-[#E6F0ED] cursor-pointer">
+                      <img
+                        src={role.image}
+                        alt={role.roleTitle}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#052E2A]/85 via-[#052E2A]/25 to-transparent" />
+                      
+                      {/* Operational Domain Tag */}
+                      <span className="absolute top-3 left-3 rounded-full border border-white/20 bg-[#062E2B]/70 px-2.5 py-0.5 text-[8.5px] font-mono font-semibold uppercase tracking-[0.12em] text-white backdrop-blur-md">
+                        {role.tag}
+                      </span>
+
+                      {/* Practical Proof Pill */}
+                      <span className="absolute bottom-2.5 right-3 rounded-full border border-[#E7C982]/30 bg-[#062E2B]/85 px-2 py-0.5 text-[8.5px] font-mono font-medium text-[#FCE7B8] backdrop-blur-md">
+                        ✓ {role.practicalProof}
+                      </span>
+                    </Link>
+
+                    {/* Card Content */}
+                    <div className="p-4 sm:p-5">
+                      {/* Role Designation Header */}
+                      <Link to={role.href as any} className="block group/link cursor-pointer">
+                        <span className="text-[9.5px] font-mono uppercase tracking-wider text-[#008F83] font-semibold block">
+                          Target Entry Designation
+                        </span>
+                        <h3 className="text-[17px] sm:text-[18px] font-bold tracking-tight text-[#0B3934] mt-0.5 leading-snug group-hover/link:text-[#008F83] transition-colors">
+                          {role.roleTitle}
+                        </h3>
+                        <p className="text-[11.5px] font-medium text-slate-600 mt-0.5">
+                          {role.roleDesignation}
+                        </p>
+                        <p className="text-[10px] text-slate-500 mt-1">
+                          Hiring: <span className="text-slate-700 font-medium">{role.hiringHubs}</span>
+                        </p>
+                      </Link>
+
+                      {/* Day 1 Operational Responsibilities */}
+                      <div className="mt-3 rounded-xl border border-slate-200/80 bg-[#F4FAF9] p-3">
+                        <span className="block text-[9px] font-mono uppercase tracking-wider text-[#004B45] font-semibold mb-1.5">
+                          What You Do on Day 1
+                        </span>
+                        <ul className="space-y-1.5 text-[11px] leading-snug text-slate-700">
+                          {role.dayOneTasks.map((task, tidx) => (
+                            <li key={tidx} className="flex items-start gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#008F83] mt-1 shrink-0" />
+                              <span>{task}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Enterprise Tool Stack */}
+                      <div className="mt-3">
+                        <span className="block text-[8.5px] font-mono uppercase tracking-wider text-slate-500 font-semibold mb-1">
+                          Tools Mastered
+                        </span>
+                        <div className="flex flex-wrap gap-1">
+                          {role.tools.map((tool) => (
+                            <span
+                              key={tool}
+                              className="rounded-md border border-slate-200/80 bg-[#F8FBFA] px-2 py-0.5 text-[9.5px] font-medium text-slate-700 shadow-2xs"
+                            >
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-4 sm:p-5">
-                    <h3 className="text-[17px] font-bold tracking-tight text-[#0B3934]">{path.title}</h3>
-                    <p className="mt-1.5 min-h-[32px] text-[11.5px] leading-relaxed text-[#718781]">{path.subtitle}</p>
-                    <span className="mt-3 inline-flex items-center gap-1.5 text-[11.5px] font-bold text-[#00796F] group-hover:text-[#004B45]">
-                      Explore path <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
-                    </span>
+
+                  {/* Card Action & Eligibility Footer */}
+                  <div className="p-4 sm:p-5 pt-0">
+                    <div className="pt-3 border-t border-slate-200/70 flex flex-col gap-2">
+                      <span className="text-[10px] text-slate-500 truncate">
+                        Fit: <strong className="text-slate-700 font-medium">{role.eligibility}</strong>
+                      </span>
+                      <div className="flex flex-col gap-1.5">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            openExpertModal({
+                              targetTrack: role.roleTitle,
+                              source: `carousel_${role.roleTitle.toLowerCase().replace(/\s+/g, "_")}`,
+                            });
+                          }}
+                          className="inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl bg-[#004B45] hover:bg-[#003B35] !text-white text-white text-[12px] font-semibold transition-all shadow-2xs cursor-pointer active:scale-[0.99]"
+                        >
+                          <span className="!text-white text-white font-bold" style={{ color: "#ffffff" }}>
+                            Talk to {role.roleTitle} Expert
+                          </span>
+                          <ArrowRight className="h-3.5 w-3.5 !text-white text-white transition group-hover:translate-x-1" style={{ color: "#ffffff" }} />
+                        </button>
+                        <Link
+                          to={role.href as any}
+                          className="inline-flex items-center justify-center text-[11px] font-semibold text-[#00675D] hover:text-[#004B45] hover:underline py-0.5"
+                        >
+                          Explore day-1 curriculum →
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </Link>
+                </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-6 sm:mt-8 flex flex-col justify-between gap-4 rounded-[22px] bg-[#073F39] p-5 sm:p-6 text-white sm:flex-row sm:items-center">
+          {/* Mobile Carousel Indicator Dots */}
+          <div className="mt-2 flex items-center justify-between lg:hidden px-1">
+            <div className="flex items-center gap-1">
+              {CAREER_ROLES.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => scrollToRole(i)}
+                  aria-label={`Go to role ${i + 1}`}
+                  className="p-2 -m-1 inline-flex items-center justify-center cursor-pointer"
+                >
+                  <span
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      activeRoleIndex === i ? "w-6 bg-[#008F83]" : "w-2 bg-slate-300"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+            <span className="text-[10.5px] font-mono text-slate-500">
+              Role {activeRoleIndex + 1} of {CAREER_ROLES.length}
+            </span>
+          </div>
+
+          {/* Institutional / Employer Bottom Banner */}
+          <div
+            data-arzon-dark="true"
+            className="mt-6 sm:mt-8 flex flex-col justify-between gap-4 rounded-[22px] bg-[#073F39] p-5 sm:p-6 !text-white text-white sm:flex-row sm:items-center shadow-sm"
+          >
             <div className="flex items-center gap-3.5">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10 text-[#A6DDD5]">
-                <Users className="h-5 w-5" />
+                <Users className="h-5 w-5 text-[#A6DDD5]" style={{ color: "#A6DDD5" }} />
               </div>
               <div>
-                <p className="text-[14px] font-bold text-white">For colleges, TPOs and hiring teams</p>
-                <p className="mt-0.5 text-[11px] text-white/70">Discuss campus engagement, assessment and role requirements.</p>
+                <p className="text-[14px] font-bold !text-white text-white" style={{ color: "#ffffff" }}>
+                  For colleges, TPOs and hiring teams
+                </p>
+                <p
+                  className="mt-0.5 text-[11px] !text-[#A6DDD5] text-[#A6DDD5]"
+                  style={{ color: "#A6DDD5" }}
+                >
+                  Discuss campus engagement, diagnostic assessments and entry-level role specifications.
+                </p>
               </div>
             </div>
             <Link
@@ -748,10 +1075,52 @@ export function ArzonHomeIntelligence() {
           </div>
 
           <p className="mt-4 text-[9px] leading-4 text-[#9AAEA9]">
-            Career-path images are illustrative. Programme scope, eligibility and outcomes depend on the relevant role and published programme details.
+            Role-readiness models reflect live industry hiring job descriptions across clinical research and healthcare analytics. Programme scope, software tools, and deliverables depend on the specific role track.
           </p>
         </div>
       </section>
+
+      {/* Mobile Sticky Action Dock (Portaled to document.body, visible only past hero) */}
+      {mounted && showStickyDock && typeof document !== "undefined"
+        ? createPortal(
+            <div
+              data-sticky-action-bar="true"
+              data-arzon-dark="true"
+              className="fixed bottom-0 inset-x-0 z-40 block lg:hidden p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] bg-[#02201D]/95 backdrop-blur-md border-t border-white/10 shadow-[0_-8px_24px_rgba(0,0,0,0.3)] motion-safe:animate-in motion-safe:slide-in-from-bottom duration-300"
+            >
+              <div className="flex items-center justify-between gap-3 max-w-md mx-auto">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="relative flex h-2 w-2 shrink-0">
+                    <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]" />
+                  </span>
+                  <div className="truncate">
+                    <p className="text-[11.5px] font-bold text-white truncate" style={{ color: "#ffffff" }}>
+                      Healthcare Career Intelligence 2026
+                    </p>
+                    <p className="text-[9.5px] text-[#A6DDD5] truncate" style={{ color: "#A6DDD5" }}>
+                      Free 1-on-1 Profile Analysis · Next Steps
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openExpertModal({ source: "mobile_sticky_dock" });
+                  }}
+                  style={{ color: "#004B45" }}
+                  className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-[#DFF1EF] !text-[#004B45] text-[#004B45] font-bold text-[11.5px] shadow-sm transition active:scale-95 cursor-pointer tone-light card-light"
+                >
+                  <span style={{ color: "#004B45" }} className="!text-[#004B45] font-bold">Talk to Experts</span>
+                  <ArrowRight className="h-3 w-3 text-[#004B45]" style={{ color: "#004B45" }} />
+                </button>
+              </div>
+            </div>,
+            document.body
+          )
+        : null}
     </main>
   );
 }

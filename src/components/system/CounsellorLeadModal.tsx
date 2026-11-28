@@ -48,12 +48,18 @@ export interface OpenCounsellorModalOptions {
 
 /**
  * Universal global trigger helper.
- * Opens the 1-Field Instant WhatsApp Bridge from any CTA on the platform.
+ * Forwards to the Unified Expert Modal for a complete profile review & roadmap.
  */
 export function openCounsellorModal(options?: OpenCounsellorModalOptions) {
   if (typeof window !== "undefined") {
     window.dispatchEvent(
-      new CustomEvent("arzon:open-counsellor-modal", { detail: options || {} })
+      new CustomEvent("arzon:open-expert-modal", {
+        detail: {
+          source: options?.source || "counsellor_modal",
+          targetTrack: options?.programme,
+          qualification: options?.degree,
+        },
+      })
     );
   }
 }

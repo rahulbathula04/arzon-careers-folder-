@@ -87,6 +87,7 @@ export function MobileWhatsAppFAB() {
 
   const p = loc.pathname;
   const hidden =
+    p === "/" ||
     p.startsWith("/apply") ||
     p.startsWith("/enrol") ||
     p.startsWith("/learn/") ||

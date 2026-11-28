@@ -28,6 +28,7 @@ import {
 import { CareerShell } from "@/components/career/CareerShell";
 import { ProductComparisonTable } from "@/components/career/ProductComparisonTable";
 import { trackCEFunnelStep, trackCECtaClicked } from "@/lib/careerEngineAnalytics";
+import { openExpertModal } from "@/components/system/UnifiedExpertModal";
 
 export function CareerAssessmentLanding() {
   useEffect(() => {
@@ -611,12 +612,16 @@ export function CareerAssessmentLanding() {
                       <p className="text-[10.5px] text-slate-500">EDC, eCRF, discrepancy triage, ICH E6(R3)</p>
                     </div>
                   </div>
-                  <span className="text-[9.5px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full shrink-0">
-                    COMING NEXT
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => openExpertModal({ targetTrack: "Clinical Data Associate", source: "diagnostic_page_cdm" })}
+                    className="text-[10px] font-mono font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-full shrink-0 transition-colors cursor-pointer"
+                  >
+                    Talk to Expert →
+                  </button>
                 </div>
                 <p className="text-[11px] text-slate-500 mt-2 font-sans">
-                  Validation in progress with senior clinical data management professionals.
+                  Evaluate your background for clinical data management and electronic data capture entry requirements with our senior counselors.
                 </p>
               </div>
 
@@ -632,12 +637,16 @@ export function CareerAssessmentLanding() {
                       <p className="text-[10.5px] text-slate-500">Anatomy, medical terminology, coding guidelines</p>
                     </div>
                   </div>
-                  <span className="text-[9.5px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full shrink-0">
-                    COMING NEXT
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => openExpertModal({ targetTrack: "Medical Coding Specialist", source: "diagnostic_page_coding" })}
+                    className="text-[10px] font-mono font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 px-2.5 py-1 rounded-full shrink-0 transition-colors cursor-pointer"
+                  >
+                    Talk to Expert →
+                  </button>
                 </div>
                 <p className="text-[11px] text-slate-500 mt-2 font-sans">
-                  Validation in progress with certified medical coding specialists.
+                  Analyze chart review and medical coding eligibility with certified AAPC/AHIMA instructors.
                 </p>
               </div>
 
@@ -653,12 +662,16 @@ export function CareerAssessmentLanding() {
                       <p className="text-[10.5px] text-slate-500">CTD dossiers, submissions, agency guidelines</p>
                     </div>
                   </div>
-                  <span className="text-[9.5px] font-mono font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full shrink-0">
-                    COMING NEXT
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => openExpertModal({ targetTrack: "Regulatory Affairs Trainee", source: "diagnostic_page_ra" })}
+                    className="text-[10px] font-mono font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 px-2.5 py-1 rounded-full shrink-0 transition-colors cursor-pointer"
+                  >
+                    Talk to Expert →
+                  </button>
                 </div>
                 <p className="text-[11px] text-slate-500 mt-2 font-sans">
-                  Regulatory documentation and lifecycle management dilemmas.
+                  Map your M.Pharm / Pharm.D dossier authoring readiness against CDSCO, US FDA, and EMA variation filings.
                 </p>
               </div>
             </div>
